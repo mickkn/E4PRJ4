@@ -187,6 +187,18 @@
 
 %%%% CUSTOM COMMANDS %%%%
 
+% ¤¤ Signaturelinjer ¤¤ %
+
+\newcommand*{\signature}[1]{%
+    \par\noindent\makebox[8cm]{\hrulefill} %\hfill\makebox[2.0in]{\hrulefill} % Tilføj hvis dato skal med
+	\vspace{-2mm}    
+    \par\noindent\makebox[8cm][l]{#1}      %\hfill\makebox[2.0in][l]{Dato}
+    \vspace*{5mm}
+}
+
+%Brug:
+%\signature{Fornavn Efternavn (INI) Studienummer}
+
 % ¤¤ Billede hack ¤¤ %
 \newcommand{\figur}[4]{
 		\begin{figure}[H] \centering
