@@ -1,38 +1,34 @@
 \begin{center} \centering \label{kravspec:uc2}
 	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
 	\hline
-		\multicolumn{2}{|l|}{\textbf{UC2: USECASENAVN}} \\\hline %% HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC2: Manuel vugning}} \\\hline %% HUSK USECASE NAVN
 		\endfirsthead
 		
 		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
-		\multicolumn{2}{|l|}{\textbf{UC2: USECASENAVN}} \\\hline %%  HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC2: Manuel vugning}} \\\hline %%  HUSK USECASE NAVN
 		\endhead	
 		
-		\textbf{Mål}							&Skriv her		\\\hline
-		\textbf{Initialisering}				&Skriv her		\\\hline
-		\textbf{Aktører og Stakeholders}		&Skriv her		\\\hline 
-		\textbf{Referencer}					&Skriv her		\\\hline
-		\textbf{AASH}						&Skriv her		\\\hline
-		\textbf{Efterfølgende tilstand}		&Skriv her		\\\hline
+		\textbf{Mål}							&At vugge barnevogn manuelt		\\\hline
+		\textbf{Initialisering}				&Brugerinteraktion		\\\hline
+		\textbf{Aktører og Stakeholders}		&Børnepasser		\\\hline 
+		\textbf{Referencer}					&UC1		\\\hline
+		\textbf{AASH}						&2		\\\hline
+		\textbf{Efterfølgende tilstand}		&System fortsætter monitorering		\\\hline
 		\textbf{Hovedforløb}					
 			&\begin{enumerate}
 	
-				\item Punkt1
+				\item Børnepasser igangsætter manuel vugning
 				
-				\item Punkt2				
-				
-				\item Punkt3
+				\item \label{kravspec:uc1_vugning}Systemet starter vugning i 5 minutter			
+	
+				\item Det automatiske system overtager 
 				
 			\end{enumerate}
 		\\\hline
 		\textbf{Undtagelser}
-			&\begin{enumerate}
+			&\begin{enumerate}[label=\ref{kravspec:uc1_vugning}.a]
 			
-				\item Punkt 1
-
-				\item Punkt 2
-				
-				\item Punkt 3
+				\item Det automatiske system kan afbryde vugning
 
 			\end{enumerate}
 		\\\hline
