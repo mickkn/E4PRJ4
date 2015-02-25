@@ -6,7 +6,17 @@
 %\figur{Bredden}{Pdfnavn}{Billedtekst}{Label}
 
 %Statediagram
-%\figur{Bredden}{Pdfnavn}{Billedtekst}{Label}
+\subsection{Overordnede system states}
+\figur{1}{Overordnet_STM.png}{Overordnede states for systemet}{Overordnet_STM}
+
+Systemets har to overordnede states: Monitoring og Snuggle. \textbf{Monitoring} har tre substates: 
+\begin{itemize}
+\item \textbf{BABYCON 3}, der indikerer laveste alarmtilstand med rolig baby. \item \textbf{BABYCON 2}, der indikerer en let aktiv baby og hvori barnevognen vugger automatisk.
+\item \textbf{BABYCON 1}, der indikerer alarmberedskab og hvor en alarmlyd afspilles. 
+\end{itemize}
+
+\textbf{Snuggle} er en specialtilstand, som børnepasseren kan igangsætte manuelt. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoring mode. En måling af barneaktivitet svarende til BABYCON 1, afbryder også snuggle mode.
+
 
 \newpage
 %% Hardware
