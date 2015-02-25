@@ -1,12 +1,14 @@
 \section{Indledning}
 
-Formålet med projektet er at lave en prototype på en intelligent Babyalarm, med tilhørende vuggesystem, til barnevogne. Prototypen skal indsamle lyd, fra en baby, via et lyd-detekteringssystem. Et vuggesystem skal, på baggrund af de indsamlede lydsignaler, vugge barnevognen med en forudbestemt fasevinkel og frekvens. Babyalarmen har tre operative tilstande, Babycon3, Babycon2 og Babycon1. Tilstandene skiftes på baggrund af det indsamlede lydsignal, og opdateres løbende på en hjemmeside. Herudover alarmeres barnepasseren via mail ved aktivering af Babycon1. 
+Formålet med projektet er at lave en prototype på en intelligent Babyalarm, med tilhørende vuggesystem, til barnevogne. Prototypen skal indsamle lyd, fra et spædbarn, via et lyd-detekteringssystem. Et vuggesystem skal, på baggrund af de indsamlede lydsignaler, vugge barnevognen med en forudbestemt fasevinkel og frekvens. Babyalarmen har tre operative tilstande, BABYCON3, BABYCON2 og BABYCON1. Tilstandene skiftes på baggrund af det indsamlede lydsignal, og opdateres løbende på en hjemmeside. Herudover alarmeres barnepasseren via e-mail ved aktivering af BABYCON1. 
 \begin{itemize}
-\item \textbf{Babycon3} 
-%Definer her hvad Babycon3 indebærer
-\item \textbf{Babycon2}
-%Definer her hvad Babycon2 indebærer
-\item \textbf{Babycon1}
+\item \textbf{BABYCON3} 
+\newline I denne tilstand kategoriseres lydsignalet fra barnet som roligt. Heraf skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i tilstand. 
+\item \textbf{BABYCON2}
+\newline I denne tilstand kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge med forudbestemt fasevinkel og frekvens. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i tilstand. 
+
+\item \textbf{BABYCON1}
+\newline I denne tilstand kategoriseres lydsignalet fra barnet som alarmerende. Barnevognen skal ikke vugges. En e-mail afsendes til den registrerede børnepasser. Systemet er herefter ikke længere aktivt. 
 \end{itemize}
-%Definer her hvad Babycon1 indebærer 
+ 
 %\figur{Bredden}{Pdfnavn}{Billedtekst}{Label}
