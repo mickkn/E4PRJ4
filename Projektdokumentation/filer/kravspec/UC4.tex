@@ -1,38 +1,42 @@
 \begin{center} \centering \label{kravspec:uc4}
 	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
 	\hline
-		\multicolumn{2}{|l|}{\textbf{UC4: USECASENAVN}} \\\hline %% HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC4: Alamér børnepasser}} \\\hline %% HUSK USECASE NAVN
 		\endfirsthead
 		
 		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
-		\multicolumn{2}{|l|}{\textbf{UC4: USECASENAVN}} \\\hline %%  HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC4: Alamér børnepasser}} \\\hline %%  HUSK USECASE NAVN
 		\endhead	
 		
-		\textbf{Mål}							&Skriv her		\\\hline
-		\textbf{Initialisering}				&Skriv her		\\\hline
-		\textbf{Aktører og Stakeholders}		&Skriv her		\\\hline 
-		\textbf{Referencer}					&Skriv her		\\\hline
-		\textbf{AASH}						&Skriv her		\\\hline
-		\textbf{Efterfølgende tilstand}		&Skriv her		\\\hline
+		\textbf{Mål}							&At give børnepasser besked om at system har skiftet til BABYCON1 tilstand.		\\\hline
+		\textbf{Initialisering}				&Initieres af tilstandsskift til BABYCON1		\\\hline
+		\textbf{Aktører og Stakeholders}		&Børnepasser og Barn		\\\hline 
+		\textbf{Referencer}					&UC1		\\\hline
+		\textbf{AASH}						&1		\\\hline
+		\textbf{Efterfølgende tilstand}		&Der er afsendt e-mail til børnepasser og alt vugning er indstillet. 		\\\hline
 		\textbf{Hovedforløb}					
 			&\begin{enumerate}
-	
-				\item Punkt1
 				
-				\item Punkt2				
+				\item System stopper \textit{UC1: Monitorér Barn}
+				\item \label{kravspec:Automatisk_vugning}System stopper automatisk vugning
+				\newline [Und: \ref{kravspec:Automatisk_vugning}.a Manuel vugning stoppes] 				
 				
-				\item Punkt3
+				\item \label{kravspec:Email_afsendelse}System afsender e-mail til børnepasser mail-klient
+				\newline [Und: \ref{kravspec:Email_afsendelse}.a E-mail kunne ikke afsendes] 
+				\item System afventer genstart fra Børnepasser
 				
 			\end{enumerate}
 		\\\hline
 		\textbf{Undtagelser}
 			&\begin{enumerate}
 			
-				\item Punkt 1
-
-				\item Punkt 2
-				
-				\item Punkt 3
+			\item Punkt 1
+					\begin{enumerate}
+			
+					\item Punkt 1.1
+					\item Punkt 1.2
+					 
+					\end{enumerate}
 
 			\end{enumerate}
 		\\\hline
