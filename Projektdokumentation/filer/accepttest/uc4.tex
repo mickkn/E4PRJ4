@@ -3,7 +3,7 @@
 	\label{accepttest:uc4} 
 \begin{longtable}{|p{0,65cm}|p{3,8cm}|p{3,8cm}|p{2,2cm}|p{2,2cm}|} % l for left, c for center, r for right 
 \hline
-\multicolumn{5}{|l|}{\textbf{UC4: Alamér børnepasser}} \\ \hline
+\multicolumn{5}{|l|}{\textbf{UC4: Igangsæt undtagelsestilstand}} \\ \hline
 \multicolumn{1}{|c|}{} &
 \textbf{Test} &
 \textbf{Forventet \newline Resultat} &
@@ -26,29 +26,23 @@
 % &Resultat
 % &Godkendt/Kommentar
 
-\textbf{1}	&System stopper \textit{UC1: Monitorér Barn}
-			&Visuel test: Systemmet stopper monitoreringen af Barn
+\textbf{1}	&Tænd system. Påvirk system med alarmerende lyd
+			&Visuel: Vugning er stoppet. Alarmerende e-mail modtages hvert 20. sekund. Hjemmeside er opdateret til BABYCON1
 			&
 			&
 			\\\hline
-
-\textbf{2}	&System stopper automatisk vugning
-			&Visuel test: Systemet stopper vugning
+			
+\textbf{2}  &Tænd system. Tryk på ''Manuel start''-knap. Netværksforbindelse afbrydes
+			&Visuel: Vugning er stoppet. Errordioden lyser
 			&
 			&
-			\\\hline
-			 
-\textbf{3}	&System afsender e-mail til børnepasser mail-klient
-			&Visuel test: Børnepasser mail-klient indholder mail med følgende emne og tekst: "Alarm: BABYCON1 tilstand! Se til barn." 
+			\\\hline	
+			
+\textbf{3}  &Tænd system. Påvirk system med urolig lyd. Afvent 30 sekunder. Netværksforbindelse afbrydes
+			&Visuel: Vugning er stoppet. Errordioden lyser
 			&
 			&
-			\\\hline
-
-\textbf{4}	&System afventer genstart fra Børnepasser
-			&Visuel test: System står i Ventetilstand jf. termliste
-			&
-			&
-			\\\hline
+			\\\hline	
 
 \end{longtable}
 \end{center}
