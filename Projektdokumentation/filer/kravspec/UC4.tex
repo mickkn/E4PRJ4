@@ -18,26 +18,33 @@
 			&\begin{enumerate}
 				
 				\item System stopper \textit{UC1: Monitorér Barn}
-				\item \label{kravspec:Automatisk_vugning}System stopper automatisk vugning
-				\newline [Und: \ref{kravspec:Automatisk_vugning}.a Manuel vugning stoppes] 				
+				\item \label{kravspec:uc4_autovugning}System stopper automatisk vugning
+				\newline [Und: \ref{kravspec:uc4_autovugning}.a Manuel vugning stoppes] 				
 				
-				\item \label{kravspec:Email_afsendelse}System afsender e-mail til børnepasser mail-klient
-				\newline [Und: \ref{kravspec:Email_afsendelse}.a E-mail kunne ikke afsendes] 
+				\item \label{kravspec:uc4_emailafsend}System afsender e-mail til børnepasser mail-klient
+				\newline [Und: \ref{kravspec:uc4_emailafsend}.a E-mail kunne ikke afsendes] 
 				\item System afventer genstart fra Børnepasser
 				
 			\end{enumerate}
 		\\\hline
 		\textbf{Undtagelser}
-			&\begin{enumerate}
-			
-			\item Punkt 1
-					\begin{enumerate}
-			
+			&\begin{enumerate}[label=\ref{kravspec:uc4_autovugning}.a]
+			\item Manuel vugning stoppes
+					\begin{itemize}
+					
 					\item Punkt 1.1
-					\item Punkt 1.2
-					 
-					\end{enumerate}
-
+					\item Punkt 1.2					
+					
+					\end{itemize}
+			\end{enumerate}
+			\begin{enumerate}[label=\ref{kravspec:uc4_emailafsend}.a]
+			\item E-mail kunne ikke afsendes
+					\begin{itemize}
+					
+					\item Punkt 1.1
+					\item Punkt 1.2					
+					
+					\end{itemize}
 			\end{enumerate}
 		\\\hline
 	\end{longtable} 
