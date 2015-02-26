@@ -1,16 +1,26 @@
 \section{Indledning}
 
-Formålet med projektet er at lave en prototype på en intelligent Babyalarm, med tilhørende vuggesystem, til barnevogne. Prototypen skal indsamle lyd, fra et spædbarn, via et lyd-detekteringssystem. Et vuggesystem skal, på baggrund af de indsamlede lydsignaler, vugge barnevognen med en forudbestemt fasevinkel og frekvens. Babyalarmen har tre operative tilstande, BABYCON3, BABYCON2 og BABYCON1. Tilstandene skiftes på baggrund af det indsamlede lydsignal, og opdateres løbende på en hjemmeside. Herudover alarmeres barnepasseren via e-mail ved aktivering af BABYCON1. 
+Formålet med projektet er at lave en prototype af en intelligent babymonitor til barnevogne med dertilhørende vuggesystem, statushjemmeside og e-mail notifikation.
+
+Systemet har tre tilstande en putte-tilstand, hvor barnet lægges til at sove, en monitorerings-tilstand og undtagelse-tilstand.
+I \textbf{putte-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterval, hvorefter monitoreringen overtager.
+I \textbf{monitorerings-tilstanden} styres barnevognens vuggefunktion på baggrund af analysen af den aktuelle baby-lydoptagelse.
+I \textbf{undtagelses-tilstanden} låses systemet. Barnevognen skal ikke vugges. En e-mail afsendes til den registrerede babypasser hvert 30. sekund, indtil systemet resettes manuelt ude ved barnevognen. 
+
+Statushjemmesiden opdateres løbende, med status på baby, indledt i tre konditioner vist som en BABYCON statusbar.
+
 \begin{itemize}
 \item \textbf{BABYCON3} 
-\newline I denne tilstand kategoriseres lydsignalet fra barnet som roligt. Heraf skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i tilstand. 
+\newline På dette niveau kategoriseres lydsignalet fra barnet som roligt. Heraf skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i niveau. 
+
 \item \textbf{BABYCON2}
-\newline I denne tilstand kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge med forudbestemt fasevinkel og frekvens. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i tilstand. 
+\newline På dette niveau kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge med en forudbestemt frekvens. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i niveau. 
 
 \item \textbf{BABYCON1}
-\newline I denne tilstand kategoriseres lydsignalet fra barnet som alarmerende. Barnevognen skal ikke vugges. En e-mail afsendes til den registrerede børnepasser. Systemet er herefter ikke længere aktivt. 
+\newline På dette niveau kategoriseres lydsignalet fra barnet som alarmerende. Undtagelses-tilstanden aktiveres. 
 \end{itemize}
  
-\figur{1}{Systemtegning}{Systemoverbliks tegning}{kravspec:systemtegning}
+\subsection*{Systemtegning}
+\figur{1}{Systemtegning}{Skitse af systemet Baby Watch}{kravspec:systemtegning}
 
-Figur \ref{kravspec:systemtegning} viser illustrativt systemet. Barnevognen er udstyret med en controller, der styrer den intelligente lydmonitor samt vuggesystemet. Controlleren  via Wi-Fi til en server. Barnepasseren modtager information på en hjemmeside og modtager desuden mail når systemets tilstand skifter til BABYCON1.
+Figur \ref{kravspec:systemtegning} viser illustrativt systemet. Barnevognen er udstyret med en controller, der styrer den intelligente lydmonitor samt vuggesystemet. Controlleren forbindes via Wi-Fi til en server. Babypasseren modtager information på en hjemmeside og modtager desuden mail når systemets tilstand skifter til BABYCON1.

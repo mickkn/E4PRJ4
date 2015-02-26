@@ -1,40 +1,46 @@
-\begin{center} \centering \label{kravspec:uc3}
+\begin{center} \centering \label{kravspec:uc1}
 	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
 	\hline
-		\multicolumn{2}{|l|}{\textbf{UC3: Vug barnevogn}} \\\hline %% HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC1: Monitorér baby}} \\\hline %% HUSK USECASE NAVN
 		\endfirsthead
 		
 		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
-		\multicolumn{2}{|l|}{\textbf{UC3: Vug barnevogn}} \\\hline %%  HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC1: Monitorér baby}} \\\hline %%  HUSK USECASE NAVN
 		\endhead	
 		
-		\textbf{Mål}							&At vugge barnevognen		\\\hline
-		\textbf{Initialisering}				&Initialiseres af staten: BABYCON2 \\\hline
-		\textbf{Aktører og Stakeholders}		&Ingen		\\\hline 
+		\textbf{Mål}							&BABYCON tilstand er opdateret		\\\hline
+		\textbf{Initialisering}				&Babypasser		\\\hline
+		\textbf{Aktører og Stakeholders}		&Baby(Primær), Babypasser(Primær/Sekundær)		\\\hline 
 		\textbf{Referencer}					&Ingen		\\\hline
 		\textbf{AASH}						&1		\\\hline
-		\textbf{Efterfølgende tilstand}		&BABYCON1 eller BABYCON3	\\\hline
+		\textbf{Efterfølgende tilstand}		&Monitorér barn fortsættes		\\\hline
 		\textbf{Hovedforløb}					
 			&\begin{enumerate}
 	
-				\item  Barnevogn vugges. Vugningen sker ud fra lydmonitoreringen, der handler på frekvens og amplitude. Ud fra dette vugges barnevognen med en frekvens samt amplitude i et forudbestemt interval 0-100\% (Se ikke-funktionelle krav).
+				\item Børnepasseren starter system
 				
-				%\item Punkt2				
+				\item Lyd-detekteringssystem indsamler lyd i et bestemt tidsinterval 				
 				
-				%\item Punkt3
+				\item Systemet analyserer indsamlet lydsample 
+				
+				\item Systemet opdaterer BABYCON tilstand på hjemmeside på baggrund af analyse 				
+				
+				\item Systemet opdaterer BABYCON tilstand på baggrund af analyse
+				
+				\item \textit{UC1 Monitorér barn} fortsættes fra punkt 2
 				
 			\end{enumerate}
 		\\\hline
 		\textbf{Undtagelser}
-			%&\begin{enumerate}
+			&\begin{enumerate}
 			
-				%\item Punkt 1
+				\item Punkt 1
 
-				%\item Punkt 2
+				\item Punkt 2
 				
-				%\item Punkt 3
+				\item Punkt 3
 
-			%\end{enumerate}
+			\end{enumerate}
 		\\\hline
 	\end{longtable} 
 \end{center}

@@ -1,35 +1,41 @@
 \begin{center} \centering \label{kravspec:uc2}
 	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
 	\hline
-		\multicolumn{2}{|l|}{\textbf{UC2: Manuel vugning}} \\\hline %% HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC2: Vug barnevogn}} \\\hline %% HUSK USECASE NAVN
 		\endfirsthead
 		
 		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
-		\multicolumn{2}{|l|}{\textbf{UC2: Manuel vugning}} \\\hline %%  HUSK USECASE NAVN
+		\multicolumn{2}{|l|}{\textbf{UC2: Vug barnevogn}} \\\hline %%  HUSK USECASE NAVN
 		\endhead	
 		
-		\textbf{Mål}							&At vugge barnevogn manuelt		\\\hline
-		\textbf{Initialisering}				&Brugerinteraktion		\\\hline
-		\textbf{Aktører og Stakeholders}		&Børnepasser		\\\hline 
-		\textbf{Referencer}					&UC1		\\\hline
-		\textbf{AASH}						&2		\\\hline
-		\textbf{Efterfølgende tilstand}		&System fortsætter monitorering		\\\hline
+		\textbf{Mål}							&At vugge barnevognen i et tidsinterval		\\\hline
+		\textbf{Initialisering}				&UC1, UC3 \\\hline
+		\textbf{Aktører og Stakeholders}		&Baby(Sekundær)		\\\hline 
+		\textbf{Referencer}					&UC1, UC3, UC4		\\\hline
+		\textbf{AASH}						&1		\\\hline
+		\textbf{Efterfølgende tilstand}		&Barnvognen er i stilstand	\\\hline
 		\textbf{Hovedforløb}					
 			&\begin{enumerate}
 	
-				\item Børnepasser igangsætter manuel vugning
+				\item Systemet igangsætter vugge-indsvingning
 				
-				\item \label{kravspec:uc1_vugning}Systemet starter vugning i 5 minutter			
-	
-				\item Det automatiske system overtager 
+				\item \label{kravspec:uc2_vugning}Systemet opretholder vugning ved en fastsat frekvens
+				\newline [Und: \ref{kravspec:uc2_vugning}.a Overbelastning af vuggesystem]	
+				
+				\item Fra UC3 eller UC4 	gives besked om stop af vugning	
+				
+				\item Systemet dæmper vugning til stilstand
 				
 			\end{enumerate}
 		\\\hline
 		\textbf{Undtagelser}
-			&\begin{enumerate}[label=\ref{kravspec:uc1_vugning}.a]
-			
-				\item Det automatiske system kan afbryde vugning
-
+			&\begin{enumerate}[label=\ref{kravspec:uc2_vugning}.a]
+			\item Overbelastning af vuggesystem
+					\begin{itemize}
+					
+					\item Systemet igangsætter undtagelsestilstand jf. UC4
+					
+					\end{itemize}
 			\end{enumerate}
 		\\\hline
 	\end{longtable} 
