@@ -3,7 +3,7 @@
 	\label{accepttest:uc1} 
 \begin{longtable}{|p{0,65cm}|p{3,8cm}|p{3,8cm}|p{2,2cm}|p{2,2cm}|} % l for left, c for center, r for right 
 \hline
-\multicolumn{5}{|l|}{\textbf{UC1: Monitorér barn}} \\ \hline
+\multicolumn{5}{|l|}{\textbf{UC1: Igangsæt vugning manuelt}} \\ \hline
 \multicolumn{1}{|c|}{} &
 \textbf{Test} &
 \textbf{Forventet \newline Resultat} &
@@ -26,22 +26,23 @@
 % &Resultat
 % &Godkendt/Kommentar
 
-\textbf{1}	&Systemet sættes i gang. Der afspilles en lyden rolig
-			&Visuel: Barnevognen vugges ikke. Hjemmeside opdateres til tilstand BABYCON3
-			&Skriv her
-			&Skriv her 
+\textbf{1}	&Tænd system. Tryk på ''Manuel start''-knap
+			&Visuel: Vugning starter på niveau iht. ikke-funktionelle krav i 5min og stopper vugning
+			&
+			&
 			\\\hline
 
-\textbf{2}	&Der afspilles lyden urolig
-			&Barnevognen vugges jævnfør de ikke funktionelle krav. Hjemmeside opdateres til tilstand BABYCON2
-			&Skriv her
-			&Skriv her 
+\textbf{2}	&Tænd system. Tryk på ''Manuel start''-knap. Påvirk systemet med alarmernede lyd efter 1 min herefter med 1 min interval tre gange
+			&Visuel: Vugning stopper efter påvirkning med alarmerende lyd efter 3. minut, 
+			 alarmerende e-mail modtages og hjemmeside er opdateret til BABYCON1
+			&
+			&
 			\\\hline
 			 
-\textbf{3}	&Der afspilles en lyden alarmerende
-			&Visuel: Barnevognen vugges ikke. Hjemmeside opdateres til tilstand BABYCON1
-			&Skriv her
-			&Skriv her
+\textbf{3}	&Tænd system. Tryk på ''Manuel start''-knap. Påvirk system med lyden urolig.
+			&Visuel: Vugning starter på niveau iht. ikke-funktionelle krav i 5min og fortsætter vugning under monitorerings-tilstand
+			&
+			&
 			\\\hline
 
 \end{longtable}
