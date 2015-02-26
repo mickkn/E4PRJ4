@@ -1,0 +1,46 @@
+\begin{center} \centering \label{kravspec:uc5}
+	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
+	\hline
+		\multicolumn{2}{|l|}{\textbf{UC5: Tjek BABYCON tilstand}} \\\hline %% HUSK USECASE NAVN
+		\endfirsthead
+		
+		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
+		\multicolumn{2}{|l|}{\textbf{UC5: Tjek BABYCON tilstand}} \\\hline %%  HUSK USECASE NAVN
+		\endhead	
+		
+		\textbf{Mål}	  &At Børnepasser har tjekket BABYCON tilstand		\\\hline
+		\textbf{Initialisering}				&Børnepasser		\\\hline
+		\textbf{Aktører og Stakeholders}		&Børnepasser		\\\hline 
+		\textbf{Referencer}					&UC1, UC4		\\\hline
+		\textbf{AASH}						&1		\\\hline
+		\textbf{Efterfølgende tilstand}		&Børnepasser har tjekket BABYCON tilstand		\\\hline
+		\textbf{Hovedforløb}					
+			&\begin{enumerate}
+				
+				\item \label{kravspec:uc5_netforbindelse}Børnepasser åbner hjemmeside
+				\newline [Und: \ref{kravspec:uc5_netforbindelse}.a Børnepasser er ikke på netværket]
+				\item Børnepasser tjekker via hjemmeside BABYCON tilstand
+				\item Børnepasser logger på e-mail account 
+				\item Børnepasser tjekker efter modtaget e-mail om BABYCON1
+				
+			\end{enumerate}
+		\\\hline
+		\textbf{Undtagelser}
+			&\begin{enumerate}[label=\ref{kravspec:uc5_netforbindelse}.a]
+			\item Børnepasser er ikke på netværket
+			\begin{itemize}
+					
+					\item Børnepasser logger på netværket
+					\item Der fortsættes fra punkt 1 i UC5				
+					
+					\end{itemize} 
+					
+			\end{enumerate}	
+			
+		\\\hline
+	\end{longtable} 
+\end{center}
+
+%% TIPS:
+%% LABEL TIL PUNKT: \label{labelnavn}
+%% REFERENCE: \ref{labelnavn}
