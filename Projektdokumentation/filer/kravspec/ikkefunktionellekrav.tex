@@ -1,24 +1,23 @@
 \section{Ikke-funktionelle krav}
 
-
 \subsection*{Mikrofon}
 For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, skal systemets mikrofon opfylde følgende krav:
 \begin{itemize}
-\item Mikrofonen skal være en uni-direktional/cardioid mikrofon for at minimere uønskede baggrundslyde
-\item Mikrofonen skal have en max SPL rating på min. \SI{120}{\dB}.
-\item Mikrofonen skal have en jævn frekvens respons på maximalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{20}{\kilo\hertz}
+\item Mikrofonen skal være en cardioid mikrofon for at minimere uønskede baggrundslyde
+\item Mikrofonen skal have en max SPL rating på min. \SI{120}{\dB}.\footnote{FIXME indsæt reference til studie om gråd volumen}
+\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{20}{\kilo\hertz}
 \end{itemize}
 
 \subsection*{Vuggemekanisme}
 
 Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vugning:
 \begin{itemize}
-\item Vuggen skal kunne vippe det plan hvorpå babyen ligger med op til +/- \SI{10}{\degree} fra dets vandrete udgangspunkt.
+\item Vuggen skal kunne vippe det plan hvorpå babyen ligger med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt.
 \item Vuggen skal kunne variere frekvensen hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}.
 \item Vuggen skal stabilisere sig ved en specifik frekvens og amplitude når den manuelle vugge funktion indstilles.
 \item Vuggen skal vende tilbage til sit vandrette udgangspunkt ved manuelt stop af vugning.
-\item Vuggen skal have en begrænsing på vinkelfrekvensen ved \SI{80}{\degree\per\second}.
-\item Vuggens vinkel accelleration skal være begrænset ved \SI{160}{\degree\per\square\second}.
+\item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{80}{\degree\per\second}.
+\item Vuggens vinkel acceleration skal være begrænset ved \SI{160}{\degree\per\square\second}.
 \end{itemize}
 
 \subsection*{Baby status}
