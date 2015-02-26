@@ -1,0 +1,46 @@
+%signal beskrivelse
+
+\begin{table}[H]
+\subsection{Signalbeskrivelse}
+TEKST..
+ 
+\caption{Tabel over signaler med terminaler}
+\begin{small}
+\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2,2cm}|}
+\hline
+
+\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Område} &\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
+
+monitorOn 			&Digital signal  	&Høj/lav repræsentation af tændt/slukket 				
+&Controller (mon\_out)		&Intelligent lydmonitor (mon\_in)			&Indikerer hvorvidt monitoreringsenheden skal være aktive eller ej					 \\\hline
+
+babyState 			&uint8				&0-255 lineær repræsentation af babyens uro-niveau fra helt stille til det højeste detekter bare niveau 	&Intelligent lydmonitor (bs\_out) &Controller (bs\_in)			&Dette signal er en indikation af babyens vurderede urolighedsniveau på baggrund lydanalysen		\\\hline
+
+serverCmd 			&Wi-Fi				&?	 	&Controller (server\_out)  &Server (server\_in				
+&Denne forbindelse benyttes til at opdatere hjemmesiden samt sende emails ved BABYCON1					\\\hline
+					
+vuggeFrek			&uint8				&0-255 lineær repræsentation af den ønskede vugge frekvens 0-2 Hz  	&Controller (vs\_c)  &Vuggesystem (vs\_v)		&Indeholder den ønskede frekvens til reguleringen 	    				\\\hline
+
+vuggeAmp				&uint8 				&0-255 lineær repræsentation af den ønskede vugge amplitude 0-10°   &Controller (vs\_c)  &Vuggesystem (vs\_v)		&Indeholder den ønskede amplitude til reguleringen   				\\\hline
+
+vuggeOn			&Digital signal 			&Høj/lav repræsentation af tændt/slukket 
+&Controller (vs\_c) 	&Vuggesystem (vs\_v)			&Indikerer hvorvidt vuggesystemet skal være aktivt eller ej 				\\\hline
+
+overlast			&Digital signal			&??   
+&Controller (vs\_v) 	&Vuggesystem (vs\_c)			&  				\\\hline
+
+powerOn			&Digital signal				&Høj/lav repræsentation af tændt/slukket 
+&Controller (pow\_out) 			&Power (pow\_in)	&Benyttes til at tænde og slukket for strømforsyningen   				\\\hline
+
+powerStby		&Digital signal 				&0-255 lineær repræsentation af den ønskede vugge amplitude 0-10°   &Power (powStby\_out)			&Controller (powStby\_in)	& Forsyner Controller med strøm også når systemet er slukket   				\\\hline
+
+power			&power 				&Forsyning
+&power 			&power				&Forsyner systemet med strøm   				\\\hline
+
+psu				&230VAC 				&230VAC
+&Server 	(psu\_in)	&230VAC elnet			&Netspændingsforsyning til server   				\\\hline
+
+\end{tabular}
+\end{small}
+\label{table:Signaltabel}
+\end{table}
