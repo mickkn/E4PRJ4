@@ -1,0 +1,47 @@
+\begin{center} \centering \label{kravspec:uc1}
+	\begin{longtable}{|p{5cm}|p{9cm}|}  %% Longtable = forsætter på næste side
+	\hline
+		\multicolumn{2}{|l|}{\textbf{UC1: Igangsæt vugning manuelt}} \\\hline %% HUSK USECASE NAVN
+		\endfirsthead
+		
+		\multicolumn{2}{l}{...fortsat fra forrige side} \\ \hline %% Til LONGTABLE
+		\multicolumn{2}{|l|}{\textbf{UC1: Igangsæt vugning manuelt}} \\\hline %%  HUSK USECASE NAVN
+		\endhead	
+		
+		\textbf{Mål}							&At igangsætte vugning af barnevogn manuelt 		\\\hline
+		\textbf{Initialisering}				&Babypasser		\\\hline
+		\textbf{Aktører og Stakeholders}		&Babypasser(Primær)		\\\hline 
+		\textbf{Referencer}					&UC2, UC3, UC4		\\\hline
+		\textbf{AASH}						&1		\\\hline
+		\textbf{Efterfølgende tilstand}		&UC3: Monitorer baby igangsat		\\\hline
+		\textbf{Hovedforløb}					
+			&\begin{enumerate}
+	
+				\item Børnepasser igangsætter manuel vugning ved tryk på "Manuel start"-knap på Baby Watch controller
+				
+				\item \label{kravspec:uc1_vugning}Systemet starter vugning iht. UC2
+				
+				\item \label{kravspec:uc1_timeout2}Efter 2 minutter igangsætter systemet passiv monitorering af baby jf. UC3			
+								
+				\item \label{kravspec:uc1_timeout5}Efter 5 minutter igangsætter systemet automatisk monitorering af baby jf. UC3	
+				\newline [Und: \ref{kravspec:uc1_timeout5}.a Alarmerende baby detekteret indenfor 5 min]				
+				
+			\end{enumerate}
+		\\\hline
+		\textbf{Undtagelser}
+			&\begin{enumerate}[label=\ref{kravspec:uc4_autovugning}.a]
+			\item Alarmerende baby detekteret indenfor 5 min
+					\begin{itemize}
+					
+					\item Systemet igangsætter undtagelsestilstand jf. UC4
+					
+					\end{itemize}
+			\end{enumerate}
+			
+		\\\hline
+	\end{longtable} 
+\end{center}
+
+%% TIPS:
+%% LABEL TIL PUNKT: \label{labelnavn}
+%% REFERENCE: \ref{labelnavn}
