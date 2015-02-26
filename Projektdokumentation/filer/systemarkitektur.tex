@@ -7,16 +7,18 @@
 
 %Statediagram
 \subsection{Overordnede system states}
-\figur{1}{Overordnet_STM.png}{Overordnede states for systemet}{Overordnet_STM}
 
-Systemets har to overordnede states: Monitoring og Snuggle. \textbf{Monitoring} har tre substates: 
+\figur{1}{sysark/Overordnet_STM.pdf}{Overordnede states for systemet}{Overordnet_STM}
+
+Systemets har tre overordnede states: Monitoringstilstand, Puttetilstand og Undtagelsestilstand. \\\textbf{Monitoreringstilstand} har to substates: 
 \begin{itemize}
-\item \textbf{BABYCON 3}, der indikerer laveste alarmtilstand med rolig baby. \item \textbf{BABYCON 2}, der indikerer en let aktiv baby og hvori barnevognen vugger automatisk.
-\item \textbf{BABYCON 1}, der indikerer alarmberedskab og hvor en alarmlyd afspilles. 
+	\item \textbf{Stilstand}, der indikerer laveste alarmtilstand med rolig baby. Vuggesystemet er for denne tilstand inaktivt
+	\item \textbf{Vugning}, der indikerer en let aktiv baby og hvori barnevognen vugger automatisk.
 \end{itemize}
 
-\textbf{Snuggle} er en specialtilstand, som børnepasseren kan igangsætte manuelt. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoring mode. En måling af barneaktivitet svarende til BABYCON 1, afbryder også snuggle mode.
+\textbf{Puttetilstand} igangsættes manuelt af babypasseren. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoring mode. Efter to minutter afbryder en måling af barneaktivitet svarende til BABYCON1 også puttetilstand. Systemet går herefter i undtagelsestilstand.
 
+\textbf{Undtagelsestilstand} indikerer højeste alarmberedskab. Her stoppes barnevogens vuggefunktion, sendes en advarselsemail til Babypasser og opdateres hjemmeside til BABYCON1, som igangsætter afspilning af en alarmlyd. 
 
 \figur{1}{BabyWatchBDD}{Overordnet BDD for Baby Watch}{sysark:overordnet_BDD}
 Figur \ref{sysark:overordnet_BDD} viser det overordnede BDD for Baby Watch systemet. Som figuren viser består systemet af en inteligent lydmonitor, en controller, et vuggesystem, en server samt en power blok. 
