@@ -1,18 +1,26 @@
 %signal beskrivelse
 
-\begin{table}[H]
+
 \subsection{Signalbeskrivelse}
 TEKST..
- 
-\caption{Tabel over signaler med terminaler}
-\begin{small}
-\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2,2cm}|}
-\hline
 
+\begin{center}
+\label{table:Signaltabel}
+\begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2,2cm}|}
+\hline
 \textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Område} &\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
 
 monitorOn 			&Digital signal  	&Høj/lav repræsentation af tændt/slukket 				
 &Controller (mon\_out)		&Intelligent lydmonitor (mon\_in)			&Indikerer hvorvidt monitoreringsenheden skal være aktive eller ej					 \\\hline
+\endfirsthead
+
+\multicolumn{5}{l}{...fortsat fra forrige side} \\ \hline 
+\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Område} &\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
+
+monitorOn 			&Digital signal  	&Høj/lav repræsentation af tændt/slukket 				
+&Controller (mon\_out)		&Intelligent lydmonitor (mon\_in)			&Indikerer hvorvidt monitoreringsenheden skal være aktive eller ej					 \\\hline
+\endhead
+
 
 babyState 			&uint8				&0-255 lineær repræsentation af babyens uro-niveau fra helt stille til det højeste detekter bare niveau 	&Intelligent lydmonitor (bs\_out) &Controller (bs\_in)			&Dette signal er en indikation af babyens vurderede urolighedsniveau på baggrund lydanalysen		\\\hline
 
@@ -40,7 +48,5 @@ power			&power 				&Forsyning
 psu				&230VAC 				&230VAC
 &Server 	(psu\_in)	&230VAC elnet			&Netspændingsforsyning til server   				\\\hline
 
-\end{tabular}
-\end{small}
-\label{table:Signaltabel}
-\end{table}
+\end{longtable}
+\end{center}
