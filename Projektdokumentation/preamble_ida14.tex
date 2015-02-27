@@ -226,16 +226,47 @@
 
 	%\afterpage{\blankpage}
 
-%%%% ORDDELING %%%%
+% ¤¤ Accept Test Tabeller ¤¤ %
+% Tabel header
+\newcommand*{\achead}[2]{
+	\begin{center}
+	\begin{longtable}{|p{0,65cm}|p{2.35cm}|p{11cm}|}
+	\hline
+	\multicolumn{3}{|l|}{\textbf{UC#1: #2}} \\ \hline 
+	\endfirsthead
+	
+	\multicolumn{3}{l}{...fortsat fra forrige side} \\ \hline 
+	\multicolumn{3}{|l|}{\textbf{UC#1: #2}} \\ \hline
+	\endhead
+}
 
-%%%% noget jesper har smidt ind %%%%
-\hyphenation{}
+% Tabel footer
+\newcommand*{\acfoot}[1]{
+	\end{longtable}
+		\label{table:act:#1} 
+	\end{center}
+}
 
-\usepackage{graphicx}
+% Tabel input
+\newcommand*{\acentry}[5]{
+	\multirow{4}{*}{\textbf{#1}}	% UC punkt	
+	&\textbf{Test}
+	&#2
+	\\\cline{2-3}
+	&\textbf{Forventet\newline resultat}
+	&#3
+	\\\cline{2-3}
+	&\textbf{Resultat}
+	&#4
+	\\\cline{2-3}
+	&\textbf{Godkendt /\newline Kommentar}
+	&#5
+	\\\hline
+}
 
-\newcommand\xput[2][0.5]{%
-    \rule{#1\linewidth}{0pt}\makebox[0pt][c]{#2}\hfill}
+% Brug
+%\achead{UC nummer}{UC navn}
+%\acentry{Testpunkt}{Test}{Forventet resultatet}{Resultatet}{Godkendt/kommentar}
+%\acfoot{Label} % Prefix er "table:act:"
     
-
-
 %%%% the end %%%%
