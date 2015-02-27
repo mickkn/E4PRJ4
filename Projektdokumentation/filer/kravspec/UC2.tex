@@ -19,8 +19,8 @@
 	
 				\item Systemet igangsætter vugge-indsvingning
 				
-				\item \label{kravspec:uc2_vugning}Systemet opretholder vugning ved en fastsat frekvens
-				\newline [Und: \ref{kravspec:uc2_vugning}.a Overbelastning af vuggesystem]	
+				\item \label{kravspec:uc2_vugning}Systemet opretholder vugning ved en fastsat frekvens og fastsat amplitude
+				\newline [Und: \ref{kravspec:uc2_vugning}.a Fejl i vuggesystem]	
 				
 				\item \label{kravspec:uc2_stopvugning}Fra UC3 eller UC4 	gives besked om stop af vugning	
 				
@@ -33,9 +33,10 @@
 			\item Overbelastning af vuggesystem
 					\begin{itemize}
 					
-					\item Afsend overbelastnings e-mail
-					\item Systemet igangsætter undtagelsestilstand jf. UC4
-					
+					\item Afsend Fejl i vuggesystem e-mail
+					\item Systemet stopper vugning
+					\item Systemet stopper monitorering
+					\item Systemet afventer genstart
 					\end{itemize}
 			\end{enumerate}
 		\\\hline

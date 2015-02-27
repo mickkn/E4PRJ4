@@ -18,7 +18,7 @@
 			&\begin{enumerate}
 					
 				\item \label{kravspec:uc3_optagelse}Systemet optager lyd i et bestemt tidsinterval 				
-				\newline [Und: \ref{kravspec:uc3_optagelse}.a Ingen optagelse]
+				\newline [Und: \ref{kravspec:uc3_optagelse}.a Fejl ved lydoptagelse]
 				
 				\item Systemet analyserer indsamlet lyd 
 				
@@ -39,10 +39,12 @@
 		\\\hline
 		\textbf{Undtagelser}
 			&\begin{enumerate}[label=\ref{kravspec:uc3_optagelse}.a]
-			\item Ingen optagelse
+			\item Fejl ved lydoptagelse
 					\begin{itemize}
-					\item Systemet afsender e-mail om fejl ved lydoptagelse
-					\item Systemet går i undtagelsestilstand jf. UC4
+					\item Systemet afsender e-mail Fejl ved lydoptagelse
+					\item Systemet stopper vugning
+					\item Systemet stopper monitorering
+					\item Systemet afventer genstart
 					\end{itemize}
 			\end{enumerate}
 			\begin{enumerate}[label=\ref{kravspec:uc3_lydanalyse}.a]
