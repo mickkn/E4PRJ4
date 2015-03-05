@@ -7,11 +7,11 @@ I \textbf{putte-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterva
 I \textbf{monitorerings-tilstanden} styres barnevognens vuggefunktion på baggrund af analysen af den aktuelle baby-lydoptagelse.
 I \textbf{undtagelses-tilstanden} låses systemet. Barnevognen skal ikke vugges. En e-mail afsendes til den registrerede babypasser hvert 30. sekund, indtil systemet resettes manuelt ude ved barnevognen. 
 
-Statushjemmesiden opdateres løbende, med status på baby, indledt i tre konditioner vist som en BABYCON statusbar.
+Statushjemmesiden opdaterer løbende om babyens tilstand. Babyens tilstand bliver på hjemmesiden kategoriseret i tre konditioner vist via. en BABYCON statusbar:
 
 \begin{itemize}
 \item \textbf{BABYCON3} 
-\newline På dette niveau kategoriseres lydsignalet fra barnet som roligt. Heraf skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i niveau. 
+\newline På dette niveau kategoriseres lydsignalet fra barnet som roligt. Derfor skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i niveau. 
 
 \item \textbf{BABYCON2}
 \newline På dette niveau kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge med en forudbestemt frekvens. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i niveau. 
@@ -23,4 +23,5 @@ Statushjemmesiden opdateres løbende, med status på baby, indledt i tre konditi
 \subsection*{Systemtegning}
 \figur{1}{Systemtegning}{Skitse af systemet Baby Watch}{kravspec:systemtegning}
 
-Figur \ref{kravspec:systemtegning} viser illustrativt systemet. Barnevognen er udstyret med en controller, der styrer den intelligente lydmonitor samt vuggesystemet. Controlleren forbindes via Wi-Fi til en server. Babypasseren modtager information på en hjemmeside og modtager desuden mail når systemets tilstand skifter til BABYCON1.
+Figur \ref{kravspec:systemtegning} viser illustrativt systemet. Barnevognen er udstyret med en controller som står for at styrer de andre delsystem. På controlleren sidder et brugerpanel som sørger for at brugeren fysisk kan interagerer med systemet via knapper og LED'er.
+Den intelligente lydmonitor består af en mikrofon og en digital signal processer (DSP), som sender informationer til controlleren om barnets tilstand ud fra en processering af barnets lyde. Vuggesystemet består af en motor og et selvregulerende system, som sørger for, at barnet altid vugges ud fra et vandret niveau. Vuggesystemet kan opererer i flere vuggetilstande som varieres med forskellige vuggefrekvenser og -amplituder alt efter hvad controlleren giver besked om.  Controlleren indholder også en e-mail server og en http server. Controlleren har forbindelse via Wi-Fi til internettet. Babypasseren kan via disse serverer opsøge information om barnets tilstand på en hjemmeside og modtage e-mails når systemet detekter at barnet skifter til en alarmerende tilstand eller hvis der opstår fejl i systemet.

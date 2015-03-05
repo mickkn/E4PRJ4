@@ -3,9 +3,8 @@
 \subsection*{Mikrofon}
 For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, skal systemets mikrofon opfylde følgende krav:
 \begin{itemize}
-\item Mikrofonen skal være en cardioid mikrofon for at minimere uønskede baggrundslyde
 \item Mikrofonen skal have en max SPL rating på min. \SI{120}{\dB}.\footnote{FIXME indsæt reference til studie om gråd volumen}
-\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{20}{\kilo\hertz}
+\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{10}{\kilo\hertz}
 \end{itemize}
 
 \subsection*{Vuggemekanisme}
@@ -15,13 +14,14 @@ Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vug
 \item Vuggen skal kunne vippe det plan hvorpå babyen ligger med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
 \item Vuggen skal kunne variere frekvensen hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}, med en fejlmargin på \SI{0.2}{\hertz}.
 \item Vuggen skal vende tilbage til en vinkel indenfor \SI{5}{\degree} af dens udgangspunkt når systemet lukkes ned.
-\item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{20}{\degree\per\second}, med en fejlmargin på \SI{10}{\percent}.
+\item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{80}{\degree\per\second}, med en fejlmargin på \SI{10}{\percent}.
 \item Vuggens vinkel acceleration skal være begrænset ved \SI{20}{\degree\per\square\second}, med en fejlmargin på \SI{10}{\percent}.
 \end{itemize}
 
 \subsection*{Baby status}
 For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
 \begin{itemize}
-\item Systemets babystatus(babycon niveau) skal opdateres minimum hvert 5. sekund.
-\item Status hjemmesiden skal være opdateret senest 5 sekunder efter opdateret babystatus.
+\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres minimum hvert 10. sekund.
+\item Statushjemmesiden skal være opdateret senest 5 sekunder efter controlleren har opdateret babystatus.
+\item Når BABYCON-statusbaren opdateres til BABYCON1 niveau skal hjemmesiden afspillede en alarmlyd og BABYCON-statusbarens røde felt skal blinket med 2 Hz interval
 \end{itemize}
