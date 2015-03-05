@@ -9,14 +9,31 @@ For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, ska
 
 \subsection*{Vuggemekanisme}
 
+\textbf{Nivellering}: \label{kravspec:ikke_funk_nivellering}
+\begin{itemize}
+	\item Vuggesystemet skal kunne nivellere planet, hvorpå babyen ligger, til vandret position indenfor \SI{2}{\degree}.
+	\item Barnevognens understel må stå på et plan med op til \SI{5}{\degree} hældning.
+	\item Når systemet er tændt, men ikke skal vugge, nivelleres planet, hvorpå babyen ligger, automatisk til vandret.
+\end{itemize}
+
+Ved vugning jf. UC2 gennemgår vugningen af barnet
 Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vugning:
 \begin{itemize}
-\item Vuggen skal kunne vippe det plan hvorpå babyen ligger med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
+\item Vuggen skal kunne vippe planet, hvorpå babyen ligger, med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
 \item Vuggen skal kunne variere frekvensen hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}, med en fejlmargin på \SI{0.2}{\hertz}.
-\item Vuggen skal vende tilbage til en vinkel indenfor \SI{5}{\degree} af dens udgangspunkt når systemet lukkes ned.
+\item Vuggen skal vende tilbage til vandret indenfor en vinkel på \SI{2}{\degree} når systemet lukkes ned.
 \item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{80}{\degree\per\second}, med en fejlmargin på \SI{10}{\percent}.
 \item Vuggens vinkel acceleration skal være begrænset ved \SI{20}{\degree\per\square\second}, med en fejlmargin på \SI{10}{\percent}.
 \end{itemize}
+
+\textbf{Vuggetilstande}: \label{kravspec:ikke_funk_vuggetilstande}
+Ved vugning jf. UC2 gennemgår vugningen af barnet en sekvens af tre vuggetilstande med et interval på 2 min.
+\begin{enumerate}
+
+\item Vugning foregår med en frekvens på 0,5 Hz og en amplitude på \SI{10}{\degree} +/- \SI{2}{\degree}
+\item Vugning foregår med en frekvens på 1 Hz og en amplitude på \SI{6}{\degree} +/- \SI{2}{\degree}
+\item Vugning foregår med en frekvens på 2 Hz og en amplitude på \SI{4}{\degree} +/- \SI{2}{\degree}
+\end{enumerate}
 
 \subsection*{Baby status}
 For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
