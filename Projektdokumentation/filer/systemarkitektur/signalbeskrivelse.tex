@@ -2,16 +2,16 @@
 
 
 \section{Signalbeskrivelse}
-TEKST..
+Følgende viser en tabel med forbindelser, og deres portnavne og en beskrivende kommentar.
 
 \begin{center}
 \label{table:Signaltabel}
-\begin{longtable}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2,2cm}|}
+\begin{longtable}{|p{2,5cm}|p{1,8cm}|p{2,6cm}|p{2,8cm}|p{3cm}|}
 \hline
-\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Område} &\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
+\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
 \endfirsthead
 \multicolumn{5}{l}{...fortsat fra forrige side} \\ \hline 
-\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Område} &\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
+\textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
 \endhead
 
 %% Signal-navn
@@ -24,34 +24,72 @@ TEKST..
 
 manStartOn
 &touch
-&
 &Babypasser \newline (touch)
-&Controller \newline (touch)
+&Controller \newline (manStart\_in)
 &Babypasser der laver et tryk på knappen
 \\\hline
 
 babyWatchOn
 &touch
-&
 &Babypasser \newline (touch)
-&Controller \newline (touch)
+&Controller \newline (onOff\_in)
 &Babypasser der laver et tryk på knappen
 \\\hline
 
 power
 &5 VDC
-&
 &Power \newline(powC\_out)
-&Power \newline(powC\_in)
+&Controller \newline(powC\_in)
 &5 V forsyning til controller
+\\\hline
+
+power
+&x VDC
+&Power \newline(powVS\_out)
+&Vuggesystem \newline(powVS\_in)
+&x V forsyning til Vuggesystem
+\\\hline
+
+power
+&x VDC
+&Power \newline(powIL\_out)
+&Int. lydmonitor\newline(powIL\_in)
+&x V forsyning til Vuggesystem
 \\\hline
 
 powerOn			
 &TTL 0-3,3 VDC				
-&Lav/Høj repræsentation af tændt/slukket 
-&Controller (powOn\_out) 			
-&Power (powOn\_in)	
+&Controller \newline (powOn\_out) 			
+&Power \newline (powOn\_in)	
 &Benyttes til at tænde og slukket for strømforsyningen   				\\\hline
+
+I2C			
+&Seriel				
+&Controller \newline (I2CController) 			
+&Vuggesystem \newline (I2Cvuggesystem) \newline
+ Int. lydmonitor \newline (I2Clydmonitor)	
+&Seriel kommunikation
+\\\hline
+
+ledControl
+&TTL 0-3,3 VDC		
+&RaspberryPi \newline (GPIO14) \newline
+ RaspberryPi \newline (GPIO15) \newline
+ RaspberryPi \newline (GPIO18)
+&Betjeningspanel \newline (onOffLed\_in) \newline
+ Betjeningspanel \newline (manLed\_in) \newline
+ Betjeningspanel \newline (wifiLed\_in)
+&Logisk signal til at styre LED på Betjenningspanel
+\\\hline
+
+butPress
+&TTL 0-3,3 VDC		
+&RaspberryPi \newline (GPIO17) \newline
+ RaspberryPi \newline (GPIO22)
+&Betjeningspanel \newline (onOff\_out) \newline
+ Betjeningspanel \newline (manStart\_out)
+&Logisk signal til kontrol af knapper på betjeningspanel
+\\\hline
 
 \end{longtable}
 \end{center}
