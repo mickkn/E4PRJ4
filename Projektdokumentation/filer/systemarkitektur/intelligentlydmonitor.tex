@@ -8,6 +8,16 @@ I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
 \subsection*{Hardware arkitektur}
 \figur{1}{sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
 
+\textbf{Intelligent Lydmonitor} består af tre dele: 
+\begin{itemize}
+\item \textbf{Mikrofon} optager signalet babyLyd, som er lyden Baby producerer. 
+\item \textbf{Mic Preamp} modtager og forstærker signalet opLyd fra Mikrofon, hvilket er den lyd Mikrofon har optaget. 
+\item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via I2C sender kategoriseringen til Controller. 
+\end{itemize}
+
+
+
+
 
 \subsection*{Software arkitektur}
 
