@@ -5,14 +5,15 @@ I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
 \subsection*{Overordnet virkemåde}
 Overordnet skal den intelligente lydmonitor fungere som følger:
 \begin{itemize}
-	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofon forstærker inden det analoge signal omkonverteres til diskrete samples med Blackfin's ADC
+	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med Blackfin's ADC
 	\item Den diskrete sample-sekvens i bufferen analyseres med hensyn til power og frekvensindhold og resultatet heraf gemmes i endnu en buffer med analyseresultater
-	\item Disse analyseresultater kategoriseres som tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} 
+	\item Disse analyseresultater kategoriseres som tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} (OBS: Find enighed om kategorisering)
 	\item Kategoriseringsresultatet sendes til Controller via en I2C forbindelse
 \end{itemize}
 
 \figur{1}{sysark/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor}{IL_virmåde}
 
+\newpage
 \subsection*{Hardware arkitektur}
 \figur{1}{sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
 
@@ -23,11 +24,11 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 \item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via I2C sender kategoriseringen til Controller. 
 \end{itemize}
 
-
-
-
-
+\newpage
 \subsection*{Software arkitektur}
+
+
+
 
 \subsection*{Grænseflade til Controller}
 
