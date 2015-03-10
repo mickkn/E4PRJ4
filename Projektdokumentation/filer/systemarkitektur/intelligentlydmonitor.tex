@@ -3,6 +3,14 @@
 I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
 
 \subsection*{Overordnet virkemåde}
+Overordnet skal den intelligente lydmonitor fungere som følger:
+\begin{itemize}
+	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofon forstærker inden det analoge signal omkonverteres til diskrete samples med Blackfin's ADC
+	\item Den diskrete sample-sekvens i bufferen analyseres med hensyn til power og frekvensindhold og resultatet heraf gemmes i endnu en buffer med analyseresultater
+	\item Disse analyseresultater kategoriseres som tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} 
+	\item Kategoriseringsresultatet sendes til Controller via en I2C forbindelse
+\end{itemize}
+
 \figur{1}{sysark/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor}{IL_virmåde}
 
 \subsection*{Hardware arkitektur}
