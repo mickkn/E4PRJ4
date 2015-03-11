@@ -1,0 +1,24 @@
+\section{Design}
+
+\subsection{Lysdioder}
+
+Controlleren består som beskrevet af 3 lysdioder. Én grøn, én gul og én rød der hhv. indikerer at Baby Watch er tændt/slukket, at "Manuel start" er aktiveret/deaktiveret samt Wi-Fi status. 
+
+Der benyttes 5mm dioder fra komponentrummet: 
+
+\begin{itemize}
+	\item Grøn 5mm LED: KINGBRIGHT L-53 GD
+	\item Gul 5mm LED: KINGBRIGHT L-53 YD
+	\item Rød 5mm LED: KINGBRIGHT L-53 HD
+\end{itemize}
+
+
+\figur{1}{controller/design/L53_LEDS}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
+
+Ud fra figur \ref{controller:ledSpec} ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne
+
+\figur{0.5}{controller/design/L53_resistor}{For modstandsberegninger for de 3 dioder}{controller:resistors}
+
+Ud fra modstandsberegningerne i figur \ref{controller:resistors} er kredsløbsdiagrammet, se figur \ref{controller:schematic}, opbygget. De to knapper for ON/OFF samt "Manuel start" er medtaget sammen med deres gpio porte på Rasberry Pi model b.
+
+\figur{1}{controller/design/controller_multisim}{Kredsløbsdiagram for Controller}{controller:schematic}
