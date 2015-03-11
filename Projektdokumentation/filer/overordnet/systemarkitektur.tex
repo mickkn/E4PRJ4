@@ -1,0 +1,22 @@
+\section{Systemarkitektur}
+
+\subsection{System-states}
+
+\figur{1}{overordnet/sysark/Overordnet_STM.pdf}{Overordnede states for systemet}{Overordnet_STM}
+
+Systemets har tre overordnede states: Monitoringstilstand, Puttetilstand og Undtagelsestilstand. \\\textbf{Monitoreringstilstand} har to substates: 
+\begin{itemize}
+	\item \textbf{Stilstand}, der indikerer laveste alarmtilstand med rolig baby. Vuggesystemet er for denne tilstand inaktivt
+	\item \textbf{Vugning}, der indikerer en let aktiv baby og hvori barnevognen vugger automatisk.
+\end{itemize}
+
+\textbf{Puttetilstand} igangsættes manuelt af babypasseren. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoring mode. Efter to minutter afbryder en måling af barneaktivitet svarende til BABYCON1 også puttetilstand. Systemet går herefter i undtagelsestilstand.
+
+\textbf{Undtagelsestilstand} indikerer højeste alarmberedskab. Her stoppes barnevogens vuggefunktion, sendes en advarselsemail til Babypasser og opdateres hjemmeside til BABYCON1, som igangsætter afspilning af en alarmlyd. 
+
+\figur{1}{overordnet/sysark/Overordnet_BDD.pdf}{Overordnet BDD for Baby Watch}{sysark:overordnet_BDD}
+Figur \ref{sysark:overordnet_BDD} viser det overordnede BDD for Baby Watch systemet. Som figuren viser består systemet af en inteligent lydmonitor, en controller, et vuggesystem, en server samt en power blok. 
+
+\figur{1}{overordnet/sysark/Overordnet_IBD.pdf}{Overordnet IBD for Baby Watch}{sysark:overordnet_IBD}
+
+Figur \ref{sysark:overordnet_IBD} viser det overordnede IBD for Baby Watch systemet.  Figuren viser de interne forbindelser for blokkene i figur \ref{sysark:overordnet_BDD}. For yderlige specifikation af porte og signaler se signaltabellen REF!!!
