@@ -8,12 +8,17 @@
 %\input{filer/overordnet/implementering}
 
 
-
-
-
-
 %Statediagram
 
 \input{filer/overordnet/signalbeskrivelse}
 
+\subsection{Allokering af logiske funktionaliteter}
+\figur{1}{overordnet/sysark/Overordnet_allokering}{Allokeringsdiagram for Baby Watch}{overordnet:allokering}
+Figur \ref{overordnet:allokering} viser allokeringen af systemets logiske blokke til specifikke HW-enheder.
 
+Således allokeres Intelligent Lydmonitor som en mikrofon, en mikrofonforstærker og et Blackfin533 til optagelse, analyse og kommunikation.
+Controller allokeres som en Raspberry Pi med tilhørende Wi-Fi modul. Controllerens HTTP- og Email- server er således også allokeret på Raspberry Pi'en. Controllerens betjeningspanel allokeres som et fysisk betjeningspanel.
+Vuggesystem allokeres som en sensorkreds, en motorkreds og en PSoC4 til regulering og kommunikation med Controller.
+Power allokeres som et forsyningsbatteri samt spændingdsregulerende kreds.
+
+\input{filer/overordnet/graenseflader}
