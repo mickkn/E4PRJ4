@@ -14,7 +14,7 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor}{IL_virmåde}
 
 \newpage
-\subsection*{Hardware arkitektur}
+\subsection{Hardware arkitektur}
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
 
 \textbf{Intelligent Lydmonitor} består af tre dele: 
@@ -25,7 +25,17 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 \end{itemize}
 
 \newpage
-\subsection*{Software arkitektur}
+\subsection{Software arkitektur}
+\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_SD.pdf}{SD for Intelligent Lydmonitor}{IL_SD}
+
+Som det ses i sekvensdiagrammet, er der opstillet nogle klasser for Intelligent Lydmonitor. Diagrammet viser hvordan de forskellige klasser interagerer med hinanden, og i hvilken rækkefølge. 
+
+\textbf{RecordingBuffer} er en buffer hvor en lydsample optaget af mikrofonen gemmes.
+\textbf{Controller} er hovedklassen som styrer de andre klasser. Controller benytter først funktionen \textit{getRec()} til at hente en optagelse fra RecordingBuffer. Herefter sendes optagelsen til klassen \textbf{NoiseFilter} med funktionen \textit{filterRec()}. I NoiseFilter frafiltreres støj og den støjfrie lydsample returneres til Controller. Med funktionen \textit{analyzePitch()} sendes den filtrerede lydsample til klassen \textbf{PitchAnalyzer} som analyserer lydsamplen for pitch. Resultatet returneres til Controller. Resultatet sendes fra Controller til en buffer kaldet \textbf{ResultBuffer} hvor det gemmes. Dette gentages indtil ResultBuffer er fyldt. \\ \\
+Når ResultBuffer er fyldt igangsætter Controller en kategorisering af resultaterne med funktionen \textit{categorizeRec()}. Klassen \textbf{RecordingCategorizer} henter med funktionen \textit{getResults()} et array med resultaterne fra ResultBuffer. Herefter kategoriserer RecordingCategorizer resultaterne, kategorien sendes så til Controller. Controller sender med \textit{sendMsg()} kategorien til klassen \textbf{I2Csocket} som er klassen der håndterer den videre forsendelse af kategorien. 
+
+\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent Lydmonitor}{IL_UML}
+Klasser og deres tilhørende funktioner samt parametre er specificeret i ovenstående UML for Intelligent Lydmonitor. 
 
 
 
