@@ -1,8 +1,9 @@
 %signal beskrivelse
 
 
-\section{Signalbeskrivelse}
-Følgende viser en tabel med forbindelser, og deres portnavne og en beskrivende kommentar.
+\section{Signalbeskrivelse} \label{overordnet:signalbeskrivelse}
+
+Følgende viser  signaltabellen for det overordnede system  med forbindelser, portnavne og en beskrivende kommentar.
 
 \begin{center}
 \label{table:Signaltabel}
@@ -22,7 +23,7 @@ Følgende viser en tabel med forbindelser, og deres portnavne og en beskrivende 
 %% &Kommentar
 %% \\\hline
 
-manStartOn
+manuelStartOn
 &touch
 &Babypasser \newline (touch)
 &Controller \newline (manStart\_in)
@@ -61,7 +62,7 @@ powerOn
 &TTL 0-3,3 VDC				
 &Controller \newline (powOn\_out) 			
 &Power \newline (powOn\_in)	
-&Benyttes til at tænde og slukket for strømforsyningen   				\\\hline
+&Benyttes til at tænde og slukket for strømforsyningen   		\\\hline
 
 I2C			
 &Seriel				
@@ -70,6 +71,12 @@ I2C
  Int. lydmonitor \newline (I2Clydmonitor)	
 &Seriel kommunikation
 \\\hline
+
+localNetwork			
+&Wi-Fi				
+&Controller \newline (Wi-Fi) 			
+&Baby Watch \newline (Wi-Fi)	
+&Lokal trådløs lan forbindelse   				\\\hline
 
 \end{longtable}
 \end{center}
