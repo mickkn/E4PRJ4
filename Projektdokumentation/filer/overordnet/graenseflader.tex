@@ -4,11 +4,35 @@
 I dette afsnit beskrives specifikke hardware grænseflader og protokoller for kommunikation mellem systemets moduler. Disse grænseflader er således modul-udviklernes kontrakt for fyldestgørelse af modulets funktionalitet.
 
 \subsection{Grænseflade mellem Intelligent Lydmonitor og Controller}
+Kommunikation mellem Intelligent Lydmonitor og Controller foregår via en I2C forbindelse. Controller vil i denne forbindelse agere  master og Intelligent Lydmonitor vil agere slave.
+
 \subsubsection*{Fysiske porte}
+
+I2C forbindelsen har følgende specifikationer:
+\begin{center}
+    \begin{tabular}{ | l | l | l |}
+    \hline
+    \textbf{Parameter} 	& \textbf{Værdi} 	& \textbf{Kommentar} 				\\ \hline
+    Addressering 		& 7-bit 			&   								\\ \hline
+    Hastighed 			& 100kHz 			& 									\\ \hline
+    Slave ID 			& 0x62 				& Svarer til ascii-værdien 'b'		\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | l |}
+    \hline
+    \textbf{Forbindelse} 	& \textbf{Logisk niveau} 	\\ \hline
+    SDA 					& 3,3V TTL 					\\ \hline
+    SCL 					& 3,3V TTL					\\ \hline
+    \end{tabular}
+\end{center}
 
 
 \subsubsection*{Kommunikationsprotokol}
-Kommunikationen mellem Intelligent Lydmonitor og Controller foregår via en I2C forbindelse.
+Når master anmoder om data, vil svaret komme på følgende form:
+
+
 
 \subsection{Grænseflade mellem Vuggesystem og Controller}
 \subsubsection*{Fysiske porte}
