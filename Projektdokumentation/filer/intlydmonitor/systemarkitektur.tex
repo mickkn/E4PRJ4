@@ -26,18 +26,116 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 
 \newpage
 \subsection{Software arkitektur}
+\subsubsection*{Sekvensdiagram}
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_SD.pdf}{SD for Intelligent Lydmonitor}{IL_SD}
 
-Som det ses i sekvensdiagrammet, er der opstillet nogle klasser for Intelligent Lydmonitor. Diagrammet viser hvordan de forskellige klasser interagerer med hinanden, og i hvilken rækkefølge. 
+Som det ses i sekvensdiagrammet, er der opstillet nogle klasser for Intelligent Lydmonitor. Diagrammet viser hvordan- og i hvilken rækkefølge de forskellige klasser interagerer med hinanden. 
 
-\textbf{RecordingBuffer} er en buffer hvor en lydsample optaget af mikrofonen gemmes.
-\textbf{Controller} er hovedklassen som styrer de andre klasser. Controller benytter først funktionen \textit{getRec()} til at hente en optagelse fra RecordingBuffer. Herefter sendes optagelsen til klassen \textbf{NoiseFilter} med funktionen \textit{filterRec()}. I NoiseFilter frafiltreres støj og den støjfrie lydsample returneres til Controller. Med funktionen \textit{analyzePitch()} sendes den filtrerede lydsample til klassen \textbf{PitchAnalyzer} som analyserer lydsamplen for pitch. Resultatet returneres til Controller. Resultatet sendes fra Controller til en buffer kaldet \textbf{ResultBuffer} hvor det gemmes. Dette gentages indtil ResultBuffer er fyldt. \\ \\
-Når ResultBuffer er fyldt igangsætter Controller en kategorisering af resultaterne med funktionen \textit{categorizeRec()}. Klassen \textbf{RecordingCategorizer} henter med funktionen \textit{getResults()} et array med resultaterne fra ResultBuffer. Herefter kategoriserer RecordingCategorizer resultaterne, kategorien sendes så til Controller. Controller sender med \textit{sendMsg()} kategorien til klassen \textbf{I2Csocket} som er klassen der håndterer den videre forsendelse af kategorien. 
+\textbf{RecordingBuffer} er en buffer hvor de diskrete lydsamples gemmes.
+\textbf{Main} er hovedklassen som styrer de andre klasser. Main benytter først funktionen \textit{getRec()} til at hente en optagelse fra RecordingBuffer. Herefter sendes optagelsen til klassen \textbf{NoiseFilter} med funktionen \textit{filterRec()}. I NoiseFilter frafiltreres støj og den støjfrie samplesekvens returneres til Main. Med funktionen \textit{analyzePitch()} sendes den filtrerede samplesekvens til klassen \textbf{PitchAnalyzer} som analyserer sekvensen for dominerende toneindhold. Resultatet returneres til Main og sendes herfra til en buffer kaldet \textbf{ResultBuffer} hvor det gemmes. Dette gentages indtil ResultBuffer er fyldt. \\ \\
+Når ResultBuffer er fyldt igangsætter Main en kategorisering af resultaterne med funktionen \textit{categorizeRec()}. Klassen \textbf{RecordingCategorizer} henter med funktionen \textit{getResults()} et array med resultaterne fra ResultBuffer. Herefter kategoriserer RecordingCategorizer resultaterne, kategorien sendes så til Main. Main sender med \textit{sendMsg()} kategorien til klassen \textbf{I2Csocket} som er klassen der håndterer den videre forsendelse af kategorien. 
 
+\subsubsection*{Klassediagram}
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent Lydmonitor}{IL_UML}
 Klasser og deres tilhørende funktioner samt parametre er specificeret i ovenstående UML for Intelligent Lydmonitor. 
 
+\subsubsection*{Funktionsbeskrivelse}
+\textit{Main} \\
+Main indeholder ingen funktioner.
 
+\textit{RecordingBuffer} \\
 
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void storeSample(int sample)								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
+    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
 
-\subsection*{Grænseflade til Controller}
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& wav getRec(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer indhold af RecordingBuffer som wav-fil		\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& wav		 											\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{NoiseFilter} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& wav filterRec(wav rec)								\\ \hline
+    \textbf{Beskrivelse} 	& Frafiltrerer støj fra optagelse						\\ \hline
+    \textbf{Parametre}		& wav rec: Ufiltreret optagelse		 					\\ \hline
+    \textbf{Returværdi} 	& wav: Filtreret optagelse							\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{PitchAnalyzer} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& uint signalPitch analyzePitch(wav rec)						\\ \hline
+    \textbf{Beskrivelse} 	& Analyserer optagelse for dominant tone					    \\ \hline
+    \textbf{Parametre}		& wav rec: Optagelse						 					\\ \hline
+    \textbf{Returværdi} 	& uint: Dominant tone i Hz										\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{ResultBuffer} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void saveAnalysis(uint signalPitch)								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer signalPitch i ResultBuffer									\\ \hline
+    \textbf{Parametre}		& uint signalPitch: Dominant tone i Hz		 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen																\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& uint[ ] getResults(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer indhold af ResultBuffer som et array		\\ \hline
+    \textbf{Parametre}		& Ingen							 					    \\ \hline
+    \textbf{Returværdi} 	& uint[ ]: array af analyseresultater 					\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{RecordingCategorizer} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int categorizeRec(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Henter signalPitches fra ResultBuffer og kalder funktionen categorize()					\\ \hline
+    \textbf{Parametre}		& Ingen							 					    \\ \hline
+    \textbf{Returværdi} 	& int: Værdi svarende til BABYCON-niveau, 1-3			\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int categorize(uint[ ] signalPitches)								\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer kategorisering af resultater				\\ \hline
+    \textbf{Parametre}		& uint[ ] signalPitches: Array af signalPitches							 					    \\ \hline
+    \textbf{Returværdi} 	& int: Værdi svarende til BABYCON-niveau, 1-3			\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{I2Csocket} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void storeBabycon(int babycon)								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer det kategoriserede BABYCON-niveau						\\ \hline
+    \textbf{Parametre}		& int babycon: Nuværende BABYCON-niveau							 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
