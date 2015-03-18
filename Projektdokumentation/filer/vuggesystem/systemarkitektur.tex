@@ -4,4 +4,22 @@ I dette afsnit beskrives systemarkitekturen for vuggesystemet.
 
 \subsection*{Overordnet virkemåde}
 
+Vuggesystemet fungerer overordnet som følger:
+\begin{itemize}
+	\item Vuggesystemets Regulerings MCU står for at vugge barnevognens kurv med en bestemt vuggefrekvens og et bestemt vinkeludsving. Dette sker på baggrund af værdier for disse modtaget fra Controller
+	\item Regulerings MCU'en regulerer vuggesystemet således at vugningen altid foregår ud fra en vandret akse samt at de modtagne værdier for vuggefrekvensen og vinkeludsvinget overholdes  
+	\item Kommunikation mellem Regulerings MCU og Controlleren foregår via I2C protokollen
+\end{itemize}
+
+\subsection{Hardware arkitektur}
+
+\figur{1}{vuggesystem/sysark/Vuggesystem_BDD.pdf}{BDD for Vuggesystem}{Vug_BDD}
+
+Vuggesystemet består af tre dele
+\begin{description}
+\item[Motorsystem] Motor og strømstyringen af motor. 
+\item[Regulerings MCU] Styringsenhed for vuggesystemet.
+\item[Sensor] Består af tre sensorer; Endstop sensor måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggevinkel sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positions sensoren måler motorens position.
+\end{description}
+
 \subsection*{Grænseflade}
