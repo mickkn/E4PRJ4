@@ -2,8 +2,8 @@
 
 \subsection{Mikrofon preamp}
 
-\textbf{Mikrofon} \\
-Som mikrofon er valgt en MCE-100 elektret mikrofon. Et udpluk af specs ses herunder:
+\subsubsection{Mikrofon} 
+Som mikrofon er valgt en MCE-100 elektret mikrofon. Et udpluk af specifikationer ses herunder:
 \begin{itemize}
 	\item Frequency range: 50 Hz to 10 kHz
 	\item Sensitivity: 5,6 mV / Pa / 1 KHz
@@ -17,9 +17,41 @@ En elektret mikrofon er en videreudvikling af kondensatormikrofonen, hvor bagele
 \figur{0.4}{intlydmonitor/design/elektret_tore}{Tegning af elektrektrostatisk mikrofon. Kilde: Analogteknik}{intlyd:mic_preamp:elektret}
 
 Dog har kablingen mellem mikrofonen og forstærkeren en betydelig kapacitet, så mikrofonpakken er implementeret med en indbygget JFET som buffer, som det ses af figuren herunder:
-\figur{0.6}{intlydmonitor/design/elektret_kreds_tore}{Elektret mikrofonkredsløb med forsyning. Kilde: Analogteknik}{intlyd:mic_preamp:elektret_kreds1}
+\figur{0.6}{intlydmonitor/design/elektret_kreds_tore}{Elektret forsyningskredsløb. Kilde: Analogteknik}{intlyd:mic_preamp:elektret_forsyn}
 
-Forsyningen til mikrofonen trækkes fra Blackfin 533, og således er U\begin{tiny}cc\end{tiny} = 5 V. 
-Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2000 kOhm (opgivet som "Output Impedance").
+Forsyningen til mikrofonen trækkes fra Blackfin 533, og er således U\begin{tiny}cc\end{tiny} = 5 V. 
+Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2 kOhm (opgivet som "Output Impedance").
 
-Dette giver et spændingsfald på 1 V over R\begin{tiny}d\end{tiny} og dermed 4 V over den i mikrofonkapslen indbyggede JFET. Dette er 
+Dette giver et spændingsfald på 1 V over R\begin{tiny}d\end{tiny} og dermed 4 V over den i mikrofonkapslen indbyggede JFET. I dette område af U\begin{tiny}DS\end{tiny} vil transistoren have en strømbegrænsnde virkning og kan derfor bruges som en tilnærmelsesvis lineær strømkilde.
+%\figur{1}{intlydmonitor/design/JFET_Karakteristik}{Karakteristik for JFET'en BF245A. Kilde: Analogteknik}{intlyd:mic_preamp:jfet_karakteristik}
+
+I punktet på højre side af kondensatoren C, vil strømmen DC-strømmen være sorteret fra og den af mikrofonen modulerede AC-strøm, i\begin{tiny}M\end{tiny},vil være at finde. Af databladet ved vi, at mikrofonens sensitivitet er S = 5,6 mV/Pa, og i\begin{tiny}M\end{tiny} vi således være givet ved: 
+\begin{center}
+${ i }_{ M }=\frac { S }{ { R }_{ D } } \cdot p$
+\end{center}
+Hvor p er lydniveau (Pa)
+
+Spændingen i dette punkt, u\begin{tiny}M\end{tiny}, er givet ved parrallelværdien mellem de to modstande og i\begin{tiny}M\end{tiny}. 
+\begin{center}
+${ u }_{ M }=({ R }_{ D }||{ R }_{ L })\cdot { i }_{ M } $
+\end{center}
+
+\subsubsection{PreAmp} 
+Det er PreAmpens opgave at omdanne modulationsstrømmen i\begin{tiny}M\end{tiny} til en line level spænding for Blackfin's ADC 
+
+Blackfin ADC'en tager et line-level input på +/- 1,65 V. 
+Det ønskes at udnytte det maksimale dynamiske område uden at lade signalet klippe. Det regnes med at mikrofonen ikke udsættes for mere end 2 Pa ved almindelig brug. Den maksimale strøm-amplitude bliver derfor: 
+\begin{center}
+${ i }_{ M }=\frac { 5,7mV/Pa }{ 2k\Omega  } \cdot 2Pa $
+\end{center}
+Dette signal skal forstærkes med en TIA op til det ønskede line level på 1,65 V. Den ønskede forstærkning, A, bliver således:
+\begin{center}
+$A=\frac { 1,65V }{ 5,7µA } =2,89\cdot { 10 }^{ 5 }V/A$
+\end{center}
+
+
+
+
+
+
+
