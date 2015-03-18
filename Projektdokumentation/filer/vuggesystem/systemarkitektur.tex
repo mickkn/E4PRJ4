@@ -5,3 +5,61 @@ I dette afsnit beskrives systemarkitekturen for vuggesystemet.
 \subsection*{Overordnet virkemåde}
 
 \subsection*{Grænseflade}
+Herunder findes en beskrivelse af grænsefladen til denne del af systemet.
+
+\begin{center}
+\begin{longtable}{|p{3cm}|p{2cm}|p{6cm}|}
+\caption[Signalbeskrivelse for vuggesystem]{Signalbeskrivelse} 
+
+\label{signalbeskr_vugge} \\
+
+\hline 
+
+\multicolumn{1}{|p{3cm}|}{\textbf{Signal}} & 
+\multicolumn{1}{p{2cm}|}{\textbf{Type}} & 
+\multicolumn{1}{p{6cm}|}{\textbf{Kommentar}} \\
+\hline 
+\endfirsthead
+
+
+\multicolumn{3}{c}%
+{{\bfseries \tablename\ \thetable{} --> fortsat fra forrige side}} \\
+
+\multicolumn{1}{|p{3cm}|}{\textbf{Signal}} & 
+\multicolumn{1}{p{2cm}|}{\textbf{Type}} & 
+\multicolumn{1}{p{6cm}|}{\textbf{Kommentar}} \\
+\hline
+\endhead
+
+
+\hline \multicolumn{3}{|r|}{{fortsættes på næste side -->}} \\ \hline
+\endfoot
+
+\hline \hline
+\endlastfoot
+
+VB & 12V DC & Dette signal kommer direkte fra systemets batteri.\\
+\hline
+VS & 0V DC & Dette er batteriforsyningens retur\\
+\hline
+VCC & 3.3V DC & Dette er forsyningen til PSoC og andet logik.\\
+\hline
+GND & 0V stel & Stelforbindelse til Psoc og andet logik\\
+\hline
+MotRetning & Digital & HIGH = CW, LOW = CCW\\
+\hline
+MotSpænding & PWM & PWM som styrer motor spændingen ved VB * \%dc. PWM signalet 0-3.3V CMOS med f = [???]\\
+\hline
+VuggeV & I2C & Angiver vinklen af vuggen relativt til tyngdefeltet.\\
+\hline
+MotHast & ?? & Angiver hastigheden af motoren\\
+\hline
+ESSwitch & Digital & Endstop status, ES-for OR ES-bag, HIGH = ikke ramt LOW = ramt.\\
+\hline
+I2CVuggesystem & I2C & Styresignal til vuggesystemet\\
+\hline
+MotForbind & DCMotorSig & Motor tilkobling\\
+\hline
+
+\end{longtable}
+\end{center}
