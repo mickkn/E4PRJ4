@@ -1,0 +1,25 @@
+%Mikrofon preamp design
+
+\subsection{Mikrofon preamp}
+
+\textbf{Mikrofon} \\
+Som mikrofon er valgt en MCE-100 elektret mikrofon. Et udpluk af specs ses herunder:
+\begin{itemize}
+	\item Frequency range: 50 Hz to 10 kHz
+	\item Sensitivity: 5,6 mV / Pa / 1 KHz
+	\item Output impedans: 2 kOhm
+	\item Power Supply: 1.5 to 10 V dc, 5 mA
+\end{itemize}
+Se datablad for komplet specifikation. 
+
+En elektret mikrofon er en videreudvikling af kondensatormikrofonen, hvor bagelektroden har en "indefrosset" ladning i materialet. Kapaciteten i mikrofonen (ca. 10 pF) ændres ved trykvariationer idet afstanden mellem membranen og bagelektrodne varieres. 
+
+\figur{0.4}{intlydmonitor/design/elektret_tore}{Tegning af elektrektrostatisk mikrofon. Kilde: Analogteknik}{intlyd:mic_preamp:elektret}
+
+Dog har kablingen mellem mikrofonen og forstærkeren en betydelig kapacitet, så mikrofonpakken er implementeret med en indbygget JFET som buffer, som det ses af figuren herunder:
+\figur{0.6}{intlydmonitor/design/elektret_kreds_tore}{Elektret mikrofonkredsløb med forsyning. Kilde: Analogteknik}{intlyd:mic_preamp:elektret_kreds1}
+
+Forsyningen til mikrofonen trækkes fra Blackfin 533, og således er U\begin{tiny}cc\end{tiny} = 5 V. 
+Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2000 kOhm (opgivet som "Output Impedance").
+
+Dette giver et spændingsfald på 1 V over R\begin{tiny}d\end{tiny} og dermed 4 V over den i mikrofonkapslen indbyggede JFET. Dette er 
