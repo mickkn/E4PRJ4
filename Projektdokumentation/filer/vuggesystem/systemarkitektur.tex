@@ -16,12 +16,31 @@ Vuggesystemet fungerer overordnet som følger:
 
 Vuggesystemet består af tre dele
 \begin{description}
-\item[Motorsystem] Motor og strømstyringen af motor. 
-\item[Regulerings MCU] Styringsenhed for vuggesystemet.
-\item[Sensor] Består af tre sensorer; Endstop sensor måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggevinkel sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positions sensoren måler motorens position.
+\item[Motorsystem block:] Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.
+\item[Regulerings MCU block:] Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.
+\item[Sensor block:] Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggevinkel sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
 \end{description}
 
-\subsection*{Grænseflade}
+Følgende beskriver vuggesystemets kobling og grænseflade.
+
+\figur{1}{vuggesystem/sysark/Vuggesystem_IBD.pdf}{IBD for Vuggesystem}{Vug_IBD}
+
+\vspace{5mm} 
+
+\figur{0.5}{vuggesystem/sysark/Endstop_sensor_IBD.pdf}{IBD for Endstop sensorer}{EndstopS_IBD}
+\textbf{Endstop sensorer} består af to ens sensorer, hhv. \textbf{Endstop sensor front}, placeret til at detekterer hvis barnevognskurven når den mekaniske vuggegrænse ved fremad vuggeretning, og \textbf{Endstop sensor rear}, placeret til at detekterer hvis barnevognskurven når den mekaniske vuggegrænse ved bagud vuggeretning. Sensorerne giver det samme signal uanset om detekteringen sker i front eller bag.
+
+\vspace{5mm}
+
+\figur{0.5}{vuggesystem/sysark/Vuggevinkel_sensor_IBD.pdf}{IBD for Vuggevinkel sensor}{VugVinkS_IBD}
+\textbf{Vuggevinkel sensor} er placeret så den måler barnevognskurvens plan i forhold til jordens tyngdefelt. 
+
+\vspace{5mm}
+
+\figur{0.5}{vuggesystem/sysark/motor_positions_sensor_IBD.pdf}{IBD for Motor positionssensor}{MotoPosS_IBD}
+\textbf{Motor positionssensor} giver et frekvenssignal relativ til motorens nuværende hastighed. 
+
+\subsection*{Grænsefladebeskrivelse}
 Herunder findes en beskrivelse af grænsefladen til denne del af systemet.
 
 \begin{center}
@@ -61,7 +80,7 @@ VS & 0V DC & Dette er batteriforsyningens retur\\
 \hline
 VCC & 3.3V DC & Dette er forsyningen til PSoC og andet logik.\\
 \hline
-GND & 0V stel & Stelforbindelse til Psoc og andet logik\\
+GND & 0V stel & Stelforbindelse til PSoC og andet logik\\
 \hline
 MotRetning & Digital & HIGH = CW, LOW = CCW\\
 \hline
@@ -80,3 +99,11 @@ MotForbind & DCMotorSig & Motor tilkobling\\
 
 \end{longtable}
 \end{center}
+
+\subsubsection*{I2C}
+I2C er en bus, der består af forbindelserne SDA og SCL. I2C kommunikationen mellem består af 
+
+
+
+\newpage
+\subsection{Software arkitektur}
