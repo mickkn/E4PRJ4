@@ -10,9 +10,9 @@ Som mikrofon er valgt en MCE-100 elektret mikrofon. Et udpluk af specifikationer
 	\item Output impedans: 2 kOhm
 	\item Power Supply: 1.5 to 10 V dc, 5 mA
 \end{itemize}
-Se datablad for komplet specifikation. 
+Se datablad (INDSÆT REFERENCE TIL Pro-MCE-100-datasheet) for komplet specifikation. 
 
-En elektret mikrofon er en videreudvikling af kondensatormikrofonen, hvor bagelektroden har en "indefrosset" ladning i materialet. Kapaciteten i mikrofonen (ca. 10 pF) ændres ved trykvariationer idet afstanden mellem membranen og bagelektrodne varieres. 
+En elektret mikrofon er en videreudvikling af kondensatormikrofonen, hvor bagelektroden har en "indefrosset" ladning i materialet. Kapaciteten i mikrofonen (ca. 10 pF) ændres ved trykvariationer idet afstanden mellem membranen og bagelektroden varieres. 
 
 \figur{0.4}{intlydmonitor/design/elektret_tore}{Tegning af elektrektrostatisk mikrofon. Kilde: Analogteknik}{intlyd:mic_preamp:elektret}
 
@@ -23,9 +23,9 @@ Forsyningen til mikrofonen trækkes fra Blackfin 533, og er således U\begin{tin
 Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2 kOhm (opgivet som "Output Impedance").
 
 Dette giver et spændingsfald på 1 V over R\begin{tiny}d\end{tiny} og dermed 4 V over den i mikrofonkapslen indbyggede JFET. I dette område af U\begin{tiny}DS\end{tiny} vil transistoren have en strømbegrænsnde virkning og kan derfor bruges som en tilnærmelsesvis lineær strømkilde.
-%\figur{1}{intlydmonitor/design/JFET_Karakteristik}{Karakteristik for JFET'en BF245A. Kilde: Analogteknik}{intlyd:mic_preamp:jfet_karakteristik}
+\figur{1}{intlydmonitor/design/JFET_Karakteristik}{Karakteristik for JFET'en BF245A. Kilde: Analogteknik}{intlyd:mic_preamp:jfet_karakteristik}
 
-I punktet på højre side af kondensatoren C, vil strømmen DC-strømmen være sorteret fra og den af mikrofonen modulerede AC-strøm, i\begin{tiny}M\end{tiny},vil være at finde. Af databladet ved vi, at mikrofonens sensitivitet er S = 5,6 mV/Pa, og i\begin{tiny}M\end{tiny} vi således være givet ved: 
+I punktet på højre side af kondensatoren C, vil strømmen DC-strømmen være sorteret fra og den af mikrofonen modulerede AC-strøm, i\begin{tiny}M\end{tiny}, vil være at finde. Af databladet ved vi, at mikrofonens sensitivitet er S = 5,6 mV/Pa, og i\begin{tiny}M\end{tiny} vi således være givet ved: 
 \begin{center}
 ${ i }_{ M }=\frac { S }{ { R }_{ D } } \cdot p$
 \end{center}
@@ -42,16 +42,74 @@ Det er PreAmpens opgave at omdanne modulationsstrømmen i\begin{tiny}M\end{tiny}
 Blackfin ADC'en tager et line-level input på +/- 1,65 V. 
 Det ønskes at udnytte det maksimale dynamiske område uden at lade signalet klippe. Det regnes med at mikrofonen ikke udsættes for mere end 2 Pa ved almindelig brug. Den maksimale strøm-amplitude bliver derfor: 
 \begin{center}
-${ i }_{ M }=\frac { 5,7mV/Pa }{ 2k\Omega  } \cdot 2Pa $
+${ i }_{ M }=\frac { 5,6mV/Pa }{ 2k\Omega  } \cdot 2Pa=5,6 \mu A$
 \end{center}
-Dette signal skal forstærkes med en TIA op til det ønskede line level på 1,65 V. Den ønskede forstærkning, A, bliver således:
+Dette signal skal forstærkes med en TIA op til det ønskede line level på 1,65 V. Den ønskede forstærkning, G, bliver således:
 \begin{center}
-$A=\frac { 1,65V }{ 5,7µA } =2,89\cdot { 10 }^{ 5 }V/A$
+$G=\frac { 1,65V }{ 5,6\mu A } =2,89\cdot { 10 }^{ 5 }\frac { V }{ A } $
 \end{center}
 
+Der benyttes en transimpedansforstærker til at realisere denne forstærkning. 
+\figur{0.5}{intlydmonitor/design/TIA.pdf}{Transimpedansforstærker: ${ V }_{ o }={ R }_{ FB }\cdot { I }_{ in }$ }{intlyd:mic_preamp:tia}
 
+Den ønskede transimpedansforstærkning er givet direkte ved værdien af feedbackmodstanden, R\begin{tiny}FB\end{tiny}.
+\begin{center}
+${ R }_{ FB }=\frac { { V }_{ o } }{ { I }_{ in } } =G=2,89\cdot { 10 }^{ 5 }\Omega$
+\end{center}
 
+\textbf{Valg af OpAmp}
 
+Da kredsen skal bruges til lydbehandling, er forstærkerens \textit{Slew Rate} specifikation vigtig.
+Operationsforstærkerens interne kondensator, C\begin{tiny}C\end{tiny}, udgør en begrænsning for hvor hurtigt udgangen kan flytte sig, og for lydbehandling skal denne være så høj som muligt.
+\figur{0.5}{intlydmonitor/design/slew_rate}{Illustration af OpAmp parameteren "Slew Rate". Kilde: Analogteknik}{intlyd:mic_preamp:slew_rate}
+
+En forstærkers slew rate er givet ved:
+\begin{center}
+$SR={ \left[ \frac { du }{ dt }  \right]  }_{ MAX }\Rightarrow SR=2\cdot \pi \cdot f\cdot { U }_{ M }$
+\end{center}
+Hvor f er højeste arbejdsfrekvens og U\begin{tiny}M\end{tiny} er udgangsspændingens amplitude.
+For vores applikation har vi en U\begin{tiny}M\end{tiny} = 1.65 V, og som båndbredde, f, der vælges en konservativ værdi på 20 kHz, i det tilfælde, at kredsen senere bruges med en bedre mikrofon. Dette giver følgende SR:
+\begin{center}
+$SR=2\cdot \pi \cdot 20kHz\cdot 1,65V=0,2MV/s$
+\end{center}
+
+Ved denne SR påkræves dog et meget kraftigt indgangssignal, der også vil resultere i høj forvrængning. For at sikre en forvrængning på under 1\% bør u\begin{tiny}M\end{tiny} < 20mV.
+\begin{center}
+${ u }_{ M }=(2k\Omega ||22k\Omega )\cdot { 5,6µA=10,3mV }$
+\end{center}
+Dette krav er altså opfyldt.
+
+Ved en grænse på 20mV vil 20 \% af differentialtrinnets udstyringsmulighed på ±I\begin{tiny}E\end{tiny} udnyttes. Den påkrævede SR vil derfor være 5 gange den hidtil beregnede, altså 1MV/s.
+
+Dette betyder altså at vi kan nøjes med at bruge en billig operationsforstærker uden større krav til SR, som en OpAmps fra den i lydbehandling almindeligt anvendte TL071-serie ville give (SR = 13MV/s).
+
+\textbf{Stabilitet}
+
+Der er en betydelig kapacitet på forstærkerens indgang idet mikrofonen er koblet med et coax-kabel.
+\begin{center}
+\figur{0.9}{intlydmonitor/design/OpAmp_med_indgangskapacitet}{OpAmp med kapacitiv belastning på indgangen}{intlyd:mic_preamp:tia_ind_kap}
+\end{center}
+Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 100pF/m. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
+Der regnes med en typis GBP på 9MHz. Der testes for nødvendighed af tilbagekobling:
+\begin{center}
+${ C }_{ 1 }<\frac { 1 }{ 8\pi \cdot GBP\cdot { R }_{ 2 } } \Longrightarrow \quad 100pF<\frac { 1 }{ 8\pi \cdot 9MHz\cdot 28,9k\Omega  } \quad \Longrightarrow \quad 100p<153f$
+\end{center}
+Det er altså nødvendigt at sætte en kondensator i tilbagekoblingen, som illustreret i \ref{intlyd:mic_preamp:tia_fb_kap}.
+\begin{center}
+\figur{0.9}{intlydmonitor/design/OpAmp_med_tilbagekoblingskapacitet}{OpAmp med kapacitiv belastning på indgangen og stabiliserende kondensator i tilbagekoblingen}{intlyd:mic_preamp:tia_fb_kap}
+\end{center}
+
+\textit{Feedback kondensatoren} beregnes som følger:
+\begin{center}
+${ C }_{ 2 }\approx 0.8\sqrt { \frac { { C }_{ 1 } }{ GBP\cdot { R }_{ 2 } }  } \quad \Longrightarrow \quad { C }_{ 2 }=0.8\sqrt { \frac { 100pF }{ 9pF\cdot 28,9k\Omega  }  } =15,7pF\quad $
+\end{center}
+
+Der benyttes en 18 pF kondensator. Den \textit{resulterende grænsefrekvens} bliver således:
+\begin{center}
+${ f }_{ H }=\frac { 1 }{ 2\pi \cdot { R }_{ 2 }\cdot { C }_{ 2 } } \quad \Longrightarrow \quad { f }_{ H }=\frac { 1 }{ 2\pi \cdot 28,9k\Omega \cdot 18pF } =305,95kHz$
+\end{center}
+
+Dette begrænser altså ikke signalets båndbredde.
 
 
 
