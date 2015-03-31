@@ -1,0 +1,71 @@
+%IL: forundersøgelse
+\section{Forundersøgelse}
+
+I dette afsnit undersøges og analyseres udvalgte lyde fra babygråd og typisk omgivelsesstøj såsom billarm og fuglefløjt.
+
+\subsection{Metode}
+Der findes optagelser af de udvalgte lyde i formatet .wav. Lydene analyseres i Matlab med hensyn til:
+\begin{itemize}
+	\item Generelt frekvensindhold
+	\item Dominant tone
+	\item Grad af tonalitet
+\end{itemize} 
+
+Disse parametre analyseres med redskaberne Short-Time DFT, en max-funktion, Tonal Power Spectrum, samt en smoothing-funktion.
+
+\textbf{Short-Time DFT} \\
+FFT af kortere optagelsessegmenter. Produktet af dette, kan plottes som et spektogram, der således viser optagelsens frekvensindhold som variation af tiden.
+
+\textbf{Max} \\
+Matlabs funktion "max", finder den højeste værdi i matrixen. I denne analyse, vil den benyttes på FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output).
+
+\textbf{Tonal Power Spectrum} \\
+Tonal Power Spectrum benyttes til beregne tonaliteten i optagelsen, og er altså et udtryk for forholdet mellem dominante toner og det samlede energiindhold. 
+\begin{center}
+${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n) \right|  }^{ 2 } }  } $
+\end{center}
+
+Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. Det tonale indhold beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
+\begin{itemize}
+	\item Er lokalt maximum: ${ \left| X(k-1,n) \right|  }^{ 2 }\le { \left| X(k,n) \right|  }^{ 2 }\le { \left| X(k+1,n) \right|  }^{ 2 }$ og
+	\item Ligger over en forudbestemt grænseværdi ${ G }_{ T }$.
+\end{itemize} 	
+
+Resultatet af vil ligge mellem $0\le { v }_{ Tpr }\le 1$
+
+\textbf{Smoothing} \\
+Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes.
+
+\subsection{Situationer}
+Der udføres analyser på lyd-optagelser af følgende situationer:
+\begin{itemize}
+	\item Højlydt babygråd
+	\item Moderat babygråd
+	\item Fuglefløjt
+	\item Trafik
+	\item Forsamlingsstøj
+\end{itemize} 
+
+\subsection{Analyser}
+\textbf{Højlydt babygråd} \\
+\figur{0.7}{intlydmonitor/forundersoegelse/analyse}{Analyseresultat af optagelsen "Højlydt babygråd"}{intlyd:forundersoegelse:høj_baby}
+
+\newpage
+\textbf{Moderat babygråd}\\
+\figur{0.7}{intlydmonitor/forundersoegelse/analyse}{Analyseresultat af optagelsen "Moderat babygråd"}{intlyd:forundersoegelse:mod_baby}
+
+\newpage
+\textbf{Fuglefløjt}\\
+\figur{0.7}{intlydmonitor/forundersoegelse/analyse}{Analyseresultat af optagelsen "Fuglefløjt"}{intlyd:forundersoegelse:fugl}
+
+\newpage
+\textbf{Trafikstøj}\\
+\figur{0.7}{intlydmonitor/forundersoegelse/analyse}{Analyseresultat af optagelsen "Trafikstøj"}{intlyd:forundersoegelse:trafik}
+
+\newpage
+\textbf{Forsamlingsstøj}\\
+\figur{0.7}{intlydmonitor/forundersoegelse/analyse}{Analyseresultat af optagelsen "Forsamlingsstøj"}{intlyd:forundersoegelse:forsamling}
+
+
+\subsection{Konklusion}
+

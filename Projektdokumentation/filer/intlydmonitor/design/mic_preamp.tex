@@ -54,7 +54,7 @@ Der benyttes en transimpedansforstærker til at realisere denne forstærkning.
 
 Den ønskede transimpedansforstærkning er givet direkte ved værdien af feedbackmodstanden, R\begin{tiny}FB\end{tiny}.
 \begin{center}
-${ R }_{ FB }=\frac { { V }_{ o } }{ { I }_{ in } } =G=2,89\cdot { 10 }^{ 5 }\Omega$
+${ R }_{ FB }=\frac { { V }_{ o } }{ { I }_{ in } } =G=289k\Omega$
 \end{center}
 
 \textbf{Valg af OpAmp}
@@ -81,27 +81,27 @@ Dette krav er altså opfyldt.
 
 Ved en grænse på 20mV vil 20 \% af differentialtrinnets udstyringsmulighed på ±I\begin{tiny}E\end{tiny} udnyttes. Den påkrævede SR vil derfor være 5 gange den hidtil beregnede, altså 1MV/s.
 
-Dette betyder altså at vi kan nøjes med at bruge en billig operationsforstærker uden større krav til SR, som en OpAmps fra den i lydbehandling almindeligt anvendte TL071-serie ville give (SR = 13MV/s).
+Dette betyder altså at vi kan nøjes med at bruge en billig operationsforstærker uden større krav til SR, såsom en OpAms fra den i lydbehandling almindeligt anvendte TL071-serie ville give (SR = 13MV/s).
 
 \textbf{Stabilitet}
 
 Der er en betydelig kapacitet på forstærkerens indgang idet mikrofonen er koblet med et coax-kabel.
 \begin{center}
-\figur{0.9}{intlydmonitor/design/OpAmp_med_indgangskapacitet}{OpAmp med kapacitiv belastning på indgangen}{intlyd:mic_preamp:tia_ind_kap}
+\figur{0.9}{intlydmonitor/design/OpAmp_med_indgangskapacitet}{OpAmp med kapacitiv belastning på indgangen. Kilde: Analogteknik}{intlyd:mic_preamp:tia_ind_kap}
 \end{center}
 Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 100pF/m. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
 Der regnes med en typis GBP på 9MHz. Der testes for nødvendighed af tilbagekobling:
 \begin{center}
-${ C }_{ 1 }<\frac { 1 }{ 8\pi \cdot GBP\cdot { R }_{ 2 } } \Longrightarrow \quad 100pF<\frac { 1 }{ 8\pi \cdot 9MHz\cdot 28,9k\Omega  } \quad \Longrightarrow \quad 100p<153f$
+${ C }_{ 1 }<\frac { 1 }{ 8\pi \cdot GBP\cdot { R }_{ 2 } } \Longrightarrow \quad 100pF<\frac { 1 }{ 8\pi \cdot 9MHz\cdot 28,9k\Omega  } \quad \Longrightarrow \quad 100\cdot { 10 }^{ -12 }<153\cdot { 10 }^{ -15 }$
 \end{center}
 Det er altså nødvendigt at sætte en kondensator i tilbagekoblingen, som illustreret i \ref{intlyd:mic_preamp:tia_fb_kap}.
 \begin{center}
-\figur{0.9}{intlydmonitor/design/OpAmp_med_tilbagekoblingskapacitet}{OpAmp med kapacitiv belastning på indgangen og stabiliserende kondensator i tilbagekoblingen}{intlyd:mic_preamp:tia_fb_kap}
+\figur{0.9}{intlydmonitor/design/OpAmp_med_tilbagekoblingskapacitet}{OpAmp med kapacitiv belastning på indgangen og stabiliserende kondensator i tilbagekoblingen. Kilde: Analogteknik}{intlyd:mic_preamp:tia_fb_kap}
 \end{center}
 
 \textit{Feedback kondensatoren} beregnes som følger:
 \begin{center}
-${ C }_{ 2 }\approx 0.8\sqrt { \frac { { C }_{ 1 } }{ GBP\cdot { R }_{ 2 } }  } \quad \Longrightarrow \quad { C }_{ 2 }=0.8\sqrt { \frac { 100pF }{ 9pF\cdot 28,9k\Omega  }  } =15,7pF\quad $
+${ C }_{ 2 }\approx 0.8\sqrt { \frac { { C }_{ 1 } }{ GBP\cdot { R }_{ 2 } }  } \quad \Longrightarrow \quad { C }_{ 2 }=0.8\sqrt { \frac { 100pF }{ 9MHz\cdot 28,9k\Omega  }  } =15,7pF\quad$
 \end{center}
 
 Der benyttes en 18 pF kondensator. Den \textit{resulterende grænsefrekvens} bliver således:
