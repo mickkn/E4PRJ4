@@ -8,7 +8,7 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med Blackfin's ADC
 	\item Den diskrete sample-sekvens i bufferen analyseres med hensyn til power og frekvensindhold og resultatet heraf gemmes i endnu en buffer med analyseresultater
 	\item Disse analyseresultater kategoriseres som tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} (OBS: Find enighed om kategorisering)
-	\item Kategoriseringsresultatet sendes til Controller via en I2C forbindelse
+	\item Kategoriseringsresultatet sendes til Controller via to signalledere.
 \end{itemize}
 
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor}{IL_virmåde}
@@ -21,7 +21,7 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 \begin{itemize}
 \item \textbf{Mikrofon} optager signalet babyLyd, som er lyden Baby producerer. 
 \item \textbf{Mic Preamp} modtager og forstærker signalet opLyd fra Mikrofon, hvilket er den lyd Mikrofon har optaget. 
-\item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via I2C sender kategoriseringen til Controller. 
+\item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via to signalledere sender kategoriseringen til Controller. 
 \end{itemize}
 
 \newpage
