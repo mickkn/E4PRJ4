@@ -161,3 +161,35 @@ MotForbind & DCMotorSig & Motor tilkobling\\
 
 \newpage
 \subsection{Software arkitektur}
+
+I følgende afsnit beskrives softwarearkitekturen for Vuggesystem delen af Baby Watch. Softwarearkitekturen er udarbejdet på baggrund af projektformuleringen og kravspecifikationen. 
+
+\vspace{5mm}
+
+Softwarearkitekturen for Vuggesystemet består af: 
+\begin{itemize}
+\item Identifikation af problemer, klasser og metoder med udgangspunkt i en domænemodel for system og dets softwaremoduler  
+\item Oprettelse af skelet for videre implementering af Vuggesystemets SW vha. et simpelt sekvensdiagram for program-flow 
+\end{itemize}
+
+Det er valgt at lave applikationsmodeller for modulerne/modulgrupperne internt frem for direkte Use Case baseret. Applikationsmodellerne indeholder således funktionaliteter for op til flere Use Cases, men kun afgrænset til Vuggesystemet. 
+
+\vspace{5mm}
+Detaljeret domænemodel for softwaremoduler 
+
+
+\vspace{80mm}
+Figur xx viser en domænemodel for kommunikationen mellem systemets interne SW-moduler.
+
+Klasse-identifikation \\
+På baggrund af domænemodellen for softwaremoduler, identificeres følgende klasser for Vuggesystem:
+Vuggesystemet sørger for at vugge barnevognskurven med en bestemt vuggefrekvens og vuggevinkel angivet af Baby Watchs overordnede controller. Denne vugning reguleres ud fra sensorinput der angiver; den absolutte vuggevinkel i forhold til tyngdefeltet, kurvens position og om den yderste vuggevinkel er overskredet. Vuggesystemet skal også give besked til den overordnede Baby Watch Controller om eventuelle fejl i denne regulering.
+
+\begin{itemize}
+\item Regulerings MCU - klassenavn: \textbf{reguleringsMCU} er Vuggesystems control-klasse. Denne klasse sørger for at initierer I2C
+\item I2C kommunikation - klassenavn: \textbf{i2cKommunikation}
+\item Motorregulering - klassenavn: \textbf{motorRegulering}
+\item Vuggevinkel sensor - klassenavn: \textbf{motorPositionsSensor}
+\item Endstop sensors - klassenavn: \textbf{endstopSensors}
+\item Motor positionssensor - klassenavn: \textbf{motorPositionsSensor}
+\end{itemize}
