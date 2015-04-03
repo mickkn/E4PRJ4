@@ -43,12 +43,13 @@ Der udføres analyser på lyd-optagelser af følgende situationer:
 	\item Moderat babygråd
 	\item Fuglefløjt
 	\item Trafik
-	\item Forsamlingsstøj
 \end{itemize} 
 
 \subsection{Analyser}
 \textbf{Højlydt babygråd} \\
 \figur{0.7}{intlydmonitor/forundersoegelse/analyse_baby_crying}{Analyseresultat af optagelsen Højlydt babygråd}{intlyd:forundersoegelse:hoj_baby}
+
+Karakteristisk ved Højlydt babygråd er at dele af Tonal Power Ratio (TPR) ligger over en værdi på 0.5. Herudover ses det på spektrogrammet at frekvenserne ligger over de 1000Hz og helt op til 2000Hz. 
 
 
 
@@ -56,19 +57,34 @@ Der udføres analyser på lyd-optagelser af følgende situationer:
 \textbf{Moderat babygråd}\\
 \figur{0.7}{intlydmonitor/forundersoegelse/analyse_baby_cooing}{Analyseresultat af optagelsen Moderat babygråd}{intlyd:forundersoegelse:mod_baby}
 
+For Moderat babygråd viser det sig ligeledes at store dele af TPR ligger over en værdi på 0.5. Af spektrogrammet fremgår det at frekvenserne ligger lig omkring de 1000Hz.
+
 \newpage
 \textbf{Fuglefløjt}\\
 \figur{0.7}{intlydmonitor/forundersoegelse/analyse_bird}{Analyseresultat af optagelsen Fuglefløjt}{intlyd:forundersoegelse:fugl}
+
+Ved Fuglefløjt ses det at TPR ligger langt under en værdi på 0.5. På spektrogrammet ses det at frekvenserne ligger lavt, under 1000Hz. 
 
 \newpage
 \textbf{Trafikstøj}\\
 \figur{0.7}{intlydmonitor/forundersoegelse/analyse_street_traffic}{Analyseresultat af optagelsen Trafikstøj babygråd}{intlyd:forundersoegelse:trafik}
 
-\newpage
-\textbf{Forsamlingsstøj}\\
-\figur{0.7}{intlydmonitor/forundersoegelse/analyse_crowd_talking}{Analyseresultat af optagelsen Forsamlingsstøj}{intlyd:forundersoegelse:forsamling}
+For Trafikstøj gælder det at TPR ligger under en værdi på 0.5. Af spektrogrammet fremgår det at frekvenserne ligger lavt som ved Fuglefløjt, under 1000Hz. 
 
 
+Matlabs funktion til at finde maksimum-værdien for at array er benyttet til at finde den højeste værdi af TPR for de forskellige situationer. Resultaterne kan ses i tabellen herunder. 
+
+\begin{center}
+    \begin{tabular}{ | l | l |}
+    \hline
+    \textbf{Situation} & \textbf{maxTPR}  \\ \hline
+    Højlydt babygråd & 0.6697   \\ \hline
+    Moderat babygråd & 0.6884  \\ \hline
+    Fuglefløjt & 0.2911  \\ \hline
+    Trafikstøj & 0.4995  \\
+    \hline
+    \end{tabular}
+\end{center}
 
 \subsection{Konklusion}
-
+Konklusionen er at babygråd har en Tonal Power Ratio over eller lige omkring 0.5, hvorimod støjsignalerne har en Tonal Power Ratio som ligger under 0.5. Det er altså muligt at kende forskel på babygråden og støjsignalerne ved at kigge på TPR. For herefter at kende forskel på Højlydt babygråd og Moderat babygråd, skal vi kigge på frekvensindholdet. Findes frekvenser i området omkring 2000Hz har vi at gøre med Højlydt babygråd og ellers er det Moderat babygråd. 
