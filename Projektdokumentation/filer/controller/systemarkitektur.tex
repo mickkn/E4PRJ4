@@ -48,11 +48,17 @@ babyWatchOn
 
 power
 &5 VDC
-&RasberryPi \newline(micro\_USB) \newline
-	Betjeningspanel \newline (pow\_in)
+&RasberryPi \newline(micro\_USB) 
 &Controller \newline(powC\_in)
 &5 V forsyning til controller
 \\\hline
+power
+&53,3 VDC
+&RasberryPi \newline(3V3) 
+&Betjeningspanel \newline (pow\_in)
+&3,3 V forsyning til Betjeningspanel
+\\\hline
+
 
 powerOn			
 &TTL 0-3,3 VDC	
@@ -60,13 +66,22 @@ powerOn
 &Controller \newline (powOn\_out) 			
 &Benyttes til at tænde og slukket for strømforsyningen   				\\\hline
 
+2WireTTL		
+&TTL 0-3,3 VDC			
+&RasberryPi \newline (2WTTLRPI) \newline	
+	GPIO9: LSB \newline	
+	GPIO10: MSB \newline	
+&Controller \newline (I2CController) 			
+&Seriel kommunikation
+\\\hline
+
 I2C			
 &Seriel		
 &RasberryPi \newline (I2CRPI) \newline	
 	GPIO2: SDA \newline	
 	GPIO3: SCL \newline	
-&Controller \newline (I2CController) 			
-&Seriel kommunikation
+&Controller \newline (Controller) 			
+&BABYCON niveau
 \\\hline
 
 USB		
