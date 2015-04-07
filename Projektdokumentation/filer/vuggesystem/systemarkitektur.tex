@@ -18,7 +18,7 @@ Vuggesystemet består af tre dele
 \begin{description}
 \item[Motorsystem block:] Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.
 \item[Regulerings MCU block:] Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.
-\item[Sensor block:] Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggevinkel sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
+\item[Sensor block:] Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
 \end{description}
 
 Følgende beskriver vuggesystemets kobling og grænseflade.
@@ -32,8 +32,8 @@ Følgende beskriver vuggesystemets kobling og grænseflade.
 
 \vspace{5mm}
 
-\figur{0.5}{vuggesystem/sysark/Vuggevinkel_sensor_IBD.pdf}{IBD for Vuggevinkel sensor}{VugVinkS_IBD}
-\textbf{Vuggevinkel sensor} er placeret så den måler barnevognskurvens plan i forhold til jordens tyngdefelt. 
+\figur{0.5}{vuggesystem/sysark/Vuggeudsving_sensor_IBD.pdf}{IBD for Vuggeudsving sensor}{VugUdsving_IBD}
+\textbf{Vuggeudsving sensor} er placeret så den måler barnevognskurvens plan i forhold til jordens tyngdefelt. 
 
 \vspace{5mm}
 
@@ -111,27 +111,115 @@ I følgende afsnit beskrives softwarearkitekturen for Vuggesystem delen af Baby 
 Softwarearkitekturen for Vuggesystemet består af: 
 \begin{itemize}
 \item Identifikation af problemer, klasser og metoder med udgangspunkt i en domænemodel for system og dets softwaremoduler  
-\item Oprettelse af skelet for videre implementering af Vuggesystemets SW vha. et simpelt sekvensdiagram for program-flow 
+\item Oprettelse af skelet for videre implementering af Vuggesystemets SW vha. et sekvensdiagram for program-flow 
 \end{itemize}
 
-Det er valgt at lave applikationsmodeller for modulerne/modulgrupperne internt frem for direkte Use Case baseret. Applikationsmodellerne indeholder således funktionaliteter for op til flere Use Cases, men kun afgrænset til Vuggesystemet. 
+Det er valgt at lave applikationsmodeller for modulerne/modulgrupperne internt frem for direkte Use Case baseret. Applikationsmodellen indeholder således funktionaliteter for op til flere Use Cases, men kun afgrænset til Vuggesystemet. 
 
 \vspace{5mm}
-Detaljeret domænemodel for softwaremoduler 
+\subsubsection*{Domænemodel} 
 
+\figur{1}{vuggesystem/sysark/Domain_Klasse_kommunikation.pdf}{Domain kommunikations model for Vuggesystem}{VuggeSystem_Domain}
 
-\vspace{80mm}
-Figur xx viser en domænemodel for kommunikationen mellem systemets interne SW-moduler.
+\vspace{1mm}
+Figur \ref{VuggeSystem_Domain} viser en domænemodel for kommunikationen mellem systemets interne SW-moduler. Blokken Baby Watch Controller tilhører ikke Vuggesysmet, men er sat på for identificerer udadgående grænseflader derfor er denne markeret bag en stiplet linje.
 
-Klasse-identifikation \\
+\subsubsection*{Klasseidentifikation}
 På baggrund af domænemodellen for softwaremoduler, identificeres følgende klasser for Vuggesystem:
-Vuggesystemet sørger for at vugge barnevognskurven med en bestemt vuggefrekvens og vuggevinkel angivet af Baby Watchs overordnede controller. Denne vugning reguleres ud fra sensorinput der angiver; den absolutte vuggevinkel i forhold til tyngdefeltet, kurvens position og om den yderste vuggevinkel er overskredet. Vuggesystemet skal også give besked til den overordnede Baby Watch Controller om eventuelle fejl i denne regulering.
+Vuggesystemet sørger for at vugge barnevognskurven med en bestemt vuggefrekvens og vuggeudsving angivet af Baby Watchs Controller. Denne vugning reguleres ud fra sensorinput der angiver; den absolutte vinkel for vuggeudsvinget i forhold til tyngdefeltet, kurvens position og om det yderste vuggeudsving er overskredet. Vuggesystemet skal også give besked til den overordnede Baby Watch Controller om eventuelle fejl i denne regulering.
 
 \begin{itemize}
-\item Regulerings MCU - klassenavn: \textbf{reguleringsMCU} er Vuggesystems control-klasse. Denne klasse sørger for at initierer I2C
-\item I2C kommunikation - klassenavn: \textbf{i2cKommunikation}
-\item Motorregulering - klassenavn: \textbf{motorRegulering}
-\item Vuggevinkel sensor - klassenavn: \textbf{motorPositionsSensor}
-\item Endstop sensors - klassenavn: \textbf{endstopSensors}
-\item Motor positionssensor - klassenavn: \textbf{motorPositionsSensor}
+\item Regulerings MCU - klassenavn: \textbf{vuggeControl} er Vuggesystems control-klasse. 
+\item I2C kommunikation - klassenavn: \textbf{i2cKommunikation} står for I2C interfacet ud til Baby Watchs Contoller.
+\item Motorregulering - klassenavn: \textbf{regulering} står for beregningerne til reguleringen af motoren der trækker vugningen af barnevognenskurv
+\item Sensor Fortolker - klassenavn: \textbf{sensorFortolker} står for at behandle sensorinput fra Motor positionssensor, Endstop sensors og Vuggeudsving sensor
 \end{itemize}
+
+Følgende sekvensdiagram og klassediagram  identificerer programflow og funktioner  for \textbf{Regulerings MCU} blokken
+
+\subsubsection*{Sekvensdiagram}
+
+\figur{1}{vuggesystem/sysark/reguleringsMCU_SD.pdf}{Sekvensdiagram for Regulerings MCU}{VuggeSystem_SD}
+
+\subsubsection*{Klassediagram}
+
+\figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{Klassediagram for Regulerings MCU}{VuggeSystem_SD}
+
+\subsubsection*{Funktionsbeskrivelser}
+\textit{vuggeControl} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
+    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+\textit{i2cKommunikation} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void sendConKom(char* reg[2], char* reg[3], char* reg[4])								\\ \hline
+    \textbf{Beskrivelse} 	& Sender tre char pointere der peger på registrene reg[2], reg[3] og reg[4] til vuggeControl klassen					\\ \hline
+    \textbf{Parametre}		& char * reg[2]: peger på ????, char * reg[3]: peger på ???? og char * reg[4]: peger på ????				 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{reguelering} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
+    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{sensorFortolker} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& char getMotorPosSens(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer den nyeste motorposition fra motorpositionssensoren.					\\ \hline
+    \textbf{Parametre}		& Ingen								 		\\ \hline
+    \textbf{Returværdi} 	& char: Den nyeste position angivet i værdi fra 0-255		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& char getVuggeUdsving(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer den nyeste måling fra Vuggeudsvingssensoren.		\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& char: Den nyeste måling fra Vuggeudsvingssensoren angivet i ??? accelerometer og gyroskop ???		 											\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int calcAbsVuggeUdsving(char udsving)										\\ \hline
+    \textbf{Beskrivelse} 	& Udfra acceletormeter- og gyroskopmålingerne beregnes og returners den absolutte vinkel for barnevognskurven. 		\\ \hline
+    \textbf{Parametre}		& char: Udsving er målinger fra Vuggeudsvingssensoren 		\\ \hline
+    \textbf{Returværdi} 	& int: Den absolutte vinkel for barnevognskurven			\\ \hline
+    \end{tabular}
+\end{center}
+
+
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void checkEndstop(bool)										\\ \hline
+    \textbf{Beskrivelse} 	& Tjekker endstop sensorernes værdi.		\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& wav		 											\\ \hline
+    \end{tabular}
+\end{center}
