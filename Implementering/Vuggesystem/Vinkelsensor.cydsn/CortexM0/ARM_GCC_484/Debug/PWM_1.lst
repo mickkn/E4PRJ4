@@ -1,0 +1,2632 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"PWM_1.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	PWM_1_initVar
+  18              		.bss
+  19              		.type	PWM_1_initVar, %object
+  20              		.size	PWM_1_initVar, 1
+  21              	PWM_1_initVar:
+  22 0000 00       		.space	1
+  23              		.section	.text.PWM_1_Start,"ax",%progbits
+  24              		.align	2
+  25              		.global	PWM_1_Start
+  26              		.code	16
+  27              		.thumb_func
+  28              		.type	PWM_1_Start, %function
+  29              	PWM_1_Start:
+  30              	.LFB0:
+  31              		.file 1 ".\\Generated_Source\\PSoC4\\PWM_1.c"
+   1:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/PWM_1.c **** * File Name: PWM_1.c
+   3:.\Generated_Source\PSoC4/PWM_1.c **** * Version 3.20
+   4:.\Generated_Source\PSoC4/PWM_1.c **** *
+   5:.\Generated_Source\PSoC4/PWM_1.c **** * Description:
+   6:.\Generated_Source\PSoC4/PWM_1.c **** *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
+   7:.\Generated_Source\PSoC4/PWM_1.c **** *  comparitors. Each instance of this user module is capable of generating
+   8:.\Generated_Source\PSoC4/PWM_1.c **** *  two PWM outputs with the same period. The pulse width is selectable between
+   9:.\Generated_Source\PSoC4/PWM_1.c **** *  1 and 255/65535. The period is selectable between 2 and 255/65536 clocks.
+  10:.\Generated_Source\PSoC4/PWM_1.c **** *  The compare value output may be configured to be active when the present
+  11:.\Generated_Source\PSoC4/PWM_1.c **** *  counter is less than or less than/equal to the compare value.
+  12:.\Generated_Source\PSoC4/PWM_1.c **** *  A terminal count output is also provided. It generates a pulse one clock
+  13:.\Generated_Source\PSoC4/PWM_1.c **** *  width wide when the counter is equal to zero.
+  14:.\Generated_Source\PSoC4/PWM_1.c **** *
+  15:.\Generated_Source\PSoC4/PWM_1.c **** * Note:
+  16:.\Generated_Source\PSoC4/PWM_1.c **** *
+  17:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************
+  18:.\Generated_Source\PSoC4/PWM_1.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  19:.\Generated_Source\PSoC4/PWM_1.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:.\Generated_Source\PSoC4/PWM_1.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:.\Generated_Source\PSoC4/PWM_1.c **** * the software package with which this file was provided.
+  22:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************/
+  23:.\Generated_Source\PSoC4/PWM_1.c **** 
+  24:.\Generated_Source\PSoC4/PWM_1.c **** #include "PWM_1.h"
+  25:.\Generated_Source\PSoC4/PWM_1.c **** 
+  26:.\Generated_Source\PSoC4/PWM_1.c **** /* Error message for removed <resource> through optimization */
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 2
+
+
+  27:.\Generated_Source\PSoC4/PWM_1.c **** #ifdef PWM_1_PWMUDB_genblk1_ctrlreg__REMOVED
+  28:.\Generated_Source\PSoC4/PWM_1.c ****     #error PWM_v3_20 detected with a constant 0 for the enable or \
+  29:.\Generated_Source\PSoC4/PWM_1.c ****          constant 1 for reset. This will prevent the component from operating.
+  30:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* PWM_1_PWMUDB_genblk1_ctrlreg__REMOVED */
+  31:.\Generated_Source\PSoC4/PWM_1.c **** 
+  32:.\Generated_Source\PSoC4/PWM_1.c **** uint8 PWM_1_initVar = 0u;
+  33:.\Generated_Source\PSoC4/PWM_1.c **** 
+  34:.\Generated_Source\PSoC4/PWM_1.c **** 
+  35:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+  36:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_Start
+  37:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+  38:.\Generated_Source\PSoC4/PWM_1.c **** *
+  39:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+  40:.\Generated_Source\PSoC4/PWM_1.c **** *  The start function initializes the pwm with the default values, the
+  41:.\Generated_Source\PSoC4/PWM_1.c **** *  enables the counter to begin counting.  It does not enable interrupts,
+  42:.\Generated_Source\PSoC4/PWM_1.c **** *  the EnableInt command should be called if interrupt generation is required.
+  43:.\Generated_Source\PSoC4/PWM_1.c **** *
+  44:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+  45:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+  46:.\Generated_Source\PSoC4/PWM_1.c **** *
+  47:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+  48:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+  49:.\Generated_Source\PSoC4/PWM_1.c **** *
+  50:.\Generated_Source\PSoC4/PWM_1.c **** * Global variables:
+  51:.\Generated_Source\PSoC4/PWM_1.c **** *  PWM_1_initVar: Is modified when this function is called for the
+  52:.\Generated_Source\PSoC4/PWM_1.c **** *   first time. Is used to ensure that initialization happens only once.
+  53:.\Generated_Source\PSoC4/PWM_1.c **** *
+  54:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+  55:.\Generated_Source\PSoC4/PWM_1.c **** void PWM_1_Start(void) 
+  56:.\Generated_Source\PSoC4/PWM_1.c **** {
+  32              		.loc 1 56 0
+  33              		.cfi_startproc
+  34 0000 80B5     		push	{r7, lr}
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  57:.\Generated_Source\PSoC4/PWM_1.c ****     /* If not Initialized then initialize all required hardware and software */
+  58:.\Generated_Source\PSoC4/PWM_1.c ****     if(PWM_1_initVar == 0u)
+  40              		.loc 1 58 0
+  41 0004 064B     		ldr	r3, .L3
+  42 0006 1B78     		ldrb	r3, [r3]
+  43 0008 002B     		cmp	r3, #0
+  44 000a 04D1     		bne	.L2
+  59:.\Generated_Source\PSoC4/PWM_1.c ****     {
+  60:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_Init();
+  45              		.loc 1 60 0
+  46 000c FFF7FEFF 		bl	PWM_1_Init
+  61:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_initVar = 1u;
+  47              		.loc 1 61 0
+  48 0010 034B     		ldr	r3, .L3
+  49 0012 0122     		mov	r2, #1
+  50 0014 1A70     		strb	r2, [r3]
+  51              	.L2:
+  62:.\Generated_Source\PSoC4/PWM_1.c ****     }
+  63:.\Generated_Source\PSoC4/PWM_1.c ****     PWM_1_Enable();
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 3
+
+
+  52              		.loc 1 63 0
+  53 0016 FFF7FEFF 		bl	PWM_1_Enable
+  64:.\Generated_Source\PSoC4/PWM_1.c **** 
+  65:.\Generated_Source\PSoC4/PWM_1.c **** }
+  54              		.loc 1 65 0
+  55 001a BD46     		mov	sp, r7
+  56              		@ sp needed
+  57 001c 80BD     		pop	{r7, pc}
+  58              	.L4:
+  59 001e C046     		.align	2
+  60              	.L3:
+  61 0020 00000000 		.word	PWM_1_initVar
+  62              		.cfi_endproc
+  63              	.LFE0:
+  64              		.size	PWM_1_Start, .-PWM_1_Start
+  65              		.section	.text.PWM_1_Init,"ax",%progbits
+  66              		.align	2
+  67              		.global	PWM_1_Init
+  68              		.code	16
+  69              		.thumb_func
+  70              		.type	PWM_1_Init, %function
+  71              	PWM_1_Init:
+  72              	.LFB1:
+  66:.\Generated_Source\PSoC4/PWM_1.c **** 
+  67:.\Generated_Source\PSoC4/PWM_1.c **** 
+  68:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+  69:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_Init
+  70:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+  71:.\Generated_Source\PSoC4/PWM_1.c **** *
+  72:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+  73:.\Generated_Source\PSoC4/PWM_1.c **** *  Initialize component's parameters to the parameters set by user in the
+  74:.\Generated_Source\PSoC4/PWM_1.c **** *  customizer of the component placed onto schematic. Usually called in
+  75:.\Generated_Source\PSoC4/PWM_1.c **** *  PWM_1_Start().
+  76:.\Generated_Source\PSoC4/PWM_1.c **** *
+  77:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+  78:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+  79:.\Generated_Source\PSoC4/PWM_1.c **** *
+  80:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+  81:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+  82:.\Generated_Source\PSoC4/PWM_1.c **** *
+  83:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+  84:.\Generated_Source\PSoC4/PWM_1.c **** void PWM_1_Init(void) 
+  85:.\Generated_Source\PSoC4/PWM_1.c **** {
+  73              		.loc 1 85 0
+  74              		.cfi_startproc
+  75 0000 90B5     		push	{r4, r7, lr}
+  76              		.cfi_def_cfa_offset 12
+  77              		.cfi_offset 4, -12
+  78              		.cfi_offset 7, -8
+  79              		.cfi_offset 14, -4
+  80 0002 83B0     		sub	sp, sp, #12
+  81              		.cfi_def_cfa_offset 24
+  82 0004 00AF     		add	r7, sp, #0
+  83              		.cfi_def_cfa_register 7
+  86:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UsingFixedFunction || PWM_1_UseControl)
+  87:.\Generated_Source\PSoC4/PWM_1.c ****         uint8 ctrl;
+  88:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction || PWM_1_UseControl) */
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 4
+
+
+  89:.\Generated_Source\PSoC4/PWM_1.c **** 
+  90:.\Generated_Source\PSoC4/PWM_1.c ****     #if(!PWM_1_UsingFixedFunction)
+  91:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UseStatus)
+  92:.\Generated_Source\PSoC4/PWM_1.c ****             /* Interrupt State Backup for Critical Region*/
+  93:.\Generated_Source\PSoC4/PWM_1.c ****             uint8 PWM_1_interruptState;
+  94:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UseStatus) */
+  95:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (!PWM_1_UsingFixedFunction) */
+  96:.\Generated_Source\PSoC4/PWM_1.c **** 
+  97:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UsingFixedFunction)
+  98:.\Generated_Source\PSoC4/PWM_1.c ****         /* You are allowed to write the compare value (FF only) */
+  99:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL |= PWM_1_CFG0_MODE;
+ 100:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_DeadBand2_4)
+ 101:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_CONTROL |= PWM_1_CFG0_DB;
+ 102:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_DeadBand2_4) */
+ 103:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 104:.\Generated_Source\PSoC4/PWM_1.c ****         ctrl = PWM_1_CONTROL3 & ((uint8 )(~PWM_1_CTRL_CMPMODE1_MASK));
+ 105:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL3 = ctrl | PWM_1_DEFAULT_COMPARE1_MODE;
+ 106:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 107:.\Generated_Source\PSoC4/PWM_1.c ****          /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 108:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_RT1 &= ((uint8)(~PWM_1_RT1_MASK));
+ 109:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_RT1 |= PWM_1_SYNC;
+ 110:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 111:.\Generated_Source\PSoC4/PWM_1.c ****         /*Enable DSI Sync all all inputs of the PWM*/
+ 112:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_RT1 &= ((uint8)(~PWM_1_SYNCDSI_MASK));
+ 113:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_RT1 |= PWM_1_SYNCDSI_EN;
+ 114:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 115:.\Generated_Source\PSoC4/PWM_1.c ****     #elif (PWM_1_UseControl)
+ 116:.\Generated_Source\PSoC4/PWM_1.c ****         /* Set the default compare mode defined in the parameter */
+ 117:.\Generated_Source\PSoC4/PWM_1.c ****         ctrl = PWM_1_CONTROL & ((uint8)(~PWM_1_CTRL_CMPMODE2_MASK)) &
+  84              		.loc 1 117 0
+  85 0006 214B     		ldr	r3, .L6
+  86 0008 1B78     		ldrb	r3, [r3]
+  87 000a DAB2     		uxtb	r2, r3
+  88 000c FB1D     		add	r3, r7, #7
+  89 000e 3F21     		mov	r1, #63
+  90 0010 8A43     		bic	r2, r1
+  91 0012 1A70     		strb	r2, [r3]
+ 118:.\Generated_Source\PSoC4/PWM_1.c ****                 ((uint8)(~PWM_1_CTRL_CMPMODE1_MASK));
+ 119:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL = ctrl | PWM_1_DEFAULT_COMPARE2_MODE |
+  92              		.loc 1 119 0
+  93 0014 1D4B     		ldr	r3, .L6
+  94 0016 FA1D     		add	r2, r7, #7
+  95 0018 1278     		ldrb	r2, [r2]
+  96 001a 0921     		mov	r1, #9
+  97 001c 0A43     		orr	r2, r1
+  98 001e D2B2     		uxtb	r2, r2
+  99 0020 1A70     		strb	r2, [r3]
+ 120:.\Generated_Source\PSoC4/PWM_1.c ****                                    PWM_1_DEFAULT_COMPARE1_MODE;
+ 121:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 122:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 123:.\Generated_Source\PSoC4/PWM_1.c ****     #if (!PWM_1_UsingFixedFunction)
+ 124:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_Resolution == 8)
+ 125:.\Generated_Source\PSoC4/PWM_1.c ****             /* Set FIFO 0 to 1 byte register for period*/
+ 126:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_AUX_CONTROLDP0 |= (PWM_1_AUX_CTRL_FIFO0_CLR);
+ 127:.\Generated_Source\PSoC4/PWM_1.c ****         #else /* (PWM_1_Resolution == 16)*/
+ 128:.\Generated_Source\PSoC4/PWM_1.c ****             /* Set FIFO 0 to 1 byte register for period */
+ 129:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_AUX_CONTROLDP0 |= (PWM_1_AUX_CTRL_FIFO0_CLR);
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 5
+
+
+ 100              		.loc 1 129 0
+ 101 0022 1B4B     		ldr	r3, .L6+4
+ 102 0024 1A4A     		ldr	r2, .L6+4
+ 103 0026 1278     		ldrb	r2, [r2]
+ 104 0028 D2B2     		uxtb	r2, r2
+ 105 002a 0121     		mov	r1, #1
+ 106 002c 0A43     		orr	r2, r1
+ 107 002e D2B2     		uxtb	r2, r2
+ 108 0030 1A70     		strb	r2, [r3]
+ 130:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_AUX_CONTROLDP1 |= (PWM_1_AUX_CTRL_FIFO0_CLR);
+ 109              		.loc 1 130 0
+ 110 0032 184B     		ldr	r3, .L6+8
+ 111 0034 174A     		ldr	r2, .L6+8
+ 112 0036 1278     		ldrb	r2, [r2]
+ 113 0038 D2B2     		uxtb	r2, r2
+ 114 003a 0121     		mov	r1, #1
+ 115 003c 0A43     		orr	r2, r1
+ 116 003e D2B2     		uxtb	r2, r2
+ 117 0040 1A70     		strb	r2, [r3]
+ 131:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_Resolution == 8) */
+ 132:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 133:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_WriteCounter(PWM_1_INIT_PERIOD_VALUE);
+ 118              		.loc 1 133 0
+ 119 0042 154B     		ldr	r3, .L6+12
+ 120 0044 181C     		mov	r0, r3
+ 121 0046 FFF7FEFF 		bl	PWM_1_WriteCounter
+ 134:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (!PWM_1_UsingFixedFunction) */
+ 135:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 136:.\Generated_Source\PSoC4/PWM_1.c ****     PWM_1_WritePeriod(PWM_1_INIT_PERIOD_VALUE);
+ 122              		.loc 1 136 0
+ 123 004a 134B     		ldr	r3, .L6+12
+ 124 004c 181C     		mov	r0, r3
+ 125 004e FFF7FEFF 		bl	PWM_1_WritePeriod
+ 137:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 138:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_UseOneCompareMode)
+ 139:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_WriteCompare(PWM_1_INIT_COMPARE_VALUE1);
+ 126              		.loc 1 139 0
+ 127 0052 7A20     		mov	r0, #122
+ 128 0054 FFF7FEFF 		bl	PWM_1_WriteCompare
+ 140:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 141:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_WriteCompare1(PWM_1_INIT_COMPARE_VALUE1);
+ 142:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_WriteCompare2(PWM_1_INIT_COMPARE_VALUE2);
+ 143:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UseOneCompareMode) */
+ 144:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 145:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_KillModeMinTime)
+ 146:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_WriteKillTime(PWM_1_MinimumKillTime);
+ 147:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_KillModeMinTime) */
+ 148:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 149:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_DeadBandUsed)
+ 150:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_WriteDeadTime(PWM_1_INIT_DEAD_TIME);
+ 151:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_DeadBandUsed) */
+ 152:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 153:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UseStatus || PWM_1_UsingFixedFunction)
+ 154:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_SetInterruptMode(PWM_1_INIT_INTERRUPTS_MODE);
+ 129              		.loc 1 154 0
+ 130 0058 0020     		mov	r0, #0
+ 131 005a FFF7FEFF 		bl	PWM_1_SetInterruptMode
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 6
+
+
+ 155:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UseStatus || PWM_1_UsingFixedFunction) */
+ 156:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 157:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UsingFixedFunction)
+ 158:.\Generated_Source\PSoC4/PWM_1.c ****         /* Globally Enable the Fixed Function Block chosen */
+ 159:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_GLOBAL_ENABLE |= PWM_1_BLOCK_EN_MASK;
+ 160:.\Generated_Source\PSoC4/PWM_1.c ****         /* Set the Interrupt source to come from the status register */
+ 161:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL2 |= PWM_1_CTRL2_IRQ_SEL;
+ 162:.\Generated_Source\PSoC4/PWM_1.c ****     #else
+ 163:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UseStatus)
+ 164:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 165:.\Generated_Source\PSoC4/PWM_1.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 166:.\Generated_Source\PSoC4/PWM_1.c ****             /* Enter Critical Region*/
+ 167:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_interruptState = CyEnterCriticalSection();
+ 132              		.loc 1 167 0
+ 133 005e BC1D     		add	r4, r7, #6
+ 134 0060 FFF7FEFF 		bl	CyEnterCriticalSection
+ 135 0064 031C     		mov	r3, r0
+ 136 0066 2370     		strb	r3, [r4]
+ 168:.\Generated_Source\PSoC4/PWM_1.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 169:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_STATUS_AUX_CTRL |= PWM_1_STATUS_ACTL_INT_EN_MASK;
+ 137              		.loc 1 169 0
+ 138 0068 0A4B     		ldr	r3, .L6+8
+ 139 006a 0A4A     		ldr	r2, .L6+8
+ 140 006c 1278     		ldrb	r2, [r2]
+ 141 006e D2B2     		uxtb	r2, r2
+ 142 0070 1021     		mov	r1, #16
+ 143 0072 0A43     		orr	r2, r1
+ 144 0074 D2B2     		uxtb	r2, r2
+ 145 0076 1A70     		strb	r2, [r3]
+ 170:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 171:.\Generated_Source\PSoC4/PWM_1.c ****              /* Exit Critical Region*/
+ 172:.\Generated_Source\PSoC4/PWM_1.c ****             CyExitCriticalSection(PWM_1_interruptState);
+ 146              		.loc 1 172 0
+ 147 0078 BB1D     		add	r3, r7, #6
+ 148 007a 1B78     		ldrb	r3, [r3]
+ 149 007c 181C     		mov	r0, r3
+ 150 007e FFF7FEFF 		bl	CyExitCriticalSection
+ 173:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 174:.\Generated_Source\PSoC4/PWM_1.c ****             /* Clear the FIFO to enable the PWM_1_STATUS_FIFOFULL
+ 175:.\Generated_Source\PSoC4/PWM_1.c ****                    bit to be set on FIFO full. */
+ 176:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_ClearFIFO();
+ 151              		.loc 1 176 0
+ 152 0082 FFF7FEFF 		bl	PWM_1_ClearFIFO
+ 177:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UseStatus) */
+ 178:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 179:.\Generated_Source\PSoC4/PWM_1.c **** }
+ 153              		.loc 1 179 0
+ 154 0086 BD46     		mov	sp, r7
+ 155 0088 03B0     		add	sp, sp, #12
+ 156              		@ sp needed
+ 157 008a 90BD     		pop	{r4, r7, pc}
+ 158              	.L7:
+ 159              		.align	2
+ 160              	.L6:
+ 161 008c 72000F40 		.word	1074724978
+ 162 0090 92000F40 		.word	1074725010
+ 163 0094 93000F40 		.word	1074725011
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 7
+
+
+ 164 0098 FFFF0000 		.word	65535
+ 165              		.cfi_endproc
+ 166              	.LFE1:
+ 167              		.size	PWM_1_Init, .-PWM_1_Init
+ 168              		.section	.text.PWM_1_Enable,"ax",%progbits
+ 169              		.align	2
+ 170              		.global	PWM_1_Enable
+ 171              		.code	16
+ 172              		.thumb_func
+ 173              		.type	PWM_1_Enable, %function
+ 174              	PWM_1_Enable:
+ 175              	.LFB2:
+ 180:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 181:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 182:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+ 183:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_Enable
+ 184:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+ 185:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 186:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+ 187:.\Generated_Source\PSoC4/PWM_1.c **** *  Enables the PWM block operation
+ 188:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 189:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+ 190:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 191:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 192:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+ 193:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 194:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 195:.\Generated_Source\PSoC4/PWM_1.c **** * Side Effects:
+ 196:.\Generated_Source\PSoC4/PWM_1.c **** *  This works only if software enable mode is chosen
+ 197:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 198:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+ 199:.\Generated_Source\PSoC4/PWM_1.c **** void PWM_1_Enable(void) 
+ 200:.\Generated_Source\PSoC4/PWM_1.c **** {
+ 176              		.loc 1 200 0
+ 177              		.cfi_startproc
+ 178 0000 80B5     		push	{r7, lr}
+ 179              		.cfi_def_cfa_offset 8
+ 180              		.cfi_offset 7, -8
+ 181              		.cfi_offset 14, -4
+ 182 0002 00AF     		add	r7, sp, #0
+ 183              		.cfi_def_cfa_register 7
+ 201:.\Generated_Source\PSoC4/PWM_1.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 202:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UsingFixedFunction)
+ 203:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_GLOBAL_ENABLE |= PWM_1_BLOCK_EN_MASK;
+ 204:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_GLOBAL_STBY_ENABLE |= PWM_1_BLOCK_STBY_EN_MASK;
+ 205:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 206:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 207:.\Generated_Source\PSoC4/PWM_1.c ****     /* Enable the PWM from the control register  */
+ 208:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UseControl || PWM_1_UsingFixedFunction)
+ 209:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL |= PWM_1_CTRL_ENABLE;
+ 184              		.loc 1 209 0
+ 185 0004 054B     		ldr	r3, .L9
+ 186 0006 054A     		ldr	r2, .L9
+ 187 0008 1278     		ldrb	r2, [r2]
+ 188 000a D2B2     		uxtb	r2, r2
+ 189 000c 8021     		mov	r1, #128
+ 190 000e 4942     		neg	r1, r1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 8
+
+
+ 191 0010 0A43     		orr	r2, r1
+ 192 0012 D2B2     		uxtb	r2, r2
+ 193 0014 1A70     		strb	r2, [r3]
+ 210:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UseControl || PWM_1_UsingFixedFunction) */
+ 211:.\Generated_Source\PSoC4/PWM_1.c **** }
+ 194              		.loc 1 211 0
+ 195 0016 BD46     		mov	sp, r7
+ 196              		@ sp needed
+ 197 0018 80BD     		pop	{r7, pc}
+ 198              	.L10:
+ 199 001a C046     		.align	2
+ 200              	.L9:
+ 201 001c 72000F40 		.word	1074724978
+ 202              		.cfi_endproc
+ 203              	.LFE2:
+ 204              		.size	PWM_1_Enable, .-PWM_1_Enable
+ 205              		.section	.text.PWM_1_Stop,"ax",%progbits
+ 206              		.align	2
+ 207              		.global	PWM_1_Stop
+ 208              		.code	16
+ 209              		.thumb_func
+ 210              		.type	PWM_1_Stop, %function
+ 211              	PWM_1_Stop:
+ 212              	.LFB3:
+ 212:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 213:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 214:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+ 215:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_Stop
+ 216:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+ 217:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 218:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+ 219:.\Generated_Source\PSoC4/PWM_1.c **** *  The stop function halts the PWM, but does not change any modes or disable
+ 220:.\Generated_Source\PSoC4/PWM_1.c **** *  interrupts.
+ 221:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 222:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+ 223:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 224:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 225:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+ 226:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 227:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 228:.\Generated_Source\PSoC4/PWM_1.c **** * Side Effects:
+ 229:.\Generated_Source\PSoC4/PWM_1.c **** *  If the Enable mode is set to Hardware only then this function
+ 230:.\Generated_Source\PSoC4/PWM_1.c **** *  has no effect on the operation of the PWM
+ 231:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 232:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+ 233:.\Generated_Source\PSoC4/PWM_1.c **** void PWM_1_Stop(void) 
+ 234:.\Generated_Source\PSoC4/PWM_1.c **** {
+ 213              		.loc 1 234 0
+ 214              		.cfi_startproc
+ 215 0000 80B5     		push	{r7, lr}
+ 216              		.cfi_def_cfa_offset 8
+ 217              		.cfi_offset 7, -8
+ 218              		.cfi_offset 14, -4
+ 219 0002 00AF     		add	r7, sp, #0
+ 220              		.cfi_def_cfa_register 7
+ 235:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UseControl || PWM_1_UsingFixedFunction)
+ 236:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_CONTROL &= ((uint8)(~PWM_1_CTRL_ENABLE));
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 9
+
+
+ 221              		.loc 1 236 0
+ 222 0004 044B     		ldr	r3, .L12
+ 223 0006 044A     		ldr	r2, .L12
+ 224 0008 1278     		ldrb	r2, [r2]
+ 225 000a D1B2     		uxtb	r1, r2
+ 226 000c 7F22     		mov	r2, #127
+ 227 000e 0A40     		and	r2, r1
+ 228 0010 D2B2     		uxtb	r2, r2
+ 229 0012 1A70     		strb	r2, [r3]
+ 237:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UseControl || PWM_1_UsingFixedFunction) */
+ 238:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 239:.\Generated_Source\PSoC4/PWM_1.c ****     /* Globally disable the Fixed Function Block chosen */
+ 240:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UsingFixedFunction)
+ 241:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_GLOBAL_ENABLE &= ((uint8)(~PWM_1_BLOCK_EN_MASK));
+ 242:.\Generated_Source\PSoC4/PWM_1.c ****         PWM_1_GLOBAL_STBY_ENABLE &= ((uint8)(~PWM_1_BLOCK_STBY_EN_MASK));
+ 243:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 244:.\Generated_Source\PSoC4/PWM_1.c **** }
+ 230              		.loc 1 244 0
+ 231 0014 BD46     		mov	sp, r7
+ 232              		@ sp needed
+ 233 0016 80BD     		pop	{r7, pc}
+ 234              	.L13:
+ 235              		.align	2
+ 236              	.L12:
+ 237 0018 72000F40 		.word	1074724978
+ 238              		.cfi_endproc
+ 239              	.LFE3:
+ 240              		.size	PWM_1_Stop, .-PWM_1_Stop
+ 241              		.section	.text.PWM_1_WriteCounter,"ax",%progbits
+ 242              		.align	2
+ 243              		.global	PWM_1_WriteCounter
+ 244              		.code	16
+ 245              		.thumb_func
+ 246              		.type	PWM_1_WriteCounter, %function
+ 247              	PWM_1_WriteCounter:
+ 248              	.LFB4:
+ 245:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 246:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_UseOneCompareMode)
+ 247:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_CompareMode1SW)
+ 248:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 249:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 250:.\Generated_Source\PSoC4/PWM_1.c ****         /*******************************************************************************
+ 251:.\Generated_Source\PSoC4/PWM_1.c ****         * Function Name: PWM_1_SetCompareMode
+ 252:.\Generated_Source\PSoC4/PWM_1.c ****         ********************************************************************************
+ 253:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 254:.\Generated_Source\PSoC4/PWM_1.c ****         * Summary:
+ 255:.\Generated_Source\PSoC4/PWM_1.c ****         *  This function writes the Compare Mode for the pwm output when in Dither mode,
+ 256:.\Generated_Source\PSoC4/PWM_1.c ****         *  Center Align Mode or One Output Mode.
+ 257:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 258:.\Generated_Source\PSoC4/PWM_1.c ****         * Parameters:
+ 259:.\Generated_Source\PSoC4/PWM_1.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 260:.\Generated_Source\PSoC4/PWM_1.c ****         *                defined in the H file as input arguments.
+ 261:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 262:.\Generated_Source\PSoC4/PWM_1.c ****         * Return:
+ 263:.\Generated_Source\PSoC4/PWM_1.c ****         *  None
+ 264:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 265:.\Generated_Source\PSoC4/PWM_1.c ****         *******************************************************************************/
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 10
+
+
+ 266:.\Generated_Source\PSoC4/PWM_1.c ****         void PWM_1_SetCompareMode(uint8 comparemode) 
+ 267:.\Generated_Source\PSoC4/PWM_1.c ****         {
+ 268:.\Generated_Source\PSoC4/PWM_1.c ****             #if(PWM_1_UsingFixedFunction)
+ 269:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 270:.\Generated_Source\PSoC4/PWM_1.c ****                 #if(0 != PWM_1_CTRL_CMPMODE1_SHIFT)
+ 271:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_1_CTRL_CMPMODE1_SH
+ 272:.\Generated_Source\PSoC4/PWM_1.c ****                 #else
+ 273:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemodemasked = comparemode;
+ 274:.\Generated_Source\PSoC4/PWM_1.c ****                 #endif /* (0 != PWM_1_CTRL_CMPMODE1_SHIFT) */
+ 275:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 276:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL3 &= ((uint8)(~PWM_1_CTRL_CMPMODE1_MASK)); /*Clear Existing Data */
+ 277:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL3 |= comparemodemasked;
+ 278:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 279:.\Generated_Source\PSoC4/PWM_1.c ****             #elif (PWM_1_UseControl)
+ 280:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 281:.\Generated_Source\PSoC4/PWM_1.c ****                 #if(0 != PWM_1_CTRL_CMPMODE1_SHIFT)
+ 282:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemode1masked = ((uint8)((uint8)comparemode << PWM_1_CTRL_CMPMODE1_S
+ 283:.\Generated_Source\PSoC4/PWM_1.c ****                                                 PWM_1_CTRL_CMPMODE1_MASK;
+ 284:.\Generated_Source\PSoC4/PWM_1.c ****                 #else
+ 285:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemode1masked = comparemode & PWM_1_CTRL_CMPMODE1_MASK;
+ 286:.\Generated_Source\PSoC4/PWM_1.c ****                 #endif /* (0 != PWM_1_CTRL_CMPMODE1_SHIFT) */
+ 287:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 288:.\Generated_Source\PSoC4/PWM_1.c ****                 #if(0 != PWM_1_CTRL_CMPMODE2_SHIFT)
+ 289:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemode2masked = ((uint8)((uint8)comparemode << PWM_1_CTRL_CMPMODE2_S
+ 290:.\Generated_Source\PSoC4/PWM_1.c ****                                                PWM_1_CTRL_CMPMODE2_MASK;
+ 291:.\Generated_Source\PSoC4/PWM_1.c ****                 #else
+ 292:.\Generated_Source\PSoC4/PWM_1.c ****                     uint8 comparemode2masked = comparemode & PWM_1_CTRL_CMPMODE2_MASK;
+ 293:.\Generated_Source\PSoC4/PWM_1.c ****                 #endif /* (0 != PWM_1_CTRL_CMPMODE2_SHIFT) */
+ 294:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 295:.\Generated_Source\PSoC4/PWM_1.c ****                 /*Clear existing mode */
+ 296:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL &= ((uint8)(~(PWM_1_CTRL_CMPMODE1_MASK |
+ 297:.\Generated_Source\PSoC4/PWM_1.c ****                                             PWM_1_CTRL_CMPMODE2_MASK)));
+ 298:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL |= (comparemode1masked | comparemode2masked);
+ 299:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 300:.\Generated_Source\PSoC4/PWM_1.c ****             #else
+ 301:.\Generated_Source\PSoC4/PWM_1.c ****                 uint8 temp = comparemode;
+ 302:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (PWM_1_UsingFixedFunction) */
+ 303:.\Generated_Source\PSoC4/PWM_1.c ****         }
+ 304:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* PWM_1_CompareMode1SW */
+ 305:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 306:.\Generated_Source\PSoC4/PWM_1.c **** #else /* UseOneCompareMode */
+ 307:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 308:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_CompareMode1SW)
+ 309:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 310:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 311:.\Generated_Source\PSoC4/PWM_1.c ****         /*******************************************************************************
+ 312:.\Generated_Source\PSoC4/PWM_1.c ****         * Function Name: PWM_1_SetCompareMode1
+ 313:.\Generated_Source\PSoC4/PWM_1.c ****         ********************************************************************************
+ 314:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 315:.\Generated_Source\PSoC4/PWM_1.c ****         * Summary:
+ 316:.\Generated_Source\PSoC4/PWM_1.c ****         *  This function writes the Compare Mode for the pwm or pwm1 output
+ 317:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 318:.\Generated_Source\PSoC4/PWM_1.c ****         * Parameters:
+ 319:.\Generated_Source\PSoC4/PWM_1.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 320:.\Generated_Source\PSoC4/PWM_1.c ****         *                defined in the H file as input arguments.
+ 321:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 322:.\Generated_Source\PSoC4/PWM_1.c ****         * Return:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 11
+
+
+ 323:.\Generated_Source\PSoC4/PWM_1.c ****         *  None
+ 324:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 325:.\Generated_Source\PSoC4/PWM_1.c ****         *******************************************************************************/
+ 326:.\Generated_Source\PSoC4/PWM_1.c ****         void PWM_1_SetCompareMode1(uint8 comparemode) 
+ 327:.\Generated_Source\PSoC4/PWM_1.c ****         {
+ 328:.\Generated_Source\PSoC4/PWM_1.c ****             #if(0 != PWM_1_CTRL_CMPMODE1_SHIFT)
+ 329:.\Generated_Source\PSoC4/PWM_1.c ****                 uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_1_CTRL_CMPMODE1_SHIFT)
+ 330:.\Generated_Source\PSoC4/PWM_1.c ****                                            PWM_1_CTRL_CMPMODE1_MASK;
+ 331:.\Generated_Source\PSoC4/PWM_1.c ****             #else
+ 332:.\Generated_Source\PSoC4/PWM_1.c ****                 uint8 comparemodemasked = comparemode & PWM_1_CTRL_CMPMODE1_MASK;
+ 333:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (0 != PWM_1_CTRL_CMPMODE1_SHIFT) */
+ 334:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 335:.\Generated_Source\PSoC4/PWM_1.c ****             #if (PWM_1_UseControl)
+ 336:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL &= ((uint8)(~PWM_1_CTRL_CMPMODE1_MASK)); /*Clear existing mode */
+ 337:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_CONTROL |= comparemodemasked;
+ 338:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (PWM_1_UseControl) */
+ 339:.\Generated_Source\PSoC4/PWM_1.c ****         }
+ 340:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* PWM_1_CompareMode1SW */
+ 341:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 342:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_CompareMode2SW)
+ 343:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 344:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 345:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 346:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_SetCompareMode2
+ 347:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 348:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 349:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 350:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function writes the Compare Mode for the pwm or pwm2 output
+ 351:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 352:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 353:.\Generated_Source\PSoC4/PWM_1.c ****     *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 354:.\Generated_Source\PSoC4/PWM_1.c ****     *                defined in the H file as input arguments.
+ 355:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 356:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 357:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 358:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 359:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 360:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_SetCompareMode2(uint8 comparemode) 
+ 361:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 362:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 363:.\Generated_Source\PSoC4/PWM_1.c ****         #if(0 != PWM_1_CTRL_CMPMODE2_SHIFT)
+ 364:.\Generated_Source\PSoC4/PWM_1.c ****             uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_1_CTRL_CMPMODE2_SHIFT)) &
+ 365:.\Generated_Source\PSoC4/PWM_1.c ****                                                  PWM_1_CTRL_CMPMODE2_MASK;
+ 366:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 367:.\Generated_Source\PSoC4/PWM_1.c ****             uint8 comparemodemasked = comparemode & PWM_1_CTRL_CMPMODE2_MASK;
+ 368:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (0 != PWM_1_CTRL_CMPMODE2_SHIFT) */
+ 369:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 370:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_UseControl)
+ 371:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_CONTROL &= ((uint8)(~PWM_1_CTRL_CMPMODE2_MASK)); /*Clear existing mode */
+ 372:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_CONTROL |= comparemodemasked;
+ 373:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UseControl) */
+ 374:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 375:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /*PWM_1_CompareMode2SW */
+ 376:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 377:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* UseOneCompareMode */
+ 378:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 379:.\Generated_Source\PSoC4/PWM_1.c **** 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 12
+
+
+ 380:.\Generated_Source\PSoC4/PWM_1.c **** #if (!PWM_1_UsingFixedFunction)
+ 381:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 382:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 383:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 384:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteCounter
+ 385:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 386:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 387:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 388:.\Generated_Source\PSoC4/PWM_1.c ****     *  Writes a new counter value directly to the counter register. This will be
+ 389:.\Generated_Source\PSoC4/PWM_1.c ****     *  implemented for that currently running period and only that period. This API
+ 390:.\Generated_Source\PSoC4/PWM_1.c ****     *  is valid only for UDB implementation and not available for fixed function
+ 391:.\Generated_Source\PSoC4/PWM_1.c ****     *  PWM implementation.
+ 392:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 393:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 394:.\Generated_Source\PSoC4/PWM_1.c ****     *  counter:  The period new period counter value.
+ 395:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 396:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 397:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 398:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 399:.\Generated_Source\PSoC4/PWM_1.c ****     * Side Effects:
+ 400:.\Generated_Source\PSoC4/PWM_1.c ****     *  The PWM Period will be reloaded when a counter value will be a zero
+ 401:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 402:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 403:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteCounter(uint16 counter) \
+ 404:.\Generated_Source\PSoC4/PWM_1.c ****                                        
+ 405:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 249              		.loc 1 405 0
+ 250              		.cfi_startproc
+ 251 0000 80B5     		push	{r7, lr}
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 7, -8
+ 254              		.cfi_offset 14, -4
+ 255 0002 82B0     		sub	sp, sp, #8
+ 256              		.cfi_def_cfa_offset 16
+ 257 0004 00AF     		add	r7, sp, #0
+ 258              		.cfi_def_cfa_register 7
+ 259 0006 021C     		mov	r2, r0
+ 260 0008 BB1D     		add	r3, r7, #6
+ 261 000a 1A80     		strh	r2, [r3]
+ 406:.\Generated_Source\PSoC4/PWM_1.c ****         CY_SET_REG16(PWM_1_COUNTER_LSB_PTR, counter);
+ 262              		.loc 1 406 0
+ 263 000c 034B     		ldr	r3, .L15
+ 264 000e BA1D     		add	r2, r7, #6
+ 265 0010 1288     		ldrh	r2, [r2]
+ 266 0012 1A80     		strh	r2, [r3]
+ 407:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 267              		.loc 1 407 0
+ 268 0014 BD46     		mov	sp, r7
+ 269 0016 02B0     		add	sp, sp, #8
+ 270              		@ sp needed
+ 271 0018 80BD     		pop	{r7, pc}
+ 272              	.L16:
+ 273 001a C046     		.align	2
+ 274              	.L15:
+ 275 001c 04100F40 		.word	1074728964
+ 276              		.cfi_endproc
+ 277              	.LFE4:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 13
+
+
+ 278              		.size	PWM_1_WriteCounter, .-PWM_1_WriteCounter
+ 279              		.section	.text.PWM_1_ReadCounter,"ax",%progbits
+ 280              		.align	2
+ 281              		.global	PWM_1_ReadCounter
+ 282              		.code	16
+ 283              		.thumb_func
+ 284              		.type	PWM_1_ReadCounter, %function
+ 285              	PWM_1_ReadCounter:
+ 286              	.LFB5:
+ 408:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 409:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 410:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 411:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadCounter
+ 412:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 413:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 414:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 415:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function returns the current value of the counter.  It doesn't matter
+ 416:.\Generated_Source\PSoC4/PWM_1.c ****     *  if the counter is enabled or running.
+ 417:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 418:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 419:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 420:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 421:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 422:.\Generated_Source\PSoC4/PWM_1.c ****     *  The current value of the counter.
+ 423:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 424:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 425:.\Generated_Source\PSoC4/PWM_1.c ****     uint16 PWM_1_ReadCounter(void) 
+ 426:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 287              		.loc 1 426 0
+ 288              		.cfi_startproc
+ 289 0000 80B5     		push	{r7, lr}
+ 290              		.cfi_def_cfa_offset 8
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 14, -4
+ 293 0002 00AF     		add	r7, sp, #0
+ 294              		.cfi_def_cfa_register 7
+ 427:.\Generated_Source\PSoC4/PWM_1.c ****         /* Force capture by reading Accumulator */
+ 428:.\Generated_Source\PSoC4/PWM_1.c ****         /* Must first do a software capture to be able to read the counter */
+ 429:.\Generated_Source\PSoC4/PWM_1.c ****         /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 430:.\Generated_Source\PSoC4/PWM_1.c ****           (void)CY_GET_REG8(PWM_1_COUNTERCAP_LSB_PTR_8BIT);
+ 295              		.loc 1 430 0
+ 296 0004 034B     		ldr	r3, .L19
+ 297 0006 1B78     		ldrb	r3, [r3]
+ 431:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 432:.\Generated_Source\PSoC4/PWM_1.c ****         /* Read the data from the FIFO */
+ 433:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG16(PWM_1_CAPTURE_LSB_PTR));
+ 298              		.loc 1 433 0
+ 299 0008 034B     		ldr	r3, .L19+4
+ 300 000a 1B88     		ldrh	r3, [r3]
+ 301 000c 9BB2     		uxth	r3, r3
+ 434:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 302              		.loc 1 434 0
+ 303 000e 181C     		mov	r0, r3
+ 304 0010 BD46     		mov	sp, r7
+ 305              		@ sp needed
+ 306 0012 80BD     		pop	{r7, pc}
+ 307              	.L20:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 14
+
+
+ 308              		.align	2
+ 309              	.L19:
+ 310 0014 12000F40 		.word	1074724882
+ 311 0018 A4100F40 		.word	1074729124
+ 312              		.cfi_endproc
+ 313              	.LFE5:
+ 314              		.size	PWM_1_ReadCounter, .-PWM_1_ReadCounter
+ 315              		.section	.text.PWM_1_ClearFIFO,"ax",%progbits
+ 316              		.align	2
+ 317              		.global	PWM_1_ClearFIFO
+ 318              		.code	16
+ 319              		.thumb_func
+ 320              		.type	PWM_1_ClearFIFO, %function
+ 321              	PWM_1_ClearFIFO:
+ 322              	.LFB6:
+ 435:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 436:.\Generated_Source\PSoC4/PWM_1.c ****     #if (PWM_1_UseStatus)
+ 437:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 438:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 439:.\Generated_Source\PSoC4/PWM_1.c ****         /*******************************************************************************
+ 440:.\Generated_Source\PSoC4/PWM_1.c ****         * Function Name: PWM_1_ClearFIFO
+ 441:.\Generated_Source\PSoC4/PWM_1.c ****         ********************************************************************************
+ 442:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 443:.\Generated_Source\PSoC4/PWM_1.c ****         * Summary:
+ 444:.\Generated_Source\PSoC4/PWM_1.c ****         *  This function clears all capture data from the capture FIFO
+ 445:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 446:.\Generated_Source\PSoC4/PWM_1.c ****         * Parameters:
+ 447:.\Generated_Source\PSoC4/PWM_1.c ****         *  None
+ 448:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 449:.\Generated_Source\PSoC4/PWM_1.c ****         * Return:
+ 450:.\Generated_Source\PSoC4/PWM_1.c ****         *  None
+ 451:.\Generated_Source\PSoC4/PWM_1.c ****         *
+ 452:.\Generated_Source\PSoC4/PWM_1.c ****         *******************************************************************************/
+ 453:.\Generated_Source\PSoC4/PWM_1.c ****         void PWM_1_ClearFIFO(void) 
+ 454:.\Generated_Source\PSoC4/PWM_1.c ****         {
+ 323              		.loc 1 454 0
+ 324              		.cfi_startproc
+ 325 0000 80B5     		push	{r7, lr}
+ 326              		.cfi_def_cfa_offset 8
+ 327              		.cfi_offset 7, -8
+ 328              		.cfi_offset 14, -4
+ 329 0002 00AF     		add	r7, sp, #0
+ 330              		.cfi_def_cfa_register 7
+ 455:.\Generated_Source\PSoC4/PWM_1.c ****             while(0u != (PWM_1_ReadStatusRegister() & PWM_1_STATUS_FIFONEMPTY))
+ 331              		.loc 1 455 0
+ 332 0004 01E0     		b	.L22
+ 333              	.L23:
+ 456:.\Generated_Source\PSoC4/PWM_1.c ****             {
+ 457:.\Generated_Source\PSoC4/PWM_1.c ****                 (void)PWM_1_ReadCapture();
+ 334              		.loc 1 457 0
+ 335 0006 FFF7FEFF 		bl	PWM_1_ReadCapture
+ 336              	.L22:
+ 455:.\Generated_Source\PSoC4/PWM_1.c ****             while(0u != (PWM_1_ReadStatusRegister() & PWM_1_STATUS_FIFONEMPTY))
+ 337              		.loc 1 455 0 discriminator 1
+ 338 000a FFF7FEFF 		bl	PWM_1_ReadStatusRegister
+ 339 000e 031C     		mov	r3, r0
+ 340 0010 1A1C     		mov	r2, r3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 15
+
+
+ 341 0012 1023     		mov	r3, #16
+ 342 0014 1340     		and	r3, r2
+ 343 0016 F6D1     		bne	.L23
+ 458:.\Generated_Source\PSoC4/PWM_1.c ****             }
+ 459:.\Generated_Source\PSoC4/PWM_1.c ****         }
+ 344              		.loc 1 459 0
+ 345 0018 BD46     		mov	sp, r7
+ 346              		@ sp needed
+ 347 001a 80BD     		pop	{r7, pc}
+ 348              		.cfi_endproc
+ 349              	.LFE6:
+ 350              		.size	PWM_1_ClearFIFO, .-PWM_1_ClearFIFO
+ 351              		.section	.text.PWM_1_WritePeriod,"ax",%progbits
+ 352              		.align	2
+ 353              		.global	PWM_1_WritePeriod
+ 354              		.code	16
+ 355              		.thumb_func
+ 356              		.type	PWM_1_WritePeriod, %function
+ 357              	PWM_1_WritePeriod:
+ 358              	.LFB7:
+ 460:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 461:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* PWM_1_UseStatus */
+ 462:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 463:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* !PWM_1_UsingFixedFunction */
+ 464:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 465:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 466:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+ 467:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_WritePeriod
+ 468:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+ 469:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 470:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+ 471:.\Generated_Source\PSoC4/PWM_1.c **** *  This function is used to change the period of the counter.  The new period
+ 472:.\Generated_Source\PSoC4/PWM_1.c **** *  will be loaded the next time terminal count is detected.
+ 473:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 474:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+ 475:.\Generated_Source\PSoC4/PWM_1.c **** *  period:  Period value. May be between 1 and (2^Resolution)-1.  A value of 0
+ 476:.\Generated_Source\PSoC4/PWM_1.c **** *           will result in the counter remaining at zero.
+ 477:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 478:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+ 479:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 480:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 481:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+ 482:.\Generated_Source\PSoC4/PWM_1.c **** void PWM_1_WritePeriod(uint16 period) 
+ 483:.\Generated_Source\PSoC4/PWM_1.c **** {
+ 359              		.loc 1 483 0
+ 360              		.cfi_startproc
+ 361 0000 80B5     		push	{r7, lr}
+ 362              		.cfi_def_cfa_offset 8
+ 363              		.cfi_offset 7, -8
+ 364              		.cfi_offset 14, -4
+ 365 0002 82B0     		sub	sp, sp, #8
+ 366              		.cfi_def_cfa_offset 16
+ 367 0004 00AF     		add	r7, sp, #0
+ 368              		.cfi_def_cfa_register 7
+ 369 0006 021C     		mov	r2, r0
+ 370 0008 BB1D     		add	r3, r7, #6
+ 371 000a 1A80     		strh	r2, [r3]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 16
+
+
+ 484:.\Generated_Source\PSoC4/PWM_1.c ****     #if(PWM_1_UsingFixedFunction)
+ 485:.\Generated_Source\PSoC4/PWM_1.c ****         CY_SET_REG16(PWM_1_PERIOD_LSB_PTR, (uint16)period);
+ 486:.\Generated_Source\PSoC4/PWM_1.c ****     #else
+ 487:.\Generated_Source\PSoC4/PWM_1.c ****         CY_SET_REG16(PWM_1_PERIOD_LSB_PTR, period);
+ 372              		.loc 1 487 0
+ 373 000c 034B     		ldr	r3, .L25
+ 374 000e BA1D     		add	r2, r7, #6
+ 375 0010 1288     		ldrh	r2, [r2]
+ 376 0012 1A80     		strh	r2, [r3]
+ 488:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 489:.\Generated_Source\PSoC4/PWM_1.c **** }
+ 377              		.loc 1 489 0
+ 378 0014 BD46     		mov	sp, r7
+ 379 0016 02B0     		add	sp, sp, #8
+ 380              		@ sp needed
+ 381 0018 80BD     		pop	{r7, pc}
+ 382              	.L26:
+ 383 001a C046     		.align	2
+ 384              	.L25:
+ 385 001c 84100F40 		.word	1074729092
+ 386              		.cfi_endproc
+ 387              	.LFE7:
+ 388              		.size	PWM_1_WritePeriod, .-PWM_1_WritePeriod
+ 389              		.section	.text.PWM_1_WriteCompare,"ax",%progbits
+ 390              		.align	2
+ 391              		.global	PWM_1_WriteCompare
+ 392              		.code	16
+ 393              		.thumb_func
+ 394              		.type	PWM_1_WriteCompare, %function
+ 395              	PWM_1_WriteCompare:
+ 396              	.LFB8:
+ 490:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 491:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_UseOneCompareMode)
+ 492:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 493:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 494:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 495:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteCompare
+ 496:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 497:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 498:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 499:.\Generated_Source\PSoC4/PWM_1.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
+ 500:.\Generated_Source\PSoC4/PWM_1.c ****     *  mode. The compare output will reflect the new value on the next UDB clock.
+ 501:.\Generated_Source\PSoC4/PWM_1.c ****     *  The compare output will be driven high when the present counter value is
+ 502:.\Generated_Source\PSoC4/PWM_1.c ****     *  compared to the compare value based on the compare mode defined in
+ 503:.\Generated_Source\PSoC4/PWM_1.c ****     *  Dither Mode.
+ 504:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 505:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 506:.\Generated_Source\PSoC4/PWM_1.c ****     *  compare:  New compare value.
+ 507:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 508:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 509:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 510:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 511:.\Generated_Source\PSoC4/PWM_1.c ****     * Side Effects:
+ 512:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function is only available if the PWM mode parameter is set to
+ 513:.\Generated_Source\PSoC4/PWM_1.c ****     *  Dither Mode, Center Aligned Mode or One Output Mode
+ 514:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 515:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 17
+
+
+ 516:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteCompare(uint16 compare) \
+ 517:.\Generated_Source\PSoC4/PWM_1.c ****                                        
+ 518:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 397              		.loc 1 518 0
+ 398              		.cfi_startproc
+ 399 0000 80B5     		push	{r7, lr}
+ 400              		.cfi_def_cfa_offset 8
+ 401              		.cfi_offset 7, -8
+ 402              		.cfi_offset 14, -4
+ 403 0002 82B0     		sub	sp, sp, #8
+ 404              		.cfi_def_cfa_offset 16
+ 405 0004 00AF     		add	r7, sp, #0
+ 406              		.cfi_def_cfa_register 7
+ 407 0006 021C     		mov	r2, r0
+ 408 0008 BB1D     		add	r3, r7, #6
+ 409 000a 1A80     		strh	r2, [r3]
+ 519:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UsingFixedFunction)
+ 520:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, (uint16)compare);
+ 521:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 522:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, compare);
+ 410              		.loc 1 522 0
+ 411 000c 034B     		ldr	r3, .L28
+ 412 000e BA1D     		add	r2, r7, #6
+ 413 0010 1288     		ldrh	r2, [r2]
+ 414 0012 1A80     		strh	r2, [r3]
+ 523:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UsingFixedFunction) */
+ 524:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 525:.\Generated_Source\PSoC4/PWM_1.c ****         #if (PWM_1_PWMMode == PWM_1__B_PWM__DITHER)
+ 526:.\Generated_Source\PSoC4/PWM_1.c ****             #if(PWM_1_UsingFixedFunction)
+ 527:.\Generated_Source\PSoC4/PWM_1.c ****                 CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, (uint16)(compare + 1u));
+ 528:.\Generated_Source\PSoC4/PWM_1.c ****             #else
+ 529:.\Generated_Source\PSoC4/PWM_1.c ****                 CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, (compare + 1u));
+ 530:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (PWM_1_UsingFixedFunction) */
+ 531:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_PWMMode == PWM_1__B_PWM__DITHER) */
+ 532:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 415              		.loc 1 532 0
+ 416 0014 BD46     		mov	sp, r7
+ 417 0016 02B0     		add	sp, sp, #8
+ 418              		@ sp needed
+ 419 0018 80BD     		pop	{r7, pc}
+ 420              	.L29:
+ 421 001a C046     		.align	2
+ 422              	.L28:
+ 423 001c 44100F40 		.word	1074729028
+ 424              		.cfi_endproc
+ 425              	.LFE8:
+ 426              		.size	PWM_1_WriteCompare, .-PWM_1_WriteCompare
+ 427              		.section	.text.PWM_1_SetInterruptMode,"ax",%progbits
+ 428              		.align	2
+ 429              		.global	PWM_1_SetInterruptMode
+ 430              		.code	16
+ 431              		.thumb_func
+ 432              		.type	PWM_1_SetInterruptMode, %function
+ 433              	PWM_1_SetInterruptMode:
+ 434              	.LFB9:
+ 533:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 534:.\Generated_Source\PSoC4/PWM_1.c **** 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 18
+
+
+ 535:.\Generated_Source\PSoC4/PWM_1.c **** #else
+ 536:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 537:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 538:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 539:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteCompare1
+ 540:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 541:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 542:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 543:.\Generated_Source\PSoC4/PWM_1.c ****     *  This funtion is used to change the compare1 value.  The compare output will
+ 544:.\Generated_Source\PSoC4/PWM_1.c ****     *  reflect the new value on the next UDB clock.  The compare output will be
+ 545:.\Generated_Source\PSoC4/PWM_1.c ****     *  driven high when the present counter value is less than or less than or
+ 546:.\Generated_Source\PSoC4/PWM_1.c ****     *  equal to the compare register, depending on the mode.
+ 547:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 548:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 549:.\Generated_Source\PSoC4/PWM_1.c ****     *  compare:  New compare value.
+ 550:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 551:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 552:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 553:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 554:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 555:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteCompare1(uint16 compare) \
+ 556:.\Generated_Source\PSoC4/PWM_1.c ****                                         
+ 557:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 558:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UsingFixedFunction)
+ 559:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, (uint16)compare);
+ 560:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 561:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, compare);
+ 562:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UsingFixedFunction) */
+ 563:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 564:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 565:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 566:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 567:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteCompare2
+ 568:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 569:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 570:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 571:.\Generated_Source\PSoC4/PWM_1.c ****     *  This funtion is used to change the compare value, for compare1 output.
+ 572:.\Generated_Source\PSoC4/PWM_1.c ****     *  The compare output will reflect the new value on the next UDB clock.
+ 573:.\Generated_Source\PSoC4/PWM_1.c ****     *  The compare output will be driven high when the present counter value is
+ 574:.\Generated_Source\PSoC4/PWM_1.c ****     *  less than or less than or equal to the compare register, depending on the
+ 575:.\Generated_Source\PSoC4/PWM_1.c ****     *  mode.
+ 576:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 577:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 578:.\Generated_Source\PSoC4/PWM_1.c ****     *  compare:  New compare value.
+ 579:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 580:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 581:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 582:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 583:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 584:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteCompare2(uint16 compare) \
+ 585:.\Generated_Source\PSoC4/PWM_1.c ****                                         
+ 586:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 587:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UsingFixedFunction)
+ 588:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, compare);
+ 589:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 590:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, compare);
+ 591:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UsingFixedFunction) */
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 19
+
+
+ 592:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 593:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* UseOneCompareMode */
+ 594:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 595:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_DeadBandUsed)
+ 596:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 597:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 598:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 599:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteDeadTime
+ 600:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 601:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 602:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 603:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function writes the dead-band counts to the corresponding register
+ 604:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 605:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 606:.\Generated_Source\PSoC4/PWM_1.c ****     *  deadtime:  Number of counts for dead time
+ 607:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 608:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 609:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 610:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 611:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 612:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteDeadTime(uint8 deadtime) 
+ 613:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 614:.\Generated_Source\PSoC4/PWM_1.c ****         /* If using the Dead Band 1-255 mode then just write the register */
+ 615:.\Generated_Source\PSoC4/PWM_1.c ****         #if(!PWM_1_DeadBand2_4)
+ 616:.\Generated_Source\PSoC4/PWM_1.c ****             CY_SET_REG8(PWM_1_DEADBAND_COUNT_PTR, deadtime);
+ 617:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 618:.\Generated_Source\PSoC4/PWM_1.c ****             /* Otherwise the data has to be masked and offset */
+ 619:.\Generated_Source\PSoC4/PWM_1.c ****             /* Clear existing data */
+ 620:.\Generated_Source\PSoC4/PWM_1.c ****             PWM_1_DEADBAND_COUNT &= ((uint8)(~PWM_1_DEADBAND_COUNT_MASK));
+ 621:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 622:.\Generated_Source\PSoC4/PWM_1.c ****             /* Set new dead time */
+ 623:.\Generated_Source\PSoC4/PWM_1.c ****             #if(PWM_1_DEADBAND_COUNT_SHIFT)
+ 624:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_DEADBAND_COUNT |= ((uint8)((uint8)deadtime << PWM_1_DEADBAND_COUNT_SHIFT)) &
+ 625:.\Generated_Source\PSoC4/PWM_1.c ****                                                     PWM_1_DEADBAND_COUNT_MASK;
+ 626:.\Generated_Source\PSoC4/PWM_1.c ****             #else
+ 627:.\Generated_Source\PSoC4/PWM_1.c ****                 PWM_1_DEADBAND_COUNT |= deadtime & PWM_1_DEADBAND_COUNT_MASK;
+ 628:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (PWM_1_DEADBAND_COUNT_SHIFT) */
+ 629:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 630:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (!PWM_1_DeadBand2_4) */
+ 631:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 632:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 633:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 634:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 635:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadDeadTime
+ 636:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 637:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 638:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 639:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function reads the dead-band counts from the corresponding register
+ 640:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 641:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 642:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 643:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 644:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 645:.\Generated_Source\PSoC4/PWM_1.c ****     *  Dead Band Counts
+ 646:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 647:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 648:.\Generated_Source\PSoC4/PWM_1.c ****     uint8 PWM_1_ReadDeadTime(void) 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 20
+
+
+ 649:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 650:.\Generated_Source\PSoC4/PWM_1.c ****         /* If using the Dead Band 1-255 mode then just read the register */
+ 651:.\Generated_Source\PSoC4/PWM_1.c ****         #if(!PWM_1_DeadBand2_4)
+ 652:.\Generated_Source\PSoC4/PWM_1.c ****             return (CY_GET_REG8(PWM_1_DEADBAND_COUNT_PTR));
+ 653:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 654:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 655:.\Generated_Source\PSoC4/PWM_1.c ****             /* Otherwise the data has to be masked and offset */
+ 656:.\Generated_Source\PSoC4/PWM_1.c ****             #if(PWM_1_DEADBAND_COUNT_SHIFT)
+ 657:.\Generated_Source\PSoC4/PWM_1.c ****                 return ((uint8)(((uint8)(PWM_1_DEADBAND_COUNT & PWM_1_DEADBAND_COUNT_MASK)) >>
+ 658:.\Generated_Source\PSoC4/PWM_1.c ****                                                                            PWM_1_DEADBAND_COUNT_SHI
+ 659:.\Generated_Source\PSoC4/PWM_1.c ****             #else
+ 660:.\Generated_Source\PSoC4/PWM_1.c ****                 return (PWM_1_DEADBAND_COUNT & PWM_1_DEADBAND_COUNT_MASK);
+ 661:.\Generated_Source\PSoC4/PWM_1.c ****             #endif /* (PWM_1_DEADBAND_COUNT_SHIFT) */
+ 662:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (!PWM_1_DeadBand2_4) */
+ 663:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 664:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* DeadBandUsed */
+ 665:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 666:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_UseStatus || PWM_1_UsingFixedFunction)
+ 667:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 668:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 669:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 670:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_SetInterruptMode
+ 671:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 672:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 673:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 674:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function configures the interrupts mask control of theinterrupt
+ 675:.\Generated_Source\PSoC4/PWM_1.c ****     *  source status register.
+ 676:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 677:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 678:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8 interruptMode: Bit field containing the interrupt sources enabled
+ 679:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 680:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 681:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 682:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 683:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 684:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_SetInterruptMode(uint8 interruptMode) 
+ 685:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 435              		.loc 1 685 0
+ 436              		.cfi_startproc
+ 437 0000 80B5     		push	{r7, lr}
+ 438              		.cfi_def_cfa_offset 8
+ 439              		.cfi_offset 7, -8
+ 440              		.cfi_offset 14, -4
+ 441 0002 82B0     		sub	sp, sp, #8
+ 442              		.cfi_def_cfa_offset 16
+ 443 0004 00AF     		add	r7, sp, #0
+ 444              		.cfi_def_cfa_register 7
+ 445 0006 021C     		mov	r2, r0
+ 446 0008 FB1D     		add	r3, r7, #7
+ 447 000a 1A70     		strb	r2, [r3]
+ 686:.\Generated_Source\PSoC4/PWM_1.c ****         CY_SET_REG8(PWM_1_STATUS_MASK_PTR, interruptMode);
+ 448              		.loc 1 686 0
+ 449 000c 034B     		ldr	r3, .L31
+ 450 000e FA1D     		add	r2, r7, #7
+ 451 0010 1278     		ldrb	r2, [r2]
+ 452 0012 1A70     		strb	r2, [r3]
+ 687:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 21
+
+
+ 453              		.loc 1 687 0
+ 454 0014 BD46     		mov	sp, r7
+ 455 0016 02B0     		add	sp, sp, #8
+ 456              		@ sp needed
+ 457 0018 80BD     		pop	{r7, pc}
+ 458              	.L32:
+ 459 001a C046     		.align	2
+ 460              	.L31:
+ 461 001c 83000F40 		.word	1074724995
+ 462              		.cfi_endproc
+ 463              	.LFE9:
+ 464              		.size	PWM_1_SetInterruptMode, .-PWM_1_SetInterruptMode
+ 465              		.section	.text.PWM_1_ReadStatusRegister,"ax",%progbits
+ 466              		.align	2
+ 467              		.global	PWM_1_ReadStatusRegister
+ 468              		.code	16
+ 469              		.thumb_func
+ 470              		.type	PWM_1_ReadStatusRegister, %function
+ 471              	PWM_1_ReadStatusRegister:
+ 472              	.LFB10:
+ 688:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 689:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 690:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 691:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadStatusRegister
+ 692:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 693:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 694:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 695:.\Generated_Source\PSoC4/PWM_1.c ****     *  This function returns the current state of the status register.
+ 696:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 697:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 698:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 699:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 700:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 701:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8 : Current status register value. The status register bits are:
+ 702:.\Generated_Source\PSoC4/PWM_1.c ****     *  [7:6] : Unused(0)
+ 703:.\Generated_Source\PSoC4/PWM_1.c ****     *  [5]   : Kill event output
+ 704:.\Generated_Source\PSoC4/PWM_1.c ****     *  [4]   : FIFO not empty
+ 705:.\Generated_Source\PSoC4/PWM_1.c ****     *  [3]   : FIFO full
+ 706:.\Generated_Source\PSoC4/PWM_1.c ****     *  [2]   : Terminal count
+ 707:.\Generated_Source\PSoC4/PWM_1.c ****     *  [1]   : Compare output 2
+ 708:.\Generated_Source\PSoC4/PWM_1.c ****     *  [0]   : Compare output 1
+ 709:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 710:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 711:.\Generated_Source\PSoC4/PWM_1.c ****     uint8 PWM_1_ReadStatusRegister(void) 
+ 712:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 473              		.loc 1 712 0
+ 474              		.cfi_startproc
+ 475 0000 80B5     		push	{r7, lr}
+ 476              		.cfi_def_cfa_offset 8
+ 477              		.cfi_offset 7, -8
+ 478              		.cfi_offset 14, -4
+ 479 0002 00AF     		add	r7, sp, #0
+ 480              		.cfi_def_cfa_register 7
+ 713:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG8(PWM_1_STATUS_PTR));
+ 481              		.loc 1 713 0
+ 482 0004 024B     		ldr	r3, .L35
+ 483 0006 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 22
+
+
+ 484 0008 DBB2     		uxtb	r3, r3
+ 714:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 485              		.loc 1 714 0
+ 486 000a 181C     		mov	r0, r3
+ 487 000c BD46     		mov	sp, r7
+ 488              		@ sp needed
+ 489 000e 80BD     		pop	{r7, pc}
+ 490              	.L36:
+ 491              		.align	2
+ 492              	.L35:
+ 493 0010 63000F40 		.word	1074724963
+ 494              		.cfi_endproc
+ 495              	.LFE10:
+ 496              		.size	PWM_1_ReadStatusRegister, .-PWM_1_ReadStatusRegister
+ 497              		.section	.text.PWM_1_ReadControlRegister,"ax",%progbits
+ 498              		.align	2
+ 499              		.global	PWM_1_ReadControlRegister
+ 500              		.code	16
+ 501              		.thumb_func
+ 502              		.type	PWM_1_ReadControlRegister, %function
+ 503              	PWM_1_ReadControlRegister:
+ 504              	.LFB11:
+ 715:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 716:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* (PWM_1_UseStatus || PWM_1_UsingFixedFunction) */
+ 717:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 718:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 719:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_UseControl)
+ 720:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 721:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 722:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 723:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadControlRegister
+ 724:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 725:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 726:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 727:.\Generated_Source\PSoC4/PWM_1.c ****     *  Returns the current state of the control register. This API is available
+ 728:.\Generated_Source\PSoC4/PWM_1.c ****     *  only if the control register is not removed.
+ 729:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 730:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 731:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 732:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 733:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 734:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8 : Current control register value
+ 735:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 736:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 737:.\Generated_Source\PSoC4/PWM_1.c ****     uint8 PWM_1_ReadControlRegister(void) 
+ 738:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 505              		.loc 1 738 0
+ 506              		.cfi_startproc
+ 507 0000 80B5     		push	{r7, lr}
+ 508              		.cfi_def_cfa_offset 8
+ 509              		.cfi_offset 7, -8
+ 510              		.cfi_offset 14, -4
+ 511 0002 82B0     		sub	sp, sp, #8
+ 512              		.cfi_def_cfa_offset 16
+ 513 0004 00AF     		add	r7, sp, #0
+ 514              		.cfi_def_cfa_register 7
+ 739:.\Generated_Source\PSoC4/PWM_1.c ****         uint8 result;
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 23
+
+
+ 740:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 741:.\Generated_Source\PSoC4/PWM_1.c ****         result = CY_GET_REG8(PWM_1_CONTROL_PTR);
+ 515              		.loc 1 741 0
+ 516 0006 054A     		ldr	r2, .L39
+ 517 0008 FB1D     		add	r3, r7, #7
+ 518 000a 1278     		ldrb	r2, [r2]
+ 519 000c 1A70     		strb	r2, [r3]
+ 742:.\Generated_Source\PSoC4/PWM_1.c ****         return (result);
+ 520              		.loc 1 742 0
+ 521 000e FB1D     		add	r3, r7, #7
+ 522 0010 1B78     		ldrb	r3, [r3]
+ 743:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 523              		.loc 1 743 0
+ 524 0012 181C     		mov	r0, r3
+ 525 0014 BD46     		mov	sp, r7
+ 526 0016 02B0     		add	sp, sp, #8
+ 527              		@ sp needed
+ 528 0018 80BD     		pop	{r7, pc}
+ 529              	.L40:
+ 530 001a C046     		.align	2
+ 531              	.L39:
+ 532 001c 72000F40 		.word	1074724978
+ 533              		.cfi_endproc
+ 534              	.LFE11:
+ 535              		.size	PWM_1_ReadControlRegister, .-PWM_1_ReadControlRegister
+ 536              		.section	.text.PWM_1_WriteControlRegister,"ax",%progbits
+ 537              		.align	2
+ 538              		.global	PWM_1_WriteControlRegister
+ 539              		.code	16
+ 540              		.thumb_func
+ 541              		.type	PWM_1_WriteControlRegister, %function
+ 542              	PWM_1_WriteControlRegister:
+ 543              	.LFB12:
+ 744:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 745:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 746:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 747:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_WriteControlRegister
+ 748:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 749:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 750:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 751:.\Generated_Source\PSoC4/PWM_1.c ****     *  Sets the bit field of the control register. This API is available only if
+ 752:.\Generated_Source\PSoC4/PWM_1.c ****     *  the control register is not removed.
+ 753:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 754:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 755:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8 control: Control register bit field, The status register bits are:
+ 756:.\Generated_Source\PSoC4/PWM_1.c ****     *  [7]   : PWM Enable
+ 757:.\Generated_Source\PSoC4/PWM_1.c ****     *  [6]   : Reset
+ 758:.\Generated_Source\PSoC4/PWM_1.c ****     *  [5:3] : Compare Mode2
+ 759:.\Generated_Source\PSoC4/PWM_1.c ****     *  [2:0] : Compare Mode2
+ 760:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 761:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 762:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 763:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 764:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 765:.\Generated_Source\PSoC4/PWM_1.c ****     void PWM_1_WriteControlRegister(uint8 control) 
+ 766:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 544              		.loc 1 766 0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 24
+
+
+ 545              		.cfi_startproc
+ 546 0000 80B5     		push	{r7, lr}
+ 547              		.cfi_def_cfa_offset 8
+ 548              		.cfi_offset 7, -8
+ 549              		.cfi_offset 14, -4
+ 550 0002 82B0     		sub	sp, sp, #8
+ 551              		.cfi_def_cfa_offset 16
+ 552 0004 00AF     		add	r7, sp, #0
+ 553              		.cfi_def_cfa_register 7
+ 554 0006 021C     		mov	r2, r0
+ 555 0008 FB1D     		add	r3, r7, #7
+ 556 000a 1A70     		strb	r2, [r3]
+ 767:.\Generated_Source\PSoC4/PWM_1.c ****         CY_SET_REG8(PWM_1_CONTROL_PTR, control);
+ 557              		.loc 1 767 0
+ 558 000c 034B     		ldr	r3, .L42
+ 559 000e FA1D     		add	r2, r7, #7
+ 560 0010 1278     		ldrb	r2, [r2]
+ 561 0012 1A70     		strb	r2, [r3]
+ 768:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 562              		.loc 1 768 0
+ 563 0014 BD46     		mov	sp, r7
+ 564 0016 02B0     		add	sp, sp, #8
+ 565              		@ sp needed
+ 566 0018 80BD     		pop	{r7, pc}
+ 567              	.L43:
+ 568 001a C046     		.align	2
+ 569              	.L42:
+ 570 001c 72000F40 		.word	1074724978
+ 571              		.cfi_endproc
+ 572              	.LFE12:
+ 573              		.size	PWM_1_WriteControlRegister, .-PWM_1_WriteControlRegister
+ 574              		.section	.text.PWM_1_ReadCapture,"ax",%progbits
+ 575              		.align	2
+ 576              		.global	PWM_1_ReadCapture
+ 577              		.code	16
+ 578              		.thumb_func
+ 579              		.type	PWM_1_ReadCapture, %function
+ 580              	PWM_1_ReadCapture:
+ 581              	.LFB13:
+ 769:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 770:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* (PWM_1_UseControl) */
+ 771:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 772:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 773:.\Generated_Source\PSoC4/PWM_1.c **** #if (!PWM_1_UsingFixedFunction)
+ 774:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 775:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 776:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 777:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadCapture
+ 778:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 779:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 780:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 781:.\Generated_Source\PSoC4/PWM_1.c ****     *  Reads the capture value from the capture FIFO.
+ 782:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 783:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 784:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 785:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 786:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 25
+
+
+ 787:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8/uint16: The current capture value
+ 788:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 789:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 790:.\Generated_Source\PSoC4/PWM_1.c ****     uint16 PWM_1_ReadCapture(void) 
+ 791:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 582              		.loc 1 791 0
+ 583              		.cfi_startproc
+ 584 0000 80B5     		push	{r7, lr}
+ 585              		.cfi_def_cfa_offset 8
+ 586              		.cfi_offset 7, -8
+ 587              		.cfi_offset 14, -4
+ 588 0002 00AF     		add	r7, sp, #0
+ 589              		.cfi_def_cfa_register 7
+ 792:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG16(PWM_1_CAPTURE_LSB_PTR));
+ 590              		.loc 1 792 0
+ 591 0004 024B     		ldr	r3, .L46
+ 592 0006 1B88     		ldrh	r3, [r3]
+ 593 0008 9BB2     		uxth	r3, r3
+ 793:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 594              		.loc 1 793 0
+ 595 000a 181C     		mov	r0, r3
+ 596 000c BD46     		mov	sp, r7
+ 597              		@ sp needed
+ 598 000e 80BD     		pop	{r7, pc}
+ 599              	.L47:
+ 600              		.align	2
+ 601              	.L46:
+ 602 0010 A4100F40 		.word	1074729124
+ 603              		.cfi_endproc
+ 604              	.LFE13:
+ 605              		.size	PWM_1_ReadCapture, .-PWM_1_ReadCapture
+ 606              		.section	.text.PWM_1_ReadCompare,"ax",%progbits
+ 607              		.align	2
+ 608              		.global	PWM_1_ReadCompare
+ 609              		.code	16
+ 610              		.thumb_func
+ 611              		.type	PWM_1_ReadCompare, %function
+ 612              	PWM_1_ReadCompare:
+ 613              	.LFB14:
+ 794:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 795:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* (!PWM_1_UsingFixedFunction) */
+ 796:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 797:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 798:.\Generated_Source\PSoC4/PWM_1.c **** #if (PWM_1_UseOneCompareMode)
+ 799:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 800:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 801:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 802:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadCompare
+ 803:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 804:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 805:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 806:.\Generated_Source\PSoC4/PWM_1.c ****     *  Reads the compare value for the compare output when the PWM Mode parameter is
+ 807:.\Generated_Source\PSoC4/PWM_1.c ****     *  set to Dither mode, Center Aligned mode, or One Output mode.
+ 808:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 809:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 810:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 811:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 26
+
+
+ 812:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 813:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8/uint16: Current compare value
+ 814:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 815:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 816:.\Generated_Source\PSoC4/PWM_1.c ****     uint16 PWM_1_ReadCompare(void) 
+ 817:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 614              		.loc 1 817 0
+ 615              		.cfi_startproc
+ 616 0000 80B5     		push	{r7, lr}
+ 617              		.cfi_def_cfa_offset 8
+ 618              		.cfi_offset 7, -8
+ 619              		.cfi_offset 14, -4
+ 620 0002 00AF     		add	r7, sp, #0
+ 621              		.cfi_def_cfa_register 7
+ 818:.\Generated_Source\PSoC4/PWM_1.c ****         #if(PWM_1_UsingFixedFunction)
+ 819:.\Generated_Source\PSoC4/PWM_1.c ****             return ((uint16)CY_GET_REG16(PWM_1_COMPARE1_LSB_PTR));
+ 820:.\Generated_Source\PSoC4/PWM_1.c ****         #else
+ 821:.\Generated_Source\PSoC4/PWM_1.c ****             return (CY_GET_REG16(PWM_1_COMPARE1_LSB_PTR));
+ 622              		.loc 1 821 0
+ 623 0004 024B     		ldr	r3, .L50
+ 624 0006 1B88     		ldrh	r3, [r3]
+ 625 0008 9BB2     		uxth	r3, r3
+ 822:.\Generated_Source\PSoC4/PWM_1.c ****         #endif /* (PWM_1_UsingFixedFunction) */
+ 823:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 626              		.loc 1 823 0
+ 627 000a 181C     		mov	r0, r3
+ 628 000c BD46     		mov	sp, r7
+ 629              		@ sp needed
+ 630 000e 80BD     		pop	{r7, pc}
+ 631              	.L51:
+ 632              		.align	2
+ 633              	.L50:
+ 634 0010 44100F40 		.word	1074729028
+ 635              		.cfi_endproc
+ 636              	.LFE14:
+ 637              		.size	PWM_1_ReadCompare, .-PWM_1_ReadCompare
+ 638              		.section	.text.PWM_1_ReadPeriod,"ax",%progbits
+ 639              		.align	2
+ 640              		.global	PWM_1_ReadPeriod
+ 641              		.code	16
+ 642              		.thumb_func
+ 643              		.type	PWM_1_ReadPeriod, %function
+ 644              	PWM_1_ReadPeriod:
+ 645              	.LFB15:
+ 824:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 825:.\Generated_Source\PSoC4/PWM_1.c **** #else
+ 826:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 827:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 828:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 829:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadCompare1
+ 830:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 831:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 832:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 833:.\Generated_Source\PSoC4/PWM_1.c ****     *  Reads the compare value for the compare1 output.
+ 834:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 835:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 836:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 27
+
+
+ 837:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 838:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 839:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8/uint16: Current compare value.
+ 840:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 841:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 842:.\Generated_Source\PSoC4/PWM_1.c ****     uint16 PWM_1_ReadCompare1(void) 
+ 843:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 844:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG16(PWM_1_COMPARE1_LSB_PTR));
+ 845:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 846:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 847:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 848:.\Generated_Source\PSoC4/PWM_1.c ****     /*******************************************************************************
+ 849:.\Generated_Source\PSoC4/PWM_1.c ****     * Function Name: PWM_1_ReadCompare2
+ 850:.\Generated_Source\PSoC4/PWM_1.c ****     ********************************************************************************
+ 851:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 852:.\Generated_Source\PSoC4/PWM_1.c ****     * Summary:
+ 853:.\Generated_Source\PSoC4/PWM_1.c ****     *  Reads the compare value for the compare2 output.
+ 854:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 855:.\Generated_Source\PSoC4/PWM_1.c ****     * Parameters:
+ 856:.\Generated_Source\PSoC4/PWM_1.c ****     *  None
+ 857:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 858:.\Generated_Source\PSoC4/PWM_1.c ****     * Return:
+ 859:.\Generated_Source\PSoC4/PWM_1.c ****     *  uint8/uint16: Current compare value.
+ 860:.\Generated_Source\PSoC4/PWM_1.c ****     *
+ 861:.\Generated_Source\PSoC4/PWM_1.c ****     *******************************************************************************/
+ 862:.\Generated_Source\PSoC4/PWM_1.c ****     uint16 PWM_1_ReadCompare2(void) 
+ 863:.\Generated_Source\PSoC4/PWM_1.c ****     {
+ 864:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG16(PWM_1_COMPARE2_LSB_PTR));
+ 865:.\Generated_Source\PSoC4/PWM_1.c ****     }
+ 866:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 867:.\Generated_Source\PSoC4/PWM_1.c **** #endif /* (PWM_1_UseOneCompareMode) */
+ 868:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 869:.\Generated_Source\PSoC4/PWM_1.c **** 
+ 870:.\Generated_Source\PSoC4/PWM_1.c **** /*******************************************************************************
+ 871:.\Generated_Source\PSoC4/PWM_1.c **** * Function Name: PWM_1_ReadPeriod
+ 872:.\Generated_Source\PSoC4/PWM_1.c **** ********************************************************************************
+ 873:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 874:.\Generated_Source\PSoC4/PWM_1.c **** * Summary:
+ 875:.\Generated_Source\PSoC4/PWM_1.c **** *  Reads the period value used by the PWM hardware.
+ 876:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 877:.\Generated_Source\PSoC4/PWM_1.c **** * Parameters:
+ 878:.\Generated_Source\PSoC4/PWM_1.c **** *  None
+ 879:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 880:.\Generated_Source\PSoC4/PWM_1.c **** * Return:
+ 881:.\Generated_Source\PSoC4/PWM_1.c **** *  uint8/16: Period value
+ 882:.\Generated_Source\PSoC4/PWM_1.c **** *
+ 883:.\Generated_Source\PSoC4/PWM_1.c **** *******************************************************************************/
+ 884:.\Generated_Source\PSoC4/PWM_1.c **** uint16 PWM_1_ReadPeriod(void) 
+ 885:.\Generated_Source\PSoC4/PWM_1.c **** {
+ 646              		.loc 1 885 0
+ 647              		.cfi_startproc
+ 648 0000 80B5     		push	{r7, lr}
+ 649              		.cfi_def_cfa_offset 8
+ 650              		.cfi_offset 7, -8
+ 651              		.cfi_offset 14, -4
+ 652 0002 00AF     		add	r7, sp, #0
+ 653              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 28
+
+
+ 886:.\Generated_Source\PSoC4/PWM_1.c ****     #if(PWM_1_UsingFixedFunction)
+ 887:.\Generated_Source\PSoC4/PWM_1.c ****         return ((uint16)CY_GET_REG16(PWM_1_PERIOD_LSB_PTR));
+ 888:.\Generated_Source\PSoC4/PWM_1.c ****     #else
+ 889:.\Generated_Source\PSoC4/PWM_1.c ****         return (CY_GET_REG16(PWM_1_PERIOD_LSB_PTR));
+ 654              		.loc 1 889 0
+ 655 0004 024B     		ldr	r3, .L54
+ 656 0006 1B88     		ldrh	r3, [r3]
+ 657 0008 9BB2     		uxth	r3, r3
+ 890:.\Generated_Source\PSoC4/PWM_1.c ****     #endif /* (PWM_1_UsingFixedFunction) */
+ 891:.\Generated_Source\PSoC4/PWM_1.c **** }
+ 658              		.loc 1 891 0
+ 659 000a 181C     		mov	r0, r3
+ 660 000c BD46     		mov	sp, r7
+ 661              		@ sp needed
+ 662 000e 80BD     		pop	{r7, pc}
+ 663              	.L55:
+ 664              		.align	2
+ 665              	.L54:
+ 666 0010 84100F40 		.word	1074729092
+ 667              		.cfi_endproc
+ 668              	.LFE15:
+ 669              		.size	PWM_1_ReadPeriod, .-PWM_1_ReadPeriod
+ 670              		.text
+ 671              	.Letext0:
+ 672              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 673              		.section	.debug_info,"",%progbits
+ 674              	.Ldebug_info0:
+ 675 0000 9A020000 		.4byte	0x29a
+ 676 0004 0400     		.2byte	0x4
+ 677 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 678 000a 04       		.byte	0x4
+ 679 000b 01       		.uleb128 0x1
+ 680 000c 6F000000 		.4byte	.LASF40
+ 681 0010 01       		.byte	0x1
+ 682 0011 BA020000 		.4byte	.LASF41
+ 683 0015 4A010000 		.4byte	.LASF42
+ 684 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 685 001d 00000000 		.4byte	0
+ 686 0021 00000000 		.4byte	.Ldebug_line0
+ 687 0025 02       		.uleb128 0x2
+ 688 0026 01       		.byte	0x1
+ 689 0027 06       		.byte	0x6
+ 690 0028 06030000 		.4byte	.LASF0
+ 691 002c 02       		.uleb128 0x2
+ 692 002d 01       		.byte	0x1
+ 693 002e 08       		.byte	0x8
+ 694 002f 06010000 		.4byte	.LASF1
+ 695 0033 02       		.uleb128 0x2
+ 696 0034 02       		.byte	0x2
+ 697 0035 05       		.byte	0x5
+ 698 0036 F0010000 		.4byte	.LASF2
+ 699 003a 02       		.uleb128 0x2
+ 700 003b 02       		.byte	0x2
+ 701 003c 07       		.byte	0x7
+ 702 003d 3D000000 		.4byte	.LASF3
+ 703 0041 02       		.uleb128 0x2
+ 704 0042 04       		.byte	0x4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 29
+
+
+ 705 0043 05       		.byte	0x5
+ 706 0044 F8020000 		.4byte	.LASF4
+ 707 0048 02       		.uleb128 0x2
+ 708 0049 04       		.byte	0x4
+ 709 004a 07       		.byte	0x7
+ 710 004b 2A010000 		.4byte	.LASF5
+ 711 004f 02       		.uleb128 0x2
+ 712 0050 08       		.byte	0x8
+ 713 0051 05       		.byte	0x5
+ 714 0052 72020000 		.4byte	.LASF6
+ 715 0056 02       		.uleb128 0x2
+ 716 0057 08       		.byte	0x8
+ 717 0058 07       		.byte	0x7
+ 718 0059 2B020000 		.4byte	.LASF7
+ 719 005d 03       		.uleb128 0x3
+ 720 005e 04       		.byte	0x4
+ 721 005f 05       		.byte	0x5
+ 722 0060 696E7400 		.ascii	"int\000"
+ 723 0064 02       		.uleb128 0x2
+ 724 0065 04       		.byte	0x4
+ 725 0066 07       		.byte	0x7
+ 726 0067 1E020000 		.4byte	.LASF8
+ 727 006b 04       		.uleb128 0x4
+ 728 006c 3C010000 		.4byte	.LASF9
+ 729 0070 02       		.byte	0x2
+ 730 0071 A1       		.byte	0xa1
+ 731 0072 2C000000 		.4byte	0x2c
+ 732 0076 04       		.uleb128 0x4
+ 733 0077 0C020000 		.4byte	.LASF10
+ 734 007b 02       		.byte	0x2
+ 735 007c A2       		.byte	0xa2
+ 736 007d 3A000000 		.4byte	0x3a
+ 737 0081 02       		.uleb128 0x2
+ 738 0082 04       		.byte	0x4
+ 739 0083 04       		.byte	0x4
+ 740 0084 69000000 		.4byte	.LASF11
+ 741 0088 02       		.uleb128 0x2
+ 742 0089 08       		.byte	0x8
+ 743 008a 04       		.byte	0x4
+ 744 008b C6010000 		.4byte	.LASF12
+ 745 008f 02       		.uleb128 0x2
+ 746 0090 01       		.byte	0x1
+ 747 0091 08       		.byte	0x8
+ 748 0092 01030000 		.4byte	.LASF13
+ 749 0096 05       		.uleb128 0x5
+ 750 0097 14010000 		.4byte	.LASF14
+ 751 009b 02       		.byte	0x2
+ 752 009c 4B01     		.2byte	0x14b
+ 753 009e A2000000 		.4byte	0xa2
+ 754 00a2 06       		.uleb128 0x6
+ 755 00a3 6B000000 		.4byte	0x6b
+ 756 00a7 05       		.uleb128 0x5
+ 757 00a8 00000000 		.4byte	.LASF15
+ 758 00ac 02       		.byte	0x2
+ 759 00ad 4C01     		.2byte	0x14c
+ 760 00af B3000000 		.4byte	0xb3
+ 761 00b3 06       		.uleb128 0x6
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 30
+
+
+ 762 00b4 76000000 		.4byte	0x76
+ 763 00b8 02       		.uleb128 0x2
+ 764 00b9 04       		.byte	0x4
+ 765 00ba 07       		.byte	0x7
+ 766 00bb 56020000 		.4byte	.LASF16
+ 767 00bf 07       		.uleb128 0x7
+ 768 00c0 1A030000 		.4byte	.LASF19
+ 769 00c4 01       		.byte	0x1
+ 770 00c5 37       		.byte	0x37
+ 771 00c6 00000000 		.4byte	.LFB0
+ 772 00ca 24000000 		.4byte	.LFE0-.LFB0
+ 773 00ce 01       		.uleb128 0x1
+ 774 00cf 9C       		.byte	0x9c
+ 775 00d0 08       		.uleb128 0x8
+ 776 00d1 13020000 		.4byte	.LASF22
+ 777 00d5 01       		.byte	0x1
+ 778 00d6 54       		.byte	0x54
+ 779 00d7 00000000 		.4byte	.LFB1
+ 780 00db 9C000000 		.4byte	.LFE1-.LFB1
+ 781 00df 01       		.uleb128 0x1
+ 782 00e0 9C       		.byte	0x9c
+ 783 00e1 02010000 		.4byte	0x102
+ 784 00e5 09       		.uleb128 0x9
+ 785 00e6 51020000 		.4byte	.LASF17
+ 786 00ea 01       		.byte	0x1
+ 787 00eb 57       		.byte	0x57
+ 788 00ec 6B000000 		.4byte	0x6b
+ 789 00f0 02       		.uleb128 0x2
+ 790 00f1 91       		.byte	0x91
+ 791 00f2 6F       		.sleb128 -17
+ 792 00f3 09       		.uleb128 0x9
+ 793 00f4 CD010000 		.4byte	.LASF18
+ 794 00f8 01       		.byte	0x1
+ 795 00f9 5D       		.byte	0x5d
+ 796 00fa 6B000000 		.4byte	0x6b
+ 797 00fe 02       		.uleb128 0x2
+ 798 00ff 91       		.byte	0x91
+ 799 0100 6E       		.sleb128 -18
+ 800 0101 00       		.byte	0
+ 801 0102 0A       		.uleb128 0xa
+ 802 0103 06000000 		.4byte	.LASF20
+ 803 0107 01       		.byte	0x1
+ 804 0108 C7       		.byte	0xc7
+ 805 0109 00000000 		.4byte	.LFB2
+ 806 010d 20000000 		.4byte	.LFE2-.LFB2
+ 807 0111 01       		.uleb128 0x1
+ 808 0112 9C       		.byte	0x9c
+ 809 0113 0A       		.uleb128 0xa
+ 810 0114 ED020000 		.4byte	.LASF21
+ 811 0118 01       		.byte	0x1
+ 812 0119 E9       		.byte	0xe9
+ 813 011a 00000000 		.4byte	.LFB3
+ 814 011e 1C000000 		.4byte	.LFE3-.LFB3
+ 815 0122 01       		.uleb128 0x1
+ 816 0123 9C       		.byte	0x9c
+ 817 0124 0B       		.uleb128 0xb
+ 818 0125 13000000 		.4byte	.LASF23
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 31
+
+
+ 819 0129 01       		.byte	0x1
+ 820 012a 9301     		.2byte	0x193
+ 821 012c 00000000 		.4byte	.LFB4
+ 822 0130 20000000 		.4byte	.LFE4-.LFB4
+ 823 0134 01       		.uleb128 0x1
+ 824 0135 9C       		.byte	0x9c
+ 825 0136 4A010000 		.4byte	0x14a
+ 826 013a 0C       		.uleb128 0xc
+ 827 013b 42020000 		.4byte	.LASF26
+ 828 013f 01       		.byte	0x1
+ 829 0140 9301     		.2byte	0x193
+ 830 0142 76000000 		.4byte	0x76
+ 831 0146 02       		.uleb128 0x2
+ 832 0147 91       		.byte	0x91
+ 833 0148 76       		.sleb128 -10
+ 834 0149 00       		.byte	0
+ 835 014a 0D       		.uleb128 0xd
+ 836 014b DB020000 		.4byte	.LASF32
+ 837 014f 01       		.byte	0x1
+ 838 0150 A901     		.2byte	0x1a9
+ 839 0152 76000000 		.4byte	0x76
+ 840 0156 00000000 		.4byte	.LFB5
+ 841 015a 1C000000 		.4byte	.LFE5-.LFB5
+ 842 015e 01       		.uleb128 0x1
+ 843 015f 9C       		.byte	0x9c
+ 844 0160 0E       		.uleb128 0xe
+ 845 0161 2D000000 		.4byte	.LASF24
+ 846 0165 01       		.byte	0x1
+ 847 0166 C501     		.2byte	0x1c5
+ 848 0168 00000000 		.4byte	.LFB6
+ 849 016c 1C000000 		.4byte	.LFE6-.LFB6
+ 850 0170 01       		.uleb128 0x1
+ 851 0171 9C       		.byte	0x9c
+ 852 0172 0B       		.uleb128 0xb
+ 853 0173 A8020000 		.4byte	.LASF25
+ 854 0177 01       		.byte	0x1
+ 855 0178 E201     		.2byte	0x1e2
+ 856 017a 00000000 		.4byte	.LFB7
+ 857 017e 20000000 		.4byte	.LFE7-.LFB7
+ 858 0182 01       		.uleb128 0x1
+ 859 0183 9C       		.byte	0x9c
+ 860 0184 98010000 		.4byte	0x198
+ 861 0188 0C       		.uleb128 0xc
+ 862 0189 26000000 		.4byte	.LASF27
+ 863 018d 01       		.byte	0x1
+ 864 018e E201     		.2byte	0x1e2
+ 865 0190 76000000 		.4byte	0x76
+ 866 0194 02       		.uleb128 0x2
+ 867 0195 91       		.byte	0x91
+ 868 0196 76       		.sleb128 -10
+ 869 0197 00       		.byte	0
+ 870 0198 0B       		.uleb128 0xb
+ 871 0199 5F020000 		.4byte	.LASF28
+ 872 019d 01       		.byte	0x1
+ 873 019e 0402     		.2byte	0x204
+ 874 01a0 00000000 		.4byte	.LFB8
+ 875 01a4 20000000 		.4byte	.LFE8-.LFB8
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 32
+
+
+ 876 01a8 01       		.uleb128 0x1
+ 877 01a9 9C       		.byte	0x9c
+ 878 01aa BE010000 		.4byte	0x1be
+ 879 01ae 0C       		.uleb128 0xc
+ 880 01af 12030000 		.4byte	.LASF29
+ 881 01b3 01       		.byte	0x1
+ 882 01b4 0402     		.2byte	0x204
+ 883 01b6 76000000 		.4byte	0x76
+ 884 01ba 02       		.uleb128 0x2
+ 885 01bb 91       		.byte	0x91
+ 886 01bc 76       		.sleb128 -10
+ 887 01bd 00       		.byte	0
+ 888 01be 0B       		.uleb128 0xb
+ 889 01bf 9D010000 		.4byte	.LASF30
+ 890 01c3 01       		.byte	0x1
+ 891 01c4 AC02     		.2byte	0x2ac
+ 892 01c6 00000000 		.4byte	.LFB9
+ 893 01ca 20000000 		.4byte	.LFE9-.LFB9
+ 894 01ce 01       		.uleb128 0x1
+ 895 01cf 9C       		.byte	0x9c
+ 896 01d0 E4010000 		.4byte	0x1e4
+ 897 01d4 0C       		.uleb128 0xc
+ 898 01d5 9A020000 		.4byte	.LASF31
+ 899 01d9 01       		.byte	0x1
+ 900 01da AC02     		.2byte	0x2ac
+ 901 01dc 6B000000 		.4byte	0x6b
+ 902 01e0 02       		.uleb128 0x2
+ 903 01e1 91       		.byte	0x91
+ 904 01e2 77       		.sleb128 -9
+ 905 01e3 00       		.byte	0
+ 906 01e4 0D       		.uleb128 0xd
+ 907 01e5 50000000 		.4byte	.LASF33
+ 908 01e9 01       		.byte	0x1
+ 909 01ea C702     		.2byte	0x2c7
+ 910 01ec 6B000000 		.4byte	0x6b
+ 911 01f0 00000000 		.4byte	.LFB10
+ 912 01f4 14000000 		.4byte	.LFE10-.LFB10
+ 913 01f8 01       		.uleb128 0x1
+ 914 01f9 9C       		.byte	0x9c
+ 915 01fa 0F       		.uleb128 0xf
+ 916 01fb 80020000 		.4byte	.LASF43
+ 917 01ff 01       		.byte	0x1
+ 918 0200 E102     		.2byte	0x2e1
+ 919 0202 6B000000 		.4byte	0x6b
+ 920 0206 00000000 		.4byte	.LFB11
+ 921 020a 20000000 		.4byte	.LFE11-.LFB11
+ 922 020e 01       		.uleb128 0x1
+ 923 020f 9C       		.byte	0x9c
+ 924 0210 24020000 		.4byte	0x224
+ 925 0214 10       		.uleb128 0x10
+ 926 0215 4A020000 		.4byte	.LASF34
+ 927 0219 01       		.byte	0x1
+ 928 021a E302     		.2byte	0x2e3
+ 929 021c 6B000000 		.4byte	0x6b
+ 930 0220 02       		.uleb128 0x2
+ 931 0221 91       		.byte	0x91
+ 932 0222 77       		.sleb128 -9
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 33
+
+
+ 933 0223 00       		.byte	0
+ 934 0224 0B       		.uleb128 0xb
+ 935 0225 EB000000 		.4byte	.LASF35
+ 936 0229 01       		.byte	0x1
+ 937 022a FD02     		.2byte	0x2fd
+ 938 022c 00000000 		.4byte	.LFB12
+ 939 0230 20000000 		.4byte	.LFE12-.LFB12
+ 940 0234 01       		.uleb128 0x1
+ 941 0235 9C       		.byte	0x9c
+ 942 0236 4A020000 		.4byte	0x24a
+ 943 023a 0C       		.uleb128 0xc
+ 944 023b 42010000 		.4byte	.LASF36
+ 945 023f 01       		.byte	0x1
+ 946 0240 FD02     		.2byte	0x2fd
+ 947 0242 6B000000 		.4byte	0x6b
+ 948 0246 02       		.uleb128 0x2
+ 949 0247 91       		.byte	0x91
+ 950 0248 77       		.sleb128 -9
+ 951 0249 00       		.byte	0
+ 952 024a 0D       		.uleb128 0xd
+ 953 024b FA010000 		.4byte	.LASF37
+ 954 024f 01       		.byte	0x1
+ 955 0250 1603     		.2byte	0x316
+ 956 0252 76000000 		.4byte	0x76
+ 957 0256 00000000 		.4byte	.LFB13
+ 958 025a 14000000 		.4byte	.LFE13-.LFB13
+ 959 025e 01       		.uleb128 0x1
+ 960 025f 9C       		.byte	0x9c
+ 961 0260 0D       		.uleb128 0xd
+ 962 0261 B4010000 		.4byte	.LASF38
+ 963 0265 01       		.byte	0x1
+ 964 0266 3003     		.2byte	0x330
+ 965 0268 76000000 		.4byte	0x76
+ 966 026c 00000000 		.4byte	.LFB14
+ 967 0270 14000000 		.4byte	.LFE14-.LFB14
+ 968 0274 01       		.uleb128 0x1
+ 969 0275 9C       		.byte	0x9c
+ 970 0276 0D       		.uleb128 0xd
+ 971 0277 19010000 		.4byte	.LASF39
+ 972 027b 01       		.byte	0x1
+ 973 027c 7403     		.2byte	0x374
+ 974 027e 76000000 		.4byte	0x76
+ 975 0282 00000000 		.4byte	.LFB15
+ 976 0286 14000000 		.4byte	.LFE15-.LFB15
+ 977 028a 01       		.uleb128 0x1
+ 978 028b 9C       		.byte	0x9c
+ 979 028c 11       		.uleb128 0x11
+ 980 028d E2010000 		.4byte	.LASF44
+ 981 0291 01       		.byte	0x1
+ 982 0292 20       		.byte	0x20
+ 983 0293 6B000000 		.4byte	0x6b
+ 984 0297 05       		.uleb128 0x5
+ 985 0298 03       		.byte	0x3
+ 986 0299 00000000 		.4byte	PWM_1_initVar
+ 987 029d 00       		.byte	0
+ 988              		.section	.debug_abbrev,"",%progbits
+ 989              	.Ldebug_abbrev0:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 34
+
+
+ 990 0000 01       		.uleb128 0x1
+ 991 0001 11       		.uleb128 0x11
+ 992 0002 01       		.byte	0x1
+ 993 0003 25       		.uleb128 0x25
+ 994 0004 0E       		.uleb128 0xe
+ 995 0005 13       		.uleb128 0x13
+ 996 0006 0B       		.uleb128 0xb
+ 997 0007 03       		.uleb128 0x3
+ 998 0008 0E       		.uleb128 0xe
+ 999 0009 1B       		.uleb128 0x1b
+ 1000 000a 0E       		.uleb128 0xe
+ 1001 000b 55       		.uleb128 0x55
+ 1002 000c 17       		.uleb128 0x17
+ 1003 000d 11       		.uleb128 0x11
+ 1004 000e 01       		.uleb128 0x1
+ 1005 000f 10       		.uleb128 0x10
+ 1006 0010 17       		.uleb128 0x17
+ 1007 0011 00       		.byte	0
+ 1008 0012 00       		.byte	0
+ 1009 0013 02       		.uleb128 0x2
+ 1010 0014 24       		.uleb128 0x24
+ 1011 0015 00       		.byte	0
+ 1012 0016 0B       		.uleb128 0xb
+ 1013 0017 0B       		.uleb128 0xb
+ 1014 0018 3E       		.uleb128 0x3e
+ 1015 0019 0B       		.uleb128 0xb
+ 1016 001a 03       		.uleb128 0x3
+ 1017 001b 0E       		.uleb128 0xe
+ 1018 001c 00       		.byte	0
+ 1019 001d 00       		.byte	0
+ 1020 001e 03       		.uleb128 0x3
+ 1021 001f 24       		.uleb128 0x24
+ 1022 0020 00       		.byte	0
+ 1023 0021 0B       		.uleb128 0xb
+ 1024 0022 0B       		.uleb128 0xb
+ 1025 0023 3E       		.uleb128 0x3e
+ 1026 0024 0B       		.uleb128 0xb
+ 1027 0025 03       		.uleb128 0x3
+ 1028 0026 08       		.uleb128 0x8
+ 1029 0027 00       		.byte	0
+ 1030 0028 00       		.byte	0
+ 1031 0029 04       		.uleb128 0x4
+ 1032 002a 16       		.uleb128 0x16
+ 1033 002b 00       		.byte	0
+ 1034 002c 03       		.uleb128 0x3
+ 1035 002d 0E       		.uleb128 0xe
+ 1036 002e 3A       		.uleb128 0x3a
+ 1037 002f 0B       		.uleb128 0xb
+ 1038 0030 3B       		.uleb128 0x3b
+ 1039 0031 0B       		.uleb128 0xb
+ 1040 0032 49       		.uleb128 0x49
+ 1041 0033 13       		.uleb128 0x13
+ 1042 0034 00       		.byte	0
+ 1043 0035 00       		.byte	0
+ 1044 0036 05       		.uleb128 0x5
+ 1045 0037 16       		.uleb128 0x16
+ 1046 0038 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 35
+
+
+ 1047 0039 03       		.uleb128 0x3
+ 1048 003a 0E       		.uleb128 0xe
+ 1049 003b 3A       		.uleb128 0x3a
+ 1050 003c 0B       		.uleb128 0xb
+ 1051 003d 3B       		.uleb128 0x3b
+ 1052 003e 05       		.uleb128 0x5
+ 1053 003f 49       		.uleb128 0x49
+ 1054 0040 13       		.uleb128 0x13
+ 1055 0041 00       		.byte	0
+ 1056 0042 00       		.byte	0
+ 1057 0043 06       		.uleb128 0x6
+ 1058 0044 35       		.uleb128 0x35
+ 1059 0045 00       		.byte	0
+ 1060 0046 49       		.uleb128 0x49
+ 1061 0047 13       		.uleb128 0x13
+ 1062 0048 00       		.byte	0
+ 1063 0049 00       		.byte	0
+ 1064 004a 07       		.uleb128 0x7
+ 1065 004b 2E       		.uleb128 0x2e
+ 1066 004c 00       		.byte	0
+ 1067 004d 3F       		.uleb128 0x3f
+ 1068 004e 19       		.uleb128 0x19
+ 1069 004f 03       		.uleb128 0x3
+ 1070 0050 0E       		.uleb128 0xe
+ 1071 0051 3A       		.uleb128 0x3a
+ 1072 0052 0B       		.uleb128 0xb
+ 1073 0053 3B       		.uleb128 0x3b
+ 1074 0054 0B       		.uleb128 0xb
+ 1075 0055 27       		.uleb128 0x27
+ 1076 0056 19       		.uleb128 0x19
+ 1077 0057 11       		.uleb128 0x11
+ 1078 0058 01       		.uleb128 0x1
+ 1079 0059 12       		.uleb128 0x12
+ 1080 005a 06       		.uleb128 0x6
+ 1081 005b 40       		.uleb128 0x40
+ 1082 005c 18       		.uleb128 0x18
+ 1083 005d 9642     		.uleb128 0x2116
+ 1084 005f 19       		.uleb128 0x19
+ 1085 0060 00       		.byte	0
+ 1086 0061 00       		.byte	0
+ 1087 0062 08       		.uleb128 0x8
+ 1088 0063 2E       		.uleb128 0x2e
+ 1089 0064 01       		.byte	0x1
+ 1090 0065 3F       		.uleb128 0x3f
+ 1091 0066 19       		.uleb128 0x19
+ 1092 0067 03       		.uleb128 0x3
+ 1093 0068 0E       		.uleb128 0xe
+ 1094 0069 3A       		.uleb128 0x3a
+ 1095 006a 0B       		.uleb128 0xb
+ 1096 006b 3B       		.uleb128 0x3b
+ 1097 006c 0B       		.uleb128 0xb
+ 1098 006d 27       		.uleb128 0x27
+ 1099 006e 19       		.uleb128 0x19
+ 1100 006f 11       		.uleb128 0x11
+ 1101 0070 01       		.uleb128 0x1
+ 1102 0071 12       		.uleb128 0x12
+ 1103 0072 06       		.uleb128 0x6
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 36
+
+
+ 1104 0073 40       		.uleb128 0x40
+ 1105 0074 18       		.uleb128 0x18
+ 1106 0075 9642     		.uleb128 0x2116
+ 1107 0077 19       		.uleb128 0x19
+ 1108 0078 01       		.uleb128 0x1
+ 1109 0079 13       		.uleb128 0x13
+ 1110 007a 00       		.byte	0
+ 1111 007b 00       		.byte	0
+ 1112 007c 09       		.uleb128 0x9
+ 1113 007d 34       		.uleb128 0x34
+ 1114 007e 00       		.byte	0
+ 1115 007f 03       		.uleb128 0x3
+ 1116 0080 0E       		.uleb128 0xe
+ 1117 0081 3A       		.uleb128 0x3a
+ 1118 0082 0B       		.uleb128 0xb
+ 1119 0083 3B       		.uleb128 0x3b
+ 1120 0084 0B       		.uleb128 0xb
+ 1121 0085 49       		.uleb128 0x49
+ 1122 0086 13       		.uleb128 0x13
+ 1123 0087 02       		.uleb128 0x2
+ 1124 0088 18       		.uleb128 0x18
+ 1125 0089 00       		.byte	0
+ 1126 008a 00       		.byte	0
+ 1127 008b 0A       		.uleb128 0xa
+ 1128 008c 2E       		.uleb128 0x2e
+ 1129 008d 00       		.byte	0
+ 1130 008e 3F       		.uleb128 0x3f
+ 1131 008f 19       		.uleb128 0x19
+ 1132 0090 03       		.uleb128 0x3
+ 1133 0091 0E       		.uleb128 0xe
+ 1134 0092 3A       		.uleb128 0x3a
+ 1135 0093 0B       		.uleb128 0xb
+ 1136 0094 3B       		.uleb128 0x3b
+ 1137 0095 0B       		.uleb128 0xb
+ 1138 0096 27       		.uleb128 0x27
+ 1139 0097 19       		.uleb128 0x19
+ 1140 0098 11       		.uleb128 0x11
+ 1141 0099 01       		.uleb128 0x1
+ 1142 009a 12       		.uleb128 0x12
+ 1143 009b 06       		.uleb128 0x6
+ 1144 009c 40       		.uleb128 0x40
+ 1145 009d 18       		.uleb128 0x18
+ 1146 009e 9742     		.uleb128 0x2117
+ 1147 00a0 19       		.uleb128 0x19
+ 1148 00a1 00       		.byte	0
+ 1149 00a2 00       		.byte	0
+ 1150 00a3 0B       		.uleb128 0xb
+ 1151 00a4 2E       		.uleb128 0x2e
+ 1152 00a5 01       		.byte	0x1
+ 1153 00a6 3F       		.uleb128 0x3f
+ 1154 00a7 19       		.uleb128 0x19
+ 1155 00a8 03       		.uleb128 0x3
+ 1156 00a9 0E       		.uleb128 0xe
+ 1157 00aa 3A       		.uleb128 0x3a
+ 1158 00ab 0B       		.uleb128 0xb
+ 1159 00ac 3B       		.uleb128 0x3b
+ 1160 00ad 05       		.uleb128 0x5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 37
+
+
+ 1161 00ae 27       		.uleb128 0x27
+ 1162 00af 19       		.uleb128 0x19
+ 1163 00b0 11       		.uleb128 0x11
+ 1164 00b1 01       		.uleb128 0x1
+ 1165 00b2 12       		.uleb128 0x12
+ 1166 00b3 06       		.uleb128 0x6
+ 1167 00b4 40       		.uleb128 0x40
+ 1168 00b5 18       		.uleb128 0x18
+ 1169 00b6 9742     		.uleb128 0x2117
+ 1170 00b8 19       		.uleb128 0x19
+ 1171 00b9 01       		.uleb128 0x1
+ 1172 00ba 13       		.uleb128 0x13
+ 1173 00bb 00       		.byte	0
+ 1174 00bc 00       		.byte	0
+ 1175 00bd 0C       		.uleb128 0xc
+ 1176 00be 05       		.uleb128 0x5
+ 1177 00bf 00       		.byte	0
+ 1178 00c0 03       		.uleb128 0x3
+ 1179 00c1 0E       		.uleb128 0xe
+ 1180 00c2 3A       		.uleb128 0x3a
+ 1181 00c3 0B       		.uleb128 0xb
+ 1182 00c4 3B       		.uleb128 0x3b
+ 1183 00c5 05       		.uleb128 0x5
+ 1184 00c6 49       		.uleb128 0x49
+ 1185 00c7 13       		.uleb128 0x13
+ 1186 00c8 02       		.uleb128 0x2
+ 1187 00c9 18       		.uleb128 0x18
+ 1188 00ca 00       		.byte	0
+ 1189 00cb 00       		.byte	0
+ 1190 00cc 0D       		.uleb128 0xd
+ 1191 00cd 2E       		.uleb128 0x2e
+ 1192 00ce 00       		.byte	0
+ 1193 00cf 3F       		.uleb128 0x3f
+ 1194 00d0 19       		.uleb128 0x19
+ 1195 00d1 03       		.uleb128 0x3
+ 1196 00d2 0E       		.uleb128 0xe
+ 1197 00d3 3A       		.uleb128 0x3a
+ 1198 00d4 0B       		.uleb128 0xb
+ 1199 00d5 3B       		.uleb128 0x3b
+ 1200 00d6 05       		.uleb128 0x5
+ 1201 00d7 27       		.uleb128 0x27
+ 1202 00d8 19       		.uleb128 0x19
+ 1203 00d9 49       		.uleb128 0x49
+ 1204 00da 13       		.uleb128 0x13
+ 1205 00db 11       		.uleb128 0x11
+ 1206 00dc 01       		.uleb128 0x1
+ 1207 00dd 12       		.uleb128 0x12
+ 1208 00de 06       		.uleb128 0x6
+ 1209 00df 40       		.uleb128 0x40
+ 1210 00e0 18       		.uleb128 0x18
+ 1211 00e1 9742     		.uleb128 0x2117
+ 1212 00e3 19       		.uleb128 0x19
+ 1213 00e4 00       		.byte	0
+ 1214 00e5 00       		.byte	0
+ 1215 00e6 0E       		.uleb128 0xe
+ 1216 00e7 2E       		.uleb128 0x2e
+ 1217 00e8 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 38
+
+
+ 1218 00e9 3F       		.uleb128 0x3f
+ 1219 00ea 19       		.uleb128 0x19
+ 1220 00eb 03       		.uleb128 0x3
+ 1221 00ec 0E       		.uleb128 0xe
+ 1222 00ed 3A       		.uleb128 0x3a
+ 1223 00ee 0B       		.uleb128 0xb
+ 1224 00ef 3B       		.uleb128 0x3b
+ 1225 00f0 05       		.uleb128 0x5
+ 1226 00f1 27       		.uleb128 0x27
+ 1227 00f2 19       		.uleb128 0x19
+ 1228 00f3 11       		.uleb128 0x11
+ 1229 00f4 01       		.uleb128 0x1
+ 1230 00f5 12       		.uleb128 0x12
+ 1231 00f6 06       		.uleb128 0x6
+ 1232 00f7 40       		.uleb128 0x40
+ 1233 00f8 18       		.uleb128 0x18
+ 1234 00f9 9642     		.uleb128 0x2116
+ 1235 00fb 19       		.uleb128 0x19
+ 1236 00fc 00       		.byte	0
+ 1237 00fd 00       		.byte	0
+ 1238 00fe 0F       		.uleb128 0xf
+ 1239 00ff 2E       		.uleb128 0x2e
+ 1240 0100 01       		.byte	0x1
+ 1241 0101 3F       		.uleb128 0x3f
+ 1242 0102 19       		.uleb128 0x19
+ 1243 0103 03       		.uleb128 0x3
+ 1244 0104 0E       		.uleb128 0xe
+ 1245 0105 3A       		.uleb128 0x3a
+ 1246 0106 0B       		.uleb128 0xb
+ 1247 0107 3B       		.uleb128 0x3b
+ 1248 0108 05       		.uleb128 0x5
+ 1249 0109 27       		.uleb128 0x27
+ 1250 010a 19       		.uleb128 0x19
+ 1251 010b 49       		.uleb128 0x49
+ 1252 010c 13       		.uleb128 0x13
+ 1253 010d 11       		.uleb128 0x11
+ 1254 010e 01       		.uleb128 0x1
+ 1255 010f 12       		.uleb128 0x12
+ 1256 0110 06       		.uleb128 0x6
+ 1257 0111 40       		.uleb128 0x40
+ 1258 0112 18       		.uleb128 0x18
+ 1259 0113 9742     		.uleb128 0x2117
+ 1260 0115 19       		.uleb128 0x19
+ 1261 0116 01       		.uleb128 0x1
+ 1262 0117 13       		.uleb128 0x13
+ 1263 0118 00       		.byte	0
+ 1264 0119 00       		.byte	0
+ 1265 011a 10       		.uleb128 0x10
+ 1266 011b 34       		.uleb128 0x34
+ 1267 011c 00       		.byte	0
+ 1268 011d 03       		.uleb128 0x3
+ 1269 011e 0E       		.uleb128 0xe
+ 1270 011f 3A       		.uleb128 0x3a
+ 1271 0120 0B       		.uleb128 0xb
+ 1272 0121 3B       		.uleb128 0x3b
+ 1273 0122 05       		.uleb128 0x5
+ 1274 0123 49       		.uleb128 0x49
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 39
+
+
+ 1275 0124 13       		.uleb128 0x13
+ 1276 0125 02       		.uleb128 0x2
+ 1277 0126 18       		.uleb128 0x18
+ 1278 0127 00       		.byte	0
+ 1279 0128 00       		.byte	0
+ 1280 0129 11       		.uleb128 0x11
+ 1281 012a 34       		.uleb128 0x34
+ 1282 012b 00       		.byte	0
+ 1283 012c 03       		.uleb128 0x3
+ 1284 012d 0E       		.uleb128 0xe
+ 1285 012e 3A       		.uleb128 0x3a
+ 1286 012f 0B       		.uleb128 0xb
+ 1287 0130 3B       		.uleb128 0x3b
+ 1288 0131 0B       		.uleb128 0xb
+ 1289 0132 49       		.uleb128 0x49
+ 1290 0133 13       		.uleb128 0x13
+ 1291 0134 3F       		.uleb128 0x3f
+ 1292 0135 19       		.uleb128 0x19
+ 1293 0136 02       		.uleb128 0x2
+ 1294 0137 18       		.uleb128 0x18
+ 1295 0138 00       		.byte	0
+ 1296 0139 00       		.byte	0
+ 1297 013a 00       		.byte	0
+ 1298              		.section	.debug_aranges,"",%progbits
+ 1299 0000 94000000 		.4byte	0x94
+ 1300 0004 0200     		.2byte	0x2
+ 1301 0006 00000000 		.4byte	.Ldebug_info0
+ 1302 000a 04       		.byte	0x4
+ 1303 000b 00       		.byte	0
+ 1304 000c 0000     		.2byte	0
+ 1305 000e 0000     		.2byte	0
+ 1306 0010 00000000 		.4byte	.LFB0
+ 1307 0014 24000000 		.4byte	.LFE0-.LFB0
+ 1308 0018 00000000 		.4byte	.LFB1
+ 1309 001c 9C000000 		.4byte	.LFE1-.LFB1
+ 1310 0020 00000000 		.4byte	.LFB2
+ 1311 0024 20000000 		.4byte	.LFE2-.LFB2
+ 1312 0028 00000000 		.4byte	.LFB3
+ 1313 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 1314 0030 00000000 		.4byte	.LFB4
+ 1315 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1316 0038 00000000 		.4byte	.LFB5
+ 1317 003c 1C000000 		.4byte	.LFE5-.LFB5
+ 1318 0040 00000000 		.4byte	.LFB6
+ 1319 0044 1C000000 		.4byte	.LFE6-.LFB6
+ 1320 0048 00000000 		.4byte	.LFB7
+ 1321 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1322 0050 00000000 		.4byte	.LFB8
+ 1323 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1324 0058 00000000 		.4byte	.LFB9
+ 1325 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1326 0060 00000000 		.4byte	.LFB10
+ 1327 0064 14000000 		.4byte	.LFE10-.LFB10
+ 1328 0068 00000000 		.4byte	.LFB11
+ 1329 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1330 0070 00000000 		.4byte	.LFB12
+ 1331 0074 20000000 		.4byte	.LFE12-.LFB12
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 40
+
+
+ 1332 0078 00000000 		.4byte	.LFB13
+ 1333 007c 14000000 		.4byte	.LFE13-.LFB13
+ 1334 0080 00000000 		.4byte	.LFB14
+ 1335 0084 14000000 		.4byte	.LFE14-.LFB14
+ 1336 0088 00000000 		.4byte	.LFB15
+ 1337 008c 14000000 		.4byte	.LFE15-.LFB15
+ 1338 0090 00000000 		.4byte	0
+ 1339 0094 00000000 		.4byte	0
+ 1340              		.section	.debug_ranges,"",%progbits
+ 1341              	.Ldebug_ranges0:
+ 1342 0000 00000000 		.4byte	.LFB0
+ 1343 0004 24000000 		.4byte	.LFE0
+ 1344 0008 00000000 		.4byte	.LFB1
+ 1345 000c 9C000000 		.4byte	.LFE1
+ 1346 0010 00000000 		.4byte	.LFB2
+ 1347 0014 20000000 		.4byte	.LFE2
+ 1348 0018 00000000 		.4byte	.LFB3
+ 1349 001c 1C000000 		.4byte	.LFE3
+ 1350 0020 00000000 		.4byte	.LFB4
+ 1351 0024 20000000 		.4byte	.LFE4
+ 1352 0028 00000000 		.4byte	.LFB5
+ 1353 002c 1C000000 		.4byte	.LFE5
+ 1354 0030 00000000 		.4byte	.LFB6
+ 1355 0034 1C000000 		.4byte	.LFE6
+ 1356 0038 00000000 		.4byte	.LFB7
+ 1357 003c 20000000 		.4byte	.LFE7
+ 1358 0040 00000000 		.4byte	.LFB8
+ 1359 0044 20000000 		.4byte	.LFE8
+ 1360 0048 00000000 		.4byte	.LFB9
+ 1361 004c 20000000 		.4byte	.LFE9
+ 1362 0050 00000000 		.4byte	.LFB10
+ 1363 0054 14000000 		.4byte	.LFE10
+ 1364 0058 00000000 		.4byte	.LFB11
+ 1365 005c 20000000 		.4byte	.LFE11
+ 1366 0060 00000000 		.4byte	.LFB12
+ 1367 0064 20000000 		.4byte	.LFE12
+ 1368 0068 00000000 		.4byte	.LFB13
+ 1369 006c 14000000 		.4byte	.LFE13
+ 1370 0070 00000000 		.4byte	.LFB14
+ 1371 0074 14000000 		.4byte	.LFE14
+ 1372 0078 00000000 		.4byte	.LFB15
+ 1373 007c 14000000 		.4byte	.LFE15
+ 1374 0080 00000000 		.4byte	0
+ 1375 0084 00000000 		.4byte	0
+ 1376              		.section	.debug_line,"",%progbits
+ 1377              	.Ldebug_line0:
+ 1378 0000 8B010000 		.section	.debug_str,"MS",%progbits,1
+ 1378      02004400 
+ 1378      00000201 
+ 1378      FB0E0D00 
+ 1378      01010101 
+ 1379              	.LASF15:
+ 1380 0000 72656731 		.ascii	"reg16\000"
+ 1380      3600
+ 1381              	.LASF20:
+ 1382 0006 50574D5F 		.ascii	"PWM_1_Enable\000"
+ 1382      315F456E 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 41
+
+
+ 1382      61626C65 
+ 1382      00
+ 1383              	.LASF23:
+ 1384 0013 50574D5F 		.ascii	"PWM_1_WriteCounter\000"
+ 1384      315F5772 
+ 1384      69746543 
+ 1384      6F756E74 
+ 1384      657200
+ 1385              	.LASF27:
+ 1386 0026 70657269 		.ascii	"period\000"
+ 1386      6F6400
+ 1387              	.LASF24:
+ 1388 002d 50574D5F 		.ascii	"PWM_1_ClearFIFO\000"
+ 1388      315F436C 
+ 1388      65617246 
+ 1388      49464F00 
+ 1389              	.LASF3:
+ 1390 003d 73686F72 		.ascii	"short unsigned int\000"
+ 1390      7420756E 
+ 1390      7369676E 
+ 1390      65642069 
+ 1390      6E7400
+ 1391              	.LASF33:
+ 1392 0050 50574D5F 		.ascii	"PWM_1_ReadStatusRegister\000"
+ 1392      315F5265 
+ 1392      61645374 
+ 1392      61747573 
+ 1392      52656769 
+ 1393              	.LASF11:
+ 1394 0069 666C6F61 		.ascii	"float\000"
+ 1394      7400
+ 1395              	.LASF40:
+ 1396 006f 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1396      4320342E 
+ 1396      382E3420 
+ 1396      32303134 
+ 1396      30353236 
+ 1397 00a2 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1397      20726576 
+ 1397      6973696F 
+ 1397      6E203231 
+ 1397      31333538 
+ 1398 00d5 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1398      66756E63 
+ 1398      74696F6E 
+ 1398      2D736563 
+ 1398      74696F6E 
+ 1399              	.LASF35:
+ 1400 00eb 50574D5F 		.ascii	"PWM_1_WriteControlRegister\000"
+ 1400      315F5772 
+ 1400      69746543 
+ 1400      6F6E7472 
+ 1400      6F6C5265 
+ 1401              	.LASF1:
+ 1402 0106 756E7369 		.ascii	"unsigned char\000"
+ 1402      676E6564 
+ 1402      20636861 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 42
+
+
+ 1402      7200
+ 1403              	.LASF14:
+ 1404 0114 72656738 		.ascii	"reg8\000"
+ 1404      00
+ 1405              	.LASF39:
+ 1406 0119 50574D5F 		.ascii	"PWM_1_ReadPeriod\000"
+ 1406      315F5265 
+ 1406      61645065 
+ 1406      72696F64 
+ 1406      00
+ 1407              	.LASF5:
+ 1408 012a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1408      20756E73 
+ 1408      69676E65 
+ 1408      6420696E 
+ 1408      7400
+ 1409              	.LASF9:
+ 1410 013c 75696E74 		.ascii	"uint8\000"
+ 1410      3800
+ 1411              	.LASF36:
+ 1412 0142 636F6E74 		.ascii	"control\000"
+ 1412      726F6C00 
+ 1413              	.LASF42:
+ 1414 014a 433A5C55 		.ascii	"C:\\Users\\Felix\\Git Repository\\E4PRJ4\\Implement"
+ 1414      73657273 
+ 1414      5C46656C 
+ 1414      69785C47 
+ 1414      69742052 
+ 1415 0178 6572696E 		.ascii	"ering\\Vuggesystem\\Vinkelsensor.cydsn\000"
+ 1415      675C5675 
+ 1415      67676573 
+ 1415      79737465 
+ 1415      6D5C5669 
+ 1416              	.LASF30:
+ 1417 019d 50574D5F 		.ascii	"PWM_1_SetInterruptMode\000"
+ 1417      315F5365 
+ 1417      74496E74 
+ 1417      65727275 
+ 1417      70744D6F 
+ 1418              	.LASF38:
+ 1419 01b4 50574D5F 		.ascii	"PWM_1_ReadCompare\000"
+ 1419      315F5265 
+ 1419      6164436F 
+ 1419      6D706172 
+ 1419      6500
+ 1420              	.LASF12:
+ 1421 01c6 646F7562 		.ascii	"double\000"
+ 1421      6C6500
+ 1422              	.LASF18:
+ 1423 01cd 50574D5F 		.ascii	"PWM_1_interruptState\000"
+ 1423      315F696E 
+ 1423      74657272 
+ 1423      75707453 
+ 1423      74617465 
+ 1424              	.LASF44:
+ 1425 01e2 50574D5F 		.ascii	"PWM_1_initVar\000"
+ 1425      315F696E 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 43
+
+
+ 1425      69745661 
+ 1425      7200
+ 1426              	.LASF2:
+ 1427 01f0 73686F72 		.ascii	"short int\000"
+ 1427      7420696E 
+ 1427      7400
+ 1428              	.LASF37:
+ 1429 01fa 50574D5F 		.ascii	"PWM_1_ReadCapture\000"
+ 1429      315F5265 
+ 1429      61644361 
+ 1429      70747572 
+ 1429      6500
+ 1430              	.LASF10:
+ 1431 020c 75696E74 		.ascii	"uint16\000"
+ 1431      313600
+ 1432              	.LASF22:
+ 1433 0213 50574D5F 		.ascii	"PWM_1_Init\000"
+ 1433      315F496E 
+ 1433      697400
+ 1434              	.LASF8:
+ 1435 021e 756E7369 		.ascii	"unsigned int\000"
+ 1435      676E6564 
+ 1435      20696E74 
+ 1435      00
+ 1436              	.LASF7:
+ 1437 022b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1437      206C6F6E 
+ 1437      6720756E 
+ 1437      7369676E 
+ 1437      65642069 
+ 1438              	.LASF26:
+ 1439 0242 636F756E 		.ascii	"counter\000"
+ 1439      74657200 
+ 1440              	.LASF34:
+ 1441 024a 72657375 		.ascii	"result\000"
+ 1441      6C7400
+ 1442              	.LASF17:
+ 1443 0251 6374726C 		.ascii	"ctrl\000"
+ 1443      00
+ 1444              	.LASF16:
+ 1445 0256 73697A65 		.ascii	"sizetype\000"
+ 1445      74797065 
+ 1445      00
+ 1446              	.LASF28:
+ 1447 025f 50574D5F 		.ascii	"PWM_1_WriteCompare\000"
+ 1447      315F5772 
+ 1447      69746543 
+ 1447      6F6D7061 
+ 1447      726500
+ 1448              	.LASF6:
+ 1449 0272 6C6F6E67 		.ascii	"long long int\000"
+ 1449      206C6F6E 
+ 1449      6720696E 
+ 1449      7400
+ 1450              	.LASF43:
+ 1451 0280 50574D5F 		.ascii	"PWM_1_ReadControlRegister\000"
+ 1451      315F5265 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchyXNHz.s 			page 44
+
+
+ 1451      6164436F 
+ 1451      6E74726F 
+ 1451      6C526567 
+ 1452              	.LASF31:
+ 1453 029a 696E7465 		.ascii	"interruptMode\000"
+ 1453      72727570 
+ 1453      744D6F64 
+ 1453      6500
+ 1454              	.LASF25:
+ 1455 02a8 50574D5F 		.ascii	"PWM_1_WritePeriod\000"
+ 1455      315F5772 
+ 1455      69746550 
+ 1455      6572696F 
+ 1455      6400
+ 1456              	.LASF41:
+ 1457 02ba 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\PWM_1.c\000"
+ 1457      6E657261 
+ 1457      7465645F 
+ 1457      536F7572 
+ 1457      63655C50 
+ 1458              	.LASF32:
+ 1459 02db 50574D5F 		.ascii	"PWM_1_ReadCounter\000"
+ 1459      315F5265 
+ 1459      6164436F 
+ 1459      756E7465 
+ 1459      7200
+ 1460              	.LASF21:
+ 1461 02ed 50574D5F 		.ascii	"PWM_1_Stop\000"
+ 1461      315F5374 
+ 1461      6F7000
+ 1462              	.LASF4:
+ 1463 02f8 6C6F6E67 		.ascii	"long int\000"
+ 1463      20696E74 
+ 1463      00
+ 1464              	.LASF13:
+ 1465 0301 63686172 		.ascii	"char\000"
+ 1465      00
+ 1466              	.LASF0:
+ 1467 0306 7369676E 		.ascii	"signed char\000"
+ 1467      65642063 
+ 1467      68617200 
+ 1468              	.LASF29:
+ 1469 0312 636F6D70 		.ascii	"compare\000"
+ 1469      61726500 
+ 1470              	.LASF19:
+ 1471 031a 50574D5F 		.ascii	"PWM_1_Start\000"
+ 1471      315F5374 
+ 1471      61727400 
+ 1472              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

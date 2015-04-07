@@ -1,0 +1,1195 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"fix16_exp.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata
+  18              		.align	2
+  19              		.type	FOUR_DIV_PI, %object
+  20              		.size	FOUR_DIV_PI, 4
+  21              	FOUR_DIV_PI:
+  22 0000 F3450100 		.word	83443
+  23              		.align	2
+  24              		.type	_FOUR_DIV_PI2, %object
+  25              		.size	_FOUR_DIV_PI2, 4
+  26              	_FOUR_DIV_PI2:
+  27 0004 4098FFFF 		.word	-26560
+  28              		.align	2
+  29              		.type	X4_CORRECTION_COMPONENT, %object
+  30              		.size	X4_CORRECTION_COMPONENT, 4
+  31              	X4_CORRECTION_COMPONENT:
+  32 0008 9A390000 		.word	14746
+  33              		.align	2
+  34              		.type	PI_DIV_4, %object
+  35              		.size	PI_DIV_4, 4
+  36              	PI_DIV_4:
+  37 000c 0FC90000 		.word	51471
+  38              		.align	2
+  39              		.type	THREE_PI_DIV_4, %object
+  40              		.size	THREE_PI_DIV_4, 4
+  41              	THREE_PI_DIV_4:
+  42 0010 2F5B0200 		.word	154415
+  43              		.align	2
+  44              		.type	fix16_max, %object
+  45              		.size	fix16_max, 4
+  46              	fix16_max:
+  47 0014 FFFFFF7F 		.word	2147483647
+  48              		.align	2
+  49              		.type	fix16_min, %object
+  50              		.size	fix16_min, 4
+  51              	fix16_min:
+  52 0018 00000080 		.word	-2147483648
+  53              		.align	2
+  54              		.type	fix16_overflow, %object
+  55              		.size	fix16_overflow, 4
+  56              	fix16_overflow:
+  57 001c 00000080 		.word	-2147483648
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 2
+
+
+  58              		.align	2
+  59              		.type	fix16_pi, %object
+  60              		.size	fix16_pi, 4
+  61              	fix16_pi:
+  62 0020 3F240300 		.word	205887
+  63              		.align	2
+  64              		.type	fix16_e, %object
+  65              		.size	fix16_e, 4
+  66              	fix16_e:
+  67 0024 E1B70200 		.word	178145
+  68              		.align	2
+  69              		.type	fix16_one, %object
+  70              		.size	fix16_one, 4
+  71              	fix16_one:
+  72 0028 00000100 		.word	65536
+  73              		.bss
+  74              		.align	2
+  75              	_fix16_exp_cache_index:
+  76 0000 00000000 		.space	16384
+  76      00000000 
+  76      00000000 
+  76      00000000 
+  76      00000000 
+  77              		.align	2
+  78              	_fix16_exp_cache_value:
+  79 4000 00000000 		.space	16384
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  80              		.section	.text.fix16_exp,"ax",%progbits
+  81              		.align	2
+  82              		.global	fix16_exp
+  83              		.code	16
+  84              		.thumb_func
+  85              		.type	fix16_exp, %function
+  86              	fix16_exp:
+  87              	.LFB6:
+  88              		.file 1 ".\\libfixmath\\fix16_exp.c"
+   1:.\libfixmath/fix16_exp.c **** #include "fix16.h"
+   2:.\libfixmath/fix16_exp.c **** 
+   3:.\libfixmath/fix16_exp.c **** 
+   4:.\libfixmath/fix16_exp.c **** #ifndef FIXMATH_NO_CACHE
+   5:.\libfixmath/fix16_exp.c **** static fix16_t _fix16_exp_cache_index[4096]  = { 0 };
+   6:.\libfixmath/fix16_exp.c **** static fix16_t _fix16_exp_cache_value[4096]  = { 0 };
+   7:.\libfixmath/fix16_exp.c **** #endif
+   8:.\libfixmath/fix16_exp.c **** 
+   9:.\libfixmath/fix16_exp.c **** 
+  10:.\libfixmath/fix16_exp.c **** 
+  11:.\libfixmath/fix16_exp.c **** fix16_t fix16_exp(fix16_t inValue) {
+  89              		.loc 1 11 0
+  90              		.cfi_startproc
+  91 0000 90B5     		push	{r4, r7, lr}
+  92              		.cfi_def_cfa_offset 12
+  93              		.cfi_offset 4, -12
+  94              		.cfi_offset 7, -8
+  95              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 3
+
+
+  96 0002 8BB0     		sub	sp, sp, #44
+  97              		.cfi_def_cfa_offset 56
+  98 0004 00AF     		add	r7, sp, #0
+  99              		.cfi_def_cfa_register 7
+ 100 0006 7860     		str	r0, [r7, #4]
+  12:.\libfixmath/fix16_exp.c **** 	if(inValue == 0)
+ 101              		.loc 1 12 0
+ 102 0008 7B68     		ldr	r3, [r7, #4]
+ 103 000a 002B     		cmp	r3, #0
+ 104 000c 02D1     		bne	.L2
+  13:.\libfixmath/fix16_exp.c **** 		return fix16_one;
+ 105              		.loc 1 13 0
+ 106 000e 8023     		mov	r3, #128
+ 107 0010 5B02     		lsl	r3, r3, #9
+ 108 0012 A5E0     		b	.L3
+ 109              	.L2:
+  14:.\libfixmath/fix16_exp.c **** 	if(inValue == fix16_one)
+ 110              		.loc 1 14 0
+ 111 0014 8023     		mov	r3, #128
+ 112 0016 5B02     		lsl	r3, r3, #9
+ 113 0018 7A68     		ldr	r2, [r7, #4]
+ 114 001a 9A42     		cmp	r2, r3
+ 115 001c 01D1     		bne	.L4
+  15:.\libfixmath/fix16_exp.c **** 		return fix16_e;
+ 116              		.loc 1 15 0
+ 117 001e 524B     		ldr	r3, .L10
+ 118 0020 9EE0     		b	.L3
+ 119              	.L4:
+  16:.\libfixmath/fix16_exp.c **** 	if(inValue > 681391)
+ 120              		.loc 1 16 0
+ 121 0022 7A68     		ldr	r2, [r7, #4]
+ 122 0024 514B     		ldr	r3, .L10+4
+ 123 0026 9A42     		cmp	r2, r3
+ 124 0028 01DD     		ble	.L5
+  17:.\libfixmath/fix16_exp.c **** 		return fix16_max;
+ 125              		.loc 1 17 0
+ 126 002a 514B     		ldr	r3, .L10+8
+ 127 002c 98E0     		b	.L3
+ 128              	.L5:
+  18:.\libfixmath/fix16_exp.c **** 	if(inValue < -726817)
+ 129              		.loc 1 18 0
+ 130 002e 7A68     		ldr	r2, [r7, #4]
+ 131 0030 504B     		ldr	r3, .L10+12
+ 132 0032 9A42     		cmp	r2, r3
+ 133 0034 01DA     		bge	.L6
+  19:.\libfixmath/fix16_exp.c **** 		return 0;
+ 134              		.loc 1 19 0
+ 135 0036 0023     		mov	r3, #0
+ 136 0038 92E0     		b	.L3
+ 137              	.L6:
+  20:.\libfixmath/fix16_exp.c **** 
+  21:.\libfixmath/fix16_exp.c **** 	#ifndef FIXMATH_NO_CACHE
+  22:.\libfixmath/fix16_exp.c **** 	fix16_t tempIndex = (inValue ^ (inValue >> 16));
+ 138              		.loc 1 22 0
+ 139 003a 7B68     		ldr	r3, [r7, #4]
+ 140 003c 1A14     		asr	r2, r3, #16
+ 141 003e 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 4
+
+
+ 142 0040 5340     		eor	r3, r2
+ 143 0042 FB60     		str	r3, [r7, #12]
+  23:.\libfixmath/fix16_exp.c **** 	tempIndex = (inValue ^ (inValue >> 4)) & 0x0FFF;
+ 144              		.loc 1 23 0
+ 145 0044 7B68     		ldr	r3, [r7, #4]
+ 146 0046 1A11     		asr	r2, r3, #4
+ 147 0048 7B68     		ldr	r3, [r7, #4]
+ 148 004a 5340     		eor	r3, r2
+ 149 004c 1B05     		lsl	r3, r3, #20
+ 150 004e 1B0D     		lsr	r3, r3, #20
+ 151 0050 FB60     		str	r3, [r7, #12]
+  24:.\libfixmath/fix16_exp.c **** 	if(_fix16_exp_cache_index[tempIndex] == inValue)
+ 152              		.loc 1 24 0
+ 153 0052 494B     		ldr	r3, .L10+16
+ 154 0054 FA68     		ldr	r2, [r7, #12]
+ 155 0056 9200     		lsl	r2, r2, #2
+ 156 0058 D258     		ldr	r2, [r2, r3]
+ 157 005a 7B68     		ldr	r3, [r7, #4]
+ 158 005c 9A42     		cmp	r2, r3
+ 159 005e 04D1     		bne	.L7
+  25:.\libfixmath/fix16_exp.c **** 		return _fix16_exp_cache_value[tempIndex];
+ 160              		.loc 1 25 0
+ 161 0060 464B     		ldr	r3, .L10+20
+ 162 0062 FA68     		ldr	r2, [r7, #12]
+ 163 0064 9200     		lsl	r2, r2, #2
+ 164 0066 D358     		ldr	r3, [r2, r3]
+ 165 0068 7AE0     		b	.L3
+ 166              	.L7:
+  26:.\libfixmath/fix16_exp.c **** 	#endif
+  27:.\libfixmath/fix16_exp.c **** 
+  28:.\libfixmath/fix16_exp.c **** 	int64_t tempOut = int64_add(int64_from_int32(fix16_one), int64_from_int32(inValue));
+ 167              		.loc 1 28 0
+ 168 006a 8023     		mov	r3, #128
+ 169 006c 5B02     		lsl	r3, r3, #9
+ 170 006e 181C     		mov	r0, r3
+ 171 0070 FFF7FEFF 		bl	int64_from_int32
+ 172 0074 041C     		mov	r4, r0
+ 173 0076 7B68     		ldr	r3, [r7, #4]
+ 174 0078 181C     		mov	r0, r3
+ 175 007a FFF7FEFF 		bl	int64_from_int32
+ 176 007e 031C     		mov	r3, r0
+ 177 0080 201C     		mov	r0, r4
+ 178 0082 191C     		mov	r1, r3
+ 179 0084 FFF7FEFF 		bl	int64_add
+ 180 0088 031C     		mov	r3, r0
+ 181 008a 3B62     		str	r3, [r7, #32]
+ 182 008c DB17     		asr	r3, r3, #31
+ 183 008e 7B62     		str	r3, [r7, #36]
+  29:.\libfixmath/fix16_exp.c **** 	int64_t tempValue = int64_from_int32(inValue);
+ 184              		.loc 1 29 0
+ 185 0090 7B68     		ldr	r3, [r7, #4]
+ 186 0092 181C     		mov	r0, r3
+ 187 0094 FFF7FEFF 		bl	int64_from_int32
+ 188 0098 031C     		mov	r3, r0
+ 189 009a BB61     		str	r3, [r7, #24]
+ 190 009c DB17     		asr	r3, r3, #31
+ 191 009e FB61     		str	r3, [r7, #28]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 5
+
+
+  30:.\libfixmath/fix16_exp.c **** 	uint32_t i, n;
+  31:.\libfixmath/fix16_exp.c **** 	for(i = 3, n = 2; i < 13; n *= i, i++) {
+ 192              		.loc 1 31 0
+ 193 00a0 0323     		mov	r3, #3
+ 194 00a2 7B61     		str	r3, [r7, #20]
+ 195 00a4 0223     		mov	r3, #2
+ 196 00a6 3B61     		str	r3, [r7, #16]
+ 197 00a8 40E0     		b	.L8
+ 198              	.L9:
+ 199              	.LBB2:
+  32:.\libfixmath/fix16_exp.c **** 		tempValue = int64_mul_i64_i32(tempValue, inValue);
+ 200              		.loc 1 32 0 discriminator 2
+ 201 00aa BB69     		ldr	r3, [r7, #24]
+ 202 00ac FC69     		ldr	r4, [r7, #28]
+ 203 00ae 7A68     		ldr	r2, [r7, #4]
+ 204 00b0 181C     		mov	r0, r3
+ 205 00b2 211C     		mov	r1, r4
+ 206 00b4 FFF7FEFF 		bl	int64_mul_i64_i32
+ 207 00b8 031C     		mov	r3, r0
+ 208 00ba BB61     		str	r3, [r7, #24]
+ 209 00bc DB17     		asr	r3, r3, #31
+ 210 00be FB61     		str	r3, [r7, #28]
+  33:.\libfixmath/fix16_exp.c **** 		#ifndef FIXMATH_NO_ROUNDING
+  34:.\libfixmath/fix16_exp.c **** 		tempValue = int64_add(tempValue, int64_from_int32(fix16_one >> 1));
+ 211              		.loc 1 34 0 discriminator 2
+ 212 00c0 8023     		mov	r3, #128
+ 213 00c2 5B02     		lsl	r3, r3, #9
+ 214 00c4 5B10     		asr	r3, r3, #1
+ 215 00c6 181C     		mov	r0, r3
+ 216 00c8 FFF7FEFF 		bl	int64_from_int32
+ 217 00cc 021C     		mov	r2, r0
+ 218 00ce BB69     		ldr	r3, [r7, #24]
+ 219 00d0 FC69     		ldr	r4, [r7, #28]
+ 220 00d2 181C     		mov	r0, r3
+ 221 00d4 211C     		mov	r1, r4
+ 222 00d6 FFF7FEFF 		bl	int64_add
+ 223 00da 031C     		mov	r3, r0
+ 224 00dc BB61     		str	r3, [r7, #24]
+ 225 00de DB17     		asr	r3, r3, #31
+ 226 00e0 FB61     		str	r3, [r7, #28]
+  35:.\libfixmath/fix16_exp.c **** 		#endif
+  36:.\libfixmath/fix16_exp.c **** 		tempValue = int64_shift(tempValue, -16);
+ 227              		.loc 1 36 0 discriminator 2
+ 228 00e2 BB69     		ldr	r3, [r7, #24]
+ 229 00e4 FC69     		ldr	r4, [r7, #28]
+ 230 00e6 1022     		mov	r2, #16
+ 231 00e8 5242     		neg	r2, r2
+ 232 00ea 181C     		mov	r0, r3
+ 233 00ec 211C     		mov	r1, r4
+ 234 00ee FFF7FEFF 		bl	int64_shift
+ 235 00f2 031C     		mov	r3, r0
+ 236 00f4 BB61     		str	r3, [r7, #24]
+ 237 00f6 DB17     		asr	r3, r3, #31
+ 238 00f8 FB61     		str	r3, [r7, #28]
+  37:.\libfixmath/fix16_exp.c **** 		tempOut = int64_add(tempOut, int64_div_i64_i32(tempValue, n));
+ 239              		.loc 1 37 0 discriminator 2
+ 240 00fa BB69     		ldr	r3, [r7, #24]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 6
+
+
+ 241 00fc FC69     		ldr	r4, [r7, #28]
+ 242 00fe 3A69     		ldr	r2, [r7, #16]
+ 243 0100 181C     		mov	r0, r3
+ 244 0102 211C     		mov	r1, r4
+ 245 0104 FFF7FEFF 		bl	int64_div_i64_i32
+ 246 0108 021C     		mov	r2, r0
+ 247 010a 3B6A     		ldr	r3, [r7, #32]
+ 248 010c 7C6A     		ldr	r4, [r7, #36]
+ 249 010e 181C     		mov	r0, r3
+ 250 0110 211C     		mov	r1, r4
+ 251 0112 FFF7FEFF 		bl	int64_add
+ 252 0116 031C     		mov	r3, r0
+ 253 0118 3B62     		str	r3, [r7, #32]
+ 254 011a DB17     		asr	r3, r3, #31
+ 255 011c 7B62     		str	r3, [r7, #36]
+ 256              	.LBE2:
+  31:.\libfixmath/fix16_exp.c **** 	for(i = 3, n = 2; i < 13; n *= i, i++) {
+ 257              		.loc 1 31 0 discriminator 2
+ 258 011e 3B69     		ldr	r3, [r7, #16]
+ 259 0120 7A69     		ldr	r2, [r7, #20]
+ 260 0122 5343     		mul	r3, r2
+ 261 0124 3B61     		str	r3, [r7, #16]
+ 262 0126 7B69     		ldr	r3, [r7, #20]
+ 263 0128 0133     		add	r3, r3, #1
+ 264 012a 7B61     		str	r3, [r7, #20]
+ 265              	.L8:
+  31:.\libfixmath/fix16_exp.c **** 	for(i = 3, n = 2; i < 13; n *= i, i++) {
+ 266              		.loc 1 31 0 is_stmt 0 discriminator 1
+ 267 012c 7B69     		ldr	r3, [r7, #20]
+ 268 012e 0C2B     		cmp	r3, #12
+ 269 0130 BBD9     		bls	.L9
+  38:.\libfixmath/fix16_exp.c **** 	}
+  39:.\libfixmath/fix16_exp.c **** 
+  40:.\libfixmath/fix16_exp.c **** 	#ifndef FIXMATH_NO_CACHE
+  41:.\libfixmath/fix16_exp.c **** 	_fix16_exp_cache_index[tempIndex] = inValue;
+ 270              		.loc 1 41 0 is_stmt 1
+ 271 0132 114B     		ldr	r3, .L10+16
+ 272 0134 FA68     		ldr	r2, [r7, #12]
+ 273 0136 9200     		lsl	r2, r2, #2
+ 274 0138 7968     		ldr	r1, [r7, #4]
+ 275 013a D150     		str	r1, [r2, r3]
+  42:.\libfixmath/fix16_exp.c **** 	_fix16_exp_cache_value[tempIndex] = int64_lo(tempOut);
+ 276              		.loc 1 42 0
+ 277 013c 3B6A     		ldr	r3, [r7, #32]
+ 278 013e 7C6A     		ldr	r4, [r7, #36]
+ 279 0140 181C     		mov	r0, r3
+ 280 0142 211C     		mov	r1, r4
+ 281 0144 FFF7FEFF 		bl	int64_lo
+ 282 0148 011C     		mov	r1, r0
+ 283 014a 0C4B     		ldr	r3, .L10+20
+ 284 014c FA68     		ldr	r2, [r7, #12]
+ 285 014e 9200     		lsl	r2, r2, #2
+ 286 0150 D150     		str	r1, [r2, r3]
+  43:.\libfixmath/fix16_exp.c **** 	#endif
+  44:.\libfixmath/fix16_exp.c **** 
+  45:.\libfixmath/fix16_exp.c **** 	return int64_lo(tempOut);
+ 287              		.loc 1 45 0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 7
+
+
+ 288 0152 3B6A     		ldr	r3, [r7, #32]
+ 289 0154 7C6A     		ldr	r4, [r7, #36]
+ 290 0156 181C     		mov	r0, r3
+ 291 0158 211C     		mov	r1, r4
+ 292 015a FFF7FEFF 		bl	int64_lo
+ 293 015e 031C     		mov	r3, r0
+ 294              	.L3:
+  46:.\libfixmath/fix16_exp.c **** }
+ 295              		.loc 1 46 0
+ 296 0160 181C     		mov	r0, r3
+ 297 0162 BD46     		mov	sp, r7
+ 298 0164 0BB0     		add	sp, sp, #44
+ 299              		@ sp needed
+ 300 0166 90BD     		pop	{r4, r7, pc}
+ 301              	.L11:
+ 302              		.align	2
+ 303              	.L10:
+ 304 0168 E1B70200 		.word	178145
+ 305 016c AF650A00 		.word	681391
+ 306 0170 FFFFFF7F 		.word	2147483647
+ 307 0174 DFE8F4FF 		.word	-726817
+ 308 0178 00000000 		.word	_fix16_exp_cache_index
+ 309 017c 00400000 		.word	_fix16_exp_cache_value
+ 310              		.cfi_endproc
+ 311              	.LFE6:
+ 312              		.size	fix16_exp, .-fix16_exp
+ 313              		.text
+ 314              	.Letext0:
+ 315              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 316              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 317              		.file 4 ".\\libfixmath\\fix16.h"
+ 318              		.section	.debug_info,"",%progbits
+ 319              	.Ldebug_info0:
+ 320 0000 85020000 		.4byte	0x285
+ 321 0004 0400     		.2byte	0x4
+ 322 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 323 000a 04       		.byte	0x4
+ 324 000b 01       		.uleb128 0x1
+ 325 000c 98010000 		.4byte	.LASF38
+ 326 0010 01       		.byte	0x1
+ 327 0011 3C000000 		.4byte	.LASF39
+ 328 0015 F4000000 		.4byte	.LASF40
+ 329 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 330 001d 00000000 		.4byte	0
+ 331 0021 00000000 		.4byte	.Ldebug_line0
+ 332 0025 02       		.uleb128 0x2
+ 333 0026 01       		.byte	0x1
+ 334 0027 06       		.byte	0x6
+ 335 0028 CF020000 		.4byte	.LASF0
+ 336 002c 02       		.uleb128 0x2
+ 337 002d 01       		.byte	0x1
+ 338 002e 08       		.byte	0x8
+ 339 002f 9D000000 		.4byte	.LASF1
+ 340 0033 02       		.uleb128 0x2
+ 341 0034 02       		.byte	0x2
+ 342 0035 05       		.byte	0x5
+ 343 0036 81020000 		.4byte	.LASF2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 8
+
+
+ 344 003a 02       		.uleb128 0x2
+ 345 003b 02       		.byte	0x2
+ 346 003c 07       		.byte	0x7
+ 347 003d CF000000 		.4byte	.LASF3
+ 348 0041 03       		.uleb128 0x3
+ 349 0042 32000000 		.4byte	.LASF5
+ 350 0046 02       		.byte	0x2
+ 351 0047 37       		.byte	0x37
+ 352 0048 4C000000 		.4byte	0x4c
+ 353 004c 02       		.uleb128 0x2
+ 354 004d 04       		.byte	0x4
+ 355 004e 05       		.byte	0x5
+ 356 004f B7020000 		.4byte	.LASF4
+ 357 0053 03       		.uleb128 0x3
+ 358 0054 51010000 		.4byte	.LASF6
+ 359 0058 02       		.byte	0x2
+ 360 0059 38       		.byte	0x38
+ 361 005a 5E000000 		.4byte	0x5e
+ 362 005e 02       		.uleb128 0x2
+ 363 005f 04       		.byte	0x4
+ 364 0060 07       		.byte	0x7
+ 365 0061 B5000000 		.4byte	.LASF7
+ 366 0065 03       		.uleb128 0x3
+ 367 0066 47010000 		.4byte	.LASF8
+ 368 006a 02       		.byte	0x2
+ 369 006b 4D       		.byte	0x4d
+ 370 006c 70000000 		.4byte	0x70
+ 371 0070 02       		.uleb128 0x2
+ 372 0071 08       		.byte	0x8
+ 373 0072 05       		.byte	0x5
+ 374 0073 57020000 		.4byte	.LASF9
+ 375 0077 02       		.uleb128 0x2
+ 376 0078 08       		.byte	0x8
+ 377 0079 07       		.byte	0x7
+ 378 007a 86000000 		.4byte	.LASF10
+ 379 007e 04       		.uleb128 0x4
+ 380 007f 04       		.byte	0x4
+ 381 0080 05       		.byte	0x5
+ 382 0081 696E7400 		.ascii	"int\000"
+ 383 0085 02       		.uleb128 0x2
+ 384 0086 04       		.byte	0x4
+ 385 0087 07       		.byte	0x7
+ 386 0088 8B010000 		.4byte	.LASF11
+ 387 008c 03       		.uleb128 0x3
+ 388 008d 3C020000 		.4byte	.LASF12
+ 389 0091 03       		.byte	0x3
+ 390 0092 41       		.byte	0x41
+ 391 0093 41000000 		.4byte	0x41
+ 392 0097 03       		.uleb128 0x3
+ 393 0098 AE020000 		.4byte	.LASF13
+ 394 009c 03       		.byte	0x3
+ 395 009d 42       		.byte	0x42
+ 396 009e 53000000 		.4byte	0x53
+ 397 00a2 03       		.uleb128 0x3
+ 398 00a3 17000000 		.4byte	.LASF14
+ 399 00a7 03       		.byte	0x3
+ 400 00a8 4D       		.byte	0x4d
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 9
+
+
+ 401 00a9 65000000 		.4byte	0x65
+ 402 00ad 03       		.uleb128 0x3
+ 403 00ae 8B020000 		.4byte	.LASF15
+ 404 00b2 04       		.byte	0x4
+ 405 00b3 16       		.byte	0x16
+ 406 00b4 8C000000 		.4byte	0x8c
+ 407 00b8 05       		.uleb128 0x5
+ 408 00b9 28000000 		.4byte	.LASF41
+ 409 00bd 01       		.byte	0x1
+ 410 00be 0B       		.byte	0xb
+ 411 00bf AD000000 		.4byte	0xad
+ 412 00c3 00000000 		.4byte	.LFB6
+ 413 00c7 80010000 		.4byte	.LFE6-.LFB6
+ 414 00cb 01       		.uleb128 0x1
+ 415 00cc 9C       		.byte	0x9c
+ 416 00cd 8E010000 		.4byte	0x18e
+ 417 00d1 06       		.uleb128 0x6
+ 418 00d2 65020000 		.4byte	.LASF42
+ 419 00d6 01       		.byte	0x1
+ 420 00d7 0B       		.byte	0xb
+ 421 00d8 AD000000 		.4byte	0xad
+ 422 00dc 02       		.uleb128 0x2
+ 423 00dd 91       		.byte	0x91
+ 424 00de 4C       		.sleb128 -52
+ 425 00df 07       		.uleb128 0x7
+ 426 00e0 4D020000 		.4byte	.LASF16
+ 427 00e4 01       		.byte	0x1
+ 428 00e5 16       		.byte	0x16
+ 429 00e6 AD000000 		.4byte	0xad
+ 430 00ea 02       		.uleb128 0x2
+ 431 00eb 91       		.byte	0x91
+ 432 00ec 54       		.sleb128 -44
+ 433 00ed 07       		.uleb128 0x7
+ 434 00ee DB020000 		.4byte	.LASF17
+ 435 00f2 01       		.byte	0x1
+ 436 00f3 1C       		.byte	0x1c
+ 437 00f4 A2000000 		.4byte	0xa2
+ 438 00f8 02       		.uleb128 0x2
+ 439 00f9 91       		.byte	0x91
+ 440 00fa 68       		.sleb128 -24
+ 441 00fb 08       		.uleb128 0x8
+ 442 00fc E3020000 		.4byte	.LASF18
+ 443 0100 01       		.byte	0x1
+ 444 0101 1C       		.byte	0x1c
+ 445 0102 7E000000 		.4byte	0x7e
+ 446 0106 0C010000 		.4byte	0x10c
+ 447 010a 09       		.uleb128 0x9
+ 448 010b 00       		.byte	0
+ 449 010c 08       		.uleb128 0x8
+ 450 010d 2B020000 		.4byte	.LASF19
+ 451 0111 01       		.byte	0x1
+ 452 0112 1C       		.byte	0x1c
+ 453 0113 7E000000 		.4byte	0x7e
+ 454 0117 1D010000 		.4byte	0x11d
+ 455 011b 09       		.uleb128 0x9
+ 456 011c 00       		.byte	0
+ 457 011d 07       		.uleb128 0x7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 10
+
+
+ 458 011e 55000000 		.4byte	.LASF20
+ 459 0122 01       		.byte	0x1
+ 460 0123 1D       		.byte	0x1d
+ 461 0124 A2000000 		.4byte	0xa2
+ 462 0128 02       		.uleb128 0x2
+ 463 0129 91       		.byte	0x91
+ 464 012a 60       		.sleb128 -32
+ 465 012b 0A       		.uleb128 0xa
+ 466 012c 6900     		.ascii	"i\000"
+ 467 012e 01       		.byte	0x1
+ 468 012f 1E       		.byte	0x1e
+ 469 0130 97000000 		.4byte	0x97
+ 470 0134 02       		.uleb128 0x2
+ 471 0135 91       		.byte	0x91
+ 472 0136 5C       		.sleb128 -36
+ 473 0137 0A       		.uleb128 0xa
+ 474 0138 6E00     		.ascii	"n\000"
+ 475 013a 01       		.byte	0x1
+ 476 013b 1E       		.byte	0x1e
+ 477 013c 97000000 		.4byte	0x97
+ 478 0140 02       		.uleb128 0x2
+ 479 0141 91       		.byte	0x91
+ 480 0142 58       		.sleb128 -40
+ 481 0143 08       		.uleb128 0x8
+ 482 0144 1F000000 		.4byte	.LASF21
+ 483 0148 01       		.byte	0x1
+ 484 0149 2A       		.byte	0x2a
+ 485 014a 7E000000 		.4byte	0x7e
+ 486 014e 54010000 		.4byte	0x154
+ 487 0152 09       		.uleb128 0x9
+ 488 0153 00       		.byte	0
+ 489 0154 0B       		.uleb128 0xb
+ 490 0155 AA000000 		.4byte	.LBB2
+ 491 0159 74000000 		.4byte	.LBE2-.LBB2
+ 492 015d 08       		.uleb128 0x8
+ 493 015e 5F000000 		.4byte	.LASF22
+ 494 0162 01       		.byte	0x1
+ 495 0163 20       		.byte	0x20
+ 496 0164 7E000000 		.4byte	0x7e
+ 497 0168 6E010000 		.4byte	0x16e
+ 498 016c 09       		.uleb128 0x9
+ 499 016d 00       		.byte	0
+ 500 016e 08       		.uleb128 0x8
+ 501 016f 7A000000 		.4byte	.LASF23
+ 502 0173 01       		.byte	0x1
+ 503 0174 24       		.byte	0x24
+ 504 0175 7E000000 		.4byte	0x7e
+ 505 0179 7F010000 		.4byte	0x17f
+ 506 017d 09       		.uleb128 0x9
+ 507 017e 00       		.byte	0
+ 508 017f 0C       		.uleb128 0xc
+ 509 0180 E2000000 		.4byte	.LASF43
+ 510 0184 01       		.byte	0x1
+ 511 0185 25       		.byte	0x25
+ 512 0186 7E000000 		.4byte	0x7e
+ 513 018a 09       		.uleb128 0x9
+ 514 018b 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 11
+
+
+ 515 018c 00       		.byte	0
+ 516 018d 00       		.byte	0
+ 517 018e 07       		.uleb128 0x7
+ 518 018f A2020000 		.4byte	.LASF24
+ 519 0193 04       		.byte	0x4
+ 520 0194 18       		.byte	0x18
+ 521 0195 9F010000 		.4byte	0x19f
+ 522 0199 05       		.uleb128 0x5
+ 523 019a 03       		.byte	0x3
+ 524 019b 00000000 		.4byte	FOUR_DIV_PI
+ 525 019f 0D       		.uleb128 0xd
+ 526 01a0 AD000000 		.4byte	0xad
+ 527 01a4 07       		.uleb128 0x7
+ 528 01a5 14020000 		.4byte	.LASF25
+ 529 01a9 04       		.byte	0x4
+ 530 01aa 19       		.byte	0x19
+ 531 01ab 9F010000 		.4byte	0x19f
+ 532 01af 05       		.uleb128 0x5
+ 533 01b0 03       		.byte	0x3
+ 534 01b1 04000000 		.4byte	_FOUR_DIV_PI2
+ 535 01b5 07       		.uleb128 0x7
+ 536 01b6 73010000 		.4byte	.LASF26
+ 537 01ba 04       		.byte	0x4
+ 538 01bb 1A       		.byte	0x1a
+ 539 01bc 9F010000 		.4byte	0x19f
+ 540 01c0 05       		.uleb128 0x5
+ 541 01c1 03       		.byte	0x3
+ 542 01c2 08000000 		.4byte	X4_CORRECTION_COMPONENT
+ 543 01c6 07       		.uleb128 0x7
+ 544 01c7 71000000 		.4byte	.LASF27
+ 545 01cb 04       		.byte	0x4
+ 546 01cc 1B       		.byte	0x1b
+ 547 01cd 9F010000 		.4byte	0x19f
+ 548 01d1 05       		.uleb128 0x5
+ 549 01d2 03       		.byte	0x3
+ 550 01d3 0C000000 		.4byte	PI_DIV_4
+ 551 01d7 07       		.uleb128 0x7
+ 552 01d8 93020000 		.4byte	.LASF28
+ 553 01dc 04       		.byte	0x4
+ 554 01dd 1C       		.byte	0x1c
+ 555 01de 9F010000 		.4byte	0x19f
+ 556 01e2 05       		.uleb128 0x5
+ 557 01e3 03       		.byte	0x3
+ 558 01e4 10000000 		.4byte	THREE_PI_DIV_4
+ 559 01e8 07       		.uleb128 0x7
+ 560 01e9 77020000 		.4byte	.LASF29
+ 561 01ed 04       		.byte	0x4
+ 562 01ee 1E       		.byte	0x1e
+ 563 01ef 9F010000 		.4byte	0x19f
+ 564 01f3 05       		.uleb128 0x5
+ 565 01f4 03       		.byte	0x3
+ 566 01f5 14000000 		.4byte	fix16_max
+ 567 01f9 07       		.uleb128 0x7
+ 568 01fa AB000000 		.4byte	.LASF30
+ 569 01fe 04       		.byte	0x4
+ 570 01ff 1F       		.byte	0x1f
+ 571 0200 9F010000 		.4byte	0x19f
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 12
+
+
+ 572 0204 05       		.uleb128 0x5
+ 573 0205 03       		.byte	0x3
+ 574 0206 18000000 		.4byte	fix16_min
+ 575 020a 07       		.uleb128 0x7
+ 576 020b C0020000 		.4byte	.LASF31
+ 577 020f 04       		.byte	0x4
+ 578 0210 20       		.byte	0x20
+ 579 0211 9F010000 		.4byte	0x19f
+ 580 0215 05       		.uleb128 0x5
+ 581 0216 03       		.byte	0x3
+ 582 0217 1C000000 		.4byte	fix16_overflow
+ 583 021b 07       		.uleb128 0x7
+ 584 021c 22020000 		.4byte	.LASF32
+ 585 0220 04       		.byte	0x4
+ 586 0221 22       		.byte	0x22
+ 587 0222 9F010000 		.4byte	0x19f
+ 588 0226 05       		.uleb128 0x5
+ 589 0227 03       		.byte	0x3
+ 590 0228 20000000 		.4byte	fix16_pi
+ 591 022c 07       		.uleb128 0x7
+ 592 022d C7000000 		.4byte	.LASF33
+ 593 0231 04       		.byte	0x4
+ 594 0232 23       		.byte	0x23
+ 595 0233 9F010000 		.4byte	0x19f
+ 596 0237 05       		.uleb128 0x5
+ 597 0238 03       		.byte	0x3
+ 598 0239 24000000 		.4byte	fix16_e
+ 599 023d 07       		.uleb128 0x7
+ 600 023e 6D020000 		.4byte	.LASF34
+ 601 0242 04       		.byte	0x4
+ 602 0243 24       		.byte	0x24
+ 603 0244 9F010000 		.4byte	0x19f
+ 604 0248 05       		.uleb128 0x5
+ 605 0249 03       		.byte	0x3
+ 606 024a 28000000 		.4byte	fix16_one
+ 607 024e 0E       		.uleb128 0xe
+ 608 024f AD000000 		.4byte	0xad
+ 609 0253 5F020000 		.4byte	0x25f
+ 610 0257 0F       		.uleb128 0xf
+ 611 0258 5F020000 		.4byte	0x25f
+ 612 025c FF0F     		.2byte	0xfff
+ 613 025e 00       		.byte	0
+ 614 025f 02       		.uleb128 0x2
+ 615 0260 04       		.byte	0x4
+ 616 0261 07       		.byte	0x7
+ 617 0262 44020000 		.4byte	.LASF35
+ 618 0266 07       		.uleb128 0x7
+ 619 0267 5C010000 		.4byte	.LASF36
+ 620 026b 01       		.byte	0x1
+ 621 026c 05       		.byte	0x5
+ 622 026d 4E020000 		.4byte	0x24e
+ 623 0271 05       		.uleb128 0x5
+ 624 0272 03       		.byte	0x3
+ 625 0273 00000000 		.4byte	_fix16_exp_cache_index
+ 626 0277 07       		.uleb128 0x7
+ 627 0278 00000000 		.4byte	.LASF37
+ 628 027c 01       		.byte	0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 13
+
+
+ 629 027d 06       		.byte	0x6
+ 630 027e 4E020000 		.4byte	0x24e
+ 631 0282 05       		.uleb128 0x5
+ 632 0283 03       		.byte	0x3
+ 633 0284 00400000 		.4byte	_fix16_exp_cache_value
+ 634 0288 00       		.byte	0
+ 635              		.section	.debug_abbrev,"",%progbits
+ 636              	.Ldebug_abbrev0:
+ 637 0000 01       		.uleb128 0x1
+ 638 0001 11       		.uleb128 0x11
+ 639 0002 01       		.byte	0x1
+ 640 0003 25       		.uleb128 0x25
+ 641 0004 0E       		.uleb128 0xe
+ 642 0005 13       		.uleb128 0x13
+ 643 0006 0B       		.uleb128 0xb
+ 644 0007 03       		.uleb128 0x3
+ 645 0008 0E       		.uleb128 0xe
+ 646 0009 1B       		.uleb128 0x1b
+ 647 000a 0E       		.uleb128 0xe
+ 648 000b 55       		.uleb128 0x55
+ 649 000c 17       		.uleb128 0x17
+ 650 000d 11       		.uleb128 0x11
+ 651 000e 01       		.uleb128 0x1
+ 652 000f 10       		.uleb128 0x10
+ 653 0010 17       		.uleb128 0x17
+ 654 0011 00       		.byte	0
+ 655 0012 00       		.byte	0
+ 656 0013 02       		.uleb128 0x2
+ 657 0014 24       		.uleb128 0x24
+ 658 0015 00       		.byte	0
+ 659 0016 0B       		.uleb128 0xb
+ 660 0017 0B       		.uleb128 0xb
+ 661 0018 3E       		.uleb128 0x3e
+ 662 0019 0B       		.uleb128 0xb
+ 663 001a 03       		.uleb128 0x3
+ 664 001b 0E       		.uleb128 0xe
+ 665 001c 00       		.byte	0
+ 666 001d 00       		.byte	0
+ 667 001e 03       		.uleb128 0x3
+ 668 001f 16       		.uleb128 0x16
+ 669 0020 00       		.byte	0
+ 670 0021 03       		.uleb128 0x3
+ 671 0022 0E       		.uleb128 0xe
+ 672 0023 3A       		.uleb128 0x3a
+ 673 0024 0B       		.uleb128 0xb
+ 674 0025 3B       		.uleb128 0x3b
+ 675 0026 0B       		.uleb128 0xb
+ 676 0027 49       		.uleb128 0x49
+ 677 0028 13       		.uleb128 0x13
+ 678 0029 00       		.byte	0
+ 679 002a 00       		.byte	0
+ 680 002b 04       		.uleb128 0x4
+ 681 002c 24       		.uleb128 0x24
+ 682 002d 00       		.byte	0
+ 683 002e 0B       		.uleb128 0xb
+ 684 002f 0B       		.uleb128 0xb
+ 685 0030 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 14
+
+
+ 686 0031 0B       		.uleb128 0xb
+ 687 0032 03       		.uleb128 0x3
+ 688 0033 08       		.uleb128 0x8
+ 689 0034 00       		.byte	0
+ 690 0035 00       		.byte	0
+ 691 0036 05       		.uleb128 0x5
+ 692 0037 2E       		.uleb128 0x2e
+ 693 0038 01       		.byte	0x1
+ 694 0039 3F       		.uleb128 0x3f
+ 695 003a 19       		.uleb128 0x19
+ 696 003b 03       		.uleb128 0x3
+ 697 003c 0E       		.uleb128 0xe
+ 698 003d 3A       		.uleb128 0x3a
+ 699 003e 0B       		.uleb128 0xb
+ 700 003f 3B       		.uleb128 0x3b
+ 701 0040 0B       		.uleb128 0xb
+ 702 0041 27       		.uleb128 0x27
+ 703 0042 19       		.uleb128 0x19
+ 704 0043 49       		.uleb128 0x49
+ 705 0044 13       		.uleb128 0x13
+ 706 0045 11       		.uleb128 0x11
+ 707 0046 01       		.uleb128 0x1
+ 708 0047 12       		.uleb128 0x12
+ 709 0048 06       		.uleb128 0x6
+ 710 0049 40       		.uleb128 0x40
+ 711 004a 18       		.uleb128 0x18
+ 712 004b 9642     		.uleb128 0x2116
+ 713 004d 19       		.uleb128 0x19
+ 714 004e 01       		.uleb128 0x1
+ 715 004f 13       		.uleb128 0x13
+ 716 0050 00       		.byte	0
+ 717 0051 00       		.byte	0
+ 718 0052 06       		.uleb128 0x6
+ 719 0053 05       		.uleb128 0x5
+ 720 0054 00       		.byte	0
+ 721 0055 03       		.uleb128 0x3
+ 722 0056 0E       		.uleb128 0xe
+ 723 0057 3A       		.uleb128 0x3a
+ 724 0058 0B       		.uleb128 0xb
+ 725 0059 3B       		.uleb128 0x3b
+ 726 005a 0B       		.uleb128 0xb
+ 727 005b 49       		.uleb128 0x49
+ 728 005c 13       		.uleb128 0x13
+ 729 005d 02       		.uleb128 0x2
+ 730 005e 18       		.uleb128 0x18
+ 731 005f 00       		.byte	0
+ 732 0060 00       		.byte	0
+ 733 0061 07       		.uleb128 0x7
+ 734 0062 34       		.uleb128 0x34
+ 735 0063 00       		.byte	0
+ 736 0064 03       		.uleb128 0x3
+ 737 0065 0E       		.uleb128 0xe
+ 738 0066 3A       		.uleb128 0x3a
+ 739 0067 0B       		.uleb128 0xb
+ 740 0068 3B       		.uleb128 0x3b
+ 741 0069 0B       		.uleb128 0xb
+ 742 006a 49       		.uleb128 0x49
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 15
+
+
+ 743 006b 13       		.uleb128 0x13
+ 744 006c 02       		.uleb128 0x2
+ 745 006d 18       		.uleb128 0x18
+ 746 006e 00       		.byte	0
+ 747 006f 00       		.byte	0
+ 748 0070 08       		.uleb128 0x8
+ 749 0071 2E       		.uleb128 0x2e
+ 750 0072 01       		.byte	0x1
+ 751 0073 3F       		.uleb128 0x3f
+ 752 0074 19       		.uleb128 0x19
+ 753 0075 03       		.uleb128 0x3
+ 754 0076 0E       		.uleb128 0xe
+ 755 0077 3A       		.uleb128 0x3a
+ 756 0078 0B       		.uleb128 0xb
+ 757 0079 3B       		.uleb128 0x3b
+ 758 007a 0B       		.uleb128 0xb
+ 759 007b 49       		.uleb128 0x49
+ 760 007c 13       		.uleb128 0x13
+ 761 007d 3C       		.uleb128 0x3c
+ 762 007e 19       		.uleb128 0x19
+ 763 007f 01       		.uleb128 0x1
+ 764 0080 13       		.uleb128 0x13
+ 765 0081 00       		.byte	0
+ 766 0082 00       		.byte	0
+ 767 0083 09       		.uleb128 0x9
+ 768 0084 18       		.uleb128 0x18
+ 769 0085 00       		.byte	0
+ 770 0086 00       		.byte	0
+ 771 0087 00       		.byte	0
+ 772 0088 0A       		.uleb128 0xa
+ 773 0089 34       		.uleb128 0x34
+ 774 008a 00       		.byte	0
+ 775 008b 03       		.uleb128 0x3
+ 776 008c 08       		.uleb128 0x8
+ 777 008d 3A       		.uleb128 0x3a
+ 778 008e 0B       		.uleb128 0xb
+ 779 008f 3B       		.uleb128 0x3b
+ 780 0090 0B       		.uleb128 0xb
+ 781 0091 49       		.uleb128 0x49
+ 782 0092 13       		.uleb128 0x13
+ 783 0093 02       		.uleb128 0x2
+ 784 0094 18       		.uleb128 0x18
+ 785 0095 00       		.byte	0
+ 786 0096 00       		.byte	0
+ 787 0097 0B       		.uleb128 0xb
+ 788 0098 0B       		.uleb128 0xb
+ 789 0099 01       		.byte	0x1
+ 790 009a 11       		.uleb128 0x11
+ 791 009b 01       		.uleb128 0x1
+ 792 009c 12       		.uleb128 0x12
+ 793 009d 06       		.uleb128 0x6
+ 794 009e 00       		.byte	0
+ 795 009f 00       		.byte	0
+ 796 00a0 0C       		.uleb128 0xc
+ 797 00a1 2E       		.uleb128 0x2e
+ 798 00a2 01       		.byte	0x1
+ 799 00a3 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 16
+
+
+ 800 00a4 19       		.uleb128 0x19
+ 801 00a5 03       		.uleb128 0x3
+ 802 00a6 0E       		.uleb128 0xe
+ 803 00a7 3A       		.uleb128 0x3a
+ 804 00a8 0B       		.uleb128 0xb
+ 805 00a9 3B       		.uleb128 0x3b
+ 806 00aa 0B       		.uleb128 0xb
+ 807 00ab 49       		.uleb128 0x49
+ 808 00ac 13       		.uleb128 0x13
+ 809 00ad 3C       		.uleb128 0x3c
+ 810 00ae 19       		.uleb128 0x19
+ 811 00af 00       		.byte	0
+ 812 00b0 00       		.byte	0
+ 813 00b1 0D       		.uleb128 0xd
+ 814 00b2 26       		.uleb128 0x26
+ 815 00b3 00       		.byte	0
+ 816 00b4 49       		.uleb128 0x49
+ 817 00b5 13       		.uleb128 0x13
+ 818 00b6 00       		.byte	0
+ 819 00b7 00       		.byte	0
+ 820 00b8 0E       		.uleb128 0xe
+ 821 00b9 01       		.uleb128 0x1
+ 822 00ba 01       		.byte	0x1
+ 823 00bb 49       		.uleb128 0x49
+ 824 00bc 13       		.uleb128 0x13
+ 825 00bd 01       		.uleb128 0x1
+ 826 00be 13       		.uleb128 0x13
+ 827 00bf 00       		.byte	0
+ 828 00c0 00       		.byte	0
+ 829 00c1 0F       		.uleb128 0xf
+ 830 00c2 21       		.uleb128 0x21
+ 831 00c3 00       		.byte	0
+ 832 00c4 49       		.uleb128 0x49
+ 833 00c5 13       		.uleb128 0x13
+ 834 00c6 2F       		.uleb128 0x2f
+ 835 00c7 05       		.uleb128 0x5
+ 836 00c8 00       		.byte	0
+ 837 00c9 00       		.byte	0
+ 838 00ca 00       		.byte	0
+ 839              		.section	.debug_aranges,"",%progbits
+ 840 0000 1C000000 		.4byte	0x1c
+ 841 0004 0200     		.2byte	0x2
+ 842 0006 00000000 		.4byte	.Ldebug_info0
+ 843 000a 04       		.byte	0x4
+ 844 000b 00       		.byte	0
+ 845 000c 0000     		.2byte	0
+ 846 000e 0000     		.2byte	0
+ 847 0010 00000000 		.4byte	.LFB6
+ 848 0014 80010000 		.4byte	.LFE6-.LFB6
+ 849 0018 00000000 		.4byte	0
+ 850 001c 00000000 		.4byte	0
+ 851              		.section	.debug_ranges,"",%progbits
+ 852              	.Ldebug_ranges0:
+ 853 0000 00000000 		.4byte	.LFB6
+ 854 0004 80010000 		.4byte	.LFE6
+ 855 0008 00000000 		.4byte	0
+ 856 000c 00000000 		.4byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 17
+
+
+ 857              		.section	.debug_line,"",%progbits
+ 858              	.Ldebug_line0:
+ 859 0000 87010000 		.section	.debug_str,"MS",%progbits,1
+ 859      02003801 
+ 859      00000201 
+ 859      FB0E0D00 
+ 859      01010101 
+ 860              	.LASF37:
+ 861 0000 5F666978 		.ascii	"_fix16_exp_cache_value\000"
+ 861      31365F65 
+ 861      78705F63 
+ 861      61636865 
+ 861      5F76616C 
+ 862              	.LASF14:
+ 863 0017 696E7436 		.ascii	"int64_t\000"
+ 863      345F7400 
+ 864              	.LASF21:
+ 865 001f 696E7436 		.ascii	"int64_lo\000"
+ 865      345F6C6F 
+ 865      00
+ 866              	.LASF41:
+ 867 0028 66697831 		.ascii	"fix16_exp\000"
+ 867      365F6578 
+ 867      7000
+ 868              	.LASF5:
+ 869 0032 5F5F696E 		.ascii	"__int32_t\000"
+ 869      7433325F 
+ 869      7400
+ 870              	.LASF39:
+ 871 003c 2E5C6C69 		.ascii	".\\libfixmath\\fix16_exp.c\000"
+ 871      62666978 
+ 871      6D617468 
+ 871      5C666978 
+ 871      31365F65 
+ 872              	.LASF20:
+ 873 0055 74656D70 		.ascii	"tempValue\000"
+ 873      56616C75 
+ 873      6500
+ 874              	.LASF22:
+ 875 005f 696E7436 		.ascii	"int64_mul_i64_i32\000"
+ 875      345F6D75 
+ 875      6C5F6936 
+ 875      345F6933 
+ 875      3200
+ 876              	.LASF27:
+ 877 0071 50495F44 		.ascii	"PI_DIV_4\000"
+ 877      49565F34 
+ 877      00
+ 878              	.LASF23:
+ 879 007a 696E7436 		.ascii	"int64_shift\000"
+ 879      345F7368 
+ 879      69667400 
+ 880              	.LASF10:
+ 881 0086 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 881      206C6F6E 
+ 881      6720756E 
+ 881      7369676E 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 18
+
+
+ 881      65642069 
+ 882              	.LASF1:
+ 883 009d 756E7369 		.ascii	"unsigned char\000"
+ 883      676E6564 
+ 883      20636861 
+ 883      7200
+ 884              	.LASF30:
+ 885 00ab 66697831 		.ascii	"fix16_min\000"
+ 885      365F6D69 
+ 885      6E00
+ 886              	.LASF7:
+ 887 00b5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 887      20756E73 
+ 887      69676E65 
+ 887      6420696E 
+ 887      7400
+ 888              	.LASF33:
+ 889 00c7 66697831 		.ascii	"fix16_e\000"
+ 889      365F6500 
+ 890              	.LASF3:
+ 891 00cf 73686F72 		.ascii	"short unsigned int\000"
+ 891      7420756E 
+ 891      7369676E 
+ 891      65642069 
+ 891      6E7400
+ 892              	.LASF43:
+ 893 00e2 696E7436 		.ascii	"int64_div_i64_i32\000"
+ 893      345F6469 
+ 893      765F6936 
+ 893      345F6933 
+ 893      3200
+ 894              	.LASF40:
+ 895 00f4 433A5C55 		.ascii	"C:\\Users\\Felix\\Git Repository\\E4PRJ4\\Implement"
+ 895      73657273 
+ 895      5C46656C 
+ 895      69785C47 
+ 895      69742052 
+ 896 0122 6572696E 		.ascii	"ering\\Vuggesystem\\Vinkelsensor.cydsn\000"
+ 896      675C5675 
+ 896      67676573 
+ 896      79737465 
+ 896      6D5C5669 
+ 897              	.LASF8:
+ 898 0147 5F5F696E 		.ascii	"__int64_t\000"
+ 898      7436345F 
+ 898      7400
+ 899              	.LASF6:
+ 900 0151 5F5F7569 		.ascii	"__uint32_t\000"
+ 900      6E743332 
+ 900      5F7400
+ 901              	.LASF36:
+ 902 015c 5F666978 		.ascii	"_fix16_exp_cache_index\000"
+ 902      31365F65 
+ 902      78705F63 
+ 902      61636865 
+ 902      5F696E64 
+ 903              	.LASF26:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 19
+
+
+ 904 0173 58345F43 		.ascii	"X4_CORRECTION_COMPONENT\000"
+ 904      4F525245 
+ 904      4354494F 
+ 904      4E5F434F 
+ 904      4D504F4E 
+ 905              	.LASF11:
+ 906 018b 756E7369 		.ascii	"unsigned int\000"
+ 906      676E6564 
+ 906      20696E74 
+ 906      00
+ 907              	.LASF38:
+ 908 0198 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 908      4320342E 
+ 908      382E3420 
+ 908      32303134 
+ 908      30353236 
+ 909 01cb 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 909      20726576 
+ 909      6973696F 
+ 909      6E203231 
+ 909      31333538 
+ 910 01fe 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 910      66756E63 
+ 910      74696F6E 
+ 910      2D736563 
+ 910      74696F6E 
+ 911              	.LASF25:
+ 912 0214 5F464F55 		.ascii	"_FOUR_DIV_PI2\000"
+ 912      525F4449 
+ 912      565F5049 
+ 912      3200
+ 913              	.LASF32:
+ 914 0222 66697831 		.ascii	"fix16_pi\000"
+ 914      365F7069 
+ 914      00
+ 915              	.LASF19:
+ 916 022b 696E7436 		.ascii	"int64_from_int32\000"
+ 916      345F6672 
+ 916      6F6D5F69 
+ 916      6E743332 
+ 916      00
+ 917              	.LASF12:
+ 918 023c 696E7433 		.ascii	"int32_t\000"
+ 918      325F7400 
+ 919              	.LASF35:
+ 920 0244 73697A65 		.ascii	"sizetype\000"
+ 920      74797065 
+ 920      00
+ 921              	.LASF16:
+ 922 024d 74656D70 		.ascii	"tempIndex\000"
+ 922      496E6465 
+ 922      7800
+ 923              	.LASF9:
+ 924 0257 6C6F6E67 		.ascii	"long long int\000"
+ 924      206C6F6E 
+ 924      6720696E 
+ 924      7400
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccdIYjgy.s 			page 20
+
+
+ 925              	.LASF42:
+ 926 0265 696E5661 		.ascii	"inValue\000"
+ 926      6C756500 
+ 927              	.LASF34:
+ 928 026d 66697831 		.ascii	"fix16_one\000"
+ 928      365F6F6E 
+ 928      6500
+ 929              	.LASF29:
+ 930 0277 66697831 		.ascii	"fix16_max\000"
+ 930      365F6D61 
+ 930      7800
+ 931              	.LASF2:
+ 932 0281 73686F72 		.ascii	"short int\000"
+ 932      7420696E 
+ 932      7400
+ 933              	.LASF15:
+ 934 028b 66697831 		.ascii	"fix16_t\000"
+ 934      365F7400 
+ 935              	.LASF28:
+ 936 0293 54485245 		.ascii	"THREE_PI_DIV_4\000"
+ 936      455F5049 
+ 936      5F444956 
+ 936      5F3400
+ 937              	.LASF24:
+ 938 02a2 464F5552 		.ascii	"FOUR_DIV_PI\000"
+ 938      5F444956 
+ 938      5F504900 
+ 939              	.LASF13:
+ 940 02ae 75696E74 		.ascii	"uint32_t\000"
+ 940      33325F74 
+ 940      00
+ 941              	.LASF4:
+ 942 02b7 6C6F6E67 		.ascii	"long int\000"
+ 942      20696E74 
+ 942      00
+ 943              	.LASF31:
+ 944 02c0 66697831 		.ascii	"fix16_overflow\000"
+ 944      365F6F76 
+ 944      6572666C 
+ 944      6F7700
+ 945              	.LASF0:
+ 946 02cf 7369676E 		.ascii	"signed char\000"
+ 946      65642063 
+ 946      68617200 
+ 947              	.LASF17:
+ 948 02db 74656D70 		.ascii	"tempOut\000"
+ 948      4F757400 
+ 949              	.LASF18:
+ 950 02e3 696E7436 		.ascii	"int64_add\000"
+ 950      345F6164 
+ 950      6400
+ 951              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

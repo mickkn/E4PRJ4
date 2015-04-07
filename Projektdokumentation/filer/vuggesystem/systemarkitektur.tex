@@ -28,7 +28,7 @@ Følgende beskriver vuggesystemets kobling og grænseflade.
 \vspace{5mm} 
 
 \figur{0.5}{vuggesystem/sysark/Endstop_sensor_IBD.pdf}{IBD for Endstop sensorer}{EndstopS_IBD}
-\textbf{Endstop sensorer} består af to ens sensorer, hhv. \textbf{Endstop sensor front}, placeret til at detekterer hvis barnevognskurven når den mekaniske vuggegrænse ved fremad vuggeretning, og \textbf{Endstop sensor rear}, placeret til at detekterer hvis barnevognskurven når den mekaniske vuggegrænse ved bagud vuggeretning. Sensorerne giver det samme signal uanset om detekteringen sker i front eller bag.
+\textbf{Endstop sensorer} består af to ens sensorer, hhv. \textbf{Endstop sensor front}, placeret til at detektere hvis barnevognskurven når den mekaniske vuggegrænse ved fremad vuggeretning, og \textbf{Endstop sensor rear}, placeret til at detekterer hvis barnevognskurven når den mekaniske vuggegrænse ved bagud vuggeretning. Sensorerne giver det samme signal uanset om detekteringen sker i front eller bag.
 
 \vspace{5mm}
 
@@ -41,63 +41,7 @@ Følgende beskriver vuggesystemets kobling og grænseflade.
 \textbf{Motor positionssensor} giver et frekvenssignal relativ til motorens nuværende hastighed. 
 
 \subsection{Grænsefladebeskrivelse}
-Herunder findes en beskrivelse af grænsefladen både til denne del af systemet, samt de interne forbindelser. 
-
-\subsection*{I2C beskrivelse}
-Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskrevet her:
-
-\begin{center}
-\begin{longtable}{|p{1cm}|p{2cm}|p{1cm}|p{5.5cm}|p{2.5cm}|}
-\caption[i2cBeskrivelse]{Specifikation af I2C grænseflade} 
-
-\label{i2c_tabel} \\
-
-\hline 
-
-\multicolumn{5}{|l|}{\textbf{I2C Adresse:} 0b1111000X  (Write: 0xF0, Read: 0xF1)} \\ \hline
-\multicolumn{5}{|l|}{\textbf{I2C Frekvens:} 100kHz} \\ \hline
-
-\textbf{Reg\#} & \textbf{Navn} & \textbf{Type} & \textbf{Beskrivelse} & \textbf{Startværdi} \\
-\hline 
-\endfirsthead
-
-
-\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} --> fortsat fra forrige side}} \\
-\multicolumn{5}{c}{} \\
-
-\hline
-\textbf{Reg\#} & \textbf{Navn} & \textbf{Type} & \textbf{Beskrivelse} & \textbf{Startværdi} \\
-\hline 
-\endhead
-
-
-\multicolumn{5}{r}{{fortsættes på næste side -->}} \\ 
- 
-\endfoot
-
-0x00 & ID & \textbf{R} & Indeholder et id som kan benyttes til at identificere denne enhed, eller til at teste forbindelsen til denne. & 0xFB \\ \hline
-
-0x01 & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [ERR STALL END\_STP SD\_RDY X X X X] & 0b0000XXXX \\ \hline
-
-\multicolumn{2}{|r|}{\textbf{ERR}} & \multicolumn {3}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP} \\ \hline
-
-\multicolumn{2}{|r|}{\textbf{STALL}} & \multicolumn {3}{p{8cm} |} {Indikerer at systemet har været ude af stand til at drive motoren, formegentlig pga for stor belastning} \\ \hline
-
-\multicolumn{2}{|r|}{\textbf{END\_STP}} & \multicolumn {3}{p{8cm} |} {Indikerer at vuggen har ramt en af sine mekaniske yderpositioner, og vuggesystemet er deaktiveret indtil der er blevet genstartet.} \\ \hline
-
-\multicolumn{2}{|r|}{\textbf{SD\_RDY}} & \multicolumn {3}{p{8cm} |} {Indikerer at systemet er klar til at få afbrudt strømmen} \\ \hline
-
-0x02 & ON\_OFF & \textbf(R/W) & Dette register benyttes til at tænde og slukke for systemet. Skrives et nul til dette register begynder systemet at lukke ned. Strømmen til systemet bør ikke afbrydes før SD\_RDY i status registeret er skiftet til et. Hvis systemet er tændt indeholder registeret en værdi forskellig fra 0. & 0xFF \\ \hline
-
-0x03 & Frekvens & \textbf{R/W} & Værdien i dette register styrer frekvensen hvormed der vugges. Område: \SI{0}{\hertz} = \SI{2.550}{\hertz},  1 LSB = \SI{10}{\milli\hertz}. & 0x00 \\ \hline
-
-0x04 & Vinkeludsving & \textbf{R/W} & Værdien i dette register kontrollerer størrelsen af vuggens udsving i grader. Område: +/- \SI{12.75}{\degree}, 1 LSB = \SI{0.05}{\degree}. & 0x00 \\ \hline
-
-\hline \hline
-\endlastfoot
-
-\end{longtable}
-\end{center}
+Herunder findes en beskrivelse af de interne forbindelser. 
 
 \subsection*{Signalbeskrivelse}
 \begin{center}
@@ -156,8 +100,6 @@ MotForbind & DCMotorSig & Motor tilkobling\\
 
 \end{longtable}
 \end{center}
-
-
 
 \newpage
 \subsection{Software arkitektur}
