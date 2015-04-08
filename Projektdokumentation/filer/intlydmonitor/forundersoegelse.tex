@@ -152,7 +152,7 @@ grid on
 %**** FREQ WITH MAX POWER *****************************************%
 [q,nd] = max(10*log10(p));  %q is used for x-axis in later plot
 
-maxPwr_smooth = smooth(f(nd),0.1,'moving');     % Smooth data
+maxPwr_smooth = smooth(f(nd),0.05,'moving');     % Smooth data
 
 
 %**** FREQUENCY ANALYSIS PLOTS ************************************%
@@ -194,44 +194,65 @@ Bemærk for subplot 3, at data for dominerende frekvens er fjernet ved TPR på 0
 
 
 \textbf{Højlydt babygråd} \\
-Karakteristisk ved højlydt babygråd er, at dele af Tonal Power Ratio (TPR) ligger over en værdi på 0.5 (se subplot 2). Herudover ses det på subplot 3 at de dominerende frekvenser typisk ligger mellem 700 og 3000 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 2100 Hz (røde streger). 
+Karakteristisk ved højlydt babygråd er, at dele af Tonal Power Ratio (TPR) ligger over en værdi på 0.13 (se subplot 2). Herudover ses det på subplot 3 at de dominerende frekvenser typisk ligger mellem 700 og 3000 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 2100 Hz (røde streger). 
 
 \figur{0.9}{intlydmonitor/forundersoegelse/analyse_baby_crying}{Analyseresultat af optagelsen Højlydt babygråd}{intlyd:forundersoegelse:hoj_baby}
 
 
 \newpage
 \textbf{Moderat babygråd}\\
-Karakteristiks ved optagelsen af moderat babygråd er, at store dele af TPR ligger over en værdi på 0.5 (subplot 2). Af subplot 3 fremgår det at de dominerende frekvenser typisk ligger mellem 500 og 3500 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 1700 Hz (røde streger). 
+Karakteristisk ved optagelsen af moderat babygråd er, at store dele af TPR ligger over en værdi på 0.13 (subplot 2). Af subplot 3 fremgår det at de dominerende frekvenser typisk ligger mellem 500 og 3500 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 1700 Hz (røde streger). 
 
 \figur{0.9}{intlydmonitor/forundersoegelse/analyse_baby_cooing}{Analyseresultat af optagelsen Moderat babygråd}{intlyd:forundersoegelse:mod_baby}
 
 
 \newpage
 \textbf{Fuglefløjt}\\
-Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi nær 0.12 (subplot 2). På spektrogrammet (subplot3) ses det at de dominerende frekvenser ligger meget spredt: det meste af tiden dominerer vind og vejr (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1800 Hz til 5000 Hz. Den midlede dominerende tone ligger mellem 35 Hz og 2500 Hz.
+Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi over 0.11, men under 0.13 (subplot 2). På spektrogrammet (subplot3) ses det at de dominerende frekvenser ligger meget spredt: det meste af tiden dominerer vind og vejr (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1800 Hz til 5000 Hz. Den midlede dominerende tone ligger mellem 35 Hz og 2500 Hz.
 
 \figur{0.9}{intlydmonitor/forundersoegelse/analyse_bird}{Analyseresultat af optagelsen Fuglefløjt}{intlyd:forundersoegelse:fugl}
 
 \newpage
 \textbf{Trafikstøj}\\
-Karakteristisk for trafikstøj er, at TPR ligger omkring 0.11 (subplot 2). Af spektrogrammet (subplot 3) fremgår det at frekvenserne ligger spredt mellem 0 og 1500 Hz med en middel-værdi på ca 700 Hz.
+Karakteristisk for trafikstøj er, at TPR ligger 0.10, men under 0.13 (subplot 2). Af spektrogrammet (subplot 3) fremgår det at frekvenserne ligger spredt mellem 0 og 1500 Hz med en middel-værdi på ca 700 Hz.
 
 \figur{0.9}{intlydmonitor/forundersoegelse/analyse_street_traffic}{Analyseresultat af optagelsen Trafikstøj babygråd}{intlyd:forundersoegelse:trafik}
 
+\newpage
 \textbf{Sammenligning af maximal TPR}	\\
 Matlabs funktion til at finde maksimum-værdien for at array er benyttet til at finde den højeste værdi af TPR for de forskellige situationer. Resultaterne kan ses i tabellen herunder. 
 
 \begin{center}
     \begin{tabular}{ | l | l |}
     \hline
-    \textbf{Situation} & \textbf{maxTPR}  \\ \hline
-    Højlydt babygråd & 0.6697   \\ \hline
-    Moderat babygråd & 0.6884  \\ \hline
-    Fuglefløjt & 0.2911  \\ \hline
-    Trafikstøj & 0.4995  \\
+    \textbf{Situation} & \textbf{Maximal TPR}  \\ \hline
+    Højlydt babygråd & 0.144   \\ \hline
+    Moderat babygråd & 0.146  \\ \hline
+    Fuglefløjt & 0.127  \\ \hline
+    Trafikstøj & 0.120  \\
     \hline
     \end{tabular}
 \end{center}
 
+Babygråd producerer altså en højere TPR end typisk omgivelsesstøj, hvad enten det drejer sig om moderat eller højlyd gråd.
+
+\textbf{Sammenligning af dominerende frekvensindhold}	\\
+Minimum- og maksimumfrekvens for analysen af dominerende toner er vist i tabellen herunder:
+\begin{center}
+    \begin{tabular}{ | l | l | l |}
+    \hline
+    \textbf{Situation} &	\textbf{Min frekvens}	& 	\textbf{Max frekvens}  \\ \hline
+    Højlydt babygråd & 		770 Hz &					1932 Hz\\ \hline
+    Moderat babygråd & 		676 Hz &					1613 Hz\\ \hline
+    Fuglefløjt & 			69  Hz &					3120 Hz\\ \hline
+    Trafikstøj & 			38  Hz &					710 Hz\\
+    \hline
+    \end{tabular}
+\end{center}
+
+Fuglefløjt har største båndbredde, med udfald mellem 69 Hz og 3120 Hz. Trafikstøjens dominerende frekvenser bevæger sig ikke over 710 Hz. Babygråd har sit dominante frekvensindhold mellem 600 og 2000 Hz. Trafikstøj har således lavere frekvensindhold end babygråd. Frekvensindholdet for fuglefløjt har en større båndbredde end babygråd og har sit indhold både over- og under båndbredden for babygråd.
+
 \subsection{Konklusion}
-Konklusionen er at babygråd har en Tonal Power Ratio over eller lige omkring 0.5, hvorimod støjsignalerne har en Tonal Power Ratio som ligger under 0.5. Det er altså muligt at kende forskel på babygråden og støjsignalerne ved at kigge på TPR. For herefter at kende forskel på Højlydt babygråd og Moderat babygråd, skal vi kigge på frekvensindholdet. Findes frekvenser i området omkring 2000Hz har vi at gøre med Højlydt babygråd og ellers er det Moderat babygråd. 
+Ved hjælp af \textit{Tonal Power Ratio} er det altså muligt at kende forskel på babygråden og almindelige støjsignaler som trafikstøj og fuglefløft/natur. \\
+Af \textit{frekvensanalysen} ses det, at højlydt babygråd vil have dominant-toneindhold der ligger omtrent 300 Hz højere end det for moderat babygråd. Forekommer dominant toneindhold (midlet) over 2500 Hz, antages tonen ikke at komme fra babyen. \\
+Forskellen i frekvensindhold mellem højlydt og moderat gråd er dog ikke signifikant, og en \textit{dB-måling} af grådens lydstyrke kunne evt være nødvendig for at skelne mellem højlydt- og moderat babygråd.
