@@ -42,17 +42,106 @@ Til slut sendes BABYCON niveauet til Controller via TwoWireCom.
 Klasser og deres tilhørende funktioner samt parametre er specificeret i ovenstående UML for Intelligent Lydmonitor. 
 
 \subsubsection*{Funktionsbeskrivelse}
-\textit{Main} \\
-Main indeholder ingen funktioner.
 
-\textit{RecordingBuffer} \\
+\textit{PreFilter} \\
+PreFilter klassen indeholder funktionaliteten til forfiltrering og nedsampling af den diskrete sampling-sekvens.
+
+
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& void storeSample(int sample)								\\ \hline
-    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
-    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Funktion}	 	& void init(int lpFreq, int hpFreq, int factor, int *curSample)									\\ \hline
+    \textbf{Beskrivelse} 	& Initialiserer filtre og downsampling, ved at kalde deres init-funktioner.						\\ \hline
+    \textbf{Parametre}		& int lpFreq knækfrekvens for LP-filter,\\&
+    						  int hpFreq knækfrekvens for HP-filter,\\&
+    						  int factor nedsamplingsfaktor, \\&
+    						  int *curSample pointer til placering af nyeste sample
+    																						 \\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void sampleRdy(void)									\\ \hline
+    \textbf{Beskrivelse} 	& Kaldes ved erhvervelse af nyt sample. Kalder funktionerne lowpass(), highpass() og downsample()						\\ \hline
+    \textbf{Parametre}		& Ingen
+    																						 \\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void initLP(int freqLP)									\\ \hline
+    \textbf{Beskrivelse} 	& Initialiserer LP-filter.						\\ \hline
+    \textbf{Parametre}		& int lpFreq knækfrekvens for LP-filter												 																									\\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void initHP(int freqHP)									\\ \hline
+    \textbf{Beskrivelse} 	& Initialiserer HP-filter.						\\ \hline
+    \textbf{Parametre}		& int hpFreq knækfrekvens for HP-filter												 																									\\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void initDown(int factor)							\\ \hline
+    \textbf{Beskrivelse} 	& Initialiserer downsampling 						\\ \hline
+    \textbf{Parametre}		& int factor faktor for nedsampling					\\ \hline
+    \textbf{Returværdi} 	& Ingen												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int lowpass(int sample)								\\ \hline
+    \textbf{Beskrivelse} 	& Lavpasfiltrerer sample								\\ \hline
+    \textbf{Parametre}		& Int sample, sample til LP-filtrering					\\ \hline
+    \textbf{Returværdi} 	& int, værdi efter filtrering							\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int highpass(int sample)								\\ \hline
+    \textbf{Beskrivelse} 	& Højpasfiltrerer sample								\\ \hline
+    \textbf{Parametre}		& Int sample, sample til HP-filtrering					\\ \hline
+    \textbf{Returværdi} 	& int, værdi efter filtrering							\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& bool downsample(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Frasorterer samples jf. valgt nedsampling. 							\\ \hline
+    \textbf{Parametre}		& Ingen					\\ \hline
+    \textbf{Returværdi} 	& bool, 1 hvis det givne sample skal beholdes og 0 hvis det skal frasorteres							\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{PingPongBuf} \\
+For at kunne opsamle data, mens at der bliver behandlet andet data, er det valgt at benytte pingpong-buffering. Dermed er det unødvendigt at kopiere bufferen når denne er fyldt. I stedet sendes til den klasse, som skal behandle data, en pointer til den fyldte buffer. Mens data behandles, kan nyt data fyldes i den anden buffer. 
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void store(int sample )											\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i PingPongBuf. Hvis bufToFill er sat til 0 påfyldes data i atributten buf0. Ellers fyldes data i buf1.					\\ \hline
+    \textbf{Parametre}		& int sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
     \textbf{Returværdi} 	& Ingen		 												\\ \hline
     \end{tabular}
 \end{center}
@@ -60,42 +149,123 @@ Main indeholder ingen funktioner.
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& wav getRec(void)										\\ \hline
-    \textbf{Beskrivelse} 	& Returnerer indhold af RecordingBuffer som wav-fil		\\ \hline
-    \textbf{Parametre}		& Ingen			 										\\ \hline
-    \textbf{Returværdi} 	& wav		 											\\ \hline
+    \textbf{Funktion}	 	& void handleFullBuf(void) = 0									\\ \hline
+    \textbf{Beskrivelse} 	& Virtuel funktion												\\ \hline
+    \textbf{Parametre}		& Ingen			 												\\ \hline
+    \textbf{Returværdi} 	& Ingen		 													\\ \hline
     \end{tabular}
 \end{center}
 
-\textit{NoiseFilter} \\
+\textit{RecBuf} \\
+Afledt klasse af PingPongBuf. \\
+
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& wav filterRec(wav rec)								\\ \hline
-    \textbf{Beskrivelse} 	& Frafiltrerer støj fra optagelse						\\ \hline
-    \textbf{Parametre}		& wav rec: Ufiltreret optagelse		 					\\ \hline
-    \textbf{Returværdi} 	& wav: Filtreret optagelse							\\ \hline
+    \textbf{Funktion}	 	& void handleFullBuf(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Kalder klassen Analyzers funktion bufRdy(int[ ][ ]*) med en pointer til den buffer som er fyldt. Herudover toggles bufToFill																	\\ \hline
+    \textbf{Parametre}		& Ingen		 											\\ \hline
+    \textbf{Returværdi} 	& Ingen													\\ \hline
     \end{tabular}
 \end{center}
 
-\textit{PitchAnalyzer} \\
+\textit{ResBuf} \\
+Afledt klasse af PingPongBuf. 
+
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& uint signalPitch analyzePitch(wav rec)						\\ \hline
-    \textbf{Beskrivelse} 	& Analyserer optagelse for dominant tone					    \\ \hline
-    \textbf{Parametre}		& wav rec: Optagelse						 					\\ \hline
-    \textbf{Returværdi} 	& uint: Dominant tone i Hz										\\ \hline
+    \textbf{Funktion}	 	& void handleFullbuf(void)											\\ \hline
+    \textbf{Beskrivelse} 	& Kalder klassen Categorizers funktion bufRdy(int[ ][ ]*) med en pointer til den buffer som er fyldt. Herudover toggles bufToFill					    \\ \hline
+    \textbf{Parametre}		& Ingen						 					\\ \hline
+    \textbf{Returværdi} 	& Ingen									\\ \hline
     \end{tabular}
 \end{center}
 
-\textit{ResultBuffer} \\
+\textit{Analyzer} \\
+Klassen Analyzer indeholder analyse-funktionerne for beregning af Tonal Power Ratio og Sound Pressure level
+
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& void saveAnalysis(uint signalPitch)								\\ \hline
-    \textbf{Beskrivelse} 	& Gemmer signalPitch i ResultBuffer									\\ \hline
-    \textbf{Parametre}		& uint signalPitch: Dominant tone i Hz		 					    \\ \hline
+    \textbf{Funktion}	 	& void analyze(int[ ][ ]* recBufPtr)									\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer pointeren til RecBuf kalder funktionerne calcTPR() og calcSPL()						\\ \hline
+    \textbf{Parametre}		& int[ ][ ]* recBufPtr, pointer til RecBuf.							 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen														     \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int calcTPR(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Beregner Tonal Power Ratio							\\ \hline
+    \textbf{Parametre}		& Ingen							 					    \\ \hline
+    \textbf{Returværdi} 	& int, værdi af TPR					 					\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int calcSPL(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Beregner Sound Pressure Level							\\ \hline
+    \textbf{Parametre}		& Ingen							 					    \\ \hline
+    \textbf{Returværdi} 	& int, værdi af SPL					 					\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{Categorizer} \\
+Klassen Categorizer står for BABYCON kategorisering af resultaterne fra ResBuf
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void init(int threshTPRmax, int threshTPRavg, int threshSPLmax, int threshSPLavg)										\\ \hline
+    \textbf{Beskrivelse} 	& Sætter threshholds for TPR og SPL				\\ \hline
+    \textbf{Parametre}		& int threshTPRmax, int threshTPRavg, int threshSPLmax, int threshSPLavg							 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen													\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void categorize(int[ ][ ]* resBufPtr)								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer pointeren til ResBuf, kalder funktionerne smooth(), catTPR(),catSPL() og compThresh()					\\ \hline
+    \textbf{Parametre}		& int[ ][ ]* resBufPtr, pointer til ResBuf							 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen			\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void smooth(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Udglatter data-sekvensen gemt i ResBuf				\\ \hline
+    \textbf{Parametre}		& Ingen							 					    \\ \hline
+    \textbf{Returværdi} 	& Ingen													\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void catTPR(int* maxTPR, int* avgTPR)										\\ \hline
+    \textbf{Beskrivelse} 	& Finder maksimum og average Tonal Power Ratio værdi				\\ \hline
+    \textbf{Parametre}		& int* maxTPR pointer til maksimum TPR\\&
+    						  int* avgTPR pointer til average TPR						    \\ \hline
+    \textbf{Returværdi} 	& Ingen													\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void catSPL(int* maxSPL, int* avgSPL)								\\ \hline
+    \textbf{Beskrivelse} 	& Finder maksimum og average Sound Pressure Level værdi				\\ \hline
+    \textbf{Parametre}		& int* maxSPL pointer til maksimum SPL\\&
+    						  int* avgSPL pointer til average SPL						 		\\ \hline
     \textbf{Returværdi} 	& Ingen																\\ \hline
     \end{tabular}
 \end{center}
@@ -103,41 +273,21 @@ Main indeholder ingen funktioner.
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& uint[ ] getResults(void)								\\ \hline
-    \textbf{Beskrivelse} 	& Returnerer indhold af ResultBuffer som et array		\\ \hline
-    \textbf{Parametre}		& Ingen							 					    \\ \hline
-    \textbf{Returværdi} 	& uint[ ]: array af analyseresultater 					\\ \hline
+    \textbf{Funktion}	 	& int compThresh(int maxTPR, int avgTPR, int maxSPL, avgSPL)										\\ \hline
+    \textbf{Beskrivelse} 	& Sammenligner modtagne værdier med foruddefinerede thresholds, for at bestemme BABYCON-niveau				\\ \hline
+    \textbf{Parametre}		& int maxTPR, int avgTPR, int maxSPL, avgSPL						 					    \\ \hline
+    \textbf{Returværdi} 	& int, BABYCON-niveau mellem 1-3													\\ \hline
     \end{tabular}
 \end{center}
 
-\textit{RecordingCategorizer} \\
+\textit{TwoWireCom} \\
+Klassen TwoWireCom står for at sende BABYCON-niveau til Controller jf. \ref{overordnet:graenseflade_IL}
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& int categorizeRec(void)								\\ \hline
-    \textbf{Beskrivelse} 	& Henter signalPitches fra ResultBuffer og kalder funktionen categorize()					\\ \hline
-    \textbf{Parametre}		& Ingen							 					    \\ \hline
-    \textbf{Returværdi} 	& int: Værdi svarende til BABYCON-niveau, 1-3			\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{10cm} |}
-    \hline
-    \textbf{Funktion}	 	& int categorize(uint[ ] signalPitches)								\\ \hline
-    \textbf{Beskrivelse} 	& Returnerer kategorisering af resultater				\\ \hline
-    \textbf{Parametre}		& uint[ ] signalPitches: Array af signalPitches							 					    \\ \hline
-    \textbf{Returværdi} 	& int: Værdi svarende til BABYCON-niveau, 1-3			\\ \hline
-    \end{tabular}
-\end{center}
-
-\textit{I2Csocket} \\
-\begin{center}
-    \begin{tabular}{ | l | p{10cm} |}
-    \hline
-    \textbf{Funktion}	 	& void storeBabycon(int babycon)								\\ \hline
-    \textbf{Beskrivelse} 	& Gemmer det kategoriserede BABYCON-niveau						\\ \hline
-    \textbf{Parametre}		& int babycon: Nuværende BABYCON-niveau							 					    \\ \hline
+    \textbf{Funktion}	 	& void send(int bc)								\\ \hline
+    \textbf{Beskrivelse} 	& Sender BABYCON-niveau til Controller						\\ \hline
+    \textbf{Parametre}		& int bc: Nuværende BABYCON-niveau							 					    \\ \hline
     \textbf{Returværdi} 	& Ingen														     \\ \hline
     \end{tabular}
 \end{center}
