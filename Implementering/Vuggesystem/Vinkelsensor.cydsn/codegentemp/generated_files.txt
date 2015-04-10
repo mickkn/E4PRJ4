@@ -40,11 +40,6 @@
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\UART_SPI_UART_PVT.h" value="NONE;UART" />
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\UART_PVT.h" value="NONE;UART" />
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\UART_BOOT.h" value="NONE;UART" />
-  <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\Clock_1.c" value="ARM_C_FILE;Clock_1" />
-  <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\Clock_1.h" value="NONE;Clock_1" />
-  <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\PWM_1.c" value="ARM_C_FILE;PWM_1" />
-  <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\PWM_1.h" value="NONE;PWM_1" />
-  <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\PWM_1_PM.c" value="ARM_C_FILE;PWM_1" />
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\GYRO_DR.c" value="ARM_C_FILE;GYRO_DR" />
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\GYRO_DR.h" value="NONE;GYRO_DR" />
   <file name="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\codegentemp\GYRO_DR_aliases.h" value="NONE;GYRO_DR" />

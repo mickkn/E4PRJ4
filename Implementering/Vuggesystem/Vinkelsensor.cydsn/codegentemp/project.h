@@ -30,8 +30,6 @@
 #include <UART_SPI_UART_PVT.h>
 #include <UART_PVT.h>
 #include <UART_BOOT.h>
-#include <Clock_1.h>
-#include <PWM_1.h>
 #include <GYRO_DR.h>
 #include <GYRO_DR_aliases.h>
 #include <GYRO_DR_INT.h>

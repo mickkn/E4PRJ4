@@ -1,5 +1,5 @@
 # Vinkelsensor
-# 2015-04-04 18:50:10Z
+# 2015-04-08 12:44:17Z
 
 # IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
 dont_use_io iocell 3 2

@@ -125,11 +125,6 @@
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\I2C_SCB_IRQ.h</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\UART_SCBCLK.c</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\UART_SCBCLK.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\Clock_1.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\Clock_1.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\PWM_1.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\PWM_1.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC4\PWM_1_PM.c</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\Felix\Git Repository\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\Export\ARM_GCC_Generic">
