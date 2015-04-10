@@ -1,1 +1,87 @@
 \section{Design}
+
+\newpage
+\subsection{Software design}
+Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhørende funktionsbeskrivelser lavet på baggrund af applikationsmodellen fra Vuggesystemets software systemarkitektur jf. afsnit \ref{Vuggesystem:Applikationsmodel}
+
+\subsubsection*{Klassediagram}
+\figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{Klassediagram for Regulerings MCU}{VuggeSystem_SD}
+
+\subsubsection*{Funktionsbeskrivelser}
+\textit{vuggeControl} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
+    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+\textit{i2cKommunikation} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void sendConKom(char* reg[2], char* reg[3], char* reg[4])								\\ \hline
+    \textbf{Beskrivelse} 	& Sender tre char pointere der peger på registrene reg[2], reg[3] og reg[4] til vuggeControl klassen					\\ \hline
+    \textbf{Parametre}		& char * reg[2]: peger på ????, char * reg[3]: peger på ???? og char * reg[4]: peger på ????				 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{reguelering} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
+    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\textit{sensorFortolker} \\
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& char getMotorPosSens(void)								\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer den nyeste motorposition fra motorpositionssensoren.					\\ \hline
+    \textbf{Parametre}		& Ingen								 		\\ \hline
+    \textbf{Returværdi} 	& char: Den nyeste position angivet i værdi fra 0-255		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& char getVuggeUdsving(void)										\\ \hline
+    \textbf{Beskrivelse} 	& Returnerer den nyeste måling fra Vuggeudsvingssensoren.		\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& char: Den nyeste måling fra Vuggeudsvingssensoren angivet i ??? accelerometer og gyroskop ???		 											\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& int calcAbsVuggeUdsving(char udsving)										\\ \hline
+    \textbf{Beskrivelse} 	& Udfra acceletormeter- og gyroskopmålingerne beregnes og returners den absolutte vinkel for barnevognskurven. 		\\ \hline
+    \textbf{Parametre}		& char: Udsving er målinger fra Vuggeudsvingssensoren 		\\ \hline
+    \textbf{Returværdi} 	& int: Den absolutte vinkel for barnevognskurven			\\ \hline
+    \end{tabular}
+\end{center}
+
+
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void checkEndstop(bool)										\\ \hline
+    \textbf{Beskrivelse} 	& Tjekker endstop sensorernes værdi.		\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& wav		 											\\ \hline
+    \end{tabular}
+\end{center}
