@@ -1,8 +1,34 @@
 \section{Design}
+\subsection{Hardware design}
+
+\subsubsection{Motorkreds}
+
+\subsubsection{Endstopsensor}
+
+\subsubsection{Vuggeudsving sensor}
+
+\subsubsection{Motor positions sensor}
+
+\subsubsection{Mekanisk vuggesystem}
+Nedenståede blokdiagram er en skitsering af den valgte teoretiske model for det mekaniske vuggesystem
+\figur{1}{vuggesystem/design/teoretisk_blokdiagram_vuggeregulering.JPG}{Skitse af teoretiske model for mekanisk vuggesystem}{VuggeSystem_teoretiskmodel}
+
+
+Beskrivelses af modellen:
+\begin{itemize}
+\item \textbf{R(s)} skal ses som en strøm der tilføres systemet
+\item \textbf{Ankermodstand} og \textbf{Motorkonstant} udgør DC-motoren
+\item \textbf{Inerti} er vuggesystemets mekaniske rotationsmoment
+\item \textbf{Væskedæmpning} er friktionen der stammer fra aksen der vugges over i systemet
+\item \textbf{Det Inverse pendul} er et ulineært element der stammer fra at barnevognskurvens masse ligger højere end aksen der vugges over. Dette element er ustabilt af natur og kræver påvirkning for at holdes stabilt. Dette er især gældende forstørre udfaldsvinkler, men da niveauet der skal vugges over maximalt udgør ±10 grader i forhold til tyngdefeltet kan dette element gøres tilnærmelsesvist lineært
+\item Fra højre mod venstre skal punktet efter \textbf{Interator2} ses som hastigheden af barnevognens rotation og punktet efter \textbf{Integrator1} skal ses som accelerationen af barnevognens rotation
+\item \textbf{C(s)} er vuggeudsvinget/vippevinklen for barnevognskurven i forhold til tyngdefeltet
+
+\end{itemize}
 
 \newpage
 \subsection{Software design}
-Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhørende funktionsbeskrivelser lavet på baggrund af applikationsmodellen fra Vuggesystemets software systemarkitektur jf. afsnit \ref{Vuggesystem:Applikationsmodel}
+Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhørende funktionsbeskrivelser lavet på baggrund af applikationsmodellen fra Vuggesystemets software systemarkitektur jf. afsnit \ref{Vuggesystem: Software}
 
 \subsubsection*{Klassediagram}
 \figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{Klassediagram for Regulerings MCU}{VuggeSystem_SD}
@@ -10,34 +36,112 @@ Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhøre
 \subsubsection*{Funktionsbeskrivelser}
 \textit{vuggeControl} \\
 \begin{center}
-    \begin{tabular}{ | l | p{10cm} |}
+    \begin{tabular}{ | l | p{10cm} |} 
     \hline
-    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
-    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
-    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Funktion}	 	& void sendConKom(char* onoffPtr, char* frekvensPtr, char* vinkeludsvingPtr)	\\ \hline
+    \textbf{Beskrivelse} 	& Sender tre char pointere der peger på registrene reg[2], reg[3] og reg[4] til vuggeControl klassen					\\ \hline
+    \textbf{Parametre}		& char * onoffPtr: peger på reg[2], char * frekvensPtr: peger på reg[3] og char * vinkeludsvingPtr peger på reg[4]	jf. Kommunikationsprotokol \ref{overordnet:Kommunikationsprotokol}	\\ \hline
     \textbf{Returværdi} 	& Ingen		 												\\ \hline
     \end{tabular}
 \end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void reguleringsStatus(bool status)							\\ \hline
+    \textbf{Beskrivelse} 	& Tjekker reguleringsklassens driftstatus og buffer bool værdi i vuggeControl. Statusindikator er som følger; 1 for godkendt status og 0 for ikke godkendt status. char reguleringsStatus i vuggeControl klassen opdateres med denne værdi				\\ \hline
+    \textbf{Parametre}		& bool status: værdi som repræsenterer reguleringsklassens driftstatus							 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void lukSystem()								\\ \hline
+    \textbf{Beskrivelse} 	& Lukker strømforsyningen til det mekaniske vuggesystem. Kaldes i tilfælde hvor det mekaniske vuggesystem skal lukkes					\\ \hline
+    \textbf{Parametre}		& Ingen														 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void checkEndstop(bool)								\\ \hline
+    \textbf{Beskrivelse} 	& Kaldes i tilfælde endstop værdi i sensorFortolker klassen er 0				\\ \hline
+    \textbf{Parametre}		& bool: opdatere endstopStatus i vuggeControl med 0 for at indikere det mekaniske vuggesystem har nået sin maximale mekaniske vuggegrænse					\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
 \textit{i2cKommunikation} \\
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& void sendConKom(char* reg[2], char* reg[3], char* reg[4])								\\ \hline
-    \textbf{Beskrivelse} 	& Sender tre char pointere der peger på registrene reg[2], reg[3] og reg[4] til vuggeControl klassen					\\ \hline
-    \textbf{Parametre}		& char * reg[2]: peger på ????, char * reg[3]: peger på ???? og char * reg[4]: peger på ????				 		\\ \hline
+    \textbf{Funktion}	 	& void initI2C()											\\ \hline
+    \textbf{Beskrivelse} 	& Initiere I2C-kommunikationen til operationel funktion						\\ \hline
+    \textbf{Parametre}		& Ingen												 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void setConKom(char regStatus)								\\ \hline
+    \textbf{Beskrivelse} 	& Sætter array plads 1 i reg[] i i2cKommunikation klassen med reguleringsStatus fra vuggeControl klassen		\\ \hline
+    \textbf{Parametre}		& char regStatus: Indeholder reguleringsStatus fra vuggeControl klassen \\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void sendI2C(char sendRegStatus)								\\ \hline
+    \textbf{Beskrivelse} 	& Sender via I2C protokol reg[1] værdi				\\ \hline
+    \textbf{Parametre}		& char sendRegStatus: Værdi hentet fra reg[1] i i2cKommunikations klassen\\ \hline
     \textbf{Returværdi} 	& Ingen		 												\\ \hline
     \end{tabular}
 \end{center}
 
 \textit{reguelering} \\
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void initRegulering()										\\ \hline
+    \textbf{Beskrivelse} 	& initerer reguleringen til operationel status samt starter reguleringen.			\\ \hline
+    \textbf{Parametre}		& Ingen												 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& IKKE FÆRDIG								\\ \hline
-    \textbf{Beskrivelse} 	& Gemmer diskret sample i RecordingBuffer					\\ \hline
-    \textbf{Parametre}		& int Sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang														 		\\ \hline
+    \textbf{Funktion}	 	& void regParameter(char vuggefrekvens, char vuggeudsving)								\\ \hline
+    \textbf{Beskrivelse} 	& Gemmer ny vuggefrekvens og vuggeudsving til at regulerer udfra \\ \hline
+    \textbf{Parametre}		& char vuggefrekvens indeholder en binærværdi fra 0-255 der udfra en skala svare til en vuggefrekvens jf. Kommunikationsprotokol \ref{overordnet:Kommunikationsprotokol}, char vuggeudsving indeholder en binærværdi fra 0-255 der ud fra en skala svare til et vuggeudsving jf. Kommunikationsprotokol \ref{overordnet:Kommunikationsprotokol}				 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void beregnRegulering()								\\ \hline
+    \textbf{Beskrivelse} 	& Beregner reguleringen for vuggesystem via angivet værdier vuggefrekvens, vuggeudsving og sensordata samt overføringsfunktionen for vuggesystemet og opdaterer fixedPointReg med en værdi X? ud fra et 16.16 fixed-point real number tabel opslag \\ \hline
+    \textbf{Parametre}		& Ingen													 		\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
+    \end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void PWMStyring(int fixedPointReg)					\\ \hline
+    \textbf{Beskrivelse} 	& Styrer udadgående PWM udfra fixedPointReg værdi X?		\\ \hline
+    \textbf{Parametre}		& int fixedPointReg: Værdi til at styrer duty-cyclen for PWM modulet												 		\\ \hline
     \textbf{Returværdi} 	& Ingen		 												\\ \hline
     \end{tabular}
 \end{center}
@@ -47,41 +151,59 @@ Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhøre
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& char getMotorPosSens(void)								\\ \hline
-    \textbf{Beskrivelse} 	& Returnerer den nyeste motorposition fra motorpositionssensoren.					\\ \hline
+    \textbf{Funktion}	 	& void initSensor()									\\ \hline
+    \textbf{Beskrivelse} 	& Initiere alt sensor-kommunikation til operationel funktion	\\ \hline
+    \textbf{Parametre}		& Ingen			 										\\ \hline
+    \textbf{Returværdi} 	& Ingen		 											\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void getMotorPosSens()								\\ \hline
+    \textbf{Beskrivelse} 	& Opdaterer sensorData arrays plads 0 med den nyeste motor position angivet i værdi fra 0-255					\\ \hline
     \textbf{Parametre}		& Ingen								 		\\ \hline
-    \textbf{Returværdi} 	& char: Den nyeste position angivet i værdi fra 0-255		 												\\ \hline
+    \textbf{Returværdi} 	& Ingen		 												\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& char getVuggeUdsving(void)										\\ \hline
-    \textbf{Beskrivelse} 	& Returnerer den nyeste måling fra Vuggeudsvingssensoren.		\\ \hline
+    \textbf{Funktion}	 	& void getVuggeUdsvingSens()										\\ \hline
+    \textbf{Beskrivelse} 	& Opdaterer vuggeudsvingArray plads 0-5 med de nyeste gyroskop- og accellerometersensor målinger angivet i værdier fra 0-255		\\ \hline
     \textbf{Parametre}		& Ingen			 										\\ \hline
-    \textbf{Returværdi} 	& char: Den nyeste måling fra Vuggeudsvingssensoren angivet i ??? accelerometer og gyroskop ???		 											\\ \hline
+    \textbf{Returværdi} 	& Ingen		 											\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& int calcAbsVuggeUdsving(char udsving)										\\ \hline
-    \textbf{Beskrivelse} 	& Udfra acceletormeter- og gyroskopmålingerne beregnes og returners den absolutte vinkel for barnevognskurven. 		\\ \hline
-    \textbf{Parametre}		& char: Udsving er målinger fra Vuggeudsvingssensoren 		\\ \hline
-    \textbf{Returværdi} 	& int: Den absolutte vinkel for barnevognskurven			\\ \hline
+    \textbf{Funktion}	 	& void calcAbsVuggeUdsving(char* vuggeudsvingArrayPtr)										\\ \hline
+    \textbf{Beskrivelse} 	& Udfra accellerometer- og gyroskopmålingerne i vuggeudsvingArray beregnes og opdater sensorData arrays plads 1 med den absolutte vinkel for barnevognskurven angivet i værdi X? 		\\ \hline
+    \textbf{Parametre}		& char* vuggeudsvingArrayPtr: Pointer der peger ind i vuggeudsvingArray 		\\ \hline
+    \textbf{Returværdi} 	& Ingen			\\ \hline
     \end{tabular}
 \end{center}
-
-
 
 \begin{center}
     \begin{tabular}{ | l | p{10cm} |}
     \hline
-    \textbf{Funktion}	 	& void checkEndstop(bool)										\\ \hline
-    \textbf{Beskrivelse} 	& Tjekker endstop sensorernes værdi.		\\ \hline
+    \textbf{Funktion}	 	& int* getSensorData()										\\ \hline
+    \textbf{Beskrivelse} 	& Sender pointer sfSensorDataPtr der peger ind i sensorData arrayet til klassen regulering 		\\ \hline
     \textbf{Parametre}		& Ingen			 										\\ \hline
-    \textbf{Returværdi} 	& wav		 											\\ \hline
+    \textbf{Returværdi} 	& int*: sfSensorDataPtr der peger ind i sensorData arrayet	 											\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{10cm} |}
+    \hline
+    \textbf{Funktion}	 	& void endstopGPIO(bool)										\\ \hline
+    \textbf{Beskrivelse} 	& Ved ændring fra 1 til 0 i endstopsensorGPIOpin og opdateres endstop og checkEndstop(bool) funktionen kaldes.		\\ \hline
+    \textbf{Parametre}		& bool			 										\\ \hline
+    \textbf{Returværdi} 	& Ingen		 											\\ \hline
     \end{tabular}
 \end{center}
