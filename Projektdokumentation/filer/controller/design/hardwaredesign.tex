@@ -1,11 +1,12 @@
 \subsection*{Hardwaredesign}
 
-Controlleren består af et betjeningspanel samt en raspberry pi der kontrollerer betjeningspanelet og styrer forbindelserne til hhv. den Intelligente Lydmonitor og Vuggesystemet.
+Controlleren består af et betjeningspanel samt en Raspberry Pi der kontrollerer betjeningspanelet og styrer forbindelserne til hhv. den Intelligente Lydmonitor og Vuggesystemet.
 
-Betjeningspanelet består som beskrevet af 3 lysdioder. Én grøn, én gul og én rød der hhv. indikerer at Baby Watch er tændt/slukket, at "Manuel start" er aktiveret/deaktiveret samt Wi-Fi status.Ydermere består betjeninsapanelet af 2 knapper, én til at tænde/slukke for Baby Watch systemet og én til at aktivere Manuel start.
+Betjeningspanelet består som beskrevet af 3 lysdioder. Én grøn, én gul og én rød der hhv. indikerer at Baby Watch er tændt/slukket, at Manuel start er aktiveret/deaktiveret samt Wi-Fi status.Ydermere består betjeninsapanelet af 2 knapper, én til at tænde/slukke for Baby Watch systemet og én til at aktivere Manuel start.
  
-\subsubsection*{Lysdioder}
-Der benyttes 5mm dioder fra komponentrummet: 
+\subsubsection*{Betjeningspanel}
+
+Til lysdioderne benyttes 5mm dioder fra komponentrummet: 
 
 \begin{itemize}
 	\item Grøn 5mm LED: KINGBRIGHT L-53 GD
@@ -16,9 +17,9 @@ Der benyttes 5mm dioder fra komponentrummet:
 
 \figur{1}{controller/design/L53_LEDS}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
 
-Ud fra figur \ref{controller:ledSpec} ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne
+Ud fra figur \ref{controller:ledSpec} ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
 
-\figur{0.5}{controller/design/L53_resistor}{For modstandsberegninger for de 3 dioder}{controller:resistors}
+\figur{0.5}{controller/design/L53_resistor}{Formodstandsberegninger for de 3 dioder}{controller:resistors}
 
 Ud fra modstandsberegningerne i figur \ref{controller:resistors} er kredsløbsdiagrammet, se figur \ref{betjeningsapanel:schematic}, opbygget. De to knapper for ON/OFF samt Manuel start er medtaget sammen med deres GPIO porte på Rasberry Pi model b.
 
@@ -76,7 +77,10 @@ GPIO17
 
 \subsubsection*{Kommunikation til/fra Intelligent Lydmonitor og Vuggesystem}
 
+I de to følgende afsnit vil kommunikationen med hhv Intelligent Lydmonitor og Vuggesystem blive beskrevet.
+
 \textbf{Kommunikation med Intelligent Lydmonitor}
+
 Kommunikationen med den Intelligente Lydmonitor foregår som beskrevet i systemarkitekturen med 2 signalledere (2WireTTL). Herved opnås der fire kombinationsmuligheder, en for hvert BABYCON niveau samt en til indikation  af fejl.
 
 GPIO9 og GPIO10 benyttes til denne to ledet forbindelse til Intelligent Lydmonitor, hvor GPIO9 er LSB delen og GPIO10 er MSB delen. 
