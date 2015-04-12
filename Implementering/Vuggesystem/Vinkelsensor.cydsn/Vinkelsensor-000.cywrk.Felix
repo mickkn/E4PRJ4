@@ -126,37 +126,7 @@
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cymetadata.c</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Vinkelsensor-000</v>
-<v>Vinkelsensor-000\Vinkelsensor</v>
-<v>Vinkelsensor-000\Vinkelsensor\TopDesign</v>
-<v>Vinkelsensor-000\Vinkelsensor\Vinkelsensor.cydwr</v>
-<v>Vinkelsensor-000\Vinkelsensor\Header Files</v>
-<v>Vinkelsensor-000\Vinkelsensor\Header Files\device.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Header Files\fixedMath.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Source Files</v>
-<v>Vinkelsensor-000\Vinkelsensor\Source Files\fixedMath.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Source Files\main.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\cm0gcc.ld</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\Cm0Iar.icf</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\Cm0RealView.scat</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\Cm0Start.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\core_cm0.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\core_cm0_psoc4.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\core_cmFunc.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\core_cmInstr.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyBootAsmGnu.s</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyBootAsmIar.s</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyBootAsmRv.s</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyFlash.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyFlash.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyLib.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\CyLib.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\cypins.h</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Vinkelsensor-000">
 <ExpandedNodeIds>
@@ -165,12 +135,7 @@
 <v>Vinkelsensor-000\Vinkelsensor\TopDesign</v>
 <v>Vinkelsensor-000\Vinkelsensor\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Vinkelsensor-000</v>
-<v>Vinkelsensor-000\Vinkelsensor</v>
-<v>Vinkelsensor-000\Vinkelsensor\TopDesign</v>
-<v>Vinkelsensor-000\Vinkelsensor\TopDesign\TopDesign.cysch</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Vinkelsensor-000">
 <ExpandedNodeIds>
@@ -220,10 +185,7 @@
 <v>Vinkelsensor-000\Vinkelsensor\Vinkelsensor.rpt</v>
 <v>Vinkelsensor-000\Vinkelsensor\Vinkelsensor_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Vinkelsensor-000</v>
-<v>Vinkelsensor-000\Vinkelsensor</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -241,16 +203,7 @@
 <v>Vinkelsensor-000\Vinkelsensor\cy_pins_v2_10</v>
 <v>Vinkelsensor-000\Vinkelsensor\SCB_P4_v2_0</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>Vinkelsensor-000</v>
-<v>Vinkelsensor-000\Vinkelsensor</v>
-<v>Vinkelsensor-000\Vinkelsensor\PSoC 4 Architecture TRM</v>
-<v>Vinkelsensor-000\Vinkelsensor\PSoC 4200 Family Datasheet</v>
-<v>Vinkelsensor-000\Vinkelsensor\System Reference Guide v4_20</v>
-<v>Vinkelsensor-000\Vinkelsensor\cy_isr_v1_70</v>
-<v>Vinkelsensor-000\Vinkelsensor\cy_pins_v2_10</v>
-<v>Vinkelsensor-000\Vinkelsensor\SCB_P4_v2_0</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
