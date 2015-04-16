@@ -10,7 +10,7 @@
 * 
 *******************************************************************************/
 
-#include <device.h>
+#include <project.h>
 #include <stdio.h>
 #include <fixedMath.h>
 
@@ -72,8 +72,8 @@ const uint8_t gyroInitArray[GYRO_INIT_LEN][2] = {
 volatile uint8 dataReady = 0, rdy = 0;
 volatile fix16_t accData[2] = {0, 0}, gyroData = 0;
 fix16_t estAng = 0;
-//volatile fix16_t data[3][SAMPLE_SIZE];
-//volatile uint16 count = 0;
+volatile fix16_t data[3][SAMPLE_SIZE];
+volatile uint16 count = 0;
 
 /* Function prototypes */
 void setupI2CDevice(uint8_t addr, const uint8_t initArray[][2] , uint8_t arrayLen);    
@@ -101,10 +101,6 @@ int main()
     /*print opening msg*/
     UART_UartPutString("\r\n\r\nHello World!\r\n\r\n");
    
-    unsigned char c;
-    while ((c = UART_UartGetChar()) != '1');
-    UART_UartPutString("\nOK\n");
-
     rdy = 1;
    
 //    while(count < SAMPLE_SIZE);
@@ -166,8 +162,8 @@ CY_ISR(gyroDataReadyInterrupt)
     int16 rawAccZ = readI2CReg(ACC_ADDRESS, ACC_FIRST_DATA+2) + ((int16_t) readI2CReg(ACC_ADDRESS, ACC_FIRST_DATA + 3)<<8);
     
     // acc data is scaled to 16.16 fixed point by using the ACC_SCALE_FACTOR.                                                    */
-    accData[0] = ((fix16_t) rawAccY) * ACC_SCALE_FACTOR; 
-    accData[1] = ((fix16_t) rawAccZ) * ACC_SCALE_FACTOR;
+    accData[0] = (fix16_t) rawAccY * ACC_SCALE_FACTOR; 
+    accData[1] = (fix16_t) rawAccZ * ACC_SCALE_FACTOR;
     
     // Integrate gyro data over last sample period, and check for angle wraparound                                      */
     estAng += fix16mul(gyroData, DT);
@@ -178,9 +174,9 @@ CY_ISR(gyroDataReadyInterrupt)
      * The acc input can be used if the accelleration vector has a length close  *
      * to 1g (no force other than gravity), which is estimated by the sum of the *
      * components for computational efficiency.                                  */
-    fix16_t forceMagEst = fix16abs(accData[0]) + fix16abs(accData[1]);
+    //fix16_t forceMagEst = fix16abs(accData[0]) + fix16abs(accData[1]);
     // Use if forcemag is between 0.5*(2^16) and 2*(2^16)
-    if(1<<15 < forceMagEst && forceMagEst < 1<<17) 
+    //if(1<<15 < forceMagEst && forceMagEst < 1<<17) 
     {
         //take part of gyro estimate and add complementary part of acc estimate
         estAng = fix16mul(GYRO_WEIGHT, estAng) 
@@ -191,7 +187,7 @@ CY_ISR(gyroDataReadyInterrupt)
     //print result
     
     char result[15];
-    sprintf(result, "%d, ", estAng >> 16);
+    sprintf(result, "%d, ", fix16mul(gyroData, DT) >> 16);
     UART_UartPutString(result);
 //    if(count < SAMPLE_SIZE){
 //        data[0][count] = accData[0];
