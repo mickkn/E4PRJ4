@@ -15,9 +15,9 @@ Til lysdioderne benyttes 5mm dioder fra komponentrummet:
 \end{itemize}
 
 
-\figur{1}{controller/design/L53_LEDS}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
+\figur{1}{controller/design/L53_LEDS_NEW}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
 
-Ud fra figur \ref{controller:ledSpec} ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
+Øverst på figur \ref{controller:ledSpec} ses information om lysintensitet som punktion af strømmen og ens for alle tre dioder er at "Relative Value at IF = 10 mA". Strømmen vælges derfor til 10 mA for at der herved er samme lysintensitet i de tre dioder. Nederst ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
 
 \figur{0.5}{controller/design/L53_resistor}{Formodstandsberegninger for de 3 dioder}{controller:resistors}
 
