@@ -1,4 +1,4 @@
-\chapter{Overordnet}
+\chapter{Baby Watch}
 
 %Generel indledende tekst til overordnet afsnit
 
@@ -16,8 +16,8 @@
 Figur \ref{overordnet:allokering} viser allokeringen af systemets logiske blokke til specifikke HW-enheder.
 
 Således allokeres Intelligent Lydmonitor som en mikrofon, en mikrofonforstærker og et Blackfin533 til optagelse, analyse og kommunikation.
-Controller allokeres som en Raspberry Pi med tilhørende Wi-Fi modul. Controllerens HTTP- og Email- server er således også allokeret på Raspberry Pi'en. Controllerens betjeningspanel allokeres som et fysisk betjeningspanel.
+Controller allokeres som en Raspberry Pi med tilhørende Wi-Fi modul. Controllerens HTTP server og Email klient er således også allokeret på Raspberry Pi'en. Controllerens betjeningspanel allokeres som et fysisk betjeningspanel.
 Vuggesystem allokeres som en sensorkreds, en motorkreds og en PSoC4 til regulering og kommunikation med Controller.
-Power allokeres som et forsyningsbatteri samt spændingdsregulerende kreds.
+Power allokeres som et forsyningsbatteri samt en spændingsregulerende kreds og et kredsløb til at monitorere batteriet.
 
 \input{filer/overordnet/graenseflader}
