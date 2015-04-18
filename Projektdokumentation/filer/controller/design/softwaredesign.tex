@@ -34,16 +34,16 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-	\textbf{Attribut}	& \verb+int ledOnOff_ +								\\ \hline
-	\textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for On/Off LED 	\\ \hline
+    \textbf{Attribut}		& \verb+int ledOnOff_ +									\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for On/Off LED		\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-	\textbf{Attribut}	& \verb+int ledMan_ +									\\ \hline
-	\textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for Manuelstart LED 	\\ \hline
+    \textbf{Attribut}		& \verb+int ledMan_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for Manuelstart LED		\\ \hline
     \end{tabular}
 \end{center}
 
@@ -68,6 +68,30 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
     \hline
 	\textbf{Attribut}	& \verb+int butMan_ +										\\ \hline
 	\textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for ''Manuelstart''-knap	\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int ledWifi_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for Netværksstatus LED	\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int butOnOff_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for On/Off knappen		\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int butMan_ +											\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for ''Manuelstart''-knap		\\ \hline
     \end{tabular}
 \end{center}
 
@@ -96,20 +120,30 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
     \end{tabular}
 \end{center}
 
-{\centering
-\textbf{GPIOsocket}\par
-}
-\textbf{Ansvar:} At oprette et GPIO filarkiv \
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void sendError() +									\\ \hline
+    \textbf{Parametre} 	& Ingen														\\ \hline
+    \textbf{Returværdi}	& Ingen 														\\ \hline
+    \textbf{Beskrivelse}	& Sender en Email med en fejlmeddelelse til Babypasser		\\ \hline
+    \end{tabular}
+\end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+int gpioExport( int pin ) +					\\ \hline
-    \textbf{Parametre} 	& GPIO pin nummer 									\\ \hline
-    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl					\\ \hline
-    \textbf{Beskrivelse}	& Opretter et fil arkiv for det modtagne pin-nummer	\\ \hline
+    \textbf{Funktion}	& \verb+void sendAlarm() +									\\ \hline
+    \textbf{Parametre} 	& Ingen														\\ \hline
+    \textbf{Returværdi}	& Ingen 														\\ \hline
+    \textbf{Beskrivelse}	& Sender en Email med en alarm besked til Babypasser		\\ \hline
     \end{tabular}
 \end{center}
+
+{\centering
+\textbf{GPIOsocket}\par
+}
+\textbf{Ansvar:} At oprette et GPIO filarkiv \
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -179,10 +213,64 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
+    \textbf{Funktion}	& \verb+int writeReg( unsigned char reg_addr , unsigned char data ) +		\\ \hline
+    \textbf{Parametre} 	& Register adresse og data til skrivning									\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl										\\ \hline
+    \textbf{Beskrivelse}	& Skriver data til et register på en given enhed							\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int readReg( unsigned char reg_addr , unsigned char &data ) +		\\ \hline
+    \textbf{Parametre} 	& Register adresse og en data adresse til at gemme læst data i			\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl										\\ \hline
+    \textbf{Beskrivelse}	& Læser data fra et register på en given enhed							\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int openI2C() +													\\ \hline
+    \textbf{Parametre} 	& Ingen																	\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl										\\ \hline
+    \textbf{Beskrivelse}	& Åbner I2C forbindelsen til en enhed i constructor						\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int closeI2C() +													\\ \hline
+    \textbf{Parametre} 	& Ingen																	\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl										\\ \hline
+    \textbf{Beskrivelse}	& Lukker I2C forbindelsen til en enhed i destructor						\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
     \textbf{Funktion}	& \verb+int closeI2C() +\\ \hline
     \textbf{Parametre} 	& Ingen \\ \hline
     \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl \\ \hline
     \textbf{Beskrivelse}	& Lukker I2C forbindelsen til en enhed i destructor\\ \hline
+    
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+std::string  i2cFileName +								\\ \hline
+    \textbf{Beskrivelse} 	& Enhedsnavn på Raspberry Pi ''/dev/i2c-0'' eller ''/dev/i2c-1''	\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int i2cDescriptor +										\\ \hline
+    \textbf{Beskrivelse} 	& Fil descriptor til åbning af I2C forbindelsen					\\ \hline
     \end{tabular}
 \end{center}
 
@@ -210,6 +298,14 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
     \end{tabular}
 \end{center}
 
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+unsigned char deviceAddress + 								\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde Enheds adressen på den enhed der skal kommunikeres med					\\ \hline
+    \end{tabular}
+\end{center}
+
 {\centering
 \textbf{Networkstatus}\par
 }
@@ -228,7 +324,7 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
 {\centering
 \textbf{TWTTLsocket}\par
 }
-\textbf{Ansvar:} At aflæse status fra Lydmonitoreringen \
+\textbf{Ansvar:} At aflæse status fra Intelligent Lydmonitor \
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -263,6 +359,43 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
     \hline
     \textbf{Attribut}	& \verb+int lsbPin_ +\\ \hline
     \textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for LSB-bit\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int getPinValue( int pin ) const + 								\\ \hline
+    \textbf{Parametre} 	& GPIO pin nummer														\\ \hline
+    \textbf{Returværdi}	& Pin værdi																\\ \hline
+    \textbf{Beskrivelse}	& Bruges til læsning af MSB og LSB bit fra den Intelligente Lydmonitor	\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int getBabyconLevel(void) +		 								\\ \hline
+    \textbf{Parametre} 	& Ingen																	\\ \hline
+    \textbf{Returværdi}	& BABYCON niveau 0, 1, 2 eller 3											\\ \hline
+    \textbf{Beskrivelse}	& Udlæsning af BABYCON niveau											\\ \hline
+    \end{tabular}
+\end{center}
+
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int msbPin_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for MSB-bit				\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int lsbPin_ +		 								\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for LSB-bit				\\ \hline
     \end{tabular}
 \end{center}
 
