@@ -11,137 +11,262 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
 }
 \textbf{Ansvar:} At styre forbindelserne til det hardwarenære på den fysiske controller boks \
 
-\verb+int setLedValue( int pin , int value ) +\\
-\textbf{Parametre:}   Modtager et GPIO pin-nummer og en værdi 0 for ON og 1 for OFF \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Bruges til at tænde og slukke for LED dioderne på controller \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int setLedValue( int pin , int value ) +						\\ \hline
+    \textbf{Parametre} 	& Modtager et GPIO pin-nummer og en værdi 0 for ON og 1 for OFF		\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl 								\\ \hline
+    \textbf{Beskrivelse}	& Bruges til at tænde og slukke for LED dioderne på controller		\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int getButValue( int pin ) const +\\
-\textbf{Parametre:}   Modtager et GPIO pin-nummer \\
-\textbf{Returværdi:}  Status på knaptryk \\
-\textbf{Beskrivelse:} Bruges til at læse fra trykknapper på controller  \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int getButValue( int pin ) const +						\\ \hline
+    \textbf{Parametre} 	& Modtager et GPIO pin-nummer									\\ \hline
+    \textbf{Returværdi}	& Status på knaptryk 											\\ \hline
+    \textbf{Beskrivelse}	& Bruges til at læse fra trykknapper på controller				\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int ledOnOff_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for On/Off LED \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int ledOnOff_ +									\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for On/Off LED		\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int ledMan_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for Manuelstart LED \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int ledMan_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for Manuelstart LED		\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int ledWifi_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for Netværksstatus LED\\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+	\textbf{Attribut}	& \verb+int ledWifi_ +										\\ \hline
+	\textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for Netværksstatus LED	\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int butOnOff_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for On/Off knappen \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int butOnOff_ +										\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for On/Off knappen		\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int butMan_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for ''Manuelstart''-knap \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int butMan_ +											\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde GPIO nummer for ''Manuelstart''-knap		\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{EmailSMTP}\par
 }
 \textbf{Ansvar:} At sende Alarm og Fejl emails til Babypasser direkte fra main programmet \
 
-\verb+void sendError() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  Ingen \\
-\textbf{Beskrivelse:} Sender en Email med en fejlmeddelelse til Babypasser \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void sendError() +								\\ \hline
+    \textbf{Parametre} 	& Ingen													\\ \hline
+    \textbf{Returværdi}	& Ingen													\\ \hline
+    \textbf{Beskrivelse}	& Sender en Email med en fejlmeddelelse til Babypasser	\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+void sendAlarm() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  Ingen \\
-\textbf{Beskrivelse:} Sender en Email med en alarm besked til Babypasser \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void sendAlarm() +							\\ \hline
+    \textbf{Parametre} 	& Ingen												\\ \hline
+    \textbf{Returværdi}	& Ingen												\\ \hline
+    \textbf{Beskrivelse}	& Sender en Email med en alarm besked til Babypasser	\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{GPIOsocket}\par
 }
 \textbf{Ansvar:} At oprette et GPIO filarkiv \
 
-\verb+int gpioExport( int pin ) +\\
-\textbf{Parametre:}   GPIO pin nummer \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Opretter et fil arkiv for det modtagne pin-nummer \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int gpioExport( int pin ) +					\\ \hline
+    \textbf{Parametre} 	& GPIO pin nummer									\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl					\\ \hline
+    \textbf{Beskrivelse}	& Opretter et fil arkiv for det modtagne pin-nummer	\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int gpioUnexport( int pin ) +\\
-\textbf{Parametre:}   GPIO pin nummer \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Fjerner filarkivet for det modtagne pin-nummer \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int gpioUnexport( int pin ) +			\\ \hline
+    \textbf{Parametre} 	& GPIO pin nummer								\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl				\\ \hline
+    \textbf{Beskrivelse}	& Fjerner filarkivet for det modtagne pin-nummer	\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int gpioDirection( int pin , int dir ) +\\
-\textbf{Parametre:}   GPIO pin nummer og pin retning \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Sætter retningen for GPIO pin, INPUT(0) eller OUTPUT(1) \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int gpioDirection( int pin , int dir ) +			\\ \hline
+    \textbf{Parametre} 	& GPIO pin nummer og pin retning							\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl						\\ \hline
+    \textbf{Beskrivelse}	& Sætter retningen for GPIO pin, INPUT(0) eller OUTPUT(1)	\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{I2Csocket}\par
 }
 \textbf{Ansvar:} At kommunikere over I2C \
 
-\verb+int writeReg( unsigned char reg_addr , unsigned char data ) +\\
-\textbf{Parametre:}   Register adresse og data til skrivning \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Skriver data til et register på en given enhed \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int writeReg( unsigned char reg_addr , unsigned char data ) +	\\ \hline
+    \textbf{Parametre} 	& Register adresse og data til skrivning	\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl \\ \hline
+    \textbf{Beskrivelse}	& Skriver data til et register på en given enhed \\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int readReg( unsigned char reg_addr , unsigned char &data ) +\\
-\textbf{Parametre:}   Register adresse og en data adresse til at gemme læst data i \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Læser data fra et register på en given enhed \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int readReg( unsigned char reg_addr , unsigned char &data ) +\\ \hline
+    \textbf{Parametre} 	& Register adresse og en data adresse til at gemme læst data i\\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl\\ \hline
+    \textbf{Beskrivelse}	& Læser data fra et register på en given enhed\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int openI2C() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Åbner I2C forbindelsen til en enhed i constructor \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int openI2C() + \\ \hline
+    \textbf{Parametre} 	& Ingen \\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl \\ \hline
+    \textbf{Beskrivelse}	& Åbner I2C forbindelsen til en enhed i constructor \\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int closeI2C() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  0 ved succes. Minus værdi ved fejl \\
-\textbf{Beskrivelse:} Lukker I2C forbindelsen til en enhed i destructor \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int closeI2C() +\\ \hline
+    \textbf{Parametre} 	& Ingen \\ \hline
+    \textbf{Returværdi}	& 0 ved succes. Minus værdi ved fejl \\ \hline
+    \textbf{Beskrivelse}	& Lukker I2C forbindelsen til en enhed i destructor\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+std::string  i2cFileName +\\
-\textbf{Beskrivelse:} Enhedsnavn på Raspberry Pi ''/dev/i2c-0'' eller ''/dev/i2c-1'' \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+std::string  i2cFileName +								\\ \hline
+    \textbf{Beskrivelse} 	& Enhedsnavn på Raspberry Pi ''/dev/i2c-0'' eller ''/dev/i2c-1''	\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int i2cDescriptor +\\
-\textbf{Beskrivelse:} Fil descriptor til åbning af I2C forbindelsen \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+int i2cDescriptor +										\\ \hline
+    \textbf{Beskrivelse} 	& Fil descriptor til åbning af I2C forbindelsen					\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+unsigned char deviceAddress +\\
-\textbf{Beskrivelse:} Attribut til at holde Enheds adressen på den enhed der skal kommunikeres med  \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}		& \verb+unsigned char deviceAddress + 								\\ \hline
+    \textbf{Beskrivelse} 	& Attribut til at holde Enheds adressen på den enhed der skal kommunikeres med					\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{Networkstatus}\par
 }
-\textbf{Ansvar:} At aflæse om der er forbindelse til et netværk \
+\textbf{Ansvar:} At aflæse om der er forbindelse til netværket og internettet \
 
-\verb+bool statusEth0() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  True ved forbindelse ellers false \\
-\textbf{Beskrivelse:} Læser på ''operstate'' for Eth0 forbindelsen på Raspberry Pi og returnere om den er oppe eller nede \\
-
-\verb+bool statusWlan0() +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  True ved forbindelse ellers false \\
-\textbf{Beskrivelse:} Læser på ''operstate'' for Wlan0 forbindelsen på Raspberry Pi og returnere om den er oppe eller nede \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+bool pingNet() +\\ \hline
+    \textbf{Parametre} 	& Ingen \\ \hline
+    \textbf{Returværdi}	& True ved forbindelse ellers false \\ \hline
+    \textbf{Beskrivelse}	& Pinger googles offentlige DNS server, og hvis den fejler pinger den en anden offentlig DNS server for at dobbelttjekke\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{TWTTLsocket}\par
 }
-\textbf{Ansvar:} At aflæse status fra Lydmonitoreringen \
+\textbf{Ansvar:} At aflæse status fra Intelligent Lydmonitor \
 
-\verb+int getPinValue( int pin ) const +\\
-\textbf{Parametre:}   GPIO pin nummer \\
-\textbf{Returværdi:}  Pin værdi \\
-\textbf{Beskrivelse:} Bruges til læsning af MSB og LSB bit fra den Intelligente Lydmonitor \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int getPinValue( int pin ) const +\\ \hline
+    \textbf{Parametre} 	& GPIO pin nummer\\ \hline
+    \textbf{Returværdi}	& Pin værdi\\ \hline
+    \textbf{Beskrivelse}	& Bruges til læsning af MSB og LSB bit fra den Intelligente Lydmonitor\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int getBabyconLevel(void) +\\
-\textbf{Parametre:}   Ingen \\
-\textbf{Returværdi:}  BABYCON niveau 0, 1, 2 eller 3 \\
-\textbf{Beskrivelse:} Udlæsning af BABYCON niveau \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+int getBabyconLevel(void) +\\ \hline
+    \textbf{Parametre} 	& Ingen\\ \hline
+    \textbf{Returværdi}	& BABYCON niveau 0, 1, 2 eller 3\\ \hline
+    \textbf{Beskrivelse}	& Udlæsning af BABYCON niveau\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int msbPin_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for MSB-bit \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}	& \verb+int msbPin_ + \\ \hline
+    \textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for MSB-bit\\ \hline
+    \end{tabular}
+\end{center}
 
-\verb+int lsbPin_ +\\
-\textbf{Beskrivelse:} Attribut til at holde GPIO nummer for LSB-bit \\
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Attribut}	& \verb+int lsbPin_ +\\ \hline
+    \textbf{Beskrivelse}	& Attribut til at holde GPIO nummer for LSB-bit\\ \hline
+    \end{tabular}
+\end{center}
 
 {\centering
 \textbf{Website}\par
 }
 \textbf{Ansvar:} Til opdatering af hjemmeside \
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \\ \hline
+    \textbf{Parametre} 	& \\ \hline
+    \textbf{Returværdi}	& \\ \hline
+    \textbf{Beskrivelse}	& \\ \hline
+    \end{tabular}
+\end{center}

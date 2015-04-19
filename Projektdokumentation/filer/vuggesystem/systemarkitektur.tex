@@ -15,11 +15,11 @@ Vuggesystemet fungerer overordnet som følger:
 \figur{1}{vuggesystem/sysark/Vuggesystem_BDD.pdf}{BDD for Vuggesystem}{Vug_BDD}
 
 Vuggesystemet består af tre dele
-\begin{description}
-\item[Motorsystem block:] Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.
-\item[Regulerings MCU block:] Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.
-\item[Sensor block:] Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
-\end{description}
+
+\textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.\\
+\textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.\\
+\textbf{Sensor block:} Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
+
 
 Følgende beskriver vuggesystemets kobling og grænseflade.
 
@@ -40,6 +40,7 @@ Følgende beskriver vuggesystemets kobling og grænseflade.
 \figur{0.5}{vuggesystem/sysark/motor_positions_sensor_IBD.pdf}{IBD for Motor positionssensor}{MotoPosS_IBD}
 \textbf{Motor positionssensor} giver et frekvenssignal relativ til motorens nuværende hastighed. 
 
+\newpage
 \subsection{Grænsefladebeskrivelse}
 Herunder findes en beskrivelse af de interne forbindelser. 
 
@@ -56,40 +57,32 @@ Herunder findes en beskrivelse af de interne forbindelser.
 \multicolumn{1}{p{2cm}|}{\textbf{Type}} & 
 \multicolumn{1}{p{6cm}|}{\textbf{Kommentar}} \\
 \hline 
-\endfirsthead
 
-
-\multicolumn{3}{c}%
-{{\bfseries \tablename\ \thetable{} --> fortsat fra forrige side}} \\
-
-\multicolumn{1}{|p{3cm}|}{\textbf{Signal}} & 
-\multicolumn{1}{p{2cm}|}{\textbf{Type}} & 
-\multicolumn{1}{p{6cm}|}{\textbf{Kommentar}} \\
-\hline
 \endhead
 
 
-\hline \multicolumn{3}{|r|}{{fortsættes på næste side -->}} \\ \hline
-\endfoot
+
 
 \hline \hline
 \endlastfoot
 
-VB & 12V DC & Dette signal kommer direkte fra systemets batteri.\\
+VB & 12V DC & Dette signal kommer direkte fra systemets batteri\\
 \hline
 VS & 0V DC & Dette er batteriforsyningens retur\\
 \hline
-VCC & 3.3V DC & Dette er forsyningen til PSoC og andet logik.\\
+VCC & 3.3V DC & Dette er forsyningen til PSoC og andet logik\\
 \hline
 GND & 0V stel & Stelforbindelse til PSoC og andet logik\\
 \hline
 MotorPWM & PWM & PWM som styrer motor spændingen ved VB samt retningen for motoren. Fra 0-50\%duty-cycle generer en negativ motorspænding, fra 50-100 \%duty-cycle generer en positiv motorspænding.  PWM signalet 0-3.3V CMOS med f = [20kHz]\\
 \hline
-VuggeV & I2C & Angiver vinklen af vuggen relativt til tyngdefeltet.\\
+MotorRelae & Digital & Kontakt som holder motoren tændt,  HIGH = Tændt LOW = slukket  \\
 \hline
-MotHast & ?? & Angiver hastigheden af motoren\\
+VuggeV & I2C & Angiver vinklen af vuggen relativt til tyngdefeltet\\
 \hline
-ESSwitch & Digital & Endstop status, ES-for OR ES-bag, HIGH = ikke ramt LOW = ramt.\\
+MotHast & Mcount & Angiver hastigheden af motoren(Undersøges færdig)\\
+\hline
+ESSwitch & Digital & Endstop status, ES-for OR ES-bag, HIGH = ikke ramt LOW = ramt\\
 \hline
 I2CVuggesystem & I2C & Styresignal til vuggesystemet\\
 \hline
@@ -113,9 +106,9 @@ Softwarearkitekturen for Vuggesystemet består af:
 \item Oprettelse af skelet for videre implementering af Vuggesystemets SW vha. et sekvensdiagram til klasseidentifikation og programflow
 \end{itemize}
 
-Det er valgt at lave en applikationsmodel for modulerne/modulgrupperne internt frem for direkte Use Case baseret. Applikationsmodellen indeholder således funktionaliteter for op til flere Use Cases, men kun afgrænset til Vuggesystemet. 
+Applikationsmodellen indeholder funktionaliteter for op til flere Use Cases, men er kun afgrænset til Vuggesystemet. 
 
-\vspace{5mm}
+\vspace{2mm}
 \subsection*{Applikationsmodel} 
 \subsubsection*{Domænemodel} 
 

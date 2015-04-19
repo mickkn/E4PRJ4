@@ -6,32 +6,31 @@
 Som mikrofon er valgt en MCE-100 elektret mikrofon. Et udpluk af specifikationer ses herunder:
 \begin{itemize}
 	\item Frequency range: 50 Hz to 10 kHz
-	\item Sensitivity: 5,6 mV / Pa / 1 KHz
+	\item Sensitivity: 5,6 mV / Pa / 1 kHz
 	\item Output impedans: 2 kOhm
 	\item Power Supply: 1.5 to 10 V dc, 5 mA
 \end{itemize}
-Se datablad (INDSÆT REFERENCE TIL Pro-MCE-100-datasheet) for komplet specifikation. 
-
-En elektret mikrofon er en videreudvikling af kondensatormikrofonen, hvor bagelektroden har en "indefrosset" ladning i materialet. Kapaciteten i mikrofonen (ca. 10 pF) ændres ved trykvariationer idet afstanden mellem membranen og bagelektroden varieres. 
+ 
+På Figur \ref{intlyd:mic_preamp:elektret} ses en tegning af en elektret mikrofon som er en videreudvikling af kondensatormikrofonen, hvor bagelektroden har en "indefrosset" ladning i materialet. Kapaciteten i mikrofonen (ca. 10 pF) ændres ved trykvariationer idet afstanden mellem membranen og bagelektroden varieres. 
 
 \figur{0.4}{intlydmonitor/design/elektret_tore}{Tegning af elektrektrostatisk mikrofon. Kilde: Analogteknik}{intlyd:mic_preamp:elektret}
 
-Dog har kablingen mellem mikrofonen og forstærkeren en betydelig kapacitet, så mikrofonpakken er implementeret med en indbygget JFET som buffer, som det ses af figuren herunder:
+Dog har kablingen mellem mikrofonen og forstærkeren en betydelig kapacitet, så mikrofonpakken er implementeret med en indbygget JFET som buffer, som det ses af Figur \ref{intlyd:mic_preamp:elektret_forsyn}
 \figur{0.6}{intlydmonitor/design/elektret_kreds_tore}{Elektret forsyningskredsløb. Kilde: Analogteknik}{intlyd:mic_preamp:elektret_forsyn}
 
-Forsyningen til mikrofonen trækkes fra Blackfin 533, og er således U\begin{tiny}cc\end{tiny} = 5 V. 
+Forsyningen til mikrofonen trækkes fra Blackfin, og er således U\begin{tiny}cc\end{tiny} = 5 V. 
 Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2 kOhm (opgivet som "Output Impedance").
 
 Dette giver et spændingsfald på 1 V over R\begin{tiny}d\end{tiny} og dermed 4 V over den i mikrofonkapslen indbyggede JFET. I dette område af U\begin{tiny}DS\end{tiny} vil transistoren have en strømbegrænsnde virkning og kan derfor bruges som en tilnærmelsesvis lineær strømkilde.
 \figur{1}{intlydmonitor/design/JFET_Karakteristik}{Karakteristik for JFET'en BF245A. Kilde: Analogteknik}{intlyd:mic_preamp:jfet_karakteristik}
 
-I punktet på højre side af kondensatoren C, vil strømmen DC-strømmen være sorteret fra og den af mikrofonen modulerede AC-strøm, i\begin{tiny}M\end{tiny}, vil være at finde. Af databladet ved vi, at mikrofonens sensitivitet er S = 5,6 mV/Pa, og i\begin{tiny}M\end{tiny} vi således være givet ved: 
+På Figur \ref{intlyd:mic_preamp:jfet_karakteristik} ses karakteristikken for JFET. I punktet på højre side af kondensatoren C, vil DC-strømmen være sorteret fra og den af mikrofonen modulerede AC-strøm, i\begin{tiny}M\end{tiny}, vil være at finde. Af databladet ved vi, at mikrofonens sensitivitet er S = 5,6 mV/Pa, og i\begin{tiny}M\end{tiny} vi således være givet ved: 
 \begin{center}
 ${ i }_{ M }=\frac { S }{ { R }_{ D } } \cdot p$
 \end{center}
 Hvor p er lydniveau (Pa)
 
-Spændingen i dette punkt, u\begin{tiny}M\end{tiny}, er givet ved parrallelværdien mellem de to modstande og i\begin{tiny}M\end{tiny}. 
+Spændingen i dette punkt, u\begin{tiny}M\end{tiny}, er givet ved parallelværdien mellem de to modstande og i\begin{tiny}M\end{tiny}. 
 \begin{center}
 ${ u }_{ M }=({ R }_{ D }||{ R }_{ L })\cdot { i }_{ M } $
 \end{center}
@@ -81,7 +80,7 @@ Dette krav er altså opfyldt.
 
 Ved en grænse på 20mV vil 20 \% af differentialtrinnets udstyringsmulighed på ±I\begin{tiny}E\end{tiny} udnyttes. Den påkrævede SR vil derfor være 5 gange den hidtil beregnede, altså 1MV/s.
 
-Dette betyder altså at vi kan nøjes med at bruge en billig operationsforstærker uden større krav til SR, såsom en OpAms fra den i lydbehandling almindeligt anvendte TL071-serie ville give (SR = 13MV/s).
+Dette betyder altså at vi kan nøjes med at bruge en billig operationsforstærker uden større krav til SR, såsom en OpAmp fra den i lydbehandling almindeligt anvendte TL071-serie ville give (SR = 13MV/s).
 
 \textbf{Stabilitet}
 
@@ -89,8 +88,8 @@ Der er en betydelig kapacitet på forstærkerens indgang idet mikrofonen er kobl
 \begin{center}
 \figur{0.9}{intlydmonitor/design/OpAmp_med_indgangskapacitet}{OpAmp med kapacitiv belastning på indgangen. Kilde: Analogteknik}{intlyd:mic_preamp:tia_ind_kap}
 \end{center}
-Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 100pF/m. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
-Der regnes med en typis GBP på 9MHz. Der testes for nødvendighed af tilbagekobling:
+På figur \ref{intlyd:mic_preamp:tia_ind_kap} ses TIA'en som de næste udregninger tager udgangspunkt i. Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 100pF/m. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
+Der regnes med en typis GBP på 9MHz. Der testes for nødvendighed af kondensator i tilbagekobling:
 \begin{center}
 ${ C }_{ 1 }<\frac { 1 }{ 8\pi \cdot GBP\cdot { R }_{ 2 } } \Longrightarrow \quad 100pF<\frac { 1 }{ 8\pi \cdot 9MHz\cdot 28,9k\Omega  } \quad \Longrightarrow \quad 100\cdot { 10 }^{ -12 }<153\cdot { 10 }^{ -15 }$
 \end{center}

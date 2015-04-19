@@ -1,4 +1,4 @@
-\subsection*{Hardwaredesign}
+\subsection{Hardwaredesign}
 
 Controlleren består af et betjeningspanel samt en Raspberry Pi der kontrollerer betjeningspanelet og styrer forbindelserne til hhv. den Intelligente Lydmonitor og Vuggesystemet.
 
@@ -15,21 +15,22 @@ Til lysdioderne benyttes 5mm dioder fra komponentrummet:
 \end{itemize}
 
 
-\figur{1}{controller/design/L53_LEDS}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
+\figur{1}{controller/design/L53_LEDS_NEW}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
 
-Ud fra figur \ref{controller:ledSpec} ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
+Øverst på figur \ref{controller:ledSpec} ses information om lysintensitet som punktion af strømmen og ens for alle tre dioder er at "Relative Value at IF = 10 mA". Strømmen vælges derfor til 10 mA for at der herved er samme lysintensitet i de tre dioder. Nederst ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
 
 \figur{0.5}{controller/design/L53_resistor}{Formodstandsberegninger for de 3 dioder}{controller:resistors}
 
 Ud fra modstandsberegningerne i figur \ref{controller:resistors} er kredsløbsdiagrammet, se figur \ref{betjeningsapanel:schematic}, opbygget. De to knapper for ON/OFF samt Manuel start er medtaget sammen med deres GPIO porte på Rasberry Pi model b.
 
-\figur{0.7}{controller/design/betjeningspanel_multisim}{Kredsløbsdiagram for Controller}{betjeningspanel:schematic}
+\figur{0.7}{controller/design/betjeningspanel_multisim}{Kredsløbsdiagram for Betjeningspanel}{betjeningspanel:schematic}
 
 Tabellen herunder angiver opsætningen af GPIOerne på Raspberry Pi'en for at ovenstående diagram kan fungere.
 
 \begin{center}
 \label{ctrl:raspberry_pi_setup}
 \begin{longtable}{|p{3cm}|p{4cm}|p{4cm}|}
+\caption{Oversigt over GPIO pins og deres funktioner}\\
 \hline
 \textbf{GPIO}	&\textbf{Opsætning} 		&\textbf{Kommentar} 	\\ \hline
 \endfirsthead
@@ -85,7 +86,7 @@ Kommunikationen med den Intelligente Lydmonitor foregår som beskrevet i systema
 
 GPIO9 og GPIO10 benyttes til denne to ledet forbindelse til Intelligent Lydmonitor, hvor GPIO9 er LSB delen og GPIO10 er MSB delen. 
 
-Til den fysiske forbindelse designes der efter at benytte et USB kabel. Controllerens del af forbindelsen er et USB hun type B stik. Se figur \ref{betjeningspanel:IL_USB}
+Til den fysiske forbindelse designes der efter at benytte et USB kabel. Controllerens del af forbindelsen er et USB hun type B stik. Se figur \ref{betjeningspanel:IL_USB}. Figuren viser at 3,3 V er en del af USB stikket, det er kun af testhensyn, for at testprintet vil fungere med dipswitchen, se figur \ref{betjeningspanel:IL_testprint}.
 
 \figur{0.3}{controller/design/IL_USB}{USB type B for kommunikation med Intelligent Lydmonitor}{betjeningspanel:IL_USB}
  
@@ -105,7 +106,7 @@ Der designes et testprint således at controlleren kan testes med et simpelt PSo
 
 \subsubsection*{Samlet HW-design af Controller}
 
-\ref{controller:controller_samlet}
+Figur \ref{controller:controller_samlet} viser samlet kredsløbsdiagram for Controlleren. Betjeningspanelets knapper og dioder, USB stik til kommunikation med Intelligent Lydmonitor og Vuggesystem samt Raspberry Pi'ens GPIO socket.
 
 \figur{1}{controller/design/controller_samlet}{Samlet kredsløbsdiagram for Controller}{controller:controller_samlet}
 

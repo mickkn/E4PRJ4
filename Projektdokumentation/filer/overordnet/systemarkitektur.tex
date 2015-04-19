@@ -10,22 +10,22 @@ Det følgende afsnit beskriver den overordnede systemarkitektur for Baby Watch. 
 Figur \ref{overordnet:domaene_model} viser domænemodellen for Baby Watch. Modellen beskriver systemets funktionalitet og indbyrdes sammenhæng. Multipliceter på 1 til 1 er udeladt i diagrammet. Babypasseren kan tjekke status på flere enheder (antal simultane enheder begrænses af HTTP serverens kapacitet). Systemet er som udgangspunkt kun designe til én baby og multipliciteten for denne er derfor også 1 til 1.
 
 \subsection{System-states}
-\figur{1}{overordnet/sysark/Overordnet_STM.pdf}{Overordnede states for systemet}{overordnet:STM}
+\figur{1}{overordnet/sysark/Overordnet_STM.pdf}{Overordnede states for Baby Watch}{overordnet:STM}
 
-Systemets har tre overordnede states: Monitoringstilstand, Puttetilstand og Undtagelsestilstand. \\\textbf{Monitoreringstilstand} har to substates: 
+Systemets har tre overordnede states: Monitoringstilstand, ''Manuel start''-tilstand og Undtagelsestilstand. \\\textbf{Monitoreringstilstand} har to substates: 
 \begin{itemize}
 	\item \textbf{Stilstand}, der indikerer BABYCON3 niveau med rolig baby. Vuggesystemet er for denne tilstand inaktivt
 	\item \textbf{Vugning}, der indikerer BABYCON2 niveau med urolig baby og hvori barnevognen vugger automatisk.
 \end{itemize}
 
-\textbf{Puttetilstand} igangsættes manuelt af babypasseren. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoringstilstand. Efter to minutter afbryder en måling af barneaktivitet svarende til BABYCON1 også puttetilstand. Systemet går herefter i undtagelsestilstand.
+\textbf{''Manuel start''-tilstand} igangsættes manuelt af babypasseren. Her sættes barnevognen til at vugge i 5 minutter, hvorefter systemet går i Monitoringstilstand. Efter to minutter afbryder en måling af barneaktivitet svarende til BABYCON1 også ''Manuel start''-tilstand. Systemet går herefter i undtagelsestilstand.
 
 \textbf{Undtagelsestilstand} indikerer BABYCON1 niveau med højeste alarmberedskab. Her stoppes barnevogens vuggefunktion, der sendes en advarselsemail til Babypasser og hjemmeside opdateres til BABYCON1, som igangsætter afspilning af en alarmlyd. 
 
 
 \subsection{BDD}
 \figur{1}{overordnet/sysark/Overordnet_BDD.pdf}{Overordnet BDD for Baby Watch}{sysark:overordnet_BDD}
-Figur \ref{sysark:overordnet_BDD} viser det overordnede BDD for Baby Watch systemet. Som figuren viser, består systemet af en inteligent lydmonitor, et vuggesystem, en power blok, samt en controller, der indeholder en HTTP server, en Email server samt et betjeningspanel.
+Figur \ref{sysark:overordnet_BDD} viser det overordnede BDD for Baby Watch systemet. Som figuren viser, består systemet af en inteligent lydmonitor, et vuggesystem, en power blok, samt en controller, der indeholder en HTTP server, en Email klient samt et betjeningspanel.
 
 
 \subsection{IBD}

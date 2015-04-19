@@ -2,10 +2,10 @@
 
 Formålet med projektet er at lave en prototype af en intelligent babymonitor til barnevogne med dertilhørende vuggesystem, statushjemmeside og e-mail notifikation.
 
-Systemet har tre tilstande; en putte-tilstand, hvor barnet lægges til at sove, en monitorerings-tilstand og en undtagelses-tilstand.
-I \textbf{putte-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterval, hvorefter monitoreringen overtager.
+Systemet har tre tilstande; en ''manuel start''-tilstand, hvor barnet lægges til at sove, en monitorerings-tilstand og en undtagelses-tilstand.
+I \textbf{''manuel start''-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterval, hvorefter monitoreringen overtager.
 I \textbf{monitorerings-tilstanden} styres barnevognens vuggefunktion på baggrund af analysen af den aktuelle baby-lydoptagelse.
-I \textbf{undtagelses-tilstanden} låses systemet. Barnevognen skal ikke vugges. En e-mail afsendes til den registrerede babypasser, og en alarmlyd afspilles på statushjemmeside indtil systemet resettes manuelt ude ved barnevognen. 
+I \textbf{undtagelses-tilstanden} skal barnevognen ikke vugge. En e-mail afsendes til den registrerede babypasser, og en alarmlyd afspilles på statushjemmeside indtil systemet resettes manuelt ude ved barnevognen. 
 
 Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden bliver på hjemmesiden kategoriseret i tre konditioner vist via en BABYCON statusbar:
 \label{kravspec:indledning_babycon_states}
@@ -26,4 +26,6 @@ Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden 
 Figur \ref{kravspec:systemtegning} illustrerer systemet. Barnevognen er udstyret med en controller som står for at styre de andre delsystem. På controlleren sidder et brugerpanel som sørger for at babypasseren fysisk kan interagere med systemet via knapper og LED'er.
 Den intelligente lydmonitor består af en mikrofon og en digital signal processer (DSP), som sender informationer til controlleren om babyens tilstand ud fra en processering af babyens lyde; herunder pitch og power. Vuggesystemet består af en motor og et selvregulerende system, som sørger for, at barnet altid vugges ud fra et vandret niveau. Vuggesystemet opererer med tre vuggetilstande (med hver deres frekvens og amplitude) på baggrund af kontrolsignalet fra controlleren. Controlleren indholder også en http server med statushjemmesiden og en e-mail client. Controlleren har forbindelse via Wi-Fi til internettet. Babypasseren kan opsøge information om babyens tilstand på statushjemmesiden og modtager e-mails når systemet detekterer, at babyen er i en alarmerende tilstand eller hvis der opstår fejl i systemet.
 
-\figur{0.35}{kravspec/controller_beskrivelse}{Forklaring af controllerens knapper og lysdioder}{kravspec:controller}
+\figur{0.35}{kravspec/controller_beskrivelse}{Controllerens knapper og lysdioder}{kravspec:controller}
+
+Figur \ref{kravspec:controller} viser Controllerens 2 knapper: ON/OFF-knap og ''Manuel start''-knap. De 3 lysdioder er også illustreret. Den grønne indikerer at Baby Watch er ON, den gule indikerer at ''Manuel start'' er aktiveret og den røde indikerer manglende netværksforbindelse. 

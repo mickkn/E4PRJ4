@@ -8,6 +8,7 @@ Følgende viser  signaltabellen for det overordnede system  med forbindelser, po
 \begin{center}
 \label{overordnet:signaltabel}
 \begin{longtable}{|p{2,5cm}|p{1,8cm}|p{2,6cm}|p{2,8cm}|p{3cm}|}
+\caption{Signaltabel for Baby Watch}\\
 \hline
 \textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
 \endfirsthead
@@ -45,17 +46,17 @@ power
 \\\hline
 
 power
-&x VDC
+&3,3 VDC
 &Power \newline(powVS\_out)
 &Vuggesystem \newline(powVS\_in)
-&x V forsyning til Vuggesystem
+&Forsyning til Vuggesystem
 \\\hline
 
 power
-&x VDC
+&7,5 VDC
 &Power \newline(powIL\_out)
 &Int. lydmonitor\newline(powIL\_in)
-&x V forsyning til Vuggesystem
+&Forsyning til Vuggesystem
 \\\hline
 
 powerOn			
@@ -78,7 +79,7 @@ I2C
 &Dobbelt ledet TTL signal til identifikation af BABYCON niveau
 \\\hline
 
-localNetwork			
+network			
 &Wi-Fi				
 &Controller \newline (Wi-Fi) 			
 &Baby Watch \newline (Wi-Fi)	
