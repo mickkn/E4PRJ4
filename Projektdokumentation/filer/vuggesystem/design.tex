@@ -34,20 +34,20 @@ Dødbåndet skabes ved at introducere en forsinkelse på den stigende kant af b�
 På ovenstående eksempel ses det også at duty cyclen ikke ændres, idet de to signaler stadig er tændt i en lige stor del af perioden.\\
 Denne forsinkelse på den stigende kant introduceres vha et RC led og en and gate, som vist nedenfor.
 
-\figur{0.5}{vuggesystem/impl/deadband_kreds.pdf}{Deadband kredsløb}{deadband_kreds}
+\figur{0.5}{vuggesystem/design/deadband_kreds.pdf}{Deadband kredsløb}{deadband_kreds}
 
 Den første inverter fungerer som en buffer for at sikre at indgangssignalet møder en høj impedans, mens den anden inverter skaber et ikke inverteret udtag til PWM signalet. Modstanden er dimensioneret således at der højst trækkes en milliampere fra inverteren, og kondensatoren kan så dimensioneres til at give en passende tidsforsinkelse. Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket med den valgte modstand på 3.3kOhm giver en kondensator værdi på 1.12 pF hvilket rundes op til 1.2pF. \\
 Til sidst er de ubrugte logiske elementer er koblet som følger:
 
-TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
-\figur{0.5}{vuggesystem/design/ubrugte_elementer.pdf}{Ubrugte logiske elementer}{ub_logik_elem}
+%TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
+%\figur{0.5}{vuggesystem/design/ubrugte_elementer.pdf}{Ubrugte logiske elementer}{ub_logik_elem}
 
 \subsubsection{strømforbrug}
 Det dominerende strømforbrug i systemet stammer fra vuggesystemets motor. Denne strøm trækkes direkte fra systemets batteri, og har derfor ikke indflydelse på dimensioneringen af systemets reguleringskreds. Tilgengæld er den vigtig for at kunne vurdere hvor stort et batteri der skal til for at drive systemet en given tid.\\ 
 Et tidligt skøn over motorens strømforbrug er gjort ved at sætte et manuelt styret PWM signal på motor kredsen, og så vugge barnevognen med vægt i, så godt som muligt ved manuel regulering. Herunder ses strømmålingen for 60 sekunders test. Målingen er gjort med en /10 probe på spændingsfaldet over en 0.1 Ohm's modstand, og den målte spænding svarer således direkte til strømmen.\\
 
-TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
-\figur{0.75}{vuggesystem/design/stroemforbrug.pdf}{Test af strømforbrug for motor}{strøm_graf}
+%TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
+%\figur{0.75}{vuggesystem/design/stroemforbrug.pdf}{Test af strømforbrug for motor}{strøm_graf}
 
 \subsubsection{Endstopsensor}
 
