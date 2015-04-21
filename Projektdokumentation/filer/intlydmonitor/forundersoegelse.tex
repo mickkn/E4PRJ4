@@ -10,16 +10,16 @@ Der udføres analyser på lyd-optagelser af følgende situationer:
 	\item Moderat babygråd
 	\item Fuglefløjt
 	\item Trafik
-	\item Latter
+	\item Katte
 \end{itemize} 
 Disse analyseres således som beskrevet i efterfølgende afsnit.
 
 \subsection{Metode}
-Der findes optagelser af de udvalgte lyde i formatet .wav. Lydene analyseres i Matlab med hensyn til:
+Der analyseres tre optagelser af hver af de udvalgte lyde i formatet .wav. Lydene analyseres i både lange (~5 sek) og korte (~5 msek) optagelsessegmenter i Matlab med hensyn til:
 \begin{itemize}
-	\item Generelt frekvensindhold
+	\item Frekvensindhold
 	\item Dominant tone
-	\item Andel af signalets effekt, der tilskrives dominante toner frem for generel støj 
+	\item Grad af tonalitet (andel af signalets effekt, der tilskrives dominante toner frem for generel støj) 
 \end{itemize} 
 
 Disse parametre analyseres med redskaberne Short-Time DFT, en max-funktion, Tonal Power Spectrum, samt en smoothing-funktion.
@@ -47,181 +47,110 @@ Resultatet af vil ligge mellem $0\le { v }_{ Tpr }\le 1$
 \textbf{Smoothing} \\
 Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes.
 
-\newpage
-\subsection{Analyse fremgangsmåde}
-
+%\newpage
+\subsection{Analysekode gennemgang}
+Endnu ikke skrevet
 \begin{verbatim}
-%******************************************************************%
-% Project: E4PRJ4 BABY WATCH                                       %
-% Authors: Lukas Hedegaard og Kristian Boye                        %
-% Task: Forundersoegelse af fire udvalgte lydfiler,                %
-% Hoejlydt babygraad, Moderat babygraad, Fuglefloejt og Trafik     %
-%******************************************************************%
-
-%**** EXTRACT SAMPLES *********************************************%
-[rec, f_s] = wavread('Hoejlydt_babygraad');
-%[rec, f_s] = wavread('Moderat_babygraad');   
-%[rec, f_s] = wavread('Fuglefloejt');
-%[rec, f_s] = wavread('Trafik');  
-
-x = rec(:,1)';  %extract left channel'
-
-%**** Set sample window *******************************************%
-frame_sec = 0;          %Set frame size from recordning length
-                        %0 for full recording
-if frame_sec == 0 
-    N = length(x);
-    shift_N = 1;
-else
-    N = frame_sec*f_s;
-    shift_sec = 1.1;    %Set time shift
-    shift_N = shift_sec*f_s;
-end
-
-x_win = x(shift_N:N-1+shift_N);             %extract framed sample
-x_win = x_win .* hanning(length(x_win))';   %window with hamming
-
-%**** Bandpass prefiltrering **************************************%
-n = 4;                                      % Order
-bs_low_cutoff = 100;                        % Cut off freq (Hz)
-bs_low_cutoff_rad = bs_low_cutoff/(0.5*f_s);% Cut off freq (rad/sample)
-bs_high_cutoff = 10000; 
-bs_high_cutoff_rad = bs_high_cutoff/(0.5*f_s); 
-[b,a] = butter(n, [bs_low_cutoff_rad bs_high_cutoff_rad]); % Butter BP
-
-x_win = filter(b,a,x_win);
-
-%**** Play sample *************************************************%
-sound(x_win, f_s)
-
-%**** Plot sample *************************************************%
-offset = 0;
-x = x_win + offset;     %use offset to fit both sampleplot and TPR
-
-figure(1)
-subplot(3,1,1)
-plot(x)
-xlabel('Tid/Samples')
-ylabel('Amplitude')
-title('Rec: Sample-plot')
-grid on
-
-%**** FAST FOURIER TRANSFORM **************************************% 
-NFFT = 2^nextpow2(N);   %Find next power of 2
-X = fft(x_win,NFFT);
-
-%**** Find Maximal FFT frequency **********************************%
-X_max = max(abs(X));
-
-
-%**** SHORT-TIME DFT (Spectogram) *********************************%
-segmentlen = 256;
-nOverlap = 60;
-NFFT = 1280;
-
-figure(1)
-subplot(3,1,3)
-spectrogram(x_win, segmentlen, nOverlap, NFFT, f_s, 'yaxis');
-specMinFreq = 0;
-specMaxFreq = 5000;
-axis([-inf inf specMinFreq specMaxFreq])
-colormap bone
-%colorbar
-
-%Repeat and save data for use in tonal analysis functions:
-[s,f,t,p] = spectrogram(x_win, segmentlen, nOverlap, NFFT, f_s,'yaxis'); 
-
-
-%**** TONAL POWER RATIO *******************************************% 
-TPR = FeatureSpectralTonalPowerRatio(abs(s), f_s, 5*10^-2)';
-TPR = TPR*5;   % upscaling
-
-TPR_smooth = smooth(TPR(:),0.1,'moving');   % Smooth data
-
-%**** Plot Tonal Power Ratio **************************************%
-xAxis = 1:(length(x_win)/length(TPR)):length(x_win);
-
-figure(1)
-subplot(3,1,2)
-plot(xAxis,TPR,'r','linewidth',1)
-hold on
-plot(xAxis,TPR_smooth,'k','linewidth',2)
-hold off
-xlabel('Tid/sample')
-ylabel('Tonal Power Ratio')
-title('Tonal Power Ratio')
-grid on
-
-%**** FREQ WITH MAX POWER *****************************************%
-[q,nd] = max(10*log10(p));  %q is used for x-axis in later plot
-
-maxPwr_smooth = smooth(f(nd),0.05,'moving');     % Smooth data
-
-
-%**** FREQUENCY ANALYSIS PLOTS ************************************%
-%**** Discard values beneath Tonal Power Ratio Threshold *******
-cutThresh = 0;
-maxPwr_smooth_cut = maxPwr_smooth;
-maxPwr_cut = f(nd);
-
-for i = 1 : length(maxPwr_smooth)
-    %determine spectral energy at freq
-    if ((TPR_smooth(i) < cutThresh) || (TPR(i) == 0))
-        maxPwr_smooth_cut(i) = NaN(1);
-        maxPwr_cut(i) = NaN(1);
-    end
-end
-
-%**** Plot frequency analysis *************************************%
-figure(1)
-subplot(3,1,3)
-
-hold on
-plot3(t,maxPwr_smooth_cut,q,'r','linewidth',2)  %maxPwr_smooth plot
-scatter(t,maxPwr_cut,5,'b')
-view(2)
-hold off
 
 \end{verbatim}
 
-\newpage
+%\newpage
 \subsection{Analyser}
-Resultatet af analysekoden er 3-plots:
+Resultatet af korttids-analysen er 3-plots:
 \begin{enumerate}
 	\item Sampleplot af det givne lydsignal (blå)
 	\item Tonal Power Ratio (rød) og midlet TPR (sort)
 	\item Spectogram (colormap: bone), dominerende tone (blå prikker), midlet dominerende tone (rød streg)
 \end{enumerate}
-
 Bemærk for plot 3, at data for dominerende frekvens er fjernet ved TPR på 0.
 
+Resultatet af langtids-analysen er:
+\begin{enumerate}
+	\item DFT-spektrum: Originalt (blå), moderat filtreret (rød), kraftigt filtreret (sort)
+	\item Global TPR-værdi
+	\item Global dominerende tone
+\end{enumerate}
 
-\textbf{Højlydt babygråd} \\
-Karakteristisk ved højlydt babygråd er, at dele af Tonal Power Ratio (TPR) ligger over en værdi på 0.13 (se plot 2). Herudover ses det på plot 3 at de dominerende frekvenser typisk ligger mellem 700 og 3000 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 2100 Hz (røde streger). 
+\newpage
+\begin{center}  \textit{\textbf{Højlydt babygråd}}  \end{center}
+\textbf{Korttids-analyse} \\
+Karakteristisk ved højlydt babygråd er, at dele af Tonal Power Ratio (TPR) når over en værdi på 0.13 (se plot 2). Herudover ses det på plot 3 at de dominerende frekvenser (blå prikker) typisk ligger omkring 900, 3100 og 5000 Hz. Midles disse værdier over længere tid, ligger det dominerende frekvensindhold mellem 900 Hz og 3500 Hz (røde streger). 
 
-\figur{0.9}{intlydmonitor/forundersoegelse/analyse_baby_crying}{Analyseresultat af optagelsen Højlydt babygråd}{intlyd:forundersoegelse:hoj_baby}
+\figur{1}{intlydmonitor/forundersoegelse/analyse_hoejlydt_babygraad_kort}{Korttids-analyse af højlydt babygråd optagelser}{intlyd:forundersoegelse:hoj_baby_kort}
+
+\newpage
+\textbf{Langtids-analyse} \\
+Karakteristisk ved langtidsanalysen for højlydt babygråd er, at den dominerende tone (sort streg) ligger omkring 900 Hz. Næste dominante frekvens ligger mellem 3 kHz og 3,1 kHz. Endvidere ses at magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede med magnitudeforskel på laveste og højeste frekvens (på sort, midlet kurve) på omtrent 25 dB. \\
+De tre optagelser samlet (nederste højre graf) har en TPR = 0.336.
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_hoejlydt_babygraad_lang_samling}{Langtids-analyser af højlydt babygråd optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:hoj_baby_lang}
 
 
 \newpage
-\textbf{Moderat babygråd}\\
-Karakteristisk ved optagelsen af moderat babygråd er, at store dele af TPR ligger over en værdi på 0.13 (plot 2). Af plot 3 fremgår det at de dominerende frekvenser typisk ligger mellem 500 og 3500 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 1700 Hz (røde streger). 
+\begin{center} \textit{\textbf{Moderat babygråd}} \end{center}
+\textbf{Korttids-analyse} \\
+Karakteristisk ved optagelsen af moderat babygråd er, at store dele af TPR ligger over en værdi på 0.13 (plot 2). Af plot 3 fremgår det at de dominerende frekvenser typisk ligger mellem 500 og 3500 Hz (blå prikker). Midles disse værdier, ligger det dominerende frekvensindhold mellem 900 Hz og 1500 Hz (røde streger). 
 
-\figur{0.9}{intlydmonitor/forundersoegelse/analyse_baby_cooing}{Analyseresultat af optagelsen Moderat babygråd}{intlyd:forundersoegelse:mod_baby}
-
-
-\newpage
-\textbf{Fuglefløjt}\\
-Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi over 0.11, men under 0.13 (plot 2). På spektrogrammet (plot3) ses det at de dominerende frekvenser ligger meget spredt: det meste af tiden dominerer vind og vejr (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1800 Hz til 5000 Hz. Den midlede dominerende tone ligger mellem 35 Hz og 2500 Hz.
-
-\figur{0.9}{intlydmonitor/forundersoegelse/analyse_bird}{Analyseresultat af optagelsen Fuglefløjt}{intlyd:forundersoegelse:fugl}
+\figur{1}{intlydmonitor/forundersoegelse/analyse_moderat_babygraad_kort}{Korttids-analyse af moderat babygråd optagelser}{intlyd:forundersoegelse:mod_baby_kort}
 
 \newpage
-\textbf{Trafikstøj}\\
+\textbf{Langtids-analyse} \\
+Ved langtidsanalysen for højlydt babygråd ligger den dominerende dybe tone (sort streg) på hhv. 1,5 kHz (optagelse 1, øverst venstre), 1 kHz (optagelse 2, øverst højre) og 600 Hz (optagelse 3, nederst venstre). Næste dominante frekvens ligger omkring 2,5 kHz for optagelse 2 og 3. For optagelse 1, findes intet tydeligt peak. Der er altså ikke tydelig korrelation for placering af frekvenspeaks. Magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede med magnitudeforskel på laveste og højeste frekvens (sort, midlet kurve) på omtrent 20 dB. \\
+De tre optagelser samlet (nederste højre graf) har TPR = 0.374.
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_moderat_babygraad_lang_samling}{Langtids-analyser af moderat babygråd optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:mod_baby_lang}
+
+\newpage
+\begin{center} \textit{\textbf{Fuglefløjt}} \end{center}
+\textbf{Korttids-analyse} \\
+Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi over 0.11, men under 0.13 (plot 2). På spektrogrammet (plot3) ses det at de dominerende frekvenser ligger meget spredt; det meste af tiden dominerer vind og vejr (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1,8 kHz til 6 kHz. Den midlede dominerende tone ligger mellem 35 Hz og 2500 Hz.
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_fuglefloejt_kort}{Korttids-analyse af fuglefløjt optagelser}{intlyd:forundersoegelse:fugl_kort}
+
+\newpage
+\textbf{Langtids-analyse} \\
+\figur{1}{intlydmonitor/forundersoegelse/analyse_fuglefloejt_lang_samling}{Langtids-analyser af fuglefløft optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:fugl_lang}
+%TPR_global = 0.291
+
+\newpage
+\begin{center}\textit{\textbf{Trafikstøj}}\end{center}
+\textbf{Korttids-analyse} \\
 Karakteristisk for trafikstøj er, at TPR ligger over 0.10, men under 0.13 (plot 2). Af spektrogrammet (plot 3) fremgår det at frekvenserne ligger spredt mellem 0 og 1500 Hz med en middel-værdi på ca 700 Hz.
 
-\figur{0.9}{intlydmonitor/forundersoegelse/analyse_street_traffic}{Analyseresultat af optagelsen Trafikstøj babygråd}{intlyd:forundersoegelse:trafik}
+\figur{0.9}{intlydmonitor/forundersoegelse/analyse_trafik_kort}{Korttids-analyse af trafikstøjs-optagelser}{intlyd:forundersoegelse:trafik_kort}
 
 \newpage
+\textbf{Langtids-analyse} \\
+\figur{0.9}{intlydmonitor/forundersoegelse/analyse_trafik_lang_samling}{Langtids-analyser af trafikstøjs-optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:trafik_lang}
+%TPR_global = 0.269
+
+\newpage
+\begin{center}\textit{\textbf{Kat}}\end{center}
+\textbf{Korttids-analyse} \\
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_kat_kort}{Korttids-analyse af katte-optagelser}{intlyd:forundersoegelse:kat_kort}
+
+\newpage
+\textbf{Langtids-analyse} \\
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_kat_lang_samling}{Langtids-analyser af katte-optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:kat_lang}
+%TPR_global = 0.295
+
+\newpage
+\begin{center}\textit{\textbf{Latter}}\end{center}
+\textbf{Korttids-analyse} \\
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_latter_kort}{Korttids-analyse af latter-optagelser}{intlyd:forundersoegelse:latter_kort}
+
+\newpage
+\textbf{Langtids-analyse} \\
+
+\figur{1}{intlydmonitor/forundersoegelse/analyse_latter_lang_samling}{Langtids-analyser af latter-optagelser. Nederste venstre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:latter_lang}
+%TPR_global = 0.253
+
+
+\newpage
+\begin{center} \textit{\textbf{Korttids-analyse delkonklusion}} \end{center}
 \textbf{Sammenligning af maximal TPR}	\\
 Matlabs funktion til at finde maksimum-værdien for at array er benyttet til at finde den højeste værdi af TPR for de forskellige situationer. Resultaterne kan ses i tabellen herunder. 
 
@@ -254,6 +183,8 @@ Minimum- og maksimumfrekvens for analysen af dominerende toner er vist i tabelle
 \end{center}
 
 Fuglefløjt har største båndbredde, med udfald mellem 69 Hz og 3120 Hz. Trafikstøjens dominerende frekvenser bevæger sig ikke over 710 Hz. Babygråd har sit dominante frekvensindhold mellem 600 og 2000 Hz. Trafikstøj har således lavere frekvensindhold end babygråd. Frekvensindholdet for fuglefløjt har en større båndbredde end babygråd og har sit indhold både over- og under båndbredden for babygråd.
+
+\begin{center} \textit{\textbf{Langtids-analyse delkonklusion}} \end{center}
 
 \subsection{Konklusion}
 Ved hjælp af \textit{Tonal Power Ratio} er det altså muligt at kende forskel på babygråden og almindelige støjsignaler som trafikstøj og fuglefløjt. \\
