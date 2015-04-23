@@ -1,0 +1,23 @@
+%Implementering på Backfin
+
+\subsection{Implementering af Intelligent Lydmonitor klasser}
+Herunder følger en dybdegående beskrivelse af hvorledes de enkle klasser er implementeret på Blackfin.
+
+\subsubsection{TwoWireCom}
+TwoWireCom er klassen som står for at sende BABYCON-niveauet til Controller via to GPIO pins. 
+
+Klassen er implementeret ved hjælp af funktioner fra T\_GPIO\_BANKS. Inkluderingen af de nødvendige biblioteker kan ses i kodestykket herunder. 
+
+\begin{verbatim}
+#include "adi_initialize.h"
+#include <sys\exception.h>
+#include <cdefBF533.h>
+#include "sysreg.h"
+#include "ccblkfn.h"
+
+#define OUTPUT_PIN_MSB PF4
+#define OUTPUT_PIN_LSB PF6
+void twoWireTTL(int);
+\end{verbatim}
+
+Ovenstående er et uddrag fra TwoWireCom.h hvilken indeholder prototypen for funktionen, twoWireTTL, samt defined GPIO pins til senere brug.  
