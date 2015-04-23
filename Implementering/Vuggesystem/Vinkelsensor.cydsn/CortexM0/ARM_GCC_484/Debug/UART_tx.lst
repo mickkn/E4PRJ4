@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
   30:.\Generated_Source\PSoC4/UART_tx.c **** ********************************************************************************
   31:.\Generated_Source\PSoC4/UART_tx.c **** *
   32:.\Generated_Source\PSoC4/UART_tx.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/UART_tx.c **** *  Assign a new value to the digital port's data output register.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
   66 003c 0F32     		add	r2, r2, #15
   67 003e 1278     		ldrb	r2, [r2]
   68 0040 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 3
 
 
   47:.\Generated_Source\PSoC4/UART_tx.c **** }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
   95 0002 82B0     		sub	sp, sp, #8
   96              		.cfi_def_cfa_offset 16
   97 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 4
 
 
   98              		.cfi_def_cfa_register 7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
   93:.\Generated_Source\PSoC4/UART_tx.c **** * Note:
   94:.\Generated_Source\PSoC4/UART_tx.c **** *  Macro UART_tx_ReadPS calls this function. 
   95:.\Generated_Source\PSoC4/UART_tx.c **** *  
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 5
 
 
   96:.\Generated_Source\PSoC4/UART_tx.c **** *******************************************************************************/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  115:.\Generated_Source\PSoC4/UART_tx.c **** *  
  116:.\Generated_Source\PSoC4/UART_tx.c **** *******************************************************************************/
  117:.\Generated_Source\PSoC4/UART_tx.c **** uint8 UART_tx_ReadDataReg(void) 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 6
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 6
 
 
  118:.\Generated_Source\PSoC4/UART_tx.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  137:.\Generated_Source\PSoC4/UART_tx.c ****     * Return: 
  138:.\Generated_Source\PSoC4/UART_tx.c ****     *  Returns the value of the interrupt status register
  139:.\Generated_Source\PSoC4/UART_tx.c ****     *  
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 7
 
 
  140:.\Generated_Source\PSoC4/UART_tx.c ****     *******************************************************************************/
@@ -418,21 +418,21 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  251 0004 0400     		.2byte	0x4
  252 0006 00000000 		.4byte	.Ldebug_abbrev0
  253 000a 04       		.byte	0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 8
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 8
 
 
  254 000b 01       		.uleb128 0x1
- 255 000c 18010000 		.4byte	.LASF24
+ 255 000c 1A010000 		.4byte	.LASF24
  256 0010 01       		.byte	0x1
- 257 0011 DA000000 		.4byte	.LASF25
- 258 0015 87000000 		.4byte	.LASF26
+ 257 0011 87000000 		.4byte	.LASF25
+ 258 0015 C5000000 		.4byte	.LASF26
  259 0019 00000000 		.4byte	.Ldebug_ranges0+0
  260 001d 00000000 		.4byte	0
  261 0021 00000000 		.4byte	.Ldebug_line0
  262 0025 02       		.uleb128 0x2
  263 0026 01       		.byte	0x1
  264 0027 06       		.byte	0x6
- 265 0028 08020000 		.4byte	.LASF0
+ 265 0028 0A020000 		.4byte	.LASF0
  266 002c 02       		.uleb128 0x2
  267 002d 01       		.byte	0x1
  268 002e 08       		.byte	0x8
@@ -440,7 +440,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  270 0033 02       		.uleb128 0x2
  271 0034 02       		.byte	0x2
  272 0035 05       		.byte	0x5
- 273 0036 EF010000 		.4byte	.LASF2
+ 273 0036 F1010000 		.4byte	.LASF2
  274 003a 02       		.uleb128 0x2
  275 003b 02       		.byte	0x2
  276 003c 07       		.byte	0x7
@@ -448,7 +448,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  278 0041 02       		.uleb128 0x2
  279 0042 04       		.byte	0x4
  280 0043 05       		.byte	0x5
- 281 0044 FF010000 		.4byte	.LASF4
+ 281 0044 01020000 		.4byte	.LASF4
  282 0048 02       		.uleb128 0x2
  283 0049 04       		.byte	0x4
  284 004a 07       		.byte	0x7
@@ -456,7 +456,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  286 004f 02       		.uleb128 0x2
  287 0050 08       		.byte	0x8
  288 0051 05       		.byte	0x5
- 289 0052 BA010000 		.4byte	.LASF6
+ 289 0052 BC010000 		.4byte	.LASF6
  290 0056 02       		.uleb128 0x2
  291 0057 08       		.byte	0x8
  292 0058 07       		.byte	0x7
@@ -468,17 +468,17 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  298 0064 02       		.uleb128 0x2
  299 0065 04       		.byte	0x4
  300 0066 07       		.byte	0x7
- 301 0067 0B010000 		.4byte	.LASF8
+ 301 0067 B8000000 		.4byte	.LASF8
  302 006b 04       		.uleb128 0x4
- 303 006c F9010000 		.4byte	.LASF9
+ 303 006c FB010000 		.4byte	.LASF9
  304 0070 02       		.byte	0x2
  305 0071 A1       		.byte	0xa1
  306 0072 2C000000 		.4byte	0x2c
  307 0076 04       		.uleb128 0x4
- 308 0077 04010000 		.4byte	.LASF10
+ 308 0077 B1000000 		.4byte	.LASF10
  309 007b 02       		.byte	0x2
  310 007c A3       		.byte	0xa3
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 9
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 9
 
 
  311 007d 48000000 		.4byte	0x48
@@ -489,11 +489,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  316 0088 02       		.uleb128 0x2
  317 0089 08       		.byte	0x8
  318 008a 04       		.byte	0x4
- 319 008b FD000000 		.4byte	.LASF12
+ 319 008b AA000000 		.4byte	.LASF12
  320 008f 02       		.uleb128 0x2
  321 0090 01       		.byte	0x1
  322 0091 08       		.byte	0x8
- 323 0092 EA010000 		.4byte	.LASF13
+ 323 0092 EC010000 		.4byte	.LASF13
  324 0096 05       		.uleb128 0x5
  325 0097 00000000 		.4byte	.LASF14
  326 009b 02       		.byte	0x2
@@ -528,7 +528,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  355 00d7 77       		.sleb128 -9
  356 00d8 00       		.byte	0
  357 00d9 07       		.uleb128 0x7
- 358 00da C8010000 		.4byte	.LASF16
+ 358 00da CA010000 		.4byte	.LASF16
  359 00de 01       		.byte	0x1
  360 00df 49       		.byte	0x49
  361 00e0 00000000 		.4byte	.LFB1
@@ -537,8 +537,8 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  364 00e9 9C       		.byte	0x9c
  365 00ea FD000000 		.4byte	0xfd
  366 00ee 08       		.uleb128 0x8
- 367 00ef 94010000 		.4byte	.LASF18
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 10
+ 367 00ef 96010000 		.4byte	.LASF18
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 10
 
 
  368 00f3 01       		.byte	0x1
@@ -549,7 +549,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  373 00fb 77       		.sleb128 -9
  374 00fc 00       		.byte	0
  375 00fd 0A       		.uleb128 0xa
- 376 00fe AD010000 		.4byte	.LASF19
+ 376 00fe AF010000 		.4byte	.LASF19
  377 0102 01       		.byte	0x1
  378 0103 61       		.byte	0x61
  379 0104 6B000000 		.4byte	0x6b
@@ -558,7 +558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  382 0110 01       		.uleb128 0x1
  383 0111 9C       		.byte	0x9c
  384 0112 0A       		.uleb128 0xa
- 385 0113 99010000 		.4byte	.LASF20
+ 385 0113 9B010000 		.4byte	.LASF20
  386 0117 01       		.byte	0x1
  387 0118 75       		.byte	0x75
  388 0119 6B000000 		.4byte	0x6b
@@ -576,7 +576,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  400 013a 01       		.uleb128 0x1
  401 013b 9C       		.byte	0x9c
  402 013c 09       		.uleb128 0x9
- 403 013d DD010000 		.4byte	.LASF23
+ 403 013d DF010000 		.4byte	.LASF23
  404 0141 01       		.byte	0x1
  405 0142 8F       		.byte	0x8f
  406 0143 6B000000 		.4byte	0x6b
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  422 0008 0E       		.uleb128 0xe
  423 0009 1B       		.uleb128 0x1b
  424 000a 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 11
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 11
 
 
  425 000b 55       		.uleb128 0x55
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  479 0041 00       		.byte	0
  480 0042 00       		.byte	0
  481 0043 06       		.uleb128 0x6
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 12
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 12
 
 
  482 0044 35       		.uleb128 0x35
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  536 007b 0B       		.uleb128 0xb
  537 007c 49       		.uleb128 0x49
  538 007d 13       		.uleb128 0x13
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 13
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 13
 
 
  539 007e 02       		.uleb128 0x2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  593 00b6 00       		.byte	0
  594              		.section	.debug_aranges,"",%progbits
  595 0000 3C000000 		.4byte	0x3c
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 14
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 14
 
 
  596 0004 0200     		.2byte	0x2
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  639              	.LASF1:
  640 0029 756E7369 		.ascii	"unsigned char\000"
  640      676E6564 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 15
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 15
 
 
  640      20636861 
@@ -869,102 +869,102 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 1
  650      436C6561 
  650      72496E74 
  650      65727275 
- 651              	.LASF26:
- 652 0087 433A5C55 		.ascii	"C:\\Users\\Felix\\Git Repository\\E4PRJ4\\Implement"
- 652      73657273 
- 652      5C46656C 
- 652      69785C47 
- 652      69742052 
- 653 00b5 6572696E 		.ascii	"ering\\Vuggesystem\\Vinkelsensor.cydsn\000"
- 653      675C5675 
- 653      67676573 
- 653      79737465 
- 653      6D5C5669 
- 654              	.LASF25:
- 655 00da 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\UART_tx.c\000"
- 655      6E657261 
- 655      7465645F 
- 655      536F7572 
- 655      63655C50 
- 656              	.LASF12:
- 657 00fd 646F7562 		.ascii	"double\000"
- 657      6C6500
- 658              	.LASF10:
- 659 0104 75696E74 		.ascii	"uint32\000"
- 659      333200
- 660              	.LASF8:
- 661 010b 756E7369 		.ascii	"unsigned int\000"
- 661      676E6564 
- 661      20696E74 
- 661      00
+ 651              	.LASF25:
+ 652 0087 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\UART_tx.c\000"
+ 652      6E657261 
+ 652      7465645F 
+ 652      536F7572 
+ 652      63655C50 
+ 653              	.LASF12:
+ 654 00aa 646F7562 		.ascii	"double\000"
+ 654      6C6500
+ 655              	.LASF10:
+ 656 00b1 75696E74 		.ascii	"uint32\000"
+ 656      333200
+ 657              	.LASF8:
+ 658 00b8 756E7369 		.ascii	"unsigned int\000"
+ 658      676E6564 
+ 658      20696E74 
+ 658      00
+ 659              	.LASF26:
+ 660 00c5 433A5C55 		.ascii	"C:\\Users\\Felix\\Git repositories\\E4PRJ4\\Impleme"
+ 660      73657273 
+ 660      5C46656C 
+ 660      69785C47 
+ 660      69742072 
+ 661 00f3 6E746572 		.ascii	"ntering\\Vuggesystem\\Vinkelsensor.cydsn\000"
+ 661      696E675C 
+ 661      56756767 
+ 661      65737973 
+ 661      74656D5C 
  662              	.LASF24:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 16
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 16
 
 
- 663 0118 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 663 011a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
  663      4320342E 
  663      382E3420 
  663      32303134 
  663      30353236 
- 664 014b 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 664 014d 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
  664      20726576 
  664      6973696F 
  664      6E203231 
  664      31333538 
- 665 017e 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 665 0180 30202D66 		.ascii	"0 -ffunction-sections\000"
  665      66756E63 
  665      74696F6E 
  665      2D736563 
  665      74696F6E 
  666              	.LASF18:
- 667 0194 6D6F6465 		.ascii	"mode\000"
+ 667 0196 6D6F6465 		.ascii	"mode\000"
  667      00
  668              	.LASF20:
- 669 0199 55415254 		.ascii	"UART_tx_ReadDataReg\000"
+ 669 019b 55415254 		.ascii	"UART_tx_ReadDataReg\000"
  669      5F74785F 
  669      52656164 
  669      44617461 
  669      52656700 
  670              	.LASF19:
- 671 01ad 55415254 		.ascii	"UART_tx_Read\000"
+ 671 01af 55415254 		.ascii	"UART_tx_Read\000"
  671      5F74785F 
  671      52656164 
  671      00
  672              	.LASF6:
- 673 01ba 6C6F6E67 		.ascii	"long long int\000"
+ 673 01bc 6C6F6E67 		.ascii	"long long int\000"
  673      206C6F6E 
  673      6720696E 
  673      7400
  674              	.LASF16:
- 675 01c8 55415254 		.ascii	"UART_tx_SetDriveMode\000"
+ 675 01ca 55415254 		.ascii	"UART_tx_SetDriveMode\000"
  675      5F74785F 
  675      53657444 
  675      72697665 
  675      4D6F6465 
  676              	.LASF23:
- 677 01dd 6D61736B 		.ascii	"maskedStatus\000"
+ 677 01df 6D61736B 		.ascii	"maskedStatus\000"
  677      65645374 
  677      61747573 
  677      00
  678              	.LASF13:
- 679 01ea 63686172 		.ascii	"char\000"
+ 679 01ec 63686172 		.ascii	"char\000"
  679      00
  680              	.LASF2:
- 681 01ef 73686F72 		.ascii	"short int\000"
+ 681 01f1 73686F72 		.ascii	"short int\000"
  681      7420696E 
  681      7400
  682              	.LASF9:
- 683 01f9 75696E74 		.ascii	"uint8\000"
+ 683 01fb 75696E74 		.ascii	"uint8\000"
  683      3800
  684              	.LASF4:
- 685 01ff 6C6F6E67 		.ascii	"long int\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccwu0BC8.s 			page 17
+ 685 0201 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccR4x3et.s 			page 17
 
 
  685      20696E74 
  685      00
  686              	.LASF0:
- 687 0208 7369676E 		.ascii	"signed char\000"
+ 687 020a 7369676E 		.ascii	"signed char\000"
  687      65642063 
  687      68617200 
  688              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

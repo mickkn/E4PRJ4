@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
   24:.\Generated_Source\PSoC4/Cm0Start.c **** 
   25:.\Generated_Source\PSoC4/Cm0Start.c **** /* CPUSS Configuration register */
   26:.\Generated_Source\PSoC4/Cm0Start.c **** #define CY_CPUSS_CONFIG_REG         (*(reg32 *) CYREG_CPUSS_CONFIG)
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 2
 
 
   27:.\Generated_Source\PSoC4/Cm0Start.c **** #define CY_CPUSS_CONFIG_PTR         ( (reg32 *) CYREG_CPUSS_CONFIG)
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
   81:.\Generated_Source\PSoC4/Cm0Start.c **** 
   82:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_STANDARD) */
   83:.\Generated_Source\PSoC4/Cm0Start.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 3
 
 
   84:.\Generated_Source\PSoC4/Cm0Start.c **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  115:.\Generated_Source\PSoC4/Cm0Start.c **** 
  116:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined(__ARMCC_VERSION)
  117:.\Generated_Source\PSoC4/Cm0Start.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 4
 
 
  118:.\Generated_Source\PSoC4/Cm0Start.c **** /* Local function for device reset. */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  172:.\Generated_Source\PSoC4/Cm0Start.c **** *
  173:.\Generated_Source\PSoC4/Cm0Start.c **** * Summary:
  174:.\Generated_Source\PSoC4/Cm0Start.c **** *  This function is called immediately before the users main
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 5
 
 
  175:.\Generated_Source\PSoC4/Cm0Start.c **** *
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  229:.\Generated_Source\PSoC4/Cm0Start.c **** * Function Name: _exit
  230:.\Generated_Source\PSoC4/Cm0Start.c **** ********************************************************************************
  231:.\Generated_Source\PSoC4/Cm0Start.c **** *
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 6
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 6
 
 
  232:.\Generated_Source\PSoC4/Cm0Start.c **** * Summary:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
   86              		.cfi_endproc
   87              	.LFE1:
   88              		.size	_exit, .-_exit
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 7
 
 
   89              		.section	.text._sbrk,"ax",%progbits
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  111 000c 7B68     		ldr	r3, [r7, #4]
  112 000e D318     		add	r3, r2, r3
  113 0010 1A1C     		mov	r2, r3
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 8
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 8
 
 
  114 0012 0F4B     		ldr	r3, .L11+4
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  156              		.cfi_endproc
  157              	.LFE2:
  158              		.size	_sbrk, .-_sbrk
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 9
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 9
 
 
  159              		.section	.text.Start_c,"ax",%progbits
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  187              	.L19:
  188              	.LBB2:
  325:.\Generated_Source\PSoC4/Cm0Start.c ****     {
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 10
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 10
 
 
  326:.\Generated_Source\PSoC4/Cm0Start.c ****         uint32 *src = (uint32 *)rptr->init;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  229              		.loc 1 337 0 is_stmt 1
  230 004e 3B69     		ldr	r3, [r7, #16]
  231 0050 DB68     		ldr	r3, [r3, #12]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 11
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 11
 
 
  232 0052 3B60     		str	r3, [r7]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  271 0086 FFF7FEFF 		bl	__libc_init_array
  349:.\Generated_Source\PSoC4/Cm0Start.c ****     (void) main();
  272              		.loc 1 349 0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 12
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 12
 
 
  273 008a FFF7FEFF 		bl	main
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  376:.\Generated_Source\PSoC4/Cm0Start.c ****         /* The bootloadable application image is started at Reset() handler
  377:.\Generated_Source\PSoC4/Cm0Start.c ****         * as a result of a branch instruction execution from the bootloader.
  378:.\Generated_Source\PSoC4/Cm0Start.c ****         * So, the stack pointer needs to be reset to be sure that
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 13
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 13
 
 
  379:.\Generated_Source\PSoC4/Cm0Start.c ****         * there is no garbage in the stack.
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  399:.\Generated_Source\PSoC4/Cm0Start.c **** ********************************************************************************
  400:.\Generated_Source\PSoC4/Cm0Start.c **** *
  401:.\Generated_Source\PSoC4/Cm0Start.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 14
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 14
 
 
  402:.\Generated_Source\PSoC4/Cm0Start.c **** *  This function performs early initializations for the IAR Embedded
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  456:.\Generated_Source\PSoC4/Cm0Start.c **** #endif  /* defined(__ARMCC_VERSION) */
  457:.\Generated_Source\PSoC4/Cm0Start.c **** 
  458:.\Generated_Source\PSoC4/Cm0Start.c **** #if defined (__ICCARM__)
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 15
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 15
 
 
  459:.\Generated_Source\PSoC4/Cm0Start.c ****     #pragma location=".romvectors"
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  503:.\Generated_Source\PSoC4/Cm0Start.c ****         /***********************************************************************
  504:.\Generated_Source\PSoC4/Cm0Start.c ****         * Make sure that Vector Table is located at 0000_0000 in Flash, before
  505:.\Generated_Source\PSoC4/Cm0Start.c ****         * accessing RomVectors or calling functions that may be placed in
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 16
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 16
 
 
  506:.\Generated_Source\PSoC4/Cm0Start.c ****         * .psocinit (cyfitter_cfg and ClockSetup). Note The CY_CPUSS_CONFIG_REG
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  524:.\Generated_Source\PSoC4/Cm0Start.c ****     cyfitter_cfg();
  374              		.loc 1 524 0 is_stmt 1
  375 0032 FFF7FEFF 		bl	cyfitter_cfg
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 17
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 17
 
 
  525:.\Generated_Source\PSoC4/Cm0Start.c **** 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  411              	heapPointer.4689:
  412 0000 00000000 		.word	end
  413              		.weak	__cy_region_num
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 18
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 18
 
 
  414              		.text
@@ -1032,17 +1032,17 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  422 0006 00000000 		.4byte	.Ldebug_abbrev0
  423 000a 04       		.byte	0x4
  424 000b 01       		.uleb128 0x1
- 425 000c 92010000 		.4byte	.LASF41
+ 425 000c 94010000 		.4byte	.LASF41
  426 0010 01       		.byte	0x1
- 427 0011 52020000 		.4byte	.LASF42
- 428 0015 CF000000 		.4byte	.LASF43
+ 427 0011 54020000 		.4byte	.LASF42
+ 428 0015 22010000 		.4byte	.LASF43
  429 0019 00000000 		.4byte	.Ldebug_ranges0+0
  430 001d 00000000 		.4byte	0
  431 0021 00000000 		.4byte	.Ldebug_line0
  432 0025 02       		.uleb128 0x2
  433 0026 01       		.byte	0x1
  434 0027 06       		.byte	0x6
- 435 0028 89020000 		.4byte	.LASF0
+ 435 0028 8B020000 		.4byte	.LASF0
  436 002c 02       		.uleb128 0x2
  437 002d 01       		.byte	0x1
  438 002e 08       		.byte	0x8
@@ -1050,7 +1050,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  440 0033 02       		.uleb128 0x2
  441 0034 02       		.byte	0x2
  442 0035 05       		.byte	0x5
- 443 0036 76020000 		.4byte	.LASF2
+ 443 0036 78020000 		.4byte	.LASF2
  444 003a 02       		.uleb128 0x2
  445 003b 02       		.byte	0x2
  446 003c 07       		.byte	0x7
@@ -1058,7 +1058,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  448 0041 02       		.uleb128 0x2
  449 0042 04       		.byte	0x4
  450 0043 05       		.byte	0x5
- 451 0044 80020000 		.4byte	.LASF4
+ 451 0044 82020000 		.4byte	.LASF4
  452 0048 02       		.uleb128 0x2
  453 0049 04       		.byte	0x4
  454 004a 07       		.byte	0x7
@@ -1066,11 +1066,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  456 004f 02       		.uleb128 0x2
  457 0050 08       		.byte	0x8
  458 0051 05       		.byte	0x5
- 459 0052 3F020000 		.4byte	.LASF6
+ 459 0052 41020000 		.4byte	.LASF6
  460 0056 02       		.uleb128 0x2
  461 0057 08       		.byte	0x8
  462 0058 07       		.byte	0x7
- 463 0059 75010000 		.4byte	.LASF7
+ 463 0059 77010000 		.4byte	.LASF7
  464 005d 03       		.uleb128 0x3
  465 005e 04       		.byte	0x4
  466 005f 05       		.byte	0x5
@@ -1078,12 +1078,12 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  468 0064 02       		.uleb128 0x2
  469 0065 04       		.byte	0x4
  470 0066 07       		.byte	0x7
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 19
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 19
 
 
- 471 0067 68010000 		.4byte	.LASF8
+ 471 0067 15010000 		.4byte	.LASF8
  472 006b 04       		.uleb128 0x4
- 473 006c 57010000 		.4byte	.LASF12
+ 473 006c 04010000 		.4byte	.LASF12
  474 0070 02       		.byte	0x2
  475 0071 A3       		.byte	0xa3
  476 0072 48000000 		.4byte	0x48
@@ -1094,11 +1094,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  481 007d 02       		.uleb128 0x2
  482 007e 08       		.byte	0x8
  483 007f 04       		.byte	0x4
- 484 0080 40010000 		.4byte	.LASF10
+ 484 0080 ED000000 		.4byte	.LASF10
  485 0084 02       		.uleb128 0x2
  486 0085 01       		.byte	0x1
  487 0086 08       		.byte	0x8
- 488 0087 4D020000 		.4byte	.LASF11
+ 488 0087 4F020000 		.4byte	.LASF11
  489 008b 05       		.uleb128 0x5
  490 008c 00000000 		.4byte	.LASF13
  491 0090 02       		.byte	0x2
@@ -1107,7 +1107,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  494 0097 06       		.uleb128 0x6
  495 0098 6B000000 		.4byte	0x6b
  496 009c 05       		.uleb128 0x5
- 497 009d 0E020000 		.4byte	.LASF14
+ 497 009d 10020000 		.4byte	.LASF14
  498 00a1 02       		.byte	0x2
  499 00a2 5D01     		.2byte	0x15d
  500 00a4 A8000000 		.4byte	0xa8
@@ -1123,22 +1123,22 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  510 00ba 02       		.uleb128 0x2
  511 00bb 04       		.byte	0x4
  512 00bc 07       		.byte	0x7
- 513 00bd 36020000 		.4byte	.LASF16
+ 513 00bd 38020000 		.4byte	.LASF16
  514 00c1 09       		.uleb128 0x9
  515 00c2 04       		.byte	0x4
  516 00c3 0A       		.uleb128 0xa
  517 00c4 84000000 		.4byte	0x84
  518 00c8 04       		.uleb128 0x4
- 519 00c9 25020000 		.4byte	.LASF17
+ 519 00c9 27020000 		.4byte	.LASF17
  520 00cd 01       		.byte	0x1
  521 00ce D0       		.byte	0xd0
  522 00cf 2C000000 		.4byte	0x2c
  523 00d3 0B       		.uleb128 0xb
- 524 00d4 B1020000 		.4byte	.LASF44
+ 524 00d4 B3020000 		.4byte	.LASF44
  525 00d8 10       		.byte	0x10
  526 00d9 01       		.byte	0x1
  527 00da D2       		.byte	0xd2
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 20
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 20
 
 
  528 00db 10010000 		.4byte	0x110
@@ -1155,7 +1155,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  539 00f2 10010000 		.4byte	0x110
  540 00f6 04       		.byte	0x4
  541 00f7 0C       		.uleb128 0xc
- 542 00f8 1B020000 		.4byte	.LASF20
+ 542 00f8 1D020000 		.4byte	.LASF20
  543 00fc 01       		.byte	0x1
  544 00fd D6       		.byte	0xd6
  545 00fe AF000000 		.4byte	0xaf
@@ -1171,7 +1171,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  555 0111 04       		.byte	0x4
  556 0112 C8000000 		.4byte	0xc8
  557 0116 0D       		.uleb128 0xd
- 558 0117 28010000 		.4byte	.LASF32
+ 558 0117 D5000000 		.4byte	.LASF32
  559 011b 01       		.byte	0x1
  560 011c 68       		.byte	0x68
  561 011d 00000000 		.4byte	.LFB0
@@ -1179,7 +1179,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  563 0125 01       		.uleb128 0x1
  564 0126 9C       		.byte	0x9c
  565 0127 0E       		.uleb128 0xe
- 566 0128 22010000 		.4byte	.LASF26
+ 566 0128 CF000000 		.4byte	.LASF26
  567 012c 01       		.byte	0x1
  568 012d F5       		.byte	0xf5
  569 012e 00000000 		.4byte	.LFB1
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  582 014a 10       		.uleb128 0x10
  583 014b 7800     		.ascii	"x\000"
  584 014d 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 21
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 21
 
 
  585 014e F8       		.byte	0xf8
@@ -1208,7 +1208,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  589 0155 74       		.sleb128 -12
  590 0156 00       		.byte	0
  591 0157 11       		.uleb128 0x11
- 592 0158 3A010000 		.4byte	.LASF45
+ 592 0158 E7000000 		.4byte	.LASF45
  593 015c 01       		.byte	0x1
  594 015d 1601     		.2byte	0x116
  595 015f C1000000 		.4byte	0xc1
@@ -1218,7 +1218,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  599 016c 9C       		.byte	0x9c
  600 016d AE010000 		.4byte	0x1ae
  601 0171 12       		.uleb128 0x12
- 602 0172 AA020000 		.4byte	.LASF23
+ 602 0172 AC020000 		.4byte	.LASF23
  603 0176 01       		.byte	0x1
  604 0177 1601     		.2byte	0x116
  605 0179 5D000000 		.4byte	0x5d
@@ -1257,8 +1257,8 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  638 01bf 9C       		.byte	0x9c
  639 01c0 29020000 		.4byte	0x229
  640 01c4 14       		.uleb128 0x14
- 641 01c5 A2020000 		.4byte	.LASF28
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 22
+ 641 01c5 A4020000 		.4byte	.LASF28
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 22
 
 
  642 01c9 01       		.byte	0x1
@@ -1295,7 +1295,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  673 0207 91       		.byte	0x91
  674 0208 68       		.sleb128 -24
  675 0209 14       		.uleb128 0x14
- 676 020a 8C010000 		.4byte	.LASF30
+ 676 020a 8E010000 		.4byte	.LASF30
  677 020e 01       		.byte	0x1
  678 020f 4801     		.2byte	0x148
  679 0211 64000000 		.4byte	0x64
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  696 022f 0A       		.uleb128 0xa
  697 0230 D3000000 		.4byte	0xd3
  698 0234 07       		.uleb128 0x7
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 23
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 23
 
 
  699 0235 04       		.byte	0x4
@@ -1332,7 +1332,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  707 024a 01       		.uleb128 0x1
  708 024b 9C       		.byte	0x9c
  709 024c 15       		.uleb128 0x15
- 710 024d 47010000 		.4byte	.LASF34
+ 710 024d F4000000 		.4byte	.LASF34
  711 0251 01       		.byte	0x1
  712 0252 F201     		.2byte	0x1f2
  713 0254 00000000 		.4byte	.LFB5
@@ -1341,7 +1341,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  716 025d 9C       		.byte	0x9c
  717 025e 72020000 		.4byte	0x272
  718 0262 14       		.uleb128 0x14
- 719 0263 5E010000 		.4byte	.LASF35
+ 719 0263 0B010000 		.4byte	.LASF35
  720 0267 01       		.byte	0x1
  721 0268 F401     		.2byte	0x1f4
  722 026a 6B000000 		.4byte	0x6b
@@ -1368,7 +1368,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  743 0298 1B       		.uleb128 0x1b
  744 0299 00       		.byte	0
  745 029a 1C       		.uleb128 0x1c
- 746 029b 95020000 		.4byte	.LASF37
+ 746 029b 97020000 		.4byte	.LASF37
  747 029f 01       		.byte	0x1
  748 02a0 DA       		.byte	0xda
  749 02a1 A5020000 		.4byte	0x2a5
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  753 02ab 34000000 		.4byte	.LASF38
  754 02af 01       		.byte	0x1
  755 02b0 DB       		.byte	0xdb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 24
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 24
 
 
  756 02b1 C3000000 		.4byte	0xc3
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  810 0012 00       		.byte	0
  811 0013 02       		.uleb128 0x2
  812 0014 24       		.uleb128 0x24
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 25
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 25
 
 
  813 0015 00       		.byte	0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  867 004b 0F       		.uleb128 0xf
  868 004c 00       		.byte	0
  869 004d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 26
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 26
 
 
  870 004e 0B       		.uleb128 0xb
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  924 0084 00       		.byte	0
  925 0085 00       		.byte	0
  926 0086 0D       		.uleb128 0xd
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 27
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 27
 
 
  927 0087 2E       		.uleb128 0x2e
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  981 00bf 3B       		.uleb128 0x3b
  982 00c0 0B       		.uleb128 0xb
  983 00c1 49       		.uleb128 0x49
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 28
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 28
 
 
  984 00c2 13       		.uleb128 0x13
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1038 00f9 3B       		.uleb128 0x3b
  1039 00fa 05       		.uleb128 0x5
  1040 00fb 49       		.uleb128 0x49
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 29
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 29
 
 
  1041 00fc 13       		.uleb128 0x13
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1095 0132 40       		.uleb128 0x40
  1096 0133 18       		.uleb128 0x18
  1097 0134 9642     		.uleb128 0x2116
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 30
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 30
 
 
  1098 0136 19       		.uleb128 0x19
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1152 016d 00       		.byte	0
  1153 016e 03       		.uleb128 0x3
  1154 016f 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 31
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 31
 
 
  1155 0170 3A       		.uleb128 0x3a
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1209 01a6 0E       		.uleb128 0xe
  1210 01a7 3A       		.uleb128 0x3a
  1211 01a8 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 32
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 32
 
 
  1212 01a9 3B       		.uleb128 0x3b
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1263      FB0E0D00 
  1263      01010101 
  1264              	.LASF13:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 33
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 33
 
 
  1265 0000 72656733 		.ascii	"reg32\000"
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1295 0084 526F6D56 		.ascii	"RomVectors\000"
  1295      6563746F 
  1295      727300
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 34
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 34
 
 
  1296              	.LASF5:
@@ -2002,138 +2002,138 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 1
  1302              	.LASF33:
  1303 00c9 52657365 		.ascii	"Reset\000"
  1303      7400
- 1304              	.LASF43:
- 1305 00cf 433A5C55 		.ascii	"C:\\Users\\Felix\\Git Repository\\E4PRJ4\\Implement"
- 1305      73657273 
- 1305      5C46656C 
- 1305      69785C47 
- 1305      69742052 
- 1306 00fd 6572696E 		.ascii	"ering\\Vuggesystem\\Vinkelsensor.cydsn\000"
- 1306      675C5675 
- 1306      67676573 
- 1306      79737465 
- 1306      6D5C5669 
- 1307              	.LASF26:
- 1308 0122 5F657869 		.ascii	"_exit\000"
- 1308      7400
- 1309              	.LASF32:
- 1310 0128 496E7444 		.ascii	"IntDefaultHandler\000"
- 1310      65666175 
- 1310      6C744861 
- 1310      6E646C65 
- 1310      7200
- 1311              	.LASF45:
- 1312 013a 5F736272 		.ascii	"_sbrk\000"
- 1312      6B00
- 1313              	.LASF10:
- 1314 0140 646F7562 		.ascii	"double\000"
- 1314      6C6500
- 1315              	.LASF34:
- 1316 0147 696E6974 		.ascii	"initialize_psoc\000"
- 1316      69616C69 
- 1316      7A655F70 
- 1316      736F6300 
- 1317              	.LASF12:
- 1318 0157 75696E74 		.ascii	"uint32\000"
- 1318      333200
- 1319              	.LASF35:
- 1320 015e 696E6465 		.ascii	"indexInit\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 35
+ 1304              	.LASF26:
+ 1305 00cf 5F657869 		.ascii	"_exit\000"
+ 1305      7400
+ 1306              	.LASF32:
+ 1307 00d5 496E7444 		.ascii	"IntDefaultHandler\000"
+ 1307      65666175 
+ 1307      6C744861 
+ 1307      6E646C65 
+ 1307      7200
+ 1308              	.LASF45:
+ 1309 00e7 5F736272 		.ascii	"_sbrk\000"
+ 1309      6B00
+ 1310              	.LASF10:
+ 1311 00ed 646F7562 		.ascii	"double\000"
+ 1311      6C6500
+ 1312              	.LASF34:
+ 1313 00f4 696E6974 		.ascii	"initialize_psoc\000"
+ 1313      69616C69 
+ 1313      7A655F70 
+ 1313      736F6300 
+ 1314              	.LASF12:
+ 1315 0104 75696E74 		.ascii	"uint32\000"
+ 1315      333200
+ 1316              	.LASF35:
+ 1317 010b 696E6465 		.ascii	"indexInit\000"
+ 1317      78496E69 
+ 1317      7400
+ 1318              	.LASF8:
+ 1319 0115 756E7369 		.ascii	"unsigned int\000"
+ 1319      676E6564 
+ 1319      20696E74 
+ 1319      00
+ 1320              	.LASF43:
+ 1321 0122 433A5C55 		.ascii	"C:\\Users\\Felix\\Git repositories\\E4PRJ4\\Impleme"
+ 1321      73657273 
+ 1321      5C46656C 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 35
 
 
- 1320      78496E69 
- 1320      7400
- 1321              	.LASF8:
- 1322 0168 756E7369 		.ascii	"unsigned int\000"
- 1322      676E6564 
- 1322      20696E74 
- 1322      00
+ 1321      69785C47 
+ 1321      69742072 
+ 1322 0150 6E746572 		.ascii	"ntering\\Vuggesystem\\Vinkelsensor.cydsn\000"
+ 1322      696E675C 
+ 1322      56756767 
+ 1322      65737973 
+ 1322      74656D5C 
  1323              	.LASF7:
- 1324 0175 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1324 0177 6C6F6E67 		.ascii	"long long unsigned int\000"
  1324      206C6F6E 
  1324      6720756E 
  1324      7369676E 
  1324      65642069 
  1325              	.LASF30:
- 1326 018c 6C696D69 		.ascii	"limit\000"
+ 1326 018e 6C696D69 		.ascii	"limit\000"
  1326      7400
  1327              	.LASF41:
- 1328 0192 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1328 0194 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
  1328      4320342E 
  1328      382E3420 
  1328      32303134 
  1328      30353236 
- 1329 01c5 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1329 01c7 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
  1329      20726576 
  1329      6973696F 
  1329      6E203231 
  1329      31333538 
- 1330 01f8 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1330 01fa 30202D66 		.ascii	"0 -ffunction-sections\000"
  1330      66756E63 
  1330      74696F6E 
  1330      2D736563 
  1330      74696F6E 
  1331              	.LASF14:
- 1332 020e 63796973 		.ascii	"cyisraddress\000"
+ 1332 0210 63796973 		.ascii	"cyisraddress\000"
  1332      72616464 
  1332      72657373 
  1332      00
  1333              	.LASF20:
- 1334 021b 696E6974 		.ascii	"init_size\000"
+ 1334 021d 696E6974 		.ascii	"init_size\000"
  1334      5F73697A 
  1334      6500
  1335              	.LASF17:
- 1336 0225 5F5F6379 		.ascii	"__cy_byte_align8\000"
+ 1336 0227 5F5F6379 		.ascii	"__cy_byte_align8\000"
  1336      5F627974 
  1336      655F616C 
  1336      69676E38 
  1336      00
  1337              	.LASF16:
- 1338 0236 73697A65 		.ascii	"sizetype\000"
+ 1338 0238 73697A65 		.ascii	"sizetype\000"
  1338      74797065 
  1338      00
  1339              	.LASF6:
- 1340 023f 6C6F6E67 		.ascii	"long long int\000"
+ 1340 0241 6C6F6E67 		.ascii	"long long int\000"
  1340      206C6F6E 
  1340      6720696E 
  1340      7400
  1341              	.LASF11:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccnHFRsu.s 			page 36
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccaWWiTa.s 			page 36
 
 
- 1342 024d 63686172 		.ascii	"char\000"
+ 1342 024f 63686172 		.ascii	"char\000"
  1342      00
  1343              	.LASF42:
- 1344 0252 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Cm0Start.c\000"
+ 1344 0254 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\Cm0Start.c\000"
  1344      6E657261 
  1344      7465645F 
  1344      536F7572 
  1344      63655C50 
  1345              	.LASF2:
- 1346 0276 73686F72 		.ascii	"short int\000"
+ 1346 0278 73686F72 		.ascii	"short int\000"
  1346      7420696E 
  1346      7400
  1347              	.LASF4:
- 1348 0280 6C6F6E67 		.ascii	"long int\000"
+ 1348 0282 6C6F6E67 		.ascii	"long int\000"
  1348      20696E74 
  1348      00
  1349              	.LASF0:
- 1350 0289 7369676E 		.ascii	"signed char\000"
+ 1350 028b 7369676E 		.ascii	"signed char\000"
  1350      65642063 
  1350      68617200 
  1351              	.LASF37:
- 1352 0295 5F5F6379 		.ascii	"__cy_regions\000"
+ 1352 0297 5F5F6379 		.ascii	"__cy_regions\000"
  1352      5F726567 
  1352      696F6E73 
  1352      00
  1353              	.LASF28:
- 1354 02a2 72656769 		.ascii	"regions\000"
+ 1354 02a4 72656769 		.ascii	"regions\000"
  1354      6F6E7300 
  1355              	.LASF23:
- 1356 02aa 6E627974 		.ascii	"nbytes\000"
+ 1356 02ac 6E627974 		.ascii	"nbytes\000"
  1356      657300
  1357              	.LASF44:
- 1358 02b1 5F5F6379 		.ascii	"__cy_region\000"
+ 1358 02b3 5F5F6379 		.ascii	"__cy_region\000"
  1358      5F726567 
  1358      696F6E00 
  1359              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

@@ -30,11 +30,8 @@
 #include <UART_SPI_UART_PVT.h>
 #include <UART_PVT.h>
 #include <UART_BOOT.h>
-#include <GYRO_DR.h>
-#include <GYRO_DR_aliases.h>
 #include <GYRO_DR_INT.h>
-#include <Pin_1.h>
-#include <Pin_1_aliases.h>
+#include <DATA_TIMER.h>
 #include <I2C_SCBCLK.h>
 #include <I2C_sda.h>
 #include <I2C_sda_aliases.h>

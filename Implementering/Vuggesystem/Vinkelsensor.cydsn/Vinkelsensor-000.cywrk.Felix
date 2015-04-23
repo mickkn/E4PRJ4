@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Vinkelsensor-000\Vinkelsensor\Source Files\fixedMath.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Vinkelsensor-000\Vinkelsensor\Source Files\main.c">
 <ExpandedNodeIds>
 <v>Vinkelsensor-000</v>
 <v>Vinkelsensor-000\Vinkelsensor</v>
@@ -48,10 +48,10 @@
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\cyPm.h</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\cytypes.h</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\cy_boot\cyutils.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR\GYRO_DR.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR\GYRO_DR.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR\GYRO_DR_aliases.h</v>
+<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\DATA_TIMER</v>
+<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\DATA_TIMER\DATA_TIMER.c</v>
+<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\DATA_TIMER\DATA_TIMER.h</v>
+<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\DATA_TIMER\DATA_TIMER_PM.c</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR_INT</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR_INT\GYRO_DR_INT.c</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\GYRO_DR_INT\GYRO_DR_INT.h</v>
@@ -83,10 +83,6 @@
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\I2C_sda\I2C_sda.c</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\I2C_sda\I2C_sda.h</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\I2C_sda\I2C_sda_aliases.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\Pin_1</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\Pin_1\Pin_1.c</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\Pin_1\Pin_1.h</v>
-<v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\Pin_1\Pin_1_aliases.h</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\UART</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\UART\UART.c</v>
 <v>Vinkelsensor-000\Vinkelsensor\Generated_Source\PSoC4\UART\UART.h</v>
@@ -153,8 +149,9 @@
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\DATA_TIMER.lst</v>
+<v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\DATA_TIMER_PM.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\fixedMath.lst</v>
-<v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\GYRO_DR.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\GYRO_DR_INT.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_BOOT.lst</v>
@@ -168,7 +165,6 @@
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_scl.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_sda.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\main.lst</v>
-<v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\Pin_1.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\UART.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_BOOT.lst</v>
 <v>Vinkelsensor-000\Vinkelsensor\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_PM.lst</v>
@@ -199,9 +195,11 @@
 <v>Vinkelsensor-000\Vinkelsensor\PSoC 4 Architecture TRM</v>
 <v>Vinkelsensor-000\Vinkelsensor\PSoC 4200 Family Datasheet</v>
 <v>Vinkelsensor-000\Vinkelsensor\System Reference Guide v4_20</v>
+<v>Vinkelsensor-000\Vinkelsensor\cy_clock_v2_20</v>
 <v>Vinkelsensor-000\Vinkelsensor\cy_isr_v1_70</v>
-<v>Vinkelsensor-000\Vinkelsensor\cy_pins_v2_10</v>
 <v>Vinkelsensor-000\Vinkelsensor\SCB_P4_v2_0</v>
+<v>Vinkelsensor-000\Vinkelsensor\Timer_v2_70</v>
+<v>Vinkelsensor-000\Vinkelsensor\ZeroTerminal</v>
 </ExpandedNodeIds>
 <VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
