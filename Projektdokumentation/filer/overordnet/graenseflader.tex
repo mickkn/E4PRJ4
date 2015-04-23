@@ -87,13 +87,13 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \hline 
 0x00 & ID & \textbf{R} & Indeholder et id som kan benyttes til at identificere denne enhed, eller til at teste forbindelsen til denne. & 0xFB \\ 
 \hline 
-\multirow{5}{*}{0x01} & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] & 0b0000XXXX \\ \cline{2-5}
+\multirow{5}{*}{0x01} & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] et 1 tal indikerer en fejl & 0b0000XXXX \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{ERR}} & \multicolumn {2}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP} \\ \cline{2-5}
+	&\multicolumn {2}{p{3cm} |} {\textbf{ERR}} & \multicolumn {2}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Vuggesystemet er deaktiveret indtil der er blevet genstartet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP} \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{STALL}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet har været ude af stand til at drive motoren, formegentlig pga for stor belastning} \\ \cline{2-5}
+	&\multicolumn {2}{p{3cm} |} {\textbf{STALL}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet har været ude af stand til at drive motoren, formentlig pga. for stor belastning} \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{END\_STP}} & \multicolumn {2}{p{8cm} |} {Indikerer at vuggen har ramt en af sine mekaniske yderpositioner, og vuggesystemet er deaktiveret indtil der er blevet genstartet.} \\ \cline{2-5}
+	&\multicolumn {2}{p{3cm} |} {\textbf{END\_STP}} & \multicolumn {2}{p{8cm} |} {Indikerer at vuggen har ramt en af sine mekaniske yderpositioner.} \\ \cline{2-5}
 
 	&\multicolumn {2}{p{3cm} |} {\textbf{SD\_RDY}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet er klar til at få afbrudt strømmen} \\ \hline
 0x02 & ON\_OFF & \textbf(R/W) & Dette register benyttes til at tænde og slukke for systemet. Skrives et nul til dette register begynder systemet at lukke ned. Strømmen til systemet bør ikke afbrydes før SD\_RDY i status registeret er skiftet til et. Hvis systemet er tændt indeholder registeret en værdi forskellig fra 0. & 0xFF \\ \hline
