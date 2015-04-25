@@ -22,7 +22,7 @@ Der analyseres tre optagelser af hver af de udvalgte lyde i formatet .wav. Lyden
 	\item Grad af tonalitet (andel af signalets effekt, der tilskrives dominante toner frem for generel støj) 
 \end{itemize} 
 
-Disse parametre analyseres med redskaberne Short-Time DFT, en max-funktion, Tonal Power Spectrum, samt en smoothing-funktion.
+Disse parametre analyseres med redskaberne Short-Time DFT, en max-funktion, Tonal Power Ratio, samt en smoothing-funktion.
 
 \textbf{Short-Time DFT} \\
 FFT af kortere optagelsessegmenter. Produktet af dette, kan plottes som et spektogram, der således viser optagelsens frekvensindhold som variation af tiden.
@@ -49,12 +49,69 @@ Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default fi
 
 %\newpage
 \subsection{Analysekode gennemgang}
-Endnu ikke skrevet
-\begin{verbatim}
+I dette afsnit findes en kort gennemgang i de benyttede funktion i matlab. Syntax for plots er udeladt, og der henvises til bilag med komplet analysekode for denne. \\
+\\
+\textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal, sætte den ønskede vindues-længde og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
+\begin{verbatim}%**** EXTRACT SAMPLES *********************************************%
+[rec1, f_s] = wavread('Hoejlydt_babygraad1');
+[rec2, f_s] = wavread('Hoejlydt_babygraad2');
+[rec3, f_s] = wavread('Hoejlydt_babygraad3');
 
+...
+r1 = rec1(:,1)';    %extract left channel'
+
+frame_sec = 5.0;    %Set frame size
+shift_sec = 0.1;    %Set time shift
+
+frame_N = frame_sec*f_s;
+shift_N = shift_sec*f_s;
+
+r1_win = r1(shift_N:frame_N-1+shift_N);      %Extract framed sample
+r1_win = r1_win .* hanning(length(r1_win))'; %Window with hanning
+...
+
+x = [r1_win, rSpace, r2_win, rSpace, r3_win];
 \end{verbatim}
 
-%\newpage
+Efterfølgende båndpas filtreres optagelsen men 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se bilag med komplet kode for syntax.
+
+\textbf{Korttids-analyse}. For korttids-analysen, opdeles optagelsen i korte slices, der hver især behandles med dft og efterfølgende analyseres med hensyn til dominant tone i dft-spektret via matlabs ''max''-funktion samt generelt toneindhold via tonal power ratio funktionen.
+\begin{verbatim}%**** SHORT-TIME DFT (Spectogram) *********************************%
+segmentlen = 256;
+nOverlap = 60;
+NFFT = 1280;
+[s,f,t,p] = spectrogram(x, segmentlen, nOverlap, NFFT, f_s,'yaxis'); 
+...
+[q,nd] = max(10*log10(p)); 
+maxPwr_smooth = smooth(f(nd),0.1,'moving');     % Smooth data
+...
+TPR = TonalPowerRatio(abs(s), f_s, 5*10^-2)';
+TPR_smooth = smooth(TPR(:),0.05,'moving');      % Smooth data
+\end{verbatim}
+
+\textbf{Langtids-analyse}. For langtids-analysen, behandles hele optaglesen med en dft. DFT-spektret midles hernæst med et moving average. Midlingen foretages på spektret i dB og gentages med flere længder (parameter 2). Sluttelige findes den globale TPR for hele optagelsen. 
+
+\begin{verbatim}%**** FAST FOURIER TRANSFORM *********************************** 
+NFFT = 2^nextpow2(N);       %Find next power of 2
+X = fft(x,NFFT);
+...
+X_abs = abs(X);
+X_abs_log = 20*log10(2*abs(X(1:NFFT/2+1)));
+X_smooth_log1 = smooth(X_abs_log,0.002,'moving');
+X_smooth_log1 = smooth(X_smooth_log1,0.002,'moving'); 
+X_smooth_log2 = smooth(X_abs_log,0.03,'moving');       
+X_smooth_log2 = smooth(X_smooth_log2,0.03,'moving');
+...
+%TPR for global DFT
+sig = X_abs;
+fSum = sum(sig);                %sum all freq bins
+[afPeaks] = findpeaks(sig);     %find peaks
+G_T = 5*10^-2;                  %threshhold
+k_peak = find(afPeaks > G_T);   %find peak above thresh
+TPR_global = sum(afPeaks(k_peak))/fSum 
+\end{verbatim}
+
+\newpage
 \subsection{Analyser}
 Resultatet af korttids-analysen er 3-plots:
 \begin{enumerate}
@@ -179,7 +236,7 @@ Trafikstøjens dominerende frekvenser bevæger sig ikke over 710 Hz. Latter når
 
 \newpage
 \begin{center} \textit{\textbf{Langtids-analyse delkonklusion}} \end{center}
-
+Nøgle-værdier for kort-tidsanalysen opsummeret i tabellen herunder. Udover global værdi for Tonal Power Ratio, er de visuelt analyserede frekvenspeaks opsummerede. Ligeledes er det gennemsnitlige magnitudefald mellem analysefrekvensenrne 1 kHz og 6 kHz noteret. 
 \begin{center}
     \begin{tabular}{ | l | l | l | l | l |}
     \hline
@@ -202,6 +259,7 @@ Højlydt babygråd har tydelige frekvenspeaks, der ligger ret ensartet prøveopt
 \textbf{Langtids-analyse: Magnitudefald fra 1 kHz til 6 kHz}	\\
 Både højydt og moderat babygråd har magnitudefald i omegnen af 20 dB. Højlydt babygråd har magnitudefald under på 25 dB, men den nedre grænse er ikke ensartet, som det ses af \ref{intlyd:forundersoegelse:mod_baby_lang} analysen øverst højre. Moderat babygråds fald er imidlertid mere ensformigt, og ligger hver gang mellem -12 dB og -20 dB. Støjsignalernes magnitudefald ligger samtidig mellem 10 og 20 dB fra det for babygråd. Magnitudefaldet mellem 1 kHz og 6 kHz
 
+\newpage
 \subsection{Konklusion}
 For korttids-analysen giver maxværdien af tonal power ratio ikke et ensformigt billede af hvorvidt der er tale om en baby. Min og max frekvenserne for det dominerende toneindhold er en indikator, men denne metodik vurderes følsom overfor uforudset støj. \\
 For langtids-analysen er TPR en plausibel metode for detektion af babyens tilstand. Højlydt babygråd vil da have TPR i omegnen 0,336 og moderat babygråd vil have TPR i nærheden af 0.374. Implementeres denne metodik, bliver kalibrering dog nødvendig. Analyse af det dominerende frekvensindhold giver et udmærket billede af hvorvidt der er højlydt babygråd. Dog giver visse tilfæle af latter lignende frekvenspeaks, og endnu en analysemetode vil være nødvendig for at frasortere denne støjtype. Moderat babygråd viser ikke på samme måde tdelige frekvenspeaks. Analyse af mangitudefaldet fra 1 kHz til 6 kHz giver et billede af hvorvidt der er tale om babygråd. \\
