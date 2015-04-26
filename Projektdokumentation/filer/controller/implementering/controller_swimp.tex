@@ -1,0 +1,33 @@
+\subsection*{Cross Compiler}
+
+\textit{For at gøre udviklingsprocessen hurtigere og for at kunne debugge koden blev der tidligt i forløbet lavet et ønske om at kunne krydskompilerer til Raspberry Pi (Raspbian OS). Det har ikke været uden en del problemer, da der i starten gerne ville kunne kodes fra en Windows platform. Dette er muligt og blev også realiseret, men da der blev introduceret eksterne biblioteker til brug i Raspberry Pi, blev det meget svært at få kompileret og inkluderet disse.}
+
+\textit{Derfor blev der valgt en løsning om at bruge Eclipse til Linux. Og da Raspberry Pi kører på en Linux platform, gjorde det tingene meget lettere.}
+
+For at kunne krydskompilere er det nemmeste at bruge en speciel version af Eclipse, som er modificeret til formålet, efter lidt undersøgelser blev der fundet frem til ''Eclipse Kepler Release for C/C++ Developers''\footnote{https://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplerr} og en ''Official Raspbian (armhf) cross compiling toolchain''\footnote{https://github.com/raspberrypi/tools} med kompilere til Raspberry Pi (Raspbian OS). Eclipse skal lige sættes op, så der bruges \verb+arm-linux-gnueabihf-+ som kompiler prefix i projektet.
+
+I ''Remote System Explorer'' i Eclipse laves en ny SSH forbindelse til Raspberry Pi'ens IP, så der fra programmet kan oprettes direkte forbindelse til Raspberry Pi'en. Derefter i Debug Configurations sættes ''Connection'' til den oprettet enhed og stien på Raspberry Pi'en hvori man ønsker at køre sit program fra. I dette tilfæle \verb+/home/pi/Debug/+
+
+\subsubsection*{GPIO}
+
+På Controllerboksen sidder der 2 knapper og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket\footnote{http://wiringpi.com/} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
+
+Der blev dog valgt at lave 3 GPIOsocket funktioner der tager sig af at skrive og læse fra det fil arkiv der oprettes når gpio funktionen bliver kaldt. Funktionerne består en \verb+Export+, en \verb+Unexport+ samt en \verb+Direction+ funktion som hhv. opretter og nedlægger et filbibliotek til det ønskede ben på Raspberry Pi'en og sætte retningen på benet (input/output).
+
+\subsubsection*{I2C}
+
+I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje \verb+gpio load i2c+. På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
+
+Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{http://hertaville.com/2013/04/01/interfacing-an-i2c-gpio-expander-mcp23017-to-the-raspberry-pi-using-c/} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
+
+\subsubsection*{Mail SMTP}
+
+Mail SMTP er 2 shell scripts der kaldes med et systemkald. Der er ikke noget fejlcheck på ...
+
+\subsubsection*{Netværksstatus}
+
+Baby Watch kræver at der er noget synligt, der indikerer at der er en fejl på netværket, nærmere bestemt internet forbindelsen, da det ikke er muligt at sende en fejl e-mail når internet forbindelsen er afbrudt. Det bliver indikeret af en rød LED på forsiden af Controllerboksen.
+
+For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden der med et interval pinger googles DNS server for svar og returnere \verb+true+ eller \verb+false+ alt efter om der er forbindelse eller ej. For at gøre det ekstra sikkert er der indført en ekstra ping adresse hvis googles DNS ikke svarer, dvs. der er et dobbelttjek på internet forbindelsen.
+
+Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et system kald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
