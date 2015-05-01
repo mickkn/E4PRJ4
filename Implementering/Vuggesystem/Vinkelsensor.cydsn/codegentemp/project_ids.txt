@@ -1,6 +1,0 @@
-C:\Users\Felix\Git repositories\E4PRJ4\Implementering\Vuggesystem\Vinkelsensor.cydsn\Vinkelsensor.cyprj|5a18961a-8ee6-400f-a9c2-55dc78a5d5be
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|c4dc62c9-eff4-49c7-8965-5830aac731e1
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|d9a45ad7-e5cc-4e3e-bdba-c2a9c5839858
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|2de112be-82dc-42b2-8646-a36c0cc2c8d5
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|c37bf24d-9a6f-4950-90f0-bbaf2250c5a6
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|189f3aec-8991-425a-8435-a6b9e8d8a5ca
