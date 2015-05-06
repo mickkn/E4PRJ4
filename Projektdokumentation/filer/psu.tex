@@ -1,0 +1,41 @@
+%psu
+\chapter{Power Supply Unit}
+
+Dette kapitel omhandler strømdistributionen for Baby Watch. Som beskrevet kapitlet Overordnet så styrer Controlleren hvorvidt Vuggesystemet og den Intelligente Lydmonitor skal forsynes med strøm. Der benyttes et relæ til at styre dette. Forsyningsbatteriet skal reguleres ned til 3 forskellige spændinger:
+
+\begin{itemize}
+\item \textbf{Controller:} Kræver 5 V / XX mA (Raspberry Pi + Betjeningspanel)
+
+\item \textbf{Vuggesystem:} Kræver 3,3 V / XX mA (PSoC + Motorstyringskreds)
+
+\item \textbf{Intelligent Lydmonitor:} Kræver 7.5 V / XX mA (BlackFin 533 kit + Mikrofonkreds)
+\end{itemize}
+
+Ved nedkonverteringen til 7,5 V benyttes en DC-DC konverter (LM2596S). Fra denne spænding reguleres der til hhv. 5 V og 3,3 V vha. spændingsregulatorer (LM317). 
+
+
+\subsection{DC-DC konverter (LM2596S)}
+
+DC-DC konverteren (LM2596S), se figur \ref{psu:DCkonv}, kan tage spændingsinput på 5 V til 35 V og outputte 1,25 V til 30 V. Maks strømoutput er 4 A og overstiger effekten 15 W, så skal den køles. I dette tilfælde skal DC-DC konverteren konvertere 12 V DC til 7,5 V DC. Ved 7,5 V og 15 W, så er der 2 A, da der skal benyttes maksimum 2,5 A, ca. 19 W, derfor er der i implementeringen påsat køleplade på begge sider af den regulator der skal køles. 
+
+\figur{0.4}{psu/LM2596S_fabriksbillede}{Fabriksbillede af LM2596S - DC-DC konverter}{psu:DCkonv}
+
+Som figur \ref{psu:DCkonv} er der 3 indstilige potentiometre samt 4 lodde øer. De 4 lodde øer er VIN-, VIN+, VOUT- og VOUT+. VIN- og VOUT- er ikke isoleret fra hinanden og kobles til samme stelplan. De 3 potentiometre bruges til at indstille udgangsspænding, maksimum udgangsstrøm og det sidste bruges til at styre en LED som lyser når strømmen når over det indstillede niveau. 
+
+\subsection{Spændingsregulatorer (LM317)}
+
+Spændingsregulatoren LM317 er variabel justerbar mellem 1,2 V til 33 V og kan levere op til 3 A. Lm317 benyttes derfor til at regulere fra 7,5 V til hhv. 5 V og 3,3 V. 
+
+\figur{0.4}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
+
+
+\textbf{5 V til Controller} \newline
+
+
+
+
+\textbf{3,3 V til Intelligent Lydmonitor}
+
+
+
+\subsection{Relæ styring}
