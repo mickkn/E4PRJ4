@@ -65,17 +65,6 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \end{tabular}
 \end{center}
 
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void sampleRdy(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Kalder funktionerne lowpass(), highpass() og downsample()		\\ \hline
-    \end{tabular}
-\end{center}
-
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
@@ -109,10 +98,10 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+int lowpass(int sample) +						\\ \hline
-    \textbf{Parametre} 	& Int sample, sample til LP-filtrering		\\ \hline
-    \textbf{Returværdi}	& int, værdi efter filtrering 								\\ \hline
-    \textbf{Beskrivelse}& Lavpasfiltrerer sample		\\ \hline
+    \textbf{Funktion}	& \verb+void sampleRdy(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen 								\\ \hline
+    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Kalder funktionerne lowpass(), highpass() og downsample()		\\ \hline
     \end{tabular}
 \end{center}
 
@@ -129,6 +118,17 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
+    \textbf{Funktion}	& \verb+int lowpass(int sample) +						\\ \hline
+    \textbf{Parametre} 	& Int sample, sample til LP-filtrering		\\ \hline
+    \textbf{Returværdi}	& int, værdi efter filtrering 								\\ \hline
+    \textbf{Beskrivelse}& Lavpasfiltrerer sample		\\ \hline
+    \end{tabular}
+\end{center}
+
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
     \textbf{Funktion}	& \verb+bool downsample(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	&  bool, 1 hvis det givne sample skal beholdes og 0 hvis det skal frasorteres 								\\ \hline
@@ -137,79 +137,61 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \end{center}
 
 
-\textit{PingPongBuf} \\
-\textbf{Ansvar:} For at kunne opsamle data, mens at der bliver behandlet andet data, er det valgt at benytte pingpong-buffering. Dermed er det unødvendigt at kopiere bufferen når denne er fyldt. I stedet sendes til den klasse, som skal behandle data, en pointer til den fyldte buffer. Mens data behandles, kan nyt data fyldes i den anden buffer.
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void store(int sample ) +						\\ \hline
-    \textbf{Parametre} 	& int sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Gemmer diskret sample i PingPongBuf. Hvis bufToFill er sat til 0 påfyldes data i atributten buf0. Ellers fyldes data i buf1		\\ \hline
-    \end{tabular}
-\end{center} 
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void handleFullBuf(void) = 0 +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Virtuel funktion		\\ \hline
-    \end{tabular}
-\end{center} 
-
-
-
 \textit{RecBuf} \\
-\textbf{Ansvar:} RecBuf er en afledt klasse af PingPongBuf. Data i RecBuf benyttes af Analyzer.
+\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte en cirkulær buffer med mulighed for midlertidig locking af bufferområder. Det er altså en buffer der muliggør påfyldning ét sted mens aflæsning foregår fra et låst segment.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void handleFullBuf(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Funktion}	& \verb+RecBuf(uint size, Analyzer* analyzePtr +						\\ \hline
+    \textbf{Parametre} 	& uint size, størrelsen af cirkulær buffer; analyzePtr, pointer til Analyzer		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Kalder klassen Analyzers funktion bufRdy(int[ ][ ]*) med en pointer til den buffer som er fyldt. Herudover toggles bufToFill		\\ \hline
+    \textbf{Beskrivelse}& Constructor sætter størrelsen på cirkulær buffer, samt initierer set-, get- og rec-Index 		\\ \hline
     \end{tabular}
 \end{center} 
 
-
-\textit{ResBuf} \\
-\textbf{Ansvar:} ResBuf er en afledt klasse af PingPongBuf. Data i ResBuf benyttes af Categorizer til at bestemme hvilket BABYCON-niveau vi befinder os på. 
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void set(int sample ) +						\\ \hline
+    \textbf{Parametre} 	& int sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang	efter filtrering	\\ \hline
+    \textbf{Returværdi}	& Ingen 								\\ \hline
+    \textbf{Beskrivelse}& Gemmer diskret sample i RecBuf med pladsen setIndex		\\ \hline
+    \end{tabular}
+\end{center} 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void handleFullBuf(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+int get(uint index) +						\\ \hline
+    \textbf{Parametre} 	& uint index, plads i RecBuf	\\ \hline
+    \textbf{Returværdi}	& int, returnerer sampleværdi								\\ \hline
+    \textbf{Beskrivelse}& Returnerer værdi på given index plads	\\ \hline
+    \end{tabular}
+\end{center} 
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void unlock(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Kalder klassen Categorizers funktion bufRdy(int[ ][ ]*) med en pointer til den buffer som er fyldt. Herudover toggles bufToFill		\\ \hline
+    \textbf{Beskrivelse}& Frigiver låst område i RecBuf 		\\ \hline
     \end{tabular}
 \end{center} 
 
 
 \textit{Analyzer} \\
-\textbf{Ansvar:} Klassen Analyzer indeholder analyse-funktionerne for beregning af Tonal Power Ratio og Sound Pressure level. 
+\textbf{Ansvar:} Klassen Analyzer indeholder analyse-funktionerne.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void analyze(int[ ][ ]* recBufPtr) +						\\ \hline
-    \textbf{Parametre} 	& int[ ][ ]* recBufPtr, pointer til RecBuf		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Gemmer pointeren til RecBuf kalder funktionerne calcTPR() og calcSPL()		\\ \hline
-    \end{tabular}
-\end{center} 
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+int calcTPR(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& int, værdi af TPR 								\\ \hline
-    \textbf{Beskrivelse}& Beregner Tonal Power Ratio		\\ \hline
+    \textbf{Funktion}	& \verb+void analyze(uint startindex, uint size) +			\\ \hline
+    \textbf{Parametre} 	& uint startindex, startindex for datatilgang i RecBuf		\\ 
+    					& uint size, størrelse på datasekvens						\\ \hline
+    \textbf{Returværdi}	& Ingen 													\\ \hline
+    \textbf{Beskrivelse}& Sætter startIndex og recSize og kalder funktionerne calcSPL() og hvis SPL er over splThresh kaldes calcFFT(). Slutteligt kaldes categorize() med analyseresultatet	\\ \hline
     \end{tabular}
 \end{center} 
 
@@ -219,74 +201,131 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+int calcSPL(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& int, værdi af SPL 								\\ \hline
-    \textbf{Beskrivelse}& Beregner Sound Pressure Level		\\ \hline
+    \textbf{Beskrivelse}& Beregner Sound Pressure Level af samplesekvensen fra RecBuf. Denne tilgås via RecBuf's get()		\\ \hline
     \end{tabular}
 \end{center} 
 
-
-\textit{Categorizer} \\
-\textbf{Ansvar:} Klassen Categorizer står for BABYCON kategorisering af resultaterne fra ResBuf
-
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void init(int threshTPRmax,+ \\ &
-    						 \verb+int threshTPRavg int threshSPLmax, int threshSPLavg) +						\\ \hline
-    \textbf{Parametre} 	& int threshTPRmax, int threshTPRavg, int threshSPLmax, int threshSPLavg		\\ \hline
-    \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Sætter threshholds for TPR og SPL		\\ \hline
+    \textbf{Funktion}	& \verb+void calcFFT(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen							\\ \hline
+    \textbf{Beskrivelse}& Beregner frekvensspektret via en fast fourier transformation af samplesekvensen fra RecBuf. Denne tilgås via RecBuf's get(). Herefter kaldes gain2dB() og smooth() for at klargøre data til efterfølgende kategorisering. Frekvensspektret gemmes i freqSpec\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void categorize(int[ ][ ]* resBufPtr) +						\\ \hline
-    \textbf{Parametre} 	& int[ ][ ]* resBufPtr, pointer til ResBuf		\\ \hline
-    \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Gemmer pointeren til ResBuf, kalder funktionerne smooth(), catTPR(),catSPL() og compThresh()		\\ \hline
+    \textbf{Funktion}	& \verb+void gain2dB(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen							\\ \hline
+    \textbf{Beskrivelse}& Konverterer frekvensspektret freqSpec fra gg til dB \\ \hline
     \end{tabular}
-\end{center}
+\end{center}  
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
     \textbf{Funktion}	& \verb+void smooth(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Udglatter data-sekvensen gemt i ResBuf		\\ \hline
+    \textbf{Returværdi}	& Ingen							\\ \hline
+    \textbf{Beskrivelse}& Udglatter frekvensspektret vha. et rekursivt midlingsfilter  \\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void catTPR(int* maxTPR, int* avgTPR) +						\\ \hline
-    \textbf{Parametre} 	& int* maxTPR pointer til maksimum TPR\\&
-    						  int* avgTPR pointer til average TPR			\\ \hline
+    \textbf{Funktion}	& \verb+void calcTPR(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen							\\ \hline
+    \textbf{Beskrivelse}& Beregner TPR (Tonal power ratio) for frekvensspektret freqSpec  \\ \hline
+    \end{tabular}
+\end{center} 
+
+
+\textit{Categorizer} \\
+\textbf{Ansvar:} Klassen Categorizer står for BABYCON kategorisering af resultaterne fra Analyzer
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+Categorizer(Statistician* statPtr,+ \\
+    					& \verb+uint broadFreqLow, uint broadFreqHigh,+\\
+    					& \verb+uint dBroadThreshHighBC1,+\\
+    					& \verb+uint dBroadThreshLowBC2, uint dBroadThreshHighBC2,+ \\
+    					& \verb+uint firstPeakFreqBC1, uint secondPeakFreqBC1,+ \\
+    					& \verb+uint freqMargin) +						\\ \hline
+    \textbf{Parametre} 	& Statistician* statPtr, pointer til klassen Statistician \\
+    					& uint broadFreqLow, lavest tilladelige værdi for frekvenshældning for BABYCON2 \\
+    					& uint broadFreqHigh, højest tilladelige værdi for frekvenshældning for BABYCON2 \\
+    					& uint dBroadThreshHighBC1, høje threshhold for frekvenshældning ved BABYCON1 \\
+    					& uint dBroadThreshLowBC2, lave threshhold for frekvenshældning ved BABYCON2  \\
+    					& uint dBroadThreshHighBC2, høje threshhold for frekvenshældning ved BABYCON2 \\
+    					& uint firstPeakFreqBC1, analysefrekvensen for frekvensspektrets første peak       \\	
+    					& uint secondPeakFreqBC1, analysefrekvensen for frekvensspektrets anden peak \\
+    					& uint freqMargin, margin til bestemmelse af frekvenspeaks \\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Finder maksimum og average Tonal Power Ratio værdi		\\ \hline
+    \textbf{Beskrivelse}& Constructor sætter relevante kategoriseringsparametre		\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void catSPL(int* maxSPL, int* avgSPL) +						\\ \hline
-    \textbf{Parametre} 	& int* maxSPL pointer til maksimum SPL\\&
-    						  int* avgSPL pointer til average SPL			\\ \hline
+    \textbf{Funktion}	& \verb+void categorize(int* freqSpecPtr, uint freqSpecSize, int tpr) +						\\ \hline
+    \textbf{Parametre} 	& int* freqSpecPtr, pointer til frekvensspektrum \\
+    					& uint freqSpecSize, størrelse af freqSpec \\
+    					& int tpr, tonal power ratio	\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Finder maksimum og average Sound Pressure Level værdi		\\ \hline
+    \textbf{Beskrivelse}& Kategoriserer BABYCON-niveau på baggrund af frekvensspektrum og TPR. Kalder Statisticians calcSignificans() med BABYCON-niveau		\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+int compThresh(int maxTPR, int avgTPR, int maxSPL, avgSPL) +						\\ \hline
-    \textbf{Parametre} 	& int maxTPR, int avgTPR, int maxSPL, avgSPL			\\ \hline
-    \textbf{Returværdi}	& int, BABYCON-niveau mellem 1-3 								\\ \hline
-    \textbf{Beskrivelse}& Sammenligner modtagne værdier med foruddefinerede thresholds, for at bestemme BABYCON-niveau		\\ \hline
+    \textbf{Funktion}	& \verb+void categorize(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen 								\\ \hline
+    \textbf{Returværdi}	& Ingen	 								\\ \hline
+    \textbf{Beskrivelse}& Hvis categorize kaldes uden parametre kaldes calcSignificans() med BABYCON3		\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+bool checkBC1(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen 								\\ \hline
+    \textbf{Returværdi}	& bool, true hvis BABYCON1 	 								\\ \hline
+    \textbf{Beskrivelse}& Returnerer true hvis BABYCON1		\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+bool checkBC2(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen 								\\ \hline
+    \textbf{Returværdi}	& bool, true hvis BABYCON2 	 								\\ \hline
+    \textbf{Beskrivelse}& Returnerer true hvis BABYCON2		\\ \hline
+    \end{tabular}
+\end{center}
+
+
+
+\textit{Statistician} \\
+\textbf{Ansvar:} Klassen Statistician står for at beregne mest signifikante BABYCON status. Giver besked til TwoWireCom. 
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void calcSignificans(uint bc) +						\\ \hline
+    \textbf{Parametre} 	& uint bc, BABYCON-niveau		\\ \hline
+    \textbf{Returværdi}	& Ingen	 								\\ \hline
+    \textbf{Beskrivelse}& Indsætter den modtagne BABYCON i FIFO-kø og beregner mest signifikante BABYCON status, sender aktiv besked til TwoWireCom		\\ \hline
     \end{tabular}
 \end{center}
 
