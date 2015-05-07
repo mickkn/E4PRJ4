@@ -1,0 +1,2097 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	imuInitArray
+  18              		.section	.rodata
+  19              		.align	2
+  20              		.type	imuInitArray, %object
+  21              		.size	imuInitArray, 10
+  22              	imuInitArray:
+  23 0000 19       		.byte	25
+  24 0001 04       		.byte	4
+  25 0002 1A       		.byte	26
+  26 0003 03       		.byte	3
+  27 0004 1B       		.byte	27
+  28 0005 18       		.byte	24
+  29 0006 1C       		.byte	28
+  30 0007 08       		.byte	8
+  31 0008 6B       		.byte	107
+  32 0009 01       		.byte	1
+  33              		.global	dataReady
+  34              		.bss
+  35              		.type	dataReady, %object
+  36              		.size	dataReady, 1
+  37              	dataReady:
+  38 0000 00       		.space	1
+  39              		.global	accData
+  40 0001 000000   		.align	2
+  41              		.type	accData, %object
+  42              		.size	accData, 8
+  43              	accData:
+  44 0004 00000000 		.space	8
+  44      00000000 
+  45              		.global	gyroData
+  46              		.align	2
+  47              		.type	gyroData, %object
+  48              		.size	gyroData, 4
+  49              	gyroData:
+  50 000c 00000000 		.space	4
+  51              		.global	gyroAng
+  52              		.align	2
+  53              		.type	gyroAng, %object
+  54              		.size	gyroAng, 4
+  55              	gyroAng:
+  56 0010 00000000 		.space	4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 2
+
+
+  57              		.global	accAng
+  58              		.align	2
+  59              		.type	accAng, %object
+  60              		.size	accAng, 4
+  61              	accAng:
+  62 0014 00000000 		.space	4
+  63              		.global	estAng
+  64              		.align	2
+  65              		.type	estAng, %object
+  66              		.size	estAng, 4
+  67              	estAng:
+  68 0018 00000000 		.space	4
+  69              		.section	.rodata
+  70 000a 0000     		.align	2
+  71              	.LC0:
+  72 000c 0D0A0D0A 		.ascii	"\015\012\015\012Hello \000"
+  72      48656C6C 
+  72      6F2000
+  73 0017 00       		.align	2
+  74              	.LC3:
+  75 0018 20576F72 		.ascii	" World!\015\012\015\012\000"
+  75      6C64210D 
+  75      0A0D0A00 
+  76              		.align	2
+  77              	.LC10:
+  78 0024 25642C20 		.ascii	"%d, \000"
+  78      00
+  79              		.section	.text.main,"ax",%progbits
+  80              		.align	2
+  81              		.global	main
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	main, %function
+  85              	main:
+  86              	.LFB33:
+  87              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*******************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 1.00
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** *  
+   8:.\main.c      **** *
+   9:.\main.c      **** ********************************************************************************
+  10:.\main.c      **** * 
+  11:.\main.c      **** *******************************************************************************/
+  12:.\main.c      **** 
+  13:.\main.c      **** #include <project.h>
+  14:.\main.c      **** #include <stdio.h>
+  15:.\main.c      **** #include <fixedMath.h>
+  16:.\main.c      **** 
+  17:.\main.c      **** /* Macro definitions */
+  18:.\main.c      **** #define DEBUG 1
+  19:.\main.c      **** 
+  20:.\main.c      **** //sample rate and sample period
+  21:.\main.c      **** #define FS 200
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 3
+
+
+  22:.\main.c      **** #define DT 328 // 65536/FS //dt defined as a 16.16 fixed point number
+  23:.\main.c      **** 
+  24:.\main.c      **** /* The scale factor of the mpu6050 gyroscope is 16.4 Lsb per    *
+  25:.\main.c      ****  * deg/s, converted to 16.16 fixed point. (2^16/16.4  )         */
+  26:.\main.c      **** #define GYRO_SCALE_FACTOR 3996
+  27:.\main.c      **** /* The accelerometer scale factor of the mpu6050 accelerometer  *
+  28:.\main.c      ****  * in the +- 4g range is 8192 Lsb/g, converted to 16.16 fixed   *
+  29:.\main.c      ****  * point. (2^16/8192)                                           */
+  30:.\main.c      **** #define ACC_SCALE_FACTOR 8
+  31:.\main.c      **** 
+  32:.\main.c      **** // 180 and 360 in 16.16 fixed point
+  33:.\main.c      **** #define DEG_180 11796480 //(180 << 16)
+  34:.\main.c      **** #define DEG_360 23592960 //(360 << 16)
+  35:.\main.c      **** 
+  36:.\main.c      **** #define GYRO_WEIGHT 58982 //0.90 * 2^16
+  37:.\main.c      **** #define ACC_WEIGHT 6554 // (1 - gyro_weight) * 2^16
+  38:.\main.c      **** 
+  39:.\main.c      **** //I2C defines
+  40:.\main.c      **** #define IMU_ADDRESS 0b1101000 //+1 for alt
+  41:.\main.c      **** //#define GYRO_ADDRESS 0x68 //7 bit right justified
+  42:.\main.c      **** //#define ACC_ADDRESS 0x53 //7 bit right justified
+  43:.\main.c      **** 
+  44:.\main.c      **** #define IMU_INIT_LEN 5
+  45:.\main.c      **** //#define ACC_INIT_LEN 5
+  46:.\main.c      **** //#define GYRO_INIT_LEN 4
+  47:.\main.c      **** //#define ACC_Y_OFFSET 0
+  48:.\main.c      **** //#define ACC_Z_OFFSET 0
+  49:.\main.c      **** 
+  50:.\main.c      **** #define GYRO_FIRST_DATA 0x43 //this is X_H which will be followed by X_L
+  51:.\main.c      **** #define ACC_FIRST_DATA 0x3D //first in seq. Y_H, Y_L, Z_H, Z_L
+  52:.\main.c      **** 
+  53:.\main.c      **** #define SAMPLE_SIZE 190
+  54:.\main.c      **** 
+  55:.\main.c      **** /* Global constants */
+  56:.\main.c      **** 
+  57:.\main.c      **** const uint8_t imuInitArray[IMU_INIT_LEN][2] = {
+  58:.\main.c      ****     {0x19, 4},              //set the datarate to 200Hz (1kHz/1+4)
+  59:.\main.c      ****     {0x1A, 3},              //set dlpf freq to 44 and 42 for acc and gyro respectively
+  60:.\main.c      ****     {0x1B, 24},             //gyro range = +/-2000 deg/s
+  61:.\main.c      ****     {0x1C, 8},              //acc range = +/-4g
+  62:.\main.c      ****     {0x6B, 1}               //set clk source to x gyro
+  63:.\main.c      **** };
+  64:.\main.c      **** 
+  65:.\main.c      **** 
+  66:.\main.c      **** //const uint8_t accInitArray[ACC_INIT_LEN][2] = {
+  67:.\main.c      **** //    {0x1F, ACC_Y_OFFSET}, // calibration of y axis
+  68:.\main.c      **** //    {0x20, ACC_Z_OFFSET}, // calibration of z axis
+  69:.\main.c      **** //    {0x31, 0x01},         // set to +-4g range
+  70:.\main.c      **** //    {0x2D, 0x12},         // activate meassurements
+  71:.\main.c      **** //    {0x2D, 0x08},         // activate meassurements
+  72:.\main.c      **** //};
+  73:.\main.c      **** //
+  74:.\main.c      **** //const uint8_t gyroInitArray[GYRO_INIT_LEN][2] = {
+  75:.\main.c      **** //    {0x15, 0x03},         /* set the sample rate to 250Hz (1kHz/3+1) */
+  76:.\main.c      **** //    {0x16, 0x1B},         /* set full range mode and 42Hz cutoff for *
+  77:.\main.c      **** //                           * internal filter                         */
+  78:.\main.c      **** //    {0x17, 0x01},         /* configure device to send data rdy int   */
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 4
+
+
+  79:.\main.c      **** //    {0x3E, 0x03}           //00 for debug normal 0x19 /* put y and z gyro in standby and select  
+  80:.\main.c      **** //                           /* x gyro for clock                        */       
+  81:.\main.c      **** //};
+  82:.\main.c      **** 
+  83:.\main.c      **** /* Global variables */
+  84:.\main.c      **** volatile uint8 dataReady = 0;
+  85:.\main.c      **** fix16_t accData[2] = {0, 0}, gyroData = 0;
+  86:.\main.c      **** fix16_t gyroAng = 0, accAng = 0, estAng = 0;
+  87:.\main.c      **** 
+  88:.\main.c      **** /* Function prototypes */
+  89:.\main.c      **** void setupI2CDevice(uint8_t addr, const uint8_t initArray[][2] , uint8_t arrayLen);    
+  90:.\main.c      **** uint8_t readI2CReg(uint8_t addr, uint8_t reg);
+  91:.\main.c      **** void writeI2CReg(uint8_t addr, uint8_t reg, uint8_t val);
+  92:.\main.c      **** void readGyroData(fix16_t* gyroData);
+  93:.\main.c      **** void readAccData(fix16_t* accData);
+  94:.\main.c      **** CY_ISR_PROTO(gyroDataReadyInterrupt);
+  95:.\main.c      **** 
+  96:.\main.c      **** 
+  97:.\main.c      **** int main()
+  98:.\main.c      **** {
+  88              		.loc 1 98 0
+  89              		.cfi_startproc
+  90 0000 90B5     		push	{r4, r7, lr}
+  91              		.cfi_def_cfa_offset 12
+  92              		.cfi_offset 4, -12
+  93              		.cfi_offset 7, -8
+  94              		.cfi_offset 14, -4
+  95 0002 89B0     		sub	sp, sp, #36
+  96              		.cfi_def_cfa_offset 48
+  97 0004 00AF     		add	r7, sp, #0
+  98              		.cfi_def_cfa_register 7
+  99:.\main.c      ****     /* Start the Components */
+ 100:.\main.c      ****     UART_Start();
+  99              		.loc 1 100 0
+ 100 0006 FFF7FEFF 		bl	UART_Start
+ 101:.\main.c      ****     I2C_Start();
+ 101              		.loc 1 101 0
+ 102 000a FFF7FEFF 		bl	I2C_Start
+ 102:.\main.c      ****     DATA_TIMER_Start();
+ 103              		.loc 1 102 0
+ 104 000e FFF7FEFF 		bl	DATA_TIMER_Start
+ 103:.\main.c      ****     
+ 104:.\main.c      ****     UART_UartPutString("\r\n\r\nHello ");
+ 105              		.loc 1 104 0
+ 106 0012 4A4B     		ldr	r3, .L8
+ 107 0014 181C     		mov	r0, r3
+ 108 0016 FFF7FEFF 		bl	UART_UartPutString
+ 105:.\main.c      ****     
+ 106:.\main.c      ****     /* Setup the accelerometer and gyro */
+ 107:.\main.c      ****     //setupI2CDevice(GYRO_ADDRESS, gyroInitArray, GYRO_INIT_LEN);
+ 108:.\main.c      ****     //setupI2CDevice(ACC_ADDRESS, accInitArray, ACC_INIT_LEN);
+ 109:.\main.c      ****     setupI2CDevice(IMU_ADDRESS, imuInitArray, IMU_INIT_LEN);
+ 109              		.loc 1 109 0
+ 110 001a 494B     		ldr	r3, .L8+4
+ 111 001c 6820     		mov	r0, #104
+ 112 001e 191C     		mov	r1, r3
+ 113 0020 0522     		mov	r2, #5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 5
+
+
+ 114 0022 FFF7FEFF 		bl	setupI2CDevice
+ 110:.\main.c      ****       
+ 111:.\main.c      ****     /*print opening msg*/
+ 112:.\main.c      ****     UART_UartPutString(" World!\r\n\r\n");
+ 115              		.loc 1 112 0
+ 116 0026 474B     		ldr	r3, .L8+8
+ 117 0028 181C     		mov	r0, r3
+ 118 002a FFF7FEFF 		bl	UART_UartPutString
+ 113:.\main.c      ****     
+ 114:.\main.c      ****     /* Enable global interrupts */
+ 115:.\main.c      ****     GYRO_DR_INT_StartEx(&gyroDataReadyInterrupt);    
+ 119              		.loc 1 115 0
+ 120 002e 464B     		ldr	r3, .L8+12
+ 121 0030 181C     		mov	r0, r3
+ 122 0032 FFF7FEFF 		bl	GYRO_DR_INT_StartEx
+ 116:.\main.c      ****     
+ 117:.\main.c      ****     fix16_t gyroAng = 0;
+ 123              		.loc 1 117 0
+ 124 0036 0023     		mov	r3, #0
+ 125 0038 FB61     		str	r3, [r7, #28]
+ 118:.\main.c      ****    
+ 119:.\main.c      ****     CyGlobalIntEnable;
+ 126              		.loc 1 119 0
+ 127              	@ 119 ".\main.c" 1
+ 128 003a 62B6     		CPSIE   i
+ 129              	@ 0 "" 2
+ 130              		.code	16
+ 131              	.L7:
+ 132              	.LBB2:
+ 120:.\main.c      ****     while(1)
+ 121:.\main.c      ****     {
+ 122:.\main.c      ****         //wait for data
+ 123:.\main.c      ****         while(dataReady == 0);
+ 133              		.loc 1 123 0
+ 134 003c C046     		mov	r8, r8
+ 135              	.L2:
+ 136              		.loc 1 123 0 is_stmt 0 discriminator 1
+ 137 003e 434B     		ldr	r3, .L8+16
+ 138 0040 1B78     		ldrb	r3, [r3]
+ 139 0042 DBB2     		uxtb	r3, r3
+ 140 0044 002B     		cmp	r3, #0
+ 141 0046 FAD0     		beq	.L2
+ 124:.\main.c      ****         
+ 125:.\main.c      ****         //read sensor data
+ 126:.\main.c      ****         readGyroData(&gyroData);
+ 142              		.loc 1 126 0 is_stmt 1
+ 143 0048 414B     		ldr	r3, .L8+20
+ 144 004a 181C     		mov	r0, r3
+ 145 004c FFF7FEFF 		bl	readGyroData
+ 127:.\main.c      ****         readAccData(accData);
+ 146              		.loc 1 127 0
+ 147 0050 404B     		ldr	r3, .L8+24
+ 148 0052 181C     		mov	r0, r3
+ 149 0054 FFF7FEFF 		bl	readAccData
+ 128:.\main.c      ****         
+ 129:.\main.c      ****         // Integrate gyro data over last sample period, and calculate new angle from gyro          
+ 130:.\main.c      ****         estAng += fix16mul(gyroData, DT);
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 6
+
+
+ 150              		.loc 1 130 0
+ 151 0058 3D4B     		ldr	r3, .L8+20
+ 152 005a 1A68     		ldr	r2, [r3]
+ 153 005c A423     		mov	r3, #164
+ 154 005e 5B00     		lsl	r3, r3, #1
+ 155 0060 101C     		mov	r0, r2
+ 156 0062 191C     		mov	r1, r3
+ 157 0064 FFF7FEFF 		bl	fix16mul
+ 158 0068 021C     		mov	r2, r0
+ 159 006a 3B4B     		ldr	r3, .L8+28
+ 160 006c 1B68     		ldr	r3, [r3]
+ 161 006e D218     		add	r2, r2, r3
+ 162 0070 394B     		ldr	r3, .L8+28
+ 163 0072 1A60     		str	r2, [r3]
+ 131:.\main.c      ****         
+ 132:.\main.c      ****         // wrap angle if outside +/- 180 area
+ 133:.\main.c      ****         if(estAng < -DEG_180) estAng += DEG_360; 
+ 164              		.loc 1 133 0
+ 165 0074 384B     		ldr	r3, .L8+28
+ 166 0076 1A68     		ldr	r2, [r3]
+ 167 0078 384B     		ldr	r3, .L8+32
+ 168 007a 9A42     		cmp	r2, r3
+ 169 007c 06DA     		bge	.L3
+ 170              		.loc 1 133 0 is_stmt 0 discriminator 1
+ 171 007e 364B     		ldr	r3, .L8+28
+ 172 0080 1B68     		ldr	r3, [r3]
+ 173 0082 B421     		mov	r1, #180
+ 174 0084 4904     		lsl	r1, r1, #17
+ 175 0086 5A18     		add	r2, r3, r1
+ 176 0088 334B     		ldr	r3, .L8+28
+ 177 008a 1A60     		str	r2, [r3]
+ 178              	.L3:
+ 134:.\main.c      ****         if(estAng > DEG_180) estAng -= DEG_360; 
+ 179              		.loc 1 134 0 is_stmt 1
+ 180 008c 324B     		ldr	r3, .L8+28
+ 181 008e 1A68     		ldr	r2, [r3]
+ 182 0090 B423     		mov	r3, #180
+ 183 0092 1B04     		lsl	r3, r3, #16
+ 184 0094 9A42     		cmp	r2, r3
+ 185 0096 05DD     		ble	.L4
+ 186              		.loc 1 134 0 is_stmt 0 discriminator 1
+ 187 0098 2F4B     		ldr	r3, .L8+28
+ 188 009a 1B68     		ldr	r3, [r3]
+ 189 009c 3049     		ldr	r1, .L8+36
+ 190 009e 5A18     		add	r2, r3, r1
+ 191 00a0 2D4B     		ldr	r3, .L8+28
+ 192 00a2 1A60     		str	r2, [r3]
+ 193              	.L4:
+ 135:.\main.c      ****         
+ 136:.\main.c      ****         /* Correct angle estimate using accelerometer data if it is estimated valid. *
+ 137:.\main.c      ****          * The acc input can be used if the accelleration vector has a length close  *
+ 138:.\main.c      ****          * to 1g (no force other than gravity), which is estimated by the sum of the *
+ 139:.\main.c      ****          * components for computational efficiency.                                  */
+ 140:.\main.c      ****         fix16_t forceMagEst = fix16abs(accData[0]) + fix16abs(accData[1]);
+ 194              		.loc 1 140 0 is_stmt 1
+ 195 00a4 2B4B     		ldr	r3, .L8+24
+ 196 00a6 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 7
+
+
+ 197 00a8 181C     		mov	r0, r3
+ 198 00aa FFF7FEFF 		bl	fix16abs
+ 199 00ae 041C     		mov	r4, r0
+ 200 00b0 284B     		ldr	r3, .L8+24
+ 201 00b2 5B68     		ldr	r3, [r3, #4]
+ 202 00b4 181C     		mov	r0, r3
+ 203 00b6 FFF7FEFF 		bl	fix16abs
+ 204 00ba 031C     		mov	r3, r0
+ 205 00bc E318     		add	r3, r4, r3
+ 206 00be BB61     		str	r3, [r7, #24]
+ 141:.\main.c      ****         
+ 142:.\main.c      ****         // Use if forcemag is between 0.95*(2^16) and 1.3*(2^16)
+ 143:.\main.c      ****         fix16_t accAng = 0;
+ 207              		.loc 1 143 0
+ 208 00c0 0023     		mov	r3, #0
+ 209 00c2 7B61     		str	r3, [r7, #20]
+ 144:.\main.c      ****         if(62259 < forceMagEst && forceMagEst < 85197) 
+ 210              		.loc 1 144 0
+ 211 00c4 BA69     		ldr	r2, [r7, #24]
+ 212 00c6 274B     		ldr	r3, .L8+40
+ 213 00c8 9A42     		cmp	r2, r3
+ 214 00ca 25DD     		ble	.L5
+ 215              		.loc 1 144 0 is_stmt 0 discriminator 1
+ 216 00cc BA69     		ldr	r2, [r7, #24]
+ 217 00ce 264B     		ldr	r3, .L8+44
+ 218 00d0 9A42     		cmp	r2, r3
+ 219 00d2 21DC     		bgt	.L5
+ 145:.\main.c      ****         {
+ 146:.\main.c      ****             accAng = fix16rad2deg(FIXED_HALF_PI + fix16atan2(accData[1], accData[0]));
+ 220              		.loc 1 146 0 is_stmt 1
+ 221 00d4 1F4B     		ldr	r3, .L8+24
+ 222 00d6 5A68     		ldr	r2, [r3, #4]
+ 223 00d8 1E4B     		ldr	r3, .L8+24
+ 224 00da 1B68     		ldr	r3, [r3]
+ 225 00dc 101C     		mov	r0, r2
+ 226 00de 191C     		mov	r1, r3
+ 227 00e0 FFF7FEFF 		bl	fix16atan2
+ 228 00e4 031C     		mov	r3, r0
+ 229 00e6 214A     		ldr	r2, .L8+48
+ 230 00e8 9B18     		add	r3, r3, r2
+ 231 00ea 181C     		mov	r0, r3
+ 232 00ec FFF7FEFF 		bl	fix16rad2deg
+ 233 00f0 031C     		mov	r3, r0
+ 234 00f2 7B61     		str	r3, [r7, #20]
+ 147:.\main.c      ****             //take part of gyro estimate and add complementary part of acc estimate
+ 148:.\main.c      ****             estAng = fix16mul(GYRO_WEIGHT, estAng) 
+ 235              		.loc 1 148 0
+ 236 00f4 184B     		ldr	r3, .L8+28
+ 237 00f6 1B68     		ldr	r3, [r3]
+ 238 00f8 1D4A     		ldr	r2, .L8+52
+ 239 00fa 101C     		mov	r0, r2
+ 240 00fc 191C     		mov	r1, r3
+ 241 00fe FFF7FEFF 		bl	fix16mul
+ 242 0102 041C     		mov	r4, r0
+ 149:.\main.c      ****                      + fix16mul(ACC_WEIGHT, accAng);
+ 243              		.loc 1 149 0
+ 244 0104 1B4A     		ldr	r2, .L8+56
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 8
+
+
+ 245 0106 7B69     		ldr	r3, [r7, #20]
+ 246 0108 101C     		mov	r0, r2
+ 247 010a 191C     		mov	r1, r3
+ 248 010c FFF7FEFF 		bl	fix16mul
+ 249 0110 031C     		mov	r3, r0
+ 250 0112 E218     		add	r2, r4, r3
+ 148:.\main.c      ****             estAng = fix16mul(GYRO_WEIGHT, estAng) 
+ 251              		.loc 1 148 0
+ 252 0114 104B     		ldr	r3, .L8+28
+ 253 0116 1A60     		str	r2, [r3]
+ 254              	.L5:
+ 150:.\main.c      ****         }    
+ 151:.\main.c      ****             
+ 152:.\main.c      ****             
+ 153:.\main.c      ****         //print result
+ 154:.\main.c      ****         
+ 155:.\main.c      ****         char result[15];
+ 156:.\main.c      ****         sprintf(result, "%d, ", estAng);
+ 255              		.loc 1 156 0
+ 256 0118 0F4B     		ldr	r3, .L8+28
+ 257 011a 1B68     		ldr	r3, [r3]
+ 258 011c 391D     		add	r1, r7, #4
+ 259 011e 164A     		ldr	r2, .L8+60
+ 260 0120 081C     		mov	r0, r1
+ 261 0122 111C     		mov	r1, r2
+ 262 0124 1A1C     		mov	r2, r3
+ 263 0126 FFF7FEFF 		bl	sprintf
+ 157:.\main.c      ****         UART_UartPutString(result);
+ 264              		.loc 1 157 0
+ 265 012a 3B1D     		add	r3, r7, #4
+ 266 012c 181C     		mov	r0, r3
+ 267 012e FFF7FEFF 		bl	UART_UartPutString
+ 158:.\main.c      ****         dataReady = 0;
+ 268              		.loc 1 158 0
+ 269 0132 064B     		ldr	r3, .L8+16
+ 270 0134 0022     		mov	r2, #0
+ 271 0136 1A70     		strb	r2, [r3]
+ 272              	.LBE2:
+ 159:.\main.c      ****     }
+ 273              		.loc 1 159 0
+ 274 0138 C046     		mov	r8, r8
+ 275              	.LBB3:
+ 123:.\main.c      ****         while(dataReady == 0);
+ 276              		.loc 1 123 0
+ 277 013a 7FE7     		b	.L7
+ 278              	.L9:
+ 279              		.align	2
+ 280              	.L8:
+ 281 013c 0C000000 		.word	.LC0
+ 282 0140 00000000 		.word	imuInitArray
+ 283 0144 18000000 		.word	.LC3
+ 284 0148 00000000 		.word	gyroDataReadyInterrupt
+ 285 014c 00000000 		.word	dataReady
+ 286 0150 00000000 		.word	gyroData
+ 287 0154 00000000 		.word	accData
+ 288 0158 00000000 		.word	estAng
+ 289 015c 00004CFF 		.word	-11796480
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 9
+
+
+ 290 0160 000098FE 		.word	-23592960
+ 291 0164 33F30000 		.word	62259
+ 292 0168 CC4C0100 		.word	85196
+ 293 016c 20920100 		.word	102944
+ 294 0170 66E60000 		.word	58982
+ 295 0174 9A190000 		.word	6554
+ 296 0178 24000000 		.word	.LC10
+ 297              	.LBE3:
+ 298              		.cfi_endproc
+ 299              	.LFE33:
+ 300              		.size	main, .-main
+ 301              		.section	.text.setupI2CDevice,"ax",%progbits
+ 302              		.align	2
+ 303              		.global	setupI2CDevice
+ 304              		.code	16
+ 305              		.thumb_func
+ 306              		.type	setupI2CDevice, %function
+ 307              	setupI2CDevice:
+ 308              	.LFB34:
+ 160:.\main.c      **** }
+ 161:.\main.c      **** 
+ 162:.\main.c      **** void setupI2CDevice(uint8_t addr, const uint8_t initArray[][2] , uint8_t arrayLen){
+ 309              		.loc 1 162 0
+ 310              		.cfi_startproc
+ 311 0000 80B5     		push	{r7, lr}
+ 312              		.cfi_def_cfa_offset 8
+ 313              		.cfi_offset 7, -8
+ 314              		.cfi_offset 14, -4
+ 315 0002 84B0     		sub	sp, sp, #16
+ 316              		.cfi_def_cfa_offset 24
+ 317 0004 00AF     		add	r7, sp, #0
+ 318              		.cfi_def_cfa_register 7
+ 319 0006 3960     		str	r1, [r7]
+ 320 0008 FB1D     		add	r3, r7, #7
+ 321 000a 011C     		add	r1, r0, #0
+ 322 000c 1970     		strb	r1, [r3]
+ 323 000e BB1D     		add	r3, r7, #6
+ 324 0010 1A70     		strb	r2, [r3]
+ 163:.\main.c      ****     int i;
+ 164:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 325              		.loc 1 164 0
+ 326 0012 0023     		mov	r3, #0
+ 327 0014 FB60     		str	r3, [r7, #12]
+ 328 0016 13E0     		b	.L11
+ 329              	.L12:
+ 165:.\main.c      ****         writeI2CReg(addr, initArray[i][0], initArray[i][1]);
+ 330              		.loc 1 165 0 discriminator 2
+ 331 0018 FB68     		ldr	r3, [r7, #12]
+ 332 001a 5B00     		lsl	r3, r3, #1
+ 333 001c 3A68     		ldr	r2, [r7]
+ 334 001e D318     		add	r3, r2, r3
+ 335 0020 1A78     		ldrb	r2, [r3]
+ 336 0022 FB68     		ldr	r3, [r7, #12]
+ 337 0024 5B00     		lsl	r3, r3, #1
+ 338 0026 3968     		ldr	r1, [r7]
+ 339 0028 CB18     		add	r3, r1, r3
+ 340 002a 5B78     		ldrb	r3, [r3, #1]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 10
+
+
+ 341 002c F91D     		add	r1, r7, #7
+ 342 002e 0978     		ldrb	r1, [r1]
+ 343 0030 081C     		mov	r0, r1
+ 344 0032 111C     		mov	r1, r2
+ 345 0034 1A1C     		mov	r2, r3
+ 346 0036 FFF7FEFF 		bl	writeI2CReg
+ 164:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 347              		.loc 1 164 0 discriminator 2
+ 348 003a FB68     		ldr	r3, [r7, #12]
+ 349 003c 0133     		add	r3, r3, #1
+ 350 003e FB60     		str	r3, [r7, #12]
+ 351              	.L11:
+ 164:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 352              		.loc 1 164 0 is_stmt 0 discriminator 1
+ 353 0040 BB1D     		add	r3, r7, #6
+ 354 0042 1A78     		ldrb	r2, [r3]
+ 355 0044 FB68     		ldr	r3, [r7, #12]
+ 356 0046 9A42     		cmp	r2, r3
+ 357 0048 E6DC     		bgt	.L12
+ 166:.\main.c      ****     }
+ 167:.\main.c      **** }
+ 358              		.loc 1 167 0 is_stmt 1
+ 359 004a BD46     		mov	sp, r7
+ 360 004c 04B0     		add	sp, sp, #16
+ 361              		@ sp needed
+ 362 004e 80BD     		pop	{r7, pc}
+ 363              		.cfi_endproc
+ 364              	.LFE34:
+ 365              		.size	setupI2CDevice, .-setupI2CDevice
+ 366              		.section	.text.readI2CReg,"ax",%progbits
+ 367              		.align	2
+ 368              		.global	readI2CReg
+ 369              		.code	16
+ 370              		.thumb_func
+ 371              		.type	readI2CReg, %function
+ 372              	readI2CReg:
+ 373              	.LFB35:
+ 168:.\main.c      ****     
+ 169:.\main.c      **** uint8_t readI2CReg(uint8_t addr, uint8_t reg)
+ 170:.\main.c      **** {
+ 374              		.loc 1 170 0
+ 375              		.cfi_startproc
+ 376 0000 80B5     		push	{r7, lr}
+ 377              		.cfi_def_cfa_offset 8
+ 378              		.cfi_offset 7, -8
+ 379              		.cfi_offset 14, -4
+ 380 0002 84B0     		sub	sp, sp, #16
+ 381              		.cfi_def_cfa_offset 24
+ 382 0004 00AF     		add	r7, sp, #0
+ 383              		.cfi_def_cfa_register 7
+ 384 0006 0A1C     		mov	r2, r1
+ 385 0008 FB1D     		add	r3, r7, #7
+ 386 000a 011C     		add	r1, r0, #0
+ 387 000c 1970     		strb	r1, [r3]
+ 388 000e BB1D     		add	r3, r7, #6
+ 389 0010 1A70     		strb	r2, [r3]
+ 171:.\main.c      ****     
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 11
+
+
+ 172:.\main.c      ****     uint8_t result; 
+ 173:.\main.c      ****     
+ 174:.\main.c      **** 	if (I2C_I2CMasterSendStart(addr, 0) == I2C_I2C_MSTR_NO_ERROR) /* Check if transfer completed witho
+ 390              		.loc 1 174 0
+ 391 0012 FB1D     		add	r3, r7, #7
+ 392 0014 1B78     		ldrb	r3, [r3]
+ 393 0016 181C     		mov	r0, r3
+ 394 0018 0021     		mov	r1, #0
+ 395 001a FFF7FEFF 		bl	I2C_I2CMasterSendStart
+ 396 001e 031C     		mov	r3, r0
+ 397 0020 002B     		cmp	r3, #0
+ 398 0022 19D1     		bne	.L14
+ 175:.\main.c      ****     { 
+ 176:.\main.c      ****         if(I2C_I2CMasterWriteByte(reg) == I2C_I2C_MSTR_NO_ERROR)
+ 399              		.loc 1 176 0
+ 400 0024 BB1D     		add	r3, r7, #6
+ 401 0026 1B78     		ldrb	r3, [r3]
+ 402 0028 181C     		mov	r0, r3
+ 403 002a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 404 002e 031C     		mov	r3, r0
+ 405 0030 002B     		cmp	r3, #0
+ 406 0032 11D1     		bne	.L14
+ 177:.\main.c      **** 		{
+ 178:.\main.c      ****             if(I2C_I2CMasterSendRestart(addr, 1) == I2C_I2C_MSTR_NO_ERROR)
+ 407              		.loc 1 178 0
+ 408 0034 FB1D     		add	r3, r7, #7
+ 409 0036 1B78     		ldrb	r3, [r3]
+ 410 0038 181C     		mov	r0, r3
+ 411 003a 0121     		mov	r1, #1
+ 412 003c FFF7FEFF 		bl	I2C_I2CMasterSendRestart
+ 413 0040 031C     		mov	r3, r0
+ 414 0042 002B     		cmp	r3, #0
+ 415 0044 08D1     		bne	.L14
+ 179:.\main.c      **** 			{
+ 180:.\main.c      ****                 result = I2C_I2CMasterReadByte(I2C_I2C_NAK_DATA);
+ 416              		.loc 1 180 0
+ 417 0046 0120     		mov	r0, #1
+ 418 0048 FFF7FEFF 		bl	I2C_I2CMasterReadByte
+ 419 004c 021C     		mov	r2, r0
+ 420 004e 3B1C     		mov	r3, r7
+ 421 0050 0F33     		add	r3, r3, #15
+ 422 0052 1A70     		strb	r2, [r3]
+ 181:.\main.c      ****                 I2C_I2CMasterSendStop();
+ 423              		.loc 1 181 0
+ 424 0054 FFF7FEFF 		bl	I2C_I2CMasterSendStop
+ 425              	.L14:
+ 182:.\main.c      **** 				
+ 183:.\main.c      **** 			}
+ 184:.\main.c      **** 		}
+ 185:.\main.c      **** 	}
+ 186:.\main.c      **** 	return result;		
+ 426              		.loc 1 186 0
+ 427 0058 3B1C     		mov	r3, r7
+ 428 005a 0F33     		add	r3, r3, #15
+ 429 005c 1B78     		ldrb	r3, [r3]
+ 187:.\main.c      ****     
+ 188:.\main.c      **** }
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 12
+
+
+ 430              		.loc 1 188 0
+ 431 005e 181C     		mov	r0, r3
+ 432 0060 BD46     		mov	sp, r7
+ 433 0062 04B0     		add	sp, sp, #16
+ 434              		@ sp needed
+ 435 0064 80BD     		pop	{r7, pc}
+ 436              		.cfi_endproc
+ 437              	.LFE35:
+ 438              		.size	readI2CReg, .-readI2CReg
+ 439 0066 C046     		.section	.text.writeI2CReg,"ax",%progbits
+ 440              		.align	2
+ 441              		.global	writeI2CReg
+ 442              		.code	16
+ 443              		.thumb_func
+ 444              		.type	writeI2CReg, %function
+ 445              	writeI2CReg:
+ 446              	.LFB36:
+ 189:.\main.c      **** 
+ 190:.\main.c      **** void writeI2CReg(uint8_t addr, uint8_t reg, uint8_t val){
+ 447              		.loc 1 190 0
+ 448              		.cfi_startproc
+ 449 0000 80B5     		push	{r7, lr}
+ 450              		.cfi_def_cfa_offset 8
+ 451              		.cfi_offset 7, -8
+ 452              		.cfi_offset 14, -4
+ 453 0002 82B0     		sub	sp, sp, #8
+ 454              		.cfi_def_cfa_offset 16
+ 455 0004 00AF     		add	r7, sp, #0
+ 456              		.cfi_def_cfa_register 7
+ 457 0006 FB1D     		add	r3, r7, #7
+ 458 0008 1870     		strb	r0, [r3]
+ 459 000a BB1D     		add	r3, r7, #6
+ 460 000c 1970     		strb	r1, [r3]
+ 461 000e 7B1D     		add	r3, r7, #5
+ 462 0010 1A70     		strb	r2, [r3]
+ 191:.\main.c      ****     //I2C_I2CMasterSendStart(addr, 0);
+ 192:.\main.c      ****     //I2C_I2CMasterWriteByte(reg);
+ 193:.\main.c      ****     //I2C_I2CMasterWriteByte(val);
+ 194:.\main.c      ****     //I2C_I2CMasterSendStop();
+ 195:.\main.c      ****    
+ 196:.\main.c      ****     
+ 197:.\main.c      **** 	if (I2C_I2CMasterSendStart(addr, 0) == I2C_I2C_MSTR_NO_ERROR) /* Check if transfer completed witho
+ 463              		.loc 1 197 0
+ 464 0012 FB1D     		add	r3, r7, #7
+ 465 0014 1B78     		ldrb	r3, [r3]
+ 466 0016 181C     		mov	r0, r3
+ 467 0018 0021     		mov	r1, #0
+ 468 001a FFF7FEFF 		bl	I2C_I2CMasterSendStart
+ 469 001e 031C     		mov	r3, r0
+ 470 0020 002B     		cmp	r3, #0
+ 471 0022 11D1     		bne	.L16
+ 198:.\main.c      ****     { 
+ 199:.\main.c      ****         if(I2C_I2CMasterWriteByte(reg) == I2C_I2C_MSTR_NO_ERROR)
+ 472              		.loc 1 199 0
+ 473 0024 BB1D     		add	r3, r7, #6
+ 474 0026 1B78     		ldrb	r3, [r3]
+ 475 0028 181C     		mov	r0, r3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 13
+
+
+ 476 002a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 477 002e 031C     		mov	r3, r0
+ 478 0030 002B     		cmp	r3, #0
+ 479 0032 09D1     		bne	.L16
+ 200:.\main.c      **** 		{
+ 201:.\main.c      ****               if(I2C_I2CMasterWriteByte(val) == I2C_I2C_MSTR_NO_ERROR)   
+ 480              		.loc 1 201 0
+ 481 0034 7B1D     		add	r3, r7, #5
+ 482 0036 1B78     		ldrb	r3, [r3]
+ 483 0038 181C     		mov	r0, r3
+ 484 003a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 485 003e 031C     		mov	r3, r0
+ 486 0040 002B     		cmp	r3, #0
+ 487 0042 01D1     		bne	.L16
+ 202:.\main.c      ****                 {      
+ 203:.\main.c      ****                     I2C_I2CMasterSendStop();
+ 488              		.loc 1 203 0
+ 489 0044 FFF7FEFF 		bl	I2C_I2CMasterSendStop
+ 490              	.L16:
+ 204:.\main.c      ****     		    }
+ 205:.\main.c      **** 		}
+ 206:.\main.c      **** 	}
+ 207:.\main.c      **** 	
+ 208:.\main.c      ****     
+ 209:.\main.c      ****     
+ 210:.\main.c      **** }
+ 491              		.loc 1 210 0
+ 492 0048 BD46     		mov	sp, r7
+ 493 004a 02B0     		add	sp, sp, #8
+ 494              		@ sp needed
+ 495 004c 80BD     		pop	{r7, pc}
+ 496              		.cfi_endproc
+ 497              	.LFE36:
+ 498              		.size	writeI2CReg, .-writeI2CReg
+ 499 004e C046     		.section	.text.readGyroData,"ax",%progbits
+ 500              		.align	2
+ 501              		.global	readGyroData
+ 502              		.code	16
+ 503              		.thumb_func
+ 504              		.type	readGyroData, %function
+ 505              	readGyroData:
+ 506              	.LFB37:
+ 211:.\main.c      **** 
+ 212:.\main.c      **** void readGyroData(fix16_t* gyroData)
+ 213:.\main.c      **** {
+ 507              		.loc 1 213 0
+ 508              		.cfi_startproc
+ 509 0000 90B5     		push	{r4, r7, lr}
+ 510              		.cfi_def_cfa_offset 12
+ 511              		.cfi_offset 4, -12
+ 512              		.cfi_offset 7, -8
+ 513              		.cfi_offset 14, -4
+ 514 0002 85B0     		sub	sp, sp, #20
+ 515              		.cfi_def_cfa_offset 32
+ 516 0004 00AF     		add	r7, sp, #0
+ 517              		.cfi_def_cfa_register 7
+ 518 0006 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 14
+
+
+ 214:.\main.c      ****     //read the acc data from the accellerometer
+ 215:.\main.c      ****     int16_t rawGyroX = readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA + 1) 
+ 519              		.loc 1 215 0
+ 520 0008 6820     		mov	r0, #104
+ 521 000a 4421     		mov	r1, #68
+ 522 000c FFF7FEFF 		bl	readI2CReg
+ 523 0010 031C     		mov	r3, r0
+ 524 0012 1C1C     		mov	r4, r3
+ 216:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA) << 8);
+ 525              		.loc 1 216 0
+ 526 0014 6820     		mov	r0, #104
+ 527 0016 4321     		mov	r1, #67
+ 528 0018 FFF7FEFF 		bl	readI2CReg
+ 529 001c 031C     		mov	r3, r0
+ 215:.\main.c      ****     int16_t rawGyroX = readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA + 1) 
+ 530              		.loc 1 215 0
+ 531 001e 1B02     		lsl	r3, r3, #8
+ 532 0020 9BB2     		uxth	r3, r3
+ 533 0022 E318     		add	r3, r4, r3
+ 534 0024 9AB2     		uxth	r2, r3
+ 535 0026 3B1C     		mov	r3, r7
+ 536 0028 0E33     		add	r3, r3, #14
+ 537 002a 1A80     		strh	r2, [r3]
+ 217:.\main.c      ****     //scale data and return it
+ 218:.\main.c      ****     *gyroData = (fix16_t) rawGyroX * GYRO_SCALE_FACTOR;
+ 538              		.loc 1 218 0
+ 539 002c 3B1C     		mov	r3, r7
+ 540 002e 0E33     		add	r3, r3, #14
+ 541 0030 0022     		mov	r2, #0
+ 542 0032 9B5E     		ldrsh	r3, [r3, r2]
+ 543 0034 034A     		ldr	r2, .L19
+ 544 0036 5A43     		mul	r2, r3
+ 545 0038 7B68     		ldr	r3, [r7, #4]
+ 546 003a 1A60     		str	r2, [r3]
+ 219:.\main.c      **** }
+ 547              		.loc 1 219 0
+ 548 003c BD46     		mov	sp, r7
+ 549 003e 05B0     		add	sp, sp, #20
+ 550              		@ sp needed
+ 551 0040 90BD     		pop	{r4, r7, pc}
+ 552              	.L20:
+ 553 0042 C046     		.align	2
+ 554              	.L19:
+ 555 0044 9C0F0000 		.word	3996
+ 556              		.cfi_endproc
+ 557              	.LFE37:
+ 558              		.size	readGyroData, .-readGyroData
+ 559              		.section	.text.readAccData,"ax",%progbits
+ 560              		.align	2
+ 561              		.global	readAccData
+ 562              		.code	16
+ 563              		.thumb_func
+ 564              		.type	readAccData, %function
+ 565              	readAccData:
+ 566              	.LFB38:
+ 220:.\main.c      **** 
+ 221:.\main.c      **** void readAccData(fix16_t* accData)
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 15
+
+
+ 222:.\main.c      **** {
+ 567              		.loc 1 222 0
+ 568              		.cfi_startproc
+ 569 0000 90B5     		push	{r4, r7, lr}
+ 570              		.cfi_def_cfa_offset 12
+ 571              		.cfi_offset 4, -12
+ 572              		.cfi_offset 7, -8
+ 573              		.cfi_offset 14, -4
+ 574 0002 85B0     		sub	sp, sp, #20
+ 575              		.cfi_def_cfa_offset 32
+ 576 0004 00AF     		add	r7, sp, #0
+ 577              		.cfi_def_cfa_register 7
+ 578 0006 7860     		str	r0, [r7, #4]
+ 223:.\main.c      ****     //read the raw data from the accellerometer
+ 224:.\main.c      ****     int16 rawAccY = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+1) 
+ 579              		.loc 1 224 0
+ 580 0008 6820     		mov	r0, #104
+ 581 000a 3E21     		mov	r1, #62
+ 582 000c FFF7FEFF 		bl	readI2CReg
+ 583 0010 031C     		mov	r3, r0
+ 584 0012 1C1C     		mov	r4, r3
+ 225:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA)<<8);
+ 585              		.loc 1 225 0
+ 586 0014 6820     		mov	r0, #104
+ 587 0016 3D21     		mov	r1, #61
+ 588 0018 FFF7FEFF 		bl	readI2CReg
+ 589 001c 031C     		mov	r3, r0
+ 224:.\main.c      ****     int16 rawAccY = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+1) 
+ 590              		.loc 1 224 0
+ 591 001e 1B02     		lsl	r3, r3, #8
+ 592 0020 9BB2     		uxth	r3, r3
+ 593 0022 E318     		add	r3, r4, r3
+ 594 0024 9AB2     		uxth	r2, r3
+ 595 0026 3B1C     		mov	r3, r7
+ 596 0028 0E33     		add	r3, r3, #14
+ 597 002a 1A80     		strh	r2, [r3]
+ 226:.\main.c      ****     int16 rawAccZ = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+3) 
+ 598              		.loc 1 226 0
+ 599 002c 6820     		mov	r0, #104
+ 600 002e 4021     		mov	r1, #64
+ 601 0030 FFF7FEFF 		bl	readI2CReg
+ 602 0034 031C     		mov	r3, r0
+ 603 0036 1C1C     		mov	r4, r3
+ 227:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA + 2)<<8);
+ 604              		.loc 1 227 0
+ 605 0038 6820     		mov	r0, #104
+ 606 003a 3F21     		mov	r1, #63
+ 607 003c FFF7FEFF 		bl	readI2CReg
+ 608 0040 031C     		mov	r3, r0
+ 226:.\main.c      ****     int16 rawAccZ = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+3) 
+ 609              		.loc 1 226 0
+ 610 0042 1B02     		lsl	r3, r3, #8
+ 611 0044 9BB2     		uxth	r3, r3
+ 612 0046 E318     		add	r3, r4, r3
+ 613 0048 9AB2     		uxth	r2, r3
+ 614 004a 3B1C     		mov	r3, r7
+ 615 004c 0C33     		add	r3, r3, #12
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 16
+
+
+ 616 004e 1A80     		strh	r2, [r3]
+ 228:.\main.c      ****     //scale data and return it
+ 229:.\main.c      ****     accData[0] = (fix16_t) rawAccY * ACC_SCALE_FACTOR; 
+ 617              		.loc 1 229 0
+ 618 0050 3B1C     		mov	r3, r7
+ 619 0052 0E33     		add	r3, r3, #14
+ 620 0054 0021     		mov	r1, #0
+ 621 0056 5B5E     		ldrsh	r3, [r3, r1]
+ 622 0058 DA00     		lsl	r2, r3, #3
+ 623 005a 7B68     		ldr	r3, [r7, #4]
+ 624 005c 1A60     		str	r2, [r3]
+ 230:.\main.c      ****     accData[1] = (fix16_t) rawAccZ * ACC_SCALE_FACTOR;
+ 625              		.loc 1 230 0
+ 626 005e 7B68     		ldr	r3, [r7, #4]
+ 627 0060 0433     		add	r3, r3, #4
+ 628 0062 3A1C     		mov	r2, r7
+ 629 0064 0C32     		add	r2, r2, #12
+ 630 0066 0021     		mov	r1, #0
+ 631 0068 525E     		ldrsh	r2, [r2, r1]
+ 632 006a D200     		lsl	r2, r2, #3
+ 633 006c 1A60     		str	r2, [r3]
+ 231:.\main.c      **** }
+ 634              		.loc 1 231 0
+ 635 006e BD46     		mov	sp, r7
+ 636 0070 05B0     		add	sp, sp, #20
+ 637              		@ sp needed
+ 638 0072 90BD     		pop	{r4, r7, pc}
+ 639              		.cfi_endproc
+ 640              	.LFE38:
+ 641              		.size	readAccData, .-readAccData
+ 642              		.section	.text.error,"ax",%progbits
+ 643              		.align	2
+ 644              		.global	error
+ 645              		.code	16
+ 646              		.thumb_func
+ 647              		.type	error, %function
+ 648              	error:
+ 649              	.LFB39:
+ 232:.\main.c      **** 
+ 233:.\main.c      **** void error(char* str)
+ 234:.\main.c      **** {
+ 650              		.loc 1 234 0
+ 651              		.cfi_startproc
+ 652 0000 80B5     		push	{r7, lr}
+ 653              		.cfi_def_cfa_offset 8
+ 654              		.cfi_offset 7, -8
+ 655              		.cfi_offset 14, -4
+ 656 0002 82B0     		sub	sp, sp, #8
+ 657              		.cfi_def_cfa_offset 16
+ 658 0004 00AF     		add	r7, sp, #0
+ 659              		.cfi_def_cfa_register 7
+ 660 0006 7860     		str	r0, [r7, #4]
+ 235:.\main.c      ****     UART_UartPutString(str);
+ 661              		.loc 1 235 0
+ 662 0008 7B68     		ldr	r3, [r7, #4]
+ 663 000a 181C     		mov	r0, r3
+ 664 000c FFF7FEFF 		bl	UART_UartPutString
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 17
+
+
+ 665              	.L23:
+ 236:.\main.c      ****     while(1);
+ 666              		.loc 1 236 0 discriminator 1
+ 667 0010 FEE7     		b	.L23
+ 668              		.cfi_endproc
+ 669              	.LFE39:
+ 670              		.size	error, .-error
+ 671 0012 C046     		.section	.rodata
+ 672 0029 000000   		.align	2
+ 673              	.LC13:
+ 674 002c 0D0A0A4C 		.ascii	"\015\012\012Lag Error!\015\012\012\000"
+ 674      61672045 
+ 674      72726F72 
+ 674      210D0A0A 
+ 674      00
+ 675 003d 000000   		.section	.text.gyroDataReadyInterrupt,"ax",%progbits
+ 676              		.align	2
+ 677              		.global	gyroDataReadyInterrupt
+ 678              		.code	16
+ 679              		.thumb_func
+ 680              		.type	gyroDataReadyInterrupt, %function
+ 681              	gyroDataReadyInterrupt:
+ 682              	.LFB40:
+ 237:.\main.c      **** }
+ 238:.\main.c      **** 
+ 239:.\main.c      **** CY_ISR(gyroDataReadyInterrupt)
+ 240:.\main.c      **** {
+ 683              		.loc 1 240 0
+ 684              		.cfi_startproc
+ 685 0000 80B5     		push	{r7, lr}
+ 686              		.cfi_def_cfa_offset 8
+ 687              		.cfi_offset 7, -8
+ 688              		.cfi_offset 14, -4
+ 689 0002 00AF     		add	r7, sp, #0
+ 690              		.cfi_def_cfa_register 7
+ 241:.\main.c      ****     //if dataReady flag has not been cleared, the system is lagging.
+ 242:.\main.c      ****     if(dataReady == 1) error("\r\n\nLag Error!\r\n\n");
+ 691              		.loc 1 242 0
+ 692 0004 064B     		ldr	r3, .L26
+ 693 0006 1B78     		ldrb	r3, [r3]
+ 694 0008 DBB2     		uxtb	r3, r3
+ 695 000a 012B     		cmp	r3, #1
+ 696 000c 03D1     		bne	.L25
+ 697              		.loc 1 242 0 is_stmt 0 discriminator 1
+ 698 000e 054B     		ldr	r3, .L26+4
+ 699 0010 181C     		mov	r0, r3
+ 700 0012 FFF7FEFF 		bl	error
+ 701              	.L25:
+ 243:.\main.c      ****     //else set data ready flag
+ 244:.\main.c      ****     dataReady = 1;
+ 702              		.loc 1 244 0 is_stmt 1
+ 703 0016 024B     		ldr	r3, .L26
+ 704 0018 0122     		mov	r2, #1
+ 705 001a 1A70     		strb	r2, [r3]
+ 245:.\main.c      **** }
+ 706              		.loc 1 245 0
+ 707 001c BD46     		mov	sp, r7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 18
+
+
+ 708              		@ sp needed
+ 709 001e 80BD     		pop	{r7, pc}
+ 710              	.L27:
+ 711              		.align	2
+ 712              	.L26:
+ 713 0020 00000000 		.word	dataReady
+ 714 0024 2C000000 		.word	.LC13
+ 715              		.cfi_endproc
+ 716              	.LFE40:
+ 717              		.size	gyroDataReadyInterrupt, .-gyroDataReadyInterrupt
+ 718              		.text
+ 719              	.Letext0:
+ 720              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 721              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 722              		.file 4 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 723              		.file 5 "./fixedMath.h"
+ 724              		.section	.debug_info,"",%progbits
+ 725              	.Ldebug_info0:
+ 726 0000 8F030000 		.4byte	0x38f
+ 727 0004 0400     		.2byte	0x4
+ 728 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 729 000a 04       		.byte	0x4
+ 730 000b 01       		.uleb128 0x1
+ 731 000c 8E000000 		.4byte	.LASF43
+ 732 0010 01       		.byte	0x1
+ 733 0011 6D010000 		.4byte	.LASF44
+ 734 0015 CC010000 		.4byte	.LASF45
+ 735 0019 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 736 001d 00000000 		.4byte	0
+ 737 0021 00000000 		.4byte	.Ldebug_line0
+ 738 0025 02       		.uleb128 0x2
+ 739 0026 01       		.byte	0x1
+ 740 0027 06       		.byte	0x6
+ 741 0028 96020000 		.4byte	.LASF0
+ 742 002c 03       		.uleb128 0x3
+ 743 002d 00000000 		.4byte	.LASF2
+ 744 0031 02       		.byte	0x2
+ 745 0032 1C       		.byte	0x1c
+ 746 0033 37000000 		.4byte	0x37
+ 747 0037 02       		.uleb128 0x2
+ 748 0038 01       		.byte	0x1
+ 749 0039 08       		.byte	0x8
+ 750 003a 1D010000 		.4byte	.LASF1
+ 751 003e 03       		.uleb128 0x3
+ 752 003f 16000000 		.4byte	.LASF3
+ 753 0043 02       		.byte	0x2
+ 754 0044 25       		.byte	0x25
+ 755 0045 49000000 		.4byte	0x49
+ 756 0049 02       		.uleb128 0x2
+ 757 004a 02       		.byte	0x2
+ 758 004b 05       		.byte	0x5
+ 759 004c 62020000 		.4byte	.LASF4
+ 760 0050 02       		.uleb128 0x2
+ 761 0051 02       		.byte	0x2
+ 762 0052 07       		.byte	0x7
+ 763 0053 54000000 		.4byte	.LASF5
+ 764 0057 03       		.uleb128 0x3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 19
+
+
+ 765 0058 30000000 		.4byte	.LASF6
+ 766 005c 02       		.byte	0x2
+ 767 005d 37       		.byte	0x37
+ 768 005e 62000000 		.4byte	0x62
+ 769 0062 02       		.uleb128 0x2
+ 770 0063 04       		.byte	0x4
+ 771 0064 05       		.byte	0x5
+ 772 0065 7D020000 		.4byte	.LASF7
+ 773 0069 02       		.uleb128 0x2
+ 774 006a 04       		.byte	0x4
+ 775 006b 07       		.byte	0x7
+ 776 006c 76010000 		.4byte	.LASF8
+ 777 0070 02       		.uleb128 0x2
+ 778 0071 08       		.byte	0x8
+ 779 0072 05       		.byte	0x5
+ 780 0073 45020000 		.4byte	.LASF9
+ 781 0077 02       		.uleb128 0x2
+ 782 0078 08       		.byte	0x8
+ 783 0079 07       		.byte	0x7
+ 784 007a AD010000 		.4byte	.LASF10
+ 785 007e 04       		.uleb128 0x4
+ 786 007f 04       		.byte	0x4
+ 787 0080 05       		.byte	0x5
+ 788 0081 696E7400 		.ascii	"int\000"
+ 789 0085 02       		.uleb128 0x2
+ 790 0086 04       		.byte	0x4
+ 791 0087 07       		.byte	0x7
+ 792 0088 A0010000 		.4byte	.LASF11
+ 793 008c 03       		.uleb128 0x3
+ 794 008d C4010000 		.4byte	.LASF12
+ 795 0091 03       		.byte	0x3
+ 796 0092 2A       		.byte	0x2a
+ 797 0093 2C000000 		.4byte	0x2c
+ 798 0097 03       		.uleb128 0x3
+ 799 0098 26020000 		.4byte	.LASF13
+ 800 009c 03       		.byte	0x3
+ 801 009d 35       		.byte	0x35
+ 802 009e 3E000000 		.4byte	0x3e
+ 803 00a2 03       		.uleb128 0x3
+ 804 00a3 2E020000 		.4byte	.LASF14
+ 805 00a7 03       		.byte	0x3
+ 806 00a8 41       		.byte	0x41
+ 807 00a9 57000000 		.4byte	0x57
+ 808 00ad 03       		.uleb128 0x3
+ 809 00ae 6E000000 		.4byte	.LASF15
+ 810 00b2 04       		.byte	0x4
+ 811 00b3 A1       		.byte	0xa1
+ 812 00b4 37000000 		.4byte	0x37
+ 813 00b8 03       		.uleb128 0x3
+ 814 00b9 35010000 		.4byte	.LASF16
+ 815 00bd 04       		.byte	0x4
+ 816 00be A5       		.byte	0xa5
+ 817 00bf 49000000 		.4byte	0x49
+ 818 00c3 02       		.uleb128 0x2
+ 819 00c4 04       		.byte	0x4
+ 820 00c5 04       		.byte	0x4
+ 821 00c6 88000000 		.4byte	.LASF17
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 20
+
+
+ 822 00ca 02       		.uleb128 0x2
+ 823 00cb 08       		.byte	0x8
+ 824 00cc 04       		.byte	0x4
+ 825 00cd 67000000 		.4byte	.LASF18
+ 826 00d1 02       		.uleb128 0x2
+ 827 00d2 01       		.byte	0x1
+ 828 00d3 08       		.byte	0x8
+ 829 00d4 53020000 		.4byte	.LASF19
+ 830 00d8 05       		.uleb128 0x5
+ 831 00d9 AD000000 		.4byte	0xad
+ 832 00dd 02       		.uleb128 0x2
+ 833 00de 04       		.byte	0x4
+ 834 00df 07       		.byte	0x7
+ 835 00e0 36020000 		.4byte	.LASF20
+ 836 00e4 06       		.uleb128 0x6
+ 837 00e5 04       		.byte	0x4
+ 838 00e6 D1000000 		.4byte	0xd1
+ 839 00ea 03       		.uleb128 0x3
+ 840 00eb 6C020000 		.4byte	.LASF21
+ 841 00ef 05       		.byte	0x5
+ 842 00f0 15       		.byte	0x15
+ 843 00f1 A2000000 		.4byte	0xa2
+ 844 00f5 07       		.uleb128 0x7
+ 845 00f6 88010000 		.4byte	.LASF26
+ 846 00fa 01       		.byte	0x1
+ 847 00fb 61       		.byte	0x61
+ 848 00fc 7E000000 		.4byte	0x7e
+ 849 0100 00000000 		.4byte	.LFB33
+ 850 0104 7C010000 		.4byte	.LFE33-.LFB33
+ 851 0108 01       		.uleb128 0x1
+ 852 0109 9C       		.byte	0x9c
+ 853 010a 4D010000 		.4byte	0x14d
+ 854 010e 08       		.uleb128 0x8
+ 855 010f 0A010000 		.4byte	.LASF22
+ 856 0113 01       		.byte	0x1
+ 857 0114 75       		.byte	0x75
+ 858 0115 EA000000 		.4byte	0xea
+ 859 0119 02       		.uleb128 0x2
+ 860 011a 91       		.byte	0x91
+ 861 011b 6C       		.sleb128 -20
+ 862 011c 09       		.uleb128 0x9
+ 863 011d 00000000 		.4byte	.Ldebug_ranges0+0
+ 864 0121 08       		.uleb128 0x8
+ 865 0122 7C000000 		.4byte	.LASF23
+ 866 0126 01       		.byte	0x1
+ 867 0127 8C       		.byte	0x8c
+ 868 0128 EA000000 		.4byte	0xea
+ 869 012c 02       		.uleb128 0x2
+ 870 012d 91       		.byte	0x91
+ 871 012e 68       		.sleb128 -24
+ 872 012f 08       		.uleb128 0x8
+ 873 0130 66010000 		.4byte	.LASF24
+ 874 0134 01       		.byte	0x1
+ 875 0135 8F       		.byte	0x8f
+ 876 0136 EA000000 		.4byte	0xea
+ 877 013a 02       		.uleb128 0x2
+ 878 013b 91       		.byte	0x91
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 21
+
+
+ 879 013c 64       		.sleb128 -28
+ 880 013d 08       		.uleb128 0x8
+ 881 013e 8D010000 		.4byte	.LASF25
+ 882 0142 01       		.byte	0x1
+ 883 0143 9B       		.byte	0x9b
+ 884 0144 4D010000 		.4byte	0x14d
+ 885 0148 02       		.uleb128 0x2
+ 886 0149 91       		.byte	0x91
+ 887 014a 54       		.sleb128 -44
+ 888 014b 00       		.byte	0
+ 889 014c 00       		.byte	0
+ 890 014d 0A       		.uleb128 0xa
+ 891 014e D1000000 		.4byte	0xd1
+ 892 0152 5D010000 		.4byte	0x15d
+ 893 0156 0B       		.uleb128 0xb
+ 894 0157 DD000000 		.4byte	0xdd
+ 895 015b 0E       		.byte	0xe
+ 896 015c 00       		.byte	0
+ 897 015d 0C       		.uleb128 0xc
+ 898 015e 57010000 		.4byte	.LASF27
+ 899 0162 01       		.byte	0x1
+ 900 0163 A2       		.byte	0xa2
+ 901 0164 00000000 		.4byte	.LFB34
+ 902 0168 50000000 		.4byte	.LFE34-.LFB34
+ 903 016c 01       		.uleb128 0x1
+ 904 016d 9C       		.byte	0x9c
+ 905 016e A9010000 		.4byte	0x1a9
+ 906 0172 0D       		.uleb128 0xd
+ 907 0173 52010000 		.4byte	.LASF28
+ 908 0177 01       		.byte	0x1
+ 909 0178 A2       		.byte	0xa2
+ 910 0179 8C000000 		.4byte	0x8c
+ 911 017d 02       		.uleb128 0x2
+ 912 017e 91       		.byte	0x91
+ 913 017f 6F       		.sleb128 -17
+ 914 0180 0D       		.uleb128 0xd
+ 915 0181 2B010000 		.4byte	.LASF29
+ 916 0185 01       		.byte	0x1
+ 917 0186 A2       		.byte	0xa2
+ 918 0187 B9010000 		.4byte	0x1b9
+ 919 018b 02       		.uleb128 0x2
+ 920 018c 91       		.byte	0x91
+ 921 018d 68       		.sleb128 -24
+ 922 018e 0D       		.uleb128 0xd
+ 923 018f 27000000 		.4byte	.LASF30
+ 924 0193 01       		.byte	0x1
+ 925 0194 A2       		.byte	0xa2
+ 926 0195 8C000000 		.4byte	0x8c
+ 927 0199 02       		.uleb128 0x2
+ 928 019a 91       		.byte	0x91
+ 929 019b 6E       		.sleb128 -18
+ 930 019c 0E       		.uleb128 0xe
+ 931 019d 6900     		.ascii	"i\000"
+ 932 019f 01       		.byte	0x1
+ 933 01a0 A3       		.byte	0xa3
+ 934 01a1 7E000000 		.4byte	0x7e
+ 935 01a5 02       		.uleb128 0x2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 22
+
+
+ 936 01a6 91       		.byte	0x91
+ 937 01a7 74       		.sleb128 -12
+ 938 01a8 00       		.byte	0
+ 939 01a9 0A       		.uleb128 0xa
+ 940 01aa 8C000000 		.4byte	0x8c
+ 941 01ae B9010000 		.4byte	0x1b9
+ 942 01b2 0B       		.uleb128 0xb
+ 943 01b3 DD000000 		.4byte	0xdd
+ 944 01b7 01       		.byte	0x1
+ 945 01b8 00       		.byte	0
+ 946 01b9 06       		.uleb128 0x6
+ 947 01ba 04       		.byte	0x4
+ 948 01bb A9010000 		.4byte	0x1a9
+ 949 01bf 0F       		.uleb128 0xf
+ 950 01c0 12010000 		.4byte	.LASF46
+ 951 01c4 01       		.byte	0x1
+ 952 01c5 A9       		.byte	0xa9
+ 953 01c6 8C000000 		.4byte	0x8c
+ 954 01ca 00000000 		.4byte	.LFB35
+ 955 01ce 66000000 		.4byte	.LFE35-.LFB35
+ 956 01d2 01       		.uleb128 0x1
+ 957 01d3 9C       		.byte	0x9c
+ 958 01d4 03020000 		.4byte	0x203
+ 959 01d8 0D       		.uleb128 0xd
+ 960 01d9 52010000 		.4byte	.LASF28
+ 961 01dd 01       		.byte	0x1
+ 962 01de A9       		.byte	0xa9
+ 963 01df 8C000000 		.4byte	0x8c
+ 964 01e3 02       		.uleb128 0x2
+ 965 01e4 91       		.byte	0x91
+ 966 01e5 6F       		.sleb128 -17
+ 967 01e6 10       		.uleb128 0x10
+ 968 01e7 72656700 		.ascii	"reg\000"
+ 969 01eb 01       		.byte	0x1
+ 970 01ec A9       		.byte	0xa9
+ 971 01ed 8C000000 		.4byte	0x8c
+ 972 01f1 02       		.uleb128 0x2
+ 973 01f2 91       		.byte	0x91
+ 974 01f3 6E       		.sleb128 -18
+ 975 01f4 08       		.uleb128 0x8
+ 976 01f5 8D010000 		.4byte	.LASF25
+ 977 01f9 01       		.byte	0x1
+ 978 01fa AC       		.byte	0xac
+ 979 01fb 8C000000 		.4byte	0x8c
+ 980 01ff 02       		.uleb128 0x2
+ 981 0200 91       		.byte	0x91
+ 982 0201 77       		.sleb128 -9
+ 983 0202 00       		.byte	0
+ 984 0203 0C       		.uleb128 0xc
+ 985 0204 94010000 		.4byte	.LASF31
+ 986 0208 01       		.byte	0x1
+ 987 0209 BE       		.byte	0xbe
+ 988 020a 00000000 		.4byte	.LFB36
+ 989 020e 4E000000 		.4byte	.LFE36-.LFB36
+ 990 0212 01       		.uleb128 0x1
+ 991 0213 9C       		.byte	0x9c
+ 992 0214 43020000 		.4byte	0x243
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 23
+
+
+ 993 0218 0D       		.uleb128 0xd
+ 994 0219 52010000 		.4byte	.LASF28
+ 995 021d 01       		.byte	0x1
+ 996 021e BE       		.byte	0xbe
+ 997 021f 8C000000 		.4byte	0x8c
+ 998 0223 02       		.uleb128 0x2
+ 999 0224 91       		.byte	0x91
+ 1000 0225 77       		.sleb128 -9
+ 1001 0226 10       		.uleb128 0x10
+ 1002 0227 72656700 		.ascii	"reg\000"
+ 1003 022b 01       		.byte	0x1
+ 1004 022c BE       		.byte	0xbe
+ 1005 022d 8C000000 		.4byte	0x8c
+ 1006 0231 02       		.uleb128 0x2
+ 1007 0232 91       		.byte	0x91
+ 1008 0233 76       		.sleb128 -10
+ 1009 0234 10       		.uleb128 0x10
+ 1010 0235 76616C00 		.ascii	"val\000"
+ 1011 0239 01       		.byte	0x1
+ 1012 023a BE       		.byte	0xbe
+ 1013 023b 8C000000 		.4byte	0x8c
+ 1014 023f 02       		.uleb128 0x2
+ 1015 0240 91       		.byte	0x91
+ 1016 0241 75       		.sleb128 -11
+ 1017 0242 00       		.byte	0
+ 1018 0243 0C       		.uleb128 0xc
+ 1019 0244 47000000 		.4byte	.LASF32
+ 1020 0248 01       		.byte	0x1
+ 1021 0249 D4       		.byte	0xd4
+ 1022 024a 00000000 		.4byte	.LFB37
+ 1023 024e 48000000 		.4byte	.LFE37-.LFB37
+ 1024 0252 01       		.uleb128 0x1
+ 1025 0253 9C       		.byte	0x9c
+ 1026 0254 75020000 		.4byte	0x275
+ 1027 0258 0D       		.uleb128 0xd
+ 1028 0259 74020000 		.4byte	.LASF33
+ 1029 025d 01       		.byte	0x1
+ 1030 025e D4       		.byte	0xd4
+ 1031 025f 75020000 		.4byte	0x275
+ 1032 0263 02       		.uleb128 0x2
+ 1033 0264 91       		.byte	0x91
+ 1034 0265 64       		.sleb128 -28
+ 1035 0266 08       		.uleb128 0x8
+ 1036 0267 A2020000 		.4byte	.LASF34
+ 1037 026b 01       		.byte	0x1
+ 1038 026c D7       		.byte	0xd7
+ 1039 026d 97000000 		.4byte	0x97
+ 1040 0271 02       		.uleb128 0x2
+ 1041 0272 91       		.byte	0x91
+ 1042 0273 6E       		.sleb128 -18
+ 1043 0274 00       		.byte	0
+ 1044 0275 06       		.uleb128 0x6
+ 1045 0276 04       		.byte	0x4
+ 1046 0277 EA000000 		.4byte	0xea
+ 1047 027b 0C       		.uleb128 0xc
+ 1048 027c 0A000000 		.4byte	.LASF35
+ 1049 0280 01       		.byte	0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 24
+
+
+ 1050 0281 DD       		.byte	0xdd
+ 1051 0282 00000000 		.4byte	.LFB38
+ 1052 0286 74000000 		.4byte	.LFE38-.LFB38
+ 1053 028a 01       		.uleb128 0x1
+ 1054 028b 9C       		.byte	0x9c
+ 1055 028c BB020000 		.4byte	0x2bb
+ 1056 0290 0D       		.uleb128 0xd
+ 1057 0291 74000000 		.4byte	.LASF36
+ 1058 0295 01       		.byte	0x1
+ 1059 0296 DD       		.byte	0xdd
+ 1060 0297 75020000 		.4byte	0x275
+ 1061 029b 02       		.uleb128 0x2
+ 1062 029c 91       		.byte	0x91
+ 1063 029d 64       		.sleb128 -28
+ 1064 029e 08       		.uleb128 0x8
+ 1065 029f 86020000 		.4byte	.LASF37
+ 1066 02a3 01       		.byte	0x1
+ 1067 02a4 E0       		.byte	0xe0
+ 1068 02a5 B8000000 		.4byte	0xb8
+ 1069 02a9 02       		.uleb128 0x2
+ 1070 02aa 91       		.byte	0x91
+ 1071 02ab 6E       		.sleb128 -18
+ 1072 02ac 08       		.uleb128 0x8
+ 1073 02ad 8E020000 		.4byte	.LASF38
+ 1074 02b1 01       		.byte	0x1
+ 1075 02b2 E2       		.byte	0xe2
+ 1076 02b3 B8000000 		.4byte	0xb8
+ 1077 02b7 02       		.uleb128 0x2
+ 1078 02b8 91       		.byte	0x91
+ 1079 02b9 6C       		.sleb128 -20
+ 1080 02ba 00       		.byte	0
+ 1081 02bb 0C       		.uleb128 0xc
+ 1082 02bc 3F020000 		.4byte	.LASF39
+ 1083 02c0 01       		.byte	0x1
+ 1084 02c1 E9       		.byte	0xe9
+ 1085 02c2 00000000 		.4byte	.LFB39
+ 1086 02c6 12000000 		.4byte	.LFE39-.LFB39
+ 1087 02ca 01       		.uleb128 0x1
+ 1088 02cb 9C       		.byte	0x9c
+ 1089 02cc DF020000 		.4byte	0x2df
+ 1090 02d0 10       		.uleb128 0x10
+ 1091 02d1 73747200 		.ascii	"str\000"
+ 1092 02d5 01       		.byte	0x1
+ 1093 02d6 E9       		.byte	0xe9
+ 1094 02d7 E4000000 		.4byte	0xe4
+ 1095 02db 02       		.uleb128 0x2
+ 1096 02dc 91       		.byte	0x91
+ 1097 02dd 74       		.sleb128 -12
+ 1098 02de 00       		.byte	0
+ 1099 02df 11       		.uleb128 0x11
+ 1100 02e0 3B010000 		.4byte	.LASF47
+ 1101 02e4 01       		.byte	0x1
+ 1102 02e5 EF       		.byte	0xef
+ 1103 02e6 00000000 		.4byte	.LFB40
+ 1104 02ea 28000000 		.4byte	.LFE40-.LFB40
+ 1105 02ee 01       		.uleb128 0x1
+ 1106 02ef 9C       		.byte	0x9c
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 25
+
+
+ 1107 02f0 0A       		.uleb128 0xa
+ 1108 02f1 8C000000 		.4byte	0x8c
+ 1109 02f5 06030000 		.4byte	0x306
+ 1110 02f9 0B       		.uleb128 0xb
+ 1111 02fa DD000000 		.4byte	0xdd
+ 1112 02fe 04       		.byte	0x4
+ 1113 02ff 0B       		.uleb128 0xb
+ 1114 0300 DD000000 		.4byte	0xdd
+ 1115 0304 01       		.byte	0x1
+ 1116 0305 00       		.byte	0
+ 1117 0306 12       		.uleb128 0x12
+ 1118 0307 3A000000 		.4byte	.LASF40
+ 1119 030b 01       		.byte	0x1
+ 1120 030c 39       		.byte	0x39
+ 1121 030d 17030000 		.4byte	0x317
+ 1122 0311 05       		.uleb128 0x5
+ 1123 0312 03       		.byte	0x3
+ 1124 0313 00000000 		.4byte	imuInitArray
+ 1125 0317 13       		.uleb128 0x13
+ 1126 0318 F0020000 		.4byte	0x2f0
+ 1127 031c 12       		.uleb128 0x12
+ 1128 031d 58020000 		.4byte	.LASF41
+ 1129 0321 01       		.byte	0x1
+ 1130 0322 54       		.byte	0x54
+ 1131 0323 D8000000 		.4byte	0xd8
+ 1132 0327 05       		.uleb128 0x5
+ 1133 0328 03       		.byte	0x3
+ 1134 0329 00000000 		.4byte	dataReady
+ 1135 032d 0A       		.uleb128 0xa
+ 1136 032e EA000000 		.4byte	0xea
+ 1137 0332 3D030000 		.4byte	0x33d
+ 1138 0336 0B       		.uleb128 0xb
+ 1139 0337 DD000000 		.4byte	0xdd
+ 1140 033b 01       		.byte	0x1
+ 1141 033c 00       		.byte	0
+ 1142 033d 12       		.uleb128 0x12
+ 1143 033e 74000000 		.4byte	.LASF36
+ 1144 0342 01       		.byte	0x1
+ 1145 0343 55       		.byte	0x55
+ 1146 0344 2D030000 		.4byte	0x32d
+ 1147 0348 05       		.uleb128 0x5
+ 1148 0349 03       		.byte	0x3
+ 1149 034a 00000000 		.4byte	accData
+ 1150 034e 12       		.uleb128 0x12
+ 1151 034f 74020000 		.4byte	.LASF33
+ 1152 0353 01       		.byte	0x1
+ 1153 0354 55       		.byte	0x55
+ 1154 0355 EA000000 		.4byte	0xea
+ 1155 0359 05       		.uleb128 0x5
+ 1156 035a 03       		.byte	0x3
+ 1157 035b 00000000 		.4byte	gyroData
+ 1158 035f 12       		.uleb128 0x12
+ 1159 0360 0A010000 		.4byte	.LASF22
+ 1160 0364 01       		.byte	0x1
+ 1161 0365 56       		.byte	0x56
+ 1162 0366 EA000000 		.4byte	0xea
+ 1163 036a 05       		.uleb128 0x5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 26
+
+
+ 1164 036b 03       		.byte	0x3
+ 1165 036c 00000000 		.4byte	gyroAng
+ 1166 0370 12       		.uleb128 0x12
+ 1167 0371 66010000 		.4byte	.LASF24
+ 1168 0375 01       		.byte	0x1
+ 1169 0376 56       		.byte	0x56
+ 1170 0377 EA000000 		.4byte	0xea
+ 1171 037b 05       		.uleb128 0x5
+ 1172 037c 03       		.byte	0x3
+ 1173 037d 00000000 		.4byte	accAng
+ 1174 0381 12       		.uleb128 0x12
+ 1175 0382 20000000 		.4byte	.LASF42
+ 1176 0386 01       		.byte	0x1
+ 1177 0387 56       		.byte	0x56
+ 1178 0388 EA000000 		.4byte	0xea
+ 1179 038c 05       		.uleb128 0x5
+ 1180 038d 03       		.byte	0x3
+ 1181 038e 00000000 		.4byte	estAng
+ 1182 0392 00       		.byte	0
+ 1183              		.section	.debug_abbrev,"",%progbits
+ 1184              	.Ldebug_abbrev0:
+ 1185 0000 01       		.uleb128 0x1
+ 1186 0001 11       		.uleb128 0x11
+ 1187 0002 01       		.byte	0x1
+ 1188 0003 25       		.uleb128 0x25
+ 1189 0004 0E       		.uleb128 0xe
+ 1190 0005 13       		.uleb128 0x13
+ 1191 0006 0B       		.uleb128 0xb
+ 1192 0007 03       		.uleb128 0x3
+ 1193 0008 0E       		.uleb128 0xe
+ 1194 0009 1B       		.uleb128 0x1b
+ 1195 000a 0E       		.uleb128 0xe
+ 1196 000b 55       		.uleb128 0x55
+ 1197 000c 17       		.uleb128 0x17
+ 1198 000d 11       		.uleb128 0x11
+ 1199 000e 01       		.uleb128 0x1
+ 1200 000f 10       		.uleb128 0x10
+ 1201 0010 17       		.uleb128 0x17
+ 1202 0011 00       		.byte	0
+ 1203 0012 00       		.byte	0
+ 1204 0013 02       		.uleb128 0x2
+ 1205 0014 24       		.uleb128 0x24
+ 1206 0015 00       		.byte	0
+ 1207 0016 0B       		.uleb128 0xb
+ 1208 0017 0B       		.uleb128 0xb
+ 1209 0018 3E       		.uleb128 0x3e
+ 1210 0019 0B       		.uleb128 0xb
+ 1211 001a 03       		.uleb128 0x3
+ 1212 001b 0E       		.uleb128 0xe
+ 1213 001c 00       		.byte	0
+ 1214 001d 00       		.byte	0
+ 1215 001e 03       		.uleb128 0x3
+ 1216 001f 16       		.uleb128 0x16
+ 1217 0020 00       		.byte	0
+ 1218 0021 03       		.uleb128 0x3
+ 1219 0022 0E       		.uleb128 0xe
+ 1220 0023 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 27
+
+
+ 1221 0024 0B       		.uleb128 0xb
+ 1222 0025 3B       		.uleb128 0x3b
+ 1223 0026 0B       		.uleb128 0xb
+ 1224 0027 49       		.uleb128 0x49
+ 1225 0028 13       		.uleb128 0x13
+ 1226 0029 00       		.byte	0
+ 1227 002a 00       		.byte	0
+ 1228 002b 04       		.uleb128 0x4
+ 1229 002c 24       		.uleb128 0x24
+ 1230 002d 00       		.byte	0
+ 1231 002e 0B       		.uleb128 0xb
+ 1232 002f 0B       		.uleb128 0xb
+ 1233 0030 3E       		.uleb128 0x3e
+ 1234 0031 0B       		.uleb128 0xb
+ 1235 0032 03       		.uleb128 0x3
+ 1236 0033 08       		.uleb128 0x8
+ 1237 0034 00       		.byte	0
+ 1238 0035 00       		.byte	0
+ 1239 0036 05       		.uleb128 0x5
+ 1240 0037 35       		.uleb128 0x35
+ 1241 0038 00       		.byte	0
+ 1242 0039 49       		.uleb128 0x49
+ 1243 003a 13       		.uleb128 0x13
+ 1244 003b 00       		.byte	0
+ 1245 003c 00       		.byte	0
+ 1246 003d 06       		.uleb128 0x6
+ 1247 003e 0F       		.uleb128 0xf
+ 1248 003f 00       		.byte	0
+ 1249 0040 0B       		.uleb128 0xb
+ 1250 0041 0B       		.uleb128 0xb
+ 1251 0042 49       		.uleb128 0x49
+ 1252 0043 13       		.uleb128 0x13
+ 1253 0044 00       		.byte	0
+ 1254 0045 00       		.byte	0
+ 1255 0046 07       		.uleb128 0x7
+ 1256 0047 2E       		.uleb128 0x2e
+ 1257 0048 01       		.byte	0x1
+ 1258 0049 3F       		.uleb128 0x3f
+ 1259 004a 19       		.uleb128 0x19
+ 1260 004b 03       		.uleb128 0x3
+ 1261 004c 0E       		.uleb128 0xe
+ 1262 004d 3A       		.uleb128 0x3a
+ 1263 004e 0B       		.uleb128 0xb
+ 1264 004f 3B       		.uleb128 0x3b
+ 1265 0050 0B       		.uleb128 0xb
+ 1266 0051 49       		.uleb128 0x49
+ 1267 0052 13       		.uleb128 0x13
+ 1268 0053 11       		.uleb128 0x11
+ 1269 0054 01       		.uleb128 0x1
+ 1270 0055 12       		.uleb128 0x12
+ 1271 0056 06       		.uleb128 0x6
+ 1272 0057 40       		.uleb128 0x40
+ 1273 0058 18       		.uleb128 0x18
+ 1274 0059 9642     		.uleb128 0x2116
+ 1275 005b 19       		.uleb128 0x19
+ 1276 005c 01       		.uleb128 0x1
+ 1277 005d 13       		.uleb128 0x13
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 28
+
+
+ 1278 005e 00       		.byte	0
+ 1279 005f 00       		.byte	0
+ 1280 0060 08       		.uleb128 0x8
+ 1281 0061 34       		.uleb128 0x34
+ 1282 0062 00       		.byte	0
+ 1283 0063 03       		.uleb128 0x3
+ 1284 0064 0E       		.uleb128 0xe
+ 1285 0065 3A       		.uleb128 0x3a
+ 1286 0066 0B       		.uleb128 0xb
+ 1287 0067 3B       		.uleb128 0x3b
+ 1288 0068 0B       		.uleb128 0xb
+ 1289 0069 49       		.uleb128 0x49
+ 1290 006a 13       		.uleb128 0x13
+ 1291 006b 02       		.uleb128 0x2
+ 1292 006c 18       		.uleb128 0x18
+ 1293 006d 00       		.byte	0
+ 1294 006e 00       		.byte	0
+ 1295 006f 09       		.uleb128 0x9
+ 1296 0070 0B       		.uleb128 0xb
+ 1297 0071 01       		.byte	0x1
+ 1298 0072 55       		.uleb128 0x55
+ 1299 0073 17       		.uleb128 0x17
+ 1300 0074 00       		.byte	0
+ 1301 0075 00       		.byte	0
+ 1302 0076 0A       		.uleb128 0xa
+ 1303 0077 01       		.uleb128 0x1
+ 1304 0078 01       		.byte	0x1
+ 1305 0079 49       		.uleb128 0x49
+ 1306 007a 13       		.uleb128 0x13
+ 1307 007b 01       		.uleb128 0x1
+ 1308 007c 13       		.uleb128 0x13
+ 1309 007d 00       		.byte	0
+ 1310 007e 00       		.byte	0
+ 1311 007f 0B       		.uleb128 0xb
+ 1312 0080 21       		.uleb128 0x21
+ 1313 0081 00       		.byte	0
+ 1314 0082 49       		.uleb128 0x49
+ 1315 0083 13       		.uleb128 0x13
+ 1316 0084 2F       		.uleb128 0x2f
+ 1317 0085 0B       		.uleb128 0xb
+ 1318 0086 00       		.byte	0
+ 1319 0087 00       		.byte	0
+ 1320 0088 0C       		.uleb128 0xc
+ 1321 0089 2E       		.uleb128 0x2e
+ 1322 008a 01       		.byte	0x1
+ 1323 008b 3F       		.uleb128 0x3f
+ 1324 008c 19       		.uleb128 0x19
+ 1325 008d 03       		.uleb128 0x3
+ 1326 008e 0E       		.uleb128 0xe
+ 1327 008f 3A       		.uleb128 0x3a
+ 1328 0090 0B       		.uleb128 0xb
+ 1329 0091 3B       		.uleb128 0x3b
+ 1330 0092 0B       		.uleb128 0xb
+ 1331 0093 27       		.uleb128 0x27
+ 1332 0094 19       		.uleb128 0x19
+ 1333 0095 11       		.uleb128 0x11
+ 1334 0096 01       		.uleb128 0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 29
+
+
+ 1335 0097 12       		.uleb128 0x12
+ 1336 0098 06       		.uleb128 0x6
+ 1337 0099 40       		.uleb128 0x40
+ 1338 009a 18       		.uleb128 0x18
+ 1339 009b 9642     		.uleb128 0x2116
+ 1340 009d 19       		.uleb128 0x19
+ 1341 009e 01       		.uleb128 0x1
+ 1342 009f 13       		.uleb128 0x13
+ 1343 00a0 00       		.byte	0
+ 1344 00a1 00       		.byte	0
+ 1345 00a2 0D       		.uleb128 0xd
+ 1346 00a3 05       		.uleb128 0x5
+ 1347 00a4 00       		.byte	0
+ 1348 00a5 03       		.uleb128 0x3
+ 1349 00a6 0E       		.uleb128 0xe
+ 1350 00a7 3A       		.uleb128 0x3a
+ 1351 00a8 0B       		.uleb128 0xb
+ 1352 00a9 3B       		.uleb128 0x3b
+ 1353 00aa 0B       		.uleb128 0xb
+ 1354 00ab 49       		.uleb128 0x49
+ 1355 00ac 13       		.uleb128 0x13
+ 1356 00ad 02       		.uleb128 0x2
+ 1357 00ae 18       		.uleb128 0x18
+ 1358 00af 00       		.byte	0
+ 1359 00b0 00       		.byte	0
+ 1360 00b1 0E       		.uleb128 0xe
+ 1361 00b2 34       		.uleb128 0x34
+ 1362 00b3 00       		.byte	0
+ 1363 00b4 03       		.uleb128 0x3
+ 1364 00b5 08       		.uleb128 0x8
+ 1365 00b6 3A       		.uleb128 0x3a
+ 1366 00b7 0B       		.uleb128 0xb
+ 1367 00b8 3B       		.uleb128 0x3b
+ 1368 00b9 0B       		.uleb128 0xb
+ 1369 00ba 49       		.uleb128 0x49
+ 1370 00bb 13       		.uleb128 0x13
+ 1371 00bc 02       		.uleb128 0x2
+ 1372 00bd 18       		.uleb128 0x18
+ 1373 00be 00       		.byte	0
+ 1374 00bf 00       		.byte	0
+ 1375 00c0 0F       		.uleb128 0xf
+ 1376 00c1 2E       		.uleb128 0x2e
+ 1377 00c2 01       		.byte	0x1
+ 1378 00c3 3F       		.uleb128 0x3f
+ 1379 00c4 19       		.uleb128 0x19
+ 1380 00c5 03       		.uleb128 0x3
+ 1381 00c6 0E       		.uleb128 0xe
+ 1382 00c7 3A       		.uleb128 0x3a
+ 1383 00c8 0B       		.uleb128 0xb
+ 1384 00c9 3B       		.uleb128 0x3b
+ 1385 00ca 0B       		.uleb128 0xb
+ 1386 00cb 27       		.uleb128 0x27
+ 1387 00cc 19       		.uleb128 0x19
+ 1388 00cd 49       		.uleb128 0x49
+ 1389 00ce 13       		.uleb128 0x13
+ 1390 00cf 11       		.uleb128 0x11
+ 1391 00d0 01       		.uleb128 0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 30
+
+
+ 1392 00d1 12       		.uleb128 0x12
+ 1393 00d2 06       		.uleb128 0x6
+ 1394 00d3 40       		.uleb128 0x40
+ 1395 00d4 18       		.uleb128 0x18
+ 1396 00d5 9642     		.uleb128 0x2116
+ 1397 00d7 19       		.uleb128 0x19
+ 1398 00d8 01       		.uleb128 0x1
+ 1399 00d9 13       		.uleb128 0x13
+ 1400 00da 00       		.byte	0
+ 1401 00db 00       		.byte	0
+ 1402 00dc 10       		.uleb128 0x10
+ 1403 00dd 05       		.uleb128 0x5
+ 1404 00de 00       		.byte	0
+ 1405 00df 03       		.uleb128 0x3
+ 1406 00e0 08       		.uleb128 0x8
+ 1407 00e1 3A       		.uleb128 0x3a
+ 1408 00e2 0B       		.uleb128 0xb
+ 1409 00e3 3B       		.uleb128 0x3b
+ 1410 00e4 0B       		.uleb128 0xb
+ 1411 00e5 49       		.uleb128 0x49
+ 1412 00e6 13       		.uleb128 0x13
+ 1413 00e7 02       		.uleb128 0x2
+ 1414 00e8 18       		.uleb128 0x18
+ 1415 00e9 00       		.byte	0
+ 1416 00ea 00       		.byte	0
+ 1417 00eb 11       		.uleb128 0x11
+ 1418 00ec 2E       		.uleb128 0x2e
+ 1419 00ed 00       		.byte	0
+ 1420 00ee 3F       		.uleb128 0x3f
+ 1421 00ef 19       		.uleb128 0x19
+ 1422 00f0 03       		.uleb128 0x3
+ 1423 00f1 0E       		.uleb128 0xe
+ 1424 00f2 3A       		.uleb128 0x3a
+ 1425 00f3 0B       		.uleb128 0xb
+ 1426 00f4 3B       		.uleb128 0x3b
+ 1427 00f5 0B       		.uleb128 0xb
+ 1428 00f6 27       		.uleb128 0x27
+ 1429 00f7 19       		.uleb128 0x19
+ 1430 00f8 11       		.uleb128 0x11
+ 1431 00f9 01       		.uleb128 0x1
+ 1432 00fa 12       		.uleb128 0x12
+ 1433 00fb 06       		.uleb128 0x6
+ 1434 00fc 40       		.uleb128 0x40
+ 1435 00fd 18       		.uleb128 0x18
+ 1436 00fe 9642     		.uleb128 0x2116
+ 1437 0100 19       		.uleb128 0x19
+ 1438 0101 00       		.byte	0
+ 1439 0102 00       		.byte	0
+ 1440 0103 12       		.uleb128 0x12
+ 1441 0104 34       		.uleb128 0x34
+ 1442 0105 00       		.byte	0
+ 1443 0106 03       		.uleb128 0x3
+ 1444 0107 0E       		.uleb128 0xe
+ 1445 0108 3A       		.uleb128 0x3a
+ 1446 0109 0B       		.uleb128 0xb
+ 1447 010a 3B       		.uleb128 0x3b
+ 1448 010b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 31
+
+
+ 1449 010c 49       		.uleb128 0x49
+ 1450 010d 13       		.uleb128 0x13
+ 1451 010e 3F       		.uleb128 0x3f
+ 1452 010f 19       		.uleb128 0x19
+ 1453 0110 02       		.uleb128 0x2
+ 1454 0111 18       		.uleb128 0x18
+ 1455 0112 00       		.byte	0
+ 1456 0113 00       		.byte	0
+ 1457 0114 13       		.uleb128 0x13
+ 1458 0115 26       		.uleb128 0x26
+ 1459 0116 00       		.byte	0
+ 1460 0117 49       		.uleb128 0x49
+ 1461 0118 13       		.uleb128 0x13
+ 1462 0119 00       		.byte	0
+ 1463 011a 00       		.byte	0
+ 1464 011b 00       		.byte	0
+ 1465              		.section	.debug_aranges,"",%progbits
+ 1466 0000 54000000 		.4byte	0x54
+ 1467 0004 0200     		.2byte	0x2
+ 1468 0006 00000000 		.4byte	.Ldebug_info0
+ 1469 000a 04       		.byte	0x4
+ 1470 000b 00       		.byte	0
+ 1471 000c 0000     		.2byte	0
+ 1472 000e 0000     		.2byte	0
+ 1473 0010 00000000 		.4byte	.LFB33
+ 1474 0014 7C010000 		.4byte	.LFE33-.LFB33
+ 1475 0018 00000000 		.4byte	.LFB34
+ 1476 001c 50000000 		.4byte	.LFE34-.LFB34
+ 1477 0020 00000000 		.4byte	.LFB35
+ 1478 0024 66000000 		.4byte	.LFE35-.LFB35
+ 1479 0028 00000000 		.4byte	.LFB36
+ 1480 002c 4E000000 		.4byte	.LFE36-.LFB36
+ 1481 0030 00000000 		.4byte	.LFB37
+ 1482 0034 48000000 		.4byte	.LFE37-.LFB37
+ 1483 0038 00000000 		.4byte	.LFB38
+ 1484 003c 74000000 		.4byte	.LFE38-.LFB38
+ 1485 0040 00000000 		.4byte	.LFB39
+ 1486 0044 12000000 		.4byte	.LFE39-.LFB39
+ 1487 0048 00000000 		.4byte	.LFB40
+ 1488 004c 28000000 		.4byte	.LFE40-.LFB40
+ 1489 0050 00000000 		.4byte	0
+ 1490 0054 00000000 		.4byte	0
+ 1491              		.section	.debug_ranges,"",%progbits
+ 1492              	.Ldebug_ranges0:
+ 1493 0000 3C000000 		.4byte	.LBB2
+ 1494 0004 38010000 		.4byte	.LBE2
+ 1495 0008 3A010000 		.4byte	.LBB3
+ 1496 000c 7C010000 		.4byte	.LBE3
+ 1497 0010 00000000 		.4byte	0
+ 1498 0014 00000000 		.4byte	0
+ 1499 0018 00000000 		.4byte	.LFB33
+ 1500 001c 7C010000 		.4byte	.LFE33
+ 1501 0020 00000000 		.4byte	.LFB34
+ 1502 0024 50000000 		.4byte	.LFE34
+ 1503 0028 00000000 		.4byte	.LFB35
+ 1504 002c 66000000 		.4byte	.LFE35
+ 1505 0030 00000000 		.4byte	.LFB36
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 32
+
+
+ 1506 0034 4E000000 		.4byte	.LFE36
+ 1507 0038 00000000 		.4byte	.LFB37
+ 1508 003c 48000000 		.4byte	.LFE37
+ 1509 0040 00000000 		.4byte	.LFB38
+ 1510 0044 74000000 		.4byte	.LFE38
+ 1511 0048 00000000 		.4byte	.LFB39
+ 1512 004c 12000000 		.4byte	.LFE39
+ 1513 0050 00000000 		.4byte	.LFB40
+ 1514 0054 28000000 		.4byte	.LFE40
+ 1515 0058 00000000 		.4byte	0
+ 1516 005c 00000000 		.4byte	0
+ 1517              		.section	.debug_line,"",%progbits
+ 1518              	.Ldebug_line0:
+ 1519 0000 50020000 		.section	.debug_str,"MS",%progbits,1
+ 1519      02005401 
+ 1519      00000201 
+ 1519      FB0E0D00 
+ 1519      01010101 
+ 1520              	.LASF2:
+ 1521 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 1521      6E74385F 
+ 1521      7400
+ 1522              	.LASF35:
+ 1523 000a 72656164 		.ascii	"readAccData\000"
+ 1523      41636344 
+ 1523      61746100 
+ 1524              	.LASF3:
+ 1525 0016 5F5F696E 		.ascii	"__int16_t\000"
+ 1525      7431365F 
+ 1525      7400
+ 1526              	.LASF42:
+ 1527 0020 65737441 		.ascii	"estAng\000"
+ 1527      6E6700
+ 1528              	.LASF30:
+ 1529 0027 61727261 		.ascii	"arrayLen\000"
+ 1529      794C656E 
+ 1529      00
+ 1530              	.LASF6:
+ 1531 0030 5F5F696E 		.ascii	"__int32_t\000"
+ 1531      7433325F 
+ 1531      7400
+ 1532              	.LASF40:
+ 1533 003a 696D7549 		.ascii	"imuInitArray\000"
+ 1533      6E697441 
+ 1533      72726179 
+ 1533      00
+ 1534              	.LASF32:
+ 1535 0047 72656164 		.ascii	"readGyroData\000"
+ 1535      4779726F 
+ 1535      44617461 
+ 1535      00
+ 1536              	.LASF5:
+ 1537 0054 73686F72 		.ascii	"short unsigned int\000"
+ 1537      7420756E 
+ 1537      7369676E 
+ 1537      65642069 
+ 1537      6E7400
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 33
+
+
+ 1538              	.LASF18:
+ 1539 0067 646F7562 		.ascii	"double\000"
+ 1539      6C6500
+ 1540              	.LASF15:
+ 1541 006e 75696E74 		.ascii	"uint8\000"
+ 1541      3800
+ 1542              	.LASF36:
+ 1543 0074 61636344 		.ascii	"accData\000"
+ 1543      61746100 
+ 1544              	.LASF23:
+ 1545 007c 666F7263 		.ascii	"forceMagEst\000"
+ 1545      654D6167 
+ 1545      45737400 
+ 1546              	.LASF17:
+ 1547 0088 666C6F61 		.ascii	"float\000"
+ 1547      7400
+ 1548              	.LASF43:
+ 1549 008e 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1549      4320342E 
+ 1549      382E3420 
+ 1549      32303134 
+ 1549      30353236 
+ 1550 00c1 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1550      20726576 
+ 1550      6973696F 
+ 1550      6E203231 
+ 1550      31333538 
+ 1551 00f4 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1551      66756E63 
+ 1551      74696F6E 
+ 1551      2D736563 
+ 1551      74696F6E 
+ 1552              	.LASF22:
+ 1553 010a 6779726F 		.ascii	"gyroAng\000"
+ 1553      416E6700 
+ 1554              	.LASF46:
+ 1555 0112 72656164 		.ascii	"readI2CReg\000"
+ 1555      49324352 
+ 1555      656700
+ 1556              	.LASF1:
+ 1557 011d 756E7369 		.ascii	"unsigned char\000"
+ 1557      676E6564 
+ 1557      20636861 
+ 1557      7200
+ 1558              	.LASF29:
+ 1559 012b 696E6974 		.ascii	"initArray\000"
+ 1559      41727261 
+ 1559      7900
+ 1560              	.LASF16:
+ 1561 0135 696E7431 		.ascii	"int16\000"
+ 1561      3600
+ 1562              	.LASF47:
+ 1563 013b 6779726F 		.ascii	"gyroDataReadyInterrupt\000"
+ 1563      44617461 
+ 1563      52656164 
+ 1563      79496E74 
+ 1563      65727275 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 34
+
+
+ 1564              	.LASF28:
+ 1565 0152 61646472 		.ascii	"addr\000"
+ 1565      00
+ 1566              	.LASF27:
+ 1567 0157 73657475 		.ascii	"setupI2CDevice\000"
+ 1567      70493243 
+ 1567      44657669 
+ 1567      636500
+ 1568              	.LASF24:
+ 1569 0166 61636341 		.ascii	"accAng\000"
+ 1569      6E6700
+ 1570              	.LASF44:
+ 1571 016d 2E5C6D61 		.ascii	".\\main.c\000"
+ 1571      696E2E63 
+ 1571      00
+ 1572              	.LASF8:
+ 1573 0176 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1573      20756E73 
+ 1573      69676E65 
+ 1573      6420696E 
+ 1573      7400
+ 1574              	.LASF26:
+ 1575 0188 6D61696E 		.ascii	"main\000"
+ 1575      00
+ 1576              	.LASF25:
+ 1577 018d 72657375 		.ascii	"result\000"
+ 1577      6C7400
+ 1578              	.LASF31:
+ 1579 0194 77726974 		.ascii	"writeI2CReg\000"
+ 1579      65493243 
+ 1579      52656700 
+ 1580              	.LASF11:
+ 1581 01a0 756E7369 		.ascii	"unsigned int\000"
+ 1581      676E6564 
+ 1581      20696E74 
+ 1581      00
+ 1582              	.LASF10:
+ 1583 01ad 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1583      206C6F6E 
+ 1583      6720756E 
+ 1583      7369676E 
+ 1583      65642069 
+ 1584              	.LASF12:
+ 1585 01c4 75696E74 		.ascii	"uint8_t\000"
+ 1585      385F7400 
+ 1586              	.LASF45:
+ 1587 01cc 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1587      73657273 
+ 1587      5C46656C 
+ 1587      69785C47 
+ 1587      6F6F676C 
+ 1588 01fa 73797374 		.ascii	"system arbejdsdokumenter\\Vinkelsensor.cydsn\000"
+ 1588      656D2061 
+ 1588      7262656A 
+ 1588      6473646F 
+ 1588      6B756D65 
+ 1589              	.LASF13:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMAvig3.s 			page 35
+
+
+ 1590 0226 696E7431 		.ascii	"int16_t\000"
+ 1590      365F7400 
+ 1591              	.LASF14:
+ 1592 022e 696E7433 		.ascii	"int32_t\000"
+ 1592      325F7400 
+ 1593              	.LASF20:
+ 1594 0236 73697A65 		.ascii	"sizetype\000"
+ 1594      74797065 
+ 1594      00
+ 1595              	.LASF39:
+ 1596 023f 6572726F 		.ascii	"error\000"
+ 1596      7200
+ 1597              	.LASF9:
+ 1598 0245 6C6F6E67 		.ascii	"long long int\000"
+ 1598      206C6F6E 
+ 1598      6720696E 
+ 1598      7400
+ 1599              	.LASF19:
+ 1600 0253 63686172 		.ascii	"char\000"
+ 1600      00
+ 1601              	.LASF41:
+ 1602 0258 64617461 		.ascii	"dataReady\000"
+ 1602      52656164 
+ 1602      7900
+ 1603              	.LASF4:
+ 1604 0262 73686F72 		.ascii	"short int\000"
+ 1604      7420696E 
+ 1604      7400
+ 1605              	.LASF21:
+ 1606 026c 66697831 		.ascii	"fix16_t\000"
+ 1606      365F7400 
+ 1607              	.LASF33:
+ 1608 0274 6779726F 		.ascii	"gyroData\000"
+ 1608      44617461 
+ 1608      00
+ 1609              	.LASF7:
+ 1610 027d 6C6F6E67 		.ascii	"long int\000"
+ 1610      20696E74 
+ 1610      00
+ 1611              	.LASF37:
+ 1612 0286 72617741 		.ascii	"rawAccY\000"
+ 1612      63635900 
+ 1613              	.LASF38:
+ 1614 028e 72617741 		.ascii	"rawAccZ\000"
+ 1614      63635A00 
+ 1615              	.LASF0:
+ 1616 0296 7369676E 		.ascii	"signed char\000"
+ 1616      65642063 
+ 1616      68617200 
+ 1617              	.LASF34:
+ 1618 02a2 72617747 		.ascii	"rawGyroX\000"
+ 1618      79726F58 
+ 1618      00
+ 1619              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
