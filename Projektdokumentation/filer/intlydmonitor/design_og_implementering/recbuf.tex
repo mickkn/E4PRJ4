@@ -1,6 +1,5 @@
 %RecBuf design
-\newpage
-\subsection{Recbuf}
+\subsection{RecBuf}
 I dette afsnit beskrives principper og design for RecBuf i Intelligent Lydmonitor.
 Samples modtaget fra prefilteret gemmes i RecBuf. Når der ligger en samplesekvens svarende til 5 sekunders samples i RecBuf, skal denne kalde Analyzers analyze() med startindexet for denne 5 sekunders optagelse. Idet den kaldes, skal samplesekvensen låses og dermed skærmes mod overskrivning. Imidlertid fortsættes samplingen og et nyt start-index sættes. Når analysen afsluttes notificeres RecBuf og låser sekvensen op. Det opstår således et hastigheds-krav til analyze og et størrelseskrav til RecBuf, idet analyze skal afslutte inden RecBuf når den låste sekvens igen. 
 
