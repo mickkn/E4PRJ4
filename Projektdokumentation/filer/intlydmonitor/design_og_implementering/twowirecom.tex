@@ -10,10 +10,49 @@ Klassen er implementeret ved hjælp af funktioner fra T\_GPIO\_BANKS. Inkluderin
 #include <cdefBF533.h>
 #include "sysreg.h"
 #include "ccblkfn.h"
-
-#define OUTPUT_PIN_MSB PF4
-#define OUTPUT_PIN_LSB PF6
-void twoWireTTL(int);
 \end{verbatim}
 
-Ovenstående er et uddrag fra TwoWireCom.h hvilken indeholder prototypen for funktionen, twoWireTTL, samt defined GPIO pins til senere brug.  
+Som det ses i kodestykket herunder, er klassen TwoWireCom simpel med kun en funktion \textit{send(int bc)} som modtager et BABYCON-niveau i form af en int.
+Der benyttes to GPIO pins PF4 og PF6, disse skal repræsentere henholdsvis MSB og LSB jf. \ref{Overordnet:Kommunikationsprotokol/BABYCON1} . Yderlige specifikationer kan findes i databladet \textbf{INDSÆT REFERENCE} side 84. 
+
+\begin{verbatim}
+class TwoWireCom {
+public:
+	TwoWireCom();
+	virtual ~TwoWireCom();
+	void send(int);
+};
+\end{verbatim}
+
+\textit{send(int bc)} implementeres som en switch case, der switcher på de tre BABYCON-niveauer 1, 2 og 3. Som default sendes 0. Dette er koden for error. Det kan også være at funktionen er kaldt med en værdi der ikke er 1, 2 eller 3.  
+pFIO\_FLAG's benyttes til at sætte GPIO-pin højt eller lavt, ved at sætte flaget lig med den GPIO pin man ønsker høj eller lav. 
+
+\begin{verbatim}
+void TwoWireCom::send(int bc)
+{
+	switch(bc){
+	case 1:	//babycon_level = 1, must set GPIO OUTPUT_PIN_MSB = 0, OUTPUT_PIN_LSB = 1.
+		*pFIO_FLAG_S = OUTPUT_PIN_LSB; // Pointer to BANKS' GPIO write to set register (Set high)
+		*pFIO_FLAG_C = OUTPUT_PIN_MSB; //Pointer to BANKS' GPIO Write to Clear register (set low)
+		break;
+
+	case 2:
+		//babycon_level = 2, must set GPIO OUTPUT_PIN_MSB = 1, OUTPUT_PIN_LSB = 0.
+		*pFIO_FLAG_S = OUTPUT_PIN_MSB;
+		*pFIO_FLAG_C = OUTPUT_PIN_LSB;
+		break;
+
+	case 3:
+		//babycon_level = 3, must set GPIO OUTPUT_PIN_MSB = 1, OUTPUT_PIN_LSB = 1.
+		*pFIO_FLAG_S = OUTPUT_PIN_LSB;
+		*pFIO_FLAG_S = OUTPUT_PIN_MSB;
+		break;
+		
+	default:
+		//babycon_level != 1-3, must set GPIO OUTPUT_PIN_MSB = 0, OUTPUT_PIN_LSB = 0 for error
+		*pFIO_FLAG_C = OUTPUT_PIN_MSB;
+		*pFIO_FLAG_C = OUTPUT_PIN_LSB;
+		break;
+	}
+\end{verbatim}
+
