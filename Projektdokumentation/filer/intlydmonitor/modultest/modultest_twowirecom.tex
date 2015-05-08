@@ -1,4 +1,33 @@
 %Modultest TwoWireCom
 \subsection{Modultest TwoWireCom}
+\textbf{Formål} \\
+Formålet er at teste om klassen TwoWireCom sætter GPIO's PF4 og PF6 korrekt jf. Tabel \ref{Overordnet:Kommunikationsprotokol/BABYCON1}
+
+\textbf{Opstilling til test af TwoWireCom test}
+
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CCES er kørende på PC
+	\item Analog Discovery er tilsluttet PC via COM-port
+	\item Waveform er kørende på PC
+	\item Analog Discovery oscilloskop 1 er sat til Blackfin533's GPIO-pin PF4
+	\item Analog Discovery oscilloskop 2 er sat til Blackfin533's GPIO-pin PF6
+\end{itemize}
+
+\textbf{Testprocedure}
+\begin{enumerate}
+	\item Projektet med TwoWireCom testen eksekveres 
+	\item Oscilloskoperne optages og billedet gemmes
+\end{enumerate}
+
+\textbf{Forventet resultat} \\
+Det forventes at alle fire kombinationer for de to GPIO-pins er registreret.  \\
+\textbf{Resultat} \\
+Som det ses af Figur \ref{TwoWireComTest} forekommer alle fire kombinationer. \\
+
+\figur{1}{intlydmonitor/modultest/GPIO_test_med_tilskrift}{Oscilloskop billede af test}{TwoWireComTest}
+
+\textit{Testen er godkendt}
 
 
