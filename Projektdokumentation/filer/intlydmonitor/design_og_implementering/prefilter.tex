@@ -1,3 +1,65 @@
 %prefilter
 \subsection{Prefilter}
+Prefilter står for forfiltreringen af signalet modtaget fra Blackfin-kittets ADC inden det gemmes i RecBuf.
+
+Denne forfiltrering består af
+\begin{itemize}
+	\item Decimation bestående af lavpasfiltrering og downsampling
+	\item Højpasfiltrering til fra filtrering af lavfrekvent støj såsom vind.
+\end{itemize}
+
+\subsubsection{Decimation}
+Blackfin kittets AD1836 kan sample enten med 48kHz eller 96 kHz. Idet mikrofonens båndbredde er 10kHz, tillader shannons samplings sætning os at opnå en beregningsmæssig besparelse ved at decimere fra 48kHz til et 24kHz signal (min 20kHz er nødvendig).
+Vores range of interest bliver 0-10 kHz.
+
+\subsubsection*{Lavpasfiltrering} 
+Det ønskes at lave et FIR lavpasfiltr, der dæmper ripple fra det spektrale spejlings-replika omkring den nye sample-frekvens med ca. 60dB. 
+I figurudsnittet herunder ses en illustration af lavpasfilterets frekvensrespons relativt til båndbredden B':
+
+\figur{0.8}{intlydmonitor/design/lp_understanding_dsp_fig_10_2}{Lavpasfilterets frekvensrespons relativt til båndbredden B'. Kilde: Lyons, fig. 10.2}{intlyd:prefilter:lp_kar}
+Vi kan beregne den nødvendige filterorden ved Lyons Eq.5-49:
+\begin{center}
+${ N }_{ FIR }\approx \frac { Atten }{ 22\cdot \left( { f }_{ stop }-{ f }_{ pass } \right)  }$
+\end{center}
+Hvor Atten er den ønskede dæmpning i dB og f\begin{tiny}stop\end{tiny} og f\begin{tiny}pass\end{tiny} er frekvenser normaliseret til fs. I vores tilfælde bliver ${ N }_{ FIR }=33$. Dette er relativt småt, og en two-stage decimation er ikke nødvendig for at sænke den totale orden.
+
+Filteret beregnes i matlab med funktionen \verb+fir1()+ som følger:
+\begin{verbatim}%**** LOW PASS ***********************************************
+atten = 60;                 %ønsket dæmpning i dB
+f_pass =  bw/fs             %freq normalized to fs
+f_stop = (fs_new - bw)/fs   %freq normalized to fs
+N_fir = ceil(atten/(22*(f_stop-f_pass)))
+
+b = fir1(N_fir, f_pass);
+figure(2), freqz(b)
+%*************************************************************
+\end{verbatim}
+
+Denne filterorden når dog ikke helt ønskede dæmpning ved f\begin{tiny}stop\end{tiny} og en orden 5 lægges oveni. Følgende filter-karakteristik opnås:
+\figur{0.6}{intlydmonitor/design/lp_N38_freqz}{Frekvensrespons for designet lavpasfilter}{intlyd:prefilter:lp_freqz}
+
+Markeret på figuren er f\begin{tiny}pass\end{tiny}, f\begin{tiny}stop\end{tiny} og et punkt midt i stopbåndet. Det ses at der opnås ca. 45 dB dæmpning ved f\begin{tiny}stop\end{tiny}, men at den generelle dæmpning i pasbåndet er ca. 63 dB. Dette regnes for tilstrækkeligt
+
+\subsubsection*{Downsampling} 
+Nedsamplingen sker ved en faktor 2 og er således ligetil: Et evt. polyphase filter er unødvendigt
+
+\subsubsection{Højpasfiltrering}
+Af forundersøgelsen konkluderes det, at frekvenser under 500 Hz ikke skulle benyttes til bestemmelse af babygråd. Der designes således et 2. orden IIR butterworth højpasfilter til frafiltrering af disse. Filtret designes med matlabs \verb+butter()+ funktion som følger:
+\begin{verbatim}%**** HIGH PASS **********************************************
+order = 2;
+f_hp = 500;
+f_cutoff = f_hp/fs_new;
+
+[b,a] = butter(order, f_cutoff,'high')
+figure(3),freqz(b,a)
+%*************************************************************
+\end{verbatim}
+Følgende filterkarakteristik opnås:
+\figur{0.6}{intlydmonitor/design/hp_freqz}{Frekvensrespons for designet højpasfilter}{intlyd:prefilter:hp_freqz}
+
+Markeret på figureren er f\begin{tiny}cutoff\end{tiny}.
+
+\subsubsection{Implementering på blackfin}
+\textbf{Datatype} \\
+Filterkoefficienterne beregnes i matlab i formatet \verb+float+. Ved implementering på blackfin omkonverteres disse værdier til typen \verb+fract16+ med funktionen \verb+float_to_fr16+.
 

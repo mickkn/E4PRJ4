@@ -1,0 +1,20 @@
+%analyzer
+\subsection{Generelt}
+
+\subsubsection{Datatyper}
+For på letteste og mest effektive vis at implementere filter og fft funktioner på systemet, uden at skulle programmeres inline assembly, gøres brug af native fixed-point typen \verb+fract+, som defineret i Kapitel 4 af \textit{Extensions to support embedded processors} ISO/IEC Technical Rapport 18037. 
+Denne type har altså radix punktet i en fast position med et antal fractionelle bits over nul. 
+
+Herunder ses en tabel over fract type, repræsentation og range:
+
+\begin{center}
+    \begin{tabular}{ | p{4,5cm} | p{4,5cm} | p{4,5cm} |}
+    \hline
+    \textbf{Type}				& \textbf{Repræsentation}	& \textbf{Range}	\\ \hline
+    \verb+short fract+ 			& s1.15						& [-1.0,1.0)		\\ \hline
+    \verb+fract+ 				& s1.15						& [-1.0,1.0)		\\ \hline
+    \verb+long fract+ 			& s1.31						& [-1.0,1.0)		\\ \hline
+    \end{tabular}
+\end{center}
+
+Typerne \verb+short fract+ og \verb+fract+ er altså 16 bit typer med et signed bit på venstre side af radix punktet og 15 brøk-bits på højre side. Dens range er større end -1.0 og skarpt mindre end 1. \verb+long fract+ har 31 brøk-bits og har således højere opløsning.
