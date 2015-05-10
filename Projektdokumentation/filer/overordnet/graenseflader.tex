@@ -79,7 +79,7 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \caption{Specifikation af I2C grænseflade}
 \begin{tabular}{|p{1cm}|p{2.4cm}|p{1cm}|p{5.5cm}|p{2.5cm}|}
 \hline 
-\multicolumn{5}{|l|}{\textbf{I2C Adresse:} 0b1111000X  (Write: 0xF0, Read: 0xF1} \\ 
+\multicolumn{5}{|l|}{\textbf{I2C Adresse:} 0b1111000X  (Write: 0xF0, Read: 0xF1)} \\ 
 \hline 
 \multicolumn{5}{|l|}{\textbf{I2C Frekvens:} 100kHz} \\ 
 \hline 
@@ -87,7 +87,14 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \hline 
 0x00 & ID & \textbf{R} & Indeholder et id som kan benyttes til at identificere denne enhed, eller til at teste forbindelsen til denne. & 0xFB \\ 
 \hline 
-\multirow{5}{*}{0x01} & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] et 1 tal indikerer en fejl & 0b0000XXXX \\ \cline{2-5}
+
+0x01 & ON\_OFF & \textbf(R/W) & Dette register benyttes til at tænde og slukke for systemet. Skrives et nul til dette register begynder systemet at lukke ned. Strømmen til systemet bør ikke afbrydes før SD\_RDY i status registeret er skiftet til et. Hvis systemet er tændt indeholder registeret en værdi forskellig fra 0. & 0xFF \\ \hline
+
+0x02 & Frekvens & \textbf{R/W} & Værdien i dette register styrer frekvensen hvormed der vugges. Område: \SI{0}{\hertz} = \SI{2.550}{\hertz},  1 LSB = \SI{10}{\milli\hertz}. & 0x00 \\ \hline
+
+0x03 & Vinkeludsving & \textbf{R/W} & Værdien i dette register kontrollerer størrelsen af vuggens udsving i grader. Område: +/- \SI{12.75}{\degree}, 1 LSB = \SI{0.05}{\degree}. & 0x00 \\ \hline
+
+\multirow{5}{*}{0x04} & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] et 1 tal indikerer en fejl & 0b0000XXXX \\ \cline{2-5}
 
 	&\multicolumn {2}{p{3cm} |} {\textbf{ERR}} & \multicolumn {2}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Vuggesystemet er deaktiveret indtil der er blevet genstartet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP} \\ \cline{2-5}
 
@@ -96,12 +103,6 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 	&\multicolumn {2}{p{3cm} |} {\textbf{END\_STP}} & \multicolumn {2}{p{8cm} |} {Indikerer at vuggen har ramt en af sine mekaniske yderpositioner.} \\ \cline{2-5}
 
 	&\multicolumn {2}{p{3cm} |} {\textbf{SD\_RDY}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet er klar til at få afbrudt strømmen} \\ \hline
-0x02 & ON\_OFF & \textbf(R/W) & Dette register benyttes til at tænde og slukke for systemet. Skrives et nul til dette register begynder systemet at lukke ned. Strømmen til systemet bør ikke afbrydes før SD\_RDY i status registeret er skiftet til et. Hvis systemet er tændt indeholder registeret en værdi forskellig fra 0. & 0xFF \\ \hline
-
-0x03 & Frekvens & \textbf{R/W} & Værdien i dette register styrer frekvensen hvormed der vugges. Område: \SI{0}{\hertz} = \SI{2.550}{\hertz},  1 LSB = \SI{10}{\milli\hertz}. & 0x00 \\ \hline
-
-0x04 & Vinkeludsving & \textbf{R/W} & Værdien i dette register kontrollerer størrelsen af vuggens udsving i grader. Område: +/- \SI{12.75}{\degree}, 1 LSB = \SI{0.05}{\degree}. & 0x00 \\ \hline
-
 \hline 
 \end{tabular}
 \end{table}
