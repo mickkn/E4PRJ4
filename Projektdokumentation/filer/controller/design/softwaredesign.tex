@@ -256,17 +256,70 @@ I dette afsnit beskrives hvordan Controllerens software er designet med klassedi
     \end{tabular}
 \end{center}
 
+
+
 {\centering
 \textbf{Website}\par
 }
-\textbf{Ansvar:} Til opdatering af hjemmeside \
+\textbf{Ansvar:} At styrer HTTP serveren med Baby Watch websiden \
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \\ \hline
-    \textbf{Parametre} 	& \\ \hline
-    \textbf{Returværdi}	& \\ \hline
-    \textbf{Beskrivelse}	& \\ \hline
+    \textbf{Funktion}	& \verb+void initWebServer() +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen 								\\ \hline
+    \textbf{Beskrivelse}	& Initierer Baby Watch HTTP-webserveren til BabyCon 3 niveau\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void stopWebServer() +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
+    \textbf{Returværdi}	& Ingen 								\\ \hline
+    \textbf{Beskrivelse}	& Lukker Baby Watch HTTP-webserveren \\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void updateToBabyCon1() +						\\ \hline
+    \textbf{Parametre} 	& Ingen													\\ \hline
+    \textbf{Returværdi}	& Ingen 												\\ \hline
+    \textbf{Beskrivelse}	& Opdatere Baby Watch HTTP-webserveren til BabyCon 1 niveau\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void updateToBabyCon2() +						\\ \hline
+    \textbf{Parametre} 	& Ingen													\\ \hline
+    \textbf{Returværdi}	& Ingen 												\\ \hline
+    \textbf{Beskrivelse}	& Opdatere Baby Watch HTTP-webserveren til BabyCon 2 niveau\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void updateToBabyCon3() +						\\ \hline
+    \textbf{Parametre} 	& Ingen													\\ \hline
+    \textbf{Returværdi}	& Ingen 												\\ \hline
+    \textbf{Beskrivelse}	& Opdatere Baby Watch HTTP-webserveren til BabyCon 1 niveau\\ \hline
+    \end{tabular}
+\end{center}
+
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void updateFile(int BCon) +						\\ \hline
+    \textbf{Parametre} 	& int Bcon angiver en værdi fra 1 til 3 som svarer til en BabyCon værdi													\\ \hline
+    \textbf{Returværdi}	& Ingen 												\\ \hline
+    \textbf{Beskrivelse}	& Opdatere Baby Watch filer efter anvisninger fra BCon værdi\\ \hline
     \end{tabular}
 \end{center}

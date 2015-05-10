@@ -31,3 +31,55 @@ Baby Watch kræver at der er noget synligt, der indikerer at der er en fejl på 
 For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden der med et interval pinger googles DNS server for svar og returnere \verb+true+ eller \verb+false+ alt efter om der er forbindelse eller ej. For at gøre det ekstra sikkert er der indført en ekstra ping adresse hvis googles DNS ikke svarer, dvs. der er et dobbelttjek på internet forbindelsen.
 
 Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et system kald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
+
+\subsubsection*{HTTP Server}
+
+Baby Watch webserveren er er implementeret med en microframework Flask  webserver udviklet af Armin Ronacher(REFERENCE). Servertypen hører under en fri BSD license(REFERENCE) og er igennem sin simple og lette struktur et ideel valg til en webserver integreret på et embedded-system med begrænset CPU-kraft. \\
+En Flask webserver består af en python-template der styrer en eller flere html-templates. Igennem python-templaten kan diverse billeder og tekst-strenge styres og opdateres løbende på html siden. Webserveren sørger selv for at sende de nødvendige data til en given bruger(browser) som tilgår websiden. 
+
+\textbf{Beskrivelse af pyhton-templaten og dens funktionaliteter}
+
+\vspace{5mm}
+
+\textbf{Beskrivelse af html-templaten og dens funktionaliteter} \\
+En \verb+html+ side består i grove træk af en header og en body. Headeren indeholder definitioner og funktioner som styrer de bagvedlæggende handlinger på hjemmesiden. Body-delen kalder disse definitioner og funktioner til at lave det grafiske interface på hjemmesiden. 
+\vspace{1mm} \\
+\verb+BabyWatch.html+s header: \\ 
+Er implementeret med en overordnet html-funktion som opdaterer hjemmesiden hvert tiende sekund. Herefter defineres fem styles, der henholdvis styrer toppen, bunden, siderne og et centreret billede på hjemmesiden. \\ Eksempel på toppen:  \\
+\verb+#header+ \\
+    \verb+background-color:lightblue;+\\
+    \verb+color:white;+\\
+    \verb+text-align:center;+\\
+    \verb+padding:5px;+\\
+\\Denne style laver et lyseblå felt med hvid skrift. Skriften centres og der paddes med en margin på 5 pixels rundt om feltet. De andre styles er udarbejdet på samme vis.\\
+Efter styles bliver der defineret to javascript funktioner, en til at hente klokkeslættet \verb+function startTime()+ og en til at opdatere hjemmesiden med det pågældende klokkeslæt \verb+function checkTime(i)+. Implementeringen på disse kan ses i bilag (REFERENCE)\vspace{2mm}\\
+\\ \verb+BabyWatch.html+s body: \\ 
+Body'en består af syv divisioner, en til højreside billede, en til toppen, en til bunden, en til klokkeslættet i venstreside, en til klokkeslættet af seneste opdatering af hjemmesiden, en til centerbilledet og en til den tilhørende tekst.\\
+\\Eksempel på html-kald af højreside billede: \\
+\verb+<div id="rightsection" >+\\
+\verb+<img +\\
+\verb+src="{{ url_for('static', filename=BabyConState) }}"+\\
+\verb+width="100"+\\
+\verb+ALT ="BabyCon"+\\
+\verb+></img>+\\
+\verb+</div>+\\
+\\Øverst er et kald til rightsection style. \verb+src+ laver et specielt kald som flaskserver-templaten kan genkende udfra filenavnet \verb+BabyConState+ hvilket indsætter babycon billedet. \verb+Width="100"+ definerer størrelsen på billedet vidde. \verb+ALT = "BabyCon"+ giver et alias til divisionen som kan bruges til debugging af hjemmesiden.\\
+\\Eksempel på et html-kald af et java-script:\\
+\verb+<div id ="leftsection">+ \\
+\verb+<h2>+ \\
+\verb+<div id ="txt">+ \\
+\\På samme måde som ved eksemplet laves der et kald til leftsection style. Herefter sættes en skriftstørrelse med \verb+<h2>+. Tilsidst kaldes javascript-funktionen der opdaterer med det pågældende tidspunkt vha. \verb+"txt"+.
+
+\textbf{Implemeteringen af webserver funktionerne på Controller}
+
+\verb+initWebServer()+
+
+\verb+stopWebServer()+
+
+\verb+updateToBabyCon1()+
+
+\verb+updateToBabyCon2()+
+
+\verb+updateToBabyCon3()+
+
+\verb+updateFile(int)+
