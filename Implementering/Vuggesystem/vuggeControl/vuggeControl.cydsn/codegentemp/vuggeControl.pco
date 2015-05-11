@@ -1,0 +1,53 @@
+# vuggeControl
+# 2015-05-11 16:23:41Z
+
+# IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 2
+# IO_3@[IOP=(3)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 3
+set_location "ClockBlock" m0s8clockblockcell -1 -1 0
+set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
+set_io "ESSwitch(0)" iocell 1 5
+set_location "Endstop_isr" interrupt -1 -1 0
+set_location "Net_2522" 1 1 0 1
+set_location "Net_2533" 1 1 1 1
+set_location "Net_2925" 0 0 1 0
+set_location "Net_3450" 1 0 0 1
+set_io "PWM_A(0)" iocell 0 1
+set_io "PWM_B(0)" iocell 0 0
+set_io "ShutdownSwich(0)" iocell 0 2
+set_io "Tx_1(0)" iocell 1 4
+set_location "\I2CVuggesystem:SCB\" m0s8scbcell -1 -1 0
+set_location "\I2CVuggesystem:SCB_IRQ\" interrupt -1 -1 10
+set_io "\I2CVuggesystem:scl(0)\" iocell 4 0
+set_io "\I2CVuggesystem:sda(0)\" iocell 4 1
+set_location "\PWM:PWMUDB:db_cnt_0\" 1 1 1 0
+set_location "\PWM:PWMUDB:db_cnt_1\" 1 1 0 0
+set_location "\PWM:PWMUDB:db_ph1_run_temp\" 0 1 1 0
+set_location "\PWM:PWMUDB:db_ph2_run_temp\" 0 1 0 0
+set_location "\PWM:PWMUDB:genblk1:ctrlreg\" 0 1 6
+set_location "\PWM:PWMUDB:genblk7:dbctrlreg\" 1 1 6
+set_location "\PWM:PWMUDB:pwm_db_reg\" 0 1 0 2
+set_location "\PWM:PWMUDB:runmode_enable\" 0 1 0 1
+set_location "\PWM:PWMUDB:sP8:pwmdp:u0\" 0 1 2
+set_location "\debugOut:BUART:counter_load_not\" 1 0 1 1
+set_location "\debugOut:BUART:sTX:TxShifter:u0\" 1 0 2
+set_location "\debugOut:BUART:sTX:TxSts\" 1 0 4
+set_location "\debugOut:BUART:sTX:sCLOCK:TxBitClkGen\" 1 1 2
+set_location "\debugOut:BUART:tx_bitclk\" 0 0 0 1
+set_location "\debugOut:BUART:tx_state_0\" 1 0 1 0
+set_location "\debugOut:BUART:tx_state_1\" 0 0 0 2
+set_location "\debugOut:BUART:tx_state_2\" 0 0 0 0
+set_location "\debugOut:BUART:tx_status_0\" 1 0 1 2
+set_location "\debugOut:BUART:tx_status_2\" 1 0 1 3
+set_location "\debugOut:BUART:txn\" 1 0 0 0
+set_location "\loopTimer:TimerUDB:rstSts:stsreg\" 0 0 4
+set_location "\loopTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\" 0 0 6
+set_location "\loopTimer:TimerUDB:sT8:timerdp:u0\" 0 0 2
+set_location "\loopTimer:TimerUDB:status_tc\" 0 0 0 3
+set_location "\sensorI2C:SCB\" m0s8scbcell -1 -1 1
+set_location "\sensorI2C:SCB_IRQ\" interrupt -1 -1 11
+set_io "\sensorI2C:scl(0)\" iocell 0 4
+set_io "\sensorI2C:sda(0)\" iocell 0 5
+set_io "activityDebug(0)" iocell 0 3
+set_location "loop_isr" interrupt -1 -1 2

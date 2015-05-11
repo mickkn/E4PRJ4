@@ -1,0 +1,885 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"debugOut_PM.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.bss
+  18              		.align	2
+  19              	debugOut_backup:
+  20 0000 00       		.space	1
+  21 0001 000000   		.section	.text.debugOut_SaveConfig,"ax",%progbits
+  22              		.align	2
+  23              		.global	debugOut_SaveConfig
+  24              		.code	16
+  25              		.thumb_func
+  26              		.type	debugOut_SaveConfig, %function
+  27              	debugOut_SaveConfig:
+  28              	.LFB0:
+  29              		.file 1 ".\\Generated_Source\\PSoC4\\debugOut_PM.c"
+   1:.\Generated_Source\PSoC4/debugOut_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/debugOut_PM.c **** * File Name: debugOut_PM.c
+   3:.\Generated_Source\PSoC4/debugOut_PM.c **** * Version 2.40
+   4:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+   5:.\Generated_Source\PSoC4/debugOut_PM.c **** * Description:
+   6:.\Generated_Source\PSoC4/debugOut_PM.c **** *  This file provides Sleep/WakeUp APIs functionality.
+   7:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+   8:.\Generated_Source\PSoC4/debugOut_PM.c **** * Note:
+   9:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  10:.\Generated_Source\PSoC4/debugOut_PM.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC4/debugOut_PM.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC4/debugOut_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC4/debugOut_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC4/debugOut_PM.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC4/debugOut_PM.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  17:.\Generated_Source\PSoC4/debugOut_PM.c **** #include "debugOut.h"
+  18:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  19:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  20:.\Generated_Source\PSoC4/debugOut_PM.c **** /***************************************
+  21:.\Generated_Source\PSoC4/debugOut_PM.c **** * Local data allocation
+  22:.\Generated_Source\PSoC4/debugOut_PM.c **** ***************************************/
+  23:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  24:.\Generated_Source\PSoC4/debugOut_PM.c **** static debugOut_BACKUP_STRUCT  debugOut_backup =
+  25:.\Generated_Source\PSoC4/debugOut_PM.c **** {
+  26:.\Generated_Source\PSoC4/debugOut_PM.c ****     /* enableState - disabled */
+  27:.\Generated_Source\PSoC4/debugOut_PM.c ****     0u,
+  28:.\Generated_Source\PSoC4/debugOut_PM.c **** };
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 2
+
+
+  29:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  30:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  31:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  32:.\Generated_Source\PSoC4/debugOut_PM.c **** /*******************************************************************************
+  33:.\Generated_Source\PSoC4/debugOut_PM.c **** * Function Name: debugOut_SaveConfig
+  34:.\Generated_Source\PSoC4/debugOut_PM.c **** ********************************************************************************
+  35:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  36:.\Generated_Source\PSoC4/debugOut_PM.c **** * Summary:
+  37:.\Generated_Source\PSoC4/debugOut_PM.c **** *  This function saves the component configuration and nonretention registers.
+  38:.\Generated_Source\PSoC4/debugOut_PM.c **** *  It also saves the current component parameter values, as defined in the
+  39:.\Generated_Source\PSoC4/debugOut_PM.c **** *  Configure dialog or as modified by appropriate APIs. This function is called
+  40:.\Generated_Source\PSoC4/debugOut_PM.c **** *  by the debugOut_Sleep() function.
+  41:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  42:.\Generated_Source\PSoC4/debugOut_PM.c **** * Parameters:
+  43:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+  44:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  45:.\Generated_Source\PSoC4/debugOut_PM.c **** * Return:
+  46:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+  47:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  48:.\Generated_Source\PSoC4/debugOut_PM.c **** * Global Variables:
+  49:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_backup - modified when non-retention registers are saved.
+  50:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  51:.\Generated_Source\PSoC4/debugOut_PM.c **** * Reentrant:
+  52:.\Generated_Source\PSoC4/debugOut_PM.c **** *  No.
+  53:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  54:.\Generated_Source\PSoC4/debugOut_PM.c **** * Side Effects:
+  55:.\Generated_Source\PSoC4/debugOut_PM.c **** *  All nonretention registers except FIFO are saved to RAM
+  56:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  57:.\Generated_Source\PSoC4/debugOut_PM.c **** *******************************************************************************/
+  58:.\Generated_Source\PSoC4/debugOut_PM.c **** void debugOut_SaveConfig(void)
+  59:.\Generated_Source\PSoC4/debugOut_PM.c **** {
+  30              		.loc 1 59 0
+  31              		.cfi_startproc
+  32 0000 80B5     		push	{r7, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              		.cfi_def_cfa_register 7
+  60:.\Generated_Source\PSoC4/debugOut_PM.c ****     #if(debugOut_CONTROL_REG_REMOVED == 0u)
+  61:.\Generated_Source\PSoC4/debugOut_PM.c ****         debugOut_backup.cr = debugOut_CONTROL_REG;
+  62:.\Generated_Source\PSoC4/debugOut_PM.c ****     #endif /* End debugOut_CONTROL_REG_REMOVED */
+  63:.\Generated_Source\PSoC4/debugOut_PM.c **** }
+  38              		.loc 1 63 0
+  39 0004 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0006 80BD     		pop	{r7, pc}
+  42              		.cfi_endproc
+  43              	.LFE0:
+  44              		.size	debugOut_SaveConfig, .-debugOut_SaveConfig
+  45              		.section	.text.debugOut_RestoreConfig,"ax",%progbits
+  46              		.align	2
+  47              		.global	debugOut_RestoreConfig
+  48              		.code	16
+  49              		.thumb_func
+  50              		.type	debugOut_RestoreConfig, %function
+  51              	debugOut_RestoreConfig:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 3
+
+
+  52              	.LFB1:
+  64:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  65:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  66:.\Generated_Source\PSoC4/debugOut_PM.c **** /*******************************************************************************
+  67:.\Generated_Source\PSoC4/debugOut_PM.c **** * Function Name: debugOut_RestoreConfig
+  68:.\Generated_Source\PSoC4/debugOut_PM.c **** ********************************************************************************
+  69:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  70:.\Generated_Source\PSoC4/debugOut_PM.c **** * Summary:
+  71:.\Generated_Source\PSoC4/debugOut_PM.c **** *  Restores the user configuration of nonretention registers.
+  72:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  73:.\Generated_Source\PSoC4/debugOut_PM.c **** * Parameters:
+  74:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+  75:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  76:.\Generated_Source\PSoC4/debugOut_PM.c **** * Return:
+  77:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+  78:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  79:.\Generated_Source\PSoC4/debugOut_PM.c **** * Global Variables:
+  80:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_backup - used when non-retention registers are restored.
+  81:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  82:.\Generated_Source\PSoC4/debugOut_PM.c **** * Reentrant:
+  83:.\Generated_Source\PSoC4/debugOut_PM.c **** *  No.
+  84:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  85:.\Generated_Source\PSoC4/debugOut_PM.c **** * Side Effects:
+  86:.\Generated_Source\PSoC4/debugOut_PM.c **** *  All nonretention registers except FIFO loaded from RAM. This function should
+  87:.\Generated_Source\PSoC4/debugOut_PM.c **** *  be called only after debugOut_SaveConfig() is called, otherwise
+  88:.\Generated_Source\PSoC4/debugOut_PM.c **** *  incorrect data will be loaded into the registers.
+  89:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+  90:.\Generated_Source\PSoC4/debugOut_PM.c **** *******************************************************************************/
+  91:.\Generated_Source\PSoC4/debugOut_PM.c **** void debugOut_RestoreConfig(void)
+  92:.\Generated_Source\PSoC4/debugOut_PM.c **** {
+  53              		.loc 1 92 0
+  54              		.cfi_startproc
+  55 0000 80B5     		push	{r7, lr}
+  56              		.cfi_def_cfa_offset 8
+  57              		.cfi_offset 7, -8
+  58              		.cfi_offset 14, -4
+  59 0002 00AF     		add	r7, sp, #0
+  60              		.cfi_def_cfa_register 7
+  93:.\Generated_Source\PSoC4/debugOut_PM.c ****     #if(debugOut_CONTROL_REG_REMOVED == 0u)
+  94:.\Generated_Source\PSoC4/debugOut_PM.c ****         debugOut_CONTROL_REG = debugOut_backup.cr;
+  95:.\Generated_Source\PSoC4/debugOut_PM.c ****     #endif /* End debugOut_CONTROL_REG_REMOVED */
+  96:.\Generated_Source\PSoC4/debugOut_PM.c **** }
+  61              		.loc 1 96 0
+  62 0004 BD46     		mov	sp, r7
+  63              		@ sp needed
+  64 0006 80BD     		pop	{r7, pc}
+  65              		.cfi_endproc
+  66              	.LFE1:
+  67              		.size	debugOut_RestoreConfig, .-debugOut_RestoreConfig
+  68              		.section	.text.debugOut_Sleep,"ax",%progbits
+  69              		.align	2
+  70              		.global	debugOut_Sleep
+  71              		.code	16
+  72              		.thumb_func
+  73              		.type	debugOut_Sleep, %function
+  74              	debugOut_Sleep:
+  75              	.LFB2:
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 4
+
+
+  97:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  98:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+  99:.\Generated_Source\PSoC4/debugOut_PM.c **** /*******************************************************************************
+ 100:.\Generated_Source\PSoC4/debugOut_PM.c **** * Function Name: debugOut_Sleep
+ 101:.\Generated_Source\PSoC4/debugOut_PM.c **** ********************************************************************************
+ 102:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 103:.\Generated_Source\PSoC4/debugOut_PM.c **** * Summary:
+ 104:.\Generated_Source\PSoC4/debugOut_PM.c **** *  This is the preferred API to prepare the component for sleep. 
+ 105:.\Generated_Source\PSoC4/debugOut_PM.c **** *  The debugOut_Sleep() API saves the current component state. Then it
+ 106:.\Generated_Source\PSoC4/debugOut_PM.c **** *  calls the debugOut_Stop() function and calls 
+ 107:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_SaveConfig() to save the hardware configuration.
+ 108:.\Generated_Source\PSoC4/debugOut_PM.c **** *  Call the debugOut_Sleep() function before calling the CyPmSleep() 
+ 109:.\Generated_Source\PSoC4/debugOut_PM.c **** *  or the CyPmHibernate() function. 
+ 110:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 111:.\Generated_Source\PSoC4/debugOut_PM.c **** * Parameters:
+ 112:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+ 113:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 114:.\Generated_Source\PSoC4/debugOut_PM.c **** * Return:
+ 115:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+ 116:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 117:.\Generated_Source\PSoC4/debugOut_PM.c **** * Global Variables:
+ 118:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_backup - modified when non-retention registers are saved.
+ 119:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 120:.\Generated_Source\PSoC4/debugOut_PM.c **** * Reentrant:
+ 121:.\Generated_Source\PSoC4/debugOut_PM.c **** *  No.
+ 122:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 123:.\Generated_Source\PSoC4/debugOut_PM.c **** *******************************************************************************/
+ 124:.\Generated_Source\PSoC4/debugOut_PM.c **** void debugOut_Sleep(void)
+ 125:.\Generated_Source\PSoC4/debugOut_PM.c **** {
+  76              		.loc 1 125 0
+  77              		.cfi_startproc
+  78 0000 80B5     		push	{r7, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 7, -8
+  81              		.cfi_offset 14, -4
+  82 0002 00AF     		add	r7, sp, #0
+  83              		.cfi_def_cfa_register 7
+ 126:.\Generated_Source\PSoC4/debugOut_PM.c ****     #if(debugOut_RX_ENABLED || debugOut_HD_ENABLED)
+ 127:.\Generated_Source\PSoC4/debugOut_PM.c ****         if((debugOut_RXSTATUS_ACTL_REG  & debugOut_INT_ENABLE) != 0u)
+ 128:.\Generated_Source\PSoC4/debugOut_PM.c ****         {
+ 129:.\Generated_Source\PSoC4/debugOut_PM.c ****             debugOut_backup.enableState = 1u;
+ 130:.\Generated_Source\PSoC4/debugOut_PM.c ****         }
+ 131:.\Generated_Source\PSoC4/debugOut_PM.c ****         else
+ 132:.\Generated_Source\PSoC4/debugOut_PM.c ****         {
+ 133:.\Generated_Source\PSoC4/debugOut_PM.c ****             debugOut_backup.enableState = 0u;
+ 134:.\Generated_Source\PSoC4/debugOut_PM.c ****         }
+ 135:.\Generated_Source\PSoC4/debugOut_PM.c ****     #else
+ 136:.\Generated_Source\PSoC4/debugOut_PM.c ****         if((debugOut_TXSTATUS_ACTL_REG  & debugOut_INT_ENABLE) !=0u)
+  84              		.loc 1 136 0
+  85 0004 094B     		ldr	r3, .L6
+  86 0006 1B78     		ldrb	r3, [r3]
+  87 0008 DBB2     		uxtb	r3, r3
+  88 000a 1A1C     		mov	r2, r3
+  89 000c 1023     		mov	r3, #16
+  90 000e 1340     		and	r3, r2
+  91 0010 03D0     		beq	.L4
+ 137:.\Generated_Source\PSoC4/debugOut_PM.c ****         {
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 5
+
+
+ 138:.\Generated_Source\PSoC4/debugOut_PM.c ****             debugOut_backup.enableState = 1u;
+  92              		.loc 1 138 0
+  93 0012 074B     		ldr	r3, .L6+4
+  94 0014 0122     		mov	r2, #1
+  95 0016 1A70     		strb	r2, [r3]
+  96 0018 02E0     		b	.L5
+  97              	.L4:
+ 139:.\Generated_Source\PSoC4/debugOut_PM.c ****         }
+ 140:.\Generated_Source\PSoC4/debugOut_PM.c ****         else
+ 141:.\Generated_Source\PSoC4/debugOut_PM.c ****         {
+ 142:.\Generated_Source\PSoC4/debugOut_PM.c ****             debugOut_backup.enableState = 0u;
+  98              		.loc 1 142 0
+  99 001a 054B     		ldr	r3, .L6+4
+ 100 001c 0022     		mov	r2, #0
+ 101 001e 1A70     		strb	r2, [r3]
+ 102              	.L5:
+ 143:.\Generated_Source\PSoC4/debugOut_PM.c ****         }
+ 144:.\Generated_Source\PSoC4/debugOut_PM.c ****     #endif /* End debugOut_RX_ENABLED || debugOut_HD_ENABLED*/
+ 145:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+ 146:.\Generated_Source\PSoC4/debugOut_PM.c ****     debugOut_Stop();
+ 103              		.loc 1 146 0
+ 104 0020 FFF7FEFF 		bl	debugOut_Stop
+ 147:.\Generated_Source\PSoC4/debugOut_PM.c ****     debugOut_SaveConfig();
+ 105              		.loc 1 147 0
+ 106 0024 FFF7FEFF 		bl	debugOut_SaveConfig
+ 148:.\Generated_Source\PSoC4/debugOut_PM.c **** }
+ 107              		.loc 1 148 0
+ 108 0028 BD46     		mov	sp, r7
+ 109              		@ sp needed
+ 110 002a 80BD     		pop	{r7, pc}
+ 111              	.L7:
+ 112              		.align	2
+ 113              	.L6:
+ 114 002c 92000F40 		.word	1074725010
+ 115 0030 00000000 		.word	debugOut_backup
+ 116              		.cfi_endproc
+ 117              	.LFE2:
+ 118              		.size	debugOut_Sleep, .-debugOut_Sleep
+ 119              		.section	.text.debugOut_Wakeup,"ax",%progbits
+ 120              		.align	2
+ 121              		.global	debugOut_Wakeup
+ 122              		.code	16
+ 123              		.thumb_func
+ 124              		.type	debugOut_Wakeup, %function
+ 125              	debugOut_Wakeup:
+ 126              	.LFB3:
+ 149:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+ 150:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+ 151:.\Generated_Source\PSoC4/debugOut_PM.c **** /*******************************************************************************
+ 152:.\Generated_Source\PSoC4/debugOut_PM.c **** * Function Name: debugOut_Wakeup
+ 153:.\Generated_Source\PSoC4/debugOut_PM.c **** ********************************************************************************
+ 154:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 155:.\Generated_Source\PSoC4/debugOut_PM.c **** * Summary:
+ 156:.\Generated_Source\PSoC4/debugOut_PM.c **** *  This is the preferred API to restore the component to the state when 
+ 157:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_Sleep() was called. The debugOut_Wakeup() function
+ 158:.\Generated_Source\PSoC4/debugOut_PM.c **** *  calls the debugOut_RestoreConfig() function to restore the 
+ 159:.\Generated_Source\PSoC4/debugOut_PM.c **** *  configuration. If the component was enabled before the 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 6
+
+
+ 160:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_Sleep() function was called, the debugOut_Wakeup()
+ 161:.\Generated_Source\PSoC4/debugOut_PM.c **** *  function will also re-enable the component.
+ 162:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 163:.\Generated_Source\PSoC4/debugOut_PM.c **** * Parameters:
+ 164:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+ 165:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 166:.\Generated_Source\PSoC4/debugOut_PM.c **** * Return:
+ 167:.\Generated_Source\PSoC4/debugOut_PM.c **** *  None.
+ 168:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 169:.\Generated_Source\PSoC4/debugOut_PM.c **** * Global Variables:
+ 170:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_backup - used when non-retention registers are restored.
+ 171:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 172:.\Generated_Source\PSoC4/debugOut_PM.c **** * Reentrant:
+ 173:.\Generated_Source\PSoC4/debugOut_PM.c **** *  No.
+ 174:.\Generated_Source\PSoC4/debugOut_PM.c **** *
+ 175:.\Generated_Source\PSoC4/debugOut_PM.c **** *******************************************************************************/
+ 176:.\Generated_Source\PSoC4/debugOut_PM.c **** void debugOut_Wakeup(void)
+ 177:.\Generated_Source\PSoC4/debugOut_PM.c **** {
+ 127              		.loc 1 177 0
+ 128              		.cfi_startproc
+ 129 0000 80B5     		push	{r7, lr}
+ 130              		.cfi_def_cfa_offset 8
+ 131              		.cfi_offset 7, -8
+ 132              		.cfi_offset 14, -4
+ 133 0002 00AF     		add	r7, sp, #0
+ 134              		.cfi_def_cfa_register 7
+ 178:.\Generated_Source\PSoC4/debugOut_PM.c ****     debugOut_RestoreConfig();
+ 135              		.loc 1 178 0
+ 136 0004 FFF7FEFF 		bl	debugOut_RestoreConfig
+ 179:.\Generated_Source\PSoC4/debugOut_PM.c ****     #if( (debugOut_RX_ENABLED) || (debugOut_HD_ENABLED) )
+ 180:.\Generated_Source\PSoC4/debugOut_PM.c ****         debugOut_ClearRxBuffer();
+ 181:.\Generated_Source\PSoC4/debugOut_PM.c ****     #endif /* End (debugOut_RX_ENABLED) || (debugOut_HD_ENABLED) */
+ 182:.\Generated_Source\PSoC4/debugOut_PM.c ****     #if(debugOut_TX_ENABLED || debugOut_HD_ENABLED)
+ 183:.\Generated_Source\PSoC4/debugOut_PM.c ****         debugOut_ClearTxBuffer();
+ 137              		.loc 1 183 0
+ 138 0008 FFF7FEFF 		bl	debugOut_ClearTxBuffer
+ 184:.\Generated_Source\PSoC4/debugOut_PM.c ****     #endif /* End debugOut_TX_ENABLED || debugOut_HD_ENABLED */
+ 185:.\Generated_Source\PSoC4/debugOut_PM.c **** 
+ 186:.\Generated_Source\PSoC4/debugOut_PM.c ****     if(debugOut_backup.enableState != 0u)
+ 139              		.loc 1 186 0
+ 140 000c 034B     		ldr	r3, .L10
+ 141 000e 1B78     		ldrb	r3, [r3]
+ 142 0010 002B     		cmp	r3, #0
+ 143 0012 01D0     		beq	.L8
+ 187:.\Generated_Source\PSoC4/debugOut_PM.c ****     {
+ 188:.\Generated_Source\PSoC4/debugOut_PM.c ****         debugOut_Enable();
+ 144              		.loc 1 188 0
+ 145 0014 FFF7FEFF 		bl	debugOut_Enable
+ 146              	.L8:
+ 189:.\Generated_Source\PSoC4/debugOut_PM.c ****     }
+ 190:.\Generated_Source\PSoC4/debugOut_PM.c **** }
+ 147              		.loc 1 190 0
+ 148 0018 BD46     		mov	sp, r7
+ 149              		@ sp needed
+ 150 001a 80BD     		pop	{r7, pc}
+ 151              	.L11:
+ 152              		.align	2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 7
+
+
+ 153              	.L10:
+ 154 001c 00000000 		.word	debugOut_backup
+ 155              		.cfi_endproc
+ 156              	.LFE3:
+ 157              		.size	debugOut_Wakeup, .-debugOut_Wakeup
+ 158              		.text
+ 159              	.Letext0:
+ 160              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 161              		.file 3 ".\\Generated_Source\\PSoC4\\debugOut.h"
+ 162              		.section	.debug_info,"",%progbits
+ 163              	.Ldebug_info0:
+ 164 0000 19010000 		.4byte	0x119
+ 165 0004 0400     		.2byte	0x4
+ 166 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 167 000a 04       		.byte	0x4
+ 168 000b 01       		.uleb128 0x1
+ 169 000c 0A010000 		.4byte	.LASF20
+ 170 0010 01       		.byte	0x1
+ 171 0011 13020000 		.4byte	.LASF21
+ 172 0015 93000000 		.4byte	.LASF22
+ 173 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 174 001d 00000000 		.4byte	0
+ 175 0021 00000000 		.4byte	.Ldebug_line0
+ 176 0025 02       		.uleb128 0x2
+ 177 0026 01       		.byte	0x1
+ 178 0027 06       		.byte	0x6
+ 179 0028 EA010000 		.4byte	.LASF0
+ 180 002c 02       		.uleb128 0x2
+ 181 002d 01       		.byte	0x1
+ 182 002e 08       		.byte	0x8
+ 183 002f 86010000 		.4byte	.LASF1
+ 184 0033 02       		.uleb128 0x2
+ 185 0034 02       		.byte	0x2
+ 186 0035 05       		.byte	0x5
+ 187 0036 A2010000 		.4byte	.LASF2
+ 188 003a 02       		.uleb128 0x2
+ 189 003b 02       		.byte	0x2
+ 190 003c 07       		.byte	0x7
+ 191 003d D7010000 		.4byte	.LASF3
+ 192 0041 02       		.uleb128 0x2
+ 193 0042 04       		.byte	0x4
+ 194 0043 05       		.byte	0x5
+ 195 0044 99010000 		.4byte	.LASF4
+ 196 0048 02       		.uleb128 0x2
+ 197 0049 04       		.byte	0x4
+ 198 004a 07       		.byte	0x7
+ 199 004b 5B000000 		.4byte	.LASF5
+ 200 004f 02       		.uleb128 0x2
+ 201 0050 08       		.byte	0x8
+ 202 0051 05       		.byte	0x5
+ 203 0052 00000000 		.4byte	.LASF6
+ 204 0056 02       		.uleb128 0x2
+ 205 0057 08       		.byte	0x8
+ 206 0058 07       		.byte	0x7
+ 207 0059 6D000000 		.4byte	.LASF7
+ 208 005d 03       		.uleb128 0x3
+ 209 005e 04       		.byte	0x4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 8
+
+
+ 210 005f 05       		.byte	0x5
+ 211 0060 696E7400 		.ascii	"int\000"
+ 212 0064 02       		.uleb128 0x2
+ 213 0065 04       		.byte	0x4
+ 214 0066 07       		.byte	0x7
+ 215 0067 1A000000 		.4byte	.LASF8
+ 216 006b 04       		.uleb128 0x4
+ 217 006c 55000000 		.4byte	.LASF12
+ 218 0070 02       		.byte	0x2
+ 219 0071 A1       		.byte	0xa1
+ 220 0072 2C000000 		.4byte	0x2c
+ 221 0076 02       		.uleb128 0x2
+ 222 0077 04       		.byte	0x4
+ 223 0078 04       		.byte	0x4
+ 224 0079 F6010000 		.4byte	.LASF9
+ 225 007d 02       		.uleb128 0x2
+ 226 007e 08       		.byte	0x8
+ 227 007f 04       		.byte	0x4
+ 228 0080 AC010000 		.4byte	.LASF10
+ 229 0084 02       		.uleb128 0x2
+ 230 0085 01       		.byte	0x1
+ 231 0086 08       		.byte	0x8
+ 232 0087 94010000 		.4byte	.LASF11
+ 233 008b 05       		.uleb128 0x5
+ 234 008c 3A020000 		.4byte	.LASF13
+ 235 0090 02       		.byte	0x2
+ 236 0091 4B01     		.2byte	0x14b
+ 237 0093 97000000 		.4byte	0x97
+ 238 0097 06       		.uleb128 0x6
+ 239 0098 6B000000 		.4byte	0x6b
+ 240 009c 02       		.uleb128 0x2
+ 241 009d 04       		.byte	0x4
+ 242 009e 07       		.byte	0x7
+ 243 009f 3F020000 		.4byte	.LASF14
+ 244 00a3 07       		.uleb128 0x7
+ 245 00a4 FC010000 		.4byte	.LASF23
+ 246 00a8 01       		.byte	0x1
+ 247 00a9 03       		.byte	0x3
+ 248 00aa 45       		.byte	0x45
+ 249 00ab BC000000 		.4byte	0xbc
+ 250 00af 08       		.uleb128 0x8
+ 251 00b0 0E000000 		.4byte	.LASF24
+ 252 00b4 03       		.byte	0x3
+ 253 00b5 47       		.byte	0x47
+ 254 00b6 6B000000 		.4byte	0x6b
+ 255 00ba 00       		.byte	0
+ 256 00bb 00       		.byte	0
+ 257 00bc 04       		.uleb128 0x4
+ 258 00bd 3E000000 		.4byte	.LASF15
+ 259 00c1 03       		.byte	0x3
+ 260 00c2 4D       		.byte	0x4d
+ 261 00c3 A3000000 		.4byte	0xa3
+ 262 00c7 09       		.uleb128 0x9
+ 263 00c8 B3010000 		.4byte	.LASF16
+ 264 00cc 01       		.byte	0x1
+ 265 00cd 3A       		.byte	0x3a
+ 266 00ce 00000000 		.4byte	.LFB0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 9
+
+
+ 267 00d2 08000000 		.4byte	.LFE0-.LFB0
+ 268 00d6 01       		.uleb128 0x1
+ 269 00d7 9C       		.byte	0x9c
+ 270 00d8 09       		.uleb128 0x9
+ 271 00d9 27000000 		.4byte	.LASF17
+ 272 00dd 01       		.byte	0x1
+ 273 00de 5B       		.byte	0x5b
+ 274 00df 00000000 		.4byte	.LFB1
+ 275 00e3 08000000 		.4byte	.LFE1-.LFB1
+ 276 00e7 01       		.uleb128 0x1
+ 277 00e8 9C       		.byte	0x9c
+ 278 00e9 0A       		.uleb128 0xa
+ 279 00ea 84000000 		.4byte	.LASF18
+ 280 00ee 01       		.byte	0x1
+ 281 00ef 7C       		.byte	0x7c
+ 282 00f0 00000000 		.4byte	.LFB2
+ 283 00f4 34000000 		.4byte	.LFE2-.LFB2
+ 284 00f8 01       		.uleb128 0x1
+ 285 00f9 9C       		.byte	0x9c
+ 286 00fa 0A       		.uleb128 0xa
+ 287 00fb C7010000 		.4byte	.LASF19
+ 288 00ff 01       		.byte	0x1
+ 289 0100 B0       		.byte	0xb0
+ 290 0101 00000000 		.4byte	.LFB3
+ 291 0105 20000000 		.4byte	.LFE3-.LFB3
+ 292 0109 01       		.uleb128 0x1
+ 293 010a 9C       		.byte	0x9c
+ 294 010b 0B       		.uleb128 0xb
+ 295 010c FA000000 		.4byte	.LASF25
+ 296 0110 01       		.byte	0x1
+ 297 0111 18       		.byte	0x18
+ 298 0112 BC000000 		.4byte	0xbc
+ 299 0116 05       		.uleb128 0x5
+ 300 0117 03       		.byte	0x3
+ 301 0118 00000000 		.4byte	debugOut_backup
+ 302 011c 00       		.byte	0
+ 303              		.section	.debug_abbrev,"",%progbits
+ 304              	.Ldebug_abbrev0:
+ 305 0000 01       		.uleb128 0x1
+ 306 0001 11       		.uleb128 0x11
+ 307 0002 01       		.byte	0x1
+ 308 0003 25       		.uleb128 0x25
+ 309 0004 0E       		.uleb128 0xe
+ 310 0005 13       		.uleb128 0x13
+ 311 0006 0B       		.uleb128 0xb
+ 312 0007 03       		.uleb128 0x3
+ 313 0008 0E       		.uleb128 0xe
+ 314 0009 1B       		.uleb128 0x1b
+ 315 000a 0E       		.uleb128 0xe
+ 316 000b 55       		.uleb128 0x55
+ 317 000c 17       		.uleb128 0x17
+ 318 000d 11       		.uleb128 0x11
+ 319 000e 01       		.uleb128 0x1
+ 320 000f 10       		.uleb128 0x10
+ 321 0010 17       		.uleb128 0x17
+ 322 0011 00       		.byte	0
+ 323 0012 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 10
+
+
+ 324 0013 02       		.uleb128 0x2
+ 325 0014 24       		.uleb128 0x24
+ 326 0015 00       		.byte	0
+ 327 0016 0B       		.uleb128 0xb
+ 328 0017 0B       		.uleb128 0xb
+ 329 0018 3E       		.uleb128 0x3e
+ 330 0019 0B       		.uleb128 0xb
+ 331 001a 03       		.uleb128 0x3
+ 332 001b 0E       		.uleb128 0xe
+ 333 001c 00       		.byte	0
+ 334 001d 00       		.byte	0
+ 335 001e 03       		.uleb128 0x3
+ 336 001f 24       		.uleb128 0x24
+ 337 0020 00       		.byte	0
+ 338 0021 0B       		.uleb128 0xb
+ 339 0022 0B       		.uleb128 0xb
+ 340 0023 3E       		.uleb128 0x3e
+ 341 0024 0B       		.uleb128 0xb
+ 342 0025 03       		.uleb128 0x3
+ 343 0026 08       		.uleb128 0x8
+ 344 0027 00       		.byte	0
+ 345 0028 00       		.byte	0
+ 346 0029 04       		.uleb128 0x4
+ 347 002a 16       		.uleb128 0x16
+ 348 002b 00       		.byte	0
+ 349 002c 03       		.uleb128 0x3
+ 350 002d 0E       		.uleb128 0xe
+ 351 002e 3A       		.uleb128 0x3a
+ 352 002f 0B       		.uleb128 0xb
+ 353 0030 3B       		.uleb128 0x3b
+ 354 0031 0B       		.uleb128 0xb
+ 355 0032 49       		.uleb128 0x49
+ 356 0033 13       		.uleb128 0x13
+ 357 0034 00       		.byte	0
+ 358 0035 00       		.byte	0
+ 359 0036 05       		.uleb128 0x5
+ 360 0037 16       		.uleb128 0x16
+ 361 0038 00       		.byte	0
+ 362 0039 03       		.uleb128 0x3
+ 363 003a 0E       		.uleb128 0xe
+ 364 003b 3A       		.uleb128 0x3a
+ 365 003c 0B       		.uleb128 0xb
+ 366 003d 3B       		.uleb128 0x3b
+ 367 003e 05       		.uleb128 0x5
+ 368 003f 49       		.uleb128 0x49
+ 369 0040 13       		.uleb128 0x13
+ 370 0041 00       		.byte	0
+ 371 0042 00       		.byte	0
+ 372 0043 06       		.uleb128 0x6
+ 373 0044 35       		.uleb128 0x35
+ 374 0045 00       		.byte	0
+ 375 0046 49       		.uleb128 0x49
+ 376 0047 13       		.uleb128 0x13
+ 377 0048 00       		.byte	0
+ 378 0049 00       		.byte	0
+ 379 004a 07       		.uleb128 0x7
+ 380 004b 13       		.uleb128 0x13
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 11
+
+
+ 381 004c 01       		.byte	0x1
+ 382 004d 03       		.uleb128 0x3
+ 383 004e 0E       		.uleb128 0xe
+ 384 004f 0B       		.uleb128 0xb
+ 385 0050 0B       		.uleb128 0xb
+ 386 0051 3A       		.uleb128 0x3a
+ 387 0052 0B       		.uleb128 0xb
+ 388 0053 3B       		.uleb128 0x3b
+ 389 0054 0B       		.uleb128 0xb
+ 390 0055 01       		.uleb128 0x1
+ 391 0056 13       		.uleb128 0x13
+ 392 0057 00       		.byte	0
+ 393 0058 00       		.byte	0
+ 394 0059 08       		.uleb128 0x8
+ 395 005a 0D       		.uleb128 0xd
+ 396 005b 00       		.byte	0
+ 397 005c 03       		.uleb128 0x3
+ 398 005d 0E       		.uleb128 0xe
+ 399 005e 3A       		.uleb128 0x3a
+ 400 005f 0B       		.uleb128 0xb
+ 401 0060 3B       		.uleb128 0x3b
+ 402 0061 0B       		.uleb128 0xb
+ 403 0062 49       		.uleb128 0x49
+ 404 0063 13       		.uleb128 0x13
+ 405 0064 38       		.uleb128 0x38
+ 406 0065 0B       		.uleb128 0xb
+ 407 0066 00       		.byte	0
+ 408 0067 00       		.byte	0
+ 409 0068 09       		.uleb128 0x9
+ 410 0069 2E       		.uleb128 0x2e
+ 411 006a 00       		.byte	0
+ 412 006b 3F       		.uleb128 0x3f
+ 413 006c 19       		.uleb128 0x19
+ 414 006d 03       		.uleb128 0x3
+ 415 006e 0E       		.uleb128 0xe
+ 416 006f 3A       		.uleb128 0x3a
+ 417 0070 0B       		.uleb128 0xb
+ 418 0071 3B       		.uleb128 0x3b
+ 419 0072 0B       		.uleb128 0xb
+ 420 0073 27       		.uleb128 0x27
+ 421 0074 19       		.uleb128 0x19
+ 422 0075 11       		.uleb128 0x11
+ 423 0076 01       		.uleb128 0x1
+ 424 0077 12       		.uleb128 0x12
+ 425 0078 06       		.uleb128 0x6
+ 426 0079 40       		.uleb128 0x40
+ 427 007a 18       		.uleb128 0x18
+ 428 007b 9742     		.uleb128 0x2117
+ 429 007d 19       		.uleb128 0x19
+ 430 007e 00       		.byte	0
+ 431 007f 00       		.byte	0
+ 432 0080 0A       		.uleb128 0xa
+ 433 0081 2E       		.uleb128 0x2e
+ 434 0082 00       		.byte	0
+ 435 0083 3F       		.uleb128 0x3f
+ 436 0084 19       		.uleb128 0x19
+ 437 0085 03       		.uleb128 0x3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 12
+
+
+ 438 0086 0E       		.uleb128 0xe
+ 439 0087 3A       		.uleb128 0x3a
+ 440 0088 0B       		.uleb128 0xb
+ 441 0089 3B       		.uleb128 0x3b
+ 442 008a 0B       		.uleb128 0xb
+ 443 008b 27       		.uleb128 0x27
+ 444 008c 19       		.uleb128 0x19
+ 445 008d 11       		.uleb128 0x11
+ 446 008e 01       		.uleb128 0x1
+ 447 008f 12       		.uleb128 0x12
+ 448 0090 06       		.uleb128 0x6
+ 449 0091 40       		.uleb128 0x40
+ 450 0092 18       		.uleb128 0x18
+ 451 0093 9642     		.uleb128 0x2116
+ 452 0095 19       		.uleb128 0x19
+ 453 0096 00       		.byte	0
+ 454 0097 00       		.byte	0
+ 455 0098 0B       		.uleb128 0xb
+ 456 0099 34       		.uleb128 0x34
+ 457 009a 00       		.byte	0
+ 458 009b 03       		.uleb128 0x3
+ 459 009c 0E       		.uleb128 0xe
+ 460 009d 3A       		.uleb128 0x3a
+ 461 009e 0B       		.uleb128 0xb
+ 462 009f 3B       		.uleb128 0x3b
+ 463 00a0 0B       		.uleb128 0xb
+ 464 00a1 49       		.uleb128 0x49
+ 465 00a2 13       		.uleb128 0x13
+ 466 00a3 02       		.uleb128 0x2
+ 467 00a4 18       		.uleb128 0x18
+ 468 00a5 00       		.byte	0
+ 469 00a6 00       		.byte	0
+ 470 00a7 00       		.byte	0
+ 471              		.section	.debug_aranges,"",%progbits
+ 472 0000 34000000 		.4byte	0x34
+ 473 0004 0200     		.2byte	0x2
+ 474 0006 00000000 		.4byte	.Ldebug_info0
+ 475 000a 04       		.byte	0x4
+ 476 000b 00       		.byte	0
+ 477 000c 0000     		.2byte	0
+ 478 000e 0000     		.2byte	0
+ 479 0010 00000000 		.4byte	.LFB0
+ 480 0014 08000000 		.4byte	.LFE0-.LFB0
+ 481 0018 00000000 		.4byte	.LFB1
+ 482 001c 08000000 		.4byte	.LFE1-.LFB1
+ 483 0020 00000000 		.4byte	.LFB2
+ 484 0024 34000000 		.4byte	.LFE2-.LFB2
+ 485 0028 00000000 		.4byte	.LFB3
+ 486 002c 20000000 		.4byte	.LFE3-.LFB3
+ 487 0030 00000000 		.4byte	0
+ 488 0034 00000000 		.4byte	0
+ 489              		.section	.debug_ranges,"",%progbits
+ 490              	.Ldebug_ranges0:
+ 491 0000 00000000 		.4byte	.LFB0
+ 492 0004 08000000 		.4byte	.LFE0
+ 493 0008 00000000 		.4byte	.LFB1
+ 494 000c 08000000 		.4byte	.LFE1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 13
+
+
+ 495 0010 00000000 		.4byte	.LFB2
+ 496 0014 34000000 		.4byte	.LFE2
+ 497 0018 00000000 		.4byte	.LFB3
+ 498 001c 20000000 		.4byte	.LFE3
+ 499 0020 00000000 		.4byte	0
+ 500 0024 00000000 		.4byte	0
+ 501              		.section	.debug_line,"",%progbits
+ 502              	.Ldebug_line0:
+ 503 0000 AC000000 		.section	.debug_str,"MS",%progbits,1
+ 503      02005800 
+ 503      00000201 
+ 503      FB0E0D00 
+ 503      01010101 
+ 504              	.LASF6:
+ 505 0000 6C6F6E67 		.ascii	"long long int\000"
+ 505      206C6F6E 
+ 505      6720696E 
+ 505      7400
+ 506              	.LASF24:
+ 507 000e 656E6162 		.ascii	"enableState\000"
+ 507      6C655374 
+ 507      61746500 
+ 508              	.LASF8:
+ 509 001a 756E7369 		.ascii	"unsigned int\000"
+ 509      676E6564 
+ 509      20696E74 
+ 509      00
+ 510              	.LASF17:
+ 511 0027 64656275 		.ascii	"debugOut_RestoreConfig\000"
+ 511      674F7574 
+ 511      5F526573 
+ 511      746F7265 
+ 511      436F6E66 
+ 512              	.LASF15:
+ 513 003e 64656275 		.ascii	"debugOut_BACKUP_STRUCT\000"
+ 513      674F7574 
+ 513      5F424143 
+ 513      4B55505F 
+ 513      53545255 
+ 514              	.LASF12:
+ 515 0055 75696E74 		.ascii	"uint8\000"
+ 515      3800
+ 516              	.LASF5:
+ 517 005b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 517      20756E73 
+ 517      69676E65 
+ 517      6420696E 
+ 517      7400
+ 518              	.LASF7:
+ 519 006d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 519      206C6F6E 
+ 519      6720756E 
+ 519      7369676E 
+ 519      65642069 
+ 520              	.LASF18:
+ 521 0084 64656275 		.ascii	"debugOut_Sleep\000"
+ 521      674F7574 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 14
+
+
+ 521      5F536C65 
+ 521      657000
+ 522              	.LASF22:
+ 523 0093 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 523      73657273 
+ 523      5C46656C 
+ 523      69785C47 
+ 523      6F6F676C 
+ 524 00c1 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
+ 524      656D2061 
+ 524      7262656A 
+ 524      6473646F 
+ 524      6B756D65 
+ 525 00f2 6C2E6379 		.ascii	"l.cydsn\000"
+ 525      64736E00 
+ 526              	.LASF25:
+ 527 00fa 64656275 		.ascii	"debugOut_backup\000"
+ 527      674F7574 
+ 527      5F626163 
+ 527      6B757000 
+ 528              	.LASF20:
+ 529 010a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 529      4320342E 
+ 529      382E3420 
+ 529      32303134 
+ 529      30353236 
+ 530 013d 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 530      20726576 
+ 530      6973696F 
+ 530      6E203231 
+ 530      31333538 
+ 531 0170 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 531      66756E63 
+ 531      74696F6E 
+ 531      2D736563 
+ 531      74696F6E 
+ 532              	.LASF1:
+ 533 0186 756E7369 		.ascii	"unsigned char\000"
+ 533      676E6564 
+ 533      20636861 
+ 533      7200
+ 534              	.LASF11:
+ 535 0194 63686172 		.ascii	"char\000"
+ 535      00
+ 536              	.LASF4:
+ 537 0199 6C6F6E67 		.ascii	"long int\000"
+ 537      20696E74 
+ 537      00
+ 538              	.LASF2:
+ 539 01a2 73686F72 		.ascii	"short int\000"
+ 539      7420696E 
+ 539      7400
+ 540              	.LASF10:
+ 541 01ac 646F7562 		.ascii	"double\000"
+ 541      6C6500
+ 542              	.LASF16:
+ 543 01b3 64656275 		.ascii	"debugOut_SaveConfig\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccvG6fk8.s 			page 15
+
+
+ 543      674F7574 
+ 543      5F536176 
+ 543      65436F6E 
+ 543      66696700 
+ 544              	.LASF19:
+ 545 01c7 64656275 		.ascii	"debugOut_Wakeup\000"
+ 545      674F7574 
+ 545      5F57616B 
+ 545      65757000 
+ 546              	.LASF3:
+ 547 01d7 73686F72 		.ascii	"short unsigned int\000"
+ 547      7420756E 
+ 547      7369676E 
+ 547      65642069 
+ 547      6E7400
+ 548              	.LASF0:
+ 549 01ea 7369676E 		.ascii	"signed char\000"
+ 549      65642063 
+ 549      68617200 
+ 550              	.LASF9:
+ 551 01f6 666C6F61 		.ascii	"float\000"
+ 551      7400
+ 552              	.LASF23:
+ 553 01fc 64656275 		.ascii	"debugOut_backupStruct_\000"
+ 553      674F7574 
+ 553      5F626163 
+ 553      6B757053 
+ 553      74727563 
+ 554              	.LASF21:
+ 555 0213 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\debugOut_PM.c\000"
+ 555      6E657261 
+ 555      7465645F 
+ 555      536F7572 
+ 555      63655C50 
+ 556              	.LASF13:
+ 557 023a 72656738 		.ascii	"reg8\000"
+ 557      00
+ 558              	.LASF14:
+ 559 023f 73697A65 		.ascii	"sizetype\000"
+ 559      74797065 
+ 559      00
+ 560              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
