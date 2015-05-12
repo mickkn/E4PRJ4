@@ -28,14 +28,76 @@ Spændingsregulatoren LM317 er variabel justerbar mellem 1,2 V til 33 V og kan l
 
 \figur{0.4}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
 
+Den variable udgangsspænding beregnes via formlen \ref{eq:Vout}. $I_{Q}$ er strømmen der løber fra ben 1, den er opgivet til at være <100uA og typisk 50uA, som er den værdi der vælges at benytte i formlen. Spændingsforskellen mellem udgangen (ben 2) og referencen (ben 1) er de 1,25 V der også optræder i formlen for $V_{out}$   
+
+\begin{equation} 
+{ V }_{ out }=1,25V\cdot \left( 1+\frac { R2 }{ R1 }  \right) +{ I }_{ Q }\cdot R2
+\label{eq:Vout}
+\end{equation}
+
+Foruden den afsætte effekt til det objekt regulatoren skal forsyne, så løber der en strøm gennem R1 og R2, dette er et effekttab som skal regnes med i den samlede effekt afsættelse der afgør hvorvidt regulatoren skal køles. Strømen gennem R1 og R2 kaldes $I_{G}$ og beregnes vha. ohms lov:
+
+\begin{equation} 
+{ I }_{ G }=\frac { 1,25V }{ 240\Omega  } +50uA=5,26mA
+\label{eq:IG}
+\end{equation}
+
+Den samlede effekt beregnes ved formel \ref{eq:P_lm317} 
+
+\begin{equation} 
+{ P }=({ V }_{ in }-{ V }_{ out })\cdot { I }_{ L }+{ V }_{ in }\cdot { I }_{ G }
+\label{eq:P_lm317}
+\end{equation}
+
 
 \textbf{5 V til Controller} \newline
+5 V skal benyttes til at forsynes Raspberry Pi'en. Ligning \ref{eq:Vout5V} viser beregningen af R2 når ønsket udgangsspænding er 5 V.  
+
+\begin{equation} 
+{ V }_{ out }=1,25V\cdot \left( 1+\frac { 720\Omega  }{ 240\Omega  }  \right) +50uA\cdot 720\Omega =5V
+\label{eq:Vout5V}
+\end{equation}
+
+R2 er beregnet til 720$\Omega$ og tilhørende simulering ses på figur \ref{psu:LM3175Vsim}. Simuleringen viser som forventet at udgangsspændingen er 5V. 
+
+\figur{0.6}{psu/LM3175V_simulering.pdf}{Simulering af LM317 justeret til 5 V}{psu:LM3175Vsim}
+
+Raspberry Pi'en forbruger maksimalt 1200mA og typisk 700mA i den ønskede opstilling. Der regnes med den maksimale værdi i forhold til at analyse på worst case tilfældet. Strømmen til Raspberry Pi'en skrives som $I_{L}$
+
+\begin{equation} 
+{ P }_{ 5V }=(7,5V-5V)\cdot 1200mA+7,5V\cdot 5,26mA=3,39W
+\label{eq:P5V}
+\end{equation}
+
+Ud fra formel \ref{eq:P5V} så er den maksimalt afsatte effekt i regulatoren 3,39W hvilket kræver køleplade og aktiv køling f.eks i form af en blæser, da effektafsættelsen er større en 1W som er grænsen for hvornår regulatoren kræver køling. Hvis der regnes med en $I_{L}=700mA$ så bliver effektafsættelsen reduceret til 2,14W.
 
 
 
+\textbf{3,3 V til Vuggesystem}\newline
+3,3 V til Vuggesystemet skal bruges til at forsyne PSoC'en, motorstyringskreds samt sensorer. Strømforbruget er sat til et maksimum på 500mA.
 
-\textbf{3,3 V til Intelligent Lydmonitor}
+Ligning \ref{eq:Vout3.3V} viser at R2 er fundet til 390$\Omega$ når udgangsspændingen skal være 3,3 V. Figur \ref{psu:LM31733Csim} viser simuleringen og verificerer beregningen. 
 
+\begin{equation} 
+{ V }_{ out }=1,25V\cdot \left( 1+\frac { 390\Omega  }{ 240\Omega  }  \right) +50uA\cdot 390\Omega =3,3V
+\label{eq:Vout3.3V}
+\end{equation}
+
+\figur{0.6}{psu/LM31733V_simulering.pdf}{Simulering af LM317 justeret til 3,3 V}{psu:LM31733Vsim}
+
+Der foretages også effektberegning på denne regulator. Effektafsættelsen er mindre end ved 5 V reguleringen, men stadig over 1 W, så der skal også monteres køleplade på denne regulator.
+
+\begin{equation} 
+{ P }_{ 5V }=(7,5V-3,3V)\cdot 500mA+7,5V\cdot 5,26mA=2,5W
+\label{eq:P3.3V}
+\end{equation}
 
 
 \subsection{Relæ styring}
+
+\subsection{Samlet PSU print}
+
+\figur{1}{psu/PSUmultisim.pdf}{Samlet kredsløbsdiagram for PSU'en}{psu:PSUsamlet}
+
+
+EAGLE billeder af printudlæg 
