@@ -1,7 +1,77 @@
 \section{Modultest}
 \subsection{Hardware modultest}
-Følgende afsnit beskriver tests for de individuelle moduler i Vuggesystem-delen af Baby Watch
+Følgende afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch
 \subsubsection{Motorkreds}
+\textbf{Formål} \\
+Formålet med denne modultest er at måle om motorkredsen kan styrer en 12V motor der trækker op til 10A ved hjælp af et PWM kontrolleret input. For at testen kan godkendes skal motoren "vippe" en barnevognskurv over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav fra den ene yder position til den anden tre gange i sekvens.
+
+\textbf{Overordnet opstilling af Motorkreds test}
+
+\begin{itemize}
+	\item Testen forgår i et rum med et horisontal nivelleret gulv
+	\item Motoren er spændt på Baby Watch Vuggesystemet jf. afsnit Mekanik vuggesystem i Implementering for Vuggesystemet
+	\item Motorens plus og minus indgange kobles til henholdsvis MOT A og MOT B jf. afsnit \ref{Vuggesytem:HW_DESIGN_HBRO} i Hardware Design for Vuggesystemet
+	\item Et PSOC4 Pioneer Kit (REFERENCE) programmeres med testprogrammet VuggeSinus jf. BILAG?? og de to PWM output kobles til henholdsvis Mos Driver A indgang M A og Mos Driver B indgang M B på motorkredsen jf. afsnit \ref{Vuggesytem:HW_DESIGN_MOSDRIVER} i Hardware Design for Vuggesystemet
+\end{itemize}
+
+Figur billede af opstillingen
+
+\textbf{Testbeskrivelse}
+\begin{itemize}
+	\item Opsæt systemet som beskrevet ovenfor
+	\item Programmer PSoC4 Pioneer Kittet med VuggeSinus programmet
+	\item Testen dokumenteres med video og billeder
+\end{itemize}
+
+\textbf{Forventet resultat} \\
+Det forventes at motorkredsløbet er i stand til at "vippe" barnevognen som beskrevet i Formålet tre gange i sekvens fra yder position til yder position.
+
+\textbf{Resultat} \\
+// Tekst \\
+
+// Figur 2 - Billede af resultat og reference til BILAG med video.
+
+\textit{Testen er godkendt/ikke-godkendt}
+
+
+
+\subsubsection{Endstopsensor}
+\textbf{Formål} \\
+Formålet med testen er at se om Vuggesystemet melder om fejl ved aktivering af en af Endstopsensorerne.
+
+\textbf{Overordnet opstilling af Enstopsensor test}
+
+\begin{itemize}
+	\item Testen foregår i et rum med et horisontalt nivelleret gulv
+	\item Baby Watch barnevognen monteres med Endstopsensorne jf.\ref{Vuggesystem: Implementering_ES} i Implementeringen for Vuggesystemet 
+	\item Baby Watch barnevogns kurven sættes i et vandret niveau
+	\item PSoC4 Pioneer Kittet er tilsluttet en computer
+	\item Computeren har startet et terminal program som har oprettet forbindelse til den givne com port PSoC4 Pioneer Kittet sidder på
+	\item PSoC4 Pioneer Kittet programmeres med VuggeControl programmet
+\end{itemize}
+
+// Figur med billede af opstilling
+
+\textbf{Testbeskrivelse}
+\begin{itemize}
+	\item Opsæt systemet som beskrevet ovenfor
+	\item Baby Watch barnevognskurven sættes ud i en yder position så Endstopsensoren aktives
+	\item Der kontrollers på udskrift fra terminal programmet på computeren om Endstopsensoren aktiver en advarsel om aktivering. Tekst: "Endstop aktiveret"
+	\item Testen gentages men denne gang med aktivering af Endstopsensoren på den modsatte yder position
+\end{itemize}
+
+\textbf{Forventet resultat} \\
+Det forventes at der ved aktivering ved begge yder positioner skrive "Endstop aktiveret" i terminal vinduet på computeren \\
+\textbf{Resultat} \\
+// Tekst \\
+
+// Figur med billede af terminal udskriften samt et billede af den vippede barnevogn
+
+\textit{Testen er godkendt/ikke-godkendt}
+
+
+
+\subsubsection{Mekanisk vuggesystem}
 \textbf{Formål} \\
 // Tekst
 
@@ -31,17 +101,92 @@ Følgende afsnit beskriver tests for de individuelle moduler i Vuggesystem-delen
 
 \textit{Testen er godkendt/ikke-godkendt}
 
-
-
-\subsubsection{Endstopsensor}
-
-\subsubsection{Vuggeudsving sensor}
-
-\subsubsection{Motor positions sensor}
-
-\subsubsection{Mekanisk vuggesystem}
-
-
 \subsection{Software modultest}
-\subsubsection{Regulerings MCU}
+Dette afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch
 \subsubsection{Vuggeudsving sensor}
+\textbf{Formål} \\
+// Tekst
+
+\textbf{Overordnet opstilling af x test}
+
+\begin{itemize}
+	\item Første punkt er test miljøet
+	\item Efterfølgende punkter er opstillingen beskrevet trinvist
+	\item Osv..
+\end{itemize}
+
+// Figur 1 - med evt. opstilling
+
+\textbf{Testbeskrivelse}
+\begin{itemize}
+	\item Hvad skal ske først
+	\item Hvad skal der ske efterfølgende
+	\item Osv, osv..
+\end{itemize}
+
+\textbf{Forventet resultat} \\
+// Tekst \\
+\textbf{Resultat} \\
+// Tekst \\
+
+// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
+
+\textit{Testen er godkendt/ikke-godkendt}
+\subsubsection{Motor positions sensor}
+\textbf{Formål} \\
+// Tekst
+
+\textbf{Overordnet opstilling af x test}
+
+\begin{itemize}
+	\item Første punkt er test miljøet
+	\item Efterfølgende punkter er opstillingen beskrevet trinvist
+	\item Osv..
+\end{itemize}
+
+// Figur 1 - med evt. opstilling
+
+\textbf{Testbeskrivelse}
+\begin{itemize}
+	\item Hvad skal ske først
+	\item Hvad skal der ske efterfølgende
+	\item Osv, osv..
+\end{itemize}
+
+\textbf{Forventet resultat} \\
+// Tekst \\
+\textbf{Resultat} \\
+// Tekst \\
+
+// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
+
+\textit{Testen er godkendt/ikke-godkendt}
+\subsubsection{Regulerings MCU}
+\textbf{Formål} \\
+// Tekst
+
+\textbf{Overordnet opstilling af x test}
+
+\begin{itemize}
+	\item Første punkt er test miljøet
+	\item Efterfølgende punkter er opstillingen beskrevet trinvist
+	\item Osv..
+\end{itemize}
+
+// Figur 1 - med evt. opstilling
+
+\textbf{Testbeskrivelse}
+\begin{itemize}
+	\item Hvad skal ske først
+	\item Hvad skal der ske efterfølgende
+	\item Osv, osv..
+\end{itemize}
+
+\textbf{Forventet resultat} \\
+// Tekst \\
+\textbf{Resultat} \\
+// Tekst \\
+
+// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
+
+\textit{Testen er godkendt/ikke-godkendt}
