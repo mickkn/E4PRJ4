@@ -1,0 +1,33 @@
+%Mikrofon preamp design
+
+\subsection{ADC forfiltrering}
+
+For at tilpasse signalet til ADC'en i Blackfin533 bedst muligt laves der en filtrering af signalet inden ADC'en. 
+Ordenen af dette filter beregnes ud fra ADC'ens SNR (Signal To Noise Ratio). Blackfin's ADC er en AD1836, hvilken kan køre med henholdsvis 16-/18-/20-/24-Bit data. Herudover understøtter den en samplerate på 96KHz. Alle specifikationr for AD1836 kan ses i \textbf{INDSÆT REFERENCE TIL DATASHEET AD1836}. \\
+
+Til beregning af AD1836's SNR benyttes følgende formel: \\
+${ SNR }_{ ADC }=6.02\cdot N+1.78dB$
+
+Hvor N er ADC'ens antal bits. 
+
+I dette projekt arbejdes med 16-Bit og AD1836's SNR bliver heraf: \\
+${ SNR }_{ AD1836 }=6.02\cdot 16+1.78dB = 98.1dB$
+
+Der omregnes nu fra dB til gain: \\
+$Gain\quad =\quad { 10 }^{ \frac { { SNR }_{ ADC } }{ 20 }  }$
+
+$Gain\quad =\quad { 10 }^{ \frac { 98.1 }{ 20 }  }=80352gg$
+
+Når gain er fundet er det herefter muligt at beregne ordnen på filtret. Dette gøres ud fra dæmpningsformlen. \\
+$Damping={ \left( \frac { \frac { { f }_{ s } }{ 2 }  }{ { f }_{ c } }  \right)  }^{ M }\ge Gain$
+
+Hvor M er ordnen af filtret, fc er knækfrekvensen og fs/2 er den halve samplingsfrekvens.\\
+$Damping={ \left( \frac { 96kHz }{ 7kHz }  \right)  }^{ M }\ge 80352\rightarrow M=5.9$
+
+
+
+
+
+
+
+
