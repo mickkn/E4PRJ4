@@ -4,11 +4,11 @@
 Dette kapitel omhandler strømdistributionen for Baby Watch. Som beskrevet kapitlet Overordnet så styrer Controlleren hvorvidt Vuggesystemet og den Intelligente Lydmonitor skal forsynes med strøm. Der benyttes et relæ til at styre dette. Forsyningsbatteriet skal reguleres ned til 3 forskellige spændinger:
 
 \begin{itemize}
-\item \textbf{Controller:} Kræver 5 V / XX mA (Raspberry Pi + Betjeningspanel)
+\item \textbf{Controller:} Kræver 5 V / 1200 mA (Raspberry Pi + Betjeningspanel)
 
-\item \textbf{Vuggesystem:} Kræver 3,3 V / XX mA (PSoC + Motorstyringskreds)
+\item \textbf{Vuggesystem:} Kræver 3,3 V / 500 mA (PSoC + Motorstyringskreds)
 
-\item \textbf{Intelligent Lydmonitor:} Kræver 7.5 V / XX mA (BlackFin 533 kit + Mikrofonkreds)
+\item \textbf{Intelligent Lydmonitor:} Kræver 7.5 V / 1500 mA (BlackFin 533 kit + Mikrofonkreds)
 \end{itemize}
 
 Ved nedkonverteringen til 7,5 V benyttes en DC-DC konverter (LM2596S). Fra denne spænding reguleres der til hhv. 5 V og 3,3 V vha. spændingsregulatorer (LM317). 
@@ -95,9 +95,36 @@ Der foretages også effektberegning på denne regulator. Effektafsættelsen er m
 
 \subsection{Relæ styring}
 
+Forsyningen til den Intelligente Lydmonitor og til Vuggesystemet skal kunne afbrydes af Controlleren, når ON/OFF-knappen på betjeningspanelet sættes i OFF position. Vuggesystemet giver signal via I2C at forsyningen kan afbrydes og herefter sender Controlleren via signalet PowerOn et signal til PSU'en at 3,3 V og 7,5 V forsyningen skal afbrydes. Afbrydelsen foregår vha. et relæ. Relæet der benyttes er et Finder 40.52S som er godkendt til en middel belastning på 8 A hvilket dækker behovet. 
+
+\figur{0.6}{psu/relay4052.pdf}{Udsnit af datablad for Finder 40.52S}{psu:relayDatasheet}
+
+Figur \ref{psu:relayDatasheet} viser et udsnit af databladet for Finder 40.52S. Figuren viser at 5 V relæet fungerer med en spænding over spolen på 3,7 V til 7,5 V samt at relæet kræver 100 mA ved 5 V for at trække.
+
+Raspberry Pi'ens GPIO23 skal sende powerOn signalet jf. Systemarkitekturen. Raspberryen kan hverken forsyne relæet med 5 V eller 100 mA, derfor benyttes en transistor. BC517 kan løse opgaven da denne kan tåle 500 mA i kollektor strøm. Strømforstækningen max $h_{fe}$ er 30000, så i princippet burde en basestrøm på 3 uA være nok til de 100 mA. Der er dog valgt at basestrømmen skal være 0,1 mA for ikke at gå helt til grænsen for hvad der er minimum for at opnå de 100 mA. 
+
+Raspberry Pi'en afgiver 3,3 V og BC517 har et base emitter spændingsfald på 1,4 V da det er en Darlington. 
+
+\begin{equation}
+{ R }_{ base }=\frac { 3,3V-1,4V }{ 0,1mA } =\frac { 1,9V }{ 0,1mA } =19k\Omega
+\label{eq:R_base}
+\end{equation}
+
+Ligning \ref{eq:R_base} viser udregningen af base modstanden. Modstandens værdi vælges til 18$\Omega$ da dette er en E24 standart.  
+
+Da relæet kan operere ved 7,5 V, benyttes denne spænding til at trække relæet og spændingen leveres af DC-DC konverteren. 
+
+Samlet giver det anledning til nedenstående kredsløbsdiagram for relæstyringen se figur \ref{psu:relaySim}
+
+\figur{0.7}{psu/relaycontrol.pdf}{Kredsløbsdiagram for relæstyring}{psu:relaySim}
+
+Dioden (1N4007) i figur \ref{psu:relaySim} er indsat for at beskytte transistoren mod tilbageløbende strøm når relæet klikker. 
+
+
 \subsection{Samlet PSU print}
 
 \figur{1}{psu/PSUmultisim.pdf}{Samlet kredsløbsdiagram for PSU'en}{psu:PSUsamlet}
 
+Figur \ref{psu:PSUsamlet} viser det samlede kredsløbsdiagram for PSU'en med tilhørende powOn\_out pin som Raspberry Pi'ens GPIO23 skal forbindes til. Der er desuden indtegnet en hovedafbryder til PSU'en samt 12 V forbindelse til den blæser der skal køle spændingsregulatorerne.
 
 EAGLE billeder af printudlæg 
