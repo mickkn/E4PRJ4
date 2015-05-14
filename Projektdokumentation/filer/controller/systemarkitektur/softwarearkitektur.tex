@@ -1,9 +1,20 @@
 \subsection{Softwarearkitektur}
 
-\subsubsection{Sekvensdiagrammer}
+\subsubsection{Sekvensdiagram (BABYCON-niveauer)}
 
-\figur{0.9}{controller/sysark/Controller_Sekvensdiagram_Babycon}{Sekvensdiagram for Babycon niveauer i main}{controller:sd_babycon}
+\figur{0.8}{controller/sysark/Controller_Sekvensdiagram_Babycon}{Sekvensdiagram for Babycon niveauer}{controller:sd_babycon}
 
-\figur{0.9}{controller/sysark/Controller_Sekvensdiagram_ManStart}{Sekvensdiagram for ''Manuel Start'' i main}{controller:sd_manstart}
+Sekvensdiagrammet for BABYCON-niveauerne beskriver hvordan Controlleren reagere på BABYCON-niveauer fra Intelligent lydmonitor. Samt hvad der kommunikeres ud til Vuggesystemet.
+Det er tænkt som et stort loop der hele tiden kigger på variabler og handler på disse. BABYCON har så 3 niveauer og en fejltilstand 0, som den reagerer på. BABYCON2 har sine egne loops at switche imellem, disse kan dog afbrydes af fejl og slukning af systemet.
 
-\figur{0.9}{controller/sysark/Controller_Sekvensdiagram_PowerOff}{Sekvensdiagram for nedlukning i main}{controller:sd_poweroff}
+\subsubsection{Sekvensdiagram (''Manuel start'')}
+
+\figur{0.9}{controller/sysark/Controller_Sekvensdiagram_ManStart}{Sekvensdiagram for ''Manuel Start''}{controller:sd_manstart}
+
+''Manuel start'' skal køre et loop i 5 min. fordelt på hhv. 2 min. ''forced'' loop hvor der vugges uden hensyntagen til BABYCON-niveau og i 3 min. hvor BABYCON1 kan afbryde vugningen. ''Manuel start'' kan selvfølgelig afbrydes af et Power OFF eller fejl i vuggesystemet.
+
+\subsubsection{Sekvensdiagram (Power Off)}
+
+\figur{0.9}{controller/sysark/Controller_Sekvensdiagram_PowerOff}{Sekvensdiagram for nedlukning}{controller:sd_poweroff}
+
+Power off skal starte et loop der kigger på om vuggesystemet er klar til at lukke ned. Dvs. der sendes et power off signal til Vuggesystemet og ventes på et ''shutdown ready'' fra samme. Når signalet er modtaget, kan der afbrydes for strømmen til Vuggesystemet og Int. lydmonitor.  
