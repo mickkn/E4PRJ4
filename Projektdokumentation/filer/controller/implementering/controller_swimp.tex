@@ -70,16 +70,7 @@ Body'en består af syv divisioner, en til højreside billede, en til toppen, en 
 \verb+<div id ="txt">+ \\
 \\På samme måde som ved eksemplet laves der et kald til leftsection style. Herefter sættes en skriftstørrelse med \verb+<h2>+. Tilsidst kaldes javascript-funktionen der opdaterer med det pågældende tidspunkt vha. \verb+"txt"+.
 
-\textbf{Implemeteringen af webserver funktionerne på Controller}
-
-\verb+initWebServer()+
-
-\verb+stopWebServer()+
-
-\verb+updateToBabyCon1()+
-
-\verb+updateToBabyCon2()+
-
-\verb+updateToBabyCon3()+
-
-\verb+updateFile(int)+
+\textbf{Implemeteringen af webserver funktionerne på Controller} \\
+Tanken bag implementeringen er at ved henholdsvis oprettelsen og nedlæggelsen af et Website objekt skal \verb+initWebServer()+ og \verb+stopWebServer()+ kaldes så starten og terminering af flaskserveren følger Website objektets livscyklus. \\ 
+De tre opdaterings funktioner; \verb+updateToBabyCon1()+, \verb+updateToBabyCon2()+ og \verb+updateToBabyCon3()+ er implementeret således at de hver især sender en parameter fra 1-3 til \verb+updateFile(int)+. \\ 
++updateFile(int)+ er skrevet sådan at den ved hjælp af en switch case tjekker på input parameteren og herefter opdaterer funktionen de valgte filer ved hjælp af FILE pointere. Disse FILE pointerer bruges til at indlæse filer som angiver Babycon tilstanden og herefter overskrive filerne som flask-serveren anvender til hjemmesiden.
