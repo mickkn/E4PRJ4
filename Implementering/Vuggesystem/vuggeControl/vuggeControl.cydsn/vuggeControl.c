@@ -58,7 +58,7 @@ int main()
 {
     initVuggesystem();
     CyGlobalIntEnable; // Global interrupts
-    debugOut_PutString("Welcome senor Hofni\r\n");
+    debugOut_PutString("Welcome to Baby Watch\r\n");
     
     
     while(TRUE)

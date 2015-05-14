@@ -2,17 +2,37 @@
 \subsection{Hardware implementering}
 
 \subsubsection{Motorstyringskreds}
-
-\subsubsection{Endstopsensor}
-\label{Vuggesystem: Implementering_ES} 
+\newpage
+\subsubsection{Endstopsensor}\label{Vuggesystem: Implementering_ES} 
+Endstop sensorene er blevet realiseret ved hjælp af to end stop switches. En endstop switch fungere som en alm. switch der ved aktivering skaber forbindelse mellem to punkter. Figuren under viser en tilsvarende udgave af en end stop switch som dem brugt i projektet.
+\figur{0.2}{vuggesystem/impl/ES_SWITCH.pdf}{Generisk end stop switch}{VS_Im_ES_SWITCH}
+ Disse end stop switches er placeret således at når barnevognskurven på Baby Watch systemet går ud i en yder vippeposition så aktivers en end stop switch.
+\figur{0.5}{vuggesystem/impl/Endstop_Sensor.pdf}{Monteret endstop sensor}{VS_Im_ES_Sensor}
+Endstop sensorne er herefter forbundet til endstop kredsløbet (REFERENCE til design afsnit af endstop sensorerne)
 
 \subsubsection{Vuggeudsving sensor}
 
+
 \subsubsection{Motor positionssensor}
+Motor positionssensoren bliver ikke implementeret i denne iteration af projektet.
 
+\newpage
 \subsubsection{Mekanisk vuggesystem}
+\label{Vuggesystem: Implementering_MV} 
+Det mekaniske vuggesystem er implementeret ud fra skitsen i Vuggesystem Design Mekanisk Vuggesystem afsnit \ref{Vuggesystem: Design_MekVug}. \\
+\textit{Motor:}\\
+Motoren er placeret under barnevognskurvens tyngde center med en påsat gearing på 1:16 samt en kæde der giver en yderligere gearing på 1:8. Dette betyder at ved en hel vugning af barnevognskurven (fra yder position til yder position) roterer motoren 8 gange.
+\figur{0.5}{vuggesystem/impl/Mekanisk_Vuggesystem_Motor.pdf}{Motor til det mekaniske vuggesystem med vist gearing}{VS_Im_Gear}
+\figur{0.5}{vuggesystem/impl/Mekanisk_Vuggesystem_Akse.pdf}{Tandhjul påsat motoren til det mekaniske vuggesystem}{VS_Im_Akse}
 
-
+\textit{Vuggeudsving:}
+Som det ses på de tre nedenstående figurer så opfylder vuggesystemet kravspecifikationens ikke-funktionelle krav afsnit \ref{kravspec:ikke_funk_nivellering} om at barnevognen skal kunne vugge med mindst +/- 10 grader. Det implementerede vuggesystem  kan ideelt vippe ud til +/- 24,5 grader. Dette gør at Baby Watch systemet vil være i stand til at stå på en skrånende flade på op til 14,5 grader. Dette bliver ikke afprøvet og tested i denne iteration af projektet. 
+\figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Vandret.pdf}{Baby Watch barnevogn i vandret position}{VS_MV_Vandret}
+\figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Hojre.pdf}{Baby Watch barnevogn i højre yderposition}{VS_MV_Hojre}
+\figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Venstre.pdf}{Baby Watch barnevogn i venstre yderposition}{VS_MV_Venstre}
+\textit{Stabilisering af barnevogn}
+Barnevogne har som standart løse led der blandt andet virker som støddæmpere. Disse led er blevet stabiliseret med spændebånd for at gøre barnevognens regulerings overføringsfunktion mere tilnærmelsesvis lineær. 
+\figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Opspaend.pdf}{Billede af stabiliseret barnevognsled}{VS_MV_Led}
 \subsection{Software implementering}
 \subsubsection{Regulerings MCU}
 \textbf{vuggeControl (main)} \\

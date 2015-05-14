@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
   23:.\Generated_Source\PSoC4/sensorI2C_PM.c **** #endif /* (sensorI2C_SCB_MODE_I2C_INC) */
   24:.\Generated_Source\PSoC4/sensorI2C_PM.c **** 
   25:.\Generated_Source\PSoC4/sensorI2C_PM.c **** #if(sensorI2C_SCB_MODE_EZI2C_INC)
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 2
 
 
   26:.\Generated_Source\PSoC4/sensorI2C_PM.c ****     #include "sensorI2C_EZI2C_PVT.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
   72:.\Generated_Source\PSoC4/sensorI2C_PM.c ****     {
   73:.\Generated_Source\PSoC4/sensorI2C_PM.c ****         if(sensorI2C_SCB_MODE_I2C_RUNTM_CFG)
   74:.\Generated_Source\PSoC4/sensorI2C_PM.c ****         {
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 3
 
 
   75:.\Generated_Source\PSoC4/sensorI2C_PM.c ****             sensorI2C_I2CSaveConfig();
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
   47 000e 064B     		ldr	r3, .L3+4
   48 0010 1A70     		strb	r2, [r3]
  123:.\Generated_Source\PSoC4/sensorI2C_PM.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 4
 
 
  124:.\Generated_Source\PSoC4/sensorI2C_PM.c ****         if(0u != sensorI2C_backup.enableState)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  150:.\Generated_Source\PSoC4/sensorI2C_PM.c **** *
  151:.\Generated_Source\PSoC4/sensorI2C_PM.c **** *******************************************************************************/
  152:.\Generated_Source\PSoC4/sensorI2C_PM.c **** void sensorI2C_Wakeup(void)
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 5
 
 
  153:.\Generated_Source\PSoC4/sensorI2C_PM.c **** {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  199:.\Generated_Source\PSoC4/sensorI2C_PM.c **** 
  200:.\Generated_Source\PSoC4/sensorI2C_PM.c ****     #elif (sensorI2C_SCB_MODE_UART_CONST_CFG && sensorI2C_UART_WAKE_ENABLE_CONST)
  201:.\Generated_Source\PSoC4/sensorI2C_PM.c ****         sensorI2C_UartRestoreConfig();
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 6
 
 
  202:.\Generated_Source\PSoC4/sensorI2C_PM.c **** 
@@ -343,36 +343,36 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  112 0006 00000000 		.4byte	.Ldebug_abbrev0
  113 000a 04       		.byte	0x4
  114 000b 01       		.uleb128 0x1
- 115 000c FD000000 		.4byte	.LASF19
+ 115 000c 96000000 		.4byte	.LASF19
  116 0010 01       		.byte	0x1
  117 0011 3F000000 		.4byte	.LASF20
- 118 0015 96000000 		.4byte	.LASF21
+ 118 0015 AC010000 		.4byte	.LASF21
  119 0019 00000000 		.4byte	.Ldebug_ranges0+0
  120 001d 00000000 		.4byte	0
  121 0021 00000000 		.4byte	.Ldebug_line0
  122 0025 02       		.uleb128 0x2
  123 0026 01       		.byte	0x1
  124 0027 06       		.byte	0x6
- 125 0028 CD010000 		.4byte	.LASF0
+ 125 0028 76010000 		.4byte	.LASF0
  126 002c 02       		.uleb128 0x2
  127 002d 01       		.byte	0x1
  128 002e 08       		.byte	0x8
- 129 002f 79010000 		.4byte	.LASF1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 7
+ 129 002f 12010000 		.4byte	.LASF1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 7
 
 
  130 0033 02       		.uleb128 0x2
  131 0034 02       		.byte	0x2
  132 0035 05       		.byte	0x5
- 133 0036 F0010000 		.4byte	.LASF2
+ 133 0036 99010000 		.4byte	.LASF2
  134 003a 02       		.uleb128 0x2
  135 003b 02       		.byte	0x2
  136 003c 07       		.byte	0x7
- 137 003d BA010000 		.4byte	.LASF3
+ 137 003d 63010000 		.4byte	.LASF3
  138 0041 02       		.uleb128 0x2
  139 0042 04       		.byte	0x4
  140 0043 05       		.byte	0x5
- 141 0044 8C010000 		.4byte	.LASF4
+ 141 0044 25010000 		.4byte	.LASF4
  142 0048 02       		.uleb128 0x2
  143 0049 04       		.byte	0x4
  144 004a 07       		.byte	0x7
@@ -406,19 +406,19 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  172 0081 02       		.uleb128 0x2
  173 0082 04       		.byte	0x4
  174 0083 04       		.byte	0x4
- 175 0084 D9010000 		.4byte	.LASF11
+ 175 0084 82010000 		.4byte	.LASF11
  176 0088 02       		.uleb128 0x2
  177 0089 08       		.byte	0x8
  178 008a 04       		.byte	0x4
- 179 008b AD010000 		.4byte	.LASF12
+ 179 008b 56010000 		.4byte	.LASF12
  180 008f 02       		.uleb128 0x2
  181 0090 01       		.byte	0x1
  182 0091 08       		.byte	0x8
- 183 0092 87010000 		.4byte	.LASF13
+ 183 0092 20010000 		.4byte	.LASF13
  184 0096 05       		.uleb128 0x5
- 185 0097 B4010000 		.4byte	.LASF14
+ 185 0097 5D010000 		.4byte	.LASF14
  186 009b 02       		.byte	0x2
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 8
 
 
  187 009c 4D01     		.2byte	0x14d
@@ -428,7 +428,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  191 00a7 02       		.uleb128 0x2
  192 00a8 04       		.byte	0x4
  193 00a9 07       		.byte	0x7
- 194 00aa FA010000 		.4byte	.LASF15
+ 194 00aa A3010000 		.4byte	.LASF15
  195 00ae 07       		.uleb128 0x7
  196 00af 01       		.byte	0x1
  197 00b0 03       		.byte	0x3
@@ -442,12 +442,12 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  205 00c1 00       		.byte	0
  206 00c2 00       		.byte	0
  207 00c3 04       		.uleb128 0x4
- 208 00c4 95010000 		.4byte	.LASF16
+ 208 00c4 2E010000 		.4byte	.LASF16
  209 00c8 03       		.byte	0x3
  210 00c9 5B       		.byte	0x5b
  211 00ca AE000000 		.4byte	0xae
  212 00ce 09       		.uleb128 0x9
- 213 00cf 03020000 		.4byte	.LASF17
+ 213 00cf 46010000 		.4byte	.LASF17
  214 00d3 01       		.byte	0x1
  215 00d4 43       		.byte	0x43
  216 00d5 00000000 		.4byte	.LFB0
@@ -463,7 +463,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  226 00ee 01       		.uleb128 0x1
  227 00ef 9C       		.byte	0x9c
  228 00f0 0A       		.uleb128 0xa
- 229 00f1 DF010000 		.4byte	.LASF23
+ 229 00f1 88010000 		.4byte	.LASF23
  230 00f5 01       		.byte	0x1
  231 00f6 2C       		.byte	0x2c
  232 00f7 C3000000 		.4byte	0xc3
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  241 0002 01       		.byte	0x1
  242 0003 25       		.uleb128 0x25
  243 0004 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 9
 
 
  244 0005 13       		.uleb128 0x13
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  298 003b 3A       		.uleb128 0x3a
  299 003c 0B       		.uleb128 0xb
  300 003d 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 10
 
 
  301 003e 05       		.uleb128 0x5
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  355 0074 01       		.uleb128 0x1
  356 0075 12       		.uleb128 0x12
  357 0076 06       		.uleb128 0x6
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 11
 
 
  358 0077 40       		.uleb128 0x40
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  408 0000 6C6F6E67 		.ascii	"long long int\000"
  408      206C6F6E 
  408      6720696E 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 12
 
 
  408      7400
@@ -701,95 +701,98 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 1
  424      6720756E 
  424      7369676E 
  424      65642069 
- 425              	.LASF21:
- 426 0096 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
- 426      73657273 
- 426      5C46656C 
- 426      69785C47 
- 426      6F6F676C 
- 427 00c4 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 427      656D2061 
- 427      7262656A 
- 427      6473646F 
- 427      6B756D65 
- 428 00f5 6C2E6379 		.ascii	"l.cydsn\000"
- 428      64736E00 
- 429              	.LASF19:
- 430 00fd 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 430      4320342E 
- 430      382E3420 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 13
+ 425              	.LASF19:
+ 426 0096 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 426      4320342E 
+ 426      382E3420 
+ 426      32303134 
+ 426      30353236 
+ 427 00c9 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 427      20726576 
+ 427      6973696F 
+ 427      6E203231 
+ 427      31333538 
+ 428 00fc 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 428      66756E63 
+ 428      74696F6E 
+ 428      2D736563 
+ 428      74696F6E 
+ 429              	.LASF1:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 13
 
 
- 430      32303134 
- 430      30353236 
- 431 0130 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 431      20726576 
- 431      6973696F 
- 431      6E203231 
- 431      31333538 
- 432 0163 30202D66 		.ascii	"0 -ffunction-sections\000"
- 432      66756E63 
- 432      74696F6E 
- 432      2D736563 
- 432      74696F6E 
- 433              	.LASF1:
- 434 0179 756E7369 		.ascii	"unsigned char\000"
- 434      676E6564 
- 434      20636861 
- 434      7200
- 435              	.LASF13:
- 436 0187 63686172 		.ascii	"char\000"
- 436      00
- 437              	.LASF4:
- 438 018c 6C6F6E67 		.ascii	"long int\000"
- 438      20696E74 
- 438      00
- 439              	.LASF16:
- 440 0195 73656E73 		.ascii	"sensorI2C_BACKUP_STRUCT\000"
- 440      6F724932 
- 440      435F4241 
- 440      434B5550 
- 440      5F535452 
- 441              	.LASF12:
- 442 01ad 646F7562 		.ascii	"double\000"
- 442      6C6500
- 443              	.LASF14:
- 444 01b4 72656733 		.ascii	"reg32\000"
- 444      3200
- 445              	.LASF3:
- 446 01ba 73686F72 		.ascii	"short unsigned int\000"
- 446      7420756E 
- 446      7369676E 
- 446      65642069 
- 446      6E7400
- 447              	.LASF0:
- 448 01cd 7369676E 		.ascii	"signed char\000"
- 448      65642063 
- 448      68617200 
- 449              	.LASF11:
- 450 01d9 666C6F61 		.ascii	"float\000"
- 450      7400
- 451              	.LASF23:
- 452 01df 73656E73 		.ascii	"sensorI2C_backup\000"
- 452      6F724932 
- 452      435F6261 
- 452      636B7570 
- 452      00
- 453              	.LASF2:
- 454 01f0 73686F72 		.ascii	"short int\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccla0XJj.s 			page 14
+ 430 0112 756E7369 		.ascii	"unsigned char\000"
+ 430      676E6564 
+ 430      20636861 
+ 430      7200
+ 431              	.LASF13:
+ 432 0120 63686172 		.ascii	"char\000"
+ 432      00
+ 433              	.LASF4:
+ 434 0125 6C6F6E67 		.ascii	"long int\000"
+ 434      20696E74 
+ 434      00
+ 435              	.LASF16:
+ 436 012e 73656E73 		.ascii	"sensorI2C_BACKUP_STRUCT\000"
+ 436      6F724932 
+ 436      435F4241 
+ 436      434B5550 
+ 436      5F535452 
+ 437              	.LASF17:
+ 438 0146 73656E73 		.ascii	"sensorI2C_Sleep\000"
+ 438      6F724932 
+ 438      435F536C 
+ 438      65657000 
+ 439              	.LASF12:
+ 440 0156 646F7562 		.ascii	"double\000"
+ 440      6C6500
+ 441              	.LASF14:
+ 442 015d 72656733 		.ascii	"reg32\000"
+ 442      3200
+ 443              	.LASF3:
+ 444 0163 73686F72 		.ascii	"short unsigned int\000"
+ 444      7420756E 
+ 444      7369676E 
+ 444      65642069 
+ 444      6E7400
+ 445              	.LASF0:
+ 446 0176 7369676E 		.ascii	"signed char\000"
+ 446      65642063 
+ 446      68617200 
+ 447              	.LASF11:
+ 448 0182 666C6F61 		.ascii	"float\000"
+ 448      7400
+ 449              	.LASF23:
+ 450 0188 73656E73 		.ascii	"sensorI2C_backup\000"
+ 450      6F724932 
+ 450      435F6261 
+ 450      636B7570 
+ 450      00
+ 451              	.LASF2:
+ 452 0199 73686F72 		.ascii	"short int\000"
+ 452      7420696E 
+ 452      7400
+ 453              	.LASF15:
+ 454 01a3 73697A65 		.ascii	"sizetype\000"
+ 454      74797065 
+ 454      00
+ 455              	.LASF21:
+ 456 01ac 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccQAlbQh.s 			page 14
 
 
- 454      7420696E 
- 454      7400
- 455              	.LASF15:
- 456 01fa 73697A65 		.ascii	"sizetype\000"
- 456      74797065 
- 456      00
- 457              	.LASF17:
- 458 0203 73656E73 		.ascii	"sensorI2C_Sleep\000"
- 458      6F724932 
- 458      435F536C 
- 458      65657000 
+ 456      73657273 
+ 456      5C4A6570 
+ 456      70655C44 
+ 456      6F63756D 
+ 457 01d9 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 457      4A345C49 
+ 457      6D706C65 
+ 457      6D656E74 
+ 457      6572696E 
+ 458 0208 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 458      65436F6E 
+ 458      74726F6C 
+ 458      2E637964 
+ 458      736E00
  459              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

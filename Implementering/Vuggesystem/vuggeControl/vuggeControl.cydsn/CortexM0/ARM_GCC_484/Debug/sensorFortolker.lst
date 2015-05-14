@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
   54              	gyroData:
   55 000c 00000000 		.space	4
   56              		.global	gyroAng
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 2
 
 
   57              		.align	2
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
   29:.\sensorFortolker.c **** 
   30:.\sensorFortolker.c **** //includes
   31:.\sensorFortolker.c **** #include "sensorFortolker.h"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 3
 
 
   32:.\sensorFortolker.c **** #include <stdio.h>
@@ -139,8 +139,8 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
   47:.\sensorFortolker.c ****  * point. (2^16/8192)                                           */
   48:.\sensorFortolker.c **** #define ACC_SCALE_FACTOR 8
   49:.\sensorFortolker.c **** 
-  50:.\sensorFortolker.c **** #define GYRO_WEIGHT 6554 //0.90 * 2^16
-  51:.\sensorFortolker.c **** #define ACC_WEIGHT 58982 // (1 - gyro_weight) * 2^16
+  50:.\sensorFortolker.c **** #define GYRO_WEIGHT 58982 //0.90 * 2^16
+  51:.\sensorFortolker.c **** #define ACC_WEIGHT 6554 // (1 - gyro_weight) * 2^16
   52:.\sensorFortolker.c **** 
   53:.\sensorFortolker.c **** //I2C defines
   54:.\sensorFortolker.c **** #define IMU_ADDRESS 0b1101000 //+1 for alt
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
   86:.\sensorFortolker.c **** {
   83              		.loc 1 86 0
   84              		.cfi_startproc
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 4
 
 
   85 0000 80B5     		push	{r7, lr}
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  103:.\sensorFortolker.c **** //}
  104:.\sensorFortolker.c **** 
  105:.\sensorFortolker.c **** /* Function getVuggeUdsvingSens
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 5
 
 
  106:.\sensorFortolker.c ****    Summary:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  164 003e 1B68     		ldr	r3, [r3]
  165 0040 B421     		mov	r1, #180
  166 0042 4904     		lsl	r1, r1, #17
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 6
 
 
  167 0044 5A18     		add	r2, r3, r1
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  210 008e 9A42     		cmp	r2, r3
  211 0090 21DC     		bgt	.L7
  130:.\sensorFortolker.c ****     {
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 7
 
 
  131:.\sensorFortolker.c ****         accAng = fix16rad2deg(FIXED_HALF_PI + fix16atan2(accData[1], accData[0]));
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  258              	.L9:
  259 00e4 00000000 		.word	gyroData
  260 00e8 00000000 		.word	accData
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 8
 
 
  261 00ec 00000000 		.word	estAng
@@ -427,8 +427,8 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  264 00f8 33F30000 		.word	62259
  265 00fc CC4C0100 		.word	85196
  266 0100 20920100 		.word	102944
- 267 0104 9A190000 		.word	6554
- 268 0108 66E60000 		.word	58982
+ 267 0104 66E60000 		.word	58982
+ 268 0108 9A190000 		.word	6554
  269              		.cfi_endproc
  270              	.LFE34:
  271              		.size	getVuggeUdsvingSens, .-getVuggeUdsvingSens
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  306              		.global	setupI2CDevice
  307              		.code	16
  308              		.thumb_func
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 9
 
 
  309              		.type	setupI2CDevice, %function
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  356 0040 BB1D     		add	r3, r7, #6
  357 0042 1A78     		ldrb	r2, [r3]
  358 0044 FB68     		ldr	r3, [r7, #12]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 10
 
 
  359 0046 9A42     		cmp	r2, r3
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  402              		.loc 1 162 0
  403 0024 BB1D     		add	r3, r7, #6
  404 0026 1B78     		ldrb	r3, [r3]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 11
 
 
  405 0028 181C     		mov	r0, r3
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  447              		.type	writeI2CReg, %function
  448              	writeI2CReg:
  449              	.LFB38:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 12
 
 
  175:.\sensorFortolker.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  185:.\sensorFortolker.c **** 		}
  186:.\sensorFortolker.c **** 	}
  187:.\sensorFortolker.c **** 	
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 13
 
 
  188:.\sensorFortolker.c ****     
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  538 0026 3B1C     		mov	r3, r7
  539 0028 0E33     		add	r3, r3, #14
  540 002a 1A80     		strh	r2, [r3]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 14
 
 
  197:.\sensorFortolker.c ****     //scale data and return it
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  587 0012 1C1C     		mov	r4, r3
  205:.\sensorFortolker.c ****             + ((int16_t) readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA)<<8);
  588              		.loc 1 205 0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 15
 
 
  589 0014 6820     		mov	r0, #104
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  636 006c 1A60     		str	r2, [r3]
  211:.\sensorFortolker.c **** }
  637              		.loc 1 211 0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 16
 
 
  638 006e BD46     		mov	sp, r7
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  676              		.loc 1 227 0
  677              		.cfi_startproc
  678 0000 80B5     		push	{r7, lr}
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 17
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 17
 
 
  679              		.cfi_def_cfa_offset 8
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  731 0039 08       		.byte	0x8
  732 003a 24010000 		.4byte	.LASF1
  733 003e 03       		.uleb128 0x3
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 18
 
 
  734 003f 19000000 		.4byte	.LASF3
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  788 00a8 41       		.byte	0x41
  789 00a9 57000000 		.4byte	0x57
  790 00ad 03       		.uleb128 0x3
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 19
 
 
  791 00ae 5D020000 		.4byte	.LASF15
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  845 0120 83000000 		.4byte	.LASF23
  846 0124 01       		.byte	0x1
  847 0125 7D       		.byte	0x7d
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 20
 
 
  848 0126 EA000000 		.4byte	0xea
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  902 018f 6E       		.sleb128 -18
  903 0190 0B       		.uleb128 0xb
  904 0191 6900     		.ascii	"i\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 21
 
 
  905 0193 01       		.byte	0x1
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  959 01fc 01       		.byte	0x1
  960 01fd B0       		.byte	0xb0
  961 01fe 00000000 		.4byte	.LFB38
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 22
 
 
  962 0202 4E000000 		.4byte	.LFE38-.LFB38
@@ -1300,7 +1300,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  998 0247 9C       		.byte	0x9c
  999 0248 69020000 		.4byte	0x269
  1000 024c 0A       		.uleb128 0xa
- 1001 024d EF020000 		.4byte	.LASF36
+ 1001 024d F7020000 		.4byte	.LASF36
  1002 0251 01       		.byte	0x1
  1003 0252 C0       		.byte	0xc0
  1004 0253 69020000 		.4byte	0x269
@@ -1308,7 +1308,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1006 0258 91       		.byte	0x91
  1007 0259 64       		.sleb128 -28
  1008 025a 07       		.uleb128 0x7
- 1009 025b F8020000 		.4byte	.LASF37
+ 1009 025b 00030000 		.4byte	.LASF37
  1010 025f 01       		.byte	0x1
  1011 0260 C3       		.byte	0xc3
  1012 0261 97000000 		.4byte	0x97
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1016 0268 00       		.byte	0
  1017 0269 0E       		.uleb128 0xe
  1018 026a 04       		.byte	0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 23
 
 
  1019 026b EA000000 		.4byte	0xea
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1073 02da 0D       		.uleb128 0xd
  1074 02db D8000000 		.4byte	0xd8
  1075 02df 04       		.byte	0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 24
 
 
  1076 02e0 0D       		.uleb128 0xd
@@ -1429,7 +1429,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1121 0340 03       		.byte	0x3
  1122 0341 00000000 		.4byte	accData
  1123 0345 11       		.uleb128 0x11
- 1124 0346 EF020000 		.4byte	.LASF36
+ 1124 0346 F7020000 		.4byte	.LASF36
  1125 034a 01       		.byte	0x1
  1126 034b 49       		.byte	0x49
  1127 034c EA000000 		.4byte	0xea
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1130 0352 00000000 		.4byte	gyroData
  1131 0356 11       		.uleb128 0x11
  1132 0357 11010000 		.4byte	.LASF47
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 25
 
 
  1133 035b 01       		.byte	0x1
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1187 001d 00       		.byte	0
  1188 001e 03       		.uleb128 0x3
  1189 001f 16       		.uleb128 0x16
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 26
 
 
  1190 0020 00       		.byte	0
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1244 0057 3B       		.uleb128 0x3b
  1245 0058 0B       		.uleb128 0xb
  1246 0059 27       		.uleb128 0x27
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 27
 
 
  1247 005a 19       		.uleb128 0x19
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1301 0092 2E       		.uleb128 0x2e
  1302 0093 01       		.byte	0x1
  1303 0094 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 28
 
 
  1304 0095 19       		.uleb128 0x19
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1358 00cc 49       		.uleb128 0x49
  1359 00cd 13       		.uleb128 0x13
  1360 00ce 01       		.uleb128 0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 29
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 29
 
 
  1361 00cf 13       		.uleb128 0x13
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1415 0105 18       		.uleb128 0x18
  1416 0106 9742     		.uleb128 0x2117
  1417 0108 19       		.uleb128 0x19
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 30
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 30
 
 
  1418 0109 00       		.byte	0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1472 0040 00000000 		.4byte	.LFB39
  1473 0044 48000000 		.4byte	.LFE39-.LFB39
  1474 0048 00000000 		.4byte	.LFB40
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 31
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 31
 
 
  1475 004c 74000000 		.4byte	.LFE40-.LFB40
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1517              	.LASF29:
  1518 002a 61727261 		.ascii	"arrayLen\000"
  1518      794C656E 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 32
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 32
 
 
  1518      00
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1541              	.LASF47:
  1542 0111 6779726F 		.ascii	"gyroAng\000"
  1542      416E6700 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 33
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 33
 
 
  1543              	.LASF31:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1569              	.LASF8:
  1570 01b3 6C6F6E67 		.ascii	"long unsigned int\000"
  1570      20756E73 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 34
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 34
 
 
  1570      69676E65 
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1596      7420696E 
  1596      7400
  1597              	.LASF22:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 35
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccnZ1dNf.s 			page 35
 
 
  1598 0255 66697831 		.ascii	"fix16_t\000"
@@ -2061,24 +2061,27 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccMaNilo.s 			page 1
  1608      65642063 
  1608      68617200 
  1609              	.LASF51:
- 1610 0288 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1610 0288 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
  1610      73657273 
- 1610      5C46656C 
- 1610      69785C47 
- 1610      6F6F676C 
- 1611 02b6 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 1611      656D2061 
- 1611      7262656A 
- 1611      6473646F 
- 1611      6B756D65 
- 1612 02e7 6C2E6379 		.ascii	"l.cydsn\000"
- 1612      64736E00 
+ 1610      5C4A6570 
+ 1610      70655C44 
+ 1610      6F63756D 
+ 1611 02b5 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1611      4A345C49 
+ 1611      6D706C65 
+ 1611      6D656E74 
+ 1611      6572696E 
+ 1612 02e4 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1612      65436F6E 
+ 1612      74726F6C 
+ 1612      2E637964 
+ 1612      736E00
  1613              	.LASF36:
- 1614 02ef 6779726F 		.ascii	"gyroData\000"
+ 1614 02f7 6779726F 		.ascii	"gyroData\000"
  1614      44617461 
  1614      00
  1615              	.LASF37:
- 1616 02f8 72617747 		.ascii	"rawGyroX\000"
+ 1616 0300 72617747 		.ascii	"rawGyroX\000"
  1616      79726F58 
  1616      00
  1617              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="vuggeControl\vuggeControl\Header Files">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="vuggeControl\vuggeControl\Source Files\vuggeControl.c">
 <ExpandedNodeIds>
 <v>vuggeControl</v>
 <v>vuggeControl\vuggeControl</v>
@@ -23,7 +23,6 @@
 <v>vuggeControl\vuggeControl\Header Files\i2cKommunikation.h</v>
 <v>vuggeControl\vuggeControl\Header Files\regulering.h</v>
 <v>vuggeControl\vuggeControl\Header Files\sensorFortolker.h</v>
-<v>vuggeControl\vuggeControl\Header Files\vuggeControl.h</v>
 <v>vuggeControl\vuggeControl\Source Files</v>
 <v>vuggeControl\vuggeControl\Source Files\i2cKommunikation.c</v>
 <v>vuggeControl\vuggeControl\Source Files\regulering.c</v>
@@ -78,35 +77,9 @@
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_sda\I2CVuggesystem_sda.c</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_sda\I2CVuggesystem_sda.h</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_sda\I2CVuggesystem_sda_aliases.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\MotorPWM\MotorPWM.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\MotorPWM\MotorPWM.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\MotorPWM\MotorPWM_PM.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\PWMClock\PWMClock.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\PWMClock\PWMClock.h</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ShutdownSwich\ShutdownSwich.c</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ShutdownSwich\ShutdownSwich.h</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ShutdownSwich\ShutdownSwich_aliases.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_BOOT.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_BOOT.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_PINS.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_PM.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_PVT.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_SPI_UART.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_SPI_UART.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_SPI_UART_INT.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_SPI_UART_PVT.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_UART.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1\UART_1_UART_BOOT.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_rx\UART_1_rx.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_rx\UART_1_rx.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_rx\UART_1_rx_aliases.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_SCBCLK\UART_1_SCBCLK.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_SCBCLK\UART_1_SCBCLK.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_tx\UART_1_tx.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_tx\UART_1_tx.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_tx\UART_1_tx_aliases.h</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cydevice_trm.h</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cydeviceiar_trm.inc</v>
@@ -127,18 +100,24 @@
 <v>vuggeControl\vuggeControl\TopDesign</v>
 <v>vuggeControl\vuggeControl\vuggeControl.cydwr</v>
 <v>vuggeControl\vuggeControl\Header Files</v>
+<v>vuggeControl\vuggeControl\Header Files\fixedMath.h</v>
+<v>vuggeControl\vuggeControl\Header Files\globals.h</v>
 <v>vuggeControl\vuggeControl\Header Files\i2cKommunikation.h</v>
 <v>vuggeControl\vuggeControl\Header Files\regulering.h</v>
 <v>vuggeControl\vuggeControl\Header Files\sensorFortolker.h</v>
-<v>vuggeControl\vuggeControl\Header Files\vuggeControl.h</v>
 <v>vuggeControl\vuggeControl\Source Files</v>
+<v>vuggeControl\vuggeControl\Source Files\fixedMath.c</v>
 <v>vuggeControl\vuggeControl\Source Files\i2cKommunikation.c</v>
 <v>vuggeControl\vuggeControl\Source Files\regulering.c</v>
 <v>vuggeControl\vuggeControl\Source Files\sensorFortolker.c</v>
 <v>vuggeControl\vuggeControl\Source Files\vuggeControl.c</v>
 <v>vuggeControl\vuggeControl\Generated_Source</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\activityDebug</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\Clock_1</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cy_boot</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\debugOut</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\debugOut_IntClock</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\Endstop_isr</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ESSwitch</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem</v>
@@ -146,15 +125,8 @@
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_SCBCLK</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_scl</v>
 <v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_sda</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\MotorPWM</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\PWMClock</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ShutdownSwich</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_rx</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_SCBCLK</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\UART_1_tx</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cydevice_trm.h</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cydevicegnu_trm.inc</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\loop_isr</v>
+<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\loopTimer</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -179,6 +151,8 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\activityDebug.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Clock_1.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Cm0Start.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
@@ -187,8 +161,14 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_BOOT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_INT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_IntClock.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_PM.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Endstop_isr.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\ESSwitch.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\fixedMath.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\i2cKommunikation.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_BOOT.lst</v>
@@ -200,22 +180,28 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_SCBCLK.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_scl.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_sda.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\MotorPWM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\MotorPWM_PM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWMClock.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\loop_isr.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\loopTimer.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\loopTimer_PM.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWM.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWM_A.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWM_B.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWM_PM.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\regulering.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorFortolker.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_BOOT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_I2C.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_I2C_BOOT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_I2C_INT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_I2C_MASTER.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_PM.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_SCB_IRQ.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_SCBCLK.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_scl.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorI2C_sda.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\ShutdownSwich.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_BOOT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_PM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_rx.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_SCBCLK.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_SPI_UART.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_SPI_UART_INT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_tx.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_UART.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\UART_1_UART_BOOT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\t_clk.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\vuggeControl.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\vuggeControl.elf</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\vuggeControl.hex</v>
@@ -230,6 +216,8 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\activityDebug.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Clock_1.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Cm0Start.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
@@ -238,8 +226,14 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_BOOT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_INT.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_IntClock.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_PM.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Endstop_isr.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\ESSwitch.lst</v>
+<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\fixedMath.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\i2cKommunikation.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_BOOT.lst</v>
@@ -248,15 +242,6 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_EZI2C_INT.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_PM.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_SCB_IRQ.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_SCBCLK.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_scl.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_sda.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\MotorPWM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\MotorPWM_PM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\PWMClock.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\regulering.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\sensorFortolker.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\ShutdownSwich.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -272,10 +257,14 @@
 <v>vuggeControl\vuggeControl\PSoC 4200 Family Datasheet</v>
 <v>vuggeControl\vuggeControl\System Reference Guide v4_20</v>
 <v>vuggeControl\vuggeControl\cy_clock_v2_20</v>
+<v>vuggeControl\vuggeControl\cy_constant_v1_0</v>
 <v>vuggeControl\vuggeControl\cy_isr_v1_70</v>
 <v>vuggeControl\vuggeControl\cy_pins_v2_10</v>
 <v>vuggeControl\vuggeControl\PWM_v3_20</v>
 <v>vuggeControl\vuggeControl\SCB_P4_v2_0</v>
+<v>vuggeControl\vuggeControl\Timer_v2_70</v>
+<v>vuggeControl\vuggeControl\UART_v2_40</v>
+<v>vuggeControl\vuggeControl\ZeroTerminal</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>vuggeControl</v>
@@ -284,10 +273,14 @@
 <v>vuggeControl\vuggeControl\PSoC 4200 Family Datasheet</v>
 <v>vuggeControl\vuggeControl\System Reference Guide v4_20</v>
 <v>vuggeControl\vuggeControl\cy_clock_v2_20</v>
+<v>vuggeControl\vuggeControl\cy_constant_v1_0</v>
 <v>vuggeControl\vuggeControl\cy_isr_v1_70</v>
 <v>vuggeControl\vuggeControl\cy_pins_v2_10</v>
 <v>vuggeControl\vuggeControl\PWM_v3_20</v>
 <v>vuggeControl\vuggeControl\SCB_P4_v2_0</v>
+<v>vuggeControl\vuggeControl\Timer_v2_70</v>
+<v>vuggeControl\vuggeControl\UART_v2_40</v>
+<v>vuggeControl\vuggeControl\ZeroTerminal</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -298,7 +291,6 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\vuggeControl.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\vuggeControl.cydsn\vuggeControl.h" />
 <name v=".\vuggeControl.cydsn\vuggeControl.c" />
 <name v=".\vuggeControl.cydsn\sensorFortolker.h" />
 <name v=".\vuggeControl.cydsn\sensorFortolker.c" />

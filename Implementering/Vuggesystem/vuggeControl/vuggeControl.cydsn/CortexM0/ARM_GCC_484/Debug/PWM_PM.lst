@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
   25:.\Generated_Source\PSoC4/PWM_PM.c **** ********************************************************************************
   26:.\Generated_Source\PSoC4/PWM_PM.c **** *
   27:.\Generated_Source\PSoC4/PWM_PM.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 2
 
 
   28:.\Generated_Source\PSoC4/PWM_PM.c **** *  Saves the current user configuration of the component.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
   55 0026 DA70     		strb	r2, [r3, #3]
   57:.\Generated_Source\PSoC4/PWM_PM.c ****         #endif /*  deadband count is either 2-4 clocks or 256 clocks */
   58:.\Generated_Source\PSoC4/PWM_PM.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 3
 
 
   59:.\Generated_Source\PSoC4/PWM_PM.c ****         #if(PWM_KillModeMinTime)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
   88:.\Generated_Source\PSoC4/PWM_PM.c **** void PWM_RestoreConfig(void) 
   89:.\Generated_Source\PSoC4/PWM_PM.c **** {
   81              		.loc 1 89 0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 4
 
 
   82              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  111              		@ sp needed
  112 002e 80BD     		pop	{r7, pc}
  113              	.L6:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 5
 
 
  114              		.align	2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  143 0010 03DA     		bge	.L8
  140:.\Generated_Source\PSoC4/PWM_PM.c ****         {
  141:.\Generated_Source\PSoC4/PWM_PM.c ****             /*Component is enabled */
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 6
 
 
  142:.\Generated_Source\PSoC4/PWM_PM.c ****             PWM_backup.PWMEnableState = 1u;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  161:.\Generated_Source\PSoC4/PWM_PM.c **** ********************************************************************************
  162:.\Generated_Source\PSoC4/PWM_PM.c **** *
  163:.\Generated_Source\PSoC4/PWM_PM.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 7
 
 
  164:.\Generated_Source\PSoC4/PWM_PM.c **** *  Restores and enables the user configuration. Should be called just after
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  207              		.size	PWM_Wakeup, .-PWM_Wakeup
  208              		.text
  209              	.Letext0:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 8
 
 
  210              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
@@ -430,33 +430,33 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  216 0006 00000000 		.4byte	.Ldebug_abbrev0
  217 000a 04       		.byte	0x4
  218 000b 01       		.uleb128 0x1
- 219 000c 03010000 		.4byte	.LASF25
+ 219 000c 9C000000 		.4byte	.LASF25
  220 0010 01       		.byte	0x1
  221 0011 7A000000 		.4byte	.LASF26
- 222 0015 9C000000 		.4byte	.LASF27
+ 222 0015 DE010000 		.4byte	.LASF27
  223 0019 00000000 		.4byte	.Ldebug_ranges0+0
  224 001d 00000000 		.4byte	0
  225 0021 00000000 		.4byte	.Ldebug_line0
  226 0025 02       		.uleb128 0x2
  227 0026 01       		.byte	0x1
  228 0027 06       		.byte	0x6
- 229 0028 F4010000 		.4byte	.LASF0
+ 229 0028 8D010000 		.4byte	.LASF0
  230 002c 02       		.uleb128 0x2
  231 002d 01       		.byte	0x1
  232 002e 08       		.byte	0x8
- 233 002f 7F010000 		.4byte	.LASF1
+ 233 002f 18010000 		.4byte	.LASF1
  234 0033 02       		.uleb128 0x2
  235 0034 02       		.byte	0x2
  236 0035 05       		.byte	0x5
- 237 0036 23020000 		.4byte	.LASF2
+ 237 0036 BC010000 		.4byte	.LASF2
  238 003a 02       		.uleb128 0x2
  239 003b 02       		.byte	0x2
  240 003c 07       		.byte	0x7
- 241 003d E1010000 		.4byte	.LASF3
+ 241 003d 7A010000 		.4byte	.LASF3
  242 0041 02       		.uleb128 0x2
  243 0042 04       		.byte	0x4
  244 0043 05       		.byte	0x5
- 245 0044 B9010000 		.4byte	.LASF4
+ 245 0044 52010000 		.4byte	.LASF4
  246 0048 02       		.uleb128 0x2
  247 0049 04       		.byte	0x4
  248 004a 07       		.byte	0x7
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  264 0066 07       		.byte	0x7
  265 0067 0E000000 		.4byte	.LASF8
  266 006b 04       		.uleb128 0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 9
 
 
  267 006c 46000000 		.4byte	.LASF12
@@ -488,17 +488,17 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  271 0076 02       		.uleb128 0x2
  272 0077 04       		.byte	0x4
  273 0078 04       		.byte	0x4
- 274 0079 0B020000 		.4byte	.LASF9
+ 274 0079 A4010000 		.4byte	.LASF9
  275 007d 02       		.uleb128 0x2
  276 007e 08       		.byte	0x8
  277 007f 04       		.byte	0x4
- 278 0080 C2010000 		.4byte	.LASF10
+ 278 0080 5B010000 		.4byte	.LASF10
  279 0084 02       		.uleb128 0x2
  280 0085 01       		.byte	0x1
  281 0086 08       		.byte	0x8
  282 0087 75000000 		.4byte	.LASF11
  283 008b 05       		.uleb128 0x5
- 284 008c 2D020000 		.4byte	.LASF13
+ 284 008c C6010000 		.4byte	.LASF13
  285 0090 02       		.byte	0x2
  286 0091 4B01     		.2byte	0x14b
  287 0093 97000000 		.4byte	0x97
@@ -507,7 +507,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  290 009c 02       		.uleb128 0x2
  291 009d 04       		.byte	0x4
  292 009e 07       		.byte	0x7
- 293 009f 3C020000 		.4byte	.LASF14
+ 293 009f D5010000 		.4byte	.LASF14
  294 00a3 07       		.uleb128 0x7
  295 00a4 05       		.byte	0x5
  296 00a5 03       		.byte	0x3
@@ -520,13 +520,13 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  303 00b2 6B000000 		.4byte	0x6b
  304 00b6 00       		.byte	0
  305 00b7 08       		.uleb128 0x8
- 306 00b8 DA010000 		.4byte	.LASF16
+ 306 00b8 73010000 		.4byte	.LASF16
  307 00bc 03       		.byte	0x3
  308 00bd 71       		.byte	0x71
  309 00be 6B000000 		.4byte	0x6b
  310 00c2 01       		.byte	0x1
  311 00c3 08       		.uleb128 0x8
- 312 00c4 32020000 		.4byte	.LASF17
+ 312 00c4 CB010000 		.4byte	.LASF17
  313 00c8 03       		.byte	0x3
  314 00c9 73       		.byte	0x73
  315 00ca 6B000000 		.4byte	0x6b
@@ -538,22 +538,22 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  321 00d6 6B000000 		.4byte	0x6b
  322 00da 03       		.byte	0x3
  323 00db 08       		.uleb128 0x8
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 10
 
 
- 324 00dc A6010000 		.4byte	.LASF19
+ 324 00dc 3F010000 		.4byte	.LASF19
  325 00e0 03       		.byte	0x3
  326 00e1 86       		.byte	0x86
  327 00e2 6B000000 		.4byte	0x6b
  328 00e6 04       		.byte	0x4
  329 00e7 00       		.byte	0
  330 00e8 04       		.uleb128 0x4
- 331 00e9 C9010000 		.4byte	.LASF20
+ 331 00e9 62010000 		.4byte	.LASF20
  332 00ed 03       		.byte	0x3
  333 00ee 8B       		.byte	0x8b
  334 00ef A3000000 		.4byte	0xa3
  335 00f3 09       		.uleb128 0x9
- 336 00f4 8D010000 		.4byte	.LASF21
+ 336 00f4 26010000 		.4byte	.LASF21
  337 00f8 01       		.byte	0x1
  338 00f9 2A       		.byte	0x2a
  339 00fa 00000000 		.4byte	.LFB0
@@ -561,7 +561,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  341 0102 01       		.uleb128 0x1
  342 0103 9C       		.byte	0x9c
  343 0104 09       		.uleb128 0x9
- 344 0105 11020000 		.4byte	.LASF22
+ 344 0105 AA010000 		.4byte	.LASF22
  345 0109 01       		.byte	0x1
  346 010a 58       		.byte	0x58
  347 010b 00000000 		.4byte	.LFB1
@@ -569,7 +569,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  349 0113 01       		.uleb128 0x1
  350 0114 9C       		.byte	0x9c
  351 0115 09       		.uleb128 0x9
- 352 0116 9C010000 		.4byte	.LASF23
+ 352 0116 35010000 		.4byte	.LASF23
  353 011a 01       		.byte	0x1
  354 011b 88       		.byte	0x88
  355 011c 00000000 		.4byte	.LFB2
@@ -585,7 +585,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  365 0135 01       		.uleb128 0x1
  366 0136 9C       		.byte	0x9c
  367 0137 0A       		.uleb128 0xa
- 368 0138 00020000 		.4byte	.LASF28
+ 368 0138 99010000 		.4byte	.LASF28
  369 013c 01       		.byte	0x1
  370 013d 14       		.byte	0x14
  371 013e E8000000 		.4byte	0xe8
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  378 0000 01       		.uleb128 0x1
  379 0001 11       		.uleb128 0x11
  380 0002 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 11
 
 
  381 0003 25       		.uleb128 0x25
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  435 0039 03       		.uleb128 0x3
  436 003a 0E       		.uleb128 0xe
  437 003b 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 12
 
 
  438 003c 0B       		.uleb128 0xb
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  492 0072 19       		.uleb128 0x19
  493 0073 11       		.uleb128 0x11
  494 0074 01       		.uleb128 0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 13
 
 
  495 0075 12       		.uleb128 0x12
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  549              		.section	.debug_line,"",%progbits
  550              	.Ldebug_line0:
  551 0000 A7000000 		.section	.debug_str,"MS",%progbits,1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 14
 
 
  551      02004E00 
@@ -834,113 +834,116 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 1
  571      7465645F 
  571      536F7572 
  571      63655C50 
- 572              	.LASF27:
- 573 009c 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
- 573      73657273 
- 573      5C46656C 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 15
+ 572              	.LASF25:
+ 573 009c 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 573      4320342E 
+ 573      382E3420 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 15
 
 
- 573      69785C47 
- 573      6F6F676C 
- 574 00ca 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 574      656D2061 
- 574      7262656A 
- 574      6473646F 
- 574      6B756D65 
- 575 00fb 6C2E6379 		.ascii	"l.cydsn\000"
- 575      64736E00 
- 576              	.LASF25:
- 577 0103 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 577      4320342E 
- 577      382E3420 
- 577      32303134 
- 577      30353236 
- 578 0136 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 578      20726576 
- 578      6973696F 
- 578      6E203231 
- 578      31333538 
- 579 0169 30202D66 		.ascii	"0 -ffunction-sections\000"
- 579      66756E63 
- 579      74696F6E 
- 579      2D736563 
- 579      74696F6E 
- 580              	.LASF1:
- 581 017f 756E7369 		.ascii	"unsigned char\000"
- 581      676E6564 
- 581      20636861 
- 581      7200
- 582              	.LASF21:
- 583 018d 50574D5F 		.ascii	"PWM_SaveConfig\000"
- 583      53617665 
- 583      436F6E66 
- 583      696700
- 584              	.LASF23:
- 585 019c 50574D5F 		.ascii	"PWM_Sleep\000"
- 585      536C6565 
- 585      7000
- 586              	.LASF19:
- 587 01a6 50574D43 		.ascii	"PWMControlRegister\000"
- 587      6F6E7472 
- 587      6F6C5265 
- 587      67697374 
- 587      657200
- 588              	.LASF4:
- 589 01b9 6C6F6E67 		.ascii	"long int\000"
- 589      20696E74 
+ 573      32303134 
+ 573      30353236 
+ 574 00cf 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 574      20726576 
+ 574      6973696F 
+ 574      6E203231 
+ 574      31333538 
+ 575 0102 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 575      66756E63 
+ 575      74696F6E 
+ 575      2D736563 
+ 575      74696F6E 
+ 576              	.LASF1:
+ 577 0118 756E7369 		.ascii	"unsigned char\000"
+ 577      676E6564 
+ 577      20636861 
+ 577      7200
+ 578              	.LASF21:
+ 579 0126 50574D5F 		.ascii	"PWM_SaveConfig\000"
+ 579      53617665 
+ 579      436F6E66 
+ 579      696700
+ 580              	.LASF23:
+ 581 0135 50574D5F 		.ascii	"PWM_Sleep\000"
+ 581      536C6565 
+ 581      7000
+ 582              	.LASF19:
+ 583 013f 50574D43 		.ascii	"PWMControlRegister\000"
+ 583      6F6E7472 
+ 583      6F6C5265 
+ 583      67697374 
+ 583      657200
+ 584              	.LASF4:
+ 585 0152 6C6F6E67 		.ascii	"long int\000"
+ 585      20696E74 
+ 585      00
+ 586              	.LASF10:
+ 587 015b 646F7562 		.ascii	"double\000"
+ 587      6C6500
+ 588              	.LASF20:
+ 589 0162 50574D5F 		.ascii	"PWM_backupStruct\000"
+ 589      6261636B 
+ 589      75705374 
+ 589      72756374 
  589      00
- 590              	.LASF10:
- 591 01c2 646F7562 		.ascii	"double\000"
- 591      6C6500
- 592              	.LASF20:
- 593 01c9 50574D5F 		.ascii	"PWM_backupStruct\000"
- 593      6261636B 
- 593      75705374 
- 593      72756374 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccx5Tkhh.s 			page 16
+ 590              	.LASF16:
+ 591 0173 50574D55 		.ascii	"PWMUdb\000"
+ 591      646200
+ 592              	.LASF3:
+ 593 017a 73686F72 		.ascii	"short unsigned int\000"
+ 593      7420756E 
+ 593      7369676E 
+ 593      65642069 
+ 593      6E7400
+ 594              	.LASF0:
+ 595 018d 7369676E 		.ascii	"signed char\000"
+ 595      65642063 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 16
 
 
- 593      00
- 594              	.LASF16:
- 595 01da 50574D55 		.ascii	"PWMUdb\000"
- 595      646200
- 596              	.LASF3:
- 597 01e1 73686F72 		.ascii	"short unsigned int\000"
- 597      7420756E 
- 597      7369676E 
- 597      65642069 
- 597      6E7400
- 598              	.LASF0:
- 599 01f4 7369676E 		.ascii	"signed char\000"
- 599      65642063 
- 599      68617200 
- 600              	.LASF28:
- 601 0200 50574D5F 		.ascii	"PWM_backup\000"
- 601      6261636B 
- 601      757000
- 602              	.LASF9:
- 603 020b 666C6F61 		.ascii	"float\000"
+ 595      68617200 
+ 596              	.LASF28:
+ 597 0199 50574D5F 		.ascii	"PWM_backup\000"
+ 597      6261636B 
+ 597      757000
+ 598              	.LASF9:
+ 599 01a4 666C6F61 		.ascii	"float\000"
+ 599      7400
+ 600              	.LASF22:
+ 601 01aa 50574D5F 		.ascii	"PWM_RestoreConfig\000"
+ 601      52657374 
+ 601      6F726543 
+ 601      6F6E6669 
+ 601      6700
+ 602              	.LASF2:
+ 603 01bc 73686F72 		.ascii	"short int\000"
+ 603      7420696E 
  603      7400
- 604              	.LASF22:
- 605 0211 50574D5F 		.ascii	"PWM_RestoreConfig\000"
- 605      52657374 
- 605      6F726543 
- 605      6F6E6669 
- 605      6700
- 606              	.LASF2:
- 607 0223 73686F72 		.ascii	"short int\000"
- 607      7420696E 
- 607      7400
- 608              	.LASF13:
- 609 022d 72656738 		.ascii	"reg8\000"
+ 604              	.LASF13:
+ 605 01c6 72656738 		.ascii	"reg8\000"
+ 605      00
+ 606              	.LASF17:
+ 607 01cb 50574D50 		.ascii	"PWMPeriod\000"
+ 607      6572696F 
+ 607      6400
+ 608              	.LASF14:
+ 609 01d5 73697A65 		.ascii	"sizetype\000"
+ 609      74797065 
  609      00
- 610              	.LASF17:
- 611 0232 50574D50 		.ascii	"PWMPeriod\000"
- 611      6572696F 
- 611      6400
- 612              	.LASF14:
- 613 023c 73697A65 		.ascii	"sizetype\000"
- 613      74797065 
- 613      00
+ 610              	.LASF27:
+ 611 01de 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ 611      73657273 
+ 611      5C4A6570 
+ 611      70655C44 
+ 611      6F63756D 
+ 612 020b 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 612      4A345C49 
+ 612      6D706C65 
+ 612      6D656E74 
+ 612      6572696E 
+ 613 023a 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 613      65436F6E 
+ 613      74726F6C 
+ 613      2E637964 
+ 613      736E00
  614              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

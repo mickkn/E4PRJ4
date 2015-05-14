@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
   30:.\Generated_Source\PSoC4/loop_isr.c **** /* `#END` */
   31:.\Generated_Source\PSoC4/loop_isr.c **** 
   32:.\Generated_Source\PSoC4/loop_isr.c **** extern cyisraddress CyRamVectors[CYINT_IRQ_BASE + CY_NUM_INTERRUPTS];
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/loop_isr.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
   68:.\Generated_Source\PSoC4/loop_isr.c **** }
   45              		.loc 1 68 0
   46 001a BD46     		mov	sp, r7
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 3
 
 
   47              		@ sp needed
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
   70 0002 82B0     		sub	sp, sp, #8
   71              		.cfi_def_cfa_offset 16
   72 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 4
 
 
   73              		.cfi_def_cfa_register 7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  125:.\Generated_Source\PSoC4/loop_isr.c **** *   None
  126:.\Generated_Source\PSoC4/loop_isr.c **** *
  127:.\Generated_Source\PSoC4/loop_isr.c **** *******************************************************************************/
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 5
 
 
  128:.\Generated_Source\PSoC4/loop_isr.c **** void loop_isr_Stop(void)
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  149:.\Generated_Source\PSoC4/loop_isr.c **** *   your own separate ISR through ISR_StartEx().
  150:.\Generated_Source\PSoC4/loop_isr.c **** *
  151:.\Generated_Source\PSoC4/loop_isr.c **** * Parameters:  
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 6
 
 
  152:.\Generated_Source\PSoC4/loop_isr.c **** *   None
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  183:.\Generated_Source\PSoC4/loop_isr.c **** *
  184:.\Generated_Source\PSoC4/loop_isr.c **** *   Function prototype example:
  185:.\Generated_Source\PSoC4/loop_isr.c **** *     CY_ISR_PROTO(MyISR);
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 7
 
 
  186:.\Generated_Source\PSoC4/loop_isr.c **** *
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  205:.\Generated_Source\PSoC4/loop_isr.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
  206:.\Generated_Source\PSoC4/loop_isr.c **** *
  207:.\Generated_Source\PSoC4/loop_isr.c **** * Parameters:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 8
 
 
  208:.\Generated_Source\PSoC4/loop_isr.c **** *   None
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  231:.\Generated_Source\PSoC4/loop_isr.c **** *   Interrupt Editor.
  232:.\Generated_Source\PSoC4/loop_isr.c **** *
  233:.\Generated_Source\PSoC4/loop_isr.c **** *   Note This API has no effect on Non-maskable interrupt NMI).
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 9
 
 
  234:.\Generated_Source\PSoC4/loop_isr.c **** *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  250:.\Generated_Source\PSoC4/loop_isr.c ****     *loop_isr_INTC_PRIOR = (*loop_isr_INTC_PRIOR & (uint32)(~loop_isr__INTC_PRIOR_MASK)) |
  260              		.loc 1 250 0
  261 0032 0A43     		orr	r2, r1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 10
 
 
  262 0034 1A60     		str	r2, [r3]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  294              		.cfi_offset 7, -8
  295              		.cfi_offset 14, -4
  296 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 11
 
 
  297              		.cfi_def_cfa_offset 16
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  287:.\Generated_Source\PSoC4/loop_isr.c **** * Summary:
  288:.\Generated_Source\PSoC4/loop_isr.c **** *   Enables the interrupt to the interrupt controller. Do not call this function
  289:.\Generated_Source\PSoC4/loop_isr.c **** *   unless ISR_Start() has been called or the functionality of the ISR_Start() 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 12
 
 
  290:.\Generated_Source\PSoC4/loop_isr.c **** *   function, which sets the vector and the priority, has been called.
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  313:.\Generated_Source\PSoC4/loop_isr.c **** * Parameters:
  314:.\Generated_Source\PSoC4/loop_isr.c **** *   None
  315:.\Generated_Source\PSoC4/loop_isr.c **** *
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 13
 
 
  316:.\Generated_Source\PSoC4/loop_isr.c **** * Return:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  329:.\Generated_Source\PSoC4/loop_isr.c **** ********************************************************************************
  330:.\Generated_Source\PSoC4/loop_isr.c **** *
  331:.\Generated_Source\PSoC4/loop_isr.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 14
 
 
  332:.\Generated_Source\PSoC4/loop_isr.c **** *   Disables the Interrupt in the interrupt controller.
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  355:.\Generated_Source\PSoC4/loop_isr.c **** *
  356:.\Generated_Source\PSoC4/loop_isr.c **** * Parameters:
  357:.\Generated_Source\PSoC4/loop_isr.c **** *   None
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 15
 
 
  358:.\Generated_Source\PSoC4/loop_isr.c **** *
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  381:.\Generated_Source\PSoC4/loop_isr.c **** *   Note Some interrupt sources are clear-on-read and require the block 
  382:.\Generated_Source\PSoC4/loop_isr.c **** *   interrupt/status register to be read/cleared with the appropriate block API 
  383:.\Generated_Source\PSoC4/loop_isr.c **** *   (GPIO, UART, and so on). Otherwise the ISR will continue to remain in 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 16
 
 
  384:.\Generated_Source\PSoC4/loop_isr.c **** *   pending state even though the interrupt itself is cleared using this API.
@@ -949,16 +949,16 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  504 000b 01       		.uleb128 0x1
  505 000c 3B000000 		.4byte	.LASF33
  506 0010 01       		.byte	0x1
- 507 0011 2E020000 		.4byte	.LASF34
- 508 0015 2D010000 		.4byte	.LASF35
+ 507 0011 C7010000 		.4byte	.LASF34
+ 508 0015 61020000 		.4byte	.LASF35
  509 0019 00000000 		.4byte	.Ldebug_ranges0+0
  510 001d 00000000 		.4byte	0
  511 0021 00000000 		.4byte	.Ldebug_line0
  512 0025 02       		.uleb128 0x2
  513 0026 01       		.byte	0x1
  514 0027 06       		.byte	0x6
- 515 0028 BC020000 		.4byte	.LASF0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 17
+ 515 0028 55020000 		.4byte	.LASF0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 17
 
 
  516 002c 02       		.uleb128 0x2
@@ -968,7 +968,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  520 0033 02       		.uleb128 0x2
  521 0034 02       		.byte	0x2
  522 0035 05       		.byte	0x5
- 523 0036 79020000 		.4byte	.LASF2
+ 523 0036 12020000 		.4byte	.LASF2
  524 003a 02       		.uleb128 0x2
  525 003b 02       		.byte	0x2
  526 003c 07       		.byte	0x7
@@ -976,7 +976,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  528 0041 02       		.uleb128 0x2
  529 0042 04       		.byte	0x4
  530 0043 05       		.byte	0x5
- 531 0044 B3020000 		.4byte	.LASF4
+ 531 0044 4C020000 		.4byte	.LASF4
  532 0048 02       		.uleb128 0x2
  533 0049 04       		.byte	0x4
  534 004a 07       		.byte	0x7
@@ -984,11 +984,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  536 004f 02       		.uleb128 0x2
  537 0050 08       		.byte	0x8
  538 0051 05       		.byte	0x5
- 539 0052 20020000 		.4byte	.LASF6
+ 539 0052 B9010000 		.4byte	.LASF6
  540 0056 02       		.uleb128 0x2
  541 0057 08       		.byte	0x8
  542 0058 07       		.byte	0x7
- 543 0059 C8010000 		.4byte	.LASF7
+ 543 0059 61010000 		.4byte	.LASF7
  544 005d 03       		.uleb128 0x3
  545 005e 04       		.byte	0x4
  546 005f 05       		.byte	0x5
@@ -996,14 +996,14 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  548 0064 02       		.uleb128 0x2
  549 0065 04       		.byte	0x4
  550 0066 07       		.byte	0x7
- 551 0067 B3010000 		.4byte	.LASF8
+ 551 0067 4C010000 		.4byte	.LASF8
  552 006b 04       		.uleb128 0x4
  553 006c 1E010000 		.4byte	.LASF9
  554 0070 02       		.byte	0x2
  555 0071 A1       		.byte	0xa1
  556 0072 2C000000 		.4byte	0x2c
  557 0076 04       		.uleb128 0x4
- 558 0077 AC010000 		.4byte	.LASF10
+ 558 0077 45010000 		.4byte	.LASF10
  559 007b 02       		.byte	0x2
  560 007c A3       		.byte	0xa3
  561 007d 48000000 		.4byte	0x48
@@ -1014,14 +1014,14 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  566 0088 02       		.uleb128 0x2
  567 0089 08       		.byte	0x8
  568 008a 04       		.byte	0x4
- 569 008b 94010000 		.4byte	.LASF12
+ 569 008b 2D010000 		.4byte	.LASF12
  570 008f 02       		.uleb128 0x2
  571 0090 01       		.byte	0x1
  572 0091 08       		.byte	0x8
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 18
 
 
- 573 0092 52020000 		.4byte	.LASF13
+ 573 0092 EB010000 		.4byte	.LASF13
  574 0096 05       		.uleb128 0x5
  575 0097 00000000 		.4byte	.LASF14
  576 009b 02       		.byte	0x2
@@ -1030,7 +1030,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  579 00a2 06       		.uleb128 0x6
  580 00a3 76000000 		.4byte	0x76
  581 00a7 05       		.uleb128 0x5
- 582 00a8 F5010000 		.4byte	.LASF15
+ 582 00a8 8E010000 		.4byte	.LASF15
  583 00ac 02       		.byte	0x2
  584 00ad 5D01     		.2byte	0x15d
  585 00af B3000000 		.4byte	0xb3
@@ -1041,7 +1041,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  590 00ba 02       		.uleb128 0x2
  591 00bb 04       		.byte	0x4
  592 00bc 07       		.byte	0x7
- 593 00bd 02020000 		.4byte	.LASF16
+ 593 00bd 9B010000 		.4byte	.LASF16
  594 00c1 09       		.uleb128 0x9
  595 00c2 26000000 		.4byte	.LASF17
  596 00c6 01       		.byte	0x1
@@ -1051,7 +1051,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  600 00d0 01       		.uleb128 0x1
  601 00d1 9C       		.byte	0x9c
  602 00d2 0A       		.uleb128 0xa
- 603 00d3 9B010000 		.4byte	.LASF20
+ 603 00d3 34010000 		.4byte	.LASF20
  604 00d7 01       		.byte	0x1
  605 00d8 62       		.byte	0x62
  606 00d9 00000000 		.4byte	.LFB1
@@ -1060,7 +1060,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  609 00e2 9C       		.byte	0x9c
  610 00e3 F6000000 		.4byte	0xf6
  611 00e7 0B       		.uleb128 0xb
- 612 00e8 C0010000 		.4byte	.LASF22
+ 612 00e8 59010000 		.4byte	.LASF22
  613 00ec 01       		.byte	0x1
  614 00ed 62       		.byte	0x62
  615 00ee A7000000 		.4byte	0xa7
@@ -1069,7 +1069,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  618 00f4 74       		.sleb128 -12
  619 00f5 00       		.byte	0
  620 00f6 09       		.uleb128 0x9
- 621 00f7 6B020000 		.4byte	.LASF18
+ 621 00f7 04020000 		.4byte	.LASF18
  622 00fb 01       		.byte	0x1
  623 00fc 80       		.byte	0x80
  624 00fd 00000000 		.4byte	.LFB2
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  627 0106 9C       		.byte	0x9c
  628 0107 0C       		.uleb128 0xc
  629 0108 B7000000 		.4byte	.LASF19
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 19
 
 
  630 010c 01       		.byte	0x1
@@ -1088,7 +1088,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  634 0116 01       		.uleb128 0x1
  635 0117 9C       		.byte	0x9c
  636 0118 0D       		.uleb128 0xd
- 637 0119 C8020000 		.4byte	.LASF21
+ 637 0119 D0020000 		.4byte	.LASF21
  638 011d 01       		.byte	0x1
  639 011e C2       		.byte	0xc2
  640 011f 00000000 		.4byte	.LFB4
@@ -1097,7 +1097,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  643 0128 9C       		.byte	0x9c
  644 0129 3C010000 		.4byte	0x13c
  645 012d 0B       		.uleb128 0xb
- 646 012e C0010000 		.4byte	.LASF22
+ 646 012e 59010000 		.4byte	.LASF22
  647 0132 01       		.byte	0x1
  648 0133 C2       		.byte	0xc2
  649 0134 A7000000 		.4byte	0xa7
@@ -1115,7 +1115,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  661 014f 01       		.uleb128 0x1
  662 0150 9C       		.byte	0x9c
  663 0151 0A       		.uleb128 0xa
- 664 0152 DB020000 		.4byte	.LASF23
+ 664 0152 E3020000 		.4byte	.LASF23
  665 0156 01       		.byte	0x1
  666 0157 F4       		.byte	0xf4
  667 0158 00000000 		.4byte	.LFB6
@@ -1138,12 +1138,12 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  684 017b 6B000000 		.4byte	0x6b
  685 017f 02       		.uleb128 0x2
  686 0180 91       		.byte	0x91
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 20
 
 
  687 0181 6B       		.sleb128 -21
  688 0182 0F       		.uleb128 0xf
- 689 0183 94020000 		.4byte	.LASF26
+ 689 0183 2D020000 		.4byte	.LASF26
  690 0187 01       		.byte	0x1
  691 0188 F7       		.byte	0xf7
  692 0189 76000000 		.4byte	0x76
@@ -1152,7 +1152,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  695 018f 6C       		.sleb128 -20
  696 0190 00       		.byte	0
  697 0191 10       		.uleb128 0x10
- 698 0192 0B020000 		.4byte	.LASF36
+ 698 0192 A4010000 		.4byte	.LASF36
  699 0196 01       		.byte	0x1
  700 0197 1001     		.2byte	0x110
  701 0199 6B000000 		.4byte	0x6b
@@ -1170,7 +1170,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  713 01b8 91       		.byte	0x91
  714 01b9 70       		.sleb128 -16
  715 01ba 11       		.uleb128 0x11
- 716 01bb 94020000 		.4byte	.LASF26
+ 716 01bb 2D020000 		.4byte	.LASF26
  717 01bf 01       		.byte	0x1
  718 01c0 1301     		.2byte	0x113
  719 01c2 76000000 		.4byte	0x76
@@ -1179,7 +1179,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  722 01c8 74       		.sleb128 -12
  723 01c9 00       		.byte	0
  724 01ca 12       		.uleb128 0x12
- 725 01cb A3020000 		.4byte	.LASF27
+ 725 01cb 3C020000 		.4byte	.LASF27
  726 01cf 01       		.byte	0x1
  727 01d0 2B01     		.2byte	0x12b
  728 01d2 00000000 		.4byte	.LFB8
@@ -1196,9 +1196,9 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  739 01f0 01       		.uleb128 0x1
  740 01f1 9C       		.byte	0x9c
  741 01f2 12       		.uleb128 0x12
- 742 01f3 83020000 		.4byte	.LASF30
+ 742 01f3 1C020000 		.4byte	.LASF30
  743 01f7 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 21
 
 
  744 01f8 5501     		.2byte	0x155
@@ -1207,7 +1207,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  747 0202 01       		.uleb128 0x1
  748 0203 9C       		.byte	0x9c
  749 0204 12       		.uleb128 0x12
- 750 0205 57020000 		.4byte	.LASF31
+ 750 0205 F0010000 		.4byte	.LASF31
  751 0209 01       		.byte	0x1
  752 020a 7001     		.2byte	0x170
  753 020c 00000000 		.4byte	.LFB11
@@ -1215,7 +1215,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  755 0214 01       		.uleb128 0x1
  756 0215 9C       		.byte	0x9c
  757 0216 12       		.uleb128 0x12
- 758 0217 DF010000 		.4byte	.LASF32
+ 758 0217 78010000 		.4byte	.LASF32
  759 021b 01       		.byte	0x1
  760 021c 8901     		.2byte	0x189
  761 021e 00000000 		.4byte	.LFB12
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  798 0012 00       		.byte	0
  799 0013 02       		.uleb128 0x2
  800 0014 24       		.uleb128 0x24
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 22
 
 
  801 0015 00       		.byte	0
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  855 004b 0F       		.uleb128 0xf
  856 004c 00       		.byte	0
  857 004d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 23
 
 
  858 004e 0B       		.uleb128 0xb
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  912 0085 9642     		.uleb128 0x2116
  913 0087 19       		.uleb128 0x19
  914 0088 01       		.uleb128 0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 24
 
 
  915 0089 13       		.uleb128 0x13
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  969 00c0 11       		.uleb128 0x11
  970 00c1 01       		.uleb128 0x1
  971 00c2 12       		.uleb128 0x12
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 25
 
 
  972 00c3 06       		.uleb128 0x6
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1026 00fb 03       		.uleb128 0x3
  1027 00fc 0E       		.uleb128 0xe
  1028 00fd 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 26
 
 
  1029 00fe 0B       		.uleb128 0xb
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1083 0136 19       		.uleb128 0x19
  1084 0137 00       		.byte	0
  1085 0138 00       		.byte	0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 27
 
 
  1086 0139 13       		.uleb128 0x13
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1140 0170 3F       		.uleb128 0x3f
  1141 0171 19       		.uleb128 0x19
  1142 0172 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 28
 
 
  1143 0173 19       		.uleb128 0x19
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1197 0030 00000000 		.4byte	.LFB6
  1198 0034 50000000 		.4byte	.LFE6
  1199 0038 00000000 		.4byte	.LFB7
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 29
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 29
 
 
  1200 003c 30000000 		.4byte	.LFE7
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1229      66756E63 
  1229      74696F6E 
  1229      2D736563 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 30
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 30
 
 
  1229      74696F6E 
@@ -1783,135 +1783,141 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 1
  1245 0124 7072696F 		.ascii	"priority\000"
  1245      72697479 
  1245      00
- 1246              	.LASF35:
- 1247 012d 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
- 1247      73657273 
- 1247      5C46656C 
- 1247      69785C47 
- 1247      6F6F676C 
- 1248 015b 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 1248      656D2061 
- 1248      7262656A 
- 1248      6473646F 
- 1248      6B756D65 
- 1249 018c 6C2E6379 		.ascii	"l.cydsn\000"
- 1249      64736E00 
- 1250              	.LASF12:
- 1251 0194 646F7562 		.ascii	"double\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 31
+ 1246              	.LASF12:
+ 1247 012d 646F7562 		.ascii	"double\000"
+ 1247      6C6500
+ 1248              	.LASF20:
+ 1249 0134 6C6F6F70 		.ascii	"loop_isr_StartEx\000"
+ 1249      5F697372 
+ 1249      5F537461 
+ 1249      72744578 
+ 1249      00
+ 1250              	.LASF10:
+ 1251 0145 75696E74 		.ascii	"uint32\000"
+ 1251      333200
+ 1252              	.LASF8:
+ 1253 014c 756E7369 		.ascii	"unsigned int\000"
+ 1253      676E6564 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 31
 
 
- 1251      6C6500
- 1252              	.LASF20:
- 1253 019b 6C6F6F70 		.ascii	"loop_isr_StartEx\000"
- 1253      5F697372 
- 1253      5F537461 
- 1253      72744578 
+ 1253      20696E74 
  1253      00
- 1254              	.LASF10:
- 1255 01ac 75696E74 		.ascii	"uint32\000"
- 1255      333200
- 1256              	.LASF8:
- 1257 01b3 756E7369 		.ascii	"unsigned int\000"
- 1257      676E6564 
- 1257      20696E74 
- 1257      00
- 1258              	.LASF22:
- 1259 01c0 61646472 		.ascii	"address\000"
- 1259      65737300 
- 1260              	.LASF7:
- 1261 01c8 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1261      206C6F6E 
- 1261      6720756E 
- 1261      7369676E 
- 1261      65642069 
- 1262              	.LASF32:
- 1263 01df 6C6F6F70 		.ascii	"loop_isr_ClearPending\000"
- 1263      5F697372 
- 1263      5F436C65 
- 1263      61725065 
- 1263      6E64696E 
- 1264              	.LASF15:
- 1265 01f5 63796973 		.ascii	"cyisraddress\000"
- 1265      72616464 
- 1265      72657373 
- 1265      00
- 1266              	.LASF16:
- 1267 0202 73697A65 		.ascii	"sizetype\000"
- 1267      74797065 
- 1267      00
- 1268              	.LASF36:
- 1269 020b 6C6F6F70 		.ascii	"loop_isr_GetPriority\000"
- 1269      5F697372 
- 1269      5F476574 
- 1269      5072696F 
- 1269      72697479 
- 1270              	.LASF6:
- 1271 0220 6C6F6E67 		.ascii	"long long int\000"
- 1271      206C6F6E 
- 1271      6720696E 
- 1271      7400
- 1272              	.LASF34:
- 1273 022e 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\loop_isr.c\000"
- 1273      6E657261 
- 1273      7465645F 
- 1273      536F7572 
- 1273      63655C50 
- 1274              	.LASF13:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccsJKMXB.s 			page 32
+ 1254              	.LASF22:
+ 1255 0159 61646472 		.ascii	"address\000"
+ 1255      65737300 
+ 1256              	.LASF7:
+ 1257 0161 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1257      206C6F6E 
+ 1257      6720756E 
+ 1257      7369676E 
+ 1257      65642069 
+ 1258              	.LASF32:
+ 1259 0178 6C6F6F70 		.ascii	"loop_isr_ClearPending\000"
+ 1259      5F697372 
+ 1259      5F436C65 
+ 1259      61725065 
+ 1259      6E64696E 
+ 1260              	.LASF15:
+ 1261 018e 63796973 		.ascii	"cyisraddress\000"
+ 1261      72616464 
+ 1261      72657373 
+ 1261      00
+ 1262              	.LASF16:
+ 1263 019b 73697A65 		.ascii	"sizetype\000"
+ 1263      74797065 
+ 1263      00
+ 1264              	.LASF36:
+ 1265 01a4 6C6F6F70 		.ascii	"loop_isr_GetPriority\000"
+ 1265      5F697372 
+ 1265      5F476574 
+ 1265      5072696F 
+ 1265      72697479 
+ 1266              	.LASF6:
+ 1267 01b9 6C6F6E67 		.ascii	"long long int\000"
+ 1267      206C6F6E 
+ 1267      6720696E 
+ 1267      7400
+ 1268              	.LASF34:
+ 1269 01c7 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\loop_isr.c\000"
+ 1269      6E657261 
+ 1269      7465645F 
+ 1269      536F7572 
+ 1269      63655C50 
+ 1270              	.LASF13:
+ 1271 01eb 63686172 		.ascii	"char\000"
+ 1271      00
+ 1272              	.LASF31:
+ 1273 01f0 6C6F6F70 		.ascii	"loop_isr_SetPending\000"
+ 1273      5F697372 
+ 1273      5F536574 
+ 1273      50656E64 
+ 1273      696E6700 
+ 1274              	.LASF18:
+ 1275 0204 6C6F6F70 		.ascii	"loop_isr_Stop\000"
+ 1275      5F697372 
+ 1275      5F53746F 
+ 1275      7000
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 32
 
 
- 1275 0252 63686172 		.ascii	"char\000"
- 1275      00
- 1276              	.LASF31:
- 1277 0257 6C6F6F70 		.ascii	"loop_isr_SetPending\000"
- 1277      5F697372 
- 1277      5F536574 
- 1277      50656E64 
- 1277      696E6700 
- 1278              	.LASF18:
- 1279 026b 6C6F6F70 		.ascii	"loop_isr_Stop\000"
+ 1276              	.LASF2:
+ 1277 0212 73686F72 		.ascii	"short int\000"
+ 1277      7420696E 
+ 1277      7400
+ 1278              	.LASF30:
+ 1279 021c 6C6F6F70 		.ascii	"loop_isr_Disable\000"
  1279      5F697372 
- 1279      5F53746F 
- 1279      7000
- 1280              	.LASF2:
- 1281 0279 73686F72 		.ascii	"short int\000"
- 1281      7420696E 
- 1281      7400
- 1282              	.LASF30:
- 1283 0283 6C6F6F70 		.ascii	"loop_isr_Disable\000"
+ 1279      5F446973 
+ 1279      61626C65 
+ 1279      00
+ 1280              	.LASF26:
+ 1281 022d 7072696F 		.ascii	"priorityOffset\000"
+ 1281      72697479 
+ 1281      4F666673 
+ 1281      657400
+ 1282              	.LASF27:
+ 1283 023c 6C6F6F70 		.ascii	"loop_isr_Enable\000"
  1283      5F697372 
- 1283      5F446973 
- 1283      61626C65 
- 1283      00
- 1284              	.LASF26:
- 1285 0294 7072696F 		.ascii	"priorityOffset\000"
- 1285      72697479 
- 1285      4F666673 
- 1285      657400
- 1286              	.LASF27:
- 1287 02a3 6C6F6F70 		.ascii	"loop_isr_Enable\000"
- 1287      5F697372 
- 1287      5F456E61 
- 1287      626C6500 
- 1288              	.LASF4:
- 1289 02b3 6C6F6E67 		.ascii	"long int\000"
- 1289      20696E74 
- 1289      00
- 1290              	.LASF0:
- 1291 02bc 7369676E 		.ascii	"signed char\000"
- 1291      65642063 
- 1291      68617200 
+ 1283      5F456E61 
+ 1283      626C6500 
+ 1284              	.LASF4:
+ 1285 024c 6C6F6E67 		.ascii	"long int\000"
+ 1285      20696E74 
+ 1285      00
+ 1286              	.LASF0:
+ 1287 0255 7369676E 		.ascii	"signed char\000"
+ 1287      65642063 
+ 1287      68617200 
+ 1288              	.LASF35:
+ 1289 0261 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ 1289      73657273 
+ 1289      5C4A6570 
+ 1289      70655C44 
+ 1289      6F63756D 
+ 1290 028e 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1290      4A345C49 
+ 1290      6D706C65 
+ 1290      6D656E74 
+ 1290      6572696E 
+ 1291 02bd 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1291      65436F6E 
+ 1291      74726F6C 
+ 1291      2E637964 
+ 1291      736E00
  1292              	.LASF21:
- 1293 02c8 6C6F6F70 		.ascii	"loop_isr_SetVector\000"
+ 1293 02d0 6C6F6F70 		.ascii	"loop_isr_SetVector\000"
  1293      5F697372 
  1293      5F536574 
  1293      56656374 
  1293      6F7200
  1294              	.LASF23:
- 1295 02db 6C6F6F70 		.ascii	"loop_isr_SetPriority\000"
+ 1295 02e3 6C6F6F70 		.ascii	"loop_isr_SetPriority\000"
  1295      5F697372 
  1295      5F536574 
  1295      5072696F 
  1295      72697479 
  1296              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccxm4qWv.s 			page 33
+
+
