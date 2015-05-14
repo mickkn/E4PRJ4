@@ -112,7 +112,7 @@ Raspberry Pi'en afgiver 3,3 V og BC517 har et base emitter spændingsfald på 1,
 
 Ligning \ref{eq:R_base} viser udregningen af base modstanden. Modstandens værdi vælges til 18$\Omega$ da dette er en E24 standart.  
 
-Da relæet kan operere ved 7,5 V, benyttes denne spænding til at trække relæet og spændingen leveres af DC-DC konverteren. 
+Da relæet kan operere ved 7,5 V, benyttes denne spænding til at trække relæet og spændingen leveres af DC-DC konverteren. Der er en spændingsforskel mellem kollektor og emitter på BC517 når denne er i mætning på 1 V ($V_{CEsat} = 1 V$). Det efterlader 6,5 V til relæet når det skal klikke. 
 
 Samlet giver det anledning til nedenstående kredsløbsdiagram for relæstyringen se figur \ref{psu:relaySim}
 
