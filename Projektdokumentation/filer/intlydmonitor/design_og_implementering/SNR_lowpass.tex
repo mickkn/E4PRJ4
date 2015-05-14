@@ -2,32 +2,41 @@
 
 \subsection{ADC forfiltrering}
 
-For at tilpasse signalet til ADC'en i Blackfin533 bedst muligt laves der en filtrering af signalet inden ADC'en. 
+For at tilpasse signalet til ADC'en i Blackfin533 bedst muligt, laves der en filtrering af signalet inden ADC'en. 
 Ordenen af dette filter beregnes ud fra ADC'ens SNR (Signal To Noise Ratio). Blackfin's ADC er en AD1836, hvilken kan køre med henholdsvis 16-/18-/20-/24-Bit data. Herudover understøtter den en samplerate på 96KHz. Alle specifikationr for AD1836 kan ses i \textbf{INDSÆT REFERENCE TIL DATASHEET AD1836}. \\
 
-Til beregning af AD1836's SNR benyttes følgende formel: \\
+Til beregning af AD1836's SNR benyttes følgende formel:
+\begin{center}
 ${ SNR }_{ ADC }=6.02\cdot N+1.78dB$
+\end{center}
 
 Hvor N er ADC'ens antal bits. 
 
-I dette projekt arbejdes med 16-Bit og AD1836's SNR bliver heraf: \\
+I dette projekt arbejdes med 16-Bit og AD1836's SNR bliver heraf: 
+\begin{center}
 ${ SNR }_{ AD1836 }=6.02\cdot 16+1.78dB = 98.1dB$
+\end{center}
 
-Der omregnes nu fra dB til gain: \\
+Der omregnes nu fra dB til gain: 
+\begin{center}
 $Gain\quad =\quad { 10 }^{ \frac { { SNR }_{ ADC } }{ 20 }  }$
 
 $Gain\quad =\quad { 10 }^{ \frac { 98.1 }{ 20 }  }=80352gg$
+\end{center}
 
-Når gain er fundet er det herefter muligt at beregne ordnen på filtret. Dette gøres ud fra dæmpningsformlen. \\
+Når gain er fundet, er det herefter muligt at beregne ordnen på filtret. Dette gøres ud fra dæmpningsformlen. 
+\begin{center}
 $Damping={ \left( \frac { \frac { { f }_{ s } }{ 2 }  }{ { f }_{ c } }  \right)  }^{ M }\ge Gain$
 
-Hvor M er ordnen af filtret, fc er knækfrekvensen og fs/2 er den halve samplingsfrekvens.\\
 $Damping={ \left( \frac { 96kHz }{ 7kHz }  \right)  }^{ M }\ge 80352\rightarrow M=5.9$
+\end{center}
+
+Hvor M er ordnen af filtret, fc er knækfrekvensen og fs/2 er den halve samplingsfrekvens.\\
 
 Som det ses heraf skal der implementeres et 6. ordens lavpasfilter for den bedste tilpasning. Dette er en høj orden, men det kan lade sig gøre at implementere analogt, så længe man tager højde for de forskellige poler. 
-Dette gøres ved at kaskadekoble tre 2. ordens filtre af samme type som på Figur \ref{intlyd:design:andenorden}
+Dette gøres ved at kaskadekoble tre 2. ordens butterworth filtre af samme type som på Figur \ref{intlyd:design:andenorden}
 
-\figur{1}{intlydmonitor/design/2ordensfilter}{Standard anden ordens filter}{intlyd:design:andenorden}
+\figur{0.8}{intlydmonitor/design/2ordensfilter}{Standard anden ordens filter}{intlyd:design:andenorden}
 
 Der følges en design procedure hvor filtret designes med modstandsværdier på 1 ohm, samt en knækfrekvens på 1 rad/s. Når filtret er designet med disse værdier skalleres modstande og kondensator så de passer den ønskede knækfrekvens på 7kHz. 
 
@@ -35,19 +44,24 @@ Blokdiagrammet for 6. ordens filter er vist på Figur \ref{intlyd:design:BDD}
 
 \figur{1}{intlydmonitor/design/blokdiagram_filter}{Blokdiagram for 6. ordens LP-filter}{intlyd:design:BDD}
 
-Hver blok er på standardformen:\\
+Hver blok er på standardformen:
+\begin{center}
 $\frac { 1 }{ { a\cdot s }^{ 2 }+b\cdot s+k }$ 
+\end{center}
 
-Polynomiet for 6. ordens filter ses herunder:\\
+Polynomiet for 6. ordens filter ses herunder:
+\begin{center}
 $({ s }^{ 2 }+0.518s+1)({ s }^{ 2 }+\sqrt { 2 } s+1)({ s }^{ 2 }+1.932s+1)$
+\end{center}
 
 Proceduren for udregning af polynomiet kan findes i \textbf{INDSÆT REFERENCE TIL BILAG HER}. Heri findes tabellen hvor polynomier op til 6. orden kan slås op. 
 
 Der foretages en kredsløbsanalyse for at finde overføringsfunktionen for et anden ordens lavpasfilter:
 
-\figur{1}{intlydmonitor/design/2kredsloebanal}{Anden ordens filter med knudepunkter}{intlyd:design:anal}
+\figur{0.8}{intlydmonitor/design/2kredsloebanal}{Anden ordens filter med knudepunkter}{intlyd:design:anal}
 
-Følgende kredsløbsligninger kan opstilles ud fra Figur \ref{intlyd:design:anal}\\
+Følgende kredsløbsligninger kan opstilles ud fra Figur \ref{intlyd:design:anal}
+\begin{center}
 $\frac { { V }_{ a }-{ V }_{ i } }{ R } +({ V }_{ a }-{ V }_{ o })\cdot s{ C }_{ 1 }+\frac { { (V }_{ a }-{ V }_{ o }) }{ R } =0$
 
 $2+R{ C }_{ 1 }{ V }_{ a }-(1+R{ C }_{ 1 }s){ V }_{ o }={ V }_{ i }$
@@ -55,50 +69,73 @@ $2+R{ C }_{ 1 }{ V }_{ a }-(1+R{ C }_{ 1 }s){ V }_{ o }={ V }_{ i }$
 $-{ V }_{ a }+(1+R{ C }_{ 2 }s){ V }_{ o }=0$
 
 ${ V }_{ o }s{ C }_{ 2 }+\frac { { (V }_{ 0 }-{ V }_{ a }) }{ R } =0$
+\end{center}
 
-Ud fra disse kredsløbsligninger kan Vo isoleres: \\
+Ud fra disse kredsløbsligninger kan Vo isoleres: 
+\begin{center}
 ${ V }_{ o }=\frac { { V }_{ i } }{ { R }^{ 2 }{ C }_{ 1 }{ C }_{ 2 }{ s }^{ 2 }+2R{ C }_{ 2 }s+1 }$
+\end{center}
 
-Herefter findes overføringsfunktionen: \\
+Herefter findes overføringsfunktionen: 
+\begin{center}
 $H(s)=\frac { { V }_{ o } }{ { V }_{ i } } =\frac { \frac { 1 }{ { R }^{ 2 }{ C }_{ 1 }{ C }_{ 2 } }  }{ { s }^{ 2 }+\frac { 2 }{ R{ C }_{ 1 } } s+\frac { 1 }{ { R }^{ 2 }{ C }_{ 1 }{ C }_{ 2 } }  }$ 
+\end{center}
 
-I det vi har sat modstandsværdien R til 1 ohm fås følgende:\\
+I det vi har sat modstandsværdien R til 1 ohm fås følgende:
+\begin{center}
 $H(s)=\frac { \frac { 1 }{ { C }_{ 1 }{ C }_{ 2 } }  }{ { s }^{ 2 }+\frac { 2 }{ { C }_{ 1 } } s+\frac { 1 }{ { C }_{ 1 }{ C }_{ 2 } }  }$
+\end{center}
 
-C1 og C2 kan nu udledes: \\
+C1 og C2 kan nu udledes: 
+\begin{center}
 $b=\frac { 2 }{ { C }_{ 1 } }$ og  $k=\frac { 1 }{ { C }_{ 1 }{ C }_{ 2 } }$
+\end{center}
 
 Ud fra dette kan C1 og C2 beregnes for hver filterblok.
 
 \textbf{Blok 1}
 
+\begin{center}
 $0.518=\frac { 2 }{ { C }_{ 1 } } \Rightarrow { C }_{ 1 }=3.86F$
 
 $1=\frac { 1 }{ { C }_{ 1 }{ C }_{ 2 } } \Rightarrow { C }_{ 2 }=0.259F$
+\end{center}
 
-\textbf{Blok 2}\\
+\textbf{Blok 2}
+\begin{center}
 ${ C }_{ 1 }=\sqrt { 2 }F$ \\
 ${ C }_{ 2 }=0.707$ 
+\end{center}
  
-\textbf{Blok 3}\\
+\textbf{Blok 3}
+\begin{center}
 ${ C }_{ 1 }=1.035F$ \\
 ${ C }_{ 2 }=0.966F$  
+\end{center}
 
 Nu er 6. ordens filter med modstandsværdierne 1 ohm og knækfrekvensen 1 rad/s færdig designet. 
-Vi skal nu skallere værdierne er modstande og kondensator med to skalleringsfaktorer km og kf.
+Vi skal nu skallere værdierne af modstande og kondensator med to skalleringsfaktorer km og kf.
 
-Det ønskes at modstandsværdien skal være på 1kohm og km bliver heraf:\\
+Det ønskes at modstandsværdien skal være på 1kohm og km bliver heraf:
+\begin{center}
 ${ k }_{ m }=1000$
+\end{center}
 
-Frekvens skalleringsfaktoren kf findes herunder:\\
+Frekvens skalleringsfaktoren kf findes herunder:
+\begin{center}
 ${ k }_{ f }=\frac { { \omega  }_{ c } }{ 1\frac { rad }{ s }  } =2\cdot \pi \cdot 7000$
+\end{center}
 
 De nye modstands- og kondensatorværdier findes ved følgende formler:\\
-\textbf{Ny modstandsværdi}\\
+\textbf{Ny modstandsværdi}
+\begin{center}
 $R'=R\cdot { k }_{ m }$
+\end{center}
 
-\textbf{Ny kondensatorværdi}\\
+\textbf{Ny kondensatorværdi}
+\begin{center}
 $C'=\frac { C }{ { k }_{ m }\cdot { k }_{ f } }$ 
+\end{center}
 
 De nye værdier kan ses i Tabel \ref{IL:design:values}
 
