@@ -6,22 +6,107 @@ Modultesten af Controller er opstillet som en modultest hvor Controlleren er for
 
 \subsubsection*{Formål}
 
-At teste om ''ON/OFF''-LEDen lyser og programmet starte sit ON-loop når knappen er ON. Samt kontrollere om ''ON/OFF''-LEDen slukker når knappen er OFF og programmet forlader sit ON-loop.
+At teste om ''ON/OFF''-LEDen lyser og programmet starter sit ON-loop når knappen er ON. Samt kontrollere om ''ON/OFF''-LEDen slukker når knappen er OFF og programmet forlader sit ON-loop.
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
-\item[gnjfkgdl]
-\item[•]
-\item[•]
-\item[•]
+\item Tilkoble strøm til Controlleren med ''ON/OFF'' knappen i OFF position
+\item Start programmet på Raspberry Pi'en
+\item Sæt ''ON/OFF'' knappen i ON position
+\item Iagttag ''ON/OFF''-LEDen samt terminal udskrift
+\item Sæt ''ON/OFF'' knappen i OFF position
+\item Iagttag ''ON/OFF''-LEDen samt terminal udskrift
 \end{enumerate}
 
+\subsubsection*{Forventet resultat} 
+Det forventes at LEDen tænder når ''ON/OFF'' knappen bringes i ON position. Det forventes at terminal udskriften viser at programmet reagerer med udskrifterne [INSIDE ON LOOP] når knappen er i ON position og [OUTSIDE ON LOOP] når knappen er i OFF position.
+
+\subsubsection*{Resultat} 
+LEDen tænder og slukker som forventet og terminaludskriften passer med forventningerne. Se terminaludskriften på figuren herunder \ref{controller:Modul_ONOFF}
+\figur{0.8}{controller/modultest/ON_OFF.pdf}{Terminaludskrift - Modultest:''ON/OFF''-knap}{controller:Modul_ONOFF}
+
+\textit{Testen er godkendt}
+
+
+\subsection*{''Manuel start''-knap}
+
+\subsubsection*{Formål}
+At sikre ''Manuel start'' knappen aktiverer ISR rutinen, her sættes en variabel som får en funktion til at køre. 
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start programmet og sæt ''ON/OFF'' knappen i ON position
+\item Aktiver ''Manuel start''-knappen ved at trykke på den 
+\item Iagtag ''Manuel start''-LED'en og terminal udskriften
+\item Afvent at LED'en slukker og iagtag terminal udskiften 
+\end{enumerate}
 
 \subsubsection*{Forventet resultat} 
+Det forventes at ''Manuel start''-LED'en tænder umiddelbart når ''Manuel start''-knappen aktiveres. Terminal udskriften reagerer ved [MANUELSTART ISR] når knappen aktiveres, [MANUELSTART RUNNING] funktionen kører og [MANUELSTART DONE] når funktionen er kørt. Herefter slukkes ''Manuel start''-LED'en 
 
+\subsubsection*{Resultat} 
+''Manuel start''-LED'en tænder med det samme når ''Manuel start''-knappen aktiveres, som forventet. Og LED'en slukker når funktionen er kørt. Figur \ref{controller:Modul_manStart} viser terminal udskriften. [MANUELSTART ISR] skrives flere gange, det skyldes kontaktprel og er håndteret ved at der sættes en variabel første gang knappen aktiveres, denne variabel nulstilles af funktionen selv.
+
+\figur{0.8}{controller/modultest/manStart.pdf}{Terminaludskrift - Modultest:''Manuel start''-knap}{controller:Modul_manStart}
+
+
+\textit{Testen er godkendt}
+
+\subsection*{Internet status - Wi-Fi LED}
+
+\subsubsection*{Formål}
+At teste systemet med og uden internet tilkoblet
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start programmet og sæt ''ON/OFF'' knappen i ON position
+\item Fjern internet forbindelsen ved at afbryde routeren fra netværket
+\item Iagtag Wi-Fi LED'en og terminal udskrift
+\item Tilføj internet forbindelsen ved at tilkoble routeren fra netværket
+\item Iagtag Wi-Fi LED'en og terminal udskrift
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+Det forventes at Wi-Fi LED'en lyser efter maks 10 sekunder og slukker igen maks 20 sekunder efter routeren er tilkoblet netværket. Terminalen viser tilsvarende ping udskrifter som viser status for internetforbindelsen.
+
+\subsubsection*{Resultat} 
+
+
+\textit{Testen er godkendt}
+
+\subsection*{BABYCON niveau fra testprint}
+
+\subsubsection*{Formål}
+At teste systemts reaktion på de 3 BABYCON niveauter samt ved error/ikke tilkoblet Intelligent Lydmonitor.
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item 
+
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
 
 
 \subsubsection*{Resultat} 
 
 
-\textit{Testen er godkendt/ikke-godkendt}
+\textit{Testen er godkendt}
+
+\subsection*{I2C kommunikation med PSoC testprogram}
+
+\subsubsection*{Formål}
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item 
+
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+
+
+\subsubsection*{Resultat} 
+
+
+\textit{Testen er godkendt}
