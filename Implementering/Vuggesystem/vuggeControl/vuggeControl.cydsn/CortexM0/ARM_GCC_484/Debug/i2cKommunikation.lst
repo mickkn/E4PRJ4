@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
   29:.\i2cKommunikation.c **** // 0.3 - Non known issuses
   30:.\i2cKommunikation.c **** //========================================================================
   31:.\i2cKommunikation.c **** // includes
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 2
 
 
   32:.\i2cKommunikation.c **** #include "i2cKommunikation.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
   61 002c 0421     		mov	r1, #4
   62 002e 1A1C     		mov	r2, r3
   63 0030 FFF7FEFF 		bl	I2CVuggesystem_EzI2CSetBuffer1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 3
 
 
   52:.\i2cKommunikation.c ****     I2CVuggesystem_Start();
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  106              		.size	sendConKom, .-sendConKom
  107              		.text
  108              	.Letext0:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 4
 
 
  109              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
@@ -192,15 +192,15 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  117 000b 01       		.uleb128 0x1
  118 000c 6A000000 		.4byte	.LASF15
  119 0010 01       		.byte	0x1
- 120 0011 6A010000 		.4byte	.LASF16
- 121 0015 F3000000 		.4byte	.LASF17
+ 120 0011 03010000 		.4byte	.LASF16
+ 121 0015 50010000 		.4byte	.LASF17
  122 0019 00000000 		.4byte	.Ldebug_ranges0+0
  123 001d 00000000 		.4byte	0
  124 0021 00000000 		.4byte	.Ldebug_line0
  125 0025 02       		.uleb128 0x2
  126 0026 01       		.byte	0x1
  127 0027 06       		.byte	0x6
- 128 0028 92010000 		.4byte	.LASF0
+ 128 0028 2B010000 		.4byte	.LASF0
  129 002c 02       		.uleb128 0x2
  130 002d 01       		.byte	0x1
  131 002e 08       		.byte	0x8
@@ -208,15 +208,15 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  133 0033 02       		.uleb128 0x2
  134 0034 02       		.byte	0x2
  135 0035 05       		.byte	0x5
- 136 0036 A4010000 		.4byte	.LASF2
+ 136 0036 3D010000 		.4byte	.LASF2
  137 003a 02       		.uleb128 0x2
  138 003b 02       		.byte	0x2
  139 003c 07       		.byte	0x7
- 140 003d 7F010000 		.4byte	.LASF3
+ 140 003d 18010000 		.4byte	.LASF3
  141 0041 02       		.uleb128 0x2
  142 0042 04       		.byte	0x4
  143 0043 05       		.byte	0x5
- 144 0044 5A010000 		.4byte	.LASF4
+ 144 0044 F3000000 		.4byte	.LASF4
  145 0048 02       		.uleb128 0x2
  146 0049 04       		.byte	0x4
  147 004a 07       		.byte	0x7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  163 0066 07       		.byte	0x7
  164 0067 0E000000 		.4byte	.LASF8
  165 006b 04       		.uleb128 0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 5
 
 
  166 006c 30000000 		.4byte	.LASF18
@@ -248,11 +248,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  170 0076 02       		.uleb128 0x2
  171 0077 04       		.byte	0x4
  172 0078 04       		.byte	0x4
- 173 0079 9E010000 		.4byte	.LASF9
+ 173 0079 37010000 		.4byte	.LASF9
  174 007d 02       		.uleb128 0x2
  175 007e 08       		.byte	0x8
  176 007f 04       		.byte	0x4
- 177 0080 63010000 		.4byte	.LASF10
+ 177 0080 FC000000 		.4byte	.LASF10
  178 0084 02       		.uleb128 0x2
  179 0085 01       		.byte	0x1
  180 0086 08       		.byte	0x8
@@ -260,7 +260,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  182 008b 02       		.uleb128 0x2
  183 008c 04       		.byte	0x4
  184 008d 07       		.byte	0x7
- 185 008e AE010000 		.4byte	.LASF12
+ 185 008e 47010000 		.4byte	.LASF12
  186 0092 05       		.uleb128 0x5
  187 0093 E6000000 		.4byte	.LASF13
  188 0097 01       		.byte	0x1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  220 00db 00000000 		.4byte	I2CBuf
  221 00df 00       		.byte	0
  222              		.section	.debug_abbrev,"",%progbits
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 6
 
 
  223              	.Ldebug_abbrev0:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  277 0035 00       		.byte	0
  278 0036 05       		.uleb128 0x5
  279 0037 2E       		.uleb128 0x2e
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 7
 
 
  280 0038 00       		.byte	0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  334 0070 01       		.uleb128 0x1
  335 0071 01       		.byte	0x1
  336 0072 49       		.uleb128 0x49
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 8
 
 
  337 0073 13       		.uleb128 0x13
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  391              		.section	.debug_line,"",%progbits
  392              	.Ldebug_line0:
  393 0000 98000000 		.section	.debug_str,"MS",%progbits,1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 9
 
 
  393      02006900 
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  413      74696F6E 
  413      2D736563 
  413      74696F6E 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 10
 
 
  414              	.LASF13:
@@ -547,51 +547,57 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVRCGkc.s 			page 1
  416              	.LASF11:
  417 00ee 63686172 		.ascii	"char\000"
  417      00
- 418              	.LASF17:
- 419 00f3 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
- 419      73657273 
- 419      5C46656C 
- 419      69785C47 
- 419      6F6F676C 
- 420 0121 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 420      656D2061 
- 420      7262656A 
- 420      6473646F 
- 420      6B756D65 
- 421 0152 6C2E6379 		.ascii	"l.cydsn\000"
- 421      64736E00 
- 422              	.LASF4:
- 423 015a 6C6F6E67 		.ascii	"long int\000"
- 423      20696E74 
- 423      00
- 424              	.LASF10:
- 425 0163 646F7562 		.ascii	"double\000"
- 425      6C6500
- 426              	.LASF16:
- 427 016a 2E5C6932 		.ascii	".\\i2cKommunikation.c\000"
- 427      634B6F6D 
- 427      6D756E69 
- 427      6B617469 
- 427      6F6E2E63 
- 428              	.LASF3:
- 429 017f 73686F72 		.ascii	"short unsigned int\000"
- 429      7420756E 
- 429      7369676E 
- 429      65642069 
- 429      6E7400
- 430              	.LASF0:
- 431 0192 7369676E 		.ascii	"signed char\000"
- 431      65642063 
- 431      68617200 
- 432              	.LASF9:
- 433 019e 666C6F61 		.ascii	"float\000"
- 433      7400
- 434              	.LASF2:
- 435 01a4 73686F72 		.ascii	"short int\000"
- 435      7420696E 
- 435      7400
- 436              	.LASF12:
- 437 01ae 73697A65 		.ascii	"sizetype\000"
- 437      74797065 
- 437      00
+ 418              	.LASF4:
+ 419 00f3 6C6F6E67 		.ascii	"long int\000"
+ 419      20696E74 
+ 419      00
+ 420              	.LASF10:
+ 421 00fc 646F7562 		.ascii	"double\000"
+ 421      6C6500
+ 422              	.LASF16:
+ 423 0103 2E5C6932 		.ascii	".\\i2cKommunikation.c\000"
+ 423      634B6F6D 
+ 423      6D756E69 
+ 423      6B617469 
+ 423      6F6E2E63 
+ 424              	.LASF3:
+ 425 0118 73686F72 		.ascii	"short unsigned int\000"
+ 425      7420756E 
+ 425      7369676E 
+ 425      65642069 
+ 425      6E7400
+ 426              	.LASF0:
+ 427 012b 7369676E 		.ascii	"signed char\000"
+ 427      65642063 
+ 427      68617200 
+ 428              	.LASF9:
+ 429 0137 666C6F61 		.ascii	"float\000"
+ 429      7400
+ 430              	.LASF2:
+ 431 013d 73686F72 		.ascii	"short int\000"
+ 431      7420696E 
+ 431      7400
+ 432              	.LASF12:
+ 433 0147 73697A65 		.ascii	"sizetype\000"
+ 433      74797065 
+ 433      00
+ 434              	.LASF17:
+ 435 0150 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ 435      73657273 
+ 435      5C4A6570 
+ 435      70655C44 
+ 435      6F63756D 
+ 436 017d 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 436      4A345C49 
+ 436      6D706C65 
+ 436      6D656E74 
+ 436      6572696E 
+ 437 01ac 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 437      65436F6E 
+ 437      74726F6C 
+ 437      2E637964 
+ 437      736E00
  438              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccX95nJ5.s 			page 11
+
+

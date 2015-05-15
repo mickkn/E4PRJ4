@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
   23:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *      EZI2C Private Vars
   24:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** ***************************************/
   25:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 2
 
 
   26:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** volatile uint8 I2CVuggesystem_curStatus; /* Status byte */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
   80:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     * Summary:
   81:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     *  Configures the SCB for the EZI2C operation.
   82:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     *
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 3
 
 
   83:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     * Parameters:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  137:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****                                                                                        config->prim
  138:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             }
  139:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             else
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 4
 
 
  140:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  194:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         }
  195:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  196:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 5
 
 
  197:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** #else
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
   58 001e 224A     		ldr	r2, .L2+20
   59 0020 1A60     		str	r2, [r3]
  226:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_RX_FIFO_CTRL_REG = I2CVuggesystem_EZI2C_DEFAULT_RX_FIFO_CTRL;
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 6
 
 
   60              		.loc 1 226 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
   90 0054 0022     		mov	r2, #0
   91 0056 1A60     		str	r2, [r3]
  251:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* (!I2CVuggesystem_CY_SCBIP_V1) */
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 7
 
 
  252:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  269:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  270:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_addrBuf1 = I2CVuggesystem_EZI2C_PRIMARY_SLAVE_ADDRESS;
  271:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_addrBuf2 = I2CVuggesystem_EZI2C_SECONDARY_SLAVE_ADDRESS;
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 8
 
 
  272:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* (I2CVuggesystem_SECONDARY_ADDRESS_ENABLE_CONST) */
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  286:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  287:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Return:
  288:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  None
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 9
 
 
  289:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  204              		.thumb_func
  205              		.type	I2CVuggesystem_EzI2CGetActivity, %function
  206              	I2CVuggesystem_EzI2CGetActivity:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 10
 
 
  207              	.LFB2:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  343:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         }
  344:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         #else
  345:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         {
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 11
 
 
  346:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             status |= I2CVuggesystem_CHECK_INTR_SLAVE(I2CVuggesystem_INTR_SLAVE_I2C_ADDR_MATCH) ?
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  365:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  366:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Sets the primary I2C slave address.
  367:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 12
 
 
  368:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Parameters:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  288 0020 1343     		orr	r3, r2
  289 0022 FB60     		str	r3, [r7, #12]
  395:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 13
 
 
  396:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_RX_MATCH_REG = matchReg;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  319              		.cfi_offset 7, -8
  320              		.cfi_offset 14, -4
  321 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 14
 
 
  322              		.cfi_def_cfa_offset 16
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  442:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  443:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Sets up the data buffer to be exposed to the I2C master on a primary slave
  444:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  address request.
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 15
 
 
  445:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  388 002c 1A80     		strh	r2, [r3]
  466:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  467:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_EnableInt();   /* Release lock */
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 16
 
 
  389              		.loc 1 467 0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  420              		.cfi_offset 14, -4
  421 0002 82B0     		sub	sp, sp, #8
  422              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 17
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 17
 
 
  423 0004 00AF     		add	r7, sp, #0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  475 003d 88000000 		.4byte	.LASF3
  476 0041 02       		.uleb128 0x2
  477 0042 04       		.byte	0x4
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 18
 
 
  478 0043 05       		.byte	0x5
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  532 00ac 4D01     		.2byte	0x14d
  533 00ae B2000000 		.4byte	0xb2
  534 00b2 05       		.uleb128 0x5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 19
 
 
  535 00b3 81000000 		.4byte	0x81
@@ -1095,7 +1095,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  546 00cd 01       		.uleb128 0x1
  547 00ce 9C       		.byte	0x9c
  548 00cf 08       		.uleb128 0x8
- 549 00d0 76030000 		.4byte	.LASF18
+ 549 00d0 7E030000 		.4byte	.LASF18
  550 00d4 01       		.byte	0x1
  551 00d5 2301     		.2byte	0x123
  552 00d7 00000000 		.4byte	.LFB1
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  589 012d 02       		.uleb128 0x2
  590 012e 91       		.byte	0x91
  591 012f 6C       		.sleb128 -20
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 20
 
 
  592 0130 0D       		.uleb128 0xd
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  646 01a5 02       		.uleb128 0x2
  647 01a6 91       		.byte	0x91
  648 01a7 70       		.sleb128 -16
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 21
 
 
  649 01a8 0C       		.uleb128 0xc
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  703 0217 11       		.uleb128 0x11
  704 0218 09020000 		.4byte	.LASF33
  705 021c 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 22
 
 
  706 021d 1F       		.byte	0x1f
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  760 0016 0B       		.uleb128 0xb
  761 0017 0B       		.uleb128 0xb
  762 0018 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 23
 
 
  763 0019 0B       		.uleb128 0xb
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  817 004f 03       		.uleb128 0x3
  818 0050 0E       		.uleb128 0xe
  819 0051 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 24
 
 
  820 0052 0B       		.uleb128 0xb
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  874 008a 01       		.uleb128 0x1
  875 008b 12       		.uleb128 0x12
  876 008c 06       		.uleb128 0x6
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 25
 
 
  877 008d 40       		.uleb128 0x40
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  931 00c5 0B       		.uleb128 0xb
  932 00c6 3B       		.uleb128 0x3b
  933 00c7 05       		.uleb128 0x5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 26
 
 
  934 00c8 49       		.uleb128 0x49
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  988 00ff 19       		.uleb128 0x19
  989 0100 11       		.uleb128 0x11
  990 0101 01       		.uleb128 0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 27
 
 
  991 0102 12       		.uleb128 0x12
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  1045 0034 20000000 		.4byte	.LFE4-.LFB4
  1046 0038 00000000 		.4byte	.LFB5
  1047 003c 48000000 		.4byte	.LFE5-.LFB5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 28
 
 
  1048 0040 00000000 		.4byte	.LFB6
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  1082      536F7572 
  1082      63655C50 
  1083              	.LASF3:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 29
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 29
 
 
  1084 0088 73686F72 		.ascii	"short unsigned int\000"
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  1102      676E6564 
  1102      20636861 
  1102      7200
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 30
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 30
 
 
  1103              	.LASF5:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  1128      6720696E 
  1128      7400
  1129              	.LASF19:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 31
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 31
 
 
  1130 0261 73746174 		.ascii	"status\000"
@@ -1850,23 +1850,26 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 1
  1150      656D5F45 
  1150      7A493243 
  1151              	.LASF39:
- 1152 030f 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1152 030f 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
  1152      73657273 
- 1152      5C46656C 
- 1152      69785C47 
- 1152      6F6F676C 
- 1153 033d 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 1153      656D2061 
- 1153      7262656A 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccyXa2fE.s 			page 32
+ 1152      5C4A6570 
+ 1152      70655C44 
+ 1152      6F63756D 
+ 1153 033c 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1153      4A345C49 
+ 1153      6D706C65 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 32
 
 
- 1153      6473646F 
- 1153      6B756D65 
- 1154 036e 6C2E6379 		.ascii	"l.cydsn\000"
- 1154      64736E00 
+ 1153      6D656E74 
+ 1153      6572696E 
+ 1154 036b 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1154      65436F6E 
+ 1154      74726F6C 
+ 1154      2E637964 
+ 1154      736E00
  1155              	.LASF18:
- 1156 0376 49324356 		.ascii	"I2CVuggesystem_EzI2CStop\000"
+ 1156 037e 49324356 		.ascii	"I2CVuggesystem_EzI2CStop\000"
  1156      75676765 
  1156      73797374 
  1156      656D5F45 

@@ -47,7 +47,6 @@
 #define M_ANGLE 0xA0	// 8 grader (160)
     
 // Attributes
-int* sensorDataPtr_;
 int fixedPointReg_;
 int reguleringsStatus_;
 BOOL going_up_;

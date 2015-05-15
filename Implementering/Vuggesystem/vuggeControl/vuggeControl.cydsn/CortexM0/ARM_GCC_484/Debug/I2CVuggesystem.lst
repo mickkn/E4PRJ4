@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
   18:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
   19:.\Generated_Source\PSoC4/I2CVuggesystem.c **** #if(I2CVuggesystem_SCB_MODE_I2C_INC)
   20:.\Generated_Source\PSoC4/I2CVuggesystem.c ****     #include "I2CVuggesystem_I2C_PVT.h"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 2
 
 
   21:.\Generated_Source\PSoC4/I2CVuggesystem.c **** #endif /* (I2CVuggesystem_SCB_MODE_I2C_INC) */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
   75:.\Generated_Source\PSoC4/I2CVuggesystem.c **** ***************************************/
   76:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
   77:.\Generated_Source\PSoC4/I2CVuggesystem.c **** static void I2CVuggesystem_ScbEnableIntr(void);
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 3
 
 
   78:.\Generated_Source\PSoC4/I2CVuggesystem.c **** static void I2CVuggesystem_ScbModeStop(void);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  122:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  123:.\Generated_Source\PSoC4/I2CVuggesystem.c **** #endif /* (I2CVuggesystem_SCB_MODE_UNCONFIG_CONST_CFG) */
  124:.\Generated_Source\PSoC4/I2CVuggesystem.c **** }
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 4
 
 
   48              		.loc 1 124 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
   72 0004 054B     		ldr	r3, .L3
   73 0006 054A     		ldr	r2, .L3
   74 0008 1268     		ldr	r2, [r2]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 5
 
 
   75 000a 8021     		mov	r1, #128
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  184:.\Generated_Source\PSoC4/I2CVuggesystem.c **** {
  100              		.loc 1 184 0
  101              		.cfi_startproc
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 6
 
 
  102 0000 80B5     		push	{r7, lr}
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  200:.\Generated_Source\PSoC4/I2CVuggesystem.c **** *  Disables the SCB component and its interrupt.
  201:.\Generated_Source\PSoC4/I2CVuggesystem.c **** *
  202:.\Generated_Source\PSoC4/I2CVuggesystem.c **** * Parameters:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 7
 
 
  203:.\Generated_Source\PSoC4/I2CVuggesystem.c **** *  None
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  175              		.section	.text.I2CVuggesystem_SetRxFifoLevel,"ax",%progbits
  176              		.align	2
  177              		.global	I2CVuggesystem_SetRxFifoLevel
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 8
 
 
  178              		.code	16
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  205 0018 0723     		mov	r3, #7
  206 001a 1340     		and	r3, r2
  207 001c FA68     		ldr	r2, [r7, #12]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 9
 
 
  208 001e 1343     		orr	r3, r2
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  238              		.cfi_offset 7, -8
  239              		.cfi_offset 14, -4
  240 0002 84B0     		sub	sp, sp, #16
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 10
 
 
  241              		.cfi_def_cfa_offset 24
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  284:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  285:.\Generated_Source\PSoC4/I2CVuggesystem.c **** /*******************************************************************************
  286:.\Generated_Source\PSoC4/I2CVuggesystem.c **** * Function Name: I2CVuggesystem_SetCustomInterruptHandler
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 11
 
 
  287:.\Generated_Source\PSoC4/I2CVuggesystem.c **** ********************************************************************************
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  308 0014 00000000 		.word	I2CVuggesystem_customIntrHandler
  309              		.cfi_endproc
  310              	.LFE6:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 12
 
 
  311              		.size	I2CVuggesystem_SetCustomInterruptHandler, .-I2CVuggesystem_SetCustomInterruptHandler
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  334              		.cfi_endproc
  335              	.LFE7:
  336              		.size	I2CVuggesystem_ScbEnableIntr, .-I2CVuggesystem_ScbEnableIntr
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 13
 
 
  337              		.section	.text.I2CVuggesystem_ScbModeStop,"ax",%progbits
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  388:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  389:.\Generated_Source\PSoC4/I2CVuggesystem.c **** #elif(I2CVuggesystem_SCB_MODE_EZI2C_CONST_CFG)
  390:.\Generated_Source\PSoC4/I2CVuggesystem.c ****     I2CVuggesystem_EzI2CStop();
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 14
 
 
  352              		.loc 1 390 0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  428:.\Generated_Source\PSoC4/I2CVuggesystem.c ****     #endif /* (!I2CVuggesystem_CY_SCBIP_V1) */
  429:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  430:.\Generated_Source\PSoC4/I2CVuggesystem.c ****         uint32 i;
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 15
 
 
  431:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  485:.\Generated_Source\PSoC4/I2CVuggesystem.c ****             #if(I2CVuggesystem_SS1_PIN)
  486:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                 hsiomSel [I2CVuggesystem_SS1_PIN_INDEX] = I2CVuggesystem_HSIOM_SPI_SEL;
  487:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                 pinsDm   [I2CVuggesystem_SS1_PIN_INDEX] = I2CVuggesystem_PIN_DM_STRONG;
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 16
 
 
  488:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                 pinsInBuf                                |= I2CVuggesystem_SS1_PIN_MASK;
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  542:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  543:.\Generated_Source\PSoC4/I2CVuggesystem.c ****             #if !(I2CVuggesystem_CY_SCBIP_V0 || I2CVuggesystem_CY_SCBIP_V1)
  544:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                 if(I2CVuggesystem_UART_MODE_STD == subMode)
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 17
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 17
 
 
  545:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                 {
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  599:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                                      (0u != (pinsInBuf & I2CVuggesystem_MOSI_SCL_RX_WAKE_PIN_MASK))
  600:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
  601:.\Generated_Source\PSoC4/I2CVuggesystem.c ****          /* Set interrupt on falling edge */
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 18
 
 
  602:.\Generated_Source\PSoC4/I2CVuggesystem.c ****         I2CVuggesystem_SET_INCFG_TYPE(I2CVuggesystem_MOSI_SCL_RX_WAKE_INTCFG_REG,
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  656:.\Generated_Source\PSoC4/I2CVuggesystem.c ****     #if(I2CVuggesystem_SS2_PIN)
  657:.\Generated_Source\PSoC4/I2CVuggesystem.c ****         I2CVuggesystem_SET_HSIOM_SEL(I2CVuggesystem_SS2_HSIOM_REG, I2CVuggesystem_SS2_HSIOM_MASK,
  658:.\Generated_Source\PSoC4/I2CVuggesystem.c ****                                        I2CVuggesystem_SS2_HSIOM_POS, hsiomSel[I2CVuggesystem_SS2_PI
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 19
 
 
  659:.\Generated_Source\PSoC4/I2CVuggesystem.c **** 
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  381 000a 5B00     		lsl	r3, r3, #1
  382 000c 1340     		and	r3, r2
  383 000e 12D0     		beq	.L24
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 20
 
 
  701:.\Generated_Source\PSoC4/I2CVuggesystem.c ****             (0u == (I2CVuggesystem_I2C_CTRL_REG & I2CVuggesystem_I2C_CTRL_S_NOT_READY_ADDR_NACK)))
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  428              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
  429              		.section	.debug_info,"",%progbits
  430              	.Ldebug_info0:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 21
 
 
  431 0000 E7010000 		.4byte	0x1e7
@@ -1216,7 +1216,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  443 0025 02       		.uleb128 0x2
  444 0026 01       		.byte	0x1
  445 0027 06       		.byte	0x6
- 446 0028 8B020000 		.4byte	.LASF0
+ 446 0028 B4020000 		.4byte	.LASF0
  447 002c 02       		.uleb128 0x2
  448 002d 01       		.byte	0x1
  449 002e 08       		.byte	0x8
@@ -1224,7 +1224,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  451 0033 02       		.uleb128 0x2
  452 0034 02       		.byte	0x2
  453 0035 05       		.byte	0x5
- 454 0036 50020000 		.4byte	.LASF2
+ 454 0036 79020000 		.4byte	.LASF2
  455 003a 02       		.uleb128 0x2
  456 003b 02       		.byte	0x2
  457 003c 07       		.byte	0x7
@@ -1232,7 +1232,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  459 0041 02       		.uleb128 0x2
  460 0042 04       		.byte	0x4
  461 0043 05       		.byte	0x5
- 462 0044 82020000 		.4byte	.LASF4
+ 462 0044 AB020000 		.4byte	.LASF4
  463 0048 02       		.uleb128 0x2
  464 0049 04       		.byte	0x4
  465 004a 07       		.byte	0x7
@@ -1240,11 +1240,11 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  467 004f 02       		.uleb128 0x2
  468 0050 08       		.byte	0x8
  469 0051 05       		.byte	0x5
- 470 0052 3D020000 		.4byte	.LASF6
+ 470 0052 66020000 		.4byte	.LASF6
  471 0056 02       		.uleb128 0x2
  472 0057 08       		.byte	0x8
  473 0058 07       		.byte	0x7
- 474 0059 C7010000 		.4byte	.LASF7
+ 474 0059 F0010000 		.4byte	.LASF7
  475 005d 03       		.uleb128 0x3
  476 005e 04       		.byte	0x4
  477 005f 05       		.byte	0x5
@@ -1252,17 +1252,17 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  479 0064 02       		.uleb128 0x2
  480 0065 04       		.byte	0x4
  481 0066 07       		.byte	0x7
- 482 0067 A4010000 		.4byte	.LASF8
+ 482 0067 CD010000 		.4byte	.LASF8
  483 006b 04       		.uleb128 0x4
  484 006c 20010000 		.4byte	.LASF9
  485 0070 02       		.byte	0x2
  486 0071 A1       		.byte	0xa1
  487 0072 2C000000 		.4byte	0x2c
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 22
 
 
  488 0076 04       		.uleb128 0x4
- 489 0077 9D010000 		.4byte	.LASF10
+ 489 0077 C6010000 		.4byte	.LASF10
  490 007b 02       		.byte	0x2
  491 007c A3       		.byte	0xa3
  492 007d 48000000 		.4byte	0x48
@@ -1277,7 +1277,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  501 008f 02       		.uleb128 0x2
  502 0090 01       		.byte	0x1
  503 0091 08       		.byte	0x8
- 504 0092 4B020000 		.4byte	.LASF13
+ 504 0092 74020000 		.4byte	.LASF13
  505 0096 05       		.uleb128 0x5
  506 0097 00000000 		.4byte	.LASF14
  507 009b 02       		.byte	0x2
@@ -1286,7 +1286,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  510 00a2 06       		.uleb128 0x6
  511 00a3 76000000 		.4byte	0x76
  512 00a7 05       		.uleb128 0x5
- 513 00a8 13020000 		.4byte	.LASF15
+ 513 00a8 3C020000 		.4byte	.LASF15
  514 00ac 02       		.byte	0x2
  515 00ad 5D01     		.2byte	0x15d
  516 00af B3000000 		.4byte	0xb3
@@ -1297,9 +1297,9 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  521 00ba 02       		.uleb128 0x2
  522 00bb 04       		.byte	0x4
  523 00bc 07       		.byte	0x7
- 524 00bd 34020000 		.4byte	.LASF16
+ 524 00bd 5D020000 		.4byte	.LASF16
  525 00c1 09       		.uleb128 0x9
- 526 00c2 20020000 		.4byte	.LASF17
+ 526 00c2 49020000 		.4byte	.LASF17
  527 00c6 01       		.byte	0x1
  528 00c7 63       		.byte	0x63
  529 00c8 00000000 		.4byte	.LFB0
@@ -1307,7 +1307,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  531 00d0 01       		.uleb128 0x1
  532 00d1 9C       		.byte	0x9c
  533 00d2 09       		.uleb128 0x9
- 534 00d3 B1010000 		.4byte	.LASF18
+ 534 00d3 DA010000 		.4byte	.LASF18
  535 00d7 01       		.byte	0x1
  536 00d8 8F       		.byte	0x8f
  537 00d9 00000000 		.4byte	.LFB1
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  542 00e4 F9000000 		.4byte	.LASF19
  543 00e8 01       		.byte	0x1
  544 00e9 B7       		.byte	0xb7
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 23
 
 
  545 00ea 00000000 		.4byte	.LFB2
@@ -1326,7 +1326,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  547 00f2 01       		.uleb128 0x1
  548 00f3 9C       		.byte	0x9c
  549 00f4 09       		.uleb128 0x9
- 550 00f5 27030000 		.4byte	.LASF20
+ 550 00f5 2F030000 		.4byte	.LASF20
  551 00f9 01       		.byte	0x1
  552 00fa D1       		.byte	0xd1
  553 00fb 00000000 		.4byte	.LFB3
@@ -1351,7 +1351,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  572 0126 91       		.byte	0x91
  573 0127 6C       		.sleb128 -20
  574 0128 0C       		.uleb128 0xc
- 575 0129 77020000 		.4byte	.LASF24
+ 575 0129 A0020000 		.4byte	.LASF24
  576 012d 01       		.byte	0x1
  577 012e F4       		.byte	0xf4
  578 012f 76000000 		.4byte	0x76
@@ -1360,7 +1360,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  581 0135 74       		.sleb128 -12
  582 0136 00       		.byte	0
  583 0137 0D       		.uleb128 0xd
- 584 0138 F5010000 		.4byte	.LASF22
+ 584 0138 1E020000 		.4byte	.LASF22
  585 013c 01       		.byte	0x1
  586 013d 1001     		.2byte	0x110
  587 013f 00000000 		.4byte	.LFB5
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  599 015b 6C       		.sleb128 -20
  600 015c 0F       		.uleb128 0xf
  601 015d 06000000 		.4byte	.LASF25
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 24
 
 
  602 0161 01       		.byte	0x1
@@ -1389,7 +1389,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  607 016a 74       		.sleb128 -12
  608 016b 00       		.byte	0
  609 016c 0D       		.uleb128 0xd
- 610 016d 97020000 		.4byte	.LASF26
+ 610 016d 77010000 		.4byte	.LASF26
  611 0171 01       		.byte	0x1
  612 0172 3301     		.2byte	0x133
  613 0174 00000000 		.4byte	.LFB6
@@ -1407,7 +1407,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  625 0190 74       		.sleb128 -12
  626 0191 00       		.byte	0
  627 0192 10       		.uleb128 0x10
- 628 0193 5A020000 		.4byte	.LASF28
+ 628 0193 83020000 		.4byte	.LASF28
  629 0197 01       		.byte	0x1
  630 0198 4E01     		.2byte	0x14e
  631 019a 00000000 		.4byte	.LFB7
@@ -1423,7 +1423,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  641 01b4 01       		.uleb128 0x1
  642 01b5 9C       		.byte	0x9c
  643 01b6 11       		.uleb128 0x11
- 644 01b7 77010000 		.4byte	.LASF30
+ 644 01b7 A0010000 		.4byte	.LASF30
  645 01bb 01       		.byte	0x1
  646 01bc B902     		.2byte	0x2b9
  647 01be 00000000 		.4byte	.LFB9
@@ -1431,14 +1431,14 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  649 01c6 01       		.uleb128 0x1
  650 01c7 9C       		.byte	0x9c
  651 01c8 12       		.uleb128 0x12
- 652 01c9 DE010000 		.4byte	.LASF31
+ 652 01c9 07020000 		.4byte	.LASF31
  653 01cd 01       		.byte	0x1
  654 01ce 42       		.byte	0x42
  655 01cf 6B000000 		.4byte	0x6b
  656 01d3 05       		.uleb128 0x5
  657 01d4 03       		.byte	0x3
  658 01d5 00000000 		.4byte	I2CVuggesystem_initVar
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 25
 
 
  659 01d9 12       		.uleb128 0x12
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  713 002b 00       		.byte	0
  714 002c 03       		.uleb128 0x3
  715 002d 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 26
 
 
  716 002e 3A       		.uleb128 0x3a
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  770 0064 0B       		.uleb128 0xb
  771 0065 27       		.uleb128 0x27
  772 0066 19       		.uleb128 0x19
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 27
 
 
  773 0067 11       		.uleb128 0x11
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  827 009f 0E       		.uleb128 0xe
  828 00a0 3A       		.uleb128 0x3a
  829 00a1 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 28
 
 
  830 00a2 3B       		.uleb128 0x3b
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  884 00d9 0B       		.uleb128 0xb
  885 00da 3B       		.uleb128 0x3b
  886 00db 05       		.uleb128 0x5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 29
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 29
 
 
  887 00dc 49       		.uleb128 0x49
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  941 0114 0E       		.uleb128 0xe
  942 0115 3A       		.uleb128 0x3a
  943 0116 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 30
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 30
 
 
  944 0117 3B       		.uleb128 0x3b
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  998 002c 34000000 		.4byte	.LFE5
  999 0030 00000000 		.4byte	.LFB6
  1000 0034 18000000 		.4byte	.LFE6
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 31
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 31
 
 
  1001 0038 00000000 		.4byte	.LFB7
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  1027      656D5F63 
  1027      7573746F 
  1028              	.LASF21:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 32
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 32
 
 
  1029 00cd 49324356 		.ascii	"I2CVuggesystem_SetRxFifoLevel\000"
@@ -1904,116 +1904,119 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 1
  1044              	.LASF27:
  1045 0172 66756E63 		.ascii	"func\000"
  1045      00
- 1046              	.LASF30:
- 1047 0177 49324356 		.ascii	"I2CVuggesystem_I2CSlaveNackGeneration\000"
+ 1046              	.LASF26:
+ 1047 0177 49324356 		.ascii	"I2CVuggesystem_SetCustomInterruptHandler\000"
  1047      75676765 
  1047      73797374 
- 1047      656D5F49 
- 1047      3243536C 
- 1048              	.LASF10:
- 1049 019d 75696E74 		.ascii	"uint32\000"
- 1049      333200
- 1050              	.LASF8:
- 1051 01a4 756E7369 		.ascii	"unsigned int\000"
- 1051      676E6564 
- 1051      20696E74 
- 1051      00
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 33
+ 1047      656D5F53 
+ 1047      65744375 
+ 1048              	.LASF30:
+ 1049 01a0 49324356 		.ascii	"I2CVuggesystem_I2CSlaveNackGeneration\000"
+ 1049      75676765 
+ 1049      73797374 
+ 1049      656D5F49 
+ 1049      3243536C 
+ 1050              	.LASF10:
+ 1051 01c6 75696E74 		.ascii	"uint32\000"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 33
 
 
- 1052              	.LASF18:
- 1053 01b1 49324356 		.ascii	"I2CVuggesystem_Enable\000"
- 1053      75676765 
- 1053      73797374 
- 1053      656D5F45 
- 1053      6E61626C 
- 1054              	.LASF7:
- 1055 01c7 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1055      206C6F6E 
- 1055      6720756E 
- 1055      7369676E 
- 1055      65642069 
- 1056              	.LASF31:
- 1057 01de 49324356 		.ascii	"I2CVuggesystem_initVar\000"
- 1057      75676765 
- 1057      73797374 
- 1057      656D5F69 
- 1057      6E697456 
- 1058              	.LASF22:
- 1059 01f5 49324356 		.ascii	"I2CVuggesystem_SetTxFifoLevel\000"
+ 1051      333200
+ 1052              	.LASF8:
+ 1053 01cd 756E7369 		.ascii	"unsigned int\000"
+ 1053      676E6564 
+ 1053      20696E74 
+ 1053      00
+ 1054              	.LASF18:
+ 1055 01da 49324356 		.ascii	"I2CVuggesystem_Enable\000"
+ 1055      75676765 
+ 1055      73797374 
+ 1055      656D5F45 
+ 1055      6E61626C 
+ 1056              	.LASF7:
+ 1057 01f0 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1057      206C6F6E 
+ 1057      6720756E 
+ 1057      7369676E 
+ 1057      65642069 
+ 1058              	.LASF31:
+ 1059 0207 49324356 		.ascii	"I2CVuggesystem_initVar\000"
  1059      75676765 
  1059      73797374 
- 1059      656D5F53 
- 1059      65745478 
- 1060              	.LASF15:
- 1061 0213 63796973 		.ascii	"cyisraddress\000"
- 1061      72616464 
- 1061      72657373 
- 1061      00
- 1062              	.LASF17:
- 1063 0220 49324356 		.ascii	"I2CVuggesystem_Init\000"
- 1063      75676765 
- 1063      73797374 
- 1063      656D5F49 
- 1063      6E697400 
- 1064              	.LASF16:
- 1065 0234 73697A65 		.ascii	"sizetype\000"
- 1065      74797065 
- 1065      00
- 1066              	.LASF6:
- 1067 023d 6C6F6E67 		.ascii	"long long int\000"
- 1067      206C6F6E 
- 1067      6720696E 
- 1067      7400
- 1068              	.LASF13:
- 1069 024b 63686172 		.ascii	"char\000"
- 1069      00
- 1070              	.LASF2:
- 1071 0250 73686F72 		.ascii	"short int\000"
- 1071      7420696E 
- 1071      7400
- 1072              	.LASF28:
- 1073 025a 49324356 		.ascii	"I2CVuggesystem_ScbEnableIntr\000"
- 1073      75676765 
- 1073      73797374 
- 1073      656D5F53 
- 1073      6362456E 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\ccVD5Ask.s 			page 34
+ 1059      656D5F69 
+ 1059      6E697456 
+ 1060              	.LASF22:
+ 1061 021e 49324356 		.ascii	"I2CVuggesystem_SetTxFifoLevel\000"
+ 1061      75676765 
+ 1061      73797374 
+ 1061      656D5F53 
+ 1061      65745478 
+ 1062              	.LASF15:
+ 1063 023c 63796973 		.ascii	"cyisraddress\000"
+ 1063      72616464 
+ 1063      72657373 
+ 1063      00
+ 1064              	.LASF17:
+ 1065 0249 49324356 		.ascii	"I2CVuggesystem_Init\000"
+ 1065      75676765 
+ 1065      73797374 
+ 1065      656D5F49 
+ 1065      6E697400 
+ 1066              	.LASF16:
+ 1067 025d 73697A65 		.ascii	"sizetype\000"
+ 1067      74797065 
+ 1067      00
+ 1068              	.LASF6:
+ 1069 0266 6C6F6E67 		.ascii	"long long int\000"
+ 1069      206C6F6E 
+ 1069      6720696E 
+ 1069      7400
+ 1070              	.LASF13:
+ 1071 0274 63686172 		.ascii	"char\000"
+ 1071      00
+ 1072              	.LASF2:
+ 1073 0279 73686F72 		.ascii	"short int\000"
+ 1073      7420696E 
+ 1073      7400
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccUjIYMc.s 			page 34
 
 
- 1074              	.LASF24:
- 1075 0277 72784669 		.ascii	"rxFifoCtrl\000"
- 1075      666F4374 
- 1075      726C00
- 1076              	.LASF4:
- 1077 0282 6C6F6E67 		.ascii	"long int\000"
- 1077      20696E74 
- 1077      00
- 1078              	.LASF0:
- 1079 028b 7369676E 		.ascii	"signed char\000"
- 1079      65642063 
- 1079      68617200 
- 1080              	.LASF26:
- 1081 0297 49324356 		.ascii	"I2CVuggesystem_SetCustomInterruptHandler\000"
- 1081      75676765 
- 1081      73797374 
- 1081      656D5F53 
- 1081      65744375 
+ 1074              	.LASF28:
+ 1075 0283 49324356 		.ascii	"I2CVuggesystem_ScbEnableIntr\000"
+ 1075      75676765 
+ 1075      73797374 
+ 1075      656D5F53 
+ 1075      6362456E 
+ 1076              	.LASF24:
+ 1077 02a0 72784669 		.ascii	"rxFifoCtrl\000"
+ 1077      666F4374 
+ 1077      726C00
+ 1078              	.LASF4:
+ 1079 02ab 6C6F6E67 		.ascii	"long int\000"
+ 1079      20696E74 
+ 1079      00
+ 1080              	.LASF0:
+ 1081 02b4 7369676E 		.ascii	"signed char\000"
+ 1081      65642063 
+ 1081      68617200 
  1082              	.LASF35:
- 1083 02c0 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1083 02c0 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
  1083      73657273 
- 1083      5C46656C 
- 1083      69785C47 
- 1083      6F6F676C 
- 1084 02ee 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 1084      656D2061 
- 1084      7262656A 
- 1084      6473646F 
- 1084      6B756D65 
- 1085 031f 6C2E6379 		.ascii	"l.cydsn\000"
- 1085      64736E00 
+ 1083      5C4A6570 
+ 1083      70655C44 
+ 1083      6F63756D 
+ 1084 02ed 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1084      4A345C49 
+ 1084      6D706C65 
+ 1084      6D656E74 
+ 1084      6572696E 
+ 1085 031c 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1085      65436F6E 
+ 1085      74726F6C 
+ 1085      2E637964 
+ 1085      736E00
  1086              	.LASF20:
- 1087 0327 49324356 		.ascii	"I2CVuggesystem_Stop\000"
+ 1087 032f 49324356 		.ascii	"I2CVuggesystem_Stop\000"
  1087      75676765 
  1087      73797374 
  1087      656D5F53 

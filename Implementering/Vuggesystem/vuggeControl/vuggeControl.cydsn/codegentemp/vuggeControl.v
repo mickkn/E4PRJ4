@@ -1,6 +1,6 @@
 // ======================================================================
 // vuggeControl.v generated from TopDesign.cysch
-// 05/11/2015 at 18:23
+// 05/14/2015 at 14:25
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 

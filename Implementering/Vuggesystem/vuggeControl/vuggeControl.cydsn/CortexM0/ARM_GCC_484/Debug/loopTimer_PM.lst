@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
   26:.\Generated_Source\PSoC4/loopTimer_PM.c **** ********************************************************************************
   27:.\Generated_Source\PSoC4/loopTimer_PM.c **** *
   28:.\Generated_Source\PSoC4/loopTimer_PM.c **** * Summary:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 2
 
 
   29:.\Generated_Source\PSoC4/loopTimer_PM.c **** *     Save the current user configuration
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
   56              		.loc 1 56 0
   57 0026 BD46     		mov	sp, r7
   58              		@ sp needed
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 3
 
 
   59 0028 80BD     		pop	{r7, pc}
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
   88 000a FFF7FEFF 		bl	loopTimer_WriteCounter
   82:.\Generated_Source\PSoC4/loopTimer_PM.c ****         loopTimer_STATUS_MASK =loopTimer_backup.InterruptMaskValue;
   89              		.loc 1 82 0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 4
 
 
   90 000e 064B     		ldr	r3, .L5+4
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  108:.\Generated_Source\PSoC4/loopTimer_PM.c **** *  loopTimer_backup.TimerEnableState:  Is modified depending on the
  109:.\Generated_Source\PSoC4/loopTimer_PM.c **** *  enable state of the block before entering sleep mode.
  110:.\Generated_Source\PSoC4/loopTimer_PM.c **** *
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 5
 
 
  111:.\Generated_Source\PSoC4/loopTimer_PM.c **** *******************************************************************************/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  154              	.L11:
  155              		.align	2
  156              	.L10:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 6
 
 
  157 002c 73000F40 		.word	1074724979
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  156:.\Generated_Source\PSoC4/loopTimer_PM.c ****                 loopTimer_Enable();
  185              		.loc 1 156 0
  186 0010 FFF7FEFF 		bl	loopTimer_Enable
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 7
 
 
  187              	.L12:
@@ -389,36 +389,36 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  209 000b 01       		.uleb128 0x1
  210 000c 2C000000 		.4byte	.LASF24
  211 0010 01       		.byte	0x1
- 212 0011 8D010000 		.4byte	.LASF25
- 213 0015 03010000 		.4byte	.LASF26
+ 212 0011 26010000 		.4byte	.LASF25
+ 213 0015 06020000 		.4byte	.LASF26
  214 0019 00000000 		.4byte	.Ldebug_ranges0+0
  215 001d 00000000 		.4byte	0
  216 0021 00000000 		.4byte	.Ldebug_line0
  217 0025 02       		.uleb128 0x2
  218 0026 01       		.byte	0x1
  219 0027 06       		.byte	0x6
- 220 0028 0B020000 		.4byte	.LASF0
+ 220 0028 A4010000 		.4byte	.LASF0
  221 002c 02       		.uleb128 0x2
  222 002d 01       		.byte	0x1
  223 002e 08       		.byte	0x8
- 224 002f 7A010000 		.4byte	.LASF1
+ 224 002f 13010000 		.4byte	.LASF1
  225 0033 02       		.uleb128 0x2
  226 0034 02       		.byte	0x2
  227 0035 05       		.byte	0x5
- 228 0036 BE010000 		.4byte	.LASF2
+ 228 0036 57010000 		.4byte	.LASF2
  229 003a 02       		.uleb128 0x2
  230 003b 02       		.byte	0x2
  231 003c 07       		.byte	0x7
- 232 003d F8010000 		.4byte	.LASF3
+ 232 003d 91010000 		.4byte	.LASF3
  233 0041 02       		.uleb128 0x2
  234 0042 04       		.byte	0x4
  235 0043 05       		.byte	0x5
- 236 0044 B5010000 		.4byte	.LASF4
+ 236 0044 4E010000 		.4byte	.LASF4
  237 0048 02       		.uleb128 0x2
  238 0049 04       		.byte	0x4
  239 004a 07       		.byte	0x7
  240 004b BF000000 		.4byte	.LASF5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 8
 
 
  241 004f 02       		.uleb128 0x2
@@ -449,13 +449,13 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  266 007d 02       		.uleb128 0x2
  267 007e 08       		.byte	0x8
  268 007f 04       		.byte	0x4
- 269 0080 C8010000 		.4byte	.LASF10
+ 269 0080 61010000 		.4byte	.LASF10
  270 0084 02       		.uleb128 0x2
  271 0085 01       		.byte	0x1
  272 0086 08       		.byte	0x8
- 273 0087 88010000 		.4byte	.LASF11
+ 273 0087 21010000 		.4byte	.LASF11
  274 008b 05       		.uleb128 0x5
- 275 008c 40020000 		.4byte	.LASF13
+ 275 008c D9010000 		.4byte	.LASF13
  276 0090 02       		.byte	0x2
  277 0091 4B01     		.2byte	0x14b
  278 0093 97000000 		.4byte	0x97
@@ -464,7 +464,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  281 009c 02       		.uleb128 0x2
  282 009d 04       		.byte	0x4
  283 009e 07       		.byte	0x7
- 284 009f 2E020000 		.4byte	.LASF14
+ 284 009f C7010000 		.4byte	.LASF14
  285 00a3 07       		.uleb128 0x7
  286 00a4 04       		.byte	0x4
  287 00a5 03       		.byte	0x3
@@ -477,8 +477,8 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  294 00b2 6B000000 		.4byte	0x6b
  295 00b6 00       		.byte	0
  296 00b7 08       		.uleb128 0x8
- 297 00b8 37020000 		.4byte	.LASF16
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 9
+ 297 00b8 D0010000 		.4byte	.LASF16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 9
 
 
  298 00bc 03       		.byte	0x3
@@ -486,7 +486,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  300 00be 6B000000 		.4byte	0x6b
  301 00c2 01       		.byte	0x1
  302 00c3 08       		.uleb128 0x8
- 303 00c4 45020000 		.4byte	.LASF17
+ 303 00c4 DE010000 		.4byte	.LASF17
  304 00c8 03       		.byte	0x3
  305 00c9 49       		.byte	0x49
  306 00ca 6B000000 		.4byte	0x6b
@@ -499,12 +499,12 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  313 00da 03       		.byte	0x3
  314 00db 00       		.byte	0
  315 00dc 04       		.uleb128 0x4
- 316 00dd 17020000 		.4byte	.LASF19
+ 316 00dd B0010000 		.4byte	.LASF19
  317 00e1 03       		.byte	0x3
  318 00e2 53       		.byte	0x53
  319 00e3 A3000000 		.4byte	0xa3
  320 00e7 09       		.uleb128 0x9
- 321 00e8 58020000 		.4byte	.LASF20
+ 321 00e8 F1010000 		.4byte	.LASF20
  322 00ec 01       		.byte	0x1
  323 00ed 2B       		.byte	0x2b
  324 00ee 00000000 		.4byte	.LFB0
@@ -512,7 +512,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  326 00f6 01       		.uleb128 0x1
  327 00f7 9C       		.byte	0x9c
  328 00f8 09       		.uleb128 0x9
- 329 00f9 E0010000 		.4byte	.LASF21
+ 329 00f9 79010000 		.4byte	.LASF21
  330 00fd 01       		.byte	0x1
  331 00fe 4D       		.byte	0x4d
  332 00ff 00000000 		.4byte	.LFB1
@@ -520,7 +520,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  334 0107 01       		.uleb128 0x1
  335 0108 9C       		.byte	0x9c
  336 0109 09       		.uleb128 0x9
- 337 010a 6A010000 		.4byte	.LASF22
+ 337 010a 03010000 		.4byte	.LASF22
  338 010e 01       		.byte	0x1
  339 010f 70       		.byte	0x70
  340 0110 00000000 		.4byte	.LFB2
@@ -536,9 +536,9 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  350 0129 01       		.uleb128 0x1
  351 012a 9C       		.byte	0x9c
  352 012b 0A       		.uleb128 0xa
- 353 012c CF010000 		.4byte	.LASF27
+ 353 012c 68010000 		.4byte	.LASF27
  354 0130 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 10
 
 
  355 0131 15       		.byte	0x15
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  409 002e 3A       		.uleb128 0x3a
  410 002f 0B       		.uleb128 0xb
  411 0030 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 11
 
 
  412 0031 0B       		.uleb128 0xb
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  466 0067 2E       		.uleb128 0x2e
  467 0068 00       		.byte	0
  468 0069 3F       		.uleb128 0x3f
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 12
 
 
  469 006a 19       		.uleb128 0x19
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  523              	.Ldebug_ranges0:
  524 0000 00000000 		.4byte	.LFB0
  525 0004 34000000 		.4byte	.LFE0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 13
 
 
  526 0008 00000000 		.4byte	.LFB1
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  550 00b9 75696E74 		.ascii	"uint8\000"
  550      3800
  551              	.LASF5:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 14
 
 
  552 00bf 6C6F6E67 		.ascii	"long unsigned int\000"
@@ -801,104 +801,107 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 1
  557              	.LASF9:
  558 00fd 666C6F61 		.ascii	"float\000"
  558      7400
- 559              	.LASF26:
- 560 0103 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
- 560      73657273 
- 560      5C46656C 
- 560      69785C47 
- 560      6F6F676C 
- 561 0131 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 561      656D2061 
- 561      7262656A 
- 561      6473646F 
- 561      6B756D65 
- 562 0162 6C2E6379 		.ascii	"l.cydsn\000"
- 562      64736E00 
- 563              	.LASF22:
- 564 016a 6C6F6F70 		.ascii	"loopTimer_Sleep\000"
- 564      54696D65 
- 564      725F536C 
- 564      65657000 
- 565              	.LASF1:
- 566 017a 756E7369 		.ascii	"unsigned char\000"
- 566      676E6564 
- 566      20636861 
- 566      7200
- 567              	.LASF11:
- 568 0188 63686172 		.ascii	"char\000"
+ 559              	.LASF22:
+ 560 0103 6C6F6F70 		.ascii	"loopTimer_Sleep\000"
+ 560      54696D65 
+ 560      725F536C 
+ 560      65657000 
+ 561              	.LASF1:
+ 562 0113 756E7369 		.ascii	"unsigned char\000"
+ 562      676E6564 
+ 562      20636861 
+ 562      7200
+ 563              	.LASF11:
+ 564 0121 63686172 		.ascii	"char\000"
+ 564      00
+ 565              	.LASF25:
+ 566 0126 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\loopTimer_PM.c\000"
+ 566      6E657261 
+ 566      7465645F 
+ 566      536F7572 
+ 566      63655C50 
+ 567              	.LASF4:
+ 568 014e 6C6F6E67 		.ascii	"long int\000"
+ 568      20696E74 
  568      00
- 569              	.LASF25:
- 570 018d 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\loopTimer_PM.c\000"
- 570      6E657261 
- 570      7465645F 
- 570      536F7572 
- 570      63655C50 
- 571              	.LASF4:
- 572 01b5 6C6F6E67 		.ascii	"long int\000"
- 572      20696E74 
- 572      00
- 573              	.LASF2:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 15
+ 569              	.LASF2:
+ 570 0157 73686F72 		.ascii	"short int\000"
+ 570      7420696E 
+ 570      7400
+ 571              	.LASF10:
+ 572 0161 646F7562 		.ascii	"double\000"
+ 572      6C6500
+ 573              	.LASF27:
+ 574 0168 6C6F6F70 		.ascii	"loopTimer_backup\000"
+ 574      54696D65 
+ 574      725F6261 
+ 574      636B7570 
+ 574      00
+ 575              	.LASF21:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 15
 
 
- 574 01be 73686F72 		.ascii	"short int\000"
- 574      7420696E 
- 574      7400
- 575              	.LASF10:
- 576 01c8 646F7562 		.ascii	"double\000"
- 576      6C6500
- 577              	.LASF27:
- 578 01cf 6C6F6F70 		.ascii	"loopTimer_backup\000"
- 578      54696D65 
- 578      725F6261 
- 578      636B7570 
- 578      00
- 579              	.LASF21:
- 580 01e0 6C6F6F70 		.ascii	"loopTimer_RestoreConfig\000"
- 580      54696D65 
- 580      725F5265 
- 580      73746F72 
- 580      65436F6E 
- 581              	.LASF3:
- 582 01f8 73686F72 		.ascii	"short unsigned int\000"
- 582      7420756E 
- 582      7369676E 
- 582      65642069 
- 582      6E7400
- 583              	.LASF0:
- 584 020b 7369676E 		.ascii	"signed char\000"
- 584      65642063 
- 584      68617200 
- 585              	.LASF19:
- 586 0217 6C6F6F70 		.ascii	"loopTimer_backupStruct\000"
- 586      54696D65 
- 586      725F6261 
- 586      636B7570 
- 586      53747275 
- 587              	.LASF14:
- 588 022e 73697A65 		.ascii	"sizetype\000"
- 588      74797065 
+ 576 0179 6C6F6F70 		.ascii	"loopTimer_RestoreConfig\000"
+ 576      54696D65 
+ 576      725F5265 
+ 576      73746F72 
+ 576      65436F6E 
+ 577              	.LASF3:
+ 578 0191 73686F72 		.ascii	"short unsigned int\000"
+ 578      7420756E 
+ 578      7369676E 
+ 578      65642069 
+ 578      6E7400
+ 579              	.LASF0:
+ 580 01a4 7369676E 		.ascii	"signed char\000"
+ 580      65642063 
+ 580      68617200 
+ 581              	.LASF19:
+ 582 01b0 6C6F6F70 		.ascii	"loopTimer_backupStruct\000"
+ 582      54696D65 
+ 582      725F6261 
+ 582      636B7570 
+ 582      53747275 
+ 583              	.LASF14:
+ 584 01c7 73697A65 		.ascii	"sizetype\000"
+ 584      74797065 
+ 584      00
+ 585              	.LASF16:
+ 586 01d0 54696D65 		.ascii	"TimerUdb\000"
+ 586      72556462 
+ 586      00
+ 587              	.LASF13:
+ 588 01d9 72656738 		.ascii	"reg8\000"
  588      00
- 589              	.LASF16:
- 590 0237 54696D65 		.ascii	"TimerUdb\000"
- 590      72556462 
- 590      00
- 591              	.LASF13:
- 592 0240 72656738 		.ascii	"reg8\000"
- 592      00
- 593              	.LASF17:
- 594 0245 496E7465 		.ascii	"InterruptMaskValue\000"
- 594      72727570 
- 594      744D6173 
- 594      6B56616C 
- 594      756500
- 595              	.LASF20:
- 596 0258 6C6F6F70 		.ascii	"loopTimer_SaveConfig\000"
- 596      54696D65 
- 596      725F5361 
- 596      7665436F 
- 596      6E666967 
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc6BgNws.s 			page 16
+ 589              	.LASF17:
+ 590 01de 496E7465 		.ascii	"InterruptMaskValue\000"
+ 590      72727570 
+ 590      744D6173 
+ 590      6B56616C 
+ 590      756500
+ 591              	.LASF20:
+ 592 01f1 6C6F6F70 		.ascii	"loopTimer_SaveConfig\000"
+ 592      54696D65 
+ 592      725F5361 
+ 592      7665436F 
+ 592      6E666967 
+ 593              	.LASF26:
+ 594 0206 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ 594      73657273 
+ 594      5C4A6570 
+ 594      70655C44 
+ 594      6F63756D 
+ 595 0233 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 595      4A345C49 
+ 595      6D706C65 
+ 595      6D656E74 
+ 595      6572696E 
+ 596 0262 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 596      65436F6E 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc5VIZgq.s 			page 16
 
 
+ 596      74726F6C 
+ 596      2E637964 
+ 596      736E00
  597              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

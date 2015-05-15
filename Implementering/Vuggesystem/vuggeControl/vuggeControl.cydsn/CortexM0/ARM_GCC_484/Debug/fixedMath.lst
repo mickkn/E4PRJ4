@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
    6:.\fixedMath.c ****  *
    7:.\fixedMath.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
    8:.\fixedMath.c ****  * WHICH IS THE PROPERTY OF your company.
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 2
 
 
    9:.\fixedMath.c ****  *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
   75 0018 BD46     		mov	sp, r7
   76 001a 02B0     		add	sp, sp, #8
   77              		@ sp needed
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 3
 
 
   78 001c 80BD     		pop	{r7, pc}
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  127 0034 04B0     		add	sp, sp, #16
  128              		@ sp needed
  129 0036 B0BD     		pop	{r4, r5, r7, pc}
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 4
 
 
  130              		.cfi_endproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  178 0032 181C     		mov	r0, r3
  179 0034 BD46     		mov	sp, r7
  180 0036 05B0     		add	sp, sp, #20
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 5
 
 
  181              		@ sp needed
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  227              		.section	.text.fix16cos,"ax",%progbits
  228              		.align	2
  229              		.global	fix16cos
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 6
 
 
  230              		.code	16
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
   65:.\fixedMath.c **** 
   66:.\fixedMath.c **** /* atan2 implementation is based on Jim Shima's 1999/04/23 algorithm             *
   67:.\fixedMath.c ****  * see: http://dspguru.com//dsp/tricks/fixed-point-atan2-with-self-normalization */
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 7
 
 
   68:.\fixedMath.c **** fix16_t fix16atan2(fix16_t y, fix16_t x)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  322              	.LBE2:
  323 004a 15E0     		b	.L14
  324              	.L13:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 8
 
 
  325              	.LBB3:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  370              	.L17:
  371 0090 10C90000 		.word	51472
  372 0094 305B0200 		.word	154416
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 9
 
 
  373              		.cfi_endproc
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  422              	.LFB40:
   90:.\fixedMath.c **** 
   91:.\fixedMath.c **** //Cordic sine and cosine calculations
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 10
 
 
   92:.\fixedMath.c **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  465 0038 5340     		eor	r3, r2
  466 003a FA69     		ldr	r2, [r7, #28]
  467 003c D21A     		sub	r2, r2, r3
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 11
 
 
  468 003e BB6A     		ldr	r3, [r7, #40]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  515 008e BB68     		ldr	r3, [r7, #8]
  516 0090 7A6A     		ldr	r2, [r7, #36]
  517 0092 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 12
 
 
  109:.\fixedMath.c **** }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  571 004c 02       		.uleb128 0x2
  572 004d 04       		.byte	0x4
  573 004e 05       		.byte	0x5
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 13
 
 
  574 004f B6010000 		.4byte	.LASF4
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  628 00b8 04       		.byte	0x4
  629 00b9 12       		.byte	0x12
  630 00ba 81000000 		.4byte	0x81
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 14
 
 
  631 00be 05       		.uleb128 0x5
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  685 012a 9C       		.byte	0x9c
  686 012b 48010000 		.4byte	0x148
  687 012f 06       		.uleb128 0x6
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 15
 
 
  688 0130 6100     		.ascii	"a\000"
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  742 018e 3B       		.byte	0x3b
  743 018f B3000000 		.4byte	0xb3
  744 0193 00000000 		.4byte	.LFB37
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 16
 
 
  745 0197 28000000 		.4byte	.LFE37-.LFB37
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  799 01f8 60       		.sleb128 -32
  800 01f9 0A       		.uleb128 0xa
  801 01fa AE000000 		.4byte	.LASF25
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 17
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 17
 
 
  802 01fe 01       		.byte	0x1
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  856 0266 B3000000 		.4byte	0xb3
  857 026a 02       		.uleb128 0x2
  858 026b 91       		.byte	0x91
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 18
 
 
  859 026c 74       		.sleb128 -12
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  913 02c5 5F       		.byte	0x5f
  914 02c6 73000000 		.4byte	0x73
  915 02ca 02       		.uleb128 0x2
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 19
 
 
  916 02cb 91       		.byte	0x91
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  970 031f 0F       		.uleb128 0xf
  971 0320 73000000 		.4byte	0x73
  972 0324 2F030000 		.4byte	0x32f
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 20
 
 
  973 0328 10       		.uleb128 0x10
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1027 0027 49       		.uleb128 0x49
  1028 0028 13       		.uleb128 0x13
  1029 0029 00       		.byte	0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 21
 
 
  1030 002a 00       		.byte	0
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1084 0061 07       		.uleb128 0x7
  1085 0062 2E       		.uleb128 0x2e
  1086 0063 01       		.byte	0x1
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 22
 
 
  1087 0064 3F       		.uleb128 0x3f
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1141 009b 0A       		.uleb128 0xa
  1142 009c 34       		.uleb128 0x34
  1143 009d 00       		.byte	0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 23
 
 
  1144 009e 03       		.uleb128 0x3
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1198 00d5 13       		.uleb128 0x13
  1199 00d6 00       		.byte	0
  1200 00d7 00       		.byte	0
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 24
 
 
  1201 00d8 0E       		.uleb128 0xe
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1255 0014 1E000000 		.4byte	.LFE33-.LFB33
  1256 0018 00000000 		.4byte	.LFB34
  1257 001c 38000000 		.4byte	.LFE34-.LFB34
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 25
 
 
  1258 0020 00000000 		.4byte	.LFB35
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1302      36617461 
  1302      6E3200
  1303              	.LASF17:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 26
 
 
  1304 0024 66697831 		.ascii	"fix16_t\000"
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1326 0105 616E676C 		.ascii	"angle\000"
  1326      6500
  1327              	.LASF28:
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 27
 
 
  1328 010b 72616441 		.ascii	"radAng\000"
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1354      00
  1355              	.LASF2:
  1356 019e 73686F72 		.ascii	"short int\000"
-ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc2XjnGw.s 			page 28
 
 
  1356      7420696E 
@@ -1639,16 +1639,19 @@ ARM GAS  C:\Users\Felix\AppData\Local\Temp\cctrW4EN.s 			page 1
  1364      65642063 
  1364      68617200 
  1365              	.LASF32:
- 1366 01cb 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1366 01cb 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
  1366      73657273 
- 1366      5C46656C 
- 1366      69785C47 
- 1366      6F6F676C 
- 1367 01f9 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
- 1367      656D2061 
- 1367      7262656A 
- 1367      6473646F 
- 1367      6B756D65 
- 1368 022a 6C2E6379 		.ascii	"l.cydsn\000"
- 1368      64736E00 
+ 1366      5C4A6570 
+ 1366      70655C44 
+ 1366      6F63756D 
+ 1367 01f8 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1367      4A345C49 
+ 1367      6D706C65 
+ 1367      6D656E74 
+ 1367      6572696E 
+ 1368 0227 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1368      65436F6E 
+ 1368      74726F6C 
+ 1368      2E637964 
+ 1368      736E00
  1369              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

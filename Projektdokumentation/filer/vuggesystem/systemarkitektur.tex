@@ -136,3 +136,5 @@ Blokkene i \textbf{Regulerings MCU} fra domænemodellen ændres til følgende kl
 \item Motorregulering - klassenavn: \textbf{regulering} står for beregningerne til reguleringen af motoren der trækker vugningen af barnevognenskurv
 \item Sensor Fortolker - klassenavn: \textbf{sensorFortolker} står for at behandle sensorinput fra Motor positionssensor, Endstop sensors og Vuggeudsving sensor
 \end{itemize}
+
+Motorposition sensordata, Vuggeudsving sensordata og endstopGPIO skal forståes som interruptbaserede funktioner. Disse opdaterer automatisk sensordataene fra de tre forskellige sensorer.

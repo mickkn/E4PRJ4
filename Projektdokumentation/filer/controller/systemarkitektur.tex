@@ -20,11 +20,15 @@ Controlleren består af 2 dele
 \item[Betjeningspanel] Panel med 3 lysdioder og 2 trykknapper til brugerinteraktion.
 \end{description}
 
+\newpage
+
 \subsection{Signaltabel}
 
+I signaltabellen beskrives hvilke signaler der sendes imellem blokkene i Controller.  
+
 \begin{center}
-\label{ctrl:signaltabel}
 \begin{longtable}{|p{2,5cm}|p{1,8cm}|p{2,6cm}|p{2,8cm}|p{3cm}|}
+\caption{Signaltabel for Controller}\\
 \hline
 \textbf{Signal-navn}	&\textbf{Type} 		&\textbf{Port 1} 	&\textbf{Port 2} 			&\textbf{Kommentar} \\ \hline
 \endfirsthead
@@ -86,8 +90,8 @@ powerOn
 I2C			
 &Seriel		
 &RasberryPi \newline (I2CRPI) \newline	
-	GPIO2: SDA \newline	
-	GPIO3: SCL \newline	
+	GPIO0: SDA \newline	
+	GPIO1: SCL \newline	
 &Controller \newline (Controller) 			
 &BABYCON niveau
 \\\hline
@@ -121,4 +125,9 @@ butPress
 
 \end{longtable}
 \end{center}
+
+Figur \ref{controller:RPI_GPIO} viser GPIO porten på Raspberry Pi'en. Der er desuden tilføjet enkelte portes specielle muligheder (SPI, I2C mm.), hvis de er tilstede. 
+
+\figur{0.7}{controller/RaspberryGPIO.pdf}{Raspberry Pi model Bs GPIO port}{controller:RPI_GPIO}
+
 
