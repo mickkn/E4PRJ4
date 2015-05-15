@@ -2,9 +2,9 @@
 \subsection{Hardware design}
 
 \subsubsection{Motorstyringskreds}
-I denne sektion beskrives det kredsløb der benyttes til at styre ankerspændingen for vuggesystemets motor. Kredsløbet modtager et PWM signal fra controlleren som styrer ankerspændingen. Udover styresignalet og motor terminalerne, er kredsløbet koblet til systemets 12V forsyning(VCC i diagram) hvorfra motoren forsynes, og systemets 3.3V forsyning som leverer strøm til de logiske kredsløb.\\
+I denne sektion beskrives det kredsløb der benyttes til at styre ankerspændingen for vuggesystemets motor. Kredsløbet modtager et PWM signal fra controlleren som styrer ankerspændingen. Kredsen er forsynet med bateriets 12V (VCC) og 3.3 volt fra PSoC. Kredsen styres med et PWM signal, og det inverterede signal, kaldt M\_A og M\_B. Den sidste forbindelse, ES\_SIG, er outputtet fra endstop kredsløbet.\\
 
-\figur{0.2}{vuggesystem/design/stik.pdf}{Forbindelser til motorkreds}{motor_kreds_forb}
+\figur{0.6}{vuggesystem/design/stik.pdf}{Forbindelser til motorkreds}{motor_kreds_forb}
 
 \subsubsection*{H-bro}
 \label{Vuggesytem:HW_DESIGN_HBRO} 
@@ -27,14 +27,10 @@ Driverens input er et digitalt input, med en fast overgang fra lav til høj mell
 Kondensatoren C2 hjælper til at afkoble driveren fra forsyningen. \\
 
 \subsubsection*{Styresignal}
-Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tænd i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
+Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tændt i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
 Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. 
 
-\figur{0.75}{vuggesystem/design/deadband_eksempel.pdf}{Deadband eksempel}{deadband_eksempel}
-
-Dødbåndet skabes ved at introducere en forsinkelse på den stigende kant af både signalet og det inverterede signal, som det ses på figuren herover. Forsinkelsens størrelse skal være tilpasset, således at den har samme længde som den tid det tager transistorne i broen at slukke helt. På denne måde sikres det at transistorne ikke er tændt samtidig, men også at der spildes mindst muligt af PWM perioden på skift.
-På ovenstående eksempel ses det også at duty cyclen ikke ændres, idet de to signaler stadig er tændt i en lige stor del af perioden.\\
-Denne forsinkelse på den stigende kant introduceres vha et RC led og en and gate, som vist nedenfor.
+Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til at være 2\% af periodetiden.  
 
 \figur{0.5}{vuggesystem/design/deadband_kreds.pdf}{Deadband kredsløb}{deadband_kreds}
 
