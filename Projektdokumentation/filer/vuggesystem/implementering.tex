@@ -1,4 +1,5 @@
 \section{Implementering}
+\label{Vuggesystem: Implementering} 
 \subsection{Hardware implementering}
 
 \subsubsection{Motorstyringskreds}
@@ -8,9 +9,15 @@ Endstop sensorene er blevet realiseret ved hjælp af to end stop switches. En en
 \figur{0.2}{vuggesystem/impl/ES_SWITCH.pdf}{Generisk end stop switch}{VS_Im_ES_SWITCH}
  Disse end stop switches er placeret således at når barnevognskurven på Baby Watch systemet går ud i en yder vippeposition så aktivers en end stop switch.
 \figur{0.5}{vuggesystem/impl/Endstop_Sensor.pdf}{Monteret endstop sensor}{VS_Im_ES_Sensor}
-Endstop sensorne er herefter forbundet til endstop kredsløbet (REFERENCE til design afsnit af endstop sensorerne)
-
+Endstop sensorne er herefter forbundet til endstop kredsløbet som anvist i Vuggesystem Design afsnit \ref{Vuggesystem: Design_ES}. \\
+Implementeringen af endstop sensor kredsløbet kan ses i det foregående Motorstyringskreds afsnit på figur XXX REFERENCE
+\newpage
 \subsubsection{Vuggeudsving sensor}
+\label{Vuggesystem: Implementering_VuggeudsvingSensor}
+Vuggeudsvingssensoren er implementeret som beskrevet i Vuggesystem Design afsnittet \ref{Vuggesystem: Design_Vugggeudsving_sensor} ved hjælp af en MPU6050 chip med indbygget accelerometer, gyroskop og I2C bus interface. Den er placeret på undersiden af barnevognskurven ud for aksen der vippes henover. Nedenfor kan ses et billede af implementeringen. 
+\figur{0.5}{vuggesystem/impl/Vuggeudsving_sensor.pdf}{Monteret Vuggeudsving sensor}{VS_Im_Vuggeudsving_Sensor}
+Chippen er delvist skjult bag en beskyttelse. Den gule streg på billedet markerer aksen barnevognskurven og derved chippen vipper henover. 
+De parsnoede ledning er for at beskytte I2C kommunikationen mod støj.
 
 
 \subsubsection{Motor positionssensor}
@@ -30,12 +37,16 @@ Som det ses på de tre nedenstående figurer så opfylder vuggesystemet kravspec
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Vandret.pdf}{Baby Watch barnevogn i vandret position}{VS_MV_Vandret}
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Hojre.pdf}{Baby Watch barnevogn i højre yderposition}{VS_MV_Hojre}
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Venstre.pdf}{Baby Watch barnevogn i venstre yderposition}{VS_MV_Venstre}
-\textit{Stabilisering af barnevogn}
-Barnevogne har som standart løse led der blandt andet virker som støddæmpere. Disse led er blevet stabiliseret med spændebånd for at gøre barnevognens regulerings overføringsfunktion mere tilnærmelsesvis lineær. 
+\textit{Stabilisering af barnevogn}:
+Barnevogne har som standard fjedrende led. Disse led er blevet stabiliseret med spændebånd for at gøre barnevognens overføringsfunktion mere lineær. 
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Opspaend.pdf}{Billede af stabiliseret barnevognsled}{VS_MV_Led}
 \subsection{Software implementering}
 \subsubsection{Regulerings MCU}
+Regulerings MCU'en er implementeret på et Cypress CY8CKIT-042 PSoC4 Pioneer Kit(REFERNCE). Denne platform består af en ARM Cortex-M0 CPU forbundet med en simpel FPGA. Platformen kan programmes med Cypress' programmerings suite PSoC Creator 3(REFERENCE). Dette giver en fleksibel platform med mulighed for at lave flere specialiseret indbygget hardware FPGA blokke der kan styrer diverse interfaces, GPIO'er, Timer, interrupts mm. 
+På nedenstående Top Design for fra PSoC Creator kan hardware setup'et for regulerings MCU'en ses.
+\figur{1}{vuggesystem/impl/SW_ReguleringsMCU_Top_Design.JPG}{Top Design for Vuggesystems Regulerings MCU}{VS_impl_Reg_MCU}
 \textbf{vuggeControl (main)} \\
+Vuggesystemets main er implement \\
 \textbf{i2cKommunikation} \\
 \textbf{sensorFortolker} \\
 \textbf{regulering} \\

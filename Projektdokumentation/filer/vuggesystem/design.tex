@@ -51,12 +51,17 @@ Et tidligt skøn over motorens strømforbrug er gjort ved at sætte et manuelt s
 %TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
 %\figur{0.75}{vuggesystem/design/stroemforbrug.pdf}{Test af strømforbrug for motor}{strøm_graf}
 
-\subsubsection{Endstopsensor}
-
+\subsubsection{Endstopsensor}\label{Vuggesystem: Design_ES} 
+Endstopsensor kredsløbet er designet som et pull-up kredsløb hvor to mekaniske switches kan parallelopkobles. Designet er vist på figuren nedenfor.
+\figur{0.25}{vuggesystem/design/Endstopsensor_design.pdf}{Endstop sensor schematic}{ES_schematic}
+Kredsløbet opererer med 3.3V og ved aktivering af en af endstop sensorene trækkes signalet ned til 0V (GND).
 \subsubsection{Vuggeudsving sensor}
+\label{Vuggesystem: Design_Vugggeudsving_sensor} 
+
+\figur{0.25}{vuggesystem/design/VuggeudsvingSensor_mpu6050.pdf}{MPU6050}{MP6050}
 
 \subsubsection{Motor positions sensor}
-
+Motor positions sensoren er ikke med i denne iteration af projektet.
 \subsubsection{Mekanisk vuggesystem}\label{Vuggesystem: Design_MekVug} 
 Det mekaniske vuggesystem er designet ud fra følgende skitse: \\
 
