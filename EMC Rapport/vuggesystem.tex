@@ -1,0 +1,124 @@
+\chapter{Vuggesystem}
+
+Motorkredsløbet er designet som en PWM-moduleret H-bro styret af en PSoC4 microchip. I vuggesystemet vil der derfor blive fokuseret udelukkende på EMC problematikker omkring disse.
+
+På nedenstående IBD figur \ref{vs:ibd} af vuggesystemet, vises afgrænsningen med cirkler
+
+\figur{1}{vs_ibd}{Afgrænsninger i vuggesystemet markeret med røde cirkler}{vs:ibd}
+
+\section{EMC afgrænsning}
+
+Følgende afsnit vil gennemgå hvilke konkrete problematikker der vigtige at forholde sig til, ud fra ovenstående afgrænsning. Det efterfølgende afsnit vil gennemgå hvordan disse problematikker bliver løst.
+
+Motoren er en 12 V DC motor der i dette system trækker peak strømme på op imod 10 A. Til at drive denne motor skal H-bros motorkredsløbet tilsvarende leverer strømme, der kan imødekomme dette. Dette skal ske uden at andre nærliggende kredsløb, generes af motorkredsløbes store strømme. På printet til motorkredsløbet skal der også være et switchkredsløb der detekterer om en af to analoge switches er aktiv. Dette switch-kredsløb er simpelt i sin opbygning og består af to switches, en 10 k$\Omega$ modstand samt nogle få korte printbaner. På printet vil der derfor være to forskellige operationsspændinger 12 V og 3.3 V.
+
+Der skal overvejes hvordan stellet skal designes, så der ikke opstår impedans i de fælles strømveje.
+Det 20 kHz PWM signal kan, hvis printbanerne er for lange, fungere som antenner der udsender højfrekvent støj.
+Denne højfrekvente støj kan videreføres til motoropkoblingen og derved kan kablingen til motoren også komme til at fungere som en højfrekvent antenne.
+
+Der skal overvejes hvordan motoren kan afkobles fra resten af vuggesystemet.
+Printet skal indeholde to kredsløb. Dette medfører at afstanden og stelplanet mellem de to systemer overvejes.
+Placeringen af kredsløbenes komponenter på printet skal overvejes da dette især er vigtigt for udlægningen af et optimalt print. Det er en fordel hvis printet ikke fylder for meget, da printbanerne i så fald fylder mindre og derved mindsker risikoen for støj.
+
+Det overordnede Baby Watch system består af flere hardwaremoduler, der har forskellige arbejdsområder. Modulerne skal kommunikere med hinanden og det er derfor vigtigt at vuggesystemet ikke bidrager med støj der kan forstyrrer transmissionen af data mellem disse.
+
+\section{Forventet hardwareimplementering}
+
+Følgende kredsløbsdiagrammer figur \ref{vs:diagram} viser den forventede implementering af vuggesystemet med tilhørende EMC relateret beregninger.
+
+\figur{0.9}{vs_diagram}{Diagrammer for H-bro og driver kredsløb}{vs:diagram}
+
+I EMC henseende er det hovedsageligt de forskellige afkoblings kondensatorer der her er relevante. 
+Det vigtigste element at koble ud af ovenstående system er H-broen, som genererer en del højfrekvente transienter som resultat af at skifte polariteten på motorerens spole. 
+Da motoren har en relativ stor selvinduktion kan strømmen igennem motoren antages at være konstant gennem hver periode af PWM signalet. Under denne antagelse kan man udregne hvor stor en kapacitet der er nødvendig for at opnå en given spændingsforstyrrelse på forsyningslinjen. Herunder udregnes den nødvendige kapacitet til at sikre en spændingsfluktuation på 0.5\% af forsyningsspændingen, ved motorens maximale strømforbrug.
+
+\subsection*{0.5\% af 12V}
+
+$V\quad =\quad 0,06\quad V$
+
+\subsection*{Maximal strømforbrug}
+
+$A\quad =\quad 10\quad A$
+
+\subsection*{En halv periode af 20kHz}
+
+$s\quad =\quad \frac { 1 }{ 40000 } \quad =\quad 25\mu s$
+
+\subsection*{Beregning af kondensatorstørrelse}
+
+$F\quad =\quad \frac { A*s }{ V } \quad =\quad 0,00416666667$
+
+Dette afrundes til nærmeste tilgængelige kondensator værdi fra lab på 4700 $\mu$F.
+Da strømmen antages at skifte retning som en firkant med 20 kHz er der brug for en hurtig kondensator (lav ESR), for at kunne håndtere de hurtige frekvens komposanter i støjen. For at opnå dette sættes en 1 $\mu$F kondensator parallelt med den store kondensator.
+Derudover er der fra VCC til GND på MOSFET driverne sat en lille afkoblings-kondensator på, på 100 nF, denne er til for at stoppe højfrekvent switching-støj fra PWM signalet. Størrelsen er bestemt ud fra at der ikke forventes at skulle løbe en stor strøm ind i kondensatoren, samt at der ønskes en hurtig switching-hastighed i kondensatoren.
+
+\newpage
+
+\section{Print-implementering m. EMC tiltag}
+
+Herunder på figur \ref{vs:print} ses det designede printlayout.
+
+\figur{0.7}{vs_print}{Printudlæg af Motor-controller tegnet i Eagle}{vs:print}
+
+Den centrale betragtning i ovenstående printlayout er strømløkkerne fra kondensatoren og ud gennem motoren, da der som nævnt ovenfor står en stor strøm og skifter retning her. H-broen har to løkker fordi strømmen løber i forskellige baner når den løber den ene og den anden vej. Banerne ses markeret i rød og gul ovenfor. Grundet at kredsløbet skal håndtere en forholdsvis stor effekt, er det ikke muligt at placere komponenterne tættere end på ovenstående layout. 
+
+\section{Skærmkasse}
+
+Det formodes at motorkredsen kommer til at udsende en betydelig mængde støj. Dette kan afhjælpes ved at benytte en skærmkasse omkring kredsløbet. For at få størst mulig dæmpning ud af denne løsning skal ind og udgange fra kassen samles således at kassen er så tæt som muligt på at være lukket.
+På baggrund af denne formodning laves der derfor en udregning af en skærmkasse uden huller til kredsløbet. Disse beregninger baseres udelukkende ud fra en teoretisk model. 
+
+Der vælges at lave en 3mm tyk aluminiums skærmkasse. 
+
+Ud fra nedenstående formel kan dæmpningen beregnes:
+
+$A\quad =\quad 131*\sqrt { f*{ \mu  }_{ r }*{ \sigma  }_{ r }*t }$
+
+Hvor ''A'' er absorptionsdæmpningen i dB.
+
+''f'' er frekvensen systemet generer hvilket forventes at være et 20 kHz PWM signal.
+
+''${ \mu  }_{ r }$'' er aluminiums permeabilitet relativ til kobber. Denne findes ud fra tabelopslag\footnote{\url{http://da.wikipedia.org/wiki/Permeabilitet_(elektromagnetisme)}} til at være: 
+
+$1,000022$ hvilket afrundes til 1.
+
+''${ \sigma  }_{ r }$'' er aluminiums konduktivitet relativ til kobber.
+
+Konduktiviteten for kobber er: $59,6*{ 10 }^{ 6 }S*{ m }^{ -1 }$ ved 20 $\decC$ \newline
+konduktiviteten for aluminium er: $37,8*{ 10 }^{ 6 }S*{ m }^{ -1 }$ ved 20 $\decC$\footnote{\url{http://da.wikipedia.org/wiki/Specifik_ledningsevne}}.
+
+${ \sigma  }_{ r }\quad =\quad \frac { 37,8*{ 10 }^{ 6 }\frac { s }{ m }  }{ 59,6*{ 10 }^{ 6 }\frac { s }{ m }  } \quad =\quad 0,63423$
+
+''t'' er skærmkassens tykkelse: 3 mm.
+
+\subsection*{Absorptionen beregnes}
+
+$A\quad =\quad 131*\sqrt { 20kHz*1*0,634 } *3mm\quad =\quad 14dB$
+
+Den største mængde støj vurderes at komme fra elektrisk støj. Der laves derfor også en beregning af refleksionsdæmpningen af E-nærfeltet, denne beregning tager ikke højde for flere refleksioner.
+
+$R\quad =\quad 322+10*log(\frac { { \sigma  }_{ r } }{ { \mu  }_{ r } } *\frac { 1 }{ { f }^{ 3 }*{ r }^{ 2 } } )$
+
+''R'' er refleksions dæmpningen i dB
+
+''r'' er afstanden til skærmkassens inderside. Der antages at være 5 cm ud til alle skærmkassens sider fra printet.
+
+$R\quad =\quad 322+10*log(\frac { 0,634 }{ 1 } *\frac { 1 }{ { 20 }^{ 3 }*{ 0,05 }^{ 2 } } )\quad =\quad 287\quad dB$
+
+Den samlede dæmpning med skærmkassen bliver derfor:
+
+${ TotalDaempning }_{ dB }\quad =\quad 287dB+14dB\quad =\quad 301dB\\ \Longrightarrow \quad { { TotalDaempning } }_{ gg }\quad =\quad { 10 }^{ \frac { 301 }{ 20 }  }\quad =\quad { 10 }^{ 15 }gg$
+
+Som tidligere nævnt er disse beregninger lavet på baggrund af en ideel skærmkasse til motorkredsen, da den ikke har huller og der ikke tages højde for multiple refleksioner. Men det må antages at en skærmkasse med 3 mm tykke aluminiums sider er i stand til at afskærme motorkredsen tilstrækkeligt i forhold til de støj-følsomme kredsløb.
+
+\section{Banebredde til store strømme}
+
+Som det ses markeret med røde og gule pile på printlayoutet på figur \ref{vs_print} så er banerne der forsyner motoren med de store strømme lavet ekstra brede $\simeq$2 mm. Dette er gjort for at mindske impedansen og derved mindske banens selvinduktion og ohmske modstand.
+
+\section{Stelplan}
+
+Motorkredsløbs-printet er implementeret med to stelplaner en til hver forsyning. De to stelplaner er samlet med en enkelt forbindelse der sørger for at de har en fælles reference. Der blev valgt at bruge stelplan da et stelplan næsten ingen selvinduktion har. Impedansen i et stelplan bestemmes ud fra den ohmske modstand i hele planet. Dette har den virkning at den ohmske modstand vokser med frekvensen i minus første på grund af strømfortrængning\footnote{Se side 4 i Kap.3.pdf EMC-bog}. I forhold til en tynd ledning stiger impedansen langsommere i stelplanet ved en stigning i frekvensen. 
+
+\section{Motorledninger}
+
+Da motorstyrings-kredsen ikke i praksis kan sidde helt tæt på motoren, er strømledningerne til motoren også vigtige at tage i betragtning. Disse ledninger bærer en stor strøm, og løber i relativ nærhed af andre kredsløb såsom systemets accellerometer og gyroskop. Udstrålingen fra motorledningerne bør derfor parsnoes, og om nødvendigt også afskærmes. Hvorvidt afskærmning er nødvendigt kan vurderes når systemet er implementeret. 
+Transient beskyttelse.

@@ -1,0 +1,22 @@
+\chapter{Strømforsyning}
+
+I projektet er der blevet designet et print til at håndtere og tildele spændingsforsyninger til de for forskellige delelementer i projektet. Printet er koblet sammen med en indkøbt DC-DC konverter der er justeret til at lave 7.5V. For at forsyne delelementerne, er der opsat spændingsregulatorer til at lave 3,3 V og 5 V.
+
+Kredsløbsdiagrammet er tegnet i Multisim, hvor det er blevet simuleret og efterfølgende er printet blevet designet i EAGLE og sendt til E-LAB for produktion.
+
+\figur{1}{psu_diagram}{Multisim tegning af spændningsforsyningen}{psu:diagram}
+
+Som udgangspunkt, er der ikke kritiske EMC mæssige problematikker. Dog er der taget følgende overvejelser mht. EMC.
+
+\begin{itemize}
+\item Print frem for veroboard el. fumlebræt
+\item Fælles stel plan
+\item Minimum brud på stelplan
+\item Elektrolyt kondensatorer med ben i samme ende (C1 og C4)
+\end{itemize}
+
+\newpage 
+
+Her ses printudlægget med fælles stelplan (\textcolor{blue}{blå}) og forbindelserne(\textcolor{red}{rød}). Forbindelserne er forsøgt gjort så korte som muligt.
+
+\figur{1}{psu_print}{Printudlæg tegnet i Eagle}{psu:print}
