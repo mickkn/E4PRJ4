@@ -37,8 +37,16 @@ Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. 
 Baby Watch webserveren er er implementeret med en microframework Flask  webserver udviklet af Armin Ronacher(REFERENCE). Servertypen hører under en fri BSD license(REFERENCE) og er igennem sin simple og lette struktur et ideel valg til en webserver integreret på et embedded-system med begrænset CPU-kraft. \\
 En Flask webserver består af en python-template der styrer en eller flere html-templates. Igennem python-templaten kan diverse billeder og tekst-strenge styres og opdateres løbende på html siden. Webserveren sørger selv for at sende de nødvendige data til en given bruger(browser) som tilgår websiden. 
 
-\textbf{Beskrivelse af pyhton-templaten og dens funktionaliteter}
-
+\textbf{Beskrivelse af python-templaten og dens funktionaliteter}\\
+En flask server python templaten er opbygget på samme måde som andre højniveau sprog. \\
+Først kaldes de nødvendige biblioteker ved hjælp af \verb+import+. I dette tilfælde bruges "flask", "render template", "logging" og "datetime" (Den næst sidste er til at skjule flask serverudskrifter og den sidste er til opdateringstidspunktet). \\ Herefter oprettes et Flask server objekt kaldet app vha. af kommandoen: \verb+app = Flask( name )+ \\ Objektet fyldes med funktionaliter til blandt andet at vise opdateringstidspunktet og til at ændre tekst og billeder på hjemmesiden. Objektet returner til sidst sin templateData ved hjælp af en pointer. \\
+Eksempel på hvordan tekst gemmes i en \verb+string+ og efterfølgende gemmes i et flask objekts template data: \\
+ \verb+msg = open ('/root/Flask/static/tilstand.txt', 'r')+ \\
+   \verb+babyStateString = msg.read()+ \\
+   \verb+templateData = (+ \\
+      \verb+'BabyConState' : babyStateString+\\
+      \verb+)+ \\ Dette flask objekts data kan nu kaldes fra html-templaten ved at kalde 'BabyConState'. \\
+Templaten afsluttes med et kald til flask server objektet der kører det som et main objekt. \\
 \vspace{5mm}
 
 \textbf{Beskrivelse af html-templaten og dens funktionaliteter} \\

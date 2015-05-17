@@ -27,6 +27,7 @@ Driverens input er et digitalt input, med en fast overgang fra lav til høj mell
 Kondensatoren C2 hjælper til at afkoble driveren fra forsyningen. \\
 
 \subsubsection*{Styresignal}
+\label{Vuggesystem:Styresignal} 
 Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tænd i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
 Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. 
 
@@ -88,7 +89,7 @@ Beskrivelses af modellen:
 Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhørende funktionsbeskrivelser lavet på baggrund af applikationsmodellen fra Vuggesystemets software systemarkitektur jf. afsnit \ref{Vuggesystem: Software}
 
 \subsubsection*{Klassediagram}
-\figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{UML klassediagram for Regulerings MCU}{VuggeSystem_SD}
+\figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{UML klassediagram for Regulerings MCU}{VuggeSystem_Klassediagram}
 
 \subsubsection*{Funktionsbeskrivelser}
 {\centering
