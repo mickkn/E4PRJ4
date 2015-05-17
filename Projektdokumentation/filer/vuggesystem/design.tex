@@ -14,7 +14,7 @@ Motoren styres med en H-bro implementeret med 4 N-ch power MOSFETs, som vist her
 
 De fire N-channel er koblet med en lille modstand foran gaten, og en pull-down modstand fra gaten til source. Den lille modstand sikrer at der ikke opstår or meget ring som resultat af seriekobling af ledningens induktans og gatens kapacitet, og pull-down modstanden sikrer at gaten bliver trukket lav hvis MOS driveren skulle fejle, således at transistoren afbryder. \\ 
 Signalerne M\_AH, M\_AL, M\_BH, og M\_BL udgør således H-broens styresignaler til hhv. den høje og lave gate i A og B siden af broen. Terminalerne MOT\_A og MOT\_B går til motorens terminaler. Hvis A siden af broen er tændt påtrykkes en spænding med MOT\_A som den positive terminal, og omvendt for B siden. \\
-Kondensatorerne C3 og C4 er placeret så tæt som muligt på H-broens positive og negative forsyning, og hjælper til at afkoble motoren, således at der ikke introduceres for store forstyrrelser på forsyningen. Dimensionering af disse er beskrevet nærmere i EMC afsnittet (LAV ORDENTLIG REF).\\
+Kondensatorerne C3 og C4 er placeret så tæt som muligt på H-broens positive og negative forsyning, og hjælper til at afkoble motoren, således at der ikke introduceres for store forstyrrelser på forsyningen. Dimensionering af disse er beskrevet nærmere i EMC afsnittet om vuggesystemet.\\
 
 \subsubsection*{MOSFET driver}
 \label{Vuggesytem:HW_DESIGN_MOSDRIVER} 
@@ -30,24 +30,21 @@ Kondensatoren C2 hjælper til at afkoble driveren fra forsyningen. \\
 Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tændt i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
 Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. 
 
-Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til at være 2\% af periodetiden.  
-
-\figur{0.5}{vuggesystem/design/deadband_kreds.pdf}{Deadband kredsløb}{deadband_kreds}
-
-Den første inverter fungerer som en buffer for at sikre at indgangssignalet møder en høj impedans, mens den anden inverter skaber et ikke inverteret udtag til PWM signalet. Modstanden er dimensioneret således at der højst trækkes en milliampere fra inverteren, og kondensatoren kan så dimensioneres til at give en passende tidsforsinkelse. Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket med den valgte modstand på 3.3kOhm giver en kondensator værdi på 1.12 pF hvilket rundes op til 1.2pF. \\
-Til sidst er de ubrugte logiske elementer er koblet som følger:
-
-%TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
-%\figur{0.5}{vuggesystem/design/ubrugte_elementer.pdf}{Ubrugte logiske elementer}{ub_logik_elem}
+Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til det mindst mulige tid på 1\% af periodetiden, eller 500ns.
+Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket er vel under det genererede deadband. \\
 
 \subsubsection{strømforbrug}
 Det dominerende strømforbrug i systemet stammer fra vuggesystemets motor. Denne strøm trækkes direkte fra systemets batteri, og har derfor ikke indflydelse på dimensioneringen af systemets reguleringskreds. Tilgengæld er den vigtig for at kunne vurdere hvor stort et batteri der skal til for at drive systemet en given tid.\\ 
 Et tidligt skøn over motorens strømforbrug er gjort ved at sætte et manuelt styret PWM signal på motor kredsen, og så vugge barnevognen med vægt i, så godt som muligt ved manuel regulering. Herunder ses strømmålingen for 60 sekunders test. Målingen er gjort med en /10 probe på spændingsfaldet over en 0.1 Ohm's modstand, og den målte spænding svarer således direkte til strømmen.\\
 
-%TEX HJÆLP! nedenstående figur er udkommenteret fordi jeg ikke kan få den til at fungere.
 %\figur{0.75}{vuggesystem/design/stroemforbrug.pdf}{Test af strømforbrug for motor}{strøm_graf}
 
 \subsubsection{Endstopsensor}
+De to microswitches der sikrer at vuggen ikke går ud over dens mekaniske grænser fungerer elektrisk set bare som en kontakt. Brydes enten den ene eller den anden af de to kontakter ønskes et interrupt sendt til vuggesystemets kontrol program, hvilket opnås med følgende kreds:
+
+\figur{0.4}{vuggesystem/design/ES_kreds.pdf}{kredsløb til tilkobling af endstop sensorer}{es_kreds}
+
+kredsløbet fungerer ved at sætte en pullup modstand på ved indgangen til PSoC'en, og kontakterne i parallel til ground. på denne måde står indgangen høj, medmindre en eller begge sensorer aktiveres, hvorved kontakten sluttes og linjen trækkes lav.\\
 
 \subsubsection{Vuggeudsving sensor}
 
