@@ -2,6 +2,12 @@
 \section{Grænseflader}
 I dette afsnit beskrives specifikke hardware grænseflader og protokoller for kommunikation mellem systemets moduler. Disse grænseflader er således modul-udviklernes kontrakt for fyldestgørelse af modulets funktionalitet.
 
+\subsection{Fysiske forbindelser}
+
+Der er valgt at benytte USB kabler til forbindelse mellem Controller og Intelligent Lydmonitor, samt til forbindelsen mellem Controller og Vuggesystem. USB kablerne der benyttes er standart AB kabler, med et USB A stik i den ene ende samt USB B stik i den anden ende. Controlleren skal have USB type B hun stik, mens den Intelligente Lydmonitor samt Vuggesystemet skal benytte USB A hun stik. 
+
+Strømmen til Controller, Intelligent Lydmonitor samt til Vuggesystemet leveres fysisk via et 2,5 mm DC stik.
+
 \subsection{Grænseflade mellem Intelligent Lydmonitor og Controller}
 \label{overordnet:graenseflade_IL}
 Kommunikationen mellem Intelligent Lydmonitor og Controller foregår via 2 signal ledere, der forbindes til 2 GPIO'er på Controller. Den intelligente Lydmonitor opdaterer via denne forbindelse BABYCON niveauet.  
