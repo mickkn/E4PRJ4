@@ -1,3 +1,63 @@
 %Modultest RecBuf
 \subsection{Modultest RecBuf}
 
+\textbf{Formål} \\
+Formålet er at teste om klassen RecBuf er i stand til at håndtere dens to buffere og at det rigtige data forekommer. 
+
+\textbf{Opstilling til test af RecBuf test}
+
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CCES er kørende på PC
+\end{itemize}
+
+\textbf{Testprocedure}
+\begin{enumerate}
+	\item Projektet med RecBuf testen eksekveres 
+	\item Kommandoprompten tjekkes for udskrift 
+\end{enumerate}
+
+\textbf{Forventet resultat} \\
+Det forventede resultat af første udskrift kan ses i Tabel \ref{IL:modultest:values1}:
+
+\begin{table}[H]
+	\caption{Forventede værdier }
+\begin{center}
+    \begin{tabular}{ | l | l | l | l |}
+    \hline 
+    \textbf{Buffer} 	& \textbf{index 0}  &\textbf{index 1}	&\textbf{index 2}  	\\ \hline
+     mem0\_	 	& 0   				& 1				& 2			\\ \hline
+     mem1\_ 	& 3  				& 4 			& 5				\\ \hline
+    \end{tabular}
+\end{center}
+	\label{IL:modultest:values1}
+\end{table}
+
+Det forventede resultat af anden udskrift kan ses i Tabel \ref{IL:modultest:values2}:
+
+\begin{table}[H]
+	\caption{Forventede værdier }
+\begin{center}
+    \begin{tabular}{ | l | l | l | l |}
+    \hline 
+    \textbf{Buffer} 	& \textbf{index 0}  &\textbf{index 1}	&\textbf{index 2}  	\\ \hline
+     mem0\_	 	& 10   				& 11				& 12			\\ \hline
+     mem1\_ 	& 13  				& 14 			& 15				\\ \hline
+    \end{tabular}
+\end{center}
+	\label{IL:modultest:values2}
+\end{table}
+
+\textbf{Resultat} \\
+
+På Figur \ref{} ses den først udskrift, det ses ligeledes at det stemmer overens med de forventede værdier.
+
+På Figur \ref{} ses den anden udskrift, det ses ligeledes at det stemmer overens med de forventede værdier.  
+
+
+\textit{Testen er godkendt}
+
+
+
+
