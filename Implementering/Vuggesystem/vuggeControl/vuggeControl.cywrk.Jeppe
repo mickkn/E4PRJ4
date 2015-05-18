@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="vuggeControl\vuggeControl\Source Files\vuggeControl.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="vuggeControl\vuggeControl\vuggeControl.cydwr">
 <ExpandedNodeIds>
 <v>vuggeControl</v>
 <v>vuggeControl\vuggeControl</v>
@@ -108,25 +108,6 @@
 <v>vuggeControl\vuggeControl\Source Files</v>
 <v>vuggeControl\vuggeControl\Source Files\fixedMath.c</v>
 <v>vuggeControl\vuggeControl\Source Files\i2cKommunikation.c</v>
-<v>vuggeControl\vuggeControl\Source Files\regulering.c</v>
-<v>vuggeControl\vuggeControl\Source Files\sensorFortolker.c</v>
-<v>vuggeControl\vuggeControl\Source Files\vuggeControl.c</v>
-<v>vuggeControl\vuggeControl\Generated_Source</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\activityDebug</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\Clock_1</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\cy_boot</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\debugOut</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\debugOut_IntClock</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\Endstop_isr</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\ESSwitch</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_SCB_IRQ</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_SCBCLK</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_scl</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\I2CVuggesystem_sda</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\loop_isr</v>
-<v>vuggeControl\vuggeControl\Generated_Source\PSoC4\loopTimer</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -223,25 +204,6 @@
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
 <v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_BOOT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_INT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_IntClock.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\debugOut_PM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\Endstop_isr.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\ESSwitch.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\fixedMath.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\i2cKommunikation.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_BOOT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_EZI2C.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_EZI2C_BOOT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_EZI2C_INT.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_PM.lst</v>
-<v>vuggeControl\vuggeControl\CortexM0\ARM_GCC_484\Debug\Listing Files\I2CVuggesystem_SCB_IRQ.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -280,7 +242,6 @@
 <v>vuggeControl\vuggeControl\SCB_P4_v2_0</v>
 <v>vuggeControl\vuggeControl\Timer_v2_70</v>
 <v>vuggeControl\vuggeControl\UART_v2_40</v>
-<v>vuggeControl\vuggeControl\ZeroTerminal</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>

@@ -3,7 +3,7 @@
 Følgende afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch
 \subsubsection{Motorkreds}
 \textbf{Formål} \\
-Formålet med denne modultest er at måle om motorkredsen kan styrer en 12V motor der trækker op til 10A ved hjælp af et PWM kontrolleret input. For at testen kan godkendes skal motoren "vippe" en barnevognskurv over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav fra den ene yder position til den anden tre gange i sekvens.
+Formålet med denne modultest er at måle om motorkredsen kan styrer en 12V motor der trækker op til 10A ved hjælp af et PWM kontrolleret input. For at testen kan godkendes skal motoren "vippe" en barnevognskurv over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav fra den ene yder position til den anden tre gange i sekvens. Der foretages to udgaver af testen en uden mervægt og en med en mervægt på 10kg placeret i barnevognskurven.
 
 \textbf{Overordnet opstilling af Motorkreds test}
 
@@ -12,6 +12,7 @@ Formålet med denne modultest er at måle om motorkredsen kan styrer en 12V moto
 	\item Motoren er spændt på Baby Watch Vuggesystemet jf. afsnit Mekanik vuggesystem i Implementering for Vuggesystemet
 	\item Motorens plus og minus indgange kobles til henholdsvis MOT A og MOT B jf. afsnit \ref{Vuggesytem:HW_DESIGN_HBRO} i Hardware Design for Vuggesystemet
 	\item Et PSOC4 Pioneer Kit (REFERENCE) programmeres med testprogrammet VuggeSinus jf. BILAG?? og de to PWM output kobles til henholdsvis Mos Driver A indgang M A og Mos Driver B indgang M B på motorkredsen jf. afsnit \ref{Vuggesytem:HW_DESIGN_MOSDRIVER} i Hardware Design for Vuggesystemet
+	\item I første udgave af testen placerets der ingen ekstra vægt i barnevognskurven. I anden udgave placeres en 10kg vægt på barnevognskurvens centertyngdepunkt.
 \end{itemize}
 
 Figur billede af opstillingen
@@ -21,10 +22,11 @@ Figur billede af opstillingen
 	\item Opsæt systemet som beskrevet ovenfor
 	\item Programmer PSoC4 Pioneer Kittet med VuggeSinus programmet
 	\item Testen dokumenteres med video og billeder
+	\item Testen gentages med en mervægt på 10kg i barnevognskurven
 \end{itemize}
 
 \textbf{Forventet resultat} \\
-Det forventes at motorkredsløbet er i stand til at "vippe" barnevognen som beskrevet i Formålet tre gange i sekvens fra yder position til yder position.
+Det forventes at motorkredsløbet er i stand til at "vippe" barnevognen som beskrevet i Formålet tre gange i sekvens fra yder position til yder position både med og uden mervægt.
 
 \textbf{Resultat} \\
 // Tekst \\
@@ -73,120 +75,121 @@ Det forventes at der ved aktivering ved begge yder positioner skrive "Endstop ak
 
 \subsubsection{Mekanisk vuggesystem}
 \textbf{Formål} \\
-// Tekst
+Formålet med denne modultest er at observere om det mekaniske vuggesystem er i stand til at "vippe" en barnevognskurv over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav fra den ene yder position til den anden tre gange i sekvens. 
 
-\textbf{Overordnet opstilling af x test}
+\textbf{Overordnet opstilling af Mekanisk vuggesystem test}
 
 \begin{itemize}
-	\item Første punkt er test miljøet
-	\item Efterfølgende punkter er opstillingen beskrevet trinvist
-	\item Osv..
+	\item Testen forgår i et rum med et horisontal nivelleret gulv
+	\item Motoren er spændt på Baby Watch Vuggesystemet jf. afsnit Mekanik vuggesystem i Implementering for Vuggesystemet
+	\item Motorens plus og minus indgange kobles til henholdsvis MOT A og MOT B jf. afsnit \ref{Vuggesytem:HW_DESIGN_HBRO} i Hardware Design for Vuggesystemet
+	\item Et PSOC4 Pioneer Kit (REFERENCE) programmeres med testprogrammet VuggeSinus jf. BILAG?? og de to PWM output kobles til henholdsvis Mos Driver A indgang M A og Mos Driver B indgang M B på motorkredsen jf. afsnit \ref{Vuggesytem:HW_DESIGN_MOSDRIVER} i Hardware Design for Vuggesystemet
 \end{itemize}
 
-// Figur 1 - med evt. opstilling
+Figur billede af opstillingen
 
 \textbf{Testbeskrivelse}
 \begin{itemize}
-	\item Hvad skal ske først
-	\item Hvad skal der ske efterfølgende
-	\item Osv, osv..
+	\item Opsæt systemet som beskrevet ovenfor
+	\item Programmer PSoC4 Pioneer Kittet med VuggeSinus programmet
+	\item Testen dokumenteres med video og billeder
 \end{itemize}
 
 \textbf{Forventet resultat} \\
-// Tekst \\
+Det forventes at det mekaniske vuggesystem er i stand til at "vippe" barnevognen som beskrevet i Formålet tre gange i sekvens fra yder position til yder position.
+
 \textbf{Resultat} \\
 // Tekst \\
 
-// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
+// Figur 2 - Billede af resultat og reference til BILAG med video.
 
 \textit{Testen er godkendt/ikke-godkendt}
+
+
+
 
 \subsection{Software modultest}
 Dette afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch
 \subsubsection{Vuggeudsving sensor}
 \textbf{Formål} \\
-// Tekst
+Formålet er at teste om Vuggeudsvingssensoren påmonteret en barnevognskurv der "vipper" over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav er i stand til at detektere vinklen i forhold til tyngdefeltet. For at testen kan godkendes forventes en præcision på mindst +/- 2 grader.
 
-\textbf{Overordnet opstilling af x test}
+\textbf{Overordnet opstilling af Vuggeudsving sensor test}
 
 \begin{itemize}
-	\item Første punkt er test miljøet
-	\item Efterfølgende punkter er opstillingen beskrevet trinvist
-	\item Osv..
+		\item Testen foregår i et rum med et horisontalt nivelleret gulv
+	\item Baby Watch barnevognen monteres med Vuggeudsvingssensoren jf.\ref{Vuggesystem: Implementering_VuggeudsvingSensor} i Implementeringen for Vuggesystemet 
+	\item Baby Watch barnevogns kurven sættes i et vandret niveau
+	\item PSoC4 Pioneer Kittet er tilsluttet en computer
+	\item Computeren har startet et terminal program som har oprettet forbindelse til den givne com port PSoC4 Pioneer Kittet sidder på
+	\item PSoC4 Pioneer Kittet programmeres med vinkelmåler test programmet. (BILAG)
 \end{itemize}
 
 // Figur 1 - med evt. opstilling
 
 \textbf{Testbeskrivelse}
 \begin{itemize}
-	\item Hvad skal ske først
-	\item Hvad skal der ske efterfølgende
-	\item Osv, osv..
+\item Opsæt systemet som beskrevet ovenfor
+\item Baby Watch barnevognskurven vippes med håndkraft fra yderposition til yderposition og stoppes i vandret position
+\item På terminalprogrammet på computeren udskrives data som angiver vinklen i fix16.16 format
+\item Disse data ligges ind i et data array i MatLab (REFERENCE) og plottes med en vertikal akser der angiver vinklen og en horisontal akse der angiver tid i sek
 \end{itemize}
 
 \textbf{Forventet resultat} \\
-// Tekst \\
+Der forventes en kontinuert kurve der begynder i 0 graders vinkel som efterfølgende skifter karakter til en trekantkurve der går fra -24.7 grader til 24.8 grader vinkel og til sidst stopper på 0 grader vinkel igen. Yderpositions vinklerne (-24,7 og 24.8 grader vinkel) baseres ud fra beskrivelsen af det mekaniske vugge implementationen afsnit  \ref{Vuggesystem: Implementering_MV}.
+  \\
 \textbf{Resultat} \\
 // Tekst \\
 
-// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
+// Figur 2 - Billede af MatLab plot
 
 \textit{Testen er godkendt/ikke-godkendt}
-\subsubsection{Motor positions sensor}
-\textbf{Formål} \\
-// Tekst
 
-\textbf{Overordnet opstilling af x test}
+\subsubsection{Vuggesystemet}
+\textbf{Formål} \\
+Formålet er at teste hele vuggesystemet som reguleringsmodul for Baby Watch systemet. Testen udføres i seks udgaver alle med en 10 kg mervægt i barnevognskurven. Testen dokumenteres med video.
+
+\textit{Testudgaver}*
+\begin{itemize}
+	\item Vuggesystemet regulerer barnevognskurven i en 0 graders vinkel-amplitude med en vippe-frekvens på 0 Hz
+	\item Vuggesystemet regulerer barnevognskurven i sekvens af først 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz efterfulgt af 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz og til sidst af 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz
+	\item Vuggesystemet regulerer barnevognskurven i sekvens af først 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz efterfulgt af 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz og til sidst af 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz
+	\item Vuggesystemet regulerer barnevognskurven i 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
+	\item Barnevognskurven presses ned i en yderpositon så en endstop sensor aktives
+	\item Barnevognskurven presses ned i modsatte yderpositon så den anden endstop sensor aktives
+\end{itemize}
+*Alle vinkler er i forhold til tyngdefeltet.
+
+
+\textbf{Overordnet opstilling af Vuggesystem modultest}
 
 \begin{itemize}
-	\item Første punkt er test miljøet
-	\item Efterfølgende punkter er opstillingen beskrevet trinvist
-	\item Osv..
+	\item Testen foregår i et rum med et horisontalt nivelleret gulv
+	\item Vuggesystemet er opsat jf. implementeringen af Vuggesystem afsnit \ref{Vuggesystem: Implementering}
+	\item Et videooptagelsesapparat er opsat og klar til optagelse
 \end{itemize}
-
-// Figur 1 - med evt. opstilling
+// Figur med billede af testopstillingen
 
 \textbf{Testbeskrivelse}
 \begin{itemize}
-	\item Hvad skal ske først
-	\item Hvad skal der ske efterfølgende
-	\item Osv, osv..
+	\item Testen opsættes om beskrevet ovenfor
+	\item Hvert punkt i \textit{Testudgaver} under Formål udføres og dokumenteres med video
 \end{itemize}
 
 \textbf{Forventet resultat} \\
-// Tekst \\
-\textbf{Resultat} \\
-// Tekst \\
-
-// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
-
-\textit{Testen er godkendt/ikke-godkendt}
-\subsubsection{Regulerings MCU}
-\textbf{Formål} \\
-// Tekst
-
-\textbf{Overordnet opstilling af x test}
-
+Der forventes at:
 \begin{itemize}
-	\item Første punkt er test miljøet
-	\item Efterfølgende punkter er opstillingen beskrevet trinvist
-	\item Osv..
+	\item Barnevognskurven holdes i en vandret på position i forhold til tyngdefeltet
+	\item Barnevognskurven vugges i en sekvens af først 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz efterfulgt af 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz og til sidst af 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz
+	\item Barnevognskurven vugges i en sekvens af først 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz efterfulgt af 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz og til sidst af 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz
+	\item Barnevognskurven vugges i en 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
+	\item Når barnevognskurven presses ned i en yderpositon aktives en endstop sensor og vuggesystemet stopper med alt vugning 
+	\item Når barnevognskurven presses ned i den modsatte yderpositon aktives en endstop sensor og vuggesystemet stopper med alt vugning 
 \end{itemize}
+*Alle vinkler er i forhold til tyngdefeltet.
 
-// Figur 1 - med evt. opstilling
-
-\textbf{Testbeskrivelse}
-\begin{itemize}
-	\item Hvad skal ske først
-	\item Hvad skal der ske efterfølgende
-	\item Osv, osv..
-\end{itemize}
-
-\textbf{Forventet resultat} \\
-// Tekst \\
 \textbf{Resultat} \\
-// Tekst \\
+// Resultatet beskrives og der henvis til optagelserne \\
 
-// Figur 2 - Billede af resultat (Oscilloskop, screenshot, e.l)
 
 \textit{Testen er godkendt/ikke-godkendt}
