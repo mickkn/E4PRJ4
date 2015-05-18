@@ -1,0 +1,50 @@
+\chapter{Lydmonitor}
+
+Intelligent Lydmonitor består af flere bestanddele herunder:
+
+\begin{itemize}
+\item Mikrofon
+\item Mikrofonforstærker-kreds
+\item 4. ordens Butterworth lavpasfilter 
+\item Spændingsregulering
+\end{itemize}
+
+Generelt for printet tilhørende den intelligente lydmonitor er immunitet det største EMC-hensyn foruden almindelige print-udlægs tiltag.
+
+\section{Mikrofon}
+
+Den intelligente lydmonitor benytter en elektret mikrofon. Denne har en ladet kapacitiv membran og en JFET transistor til forstærkning af strømudsvinget. JFET’en trækker en konstant DC strøm på 5 mA i arbejdspunktet og ved lydtryk svinger en små-signal strøm 5 $\mu$A til begge sider. 
+
+\section{Skærmning af kabler}
+
+Mikrofonen er forbundet til dens forstærker-kreds (på et print) gennem et ubalanceret signal (to ledere) via 1 meter kabel. Det vælges at benytte et koaksialkabel til forbindelsen mellem mikrofon og printet. Fordelen ved at vælge koaksialkabel er at yderdelen skærmer mod elektrisk indstråling. Almindeligvis benyttes et balanceret signal med 3-ledere til mikrofoner (dette har bedre immunitet over for støj idet indstrålet støj bliver common mode støj i stedet for differential mode støj), men grunden den lave kvalitet af den benyttede elektret mikrofon, MEC100 benyttes, er det valg at et 2-ledet ubalanceret kabel går an.
+
+\figur{0.6}{il_kabel}{Illustration af skærmet 2-ledet ubalanceret kabel}{il:kabel}
+
+\section{HF-filtrering af signal}
+
+For at frafiltrere i kablet indstrålet HF-støj, lavpas-filtreres signalet med et simpelt RC filter inden det når forstærker-kredsen. Elektret mikrofonens båndbredde er 10kHz og en tilsvarende knækfrekvens for filtret anvendes.
+
+\section{EMC tiltag på print}
+
+\subsection*{Stelplan}
+
+Printet er konstrueret med to stelplan (GND og virtual GND). Det er tilstræbt at placere de to stelplan således at kortest mulige returvej for strømmen er mulig. Stelplanerne og den brede printpane har lav selvinduktion, og specielt de gennemgående stelplan vil reducere kobling af høje frekvenser, idet strømsløjferne dannet af printbaner med returveje gennem stelplanet, vil være meget små. Sløjfeantennernes effektive areal reduceres ligeledes. Desuden sikres en lav-impedant spændingsforsyning til printets IC’er ved at plavere GND-planet under VCC banen.
+
+\subsection*{Afkoblingskondensatorer}
+
+For at sikre tilstrækkelig strømtræk til integrerede kredse indskydes 100 nF kondensatorer mellem VCC og GND. Ligeledes er en større elektrolyt-kondensator på 470 nF placeret ved Blackfin strømudtaget, for at kompensere for dens strøm-fluktuationer.
+
+\figur{0.7}{il_print}{Printudlæg tegnet i Eagle}{il:print}
+
+\subsection*{Generel printføring}
+
+VCC er ført med bred printbane for at nedsætte selvinduktion. Desuden er der ført separate printbaner til separate strømme.
+
+\subsection*{Stik}
+
+Signal ind- og udgange er placerede tæt sammen, ''single entry point'', således at uønskede strømme passerer uden om elektronikken. Indgangen til pre-ampen filtreres med en seriemodstand og en kondensator til stikstel (virtuel GND i dette tilfælde). Signaludgangen til blackfin-kittet lavpasfiltreres ligeledes med det aktive 4. ordens butterworth-filter, hvis egentlige opgave var at sikre en god signal-to-noise ratio til ADC’en.
+
+\subsection*{Skærmkasse}
+
+Der er i første omgang ikke beregnet skærmkasse, selvom denne utvivlsomt ville forbedre immunitet.

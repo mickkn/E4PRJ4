@@ -70,18 +70,20 @@ int main()
         while(!ready);
         CyPins_SetPin(activityDebug_0);
         
-        //check systemm status
+        //check system status
         checkEndstop();
         checkOn_Off();
         //update the target parameters
         updateRegParameter(I2CBuf[I2C_FREK_REG], I2CBuf[I2C_VINK_REG]);
         //calculate correction from sensor input
         fix16_t angle = getVuggeUdsvingSens();
+        /* ***** DEBUG ******/
 //        char str[30];
 //        sprintf(str, "%d, ", angle);
 //        debugOut_PutString(str);
+        /* *** END DEBUG ****/
         fix16_t C = beregnRegulering(angle);
-        //updaten motor output
+        //update motor output
         PWMStyring(C);
         //check for successful control output
         reguleringsStatus();
