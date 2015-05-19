@@ -14,24 +14,35 @@ På Controllerboksen sidder der 2 knapper og 3 LED-dioder, disse skal kunne tilg
 
 Der blev dog valgt at lave 3 GPIOsocket funktioner der tager sig af at skrive og læse fra det fil arkiv der oprettes når gpio funktionen bliver kaldt. Funktionerne består en \verb+Export+, en \verb+Unexport+ samt en \verb+Direction+ funktion som hhv. opretter og nedlægger et filbibliotek til det ønskede ben på Raspberry Pi'en og sætte retningen på benet (input/output).
 
+\subsubsection*{Betjeningspanel}
+
+Betjeningspanel-klassen er implementeret med funktioner til at skrive til en LED og læse fra en knap. Constructoren sørger for at oprette et filarkiv til det ønskede GPIO-ben, vha. GPIOsocket funktionerne. Så knapperne er sat op som INPUTS og LEDerne er sat op som OUTPUTS. Filarkivet består af en række filer, hvor en fil ved navn \verb+value+ kan hhv. læses fra og skrives til fra programmet.
+
+Desuden er der interne PULLDOWN og PULLUP modstande i en Raspberry som kan aktiveres software mæssigt.
+UNDERSØG NÆRMERE OG DOKUMENTER EVT: AUTOMATIK 
+
+\subsubsection*{Two Wire TTL}
+
+For at kunne aflæse BABYCON niveauet fra den Intelligente lydmonitor er der lavet en 2 ledet forbindelse, direkte ind på 2 GPIO ben på Raspberryen. Disse gør også brug af GPIOsocket funktionerne i en klasse specifikt til læsning af niveauet.
+
 \subsubsection*{I2C}
 
-I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje \verb+gpio load i2c+. På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
+I I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje \verb+gpio load i2c+. På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
 
 Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{http://hertaville.com/2013/04/01/interfacing-an-i2c-gpio-expander-mcp23017-to-the-raspberry-pi-using-c/} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
 
 \subsubsection*{Mail SMTP}
 
-For at der kunne sendes mails fra Pi'en var det nødvendigt at installere en form for SMTP server, der kunne tilgås fra et C++ program. Der blev fundet frem til \verb+smtp+ og \verb+mailutils+\footnote{https://rpi.tnet.com/project/faqs/smtp} som er linux pakker til Raspbian linux.
+For at der kunne sendes mails fra Pi'en var det nødvendigt at installere en form for SMTP server, der kunne tilgås fra et C++ program. Der blev fundet frem til \verb+ssmtp+ og \verb+mailutils+\footnote{https://rpi.tnet.com/project/faqs/smtp} som er linux pakker til Raspbian linux.
 
-For at installere disse pakker er brugt disse kommandoer på Raspberry Pien. \newline
+For at installere disse pakker er brugt disse kommandoer på Raspberry Pi'en. \newline
 \verb+sudo apt-get install ssmtp+ \newline
 \verb+sudo apt-get install mailutils+
 
-For at opsætte en e-mail-klientens login til gmail.com redigeres filen \verb+/etc/ssmtp/ssmtp.conf+. \newline
+For at opsætte e-mail-klientens login til gmail.com redigeres filen \verb+/etc/ssmtp/ssmtp.conf+. \newline
 \verb+sudo nano /etc/ssmtp/ssmtp.conf+
 
-Følgende linjer rettes til \newline
+Følgende linjer rettes til i filen\newline
 \verb+AuthUser=e4prj4@gmail.com+ \newline
 \verb+AuthPass=PASSWORD+ \newline
 \verb+FromLineOverride=YES+ \newline
@@ -41,9 +52,9 @@ Følgende linjer rettes til \newline
 Og for at sende en email bruges følgende linje. \newline
 \verb+echo "E-mail tekst" | mail -s "Emne" e4prj4@gmail.com+
 
+Kommandoen til e-mail afsendelse er samlet i 2 shell scripts. Disse bliver kaldt fra programmet med et systemkald. Der er hhv. et \verb+mail_alarm.sh+ og et \verb+mail_error.sh+ script. Der med \verb+system("/sti/scriptnavn.sh")+ kaldes fra programmet ved alarm eller fejl.
 
-
-
+KODE FRA SCRIPTS HER
 
 
 \subsubsection*{Netværksstatus}
@@ -54,6 +65,12 @@ For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden
 
 Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et system kald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
 
+\subsubsection*{PSU-styring}
+
+\textit{Controlleren skal så længe der er tændt for strømforsyningen, være tændt. Men den skal så kunne styre hvornår Vuggesystemet og den Intelligente lydmonitor er i drift. Dette er blevet implementeret på strømforsyningen med et relæ der styres af et GPIO-ben på Controlleren.}
+
+Der er oprettet en klasse 
+
 \subsubsection*{HTTP Server}
 
 Baby Watch webserveren er er implementeret med en microframework Flask  webserver udviklet af Armin Ronacher(REFERENCE). Servertypen hører under en fri BSD license(REFERENCE) og er igennem sin simple og lette struktur et ideel valg til en webserver integreret på et embedded-system med begrænset CPU-kraft. \\
@@ -61,7 +78,9 @@ En Flask webserver består af en python-template der styrer en eller flere html-
 
 \textbf{Beskrivelse af python-templaten og dens funktionaliteter}\\
 En flask server python templaten er opbygget på samme måde som andre højniveau sprog. \\
-Først kaldes de nødvendige biblioteker ved hjælp af \verb+import+. I dette tilfælde bruges "flask", "render template", "logging" og "datetime" (Den næst sidste er til at skjule flask serverudskrifter og den sidste er til opdateringstidspunktet). \\ Herefter oprettes et Flask server objekt kaldet app vha. af kommandoen: \verb+app = Flask( name )+ \\ Objektet fyldes med funktionaliter til blandt andet at vise opdateringstidspunktet og til at ændre tekst og billeder på hjemmesiden. Objektet returner til sidst sin templateData ved hjælp af en pointer. \\
+Først kaldes de nødvendige biblioteker ved hjælp af \verb+import+. I dette tilfælde bruges "flask", "render template", "logging" og "datetime" (Den næst sidste er til at skjule flask serverudskrifter og den sidste er til opdateringstidspunktet). \\ 
+Herefter oprettes et Flask server objekt kaldet app vha. af kommandoen: \verb+app = Flask( name )+ \\ 
+Objektet fyldes med funktionaliter til blandt andet at vise opdateringstidspunktet og til at ændre tekst og billeder på hjemmesiden. Objektet returner til sidst sin templateData ved hjælp af en pointer. \\
 Eksempel på hvordan tekst gemmes i en \verb+string+ og efterfølgende gemmes i et flask objekts template data: \\
  \verb+msg = open ('/root/Flask/static/tilstand.txt', 'r')+ \\
    \verb+babyStateString = msg.read()+ \\
@@ -81,7 +100,7 @@ Er implementeret med en overordnet html-funktion som opdaterer hjemmesiden hvert
     \verb+color:white;+\\
     \verb+text-align:center;+\\
     \verb+padding:5px;+\\
-\\Denne style laver et lyseblå felt med hvid skrift. Skriften centres og der paddes med en margin på 5 pixels rundt om feltet. De andre styles er udarbejdet på samme vis.\\
+\\Denne style laver et lyseblå felt med hvid skrift. Skriften centreres og der paddes med en margin på 5 pixels rundt om feltet. De andre styles er udarbejdet på samme vis.\\
 Efter styles bliver der defineret to javascript funktioner, en til at hente klokkeslættet \verb+function startTime()+ og en til at opdatere hjemmesiden med det pågældende klokkeslæt \verb+function checkTime(i)+. Implementeringen på disse kan ses i bilag (REFERENCE)\vspace{2mm}\\
 \\ \verb+BabyWatch.html+s body: \\ 
 Body'en består af syv divisioner, en til højreside billede, en til toppen, en til bunden, en til klokkeslættet i venstreside, en til klokkeslættet af seneste opdatering af hjemmesiden, en til centerbilledet og en til den tilhørende tekst.\\
