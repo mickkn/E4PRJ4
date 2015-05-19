@@ -1,6 +1,6 @@
 \section{Modultest}
 
-Modultesten af Controller er opstillet som en modultest hvor Controlleren er forbundet til et testprint der simulerer BABYCON-niveauer og en PSoC4 med et testprogram til at kommunikere vha. I2C, hvor statusværdien kan ændres manuelt.
+Modultesten af Controller er opstillet som en modultest hvor Controlleren er forbundet til et testprint der simulerer BABYCON-niveauer og en PSoC4 med et testprogram til at kommunikere vha. I2C, hvor statusværdien kan ændres manuelt. I kildekoden er der implementeret en MODULTEST variabel, der kan sættes til true eller false, denne bliver refereret til løbende i modultest beskrivelsen.
 
 \subsection*{''ON/OFF''-knap}
 
@@ -11,7 +11,7 @@ At teste om ''ON/OFF''-LEDen lyser og programmet starter sit ON-loop når knappe
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
 \item Tilkoble strøm til Controlleren med ''ON/OFF'' knappen i OFF position
-\item Start programmet på Raspberry Pi'en
+\item Start programmet i MODULTEST-tilstand på Raspberry Pi'en
 \item Sæt ''ON/OFF'' knappen i ON position
 \item Iagttag ''ON/OFF''-LEDen samt terminal udskrift
 \item Sæt ''ON/OFF'' knappen i OFF position
@@ -31,24 +31,23 @@ LEDen tænder og slukker som forventet og terminaludskriften passer med forventn
 \subsection*{''Manuel start''-knap}
 
 \subsubsection*{Formål}
-At sikre ''Manuel start'' knappen aktiverer ISR rutinen, her sættes en variabel som får en funktion til at køre. 
+At sikre ''Manuel start'' knappen aktiverer ISR-rutinen, her sættes en variabel som får en funktion til at køre. 
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
-\item Start programmet og sæt ''ON/OFF'' knappen i ON position
+\item Start programmet i MODULTEST-tilstand og sæt ''ON/OFF'' knappen i ON position
 \item Aktiver ''Manuel start''-knappen ved at trykke på den 
-\item Iagtag ''Manuel start''-LED'en og terminal udskriften
-\item Afvent at LED'en slukker og iagtag terminal udskiften 
+\item Iagttag ''Manuel start''-LED'en og terminaludskriften
+\item Afvent at LED'en slukker og iagttag terminaludskriften 
 \end{enumerate}
 
 \subsubsection*{Forventet resultat} 
 Det forventes at ''Manuel start''-LED'en tænder umiddelbart når ''Manuel start''-knappen aktiveres. Terminal udskriften reagerer ved [MANUELSTART ISR] når knappen aktiveres, [MANUELSTART RUNNING] funktionen kører og [MANUELSTART DONE] når funktionen er kørt. Herefter slukkes ''Manuel start''-LED'en 
 
 \subsubsection*{Resultat} 
-''Manuel start''-LED'en tænder med det samme når ''Manuel start''-knappen aktiveres, som forventet. Og LED'en slukker når funktionen er kørt. Figur \ref{controller:Modul_manStart} viser terminal udskriften. [MANUELSTART ISR] skrives flere gange, det skyldes kontaktprel og er håndteret ved at der sættes en variabel første gang knappen aktiveres, denne variabel nulstilles af funktionen selv.
+''Manuel start''-LED'en tænder med det samme når ''Manuel start''-knappen aktiveres, som forventet. Og LED'en slukker når funktionen er kørt. Figur \ref{controller:Modul_manStart} viser terminal udskriften. [MANUELSTART ISR] skrives flere gange, det skyldes kontaktprel og er håndteret ved at der sættes en global variabel første gang knappen aktiveres, denne variabel nulstilles af funktionen selv.
 
-\figur{0.8}{controller/modultest/manStart.pdf}{Terminaludskrift - Modultest:''Manuel start''-knap}{controller:Modul_manStart}
-
+\figur{0.8}{controller/modultest/manStart}{Terminaludskrift - Modultest:''Manuel start''-knap}{controller:Modul_manStart}
 
 \textit{Testen er godkendt}
 
@@ -59,49 +58,159 @@ At teste systemet med og uden internet tilkoblet
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
-\item Start programmet og sæt ''ON/OFF'' knappen i ON position
+\item Start programmet i MODULTEST-tilstand og sæt ''ON/OFF'' knappen i ON position
 \item Fjern internet forbindelsen ved at afbryde routeren fra netværket
-\item Iagtag Wi-Fi LED'en og terminal udskrift
+\item Iagttag Wi-Fi LED'en og terminaludskrift
 \item Tilføj internet forbindelsen ved at tilkoble routeren fra netværket
-\item Iagtag Wi-Fi LED'en og terminal udskrift
+\item Iagttag Wi-Fi LED'en og terminaludskrift
 \end{enumerate}
 
 \subsubsection*{Forventet resultat} 
-Det forventes at Wi-Fi LED'en lyser efter maks 10 sekunder og slukker igen maks 20 sekunder efter routeren er tilkoblet netværket. Terminalen viser tilsvarende ping udskrifter som viser status for internetforbindelsen.
+Det forventes at Wi-Fi LEDen lyser efter maks. 10 sekunder og slukker igen maks. 20 sekunder efter routeren er tilkoblet netværket. Terminalen viser tilsvarende ping udskrifter som viser status for internetforbindelsen.
 
 \subsubsection*{Resultat} 
-
+Wi-Fi-LEDen lyser som forventet ved afkobling af internettet. Og slukker igen ved re-tilkobling.
 
 \textit{Testen er godkendt}
 
 \subsection*{BABYCON niveau fra testprint}
 
 \subsubsection*{Formål}
-At teste systemts reaktion på de 3 BABYCON niveauter samt ved error/ikke tilkoblet Intelligent Lydmonitor.
+At teste systemts reaktion på de 3 BABYCON niveauer samt ved error/ikke tilkoblet Intelligent Lydmonitor.
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
-\item Start testprogrammet og sæt ''ON/OFF'' knappen i ON position
-\item 
-
+\item Sæt testprintet i BABYCON3
+\item Start programmet i MODULTEST-tilstand og sæt ''ON/OFF'' knappen i ON position
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON2
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON1
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON0
+\item Sæt ON/OFF-knap i OFF position
+\item Sæt ON/OFF-knap i ON position
+\item Iagttag terminaludskriften
 \end{enumerate}
 
 \subsubsection*{Forventet resultat} 
-
+Terminal udskriften skal vise de respektive BABYCON niveauer, samt andre MODULTEST udskrifter, der fortæller om hvilke LOOP man befinder sig i, og hvilke e-mails der sendes
 
 \subsubsection*{Resultat} 
+Resultatet kan ses på følgende terminal skærmbillede figur \ref{ctrl}. Det ses at BABYCON niveauerne skifter som forventet.
 
+\figur{0.8}{controller/modultest/BABYCON_test_CTRL}{Terminaludskrift - Modultest: BABYCON niveauer fra testprint}{controller:BABYCON_test_CTRL} 
 
 \textit{Testen er godkendt}
 
 \subsection*{I2C kommunikation med PSoC testprogram}
 
 \subsubsection*{Formål}
-Formålet med denne modultest er at teste I2C kommunikationen med vuggesystemet vha. et testprogram på PSoC'en, der udskriver i et terminalvindue via UART.
+Formålet med denne modultest er at teste I2C kommunikationen med vuggesystemet vha. et testprogram på PSoCen, der udskriver i et terminalvindue via UART.
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start TeraTerminal, med PSoCen forbundet med testprogrammet på
+\item Test UART ved tryk på reset på PSoC - se terminal udskrift ''Baby Watch - USB UART!''
+\item Sæt testprintet i BABYCON3
+\item Sæt ON/OFF-knap i ON
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON2 
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON1
+\item Sæt ON/OFF-knap i OFF
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+TeraTerminalen udskrifterne skal udskrive værdier der passer med testværdierne.
+\begin{enumerate}
+\item ON:  0xF0
+\item OFF: 0x0F
+\item BABYCON1 -  Frekvens: 0x00 Vinkel: 0x00
+\item BABYCON2A - Frekvens: 0x32 Vinkel: 0xC8
+\item BABYCON2B - Frekvens: 0x64 Vinkel: 0x78
+\item BABYCON2C - Frekvens: 0xC8 Vinkel: 0x50
+\item BABYCON3 -  Frekvens: 0x00 Vinkel: 0x00
+\end{enumerate}
+
+\subsubsection*{Resultat} 
+TeraTerminalen udskriver som forventet de afsendte værdier i figur \ref{controller:BABYCON_test_VS}. På figuren er indsat BABYCON niveauer for forståelsens skyld.
+
+\figur{0.9}{controller/modultest/BABYCON_test_VS}{TeraTerminaludskrift - Modultest: I2C kommunikation med PSoC testprogram}{controller:BABYCON_test_VS} 
+
+\textit{Testen er godkendt}
+
+\subsection*{Fejlhåndtering}
+
+\subsubsection*{Formål}
+Formålet med denne modultest er at teste om Controller reagerer korrekt på en error fra Vuggesystemet. Testprogrammet er programmeret med en statusværdi på \verb+0b10000000(0x80)+. 
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start TeraTerminal, med PSoCen forbundet med testprogrammet på
+\item Test UART ved tryk på reset på PSoC - se terminal udskrift ''Baby Watch - USB UART!''
+\item Sæt testprintet i BABYCON3
+\item Sæt ON/OFF-knap i ON
+\item Iagttag terminaludskriften
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+TeraTerminalen udskrifterne skal udskrive den første BABYCON3 skrivning fra TeraTerminalen, som slutter med at aflæse status. 
+
+\subsubsection*{Resultat} 
+På figur \ref{controller:error_vs} ses at den første BABYCON3 sekvens modtages, og i statusregisteret står 0x10 som forventet, dette handles der på i Controller og den går i fejl-tilstand og stopper vugningen.  
+
+\figur{0.4}{controller/modultest/error_vs}{TeraTerminaludskrift - Modultest: Fejlhåndtering}{controller:error_vs} 
+
+\textit{Testen er godkendt}
+
+\subsection*{I2C kommunikation med PSoC testprogram}
+
+\subsubsection*{Formål}
+Formålet med denne modultest er at teste I2C kommunikationen med vuggesystemet vha. et testprogram på PSoCen, der udskriver i et terminalvindue via UART.
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start TeraTerminal, med PSoCen forbundet med testprogrammet på
+\item Test UART ved tryk på reset på PSoC - se terminal udskrift ''Baby Watch - USB UART!''
+\item Sæt testprintet i BABYCON3
+\item Sæt ON/OFF-knap i ON
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON2 
+\item Iagttag terminaludskriften
+\item Sæt testprintet i BABYCON1
+\item Sæt ON/OFF-knap i OFF
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+TeraTerminalen udskrifterne skal udskrive værdier der passer med testværdierne.
+\begin{enumerate}
+\item ON:  0xF0
+\item OFF: 0x0F
+\item BABYCON1 -  Frekvens: 0x00 Vinkel: 0x00
+\item BABYCON2A - Frekvens: 0x32 Vinkel: 0xC8
+\item BABYCON2B - Frekvens: 0x64 Vinkel: 0x78
+\item BABYCON2C - Frekvens: 0xC8 Vinkel: 0x50
+\item BABYCON3 -  Frekvens: 0x00 Vinkel: 0x00
+\end{enumerate}
+
+\subsubsection*{Resultat} 
+TeraTerminalen udskriver som forventet de afsendte værdier i figur \ref{controller:BABYCON_test_VS}. På figuren er indsat BABYCON niveauer for forståelsens skyld.
+
+\figur{0.9}{controller/modultest/BABYCON_test_VS}{TeraTerminaludskrift - Modultest: I2C kommunikation med PSoC testprogram}{controller:BABYCON_test_VS} 
+
+\textit{Testen er godkendt}
+
+\subsection*{Powercontrol}
+
+\subsubsection*{Formål}
+At teste funktionaliteten af power on og off signal fra Controller til PSU.
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
 \item 
+\item Sæt ON/OFF-knap til ON
+\
 
 \end{enumerate}
 
@@ -109,6 +218,5 @@ Formålet med denne modultest er at teste I2C kommunikationen med vuggesystemet 
 
 
 \subsubsection*{Resultat} 
-
 
 \textit{Testen er godkendt}
