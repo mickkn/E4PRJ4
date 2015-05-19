@@ -1,6 +1,6 @@
 \section{Design}
+Design afsnittet for vuggesystemet beskriver først hardware designet efterfulgt af software designet.
 \subsection{Hardware design}
-
 \subsubsection{Motorstyringskreds}
 I denne sektion beskrives det kredsløb der benyttes til at styre ankerspændingen for vuggesystemets motor. Kredsløbet modtager et PWM signal fra controlleren som styrer ankerspændingen. Kredsen er forsynet med bateriets 12V (VCC) og 3.3 volt fra PSoC. Kredsen styres med et PWM signal, og det inverterede signal, kaldt M\_A og M\_B. Den sidste forbindelse, ES\_SIG, er outputtet fra endstop kredsløbet.\\
 
@@ -18,7 +18,7 @@ Kondensatorerne C3 og C4 er placeret så tæt som muligt på H-broens positive o
 
 \subsubsection*{MOSFET driver}
 \label{Vuggesytem:HW_DESIGN_MOSDRIVER} 
-H-broens MOSFETs bliver drevet ved hjælp af 2 dobbelt sidede MOSFET drivere, som er koblet som vist herunder:
+H-broens MOSFETs bliver drevet ved hjælp af 2 dobbelt siddede MOSFET drivere, som er koblet som vist herunder:
 
 \figur{0.75}{vuggesystem/design/mos_driver.pdf}{Dual MOSFET driver, A siden}{MOS_driver}
 
@@ -53,7 +53,7 @@ Kredsløbet opererer med 3.3V og ved aktivering af en af endstop sensorene træk
 
 \subsubsection{Vuggeudsving sensor}
 \label{Vuggesystem: Design_Vugggeudsving_sensor} 
-Vuggekurvens vinkel i forhold til jordens tyngdefelt måles vha af en mpu6050 integreret accelerometor og gyroskop, på et breakout board som vist på figur \ref{vugsys:MPU6050}. Denne IC er valgt fordi den kan levere accelerometer- og gyroskopdata igennem et I2C interface, med en seperat interrupt linje, som indikerer når der er nye data parat. Ved at bruge både accellerometer og gyroskop opnås et bedre estimat af sensorens orientering idet gyroskopet leverer pålidelige data omkring ændringer i orientering over en kort tidsskala hvilket kan afhjælpe støjen fra vibrationer mm. som viser sig som støj i accelerometerdataen. Accellerometeret, som benytter en absolut referance (tyngdefeltet), kan samtidig afhjælpe den drift der sker i gyroskopet, idet fejl akkumuleres i gyroskopet. For en detaljeret beskrivelse af hvordan de to datakilder splejses se afsnit \vref{vugsys:impl, sensFortolk}.
+Vuggekurvens vinkel i forhold til jordens tyngdefelt måles vha af en mpu6050 integreret accelerometor og gyroskop, på et breakout board som vist på figur \ref{vugsys:MPU6050}. Denne IC er valgt fordi den kan levere accelerometer- og gyroskopdata igennem et I2C interface, med en seperat interrupt linje, som indikerer når der er nye data parat. Ved at bruge både accellerometer og gyroskop opnås et bedre estimat af sensorens orientering idet gyroskopet leverer pålidelige data omkring ændringer i orientering over en kort tidsskala hvilket kan afhjælpe støjen fra vibrationer mm. som viser sig som støj i accelerometerdataen. Accellerometeret, som benytter en absolut reference (tyngdefeltet), kan samtidig afhjælpe den drift der sker i gyroskopet, idet fejl akkumuleres i gyroskopet. For en detaljeret beskrivelse af hvordan de to datakilder splejses se afsnit \vref{vugsys:impl, sensFortolk}.
 
 \figur{0.25}{vuggesystem/design/VuggeudsvingSensor_mpu6050.pdf}{MPU6050 breakout board}{vugsys:MPU6050}
 
@@ -273,3 +273,4 @@ Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhøre
     \textbf{Beskrivelse}	& Returner bool fra \verb+ int endstop+ til klassen vuggeControl	\\ \hline
     \end{tabular}
 \end{center}
+\newpage
