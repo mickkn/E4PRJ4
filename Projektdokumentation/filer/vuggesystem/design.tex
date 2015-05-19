@@ -55,7 +55,7 @@ Kredsløbet opererer med 3.3V og ved aktivering af en af endstop sensorene træk
 \label{Vuggesystem: Design_Vugggeudsving_sensor} 
 Vuggekurvens vinkel i forhold til jordens tyngdefelt måles vha af en mpu6050 integreret accelerometor og gyroskop, på et breakout board som vist på figur \ref{vugsys:MPU6050}. Denne IC er valgt fordi den kan levere accelerometer- og gyroskopdata igennem et I2C interface, med en seperat interrupt linje, som indikerer når der er nye data parat. Ved at bruge både accellerometer og gyroskop opnås et bedre estimat af sensorens orientering idet gyroskopet leverer pålidelige data omkring ændringer i orientering over en kort tidsskala hvilket kan afhjælpe støjen fra vibrationer mm. som viser sig som støj i accelerometerdataen. Accellerometeret, som benytter en absolut referance (tyngdefeltet), kan samtidig afhjælpe den drift der sker i gyroskopet, idet fejl akkumuleres i gyroskopet. For en detaljeret beskrivelse af hvordan de to datakilder splejses se afsnit \vref{vugsys:impl, sensFortolk}.
 
-\figur{0.25}{vuggesystem/design/VuggeudsvingSensor_mpu6050.pdf}{MPU6050 breakout board}{vugsys:MP6050}
+\figur{0.25}{vuggesystem/design/VuggeudsvingSensor_mpu6050.pdf}{MPU6050 breakout board}{vugsys:MPU6050}
 
 \subsubsection{Motor positions sensor}
 Motor positions sensoren er ikke med i denne iteration af projektet.
