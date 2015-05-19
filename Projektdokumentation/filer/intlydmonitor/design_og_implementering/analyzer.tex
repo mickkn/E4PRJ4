@@ -1,2 +1,24 @@
 %analyzer
 \subsection{Analyzer}
+
+\subsubsection{SPL}
+I dette afsnit beskrives design og implementering af Analyzers funktion \verb+calcSPL()+.\\ \\
+\textbf{\textit{Princip}}\\
+For at ikke at benytte unødig processorkraft på beregne FFT af en støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Dette beregnes som dBV, hvor et signal med amplituden 1 V vil resultere i en SPL måling på 0 dBV. Den maksimale amplitude for input-signalet er 1.65 V. Målt i dBV er dette:
+\begin{center}
+${ SPL }_{ max }\quad =\quad 20\cdot \log _{ 10 }{ \left( \frac { 1.65V }{ 1V }  \right)  } =4,35\quad dBV$
+\end{center}
+
+Ligeledes vil et signal med amplituden 100 mV resultere i følgende SPL:
+\begin{center}
+${ SPL }_{ 100mV }\quad =\quad 20\cdot \log _{ 10 }{ \left( \frac { 0.1V }{ 1V }  \right)  } =-20\quad dBV$
+\end{center}
+
+Idet ADC'en kører i med en opløsning på 16 bit, hvoraf det første er sign, vil dette resultere i følgende værdier som fract16 for maximal amplitude og amplitude på 100 mV:
+\begin{center}
+${ floatval }_{ 1,65V }=1-{ 2 }^{ -15 }=0.9999694824$ \\
+$fractVal_{ 100mV }=\frac { { 2 }^{ 15 }-1 }{ 1.65V } \cdot 100mV\cdot { 2 }^{ -16 }=0.06060421105$
+\end{center}
+
+\textbf{\textit{Implementering}} \\
+Det målte SPL-niveau skal kun tænktes som grov-filtrering, implementeres ganske simpelt ved at finde optagelsens højeste værdi. Analyzer-modulet initieres således med en forudbestemt SPL threshhold, der benyttes til at vurdere hvorvidt optagelsen indeholder signal nok til at en FFT kan betale sig.

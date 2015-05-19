@@ -1,9 +1,96 @@
 %RecBuf design
 \subsection{RecBuf}
 I dette afsnit beskrives principper og design for RecBuf i Intelligent Lydmonitor.
-Samples modtaget fra prefilteret gemmes i RecBuf. Når der ligger en samplesekvens svarende til 5 sekunders samples i RecBuf, skal denne kalde Analyzers analyze() med startindexet for denne 5 sekunders optagelse. Idet den kaldes, skal samplesekvensen låses og dermed skærmes mod overskrivning. Imidlertid fortsættes samplingen og et nyt start-index sættes. Når analysen afsluttes notificeres RecBuf og låser sekvensen op. Det opstår således et hastigheds-krav til analyze og et størrelseskrav til RecBuf, idet analyze skal afslutte inden RecBuf når den låste sekvens igen. 
+Samples modtaget fra prefiltret gemmes i et ud af to identiske buffere som RecBuf indeholder. Når det første array er fyldt kaldes Analyzers analyze() med værdien 0 eller 1 hvilken repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
 
-Herunder ses en princip-skitse for en cirkulær buffer med låsning af segmenter.
-\figur{0.6}{intlydmonitor/design/circular_buffer_princip}{Princip for cirkulær buffer med segment-locking}{intlyd:sw:circ_buf}
+\begin{verbatim}
+class RecBuf {
+	friend class Analyzer;
+public:
+	RecBuf(int size_);
+	void storeData(fract16 sample_);
+	virtual ~RecBuf();
+	
+private:
+	Analyzer* analyzePtr;
+	int currActiveBuffer_;
+	int index_;
+	int size_;
+	fract16 *mem0_;
+	fract16 *mem1_;
+};
+\end{verbatim}
 
-Dette afsnit er endnu ikke færdigt
+Herover ses et udsnit fra headeren for kassen RecBuf. Det er her værd at lægge mærke til at klassen benytter \textbf{friend class Analyzer} for at Analyzer har mulighed for at tilgå privatdata i RecBuf. Af private attributter ses det at der er en pointer til klassen Analyzer, som skal bruges til at kalde funktionen \textbf{analyze()} ved fyldt buffer. 
+
+\begin{verbatim}
+RecBuf::RecBuf(int size)
+{
+	currActiveBuffer_ = 0;
+	index_ = 0;
+	size_ = (size>0 && size<MAXSIZE ? size : MAXSIZE);
+
+	//Creating array mem0 and mem1
+	mem0_ = new fract16[size_] ();
+	mem1_ = new fract16[size_] ();
+}
+\end{verbatim}
+
+Herover ses constructoren for RecBuf. Først initieres de to private attributter \textbf{currActiveBuffer\_} og \textbf{index\_} til 0. RecBuf modtager en int kaldet \textbf{size}. Det tjekkes at size er større end 0 og mindre end en define kaldet \textbf{MAXSIZE}, passer betingelsen sætttes den private attribut \textbf{size\_} lig med size og ellers sættes size\_ lig med MAXSIZE. Herefter oprettes der dynamisk to buffere af typen fract16 med størrelsen size\_ som initieres til 0. 
+
+\begin{verbatim}
+RecBuf::~RecBuf()
+{
+	delete [] mem0_;
+	delete [] mem1_;
+}
+\end{verbatim}
+
+Herover ses destructoren for RecBuf. Denne sørger for at delete det dynamisk allokerede hukommelse til mem0\_ og mem1\_ for at undgå memory-leak. 
+
+Klassen RecBuf indeholder kun en funktion kaldet \textbf{storeData()} denne funktion er implementeret som en switch case der tjekker på variablen \textbf{currActiveBuffer\_}. Case 0 er vist herunder. 
+Hvis den private variable index\_ er lig med size\_ betyder det at mem0\_ er fuld. I dette tilfælde sættes index\_ lig med 0 og currActiveBuffer\_ opdateres til 1 så den repræsenterer bufferen mem1\_. Herefter sættes den første plads i mem1\_ med den værdien sample. Slutteligt kaldes analyze med et 0, da mem0\_ nu er fuld og klar til at blive analyseret. Hvis ikke index\_ er lig med size\_ sættes mem0\_[index\_] med sample. Slutteligt inkrementeres index\_. 
+
+\begin{verbatim}
+	switch(currActiveBuffer_)
+	{
+	case 0:
+		if(index_ == size_)
+		{
+			index_ = 0;
+			currActiveBuffer_ = 1;
+			mem1_[index_] = sample;
+			analyzePtr->analyze(0);
+		}
+		else
+		{
+			mem0_[index_] = sample;
+		}
+		index_++;
+		break;
+\end{verbatim}
+
+Case 1 er vist herunder og er næsten magen til case 0. Forskellen på case 1 og case 0 er følgende: 
+currActiveBuffer\_ sættes til 0 for at repræsentere mem0\_ i stedet for mem1\_. 
+analyze kaldes med 1 i stedet for 0. 
+
+\begin{verbatim}
+case 1:
+		if(index_ == size_)
+		{
+			index_ = 0;
+			currActiveBuffer_ = 0;
+			mem0_[index_] = sample;
+			analyzePtr->analyze(1);
+		}
+		else
+		{
+			mem1_[index_] = sample;
+		}
+		index_++;
+		break;
+	}
+\end{verbatim}
+
+
+

@@ -138,47 +138,28 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 
 
 \textit{RecBuf} \\
-\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte en cirkulær buffer med mulighed for midlertidig locking af bufferområder. Det er altså en buffer der muliggør påfyldning ét sted mens aflæsning foregår fra et låst segment.
+\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte multiple buffering. Der fyldes i en buffer til denne er fuld, dette data sættes til behandling mens den næste buffer fyldes osv.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+RecBuf(uint size, Analyzer* analyzePtr +						\\ \hline
-    \textbf{Parametre} 	& uint size, størrelsen af cirkulær buffer; analyzePtr, pointer til Analyzer		\\ \hline
+    \textbf{Funktion}	& \verb+RecBuf(int size) +						\\ \hline
+    \textbf{Parametre} 	& int size, størrelsen a buffer		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Constructor sætter størrelsen på cirkulær buffer, samt initierer set-, get- og rec-Index 		\\ \hline
+    \textbf{Beskrivelse}& Constructor allokerer og initialiserer buffer, mem0 og mem1 med størrelsen size		\\ \hline
     \end{tabular}
 \end{center} 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void set(int sample ) +						\\ \hline
-    \textbf{Parametre} 	& int sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang	efter filtrering	\\ \hline
+    \textbf{Funktion}	& \verb+void storeData(fract16 sample ) +						\\ \hline
+    \textbf{Parametre} 	& fract16 sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang efter filtrering	\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Gemmer diskret sample i RecBuf med pladsen setIndex		\\ \hline
+    \textbf{Beskrivelse}& Gemmer diskret sample i RecBuf med pladsen index\_		\\ \hline
     \end{tabular}
 \end{center} 
 
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+int get(uint index) +						\\ \hline
-    \textbf{Parametre} 	& uint index, plads i RecBuf	\\ \hline
-    \textbf{Returværdi}	& int, returnerer sampleværdi								\\ \hline
-    \textbf{Beskrivelse}& Returnerer værdi på given index plads	\\ \hline
-    \end{tabular}
-\end{center} 
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void unlock(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Frigiver låst område i RecBuf 		\\ \hline
-    \end{tabular}
-\end{center} 
 
 
 \textit{Analyzer} \\
