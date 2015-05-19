@@ -22,7 +22,29 @@ Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{htt
 
 \subsubsection*{Mail SMTP}
 
-Mail SMTP er 2 shell scripts der kaldes med et systemkald. Der er ikke noget fejlcheck på ...
+For at der kunne sendes mails fra Pi'en var det nødvendigt at installere en form for SMTP server, der kunne tilgås fra et C++ program. Der blev fundet frem til \verb+smtp+ og \verb+mailutils+\footnote{https://rpi.tnet.com/project/faqs/smtp} som er linux pakker til Raspbian linux.
+
+For at installere disse pakker er brugt disse kommandoer på Raspberry Pien. \newline
+\verb+sudo apt-get install ssmtp+ \newline
+\verb+sudo apt-get install mailutils+
+
+For at opsætte en e-mail-klientens login til gmail.com redigeres filen \verb+/etc/ssmtp/ssmtp.conf+. \newline
+\verb+sudo nano /etc/ssmtp/ssmtp.conf+
+
+Følgende linjer rettes til \newline
+\verb+AuthUser=e4prj4@gmail.com+ \newline
+\verb+AuthPass=PASSWORD+ \newline
+\verb+FromLineOverride=YES+ \newline
+\verb+mailhub=smtp.gmail.com:587+ \newline
+\verb+UseSTARTTLS=YES+
+
+Og for at sende en email bruges følgende linje. \newline
+\verb+echo "E-mail tekst" | mail -s "Emne" e4prj4@gmail.com+
+
+
+
+
+
 
 \subsubsection*{Netværksstatus}
 
