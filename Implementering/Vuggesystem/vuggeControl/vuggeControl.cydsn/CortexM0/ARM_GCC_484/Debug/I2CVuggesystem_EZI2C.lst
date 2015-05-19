@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
   23:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *      EZI2C Private Vars
   24:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** ***************************************/
   25:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 2
 
 
   26:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** volatile uint8 I2CVuggesystem_curStatus; /* Status byte */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
   80:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     * Summary:
   81:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     *  Configures the SCB for the EZI2C operation.
   82:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     *
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 3
 
 
   83:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     * Parameters:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  137:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****                                                                                        config->prim
  138:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             }
  139:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             else
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 4
 
 
  140:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  194:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         }
  195:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  196:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 5
 
 
  197:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** #else
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
   58 001e 224A     		ldr	r2, .L2+20
   59 0020 1A60     		str	r2, [r3]
  226:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_RX_FIFO_CTRL_REG = I2CVuggesystem_EZI2C_DEFAULT_RX_FIFO_CTRL;
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 6
 
 
   60              		.loc 1 226 0
@@ -322,7 +322,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  233:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_TX_FIFO_CTRL_REG = I2CVuggesystem_EZI2C_DEFAULT_TX_FIFO_CTRL;
   72              		.loc 1 233 0
   73 0034 214B     		ldr	r3, .L2+40
-  74 0036 0022     		mov	r2, #0
+  74 0036 0222     		mov	r2, #2
   75 0038 1A60     		str	r2, [r3]
  234:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  235:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         /* Configure interrupt with EZI2C handler but do not enable it */
@@ -339,13 +339,13 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  239:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  240:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #if (I2CVuggesystem_EZI2C_SCL_STRETCH_ENABLE_CONST)
  241:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         (void) CyIntSetVector(I2CVuggesystem_ISR_NUMBER, &I2CVuggesystem_EZI2C_STRETCH_ISR);
-  83              		.loc 1 241 0
+ 242:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #else
+ 243:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         (void) CyIntSetVector(I2CVuggesystem_ISR_NUMBER, &I2CVuggesystem_EZI2C_NO_STRETCH_ISR);
+  83              		.loc 1 243 0
   84 0048 1D4B     		ldr	r3, .L2+44
   85 004a 0A20     		mov	r0, #10
   86 004c 191C     		mov	r1, r3
   87 004e FFF7FEFF 		bl	CyIntSetVector
- 242:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #else
- 243:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         (void) CyIntSetVector(I2CVuggesystem_ISR_NUMBER, &I2CVuggesystem_EZI2C_NO_STRETCH_ISR);
  244:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* (I2CVuggesystem_EZI2C_SCL_STRETCH_ENABLE_CONST) */
  245:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  246:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* !defined (CY_EXTERNAL_INTERRUPT_CONFIG) */
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
   90 0054 0022     		mov	r2, #0
   91 0056 1A60     		str	r2, [r3]
  251:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* (!I2CVuggesystem_CY_SCBIP_V1) */
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 7
 
 
  252:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
@@ -370,7 +370,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  254:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_INTR_SLAVE_MASK_REG  = I2CVuggesystem_EZI2C_DEFAULT_INTR_SLAVE_MASK;
   96              		.loc 1 254 0
   97 005e 1B4B     		ldr	r3, .L2+56
-  98 0060 5222     		mov	r2, #82
+  98 0060 3222     		mov	r2, #50
   99 0062 FF32     		add	r2, r2, #255
  100 0064 1A60     		str	r2, [r3]
  255:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_INTR_MASTER_MASK_REG = I2CVuggesystem_EZI2C_DEFAULT_INTR_MASTER_MASK;
@@ -381,7 +381,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  256:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_INTR_RX_MASK_REG     = I2CVuggesystem_EZI2C_DEFAULT_INTR_RX_MASK;
  105              		.loc 1 256 0
  106 006c 194B     		ldr	r3, .L2+64
- 107 006e 0022     		mov	r2, #0
+ 107 006e 0422     		mov	r2, #4
  108 0070 1A60     		str	r2, [r3]
  257:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_INTR_TX_MASK_REG     = I2CVuggesystem_EZI2C_DEFAULT_INTR_TX_MASK;
  109              		.loc 1 257 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  269:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  270:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_addrBuf1 = I2CVuggesystem_EZI2C_PRIMARY_SLAVE_ADDRESS;
  271:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_addrBuf2 = I2CVuggesystem_EZI2C_SECONDARY_SLAVE_ADDRESS;
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 8
 
 
  272:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif /* (I2CVuggesystem_SECONDARY_ADDRESS_ENABLE_CONST) */
@@ -432,7 +432,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  135              	.L2:
  136 0094 00000640 		.word	1074135040
  137 0098 60000640 		.word	1074135136
- 138 009c 00080040 		.word	1073743872
+ 138 009c 00F80040 		.word	1073805312
  139 00a0 70000640 		.word	1074135152
  140 00a4 00030640 		.word	1074135808
  141 00a8 07010080 		.word	-2147483385
@@ -441,7 +441,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  144 00b4 1000FE00 		.word	16646160
  145 00b8 00020640 		.word	1074135552
  146 00bc 04020640 		.word	1074135556
- 147 00c0 00000000 		.word	I2CVuggesystem_EZI2C_STRETCH_ISR
+ 147 00c0 00000000 		.word	I2CVuggesystem_EZI2C_NO_STRETCH_ISR
  148 00c4 C80E0640 		.word	1074138824
  149 00c8 880E0640 		.word	1074138760
  150 00cc 480F0640 		.word	1074138952
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  286:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  287:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Return:
  288:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  None
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 9
 
 
  289:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  204              		.thumb_func
  205              		.type	I2CVuggesystem_EzI2CGetActivity, %function
  206              	I2CVuggesystem_EzI2CGetActivity:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 10
 
 
  207              	.LFB2:
@@ -582,7 +582,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  332:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  333:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     status = I2CVuggesystem_curStatus;
  221              		.loc 1 333 0
- 222 000c 094B     		ldr	r3, .L9
+ 222 000c 0F4B     		ldr	r3, .L11
  223 000e 1B78     		ldrb	r3, [r3]
  224 0010 DBB2     		uxtb	r3, r3
  225 0012 7B60     		str	r3, [r7, #4]
@@ -598,57 +598,80 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  343:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         }
  344:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         #else
  345:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         {
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 11
 
 
  346:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             status |= I2CVuggesystem_CHECK_INTR_SLAVE(I2CVuggesystem_INTR_SLAVE_I2C_ADDR_MATCH) ?
+ 226              		.loc 1 346 0
+ 227 0014 0E4B     		ldr	r3, .L11+4
+ 228 0016 1A68     		ldr	r2, [r3]
+ 229 0018 4023     		mov	r3, #64
+ 230 001a 1340     		and	r3, r2
  347:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****                         I2CVuggesystem_EZI2C_STATUS_BUSY : 0u;
+ 231              		.loc 1 347 0
+ 232 001c 01D0     		beq	.L8
+ 233              		.loc 1 347 0 is_stmt 0 discriminator 1
+ 234 001e 2023     		mov	r3, #32
+ 235 0020 00E0     		b	.L9
+ 236              	.L8:
+ 237              		.loc 1 347 0 discriminator 2
+ 238 0022 0023     		mov	r3, #0
+ 239              	.L9:
+ 346:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****             status |= I2CVuggesystem_CHECK_INTR_SLAVE(I2CVuggesystem_INTR_SLAVE_I2C_ADDR_MATCH) ?
+ 240              		.loc 1 346 0 is_stmt 1
+ 241 0024 7A68     		ldr	r2, [r7, #4]
+ 242 0026 1343     		orr	r3, r2
+ 243 0028 7B60     		str	r3, [r7, #4]
  348:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         }
  349:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         #endif
  350:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  351:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif
  352:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  353:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     I2CVuggesystem_curStatus &= ((uint8) ~I2CVuggesystem_EZI2C_CLEAR_STATUS);
- 226              		.loc 1 353 0
- 227 0014 074B     		ldr	r3, .L9
- 228 0016 1B78     		ldrb	r3, [r3]
- 229 0018 DBB2     		uxtb	r3, r3
- 230 001a 1F22     		mov	r2, #31
- 231 001c 9343     		bic	r3, r2
- 232 001e DAB2     		uxtb	r2, r3
- 233 0020 044B     		ldr	r3, .L9
- 234 0022 1A70     		strb	r2, [r3]
+ 244              		.loc 1 353 0
+ 245 002a 084B     		ldr	r3, .L11
+ 246 002c 1B78     		ldrb	r3, [r3]
+ 247 002e DBB2     		uxtb	r3, r3
+ 248 0030 1F22     		mov	r2, #31
+ 249 0032 9343     		bic	r3, r2
+ 250 0034 DAB2     		uxtb	r2, r3
+ 251 0036 054B     		ldr	r3, .L11
+ 252 0038 1A70     		strb	r2, [r3]
  354:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  355:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     I2CVuggesystem_EnableInt();   /* Release lock */
- 235              		.loc 1 355 0
- 236 0024 0A20     		mov	r0, #10
- 237 0026 FFF7FEFF 		bl	CyIntEnable
+ 253              		.loc 1 355 0
+ 254 003a 0A20     		mov	r0, #10
+ 255 003c FFF7FEFF 		bl	CyIntEnable
  356:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  357:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     return(status);
- 238              		.loc 1 357 0
- 239 002a 7B68     		ldr	r3, [r7, #4]
+ 256              		.loc 1 357 0
+ 257 0040 7B68     		ldr	r3, [r7, #4]
  358:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** }
- 240              		.loc 1 358 0
- 241 002c 181C     		mov	r0, r3
- 242 002e BD46     		mov	sp, r7
- 243 0030 02B0     		add	sp, sp, #8
- 244              		@ sp needed
- 245 0032 80BD     		pop	{r7, pc}
- 246              	.L10:
- 247              		.align	2
- 248              	.L9:
- 249 0034 00000000 		.word	I2CVuggesystem_curStatus
- 250              		.cfi_endproc
- 251              	.LFE2:
- 252              		.size	I2CVuggesystem_EzI2CGetActivity, .-I2CVuggesystem_EzI2CGetActivity
- 253              		.section	.text.I2CVuggesystem_EzI2CSetAddress1,"ax",%progbits
- 254              		.align	2
- 255              		.global	I2CVuggesystem_EzI2CSetAddress1
- 256              		.code	16
- 257              		.thumb_func
- 258              		.type	I2CVuggesystem_EzI2CSetAddress1, %function
- 259              	I2CVuggesystem_EzI2CSetAddress1:
- 260              	.LFB3:
+ 258              		.loc 1 358 0
+ 259 0042 181C     		mov	r0, r3
+ 260 0044 BD46     		mov	sp, r7
+ 261 0046 02B0     		add	sp, sp, #8
+ 262              		@ sp needed
+ 263 0048 80BD     		pop	{r7, pc}
+ 264              	.L12:
+ 265 004a C046     		.align	2
+ 266              	.L11:
+ 267 004c 00000000 		.word	I2CVuggesystem_curStatus
+ 268 0050 400F0640 		.word	1074138944
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 12
+
+
+ 269              		.cfi_endproc
+ 270              	.LFE2:
+ 271              		.size	I2CVuggesystem_EzI2CGetActivity, .-I2CVuggesystem_EzI2CGetActivity
+ 272              		.section	.text.I2CVuggesystem_EzI2CSetAddress1,"ax",%progbits
+ 273              		.align	2
+ 274              		.global	I2CVuggesystem_EzI2CSetAddress1
+ 275              		.code	16
+ 276              		.thumb_func
+ 277              		.type	I2CVuggesystem_EzI2CSetAddress1, %function
+ 278              	I2CVuggesystem_EzI2CSetAddress1:
+ 279              	.LFB3:
  359:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  360:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  361:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** /*******************************************************************************
@@ -658,9 +681,6 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  365:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  366:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Sets the primary I2C slave address.
  367:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 12
-
-
  368:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Parameters:
  369:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  address: I2C slave address for the secondary device.
  370:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *           This address is the 7-bit right-justified slave address and does
@@ -673,18 +693,18 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  377:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *******************************************************************************/
  378:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** void I2CVuggesystem_EzI2CSetAddress1(uint32 address)
  379:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** {
- 261              		.loc 1 379 0
- 262              		.cfi_startproc
- 263 0000 80B5     		push	{r7, lr}
- 264              		.cfi_def_cfa_offset 8
- 265              		.cfi_offset 7, -8
- 266              		.cfi_offset 14, -4
- 267 0002 84B0     		sub	sp, sp, #16
- 268              		.cfi_def_cfa_offset 24
- 269 0004 00AF     		add	r7, sp, #0
- 270              		.cfi_def_cfa_register 7
- 271 0006 7860     		str	r0, [r7, #4]
- 272              	.LBB2:
+ 280              		.loc 1 379 0
+ 281              		.cfi_startproc
+ 282 0000 80B5     		push	{r7, lr}
+ 283              		.cfi_def_cfa_offset 8
+ 284              		.cfi_offset 7, -8
+ 285              		.cfi_offset 14, -4
+ 286 0002 84B0     		sub	sp, sp, #16
+ 287              		.cfi_def_cfa_offset 24
+ 288 0004 00AF     		add	r7, sp, #0
+ 289              		.cfi_def_cfa_register 7
+ 290 0006 7860     		str	r0, [r7, #4]
+ 291              	.LBB2:
  380:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #if(I2CVuggesystem_SECONDARY_ADDRESS_ENABLE)
  381:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     {
  382:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_addrBuf1 = (uint8) address;
@@ -697,59 +717,59 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  389:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         uint32 matchReg;
  390:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  391:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         matchReg = I2CVuggesystem_RX_MATCH_REG;
- 273              		.loc 1 391 0
- 274 0008 094B     		ldr	r3, .L12
- 275 000a 1B68     		ldr	r3, [r3]
- 276 000c FB60     		str	r3, [r7, #12]
+ 292              		.loc 1 391 0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 13
+
+
+ 293 0008 094B     		ldr	r3, .L14
+ 294 000a 1B68     		ldr	r3, [r3]
+ 295 000c FB60     		str	r3, [r7, #12]
  392:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  393:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         matchReg &= ((uint32) ~I2CVuggesystem_RX_MATCH_ADDR_MASK);            /* Clear address bits
- 277              		.loc 1 393 0
- 278 000e FB68     		ldr	r3, [r7, #12]
- 279 0010 FF22     		mov	r2, #255
- 280 0012 9343     		bic	r3, r2
- 281 0014 FB60     		str	r3, [r7, #12]
+ 296              		.loc 1 393 0
+ 297 000e FB68     		ldr	r3, [r7, #12]
+ 298 0010 FF22     		mov	r2, #255
+ 299 0012 9343     		bic	r3, r2
+ 300 0014 FB60     		str	r3, [r7, #12]
  394:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         matchReg |= ((uint32)  I2CVuggesystem_GET_I2C_8BIT_ADDRESS(address)); /* Set mask */
- 282              		.loc 1 394 0
- 283 0016 7B68     		ldr	r3, [r7, #4]
- 284 0018 5A00     		lsl	r2, r3, #1
- 285 001a FF23     		mov	r3, #255
- 286 001c 1340     		and	r3, r2
- 287 001e FA68     		ldr	r2, [r7, #12]
- 288 0020 1343     		orr	r3, r2
- 289 0022 FB60     		str	r3, [r7, #12]
+ 301              		.loc 1 394 0
+ 302 0016 7B68     		ldr	r3, [r7, #4]
+ 303 0018 5A00     		lsl	r2, r3, #1
+ 304 001a FF23     		mov	r3, #255
+ 305 001c 1340     		and	r3, r2
+ 306 001e FA68     		ldr	r2, [r7, #12]
+ 307 0020 1343     		orr	r3, r2
+ 308 0022 FB60     		str	r3, [r7, #12]
  395:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 13
-
-
  396:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_RX_MATCH_REG = matchReg;
- 290              		.loc 1 396 0
- 291 0024 024B     		ldr	r3, .L12
- 292 0026 FA68     		ldr	r2, [r7, #12]
- 293 0028 1A60     		str	r2, [r3]
- 294              	.LBE2:
+ 309              		.loc 1 396 0
+ 310 0024 024B     		ldr	r3, .L14
+ 311 0026 FA68     		ldr	r2, [r7, #12]
+ 312 0028 1A60     		str	r2, [r3]
+ 313              	.LBE2:
  397:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  398:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif
  399:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** }
- 295              		.loc 1 399 0
- 296 002a BD46     		mov	sp, r7
- 297 002c 04B0     		add	sp, sp, #16
- 298              		@ sp needed
- 299 002e 80BD     		pop	{r7, pc}
- 300              	.L13:
- 301              		.align	2
- 302              	.L12:
- 303 0030 10030640 		.word	1074135824
- 304              		.cfi_endproc
- 305              	.LFE3:
- 306              		.size	I2CVuggesystem_EzI2CSetAddress1, .-I2CVuggesystem_EzI2CSetAddress1
- 307              		.section	.text.I2CVuggesystem_EzI2CGetAddress1,"ax",%progbits
- 308              		.align	2
- 309              		.global	I2CVuggesystem_EzI2CGetAddress1
- 310              		.code	16
- 311              		.thumb_func
- 312              		.type	I2CVuggesystem_EzI2CGetAddress1, %function
- 313              	I2CVuggesystem_EzI2CGetAddress1:
- 314              	.LFB4:
+ 314              		.loc 1 399 0
+ 315 002a BD46     		mov	sp, r7
+ 316 002c 04B0     		add	sp, sp, #16
+ 317              		@ sp needed
+ 318 002e 80BD     		pop	{r7, pc}
+ 319              	.L15:
+ 320              		.align	2
+ 321              	.L14:
+ 322 0030 10030640 		.word	1074135824
+ 323              		.cfi_endproc
+ 324              	.LFE3:
+ 325              		.size	I2CVuggesystem_EzI2CSetAddress1, .-I2CVuggesystem_EzI2CSetAddress1
+ 326              		.section	.text.I2CVuggesystem_EzI2CGetAddress1,"ax",%progbits
+ 327              		.align	2
+ 328              		.global	I2CVuggesystem_EzI2CGetAddress1
+ 329              		.code	16
+ 330              		.thumb_func
+ 331              		.type	I2CVuggesystem_EzI2CGetAddress1, %function
+ 332              	I2CVuggesystem_EzI2CGetAddress1:
+ 333              	.LFB4:
  400:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  401:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  402:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** /*******************************************************************************
@@ -758,6 +778,9 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  405:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  406:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  407:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Gets the primary I2C slave 7-bit address.
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 14
+
+
  408:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  409:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Parameters:
  410:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  None
@@ -771,19 +794,16 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  418:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *******************************************************************************/
  419:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** uint32 I2CVuggesystem_EzI2CGetAddress1(void)
  420:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** {
- 315              		.loc 1 420 0
- 316              		.cfi_startproc
- 317 0000 80B5     		push	{r7, lr}
- 318              		.cfi_def_cfa_offset 8
- 319              		.cfi_offset 7, -8
- 320              		.cfi_offset 14, -4
- 321 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 14
-
-
- 322              		.cfi_def_cfa_offset 16
- 323 0004 00AF     		add	r7, sp, #0
- 324              		.cfi_def_cfa_register 7
+ 334              		.loc 1 420 0
+ 335              		.cfi_startproc
+ 336 0000 80B5     		push	{r7, lr}
+ 337              		.cfi_def_cfa_offset 8
+ 338              		.cfi_offset 7, -8
+ 339              		.cfi_offset 14, -4
+ 340 0002 82B0     		sub	sp, sp, #8
+ 341              		.cfi_def_cfa_offset 16
+ 342 0004 00AF     		add	r7, sp, #0
+ 343              		.cfi_def_cfa_register 7
  421:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     uint32 address;
  422:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  423:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #if(I2CVuggesystem_SECONDARY_ADDRESS_ENABLE)
@@ -793,42 +813,45 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  427:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #else
  428:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     {
  429:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         address = (I2CVuggesystem_GET_RX_MATCH_ADDR(I2CVuggesystem_RX_MATCH_REG) >>
- 325              		.loc 1 429 0
- 326 0006 054B     		ldr	r3, .L16
- 327 0008 1A68     		ldr	r2, [r3]
- 328 000a FF23     		mov	r3, #255
- 329 000c 1340     		and	r3, r2
- 330 000e 5B08     		lsr	r3, r3, #1
- 331 0010 7B60     		str	r3, [r7, #4]
+ 344              		.loc 1 429 0
+ 345 0006 054B     		ldr	r3, .L18
+ 346 0008 1A68     		ldr	r2, [r3]
+ 347 000a FF23     		mov	r3, #255
+ 348 000c 1340     		and	r3, r2
+ 349 000e 5B08     		lsr	r3, r3, #1
+ 350 0010 7B60     		str	r3, [r7, #4]
  430:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****                    I2CVuggesystem_I2C_SLAVE_ADDR_POS);
  431:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  432:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     #endif
  433:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  434:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     return(address);
- 332              		.loc 1 434 0
- 333 0012 7B68     		ldr	r3, [r7, #4]
+ 351              		.loc 1 434 0
+ 352 0012 7B68     		ldr	r3, [r7, #4]
  435:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** }
- 334              		.loc 1 435 0
- 335 0014 181C     		mov	r0, r3
- 336 0016 BD46     		mov	sp, r7
- 337 0018 02B0     		add	sp, sp, #8
- 338              		@ sp needed
- 339 001a 80BD     		pop	{r7, pc}
- 340              	.L17:
- 341              		.align	2
- 342              	.L16:
- 343 001c 10030640 		.word	1074135824
- 344              		.cfi_endproc
- 345              	.LFE4:
- 346              		.size	I2CVuggesystem_EzI2CGetAddress1, .-I2CVuggesystem_EzI2CGetAddress1
- 347              		.section	.text.I2CVuggesystem_EzI2CSetBuffer1,"ax",%progbits
- 348              		.align	2
- 349              		.global	I2CVuggesystem_EzI2CSetBuffer1
- 350              		.code	16
- 351              		.thumb_func
- 352              		.type	I2CVuggesystem_EzI2CSetBuffer1, %function
- 353              	I2CVuggesystem_EzI2CSetBuffer1:
- 354              	.LFB5:
+ 353              		.loc 1 435 0
+ 354 0014 181C     		mov	r0, r3
+ 355 0016 BD46     		mov	sp, r7
+ 356 0018 02B0     		add	sp, sp, #8
+ 357              		@ sp needed
+ 358 001a 80BD     		pop	{r7, pc}
+ 359              	.L19:
+ 360              		.align	2
+ 361              	.L18:
+ 362 001c 10030640 		.word	1074135824
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 15
+
+
+ 363              		.cfi_endproc
+ 364              	.LFE4:
+ 365              		.size	I2CVuggesystem_EzI2CGetAddress1, .-I2CVuggesystem_EzI2CGetAddress1
+ 366              		.section	.text.I2CVuggesystem_EzI2CSetBuffer1,"ax",%progbits
+ 367              		.align	2
+ 368              		.global	I2CVuggesystem_EzI2CSetBuffer1
+ 369              		.code	16
+ 370              		.thumb_func
+ 371              		.type	I2CVuggesystem_EzI2CSetBuffer1, %function
+ 372              	I2CVuggesystem_EzI2CSetBuffer1:
+ 373              	.LFB5:
  436:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  437:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  438:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** /*******************************************************************************
@@ -838,9 +861,6 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  442:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  443:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Sets up the data buffer to be exposed to the I2C master on a primary slave
  444:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  address request.
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 15
-
-
  445:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  446:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Parameters:
  447:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  bufSize: Size of the buffer in bytes.
@@ -855,80 +875,80 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  456:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *******************************************************************************/
  457:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** void I2CVuggesystem_EzI2CSetBuffer1(uint32 bufSize, uint32 rwBoundary, volatile uint8 * buffer)
  458:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** {
- 355              		.loc 1 458 0
- 356              		.cfi_startproc
- 357 0000 80B5     		push	{r7, lr}
- 358              		.cfi_def_cfa_offset 8
- 359              		.cfi_offset 7, -8
- 360              		.cfi_offset 14, -4
- 361 0002 84B0     		sub	sp, sp, #16
- 362              		.cfi_def_cfa_offset 24
- 363 0004 00AF     		add	r7, sp, #0
- 364              		.cfi_def_cfa_register 7
- 365 0006 F860     		str	r0, [r7, #12]
- 366 0008 B960     		str	r1, [r7, #8]
- 367 000a 7A60     		str	r2, [r7, #4]
+ 374              		.loc 1 458 0
+ 375              		.cfi_startproc
+ 376 0000 80B5     		push	{r7, lr}
+ 377              		.cfi_def_cfa_offset 8
+ 378              		.cfi_offset 7, -8
+ 379              		.cfi_offset 14, -4
+ 380 0002 84B0     		sub	sp, sp, #16
+ 381              		.cfi_def_cfa_offset 24
+ 382 0004 00AF     		add	r7, sp, #0
+ 383              		.cfi_def_cfa_register 7
+ 384 0006 F860     		str	r0, [r7, #12]
+ 385 0008 B960     		str	r1, [r7, #8]
+ 386 000a 7A60     		str	r2, [r7, #4]
  459:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     if (NULL != buffer)
- 368              		.loc 1 459 0
- 369 000c 7B68     		ldr	r3, [r7, #4]
- 370 000e 002B     		cmp	r3, #0
- 371 0010 10D0     		beq	.L18
+ 387              		.loc 1 459 0
+ 388 000c 7B68     		ldr	r3, [r7, #4]
+ 389 000e 002B     		cmp	r3, #0
+ 390 0010 10D0     		beq	.L20
  460:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     {
  461:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_DisableInt();  /* Lock from interruption */
- 372              		.loc 1 461 0
- 373 0012 0A20     		mov	r0, #10
- 374 0014 FFF7FEFF 		bl	CyIntDisable
+ 391              		.loc 1 461 0
+ 392 0012 0A20     		mov	r0, #10
+ 393 0014 FFF7FEFF 		bl	CyIntDisable
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 16
+
+
  462:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  463:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_dataBuffer1 =  buffer;
- 375              		.loc 1 463 0
- 376 0018 084B     		ldr	r3, .L20
- 377 001a 7A68     		ldr	r2, [r7, #4]
- 378 001c 1A60     		str	r2, [r3]
+ 394              		.loc 1 463 0
+ 395 0018 084B     		ldr	r3, .L22
+ 396 001a 7A68     		ldr	r2, [r7, #4]
+ 397 001c 1A60     		str	r2, [r3]
  464:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_bufSizeBuf1 = (uint16) bufSize;
- 379              		.loc 1 464 0
- 380 001e FB68     		ldr	r3, [r7, #12]
- 381 0020 9AB2     		uxth	r2, r3
- 382 0022 074B     		ldr	r3, .L20+4
- 383 0024 1A80     		strh	r2, [r3]
+ 398              		.loc 1 464 0
+ 399 001e FB68     		ldr	r3, [r7, #12]
+ 400 0020 9AB2     		uxth	r2, r3
+ 401 0022 074B     		ldr	r3, .L22+4
+ 402 0024 1A80     		strh	r2, [r3]
  465:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_protectBuf1 = (uint16) rwBoundary;
- 384              		.loc 1 465 0
- 385 0026 BB68     		ldr	r3, [r7, #8]
- 386 0028 9AB2     		uxth	r2, r3
- 387 002a 064B     		ldr	r3, .L20+8
- 388 002c 1A80     		strh	r2, [r3]
+ 403              		.loc 1 465 0
+ 404 0026 BB68     		ldr	r3, [r7, #8]
+ 405 0028 9AB2     		uxth	r2, r3
+ 406 002a 064B     		ldr	r3, .L22+8
+ 407 002c 1A80     		strh	r2, [r3]
  466:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  467:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****         I2CVuggesystem_EnableInt();   /* Release lock */
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 16
-
-
- 389              		.loc 1 467 0
- 390 002e 0A20     		mov	r0, #10
- 391 0030 FFF7FEFF 		bl	CyIntEnable
- 392              	.L18:
+ 408              		.loc 1 467 0
+ 409 002e 0A20     		mov	r0, #10
+ 410 0030 FFF7FEFF 		bl	CyIntEnable
+ 411              	.L20:
  468:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     }
  469:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** }
- 393              		.loc 1 469 0
- 394 0034 BD46     		mov	sp, r7
- 395 0036 04B0     		add	sp, sp, #16
- 396              		@ sp needed
- 397 0038 80BD     		pop	{r7, pc}
- 398              	.L21:
- 399 003a C046     		.align	2
- 400              	.L20:
- 401 003c 00000000 		.word	I2CVuggesystem_dataBuffer1
- 402 0040 00000000 		.word	I2CVuggesystem_bufSizeBuf1
- 403 0044 00000000 		.word	I2CVuggesystem_protectBuf1
- 404              		.cfi_endproc
- 405              	.LFE5:
- 406              		.size	I2CVuggesystem_EzI2CSetBuffer1, .-I2CVuggesystem_EzI2CSetBuffer1
- 407              		.section	.text.I2CVuggesystem_EzI2CSetReadBoundaryBuffer1,"ax",%progbits
- 408              		.align	2
- 409              		.global	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1
- 410              		.code	16
- 411              		.thumb_func
- 412              		.type	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1, %function
- 413              	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1:
- 414              	.LFB6:
+ 412              		.loc 1 469 0
+ 413 0034 BD46     		mov	sp, r7
+ 414 0036 04B0     		add	sp, sp, #16
+ 415              		@ sp needed
+ 416 0038 80BD     		pop	{r7, pc}
+ 417              	.L23:
+ 418 003a C046     		.align	2
+ 419              	.L22:
+ 420 003c 00000000 		.word	I2CVuggesystem_dataBuffer1
+ 421 0040 00000000 		.word	I2CVuggesystem_bufSizeBuf1
+ 422 0044 00000000 		.word	I2CVuggesystem_protectBuf1
+ 423              		.cfi_endproc
+ 424              	.LFE5:
+ 425              		.size	I2CVuggesystem_EzI2CSetBuffer1, .-I2CVuggesystem_EzI2CSetBuffer1
+ 426              		.section	.text.I2CVuggesystem_EzI2CSetReadBoundaryBuffer1,"ax",%progbits
+ 427              		.align	2
+ 428              		.global	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1
+ 429              		.code	16
+ 430              		.thumb_func
+ 431              		.type	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1, %function
+ 432              	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1:
+ 433              	.LFB6:
  470:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  471:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** 
  472:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** /*******************************************************************************
@@ -938,6 +958,9 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  476:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Summary:
  477:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  Sets the read only boundary in the data buffer to be exposed to the I2C
  478:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  master on a primary slave address request.
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 17
+
+
  479:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *
  480:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** * Parameters:
  481:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *  rwBoundry: Sets how many bytes are writeable in the beginning of the buffer.
@@ -950,928 +973,925 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 1
  488:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** *******************************************************************************/
  489:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** void I2CVuggesystem_EzI2CSetReadBoundaryBuffer1(uint32 rwBoundary)
  490:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** {
- 415              		.loc 1 490 0
- 416              		.cfi_startproc
- 417 0000 80B5     		push	{r7, lr}
- 418              		.cfi_def_cfa_offset 8
- 419              		.cfi_offset 7, -8
- 420              		.cfi_offset 14, -4
- 421 0002 82B0     		sub	sp, sp, #8
- 422              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 17
-
-
- 423 0004 00AF     		add	r7, sp, #0
- 424              		.cfi_def_cfa_register 7
- 425 0006 7860     		str	r0, [r7, #4]
+ 434              		.loc 1 490 0
+ 435              		.cfi_startproc
+ 436 0000 80B5     		push	{r7, lr}
+ 437              		.cfi_def_cfa_offset 8
+ 438              		.cfi_offset 7, -8
+ 439              		.cfi_offset 14, -4
+ 440 0002 82B0     		sub	sp, sp, #8
+ 441              		.cfi_def_cfa_offset 16
+ 442 0004 00AF     		add	r7, sp, #0
+ 443              		.cfi_def_cfa_register 7
+ 444 0006 7860     		str	r0, [r7, #4]
  491:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c ****     I2CVuggesystem_protectBuf1 = (uint16) rwBoundary;
- 426              		.loc 1 491 0
- 427 0008 7B68     		ldr	r3, [r7, #4]
- 428 000a 9AB2     		uxth	r2, r3
- 429 000c 024B     		ldr	r3, .L23
- 430 000e 1A80     		strh	r2, [r3]
+ 445              		.loc 1 491 0
+ 446 0008 7B68     		ldr	r3, [r7, #4]
+ 447 000a 9AB2     		uxth	r2, r3
+ 448 000c 024B     		ldr	r3, .L25
+ 449 000e 1A80     		strh	r2, [r3]
  492:.\Generated_Source\PSoC4/I2CVuggesystem_EZI2C.c **** }
- 431              		.loc 1 492 0
- 432 0010 BD46     		mov	sp, r7
- 433 0012 02B0     		add	sp, sp, #8
- 434              		@ sp needed
- 435 0014 80BD     		pop	{r7, pc}
- 436              	.L24:
- 437 0016 C046     		.align	2
- 438              	.L23:
- 439 0018 00000000 		.word	I2CVuggesystem_protectBuf1
- 440              		.cfi_endproc
- 441              	.LFE6:
- 442              		.size	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1, .-I2CVuggesystem_EzI2CSetReadBoundaryBuffer1
- 443              		.text
- 444              	.Letext0:
- 445              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
- 446              		.section	.debug_info,"",%progbits
- 447              	.Ldebug_info0:
- 448 0000 58020000 		.4byte	0x258
- 449 0004 0400     		.2byte	0x4
- 450 0006 00000000 		.4byte	.Ldebug_abbrev0
- 451 000a 04       		.byte	0x4
- 452 000b 01       		.uleb128 0x1
- 453 000c 00010000 		.4byte	.LASF37
- 454 0010 01       		.byte	0x1
- 455 0011 58000000 		.4byte	.LASF38
- 456 0015 0F030000 		.4byte	.LASF39
- 457 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 458 001d 00000000 		.4byte	0
- 459 0021 00000000 		.4byte	.Ldebug_line0
- 460 0025 02       		.uleb128 0x2
- 461 0026 01       		.byte	0x1
- 462 0027 06       		.byte	0x6
- 463 0028 C3020000 		.4byte	.LASF0
- 464 002c 02       		.uleb128 0x2
- 465 002d 01       		.byte	0x1
- 466 002e 08       		.byte	0x8
- 467 002f A7010000 		.4byte	.LASF1
- 468 0033 02       		.uleb128 0x2
- 469 0034 02       		.byte	0x2
- 470 0035 05       		.byte	0x5
- 471 0036 6D020000 		.4byte	.LASF2
- 472 003a 02       		.uleb128 0x2
- 473 003b 02       		.byte	0x2
- 474 003c 07       		.byte	0x7
- 475 003d 88000000 		.4byte	.LASF3
- 476 0041 02       		.uleb128 0x2
- 477 0042 04       		.byte	0x4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 18
+ 450              		.loc 1 492 0
+ 451 0010 BD46     		mov	sp, r7
+ 452 0012 02B0     		add	sp, sp, #8
+ 453              		@ sp needed
+ 454 0014 80BD     		pop	{r7, pc}
+ 455              	.L26:
+ 456 0016 C046     		.align	2
+ 457              	.L25:
+ 458 0018 00000000 		.word	I2CVuggesystem_protectBuf1
+ 459              		.cfi_endproc
+ 460              	.LFE6:
+ 461              		.size	I2CVuggesystem_EzI2CSetReadBoundaryBuffer1, .-I2CVuggesystem_EzI2CSetReadBoundaryBuffer1
+ 462              		.text
+ 463              	.Letext0:
+ 464              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 465              		.section	.debug_info,"",%progbits
+ 466              	.Ldebug_info0:
+ 467 0000 58020000 		.4byte	0x258
+ 468 0004 0400     		.2byte	0x4
+ 469 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 470 000a 04       		.byte	0x4
+ 471 000b 01       		.uleb128 0x1
+ 472 000c 00010000 		.4byte	.LASF37
+ 473 0010 01       		.byte	0x1
+ 474 0011 58000000 		.4byte	.LASF38
+ 475 0015 0F030000 		.4byte	.LASF39
+ 476 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 18
 
 
- 478 0043 05       		.byte	0x5
- 479 0044 B1020000 		.4byte	.LASF4
- 480 0048 02       		.uleb128 0x2
- 481 0049 04       		.byte	0x4
- 482 004a 07       		.byte	0x7
- 483 004b B5010000 		.4byte	.LASF5
- 484 004f 02       		.uleb128 0x2
- 485 0050 08       		.byte	0x8
- 486 0051 05       		.byte	0x5
- 487 0052 53020000 		.4byte	.LASF6
- 488 0056 02       		.uleb128 0x2
- 489 0057 08       		.byte	0x8
- 490 0058 07       		.byte	0x7
- 491 0059 2C020000 		.4byte	.LASF7
- 492 005d 03       		.uleb128 0x3
- 493 005e 04       		.byte	0x4
- 494 005f 05       		.byte	0x5
- 495 0060 696E7400 		.ascii	"int\000"
- 496 0064 02       		.uleb128 0x2
- 497 0065 04       		.byte	0x4
- 498 0066 07       		.byte	0x7
- 499 0067 FC010000 		.4byte	.LASF8
- 500 006b 04       		.uleb128 0x4
- 501 006c C7010000 		.4byte	.LASF9
- 502 0070 02       		.byte	0x2
- 503 0071 A1       		.byte	0xa1
- 504 0072 2C000000 		.4byte	0x2c
- 505 0076 04       		.uleb128 0x4
- 506 0077 EE010000 		.4byte	.LASF10
- 507 007b 02       		.byte	0x2
- 508 007c A2       		.byte	0xa2
- 509 007d 3A000000 		.4byte	0x3a
- 510 0081 04       		.uleb128 0x4
- 511 0082 F5010000 		.4byte	.LASF11
- 512 0086 02       		.byte	0x2
- 513 0087 A3       		.byte	0xa3
- 514 0088 48000000 		.4byte	0x48
- 515 008c 02       		.uleb128 0x2
- 516 008d 04       		.byte	0x4
- 517 008e 04       		.byte	0x4
- 518 008f FA000000 		.4byte	.LASF12
- 519 0093 02       		.uleb128 0x2
- 520 0094 08       		.byte	0x8
- 521 0095 04       		.byte	0x4
- 522 0096 CD010000 		.4byte	.LASF13
- 523 009a 02       		.uleb128 0x2
- 524 009b 01       		.byte	0x1
- 525 009c 08       		.byte	0x8
- 526 009d 68020000 		.4byte	.LASF14
- 527 00a1 05       		.uleb128 0x5
- 528 00a2 6B000000 		.4byte	0x6b
- 529 00a6 06       		.uleb128 0x6
- 530 00a7 00000000 		.4byte	.LASF15
- 531 00ab 02       		.byte	0x2
- 532 00ac 4D01     		.2byte	0x14d
- 533 00ae B2000000 		.4byte	0xb2
- 534 00b2 05       		.uleb128 0x5
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 19
+ 477 001d 00000000 		.4byte	0
+ 478 0021 00000000 		.4byte	.Ldebug_line0
+ 479 0025 02       		.uleb128 0x2
+ 480 0026 01       		.byte	0x1
+ 481 0027 06       		.byte	0x6
+ 482 0028 C3020000 		.4byte	.LASF0
+ 483 002c 02       		.uleb128 0x2
+ 484 002d 01       		.byte	0x1
+ 485 002e 08       		.byte	0x8
+ 486 002f A7010000 		.4byte	.LASF1
+ 487 0033 02       		.uleb128 0x2
+ 488 0034 02       		.byte	0x2
+ 489 0035 05       		.byte	0x5
+ 490 0036 6D020000 		.4byte	.LASF2
+ 491 003a 02       		.uleb128 0x2
+ 492 003b 02       		.byte	0x2
+ 493 003c 07       		.byte	0x7
+ 494 003d 88000000 		.4byte	.LASF3
+ 495 0041 02       		.uleb128 0x2
+ 496 0042 04       		.byte	0x4
+ 497 0043 05       		.byte	0x5
+ 498 0044 B1020000 		.4byte	.LASF4
+ 499 0048 02       		.uleb128 0x2
+ 500 0049 04       		.byte	0x4
+ 501 004a 07       		.byte	0x7
+ 502 004b B5010000 		.4byte	.LASF5
+ 503 004f 02       		.uleb128 0x2
+ 504 0050 08       		.byte	0x8
+ 505 0051 05       		.byte	0x5
+ 506 0052 53020000 		.4byte	.LASF6
+ 507 0056 02       		.uleb128 0x2
+ 508 0057 08       		.byte	0x8
+ 509 0058 07       		.byte	0x7
+ 510 0059 2C020000 		.4byte	.LASF7
+ 511 005d 03       		.uleb128 0x3
+ 512 005e 04       		.byte	0x4
+ 513 005f 05       		.byte	0x5
+ 514 0060 696E7400 		.ascii	"int\000"
+ 515 0064 02       		.uleb128 0x2
+ 516 0065 04       		.byte	0x4
+ 517 0066 07       		.byte	0x7
+ 518 0067 FC010000 		.4byte	.LASF8
+ 519 006b 04       		.uleb128 0x4
+ 520 006c C7010000 		.4byte	.LASF9
+ 521 0070 02       		.byte	0x2
+ 522 0071 A1       		.byte	0xa1
+ 523 0072 2C000000 		.4byte	0x2c
+ 524 0076 04       		.uleb128 0x4
+ 525 0077 EE010000 		.4byte	.LASF10
+ 526 007b 02       		.byte	0x2
+ 527 007c A2       		.byte	0xa2
+ 528 007d 3A000000 		.4byte	0x3a
+ 529 0081 04       		.uleb128 0x4
+ 530 0082 F5010000 		.4byte	.LASF11
+ 531 0086 02       		.byte	0x2
+ 532 0087 A3       		.byte	0xa3
+ 533 0088 48000000 		.4byte	0x48
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 19
 
 
- 535 00b3 81000000 		.4byte	0x81
- 536 00b7 02       		.uleb128 0x2
- 537 00b8 04       		.byte	0x4
- 538 00b9 07       		.byte	0x7
- 539 00ba 4A020000 		.4byte	.LASF16
- 540 00be 07       		.uleb128 0x7
- 541 00bf 98020000 		.4byte	.LASF17
- 542 00c3 01       		.byte	0x1
- 543 00c4 D5       		.byte	0xd5
- 544 00c5 00000000 		.4byte	.LFB0
- 545 00c9 EC000000 		.4byte	.LFE0-.LFB0
- 546 00cd 01       		.uleb128 0x1
- 547 00ce 9C       		.byte	0x9c
- 548 00cf 08       		.uleb128 0x8
- 549 00d0 7E030000 		.4byte	.LASF18
- 550 00d4 01       		.byte	0x1
- 551 00d5 2301     		.2byte	0x123
- 552 00d7 00000000 		.4byte	.LFB1
- 553 00db 24000000 		.4byte	.LFE1-.LFB1
- 554 00df 01       		.uleb128 0x1
- 555 00e0 9C       		.byte	0x9c
- 556 00e1 09       		.uleb128 0x9
- 557 00e2 CF020000 		.4byte	.LASF21
- 558 00e6 01       		.byte	0x1
- 559 00e7 4701     		.2byte	0x147
- 560 00e9 81000000 		.4byte	0x81
- 561 00ed 00000000 		.4byte	.LFB2
- 562 00f1 38000000 		.4byte	.LFE2-.LFB2
- 563 00f5 01       		.uleb128 0x1
- 564 00f6 9C       		.byte	0x9c
- 565 00f7 0B010000 		.4byte	0x10b
- 566 00fb 0A       		.uleb128 0xa
- 567 00fc 61020000 		.4byte	.LASF19
- 568 0100 01       		.byte	0x1
- 569 0101 4901     		.2byte	0x149
- 570 0103 81000000 		.4byte	0x81
- 571 0107 02       		.uleb128 0x2
- 572 0108 91       		.byte	0x91
- 573 0109 74       		.sleb128 -12
- 574 010a 00       		.byte	0
- 575 010b 0B       		.uleb128 0xb
- 576 010c BF000000 		.4byte	.LASF24
- 577 0110 01       		.byte	0x1
- 578 0111 7A01     		.2byte	0x17a
- 579 0113 00000000 		.4byte	.LFB3
- 580 0117 34000000 		.4byte	.LFE3-.LFB3
- 581 011b 01       		.uleb128 0x1
- 582 011c 9C       		.byte	0x9c
- 583 011d 4A010000 		.4byte	0x14a
- 584 0121 0C       		.uleb128 0xc
- 585 0122 24020000 		.4byte	.LASF23
- 586 0126 01       		.byte	0x1
- 587 0127 7A01     		.2byte	0x17a
- 588 0129 81000000 		.4byte	0x81
- 589 012d 02       		.uleb128 0x2
- 590 012e 91       		.byte	0x91
- 591 012f 6C       		.sleb128 -20
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 20
+ 534 008c 02       		.uleb128 0x2
+ 535 008d 04       		.byte	0x4
+ 536 008e 04       		.byte	0x4
+ 537 008f FA000000 		.4byte	.LASF12
+ 538 0093 02       		.uleb128 0x2
+ 539 0094 08       		.byte	0x8
+ 540 0095 04       		.byte	0x4
+ 541 0096 CD010000 		.4byte	.LASF13
+ 542 009a 02       		.uleb128 0x2
+ 543 009b 01       		.byte	0x1
+ 544 009c 08       		.byte	0x8
+ 545 009d 68020000 		.4byte	.LASF14
+ 546 00a1 05       		.uleb128 0x5
+ 547 00a2 6B000000 		.4byte	0x6b
+ 548 00a6 06       		.uleb128 0x6
+ 549 00a7 00000000 		.4byte	.LASF15
+ 550 00ab 02       		.byte	0x2
+ 551 00ac 4D01     		.2byte	0x14d
+ 552 00ae B2000000 		.4byte	0xb2
+ 553 00b2 05       		.uleb128 0x5
+ 554 00b3 81000000 		.4byte	0x81
+ 555 00b7 02       		.uleb128 0x2
+ 556 00b8 04       		.byte	0x4
+ 557 00b9 07       		.byte	0x7
+ 558 00ba 4A020000 		.4byte	.LASF16
+ 559 00be 07       		.uleb128 0x7
+ 560 00bf 98020000 		.4byte	.LASF17
+ 561 00c3 01       		.byte	0x1
+ 562 00c4 D5       		.byte	0xd5
+ 563 00c5 00000000 		.4byte	.LFB0
+ 564 00c9 EC000000 		.4byte	.LFE0-.LFB0
+ 565 00cd 01       		.uleb128 0x1
+ 566 00ce 9C       		.byte	0x9c
+ 567 00cf 08       		.uleb128 0x8
+ 568 00d0 7E030000 		.4byte	.LASF18
+ 569 00d4 01       		.byte	0x1
+ 570 00d5 2301     		.2byte	0x123
+ 571 00d7 00000000 		.4byte	.LFB1
+ 572 00db 24000000 		.4byte	.LFE1-.LFB1
+ 573 00df 01       		.uleb128 0x1
+ 574 00e0 9C       		.byte	0x9c
+ 575 00e1 09       		.uleb128 0x9
+ 576 00e2 CF020000 		.4byte	.LASF21
+ 577 00e6 01       		.byte	0x1
+ 578 00e7 4701     		.2byte	0x147
+ 579 00e9 81000000 		.4byte	0x81
+ 580 00ed 00000000 		.4byte	.LFB2
+ 581 00f1 54000000 		.4byte	.LFE2-.LFB2
+ 582 00f5 01       		.uleb128 0x1
+ 583 00f6 9C       		.byte	0x9c
+ 584 00f7 0B010000 		.4byte	0x10b
+ 585 00fb 0A       		.uleb128 0xa
+ 586 00fc 61020000 		.4byte	.LASF19
+ 587 0100 01       		.byte	0x1
+ 588 0101 4901     		.2byte	0x149
+ 589 0103 81000000 		.4byte	0x81
+ 590 0107 02       		.uleb128 0x2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 20
 
 
- 592 0130 0D       		.uleb128 0xd
- 593 0131 08000000 		.4byte	.LBB2
- 594 0135 22000000 		.4byte	.LBE2-.LBB2
- 595 0139 0A       		.uleb128 0xa
- 596 013a BA020000 		.4byte	.LASF20
- 597 013e 01       		.byte	0x1
- 598 013f 8501     		.2byte	0x185
- 599 0141 81000000 		.4byte	0x81
- 600 0145 02       		.uleb128 0x2
- 601 0146 91       		.byte	0x91
- 602 0147 74       		.sleb128 -12
- 603 0148 00       		.byte	0
- 604 0149 00       		.byte	0
- 605 014a 0E       		.uleb128 0xe
- 606 014b EF020000 		.4byte	.LASF22
- 607 014f 01       		.byte	0x1
- 608 0150 A301     		.2byte	0x1a3
- 609 0152 81000000 		.4byte	0x81
- 610 0156 00000000 		.4byte	.LFB4
- 611 015a 20000000 		.4byte	.LFE4-.LFB4
- 612 015e 01       		.uleb128 0x1
- 613 015f 9C       		.byte	0x9c
- 614 0160 74010000 		.4byte	0x174
- 615 0164 0A       		.uleb128 0xa
- 616 0165 24020000 		.4byte	.LASF23
- 617 0169 01       		.byte	0x1
- 618 016a A501     		.2byte	0x1a5
- 619 016c 81000000 		.4byte	0x81
- 620 0170 02       		.uleb128 0x2
- 621 0171 91       		.byte	0x91
- 622 0172 74       		.sleb128 -12
- 623 0173 00       		.byte	0
- 624 0174 0F       		.uleb128 0xf
- 625 0175 21000000 		.4byte	.LASF25
- 626 0179 01       		.byte	0x1
- 627 017a C901     		.2byte	0x1c9
- 628 017c 00000000 		.4byte	.LFB5
- 629 0180 48000000 		.4byte	.LFE5-.LFB5
- 630 0184 01       		.uleb128 0x1
- 631 0185 9C       		.byte	0x9c
- 632 0186 B8010000 		.4byte	0x1b8
- 633 018a 0C       		.uleb128 0xc
- 634 018b 77020000 		.4byte	.LASF26
- 635 018f 01       		.byte	0x1
- 636 0190 C901     		.2byte	0x1c9
- 637 0192 81000000 		.4byte	0x81
- 638 0196 02       		.uleb128 0x2
- 639 0197 91       		.byte	0x91
- 640 0198 74       		.sleb128 -12
- 641 0199 0C       		.uleb128 0xc
- 642 019a 9B000000 		.4byte	.LASF27
- 643 019e 01       		.byte	0x1
- 644 019f C901     		.2byte	0x1c9
- 645 01a1 81000000 		.4byte	0x81
- 646 01a5 02       		.uleb128 0x2
- 647 01a6 91       		.byte	0x91
- 648 01a7 70       		.sleb128 -16
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 21
+ 591 0108 91       		.byte	0x91
+ 592 0109 74       		.sleb128 -12
+ 593 010a 00       		.byte	0
+ 594 010b 0B       		.uleb128 0xb
+ 595 010c BF000000 		.4byte	.LASF24
+ 596 0110 01       		.byte	0x1
+ 597 0111 7A01     		.2byte	0x17a
+ 598 0113 00000000 		.4byte	.LFB3
+ 599 0117 34000000 		.4byte	.LFE3-.LFB3
+ 600 011b 01       		.uleb128 0x1
+ 601 011c 9C       		.byte	0x9c
+ 602 011d 4A010000 		.4byte	0x14a
+ 603 0121 0C       		.uleb128 0xc
+ 604 0122 24020000 		.4byte	.LASF23
+ 605 0126 01       		.byte	0x1
+ 606 0127 7A01     		.2byte	0x17a
+ 607 0129 81000000 		.4byte	0x81
+ 608 012d 02       		.uleb128 0x2
+ 609 012e 91       		.byte	0x91
+ 610 012f 6C       		.sleb128 -20
+ 611 0130 0D       		.uleb128 0xd
+ 612 0131 08000000 		.4byte	.LBB2
+ 613 0135 22000000 		.4byte	.LBE2-.LBB2
+ 614 0139 0A       		.uleb128 0xa
+ 615 013a BA020000 		.4byte	.LASF20
+ 616 013e 01       		.byte	0x1
+ 617 013f 8501     		.2byte	0x185
+ 618 0141 81000000 		.4byte	0x81
+ 619 0145 02       		.uleb128 0x2
+ 620 0146 91       		.byte	0x91
+ 621 0147 74       		.sleb128 -12
+ 622 0148 00       		.byte	0
+ 623 0149 00       		.byte	0
+ 624 014a 0E       		.uleb128 0xe
+ 625 014b EF020000 		.4byte	.LASF22
+ 626 014f 01       		.byte	0x1
+ 627 0150 A301     		.2byte	0x1a3
+ 628 0152 81000000 		.4byte	0x81
+ 629 0156 00000000 		.4byte	.LFB4
+ 630 015a 20000000 		.4byte	.LFE4-.LFB4
+ 631 015e 01       		.uleb128 0x1
+ 632 015f 9C       		.byte	0x9c
+ 633 0160 74010000 		.4byte	0x174
+ 634 0164 0A       		.uleb128 0xa
+ 635 0165 24020000 		.4byte	.LASF23
+ 636 0169 01       		.byte	0x1
+ 637 016a A501     		.2byte	0x1a5
+ 638 016c 81000000 		.4byte	0x81
+ 639 0170 02       		.uleb128 0x2
+ 640 0171 91       		.byte	0x91
+ 641 0172 74       		.sleb128 -12
+ 642 0173 00       		.byte	0
+ 643 0174 0F       		.uleb128 0xf
+ 644 0175 21000000 		.4byte	.LASF25
+ 645 0179 01       		.byte	0x1
+ 646 017a C901     		.2byte	0x1c9
+ 647 017c 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 21
 
 
- 649 01a8 0C       		.uleb128 0xc
- 650 01a9 43020000 		.4byte	.LASF28
- 651 01ad 01       		.byte	0x1
- 652 01ae C901     		.2byte	0x1c9
- 653 01b0 B8010000 		.4byte	0x1b8
- 654 01b4 02       		.uleb128 0x2
- 655 01b5 91       		.byte	0x91
- 656 01b6 6C       		.sleb128 -20
- 657 01b7 00       		.byte	0
- 658 01b8 10       		.uleb128 0x10
- 659 01b9 04       		.byte	0x4
- 660 01ba A1000000 		.4byte	0xa1
- 661 01be 0B       		.uleb128 0xb
- 662 01bf 7C010000 		.4byte	.LASF29
- 663 01c3 01       		.byte	0x1
- 664 01c4 E901     		.2byte	0x1e9
- 665 01c6 00000000 		.4byte	.LFB6
- 666 01ca 1C000000 		.4byte	.LFE6-.LFB6
- 667 01ce 01       		.uleb128 0x1
- 668 01cf 9C       		.byte	0x9c
- 669 01d0 E4010000 		.4byte	0x1e4
- 670 01d4 0C       		.uleb128 0xc
- 671 01d5 9B000000 		.4byte	.LASF27
- 672 01d9 01       		.byte	0x1
- 673 01da E901     		.2byte	0x1e9
- 674 01dc 81000000 		.4byte	0x81
- 675 01e0 02       		.uleb128 0x2
- 676 01e1 91       		.byte	0x91
- 677 01e2 74       		.sleb128 -12
- 678 01e3 00       		.byte	0
- 679 01e4 11       		.uleb128 0x11
- 680 01e5 7F020000 		.4byte	.LASF30
- 681 01e9 01       		.byte	0x1
- 682 01ea 1A       		.byte	0x1a
- 683 01eb A1000000 		.4byte	0xa1
- 684 01ef 05       		.uleb128 0x5
- 685 01f0 03       		.byte	0x3
- 686 01f1 00000000 		.4byte	I2CVuggesystem_curStatus
- 687 01f5 11       		.uleb128 0x11
- 688 01f6 40000000 		.4byte	.LASF31
- 689 01fa 01       		.byte	0x1
- 690 01fb 1B       		.byte	0x1b
- 691 01fc 6B000000 		.4byte	0x6b
- 692 0200 05       		.uleb128 0x5
- 693 0201 03       		.byte	0x3
- 694 0202 00000000 		.4byte	I2CVuggesystem_fsmState
- 695 0206 11       		.uleb128 0x11
- 696 0207 DF000000 		.4byte	.LASF32
- 697 020b 01       		.byte	0x1
- 698 020c 1E       		.byte	0x1e
- 699 020d B8010000 		.4byte	0x1b8
- 700 0211 05       		.uleb128 0x5
- 701 0212 03       		.byte	0x3
- 702 0213 00000000 		.4byte	I2CVuggesystem_dataBuffer1
- 703 0217 11       		.uleb128 0x11
- 704 0218 09020000 		.4byte	.LASF33
- 705 021c 01       		.byte	0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 22
+ 648 0180 48000000 		.4byte	.LFE5-.LFB5
+ 649 0184 01       		.uleb128 0x1
+ 650 0185 9C       		.byte	0x9c
+ 651 0186 B8010000 		.4byte	0x1b8
+ 652 018a 0C       		.uleb128 0xc
+ 653 018b 77020000 		.4byte	.LASF26
+ 654 018f 01       		.byte	0x1
+ 655 0190 C901     		.2byte	0x1c9
+ 656 0192 81000000 		.4byte	0x81
+ 657 0196 02       		.uleb128 0x2
+ 658 0197 91       		.byte	0x91
+ 659 0198 74       		.sleb128 -12
+ 660 0199 0C       		.uleb128 0xc
+ 661 019a 9B000000 		.4byte	.LASF27
+ 662 019e 01       		.byte	0x1
+ 663 019f C901     		.2byte	0x1c9
+ 664 01a1 81000000 		.4byte	0x81
+ 665 01a5 02       		.uleb128 0x2
+ 666 01a6 91       		.byte	0x91
+ 667 01a7 70       		.sleb128 -16
+ 668 01a8 0C       		.uleb128 0xc
+ 669 01a9 43020000 		.4byte	.LASF28
+ 670 01ad 01       		.byte	0x1
+ 671 01ae C901     		.2byte	0x1c9
+ 672 01b0 B8010000 		.4byte	0x1b8
+ 673 01b4 02       		.uleb128 0x2
+ 674 01b5 91       		.byte	0x91
+ 675 01b6 6C       		.sleb128 -20
+ 676 01b7 00       		.byte	0
+ 677 01b8 10       		.uleb128 0x10
+ 678 01b9 04       		.byte	0x4
+ 679 01ba A1000000 		.4byte	0xa1
+ 680 01be 0B       		.uleb128 0xb
+ 681 01bf 7C010000 		.4byte	.LASF29
+ 682 01c3 01       		.byte	0x1
+ 683 01c4 E901     		.2byte	0x1e9
+ 684 01c6 00000000 		.4byte	.LFB6
+ 685 01ca 1C000000 		.4byte	.LFE6-.LFB6
+ 686 01ce 01       		.uleb128 0x1
+ 687 01cf 9C       		.byte	0x9c
+ 688 01d0 E4010000 		.4byte	0x1e4
+ 689 01d4 0C       		.uleb128 0xc
+ 690 01d5 9B000000 		.4byte	.LASF27
+ 691 01d9 01       		.byte	0x1
+ 692 01da E901     		.2byte	0x1e9
+ 693 01dc 81000000 		.4byte	0x81
+ 694 01e0 02       		.uleb128 0x2
+ 695 01e1 91       		.byte	0x91
+ 696 01e2 74       		.sleb128 -12
+ 697 01e3 00       		.byte	0
+ 698 01e4 11       		.uleb128 0x11
+ 699 01e5 7F020000 		.4byte	.LASF30
+ 700 01e9 01       		.byte	0x1
+ 701 01ea 1A       		.byte	0x1a
+ 702 01eb A1000000 		.4byte	0xa1
+ 703 01ef 05       		.uleb128 0x5
+ 704 01f0 03       		.byte	0x3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 22
 
 
- 706 021d 1F       		.byte	0x1f
- 707 021e 76000000 		.4byte	0x76
- 708 0222 05       		.uleb128 0x5
- 709 0223 03       		.byte	0x3
- 710 0224 00000000 		.4byte	I2CVuggesystem_bufSizeBuf1
- 711 0228 11       		.uleb128 0x11
- 712 0229 06000000 		.4byte	.LASF34
- 713 022d 01       		.byte	0x1
- 714 022e 20       		.byte	0x20
- 715 022f 76000000 		.4byte	0x76
- 716 0233 05       		.uleb128 0x5
- 717 0234 03       		.byte	0x3
- 718 0235 00000000 		.4byte	I2CVuggesystem_protectBuf1
- 719 0239 11       		.uleb128 0x11
- 720 023a D4010000 		.4byte	.LASF35
- 721 023e 01       		.byte	0x1
- 722 023f 21       		.byte	0x21
- 723 0240 6B000000 		.4byte	0x6b
- 724 0244 05       		.uleb128 0x5
- 725 0245 03       		.byte	0x3
- 726 0246 00000000 		.4byte	I2CVuggesystem_offsetBuf1
- 727 024a 11       		.uleb128 0x11
- 728 024b A6000000 		.4byte	.LASF36
- 729 024f 01       		.byte	0x1
- 730 0250 22       		.byte	0x22
- 731 0251 76000000 		.4byte	0x76
- 732 0255 05       		.uleb128 0x5
- 733 0256 03       		.byte	0x3
- 734 0257 00000000 		.4byte	I2CVuggesystem_indexBuf1
- 735 025b 00       		.byte	0
- 736              		.section	.debug_abbrev,"",%progbits
- 737              	.Ldebug_abbrev0:
- 738 0000 01       		.uleb128 0x1
- 739 0001 11       		.uleb128 0x11
- 740 0002 01       		.byte	0x1
- 741 0003 25       		.uleb128 0x25
- 742 0004 0E       		.uleb128 0xe
- 743 0005 13       		.uleb128 0x13
- 744 0006 0B       		.uleb128 0xb
- 745 0007 03       		.uleb128 0x3
- 746 0008 0E       		.uleb128 0xe
- 747 0009 1B       		.uleb128 0x1b
- 748 000a 0E       		.uleb128 0xe
- 749 000b 55       		.uleb128 0x55
- 750 000c 17       		.uleb128 0x17
- 751 000d 11       		.uleb128 0x11
- 752 000e 01       		.uleb128 0x1
- 753 000f 10       		.uleb128 0x10
- 754 0010 17       		.uleb128 0x17
- 755 0011 00       		.byte	0
- 756 0012 00       		.byte	0
- 757 0013 02       		.uleb128 0x2
- 758 0014 24       		.uleb128 0x24
- 759 0015 00       		.byte	0
- 760 0016 0B       		.uleb128 0xb
- 761 0017 0B       		.uleb128 0xb
- 762 0018 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 23
+ 705 01f1 00000000 		.4byte	I2CVuggesystem_curStatus
+ 706 01f5 11       		.uleb128 0x11
+ 707 01f6 40000000 		.4byte	.LASF31
+ 708 01fa 01       		.byte	0x1
+ 709 01fb 1B       		.byte	0x1b
+ 710 01fc 6B000000 		.4byte	0x6b
+ 711 0200 05       		.uleb128 0x5
+ 712 0201 03       		.byte	0x3
+ 713 0202 00000000 		.4byte	I2CVuggesystem_fsmState
+ 714 0206 11       		.uleb128 0x11
+ 715 0207 DF000000 		.4byte	.LASF32
+ 716 020b 01       		.byte	0x1
+ 717 020c 1E       		.byte	0x1e
+ 718 020d B8010000 		.4byte	0x1b8
+ 719 0211 05       		.uleb128 0x5
+ 720 0212 03       		.byte	0x3
+ 721 0213 00000000 		.4byte	I2CVuggesystem_dataBuffer1
+ 722 0217 11       		.uleb128 0x11
+ 723 0218 09020000 		.4byte	.LASF33
+ 724 021c 01       		.byte	0x1
+ 725 021d 1F       		.byte	0x1f
+ 726 021e 76000000 		.4byte	0x76
+ 727 0222 05       		.uleb128 0x5
+ 728 0223 03       		.byte	0x3
+ 729 0224 00000000 		.4byte	I2CVuggesystem_bufSizeBuf1
+ 730 0228 11       		.uleb128 0x11
+ 731 0229 06000000 		.4byte	.LASF34
+ 732 022d 01       		.byte	0x1
+ 733 022e 20       		.byte	0x20
+ 734 022f 76000000 		.4byte	0x76
+ 735 0233 05       		.uleb128 0x5
+ 736 0234 03       		.byte	0x3
+ 737 0235 00000000 		.4byte	I2CVuggesystem_protectBuf1
+ 738 0239 11       		.uleb128 0x11
+ 739 023a D4010000 		.4byte	.LASF35
+ 740 023e 01       		.byte	0x1
+ 741 023f 21       		.byte	0x21
+ 742 0240 6B000000 		.4byte	0x6b
+ 743 0244 05       		.uleb128 0x5
+ 744 0245 03       		.byte	0x3
+ 745 0246 00000000 		.4byte	I2CVuggesystem_offsetBuf1
+ 746 024a 11       		.uleb128 0x11
+ 747 024b A6000000 		.4byte	.LASF36
+ 748 024f 01       		.byte	0x1
+ 749 0250 22       		.byte	0x22
+ 750 0251 76000000 		.4byte	0x76
+ 751 0255 05       		.uleb128 0x5
+ 752 0256 03       		.byte	0x3
+ 753 0257 00000000 		.4byte	I2CVuggesystem_indexBuf1
+ 754 025b 00       		.byte	0
+ 755              		.section	.debug_abbrev,"",%progbits
+ 756              	.Ldebug_abbrev0:
+ 757 0000 01       		.uleb128 0x1
+ 758 0001 11       		.uleb128 0x11
+ 759 0002 01       		.byte	0x1
+ 760 0003 25       		.uleb128 0x25
+ 761 0004 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 23
 
 
- 763 0019 0B       		.uleb128 0xb
- 764 001a 03       		.uleb128 0x3
- 765 001b 0E       		.uleb128 0xe
- 766 001c 00       		.byte	0
- 767 001d 00       		.byte	0
- 768 001e 03       		.uleb128 0x3
- 769 001f 24       		.uleb128 0x24
- 770 0020 00       		.byte	0
- 771 0021 0B       		.uleb128 0xb
- 772 0022 0B       		.uleb128 0xb
- 773 0023 3E       		.uleb128 0x3e
- 774 0024 0B       		.uleb128 0xb
- 775 0025 03       		.uleb128 0x3
- 776 0026 08       		.uleb128 0x8
- 777 0027 00       		.byte	0
- 778 0028 00       		.byte	0
- 779 0029 04       		.uleb128 0x4
- 780 002a 16       		.uleb128 0x16
- 781 002b 00       		.byte	0
- 782 002c 03       		.uleb128 0x3
- 783 002d 0E       		.uleb128 0xe
- 784 002e 3A       		.uleb128 0x3a
- 785 002f 0B       		.uleb128 0xb
- 786 0030 3B       		.uleb128 0x3b
- 787 0031 0B       		.uleb128 0xb
- 788 0032 49       		.uleb128 0x49
- 789 0033 13       		.uleb128 0x13
- 790 0034 00       		.byte	0
- 791 0035 00       		.byte	0
- 792 0036 05       		.uleb128 0x5
- 793 0037 35       		.uleb128 0x35
- 794 0038 00       		.byte	0
- 795 0039 49       		.uleb128 0x49
- 796 003a 13       		.uleb128 0x13
- 797 003b 00       		.byte	0
- 798 003c 00       		.byte	0
- 799 003d 06       		.uleb128 0x6
- 800 003e 16       		.uleb128 0x16
- 801 003f 00       		.byte	0
- 802 0040 03       		.uleb128 0x3
- 803 0041 0E       		.uleb128 0xe
- 804 0042 3A       		.uleb128 0x3a
- 805 0043 0B       		.uleb128 0xb
- 806 0044 3B       		.uleb128 0x3b
- 807 0045 05       		.uleb128 0x5
- 808 0046 49       		.uleb128 0x49
- 809 0047 13       		.uleb128 0x13
- 810 0048 00       		.byte	0
- 811 0049 00       		.byte	0
- 812 004a 07       		.uleb128 0x7
- 813 004b 2E       		.uleb128 0x2e
- 814 004c 00       		.byte	0
- 815 004d 3F       		.uleb128 0x3f
- 816 004e 19       		.uleb128 0x19
- 817 004f 03       		.uleb128 0x3
- 818 0050 0E       		.uleb128 0xe
- 819 0051 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 24
+ 762 0005 13       		.uleb128 0x13
+ 763 0006 0B       		.uleb128 0xb
+ 764 0007 03       		.uleb128 0x3
+ 765 0008 0E       		.uleb128 0xe
+ 766 0009 1B       		.uleb128 0x1b
+ 767 000a 0E       		.uleb128 0xe
+ 768 000b 55       		.uleb128 0x55
+ 769 000c 17       		.uleb128 0x17
+ 770 000d 11       		.uleb128 0x11
+ 771 000e 01       		.uleb128 0x1
+ 772 000f 10       		.uleb128 0x10
+ 773 0010 17       		.uleb128 0x17
+ 774 0011 00       		.byte	0
+ 775 0012 00       		.byte	0
+ 776 0013 02       		.uleb128 0x2
+ 777 0014 24       		.uleb128 0x24
+ 778 0015 00       		.byte	0
+ 779 0016 0B       		.uleb128 0xb
+ 780 0017 0B       		.uleb128 0xb
+ 781 0018 3E       		.uleb128 0x3e
+ 782 0019 0B       		.uleb128 0xb
+ 783 001a 03       		.uleb128 0x3
+ 784 001b 0E       		.uleb128 0xe
+ 785 001c 00       		.byte	0
+ 786 001d 00       		.byte	0
+ 787 001e 03       		.uleb128 0x3
+ 788 001f 24       		.uleb128 0x24
+ 789 0020 00       		.byte	0
+ 790 0021 0B       		.uleb128 0xb
+ 791 0022 0B       		.uleb128 0xb
+ 792 0023 3E       		.uleb128 0x3e
+ 793 0024 0B       		.uleb128 0xb
+ 794 0025 03       		.uleb128 0x3
+ 795 0026 08       		.uleb128 0x8
+ 796 0027 00       		.byte	0
+ 797 0028 00       		.byte	0
+ 798 0029 04       		.uleb128 0x4
+ 799 002a 16       		.uleb128 0x16
+ 800 002b 00       		.byte	0
+ 801 002c 03       		.uleb128 0x3
+ 802 002d 0E       		.uleb128 0xe
+ 803 002e 3A       		.uleb128 0x3a
+ 804 002f 0B       		.uleb128 0xb
+ 805 0030 3B       		.uleb128 0x3b
+ 806 0031 0B       		.uleb128 0xb
+ 807 0032 49       		.uleb128 0x49
+ 808 0033 13       		.uleb128 0x13
+ 809 0034 00       		.byte	0
+ 810 0035 00       		.byte	0
+ 811 0036 05       		.uleb128 0x5
+ 812 0037 35       		.uleb128 0x35
+ 813 0038 00       		.byte	0
+ 814 0039 49       		.uleb128 0x49
+ 815 003a 13       		.uleb128 0x13
+ 816 003b 00       		.byte	0
+ 817 003c 00       		.byte	0
+ 818 003d 06       		.uleb128 0x6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 24
 
 
- 820 0052 0B       		.uleb128 0xb
- 821 0053 3B       		.uleb128 0x3b
- 822 0054 0B       		.uleb128 0xb
- 823 0055 27       		.uleb128 0x27
- 824 0056 19       		.uleb128 0x19
- 825 0057 11       		.uleb128 0x11
- 826 0058 01       		.uleb128 0x1
- 827 0059 12       		.uleb128 0x12
- 828 005a 06       		.uleb128 0x6
- 829 005b 40       		.uleb128 0x40
- 830 005c 18       		.uleb128 0x18
- 831 005d 9642     		.uleb128 0x2116
- 832 005f 19       		.uleb128 0x19
- 833 0060 00       		.byte	0
- 834 0061 00       		.byte	0
- 835 0062 08       		.uleb128 0x8
- 836 0063 2E       		.uleb128 0x2e
- 837 0064 00       		.byte	0
- 838 0065 3F       		.uleb128 0x3f
- 839 0066 19       		.uleb128 0x19
- 840 0067 03       		.uleb128 0x3
- 841 0068 0E       		.uleb128 0xe
- 842 0069 3A       		.uleb128 0x3a
- 843 006a 0B       		.uleb128 0xb
- 844 006b 3B       		.uleb128 0x3b
- 845 006c 05       		.uleb128 0x5
- 846 006d 27       		.uleb128 0x27
- 847 006e 19       		.uleb128 0x19
- 848 006f 11       		.uleb128 0x11
- 849 0070 01       		.uleb128 0x1
- 850 0071 12       		.uleb128 0x12
- 851 0072 06       		.uleb128 0x6
- 852 0073 40       		.uleb128 0x40
- 853 0074 18       		.uleb128 0x18
- 854 0075 9642     		.uleb128 0x2116
- 855 0077 19       		.uleb128 0x19
- 856 0078 00       		.byte	0
- 857 0079 00       		.byte	0
- 858 007a 09       		.uleb128 0x9
- 859 007b 2E       		.uleb128 0x2e
- 860 007c 01       		.byte	0x1
- 861 007d 3F       		.uleb128 0x3f
- 862 007e 19       		.uleb128 0x19
- 863 007f 03       		.uleb128 0x3
- 864 0080 0E       		.uleb128 0xe
- 865 0081 3A       		.uleb128 0x3a
- 866 0082 0B       		.uleb128 0xb
- 867 0083 3B       		.uleb128 0x3b
- 868 0084 05       		.uleb128 0x5
- 869 0085 27       		.uleb128 0x27
- 870 0086 19       		.uleb128 0x19
- 871 0087 49       		.uleb128 0x49
- 872 0088 13       		.uleb128 0x13
- 873 0089 11       		.uleb128 0x11
- 874 008a 01       		.uleb128 0x1
- 875 008b 12       		.uleb128 0x12
- 876 008c 06       		.uleb128 0x6
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 25
+ 819 003e 16       		.uleb128 0x16
+ 820 003f 00       		.byte	0
+ 821 0040 03       		.uleb128 0x3
+ 822 0041 0E       		.uleb128 0xe
+ 823 0042 3A       		.uleb128 0x3a
+ 824 0043 0B       		.uleb128 0xb
+ 825 0044 3B       		.uleb128 0x3b
+ 826 0045 05       		.uleb128 0x5
+ 827 0046 49       		.uleb128 0x49
+ 828 0047 13       		.uleb128 0x13
+ 829 0048 00       		.byte	0
+ 830 0049 00       		.byte	0
+ 831 004a 07       		.uleb128 0x7
+ 832 004b 2E       		.uleb128 0x2e
+ 833 004c 00       		.byte	0
+ 834 004d 3F       		.uleb128 0x3f
+ 835 004e 19       		.uleb128 0x19
+ 836 004f 03       		.uleb128 0x3
+ 837 0050 0E       		.uleb128 0xe
+ 838 0051 3A       		.uleb128 0x3a
+ 839 0052 0B       		.uleb128 0xb
+ 840 0053 3B       		.uleb128 0x3b
+ 841 0054 0B       		.uleb128 0xb
+ 842 0055 27       		.uleb128 0x27
+ 843 0056 19       		.uleb128 0x19
+ 844 0057 11       		.uleb128 0x11
+ 845 0058 01       		.uleb128 0x1
+ 846 0059 12       		.uleb128 0x12
+ 847 005a 06       		.uleb128 0x6
+ 848 005b 40       		.uleb128 0x40
+ 849 005c 18       		.uleb128 0x18
+ 850 005d 9642     		.uleb128 0x2116
+ 851 005f 19       		.uleb128 0x19
+ 852 0060 00       		.byte	0
+ 853 0061 00       		.byte	0
+ 854 0062 08       		.uleb128 0x8
+ 855 0063 2E       		.uleb128 0x2e
+ 856 0064 00       		.byte	0
+ 857 0065 3F       		.uleb128 0x3f
+ 858 0066 19       		.uleb128 0x19
+ 859 0067 03       		.uleb128 0x3
+ 860 0068 0E       		.uleb128 0xe
+ 861 0069 3A       		.uleb128 0x3a
+ 862 006a 0B       		.uleb128 0xb
+ 863 006b 3B       		.uleb128 0x3b
+ 864 006c 05       		.uleb128 0x5
+ 865 006d 27       		.uleb128 0x27
+ 866 006e 19       		.uleb128 0x19
+ 867 006f 11       		.uleb128 0x11
+ 868 0070 01       		.uleb128 0x1
+ 869 0071 12       		.uleb128 0x12
+ 870 0072 06       		.uleb128 0x6
+ 871 0073 40       		.uleb128 0x40
+ 872 0074 18       		.uleb128 0x18
+ 873 0075 9642     		.uleb128 0x2116
+ 874 0077 19       		.uleb128 0x19
+ 875 0078 00       		.byte	0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 25
 
 
- 877 008d 40       		.uleb128 0x40
- 878 008e 18       		.uleb128 0x18
- 879 008f 9642     		.uleb128 0x2116
- 880 0091 19       		.uleb128 0x19
- 881 0092 01       		.uleb128 0x1
- 882 0093 13       		.uleb128 0x13
- 883 0094 00       		.byte	0
- 884 0095 00       		.byte	0
- 885 0096 0A       		.uleb128 0xa
- 886 0097 34       		.uleb128 0x34
- 887 0098 00       		.byte	0
- 888 0099 03       		.uleb128 0x3
- 889 009a 0E       		.uleb128 0xe
- 890 009b 3A       		.uleb128 0x3a
- 891 009c 0B       		.uleb128 0xb
- 892 009d 3B       		.uleb128 0x3b
- 893 009e 05       		.uleb128 0x5
- 894 009f 49       		.uleb128 0x49
- 895 00a0 13       		.uleb128 0x13
- 896 00a1 02       		.uleb128 0x2
- 897 00a2 18       		.uleb128 0x18
- 898 00a3 00       		.byte	0
- 899 00a4 00       		.byte	0
- 900 00a5 0B       		.uleb128 0xb
- 901 00a6 2E       		.uleb128 0x2e
- 902 00a7 01       		.byte	0x1
- 903 00a8 3F       		.uleb128 0x3f
- 904 00a9 19       		.uleb128 0x19
- 905 00aa 03       		.uleb128 0x3
- 906 00ab 0E       		.uleb128 0xe
- 907 00ac 3A       		.uleb128 0x3a
- 908 00ad 0B       		.uleb128 0xb
- 909 00ae 3B       		.uleb128 0x3b
- 910 00af 05       		.uleb128 0x5
- 911 00b0 27       		.uleb128 0x27
- 912 00b1 19       		.uleb128 0x19
- 913 00b2 11       		.uleb128 0x11
- 914 00b3 01       		.uleb128 0x1
- 915 00b4 12       		.uleb128 0x12
- 916 00b5 06       		.uleb128 0x6
- 917 00b6 40       		.uleb128 0x40
- 918 00b7 18       		.uleb128 0x18
- 919 00b8 9742     		.uleb128 0x2117
- 920 00ba 19       		.uleb128 0x19
- 921 00bb 01       		.uleb128 0x1
- 922 00bc 13       		.uleb128 0x13
- 923 00bd 00       		.byte	0
- 924 00be 00       		.byte	0
- 925 00bf 0C       		.uleb128 0xc
- 926 00c0 05       		.uleb128 0x5
- 927 00c1 00       		.byte	0
- 928 00c2 03       		.uleb128 0x3
- 929 00c3 0E       		.uleb128 0xe
- 930 00c4 3A       		.uleb128 0x3a
- 931 00c5 0B       		.uleb128 0xb
- 932 00c6 3B       		.uleb128 0x3b
- 933 00c7 05       		.uleb128 0x5
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 26
+ 876 0079 00       		.byte	0
+ 877 007a 09       		.uleb128 0x9
+ 878 007b 2E       		.uleb128 0x2e
+ 879 007c 01       		.byte	0x1
+ 880 007d 3F       		.uleb128 0x3f
+ 881 007e 19       		.uleb128 0x19
+ 882 007f 03       		.uleb128 0x3
+ 883 0080 0E       		.uleb128 0xe
+ 884 0081 3A       		.uleb128 0x3a
+ 885 0082 0B       		.uleb128 0xb
+ 886 0083 3B       		.uleb128 0x3b
+ 887 0084 05       		.uleb128 0x5
+ 888 0085 27       		.uleb128 0x27
+ 889 0086 19       		.uleb128 0x19
+ 890 0087 49       		.uleb128 0x49
+ 891 0088 13       		.uleb128 0x13
+ 892 0089 11       		.uleb128 0x11
+ 893 008a 01       		.uleb128 0x1
+ 894 008b 12       		.uleb128 0x12
+ 895 008c 06       		.uleb128 0x6
+ 896 008d 40       		.uleb128 0x40
+ 897 008e 18       		.uleb128 0x18
+ 898 008f 9642     		.uleb128 0x2116
+ 899 0091 19       		.uleb128 0x19
+ 900 0092 01       		.uleb128 0x1
+ 901 0093 13       		.uleb128 0x13
+ 902 0094 00       		.byte	0
+ 903 0095 00       		.byte	0
+ 904 0096 0A       		.uleb128 0xa
+ 905 0097 34       		.uleb128 0x34
+ 906 0098 00       		.byte	0
+ 907 0099 03       		.uleb128 0x3
+ 908 009a 0E       		.uleb128 0xe
+ 909 009b 3A       		.uleb128 0x3a
+ 910 009c 0B       		.uleb128 0xb
+ 911 009d 3B       		.uleb128 0x3b
+ 912 009e 05       		.uleb128 0x5
+ 913 009f 49       		.uleb128 0x49
+ 914 00a0 13       		.uleb128 0x13
+ 915 00a1 02       		.uleb128 0x2
+ 916 00a2 18       		.uleb128 0x18
+ 917 00a3 00       		.byte	0
+ 918 00a4 00       		.byte	0
+ 919 00a5 0B       		.uleb128 0xb
+ 920 00a6 2E       		.uleb128 0x2e
+ 921 00a7 01       		.byte	0x1
+ 922 00a8 3F       		.uleb128 0x3f
+ 923 00a9 19       		.uleb128 0x19
+ 924 00aa 03       		.uleb128 0x3
+ 925 00ab 0E       		.uleb128 0xe
+ 926 00ac 3A       		.uleb128 0x3a
+ 927 00ad 0B       		.uleb128 0xb
+ 928 00ae 3B       		.uleb128 0x3b
+ 929 00af 05       		.uleb128 0x5
+ 930 00b0 27       		.uleb128 0x27
+ 931 00b1 19       		.uleb128 0x19
+ 932 00b2 11       		.uleb128 0x11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 26
 
 
- 934 00c8 49       		.uleb128 0x49
- 935 00c9 13       		.uleb128 0x13
- 936 00ca 02       		.uleb128 0x2
- 937 00cb 18       		.uleb128 0x18
- 938 00cc 00       		.byte	0
- 939 00cd 00       		.byte	0
- 940 00ce 0D       		.uleb128 0xd
- 941 00cf 0B       		.uleb128 0xb
- 942 00d0 01       		.byte	0x1
- 943 00d1 11       		.uleb128 0x11
- 944 00d2 01       		.uleb128 0x1
- 945 00d3 12       		.uleb128 0x12
- 946 00d4 06       		.uleb128 0x6
- 947 00d5 00       		.byte	0
- 948 00d6 00       		.byte	0
- 949 00d7 0E       		.uleb128 0xe
- 950 00d8 2E       		.uleb128 0x2e
- 951 00d9 01       		.byte	0x1
- 952 00da 3F       		.uleb128 0x3f
- 953 00db 19       		.uleb128 0x19
- 954 00dc 03       		.uleb128 0x3
- 955 00dd 0E       		.uleb128 0xe
- 956 00de 3A       		.uleb128 0x3a
- 957 00df 0B       		.uleb128 0xb
- 958 00e0 3B       		.uleb128 0x3b
- 959 00e1 05       		.uleb128 0x5
- 960 00e2 27       		.uleb128 0x27
- 961 00e3 19       		.uleb128 0x19
- 962 00e4 49       		.uleb128 0x49
- 963 00e5 13       		.uleb128 0x13
- 964 00e6 11       		.uleb128 0x11
- 965 00e7 01       		.uleb128 0x1
- 966 00e8 12       		.uleb128 0x12
- 967 00e9 06       		.uleb128 0x6
- 968 00ea 40       		.uleb128 0x40
- 969 00eb 18       		.uleb128 0x18
- 970 00ec 9742     		.uleb128 0x2117
- 971 00ee 19       		.uleb128 0x19
- 972 00ef 01       		.uleb128 0x1
- 973 00f0 13       		.uleb128 0x13
- 974 00f1 00       		.byte	0
- 975 00f2 00       		.byte	0
- 976 00f3 0F       		.uleb128 0xf
- 977 00f4 2E       		.uleb128 0x2e
- 978 00f5 01       		.byte	0x1
- 979 00f6 3F       		.uleb128 0x3f
- 980 00f7 19       		.uleb128 0x19
- 981 00f8 03       		.uleb128 0x3
- 982 00f9 0E       		.uleb128 0xe
- 983 00fa 3A       		.uleb128 0x3a
- 984 00fb 0B       		.uleb128 0xb
- 985 00fc 3B       		.uleb128 0x3b
- 986 00fd 05       		.uleb128 0x5
- 987 00fe 27       		.uleb128 0x27
- 988 00ff 19       		.uleb128 0x19
- 989 0100 11       		.uleb128 0x11
- 990 0101 01       		.uleb128 0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 27
+ 933 00b3 01       		.uleb128 0x1
+ 934 00b4 12       		.uleb128 0x12
+ 935 00b5 06       		.uleb128 0x6
+ 936 00b6 40       		.uleb128 0x40
+ 937 00b7 18       		.uleb128 0x18
+ 938 00b8 9742     		.uleb128 0x2117
+ 939 00ba 19       		.uleb128 0x19
+ 940 00bb 01       		.uleb128 0x1
+ 941 00bc 13       		.uleb128 0x13
+ 942 00bd 00       		.byte	0
+ 943 00be 00       		.byte	0
+ 944 00bf 0C       		.uleb128 0xc
+ 945 00c0 05       		.uleb128 0x5
+ 946 00c1 00       		.byte	0
+ 947 00c2 03       		.uleb128 0x3
+ 948 00c3 0E       		.uleb128 0xe
+ 949 00c4 3A       		.uleb128 0x3a
+ 950 00c5 0B       		.uleb128 0xb
+ 951 00c6 3B       		.uleb128 0x3b
+ 952 00c7 05       		.uleb128 0x5
+ 953 00c8 49       		.uleb128 0x49
+ 954 00c9 13       		.uleb128 0x13
+ 955 00ca 02       		.uleb128 0x2
+ 956 00cb 18       		.uleb128 0x18
+ 957 00cc 00       		.byte	0
+ 958 00cd 00       		.byte	0
+ 959 00ce 0D       		.uleb128 0xd
+ 960 00cf 0B       		.uleb128 0xb
+ 961 00d0 01       		.byte	0x1
+ 962 00d1 11       		.uleb128 0x11
+ 963 00d2 01       		.uleb128 0x1
+ 964 00d3 12       		.uleb128 0x12
+ 965 00d4 06       		.uleb128 0x6
+ 966 00d5 00       		.byte	0
+ 967 00d6 00       		.byte	0
+ 968 00d7 0E       		.uleb128 0xe
+ 969 00d8 2E       		.uleb128 0x2e
+ 970 00d9 01       		.byte	0x1
+ 971 00da 3F       		.uleb128 0x3f
+ 972 00db 19       		.uleb128 0x19
+ 973 00dc 03       		.uleb128 0x3
+ 974 00dd 0E       		.uleb128 0xe
+ 975 00de 3A       		.uleb128 0x3a
+ 976 00df 0B       		.uleb128 0xb
+ 977 00e0 3B       		.uleb128 0x3b
+ 978 00e1 05       		.uleb128 0x5
+ 979 00e2 27       		.uleb128 0x27
+ 980 00e3 19       		.uleb128 0x19
+ 981 00e4 49       		.uleb128 0x49
+ 982 00e5 13       		.uleb128 0x13
+ 983 00e6 11       		.uleb128 0x11
+ 984 00e7 01       		.uleb128 0x1
+ 985 00e8 12       		.uleb128 0x12
+ 986 00e9 06       		.uleb128 0x6
+ 987 00ea 40       		.uleb128 0x40
+ 988 00eb 18       		.uleb128 0x18
+ 989 00ec 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 27
 
 
- 991 0102 12       		.uleb128 0x12
- 992 0103 06       		.uleb128 0x6
- 993 0104 40       		.uleb128 0x40
- 994 0105 18       		.uleb128 0x18
- 995 0106 9642     		.uleb128 0x2116
- 996 0108 19       		.uleb128 0x19
- 997 0109 01       		.uleb128 0x1
- 998 010a 13       		.uleb128 0x13
- 999 010b 00       		.byte	0
- 1000 010c 00       		.byte	0
- 1001 010d 10       		.uleb128 0x10
- 1002 010e 0F       		.uleb128 0xf
- 1003 010f 00       		.byte	0
- 1004 0110 0B       		.uleb128 0xb
- 1005 0111 0B       		.uleb128 0xb
- 1006 0112 49       		.uleb128 0x49
- 1007 0113 13       		.uleb128 0x13
- 1008 0114 00       		.byte	0
- 1009 0115 00       		.byte	0
- 1010 0116 11       		.uleb128 0x11
- 1011 0117 34       		.uleb128 0x34
- 1012 0118 00       		.byte	0
- 1013 0119 03       		.uleb128 0x3
- 1014 011a 0E       		.uleb128 0xe
- 1015 011b 3A       		.uleb128 0x3a
- 1016 011c 0B       		.uleb128 0xb
- 1017 011d 3B       		.uleb128 0x3b
- 1018 011e 0B       		.uleb128 0xb
- 1019 011f 49       		.uleb128 0x49
- 1020 0120 13       		.uleb128 0x13
- 1021 0121 3F       		.uleb128 0x3f
- 1022 0122 19       		.uleb128 0x19
- 1023 0123 02       		.uleb128 0x2
- 1024 0124 18       		.uleb128 0x18
- 1025 0125 00       		.byte	0
- 1026 0126 00       		.byte	0
- 1027 0127 00       		.byte	0
- 1028              		.section	.debug_aranges,"",%progbits
- 1029 0000 4C000000 		.4byte	0x4c
- 1030 0004 0200     		.2byte	0x2
- 1031 0006 00000000 		.4byte	.Ldebug_info0
- 1032 000a 04       		.byte	0x4
- 1033 000b 00       		.byte	0
- 1034 000c 0000     		.2byte	0
- 1035 000e 0000     		.2byte	0
- 1036 0010 00000000 		.4byte	.LFB0
- 1037 0014 EC000000 		.4byte	.LFE0-.LFB0
- 1038 0018 00000000 		.4byte	.LFB1
- 1039 001c 24000000 		.4byte	.LFE1-.LFB1
- 1040 0020 00000000 		.4byte	.LFB2
- 1041 0024 38000000 		.4byte	.LFE2-.LFB2
- 1042 0028 00000000 		.4byte	.LFB3
- 1043 002c 34000000 		.4byte	.LFE3-.LFB3
- 1044 0030 00000000 		.4byte	.LFB4
- 1045 0034 20000000 		.4byte	.LFE4-.LFB4
- 1046 0038 00000000 		.4byte	.LFB5
- 1047 003c 48000000 		.4byte	.LFE5-.LFB5
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 28
+ 990 00ee 19       		.uleb128 0x19
+ 991 00ef 01       		.uleb128 0x1
+ 992 00f0 13       		.uleb128 0x13
+ 993 00f1 00       		.byte	0
+ 994 00f2 00       		.byte	0
+ 995 00f3 0F       		.uleb128 0xf
+ 996 00f4 2E       		.uleb128 0x2e
+ 997 00f5 01       		.byte	0x1
+ 998 00f6 3F       		.uleb128 0x3f
+ 999 00f7 19       		.uleb128 0x19
+ 1000 00f8 03       		.uleb128 0x3
+ 1001 00f9 0E       		.uleb128 0xe
+ 1002 00fa 3A       		.uleb128 0x3a
+ 1003 00fb 0B       		.uleb128 0xb
+ 1004 00fc 3B       		.uleb128 0x3b
+ 1005 00fd 05       		.uleb128 0x5
+ 1006 00fe 27       		.uleb128 0x27
+ 1007 00ff 19       		.uleb128 0x19
+ 1008 0100 11       		.uleb128 0x11
+ 1009 0101 01       		.uleb128 0x1
+ 1010 0102 12       		.uleb128 0x12
+ 1011 0103 06       		.uleb128 0x6
+ 1012 0104 40       		.uleb128 0x40
+ 1013 0105 18       		.uleb128 0x18
+ 1014 0106 9642     		.uleb128 0x2116
+ 1015 0108 19       		.uleb128 0x19
+ 1016 0109 01       		.uleb128 0x1
+ 1017 010a 13       		.uleb128 0x13
+ 1018 010b 00       		.byte	0
+ 1019 010c 00       		.byte	0
+ 1020 010d 10       		.uleb128 0x10
+ 1021 010e 0F       		.uleb128 0xf
+ 1022 010f 00       		.byte	0
+ 1023 0110 0B       		.uleb128 0xb
+ 1024 0111 0B       		.uleb128 0xb
+ 1025 0112 49       		.uleb128 0x49
+ 1026 0113 13       		.uleb128 0x13
+ 1027 0114 00       		.byte	0
+ 1028 0115 00       		.byte	0
+ 1029 0116 11       		.uleb128 0x11
+ 1030 0117 34       		.uleb128 0x34
+ 1031 0118 00       		.byte	0
+ 1032 0119 03       		.uleb128 0x3
+ 1033 011a 0E       		.uleb128 0xe
+ 1034 011b 3A       		.uleb128 0x3a
+ 1035 011c 0B       		.uleb128 0xb
+ 1036 011d 3B       		.uleb128 0x3b
+ 1037 011e 0B       		.uleb128 0xb
+ 1038 011f 49       		.uleb128 0x49
+ 1039 0120 13       		.uleb128 0x13
+ 1040 0121 3F       		.uleb128 0x3f
+ 1041 0122 19       		.uleb128 0x19
+ 1042 0123 02       		.uleb128 0x2
+ 1043 0124 18       		.uleb128 0x18
+ 1044 0125 00       		.byte	0
+ 1045 0126 00       		.byte	0
+ 1046 0127 00       		.byte	0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 28
 
 
- 1048 0040 00000000 		.4byte	.LFB6
- 1049 0044 1C000000 		.4byte	.LFE6-.LFB6
- 1050 0048 00000000 		.4byte	0
- 1051 004c 00000000 		.4byte	0
- 1052              		.section	.debug_ranges,"",%progbits
- 1053              	.Ldebug_ranges0:
- 1054 0000 00000000 		.4byte	.LFB0
- 1055 0004 EC000000 		.4byte	.LFE0
- 1056 0008 00000000 		.4byte	.LFB1
- 1057 000c 24000000 		.4byte	.LFE1
- 1058 0010 00000000 		.4byte	.LFB2
- 1059 0014 38000000 		.4byte	.LFE2
- 1060 0018 00000000 		.4byte	.LFB3
- 1061 001c 34000000 		.4byte	.LFE3
- 1062 0020 00000000 		.4byte	.LFB4
- 1063 0024 20000000 		.4byte	.LFE4
- 1064 0028 00000000 		.4byte	.LFB5
- 1065 002c 48000000 		.4byte	.LFE5
- 1066 0030 00000000 		.4byte	.LFB6
- 1067 0034 1C000000 		.4byte	.LFE6
- 1068 0038 00000000 		.4byte	0
- 1069 003c 00000000 		.4byte	0
- 1070              		.section	.debug_line,"",%progbits
- 1071              	.Ldebug_line0:
- 1072 0000 04010000 		.section	.debug_str,"MS",%progbits,1
- 1072      02005300 
- 1072      00000201 
- 1072      FB0E0D00 
- 1072      01010101 
- 1073              	.LASF15:
- 1074 0000 72656733 		.ascii	"reg32\000"
- 1074      3200
- 1075              	.LASF34:
- 1076 0006 49324356 		.ascii	"I2CVuggesystem_protectBuf1\000"
- 1076      75676765 
- 1076      73797374 
- 1076      656D5F70 
- 1076      726F7465 
- 1077              	.LASF25:
- 1078 0021 49324356 		.ascii	"I2CVuggesystem_EzI2CSetBuffer1\000"
- 1078      75676765 
- 1078      73797374 
- 1078      656D5F45 
- 1078      7A493243 
- 1079              	.LASF31:
- 1080 0040 49324356 		.ascii	"I2CVuggesystem_fsmState\000"
- 1080      75676765 
- 1080      73797374 
- 1080      656D5F66 
- 1080      736D5374 
- 1081              	.LASF38:
- 1082 0058 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\I2CVuggesystem_EZI2C.c\000"
- 1082      6E657261 
- 1082      7465645F 
- 1082      536F7572 
- 1082      63655C50 
- 1083              	.LASF3:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 29
+ 1047              		.section	.debug_aranges,"",%progbits
+ 1048 0000 4C000000 		.4byte	0x4c
+ 1049 0004 0200     		.2byte	0x2
+ 1050 0006 00000000 		.4byte	.Ldebug_info0
+ 1051 000a 04       		.byte	0x4
+ 1052 000b 00       		.byte	0
+ 1053 000c 0000     		.2byte	0
+ 1054 000e 0000     		.2byte	0
+ 1055 0010 00000000 		.4byte	.LFB0
+ 1056 0014 EC000000 		.4byte	.LFE0-.LFB0
+ 1057 0018 00000000 		.4byte	.LFB1
+ 1058 001c 24000000 		.4byte	.LFE1-.LFB1
+ 1059 0020 00000000 		.4byte	.LFB2
+ 1060 0024 54000000 		.4byte	.LFE2-.LFB2
+ 1061 0028 00000000 		.4byte	.LFB3
+ 1062 002c 34000000 		.4byte	.LFE3-.LFB3
+ 1063 0030 00000000 		.4byte	.LFB4
+ 1064 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1065 0038 00000000 		.4byte	.LFB5
+ 1066 003c 48000000 		.4byte	.LFE5-.LFB5
+ 1067 0040 00000000 		.4byte	.LFB6
+ 1068 0044 1C000000 		.4byte	.LFE6-.LFB6
+ 1069 0048 00000000 		.4byte	0
+ 1070 004c 00000000 		.4byte	0
+ 1071              		.section	.debug_ranges,"",%progbits
+ 1072              	.Ldebug_ranges0:
+ 1073 0000 00000000 		.4byte	.LFB0
+ 1074 0004 EC000000 		.4byte	.LFE0
+ 1075 0008 00000000 		.4byte	.LFB1
+ 1076 000c 24000000 		.4byte	.LFE1
+ 1077 0010 00000000 		.4byte	.LFB2
+ 1078 0014 54000000 		.4byte	.LFE2
+ 1079 0018 00000000 		.4byte	.LFB3
+ 1080 001c 34000000 		.4byte	.LFE3
+ 1081 0020 00000000 		.4byte	.LFB4
+ 1082 0024 20000000 		.4byte	.LFE4
+ 1083 0028 00000000 		.4byte	.LFB5
+ 1084 002c 48000000 		.4byte	.LFE5
+ 1085 0030 00000000 		.4byte	.LFB6
+ 1086 0034 1C000000 		.4byte	.LFE6
+ 1087 0038 00000000 		.4byte	0
+ 1088 003c 00000000 		.4byte	0
+ 1089              		.section	.debug_line,"",%progbits
+ 1090              	.Ldebug_line0:
+ 1091 0000 11010000 		.section	.debug_str,"MS",%progbits,1
+ 1091      02005300 
+ 1091      00000201 
+ 1091      FB0E0D00 
+ 1091      01010101 
+ 1092              	.LASF15:
+ 1093 0000 72656733 		.ascii	"reg32\000"
+ 1093      3200
+ 1094              	.LASF34:
+ 1095 0006 49324356 		.ascii	"I2CVuggesystem_protectBuf1\000"
+ 1095      75676765 
+ 1095      73797374 
+ 1095      656D5F70 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 29
 
 
- 1084 0088 73686F72 		.ascii	"short unsigned int\000"
- 1084      7420756E 
- 1084      7369676E 
- 1084      65642069 
- 1084      6E7400
- 1085              	.LASF27:
- 1086 009b 7277426F 		.ascii	"rwBoundary\000"
- 1086      756E6461 
- 1086      727900
- 1087              	.LASF36:
- 1088 00a6 49324356 		.ascii	"I2CVuggesystem_indexBuf1\000"
- 1088      75676765 
- 1088      73797374 
- 1088      656D5F69 
- 1088      6E646578 
- 1089              	.LASF24:
- 1090 00bf 49324356 		.ascii	"I2CVuggesystem_EzI2CSetAddress1\000"
- 1090      75676765 
- 1090      73797374 
- 1090      656D5F45 
- 1090      7A493243 
- 1091              	.LASF32:
- 1092 00df 49324356 		.ascii	"I2CVuggesystem_dataBuffer1\000"
- 1092      75676765 
- 1092      73797374 
- 1092      656D5F64 
- 1092      61746142 
- 1093              	.LASF12:
- 1094 00fa 666C6F61 		.ascii	"float\000"
- 1094      7400
- 1095              	.LASF37:
- 1096 0100 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 1096      4320342E 
- 1096      382E3420 
- 1096      32303134 
- 1096      30353236 
- 1097 0133 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 1097      20726576 
- 1097      6973696F 
- 1097      6E203231 
- 1097      31333538 
- 1098 0166 30202D66 		.ascii	"0 -ffunction-sections\000"
- 1098      66756E63 
- 1098      74696F6E 
- 1098      2D736563 
- 1098      74696F6E 
- 1099              	.LASF29:
- 1100 017c 49324356 		.ascii	"I2CVuggesystem_EzI2CSetReadBoundaryBuffer1\000"
- 1100      75676765 
- 1100      73797374 
- 1100      656D5F45 
- 1100      7A493243 
- 1101              	.LASF1:
- 1102 01a7 756E7369 		.ascii	"unsigned char\000"
- 1102      676E6564 
- 1102      20636861 
- 1102      7200
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 30
+ 1095      726F7465 
+ 1096              	.LASF25:
+ 1097 0021 49324356 		.ascii	"I2CVuggesystem_EzI2CSetBuffer1\000"
+ 1097      75676765 
+ 1097      73797374 
+ 1097      656D5F45 
+ 1097      7A493243 
+ 1098              	.LASF31:
+ 1099 0040 49324356 		.ascii	"I2CVuggesystem_fsmState\000"
+ 1099      75676765 
+ 1099      73797374 
+ 1099      656D5F66 
+ 1099      736D5374 
+ 1100              	.LASF38:
+ 1101 0058 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\I2CVuggesystem_EZI2C.c\000"
+ 1101      6E657261 
+ 1101      7465645F 
+ 1101      536F7572 
+ 1101      63655C50 
+ 1102              	.LASF3:
+ 1103 0088 73686F72 		.ascii	"short unsigned int\000"
+ 1103      7420756E 
+ 1103      7369676E 
+ 1103      65642069 
+ 1103      6E7400
+ 1104              	.LASF27:
+ 1105 009b 7277426F 		.ascii	"rwBoundary\000"
+ 1105      756E6461 
+ 1105      727900
+ 1106              	.LASF36:
+ 1107 00a6 49324356 		.ascii	"I2CVuggesystem_indexBuf1\000"
+ 1107      75676765 
+ 1107      73797374 
+ 1107      656D5F69 
+ 1107      6E646578 
+ 1108              	.LASF24:
+ 1109 00bf 49324356 		.ascii	"I2CVuggesystem_EzI2CSetAddress1\000"
+ 1109      75676765 
+ 1109      73797374 
+ 1109      656D5F45 
+ 1109      7A493243 
+ 1110              	.LASF32:
+ 1111 00df 49324356 		.ascii	"I2CVuggesystem_dataBuffer1\000"
+ 1111      75676765 
+ 1111      73797374 
+ 1111      656D5F64 
+ 1111      61746142 
+ 1112              	.LASF12:
+ 1113 00fa 666C6F61 		.ascii	"float\000"
+ 1113      7400
+ 1114              	.LASF37:
+ 1115 0100 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1115      4320342E 
+ 1115      382E3420 
+ 1115      32303134 
+ 1115      30353236 
+ 1116 0133 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 30
 
 
- 1103              	.LASF5:
- 1104 01b5 6C6F6E67 		.ascii	"long unsigned int\000"
- 1104      20756E73 
- 1104      69676E65 
- 1104      6420696E 
- 1104      7400
- 1105              	.LASF9:
- 1106 01c7 75696E74 		.ascii	"uint8\000"
- 1106      3800
- 1107              	.LASF13:
- 1108 01cd 646F7562 		.ascii	"double\000"
- 1108      6C6500
- 1109              	.LASF35:
- 1110 01d4 49324356 		.ascii	"I2CVuggesystem_offsetBuf1\000"
- 1110      75676765 
- 1110      73797374 
- 1110      656D5F6F 
- 1110      66667365 
- 1111              	.LASF10:
- 1112 01ee 75696E74 		.ascii	"uint16\000"
- 1112      313600
- 1113              	.LASF11:
- 1114 01f5 75696E74 		.ascii	"uint32\000"
- 1114      333200
- 1115              	.LASF8:
- 1116 01fc 756E7369 		.ascii	"unsigned int\000"
- 1116      676E6564 
- 1116      20696E74 
- 1116      00
- 1117              	.LASF33:
- 1118 0209 49324356 		.ascii	"I2CVuggesystem_bufSizeBuf1\000"
- 1118      75676765 
- 1118      73797374 
- 1118      656D5F62 
- 1118      75665369 
- 1119              	.LASF23:
- 1120 0224 61646472 		.ascii	"address\000"
- 1120      65737300 
- 1121              	.LASF7:
- 1122 022c 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1122      206C6F6E 
- 1122      6720756E 
- 1122      7369676E 
- 1122      65642069 
- 1123              	.LASF28:
- 1124 0243 62756666 		.ascii	"buffer\000"
- 1124      657200
- 1125              	.LASF16:
- 1126 024a 73697A65 		.ascii	"sizetype\000"
- 1126      74797065 
- 1126      00
- 1127              	.LASF6:
- 1128 0253 6C6F6E67 		.ascii	"long long int\000"
- 1128      206C6F6E 
- 1128      6720696E 
- 1128      7400
- 1129              	.LASF19:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 31
+ 1116      20726576 
+ 1116      6973696F 
+ 1116      6E203231 
+ 1116      31333538 
+ 1117 0166 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1117      66756E63 
+ 1117      74696F6E 
+ 1117      2D736563 
+ 1117      74696F6E 
+ 1118              	.LASF29:
+ 1119 017c 49324356 		.ascii	"I2CVuggesystem_EzI2CSetReadBoundaryBuffer1\000"
+ 1119      75676765 
+ 1119      73797374 
+ 1119      656D5F45 
+ 1119      7A493243 
+ 1120              	.LASF1:
+ 1121 01a7 756E7369 		.ascii	"unsigned char\000"
+ 1121      676E6564 
+ 1121      20636861 
+ 1121      7200
+ 1122              	.LASF5:
+ 1123 01b5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1123      20756E73 
+ 1123      69676E65 
+ 1123      6420696E 
+ 1123      7400
+ 1124              	.LASF9:
+ 1125 01c7 75696E74 		.ascii	"uint8\000"
+ 1125      3800
+ 1126              	.LASF13:
+ 1127 01cd 646F7562 		.ascii	"double\000"
+ 1127      6C6500
+ 1128              	.LASF35:
+ 1129 01d4 49324356 		.ascii	"I2CVuggesystem_offsetBuf1\000"
+ 1129      75676765 
+ 1129      73797374 
+ 1129      656D5F6F 
+ 1129      66667365 
+ 1130              	.LASF10:
+ 1131 01ee 75696E74 		.ascii	"uint16\000"
+ 1131      313600
+ 1132              	.LASF11:
+ 1133 01f5 75696E74 		.ascii	"uint32\000"
+ 1133      333200
+ 1134              	.LASF8:
+ 1135 01fc 756E7369 		.ascii	"unsigned int\000"
+ 1135      676E6564 
+ 1135      20696E74 
+ 1135      00
+ 1136              	.LASF33:
+ 1137 0209 49324356 		.ascii	"I2CVuggesystem_bufSizeBuf1\000"
+ 1137      75676765 
+ 1137      73797374 
+ 1137      656D5F62 
+ 1137      75665369 
+ 1138              	.LASF23:
+ 1139 0224 61646472 		.ascii	"address\000"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 31
 
 
- 1130 0261 73746174 		.ascii	"status\000"
- 1130      757300
- 1131              	.LASF14:
- 1132 0268 63686172 		.ascii	"char\000"
- 1132      00
- 1133              	.LASF2:
- 1134 026d 73686F72 		.ascii	"short int\000"
- 1134      7420696E 
- 1134      7400
- 1135              	.LASF26:
- 1136 0277 62756653 		.ascii	"bufSize\000"
- 1136      697A6500 
- 1137              	.LASF30:
- 1138 027f 49324356 		.ascii	"I2CVuggesystem_curStatus\000"
- 1138      75676765 
- 1138      73797374 
- 1138      656D5F63 
- 1138      75725374 
- 1139              	.LASF17:
- 1140 0298 49324356 		.ascii	"I2CVuggesystem_EzI2CInit\000"
- 1140      75676765 
- 1140      73797374 
- 1140      656D5F45 
- 1140      7A493243 
- 1141              	.LASF4:
- 1142 02b1 6C6F6E67 		.ascii	"long int\000"
- 1142      20696E74 
- 1142      00
- 1143              	.LASF20:
- 1144 02ba 6D617463 		.ascii	"matchReg\000"
- 1144      68526567 
- 1144      00
- 1145              	.LASF0:
- 1146 02c3 7369676E 		.ascii	"signed char\000"
- 1146      65642063 
- 1146      68617200 
- 1147              	.LASF21:
- 1148 02cf 49324356 		.ascii	"I2CVuggesystem_EzI2CGetActivity\000"
- 1148      75676765 
- 1148      73797374 
- 1148      656D5F45 
- 1148      7A493243 
- 1149              	.LASF22:
- 1150 02ef 49324356 		.ascii	"I2CVuggesystem_EzI2CGetAddress1\000"
- 1150      75676765 
- 1150      73797374 
- 1150      656D5F45 
- 1150      7A493243 
- 1151              	.LASF39:
- 1152 030f 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
- 1152      73657273 
- 1152      5C4A6570 
- 1152      70655C44 
- 1152      6F63756D 
- 1153 033c 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
- 1153      4A345C49 
- 1153      6D706C65 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccrmwHUv.s 			page 32
+ 1139      65737300 
+ 1140              	.LASF7:
+ 1141 022c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1141      206C6F6E 
+ 1141      6720756E 
+ 1141      7369676E 
+ 1141      65642069 
+ 1142              	.LASF28:
+ 1143 0243 62756666 		.ascii	"buffer\000"
+ 1143      657200
+ 1144              	.LASF16:
+ 1145 024a 73697A65 		.ascii	"sizetype\000"
+ 1145      74797065 
+ 1145      00
+ 1146              	.LASF6:
+ 1147 0253 6C6F6E67 		.ascii	"long long int\000"
+ 1147      206C6F6E 
+ 1147      6720696E 
+ 1147      7400
+ 1148              	.LASF19:
+ 1149 0261 73746174 		.ascii	"status\000"
+ 1149      757300
+ 1150              	.LASF14:
+ 1151 0268 63686172 		.ascii	"char\000"
+ 1151      00
+ 1152              	.LASF2:
+ 1153 026d 73686F72 		.ascii	"short int\000"
+ 1153      7420696E 
+ 1153      7400
+ 1154              	.LASF26:
+ 1155 0277 62756653 		.ascii	"bufSize\000"
+ 1155      697A6500 
+ 1156              	.LASF30:
+ 1157 027f 49324356 		.ascii	"I2CVuggesystem_curStatus\000"
+ 1157      75676765 
+ 1157      73797374 
+ 1157      656D5F63 
+ 1157      75725374 
+ 1158              	.LASF17:
+ 1159 0298 49324356 		.ascii	"I2CVuggesystem_EzI2CInit\000"
+ 1159      75676765 
+ 1159      73797374 
+ 1159      656D5F45 
+ 1159      7A493243 
+ 1160              	.LASF4:
+ 1161 02b1 6C6F6E67 		.ascii	"long int\000"
+ 1161      20696E74 
+ 1161      00
+ 1162              	.LASF20:
+ 1163 02ba 6D617463 		.ascii	"matchReg\000"
+ 1163      68526567 
+ 1163      00
+ 1164              	.LASF0:
+ 1165 02c3 7369676E 		.ascii	"signed char\000"
+ 1165      65642063 
+ 1165      68617200 
+ 1166              	.LASF21:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccwW1Jsc.s 			page 32
 
 
- 1153      6D656E74 
- 1153      6572696E 
- 1154 036b 76756767 		.ascii	"vuggeControl.cydsn\000"
- 1154      65436F6E 
- 1154      74726F6C 
- 1154      2E637964 
- 1154      736E00
- 1155              	.LASF18:
- 1156 037e 49324356 		.ascii	"I2CVuggesystem_EzI2CStop\000"
- 1156      75676765 
- 1156      73797374 
- 1156      656D5F45 
- 1156      7A493243 
- 1157              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ 1167 02cf 49324356 		.ascii	"I2CVuggesystem_EzI2CGetActivity\000"
+ 1167      75676765 
+ 1167      73797374 
+ 1167      656D5F45 
+ 1167      7A493243 
+ 1168              	.LASF22:
+ 1169 02ef 49324356 		.ascii	"I2CVuggesystem_EzI2CGetAddress1\000"
+ 1169      75676765 
+ 1169      73797374 
+ 1169      656D5F45 
+ 1169      7A493243 
+ 1170              	.LASF39:
+ 1171 030f 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Documents\\Engineer\\4_Semester\\"
+ 1171      73657273 
+ 1171      5C4A6570 
+ 1171      70655C44 
+ 1171      6F63756D 
+ 1172 033c 45345052 		.ascii	"E4PRJ4\\Implementering\\Vuggesystem\\vuggeControl\\"
+ 1172      4A345C49 
+ 1172      6D706C65 
+ 1172      6D656E74 
+ 1172      6572696E 
+ 1173 036b 76756767 		.ascii	"vuggeControl.cydsn\000"
+ 1173      65436F6E 
+ 1173      74726F6C 
+ 1173      2E637964 
+ 1173      736E00
+ 1174              	.LASF18:
+ 1175 037e 49324356 		.ascii	"I2CVuggesystem_EzI2CStop\000"
+ 1175      75676765 
+ 1175      73797374 
+ 1175      656D5F45 
+ 1175      7A493243 
+ 1176              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

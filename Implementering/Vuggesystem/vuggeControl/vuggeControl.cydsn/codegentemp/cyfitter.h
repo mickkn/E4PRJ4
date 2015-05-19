@@ -259,10 +259,10 @@
 
 /* Clock_1 */
 #define Clock_1__DIVIDER_MASK 0x0000FFFFu
-#define Clock_1__ENABLE CYREG_CLK_DIVIDER_B00
+#define Clock_1__ENABLE CYREG_CLK_DIVIDER_A00
 #define Clock_1__ENABLE_MASK 0x80000000u
 #define Clock_1__MASK 0x80000000u
-#define Clock_1__REGISTER CYREG_CLK_DIVIDER_B00
+#define Clock_1__REGISTER CYREG_CLK_DIVIDER_A00
 
 /* ESSwitch */
 #define ESSwitch__0__DM__MASK 0x38000u
@@ -527,10 +527,10 @@
 
 /* sensorI2C_SCBCLK */
 #define sensorI2C_SCBCLK__DIVIDER_MASK 0x0000FFFFu
-#define sensorI2C_SCBCLK__ENABLE CYREG_CLK_DIVIDER_A00
+#define sensorI2C_SCBCLK__ENABLE CYREG_CLK_DIVIDER_B00
 #define sensorI2C_SCBCLK__ENABLE_MASK 0x80000000u
 #define sensorI2C_SCBCLK__MASK 0x80000000u
-#define sensorI2C_SCBCLK__REGISTER CYREG_CLK_DIVIDER_A00
+#define sensorI2C_SCBCLK__REGISTER CYREG_CLK_DIVIDER_B00
 
 /* sensorI2C_scl */
 #define sensorI2C_scl__0__DM__MASK 0x7000u

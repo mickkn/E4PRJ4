@@ -1,5 +1,5 @@
 -- Project:   vuggeControl
--- Generated: 05/14/2015 14:26:06
+-- Generated: 05/18/2015 13:49:52
 -- PSoC Creator  3.1 SP2
 
 ENTITY vuggeControl IS
@@ -562,8 +562,8 @@ BEGIN
             ext => ClockBlock_EXTCLK,
             imo => ClockBlock_IMO,
             hfclk => ClockBlock_HFCLK,
-            ff_div_2 => \I2CVuggesystem:Net_847_ff3\,
             udb_div_0 => dclk_to_genclk,
+            ff_div_2 => \I2CVuggesystem:Net_847_ff3\,
             ff_div_3 => \sensorI2C:Net_847_ff2\,
             udb_div_1 => dclk_to_genclk_1,
             udb_div_2 => dclk_to_genclk_2);

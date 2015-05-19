@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
   25:.\Generated_Source\PSoC4/PWM_PM.c **** ********************************************************************************
   26:.\Generated_Source\PSoC4/PWM_PM.c **** *
   27:.\Generated_Source\PSoC4/PWM_PM.c **** * Summary:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 2
 
 
   28:.\Generated_Source\PSoC4/PWM_PM.c **** *  Saves the current user configuration of the component.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
   55 0026 DA70     		strb	r2, [r3, #3]
   57:.\Generated_Source\PSoC4/PWM_PM.c ****         #endif /*  deadband count is either 2-4 clocks or 256 clocks */
   58:.\Generated_Source\PSoC4/PWM_PM.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 3
 
 
   59:.\Generated_Source\PSoC4/PWM_PM.c ****         #if(PWM_KillModeMinTime)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
   88:.\Generated_Source\PSoC4/PWM_PM.c **** void PWM_RestoreConfig(void) 
   89:.\Generated_Source\PSoC4/PWM_PM.c **** {
   81              		.loc 1 89 0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 4
 
 
   82              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  111              		@ sp needed
  112 002e 80BD     		pop	{r7, pc}
  113              	.L6:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 5
 
 
  114              		.align	2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  143 0010 03DA     		bge	.L8
  140:.\Generated_Source\PSoC4/PWM_PM.c ****         {
  141:.\Generated_Source\PSoC4/PWM_PM.c ****             /*Component is enabled */
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 6
 
 
  142:.\Generated_Source\PSoC4/PWM_PM.c ****             PWM_backup.PWMEnableState = 1u;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  161:.\Generated_Source\PSoC4/PWM_PM.c **** ********************************************************************************
  162:.\Generated_Source\PSoC4/PWM_PM.c **** *
  163:.\Generated_Source\PSoC4/PWM_PM.c **** * Summary:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 7
 
 
  164:.\Generated_Source\PSoC4/PWM_PM.c **** *  Restores and enables the user configuration. Should be called just after
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  207              		.size	PWM_Wakeup, .-PWM_Wakeup
  208              		.text
  209              	.Letext0:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 8
 
 
  210              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  264 0066 07       		.byte	0x7
  265 0067 0E000000 		.4byte	.LASF8
  266 006b 04       		.uleb128 0x4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 9
 
 
  267 006c 46000000 		.4byte	.LASF12
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  321 00d6 6B000000 		.4byte	0x6b
  322 00da 03       		.byte	0x3
  323 00db 08       		.uleb128 0x8
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 10
 
 
  324 00dc 3F010000 		.4byte	.LASF19
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  378 0000 01       		.uleb128 0x1
  379 0001 11       		.uleb128 0x11
  380 0002 01       		.byte	0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 11
 
 
  381 0003 25       		.uleb128 0x25
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  435 0039 03       		.uleb128 0x3
  436 003a 0E       		.uleb128 0xe
  437 003b 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 12
 
 
  438 003c 0B       		.uleb128 0xb
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  492 0072 19       		.uleb128 0x19
  493 0073 11       		.uleb128 0x11
  494 0074 01       		.uleb128 0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 13
 
 
  495 0075 12       		.uleb128 0x12
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  549              		.section	.debug_line,"",%progbits
  550              	.Ldebug_line0:
  551 0000 A7000000 		.section	.debug_str,"MS",%progbits,1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 14
 
 
  551      02004E00 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  573 009c 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
  573      4320342E 
  573      382E3420 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 15
 
 
  573      32303134 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 1
  594              	.LASF0:
  595 018d 7369676E 		.ascii	"signed char\000"
  595      65642063 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccWumygk.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccdtdzG9.s 			page 16
 
 
  595      68617200 

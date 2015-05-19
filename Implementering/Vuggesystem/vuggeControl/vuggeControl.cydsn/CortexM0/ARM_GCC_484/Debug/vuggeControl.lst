@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -38,11 +38,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
   35              		.section	.rodata
   36              		.align	2
   37              	.LC0:
-  38 0000 57656C63 		.ascii	"Welcome senor Hofni\015\012\000"
+  38 0000 57656C63 		.ascii	"Welcome to Baby Watch\015\012\000"
   38      6F6D6520 
-  38      73656E6F 
-  38      7220486F 
-  38      666E690D 
+  38      746F2042 
+  38      61627920 
+  38      57617463 
   39              		.section	.text.main,"ax",%progbits
   40              		.align	2
   41              		.global	main
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
    4:.\vuggeControl.c ****  * All Rights Reserved
    5:.\vuggeControl.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
    6:.\vuggeControl.c ****  *
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 2
 
 
    7:.\vuggeControl.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
   50 0000 80B5     		push	{r7, lr}
   51              		.cfi_def_cfa_offset 8
   52              		.cfi_offset 7, -8
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 3
 
 
   53              		.cfi_offset 14, -4
@@ -134,7 +134,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
   61              	@ 60 ".\vuggeControl.c" 1
   62 000a 62B6     		CPSIE   i
   63              	@ 0 "" 2
-  61:.\vuggeControl.c ****     debugOut_PutString("Welcome senor Hofni\r\n");
+  61:.\vuggeControl.c ****     debugOut_PutString("Welcome to Baby Watch\r\n");
   64              		.loc 1 61 0
   65              		.code	16
   66 000c 1A4B     		ldr	r3, .L4
@@ -175,10 +175,10 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
   91 0032 0A43     		orr	r2, r1
   92 0034 1A60     		str	r2, [r3]
   72:.\vuggeControl.c ****         
-  73:.\vuggeControl.c ****         //check systemm status
+  73:.\vuggeControl.c ****         //check system status
   74:.\vuggeControl.c ****         checkEndstop();
   93              		.loc 1 74 0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 4
 
 
   94 0036 FFF7FEFF 		bl	checkEndstop
@@ -201,46 +201,48 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  106 004e FFF7FEFF 		bl	getVuggeUdsvingSens
  107 0052 031C     		mov	r3, r0
  108 0054 7B60     		str	r3, [r7, #4]
-  80:.\vuggeControl.c **** //        char str[30];
-  81:.\vuggeControl.c **** //        sprintf(str, "%d, ", angle);
-  82:.\vuggeControl.c **** //        debugOut_PutString(str);
-  83:.\vuggeControl.c ****         fix16_t C = beregnRegulering(angle);
- 109              		.loc 1 83 0
+  80:.\vuggeControl.c ****         /* ***** DEBUG ******/
+  81:.\vuggeControl.c **** //        char str[30];
+  82:.\vuggeControl.c **** //        sprintf(str, "%d, ", angle);
+  83:.\vuggeControl.c **** //        debugOut_PutString(str);
+  84:.\vuggeControl.c ****         /* *** END DEBUG ****/
+  85:.\vuggeControl.c ****         fix16_t C = beregnRegulering(angle);
+ 109              		.loc 1 85 0
  110 0056 7B68     		ldr	r3, [r7, #4]
  111 0058 181C     		mov	r0, r3
  112 005a FFF7FEFF 		bl	beregnRegulering
  113 005e 031C     		mov	r3, r0
  114 0060 3B60     		str	r3, [r7]
-  84:.\vuggeControl.c ****         //updaten motor output
-  85:.\vuggeControl.c ****         PWMStyring(C);
- 115              		.loc 1 85 0
+  86:.\vuggeControl.c ****         //update motor output
+  87:.\vuggeControl.c ****         PWMStyring(C);
+ 115              		.loc 1 87 0
  116 0062 3B68     		ldr	r3, [r7]
  117 0064 181C     		mov	r0, r3
  118 0066 FFF7FEFF 		bl	PWMStyring
-  86:.\vuggeControl.c ****         //check for successful control output
-  87:.\vuggeControl.c ****         reguleringsStatus();
- 119              		.loc 1 87 0
+  88:.\vuggeControl.c ****         //check for successful control output
+  89:.\vuggeControl.c ****         reguleringsStatus();
+ 119              		.loc 1 89 0
  120 006a FFF7FEFF 		bl	reguleringsStatus
-  88:.\vuggeControl.c ****         
-  89:.\vuggeControl.c ****         //set waiting flag to false
-  90:.\vuggeControl.c ****         ready = FALSE;
- 121              		.loc 1 90 0
+  90:.\vuggeControl.c ****         
+  91:.\vuggeControl.c ****         //set waiting flag to false
+  92:.\vuggeControl.c ****         ready = FALSE;
+ 121              		.loc 1 92 0
  122 006e 044B     		ldr	r3, .L4+8
  123 0070 0022     		mov	r2, #0
  124 0072 1A70     		strb	r2, [r3]
  125              	.LBE2:
-  91:.\vuggeControl.c ****     }
- 126              		.loc 1 91 0
+  93:.\vuggeControl.c ****     }
+ 126              		.loc 1 93 0
  127 0074 CEE7     		b	.L3
  128              	.L5:
  129 0076 C046     		.align	2
  130              	.L4:
  131 0078 00000000 		.word	.LC0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 5
+
+
  132 007c 00000440 		.word	1074003968
  133 0080 00000000 		.word	ready
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 5
-
-
  134 0084 00000000 		.word	I2CBuf
  135              		.cfi_endproc
  136              	.LFE33:
@@ -253,11 +255,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  143              		.type	initVuggesystem, %function
  144              	initVuggesystem:
  145              	.LFB34:
-  92:.\vuggeControl.c **** }
-  93:.\vuggeControl.c **** 
-  94:.\vuggeControl.c **** void initVuggesystem()
-  95:.\vuggeControl.c **** {   
- 146              		.loc 1 95 0
+  94:.\vuggeControl.c **** }
+  95:.\vuggeControl.c **** 
+  96:.\vuggeControl.c **** void initVuggesystem()
+  97:.\vuggeControl.c **** {   
+ 146              		.loc 1 97 0
  147              		.cfi_startproc
  148 0000 80B5     		push	{r7, lr}
  149              		.cfi_def_cfa_offset 8
@@ -265,51 +267,51 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  151              		.cfi_offset 14, -4
  152 0002 00AF     		add	r7, sp, #0
  153              		.cfi_def_cfa_register 7
-  96:.\vuggeControl.c ****     debugOut_Start();
- 154              		.loc 1 96 0
+  98:.\vuggeControl.c ****     debugOut_Start();
+ 154              		.loc 1 98 0
  155 0004 FFF7FEFF 		bl	debugOut_Start
-  97:.\vuggeControl.c ****         
-  98:.\vuggeControl.c ****     //Start components
-  99:.\vuggeControl.c ****     loopTimer_Start();
- 156              		.loc 1 99 0
+  99:.\vuggeControl.c ****         
+ 100:.\vuggeControl.c ****     //Start components
+ 101:.\vuggeControl.c ****     loopTimer_Start();
+ 156              		.loc 1 101 0
  157 0008 FFF7FEFF 		bl	loopTimer_Start
- 100:.\vuggeControl.c ****     loop_isr_StartEx(loopIsr);
- 158              		.loc 1 100 0
+ 102:.\vuggeControl.c ****     loop_isr_StartEx(loopIsr);
+ 158              		.loc 1 102 0
  159 000c 0A4B     		ldr	r3, .L7
  160 000e 181C     		mov	r0, r3
  161 0010 FFF7FEFF 		bl	loop_isr_StartEx
- 101:.\vuggeControl.c ****     
- 102:.\vuggeControl.c ****     //start sensors
- 103:.\vuggeControl.c ****     initSensors(); 
- 162              		.loc 1 103 0
+ 103:.\vuggeControl.c ****     
+ 104:.\vuggeControl.c ****     //start sensors
+ 105:.\vuggeControl.c ****     initSensors(); 
+ 162              		.loc 1 105 0
  163 0014 FFF7FEFF 		bl	initSensors
- 104:.\vuggeControl.c ****     
- 105:.\vuggeControl.c ****     //start controller I2C connection
- 106:.\vuggeControl.c ****     initI2C();
- 164              		.loc 1 106 0
+ 106:.\vuggeControl.c ****     
+ 107:.\vuggeControl.c ****     //start controller I2C connection
+ 108:.\vuggeControl.c ****     initI2C();
+ 164              		.loc 1 108 0
  165 0018 FFF7FEFF 		bl	initI2C
- 107:.\vuggeControl.c ****     i2cPtr_ = sendConKom();
- 166              		.loc 1 107 0
+ 109:.\vuggeControl.c ****     i2cPtr_ = sendConKom();
+ 166              		.loc 1 109 0
  167 001c FFF7FEFF 		bl	sendConKom
  168 0020 021C     		mov	r2, r0
  169 0022 064B     		ldr	r3, .L7+4
  170 0024 1A60     		str	r2, [r3]
- 108:.\vuggeControl.c ****     
- 109:.\vuggeControl.c ****     //start regulering
- 110:.\vuggeControl.c ****     initRegulering();
- 171              		.loc 1 110 0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 6
+ 110:.\vuggeControl.c ****     
+ 111:.\vuggeControl.c ****     //start regulering
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 6
 
 
+ 112:.\vuggeControl.c ****     initRegulering();
+ 171              		.loc 1 112 0
  172 0026 FFF7FEFF 		bl	initRegulering
- 111:.\vuggeControl.c ****     reguleringsStatusPtr_ = getReguleringsStatus();
- 173              		.loc 1 111 0
+ 113:.\vuggeControl.c ****     reguleringsStatusPtr_ = getReguleringsStatus();
+ 173              		.loc 1 113 0
  174 002a FFF7FEFF 		bl	getReguleringsStatus
  175 002e 021C     		mov	r2, r0
  176 0030 034B     		ldr	r3, .L7+8
  177 0032 1A60     		str	r2, [r3]
- 112:.\vuggeControl.c **** }
- 178              		.loc 1 112 0
+ 114:.\vuggeControl.c **** }
+ 178              		.loc 1 114 0
  179 0034 BD46     		mov	sp, r7
  180              		@ sp needed
  181 0036 80BD     		pop	{r7, pc}
@@ -330,15 +332,15 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  196              		.type	reguleringsStatus, %function
  197              	reguleringsStatus:
  198              	.LFB35:
- 113:.\vuggeControl.c **** 
- 114:.\vuggeControl.c **** 
- 115:.\vuggeControl.c **** /* Function Name: reguleringsStatus
- 116:.\vuggeControl.c ****    Summary:
- 117:.\vuggeControl.c ****     Checks for error and sets the I2CTxReg[1] with regStatus error message. ERR = 0b10000000(128_de
- 118:.\vuggeControl.c **** */
- 119:.\vuggeControl.c **** void reguleringsStatus()
- 120:.\vuggeControl.c **** {
- 199              		.loc 1 120 0
+ 115:.\vuggeControl.c **** 
+ 116:.\vuggeControl.c **** 
+ 117:.\vuggeControl.c **** /* Function Name: reguleringsStatus
+ 118:.\vuggeControl.c ****    Summary:
+ 119:.\vuggeControl.c ****     Checks for error and sets the I2CTxReg[1] with regStatus error message. ERR = 0b10000000(128_de
+ 120:.\vuggeControl.c **** */
+ 121:.\vuggeControl.c **** void reguleringsStatus()
+ 122:.\vuggeControl.c **** {
+ 199              		.loc 1 122 0
  200              		.cfi_startproc
  201 0000 80B5     		push	{r7, lr}
  202              		.cfi_def_cfa_offset 8
@@ -348,37 +350,37 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  206              		.cfi_def_cfa_offset 16
  207 0004 00AF     		add	r7, sp, #0
  208              		.cfi_def_cfa_register 7
- 121:.\vuggeControl.c ****     int reguleringsStatus = *reguleringsStatusPtr_;
- 209              		.loc 1 121 0
+ 123:.\vuggeControl.c ****     int reguleringsStatus = *reguleringsStatusPtr_;
+ 209              		.loc 1 123 0
  210 0006 094B     		ldr	r3, .L11
  211 0008 1B68     		ldr	r3, [r3]
  212 000a 1B68     		ldr	r3, [r3]
  213 000c 7B60     		str	r3, [r7, #4]
- 122:.\vuggeControl.c ****     if(reguleringsStatus > 1)
- 214              		.loc 1 122 0
+ 124:.\vuggeControl.c ****     if(reguleringsStatus > 1)
+ 214              		.loc 1 124 0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 7
+
+
  215 000e 7B68     		ldr	r3, [r7, #4]
  216 0010 012B     		cmp	r3, #1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 7
-
-
  217 0012 07DD     		ble	.L9
- 123:.\vuggeControl.c ****     {  
- 124:.\vuggeControl.c ****         i2cPtr_[4] = reguleringsStatus;
- 218              		.loc 1 124 0
+ 125:.\vuggeControl.c ****     {  
+ 126:.\vuggeControl.c ****         i2cPtr_[4] = reguleringsStatus;
+ 218              		.loc 1 126 0
  219 0014 064B     		ldr	r3, .L11+4
  220 0016 1B68     		ldr	r3, [r3]
  221 0018 0433     		add	r3, r3, #4
  222 001a 7A68     		ldr	r2, [r7, #4]
  223 001c D2B2     		uxtb	r2, r2
  224 001e 1A70     		strb	r2, [r3]
- 125:.\vuggeControl.c ****         lukSystem();
- 225              		.loc 1 125 0
+ 127:.\vuggeControl.c ****         lukSystem();
+ 225              		.loc 1 127 0
  226 0020 FFF7FEFF 		bl	lukSystem
  227              	.L9:
- 126:.\vuggeControl.c ****     }
- 127:.\vuggeControl.c ****     
- 128:.\vuggeControl.c **** }
- 228              		.loc 1 128 0
+ 128:.\vuggeControl.c ****     }
+ 129:.\vuggeControl.c ****     
+ 130:.\vuggeControl.c **** }
+ 228              		.loc 1 130 0
  229 0024 BD46     		mov	sp, r7
  230 0026 02B0     		add	sp, sp, #8
  231              		@ sp needed
@@ -399,14 +401,14 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  246              		.type	lukSystem, %function
  247              	lukSystem:
  248              	.LFB36:
- 129:.\vuggeControl.c **** 
- 130:.\vuggeControl.c **** /* Function Name: lukSystem
- 131:.\vuggeControl.c ****    Summary:
- 132:.\vuggeControl.c ****    Stops and closes all motor control operation  
- 133:.\vuggeControl.c **** */
- 134:.\vuggeControl.c **** void lukSystem()
- 135:.\vuggeControl.c **** {  
- 249              		.loc 1 135 0
+ 131:.\vuggeControl.c **** 
+ 132:.\vuggeControl.c **** /* Function Name: lukSystem
+ 133:.\vuggeControl.c ****    Summary:
+ 134:.\vuggeControl.c ****    Stops and closes all motor control operation  
+ 135:.\vuggeControl.c **** */
+ 136:.\vuggeControl.c **** void lukSystem()
+ 137:.\vuggeControl.c **** {  
+ 249              		.loc 1 137 0
  250              		.cfi_startproc
  251 0000 80B5     		push	{r7, lr}
  252              		.cfi_def_cfa_offset 8
@@ -414,13 +416,13 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  254              		.cfi_offset 14, -4
  255 0002 00AF     		add	r7, sp, #0
  256              		.cfi_def_cfa_register 7
- 136:.\vuggeControl.c ****     // Set some pin LOW to shutdown motorcircuit??
- 137:.\vuggeControl.c **** 
- 138:.\vuggeControl.c **** }
- 257              		.loc 1 138 0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 8
+ 138:.\vuggeControl.c ****     // Set some pin LOW to shutdown motorcircuit??
+ 139:.\vuggeControl.c **** 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 8
 
 
+ 140:.\vuggeControl.c **** }
+ 257              		.loc 1 140 0
  258 0004 BD46     		mov	sp, r7
  259              		@ sp needed
  260 0006 80BD     		pop	{r7, pc}
@@ -435,14 +437,14 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  269              		.type	checkOn_Off, %function
  270              	checkOn_Off:
  271              	.LFB37:
- 139:.\vuggeControl.c **** 
- 140:.\vuggeControl.c **** /* Function Name: checkOn_Off
- 141:.\vuggeControl.c ****    Summary:
- 142:.\vuggeControl.c ****    Checks i2cBuffer reg 4 for shutdown indicator 0x0f and signals Ready for shutdown 
- 143:.\vuggeControl.c **** */
- 144:.\vuggeControl.c **** void checkOn_Off()
- 145:.\vuggeControl.c **** {  
- 272              		.loc 1 145 0
+ 141:.\vuggeControl.c **** 
+ 142:.\vuggeControl.c **** /* Function Name: checkOn_Off
+ 143:.\vuggeControl.c ****    Summary:
+ 144:.\vuggeControl.c ****    Checks i2cBuffer reg 4 for shutdown indicator 0x0f and signals Ready for shutdown 
+ 145:.\vuggeControl.c **** */
+ 146:.\vuggeControl.c **** void checkOn_Off()
+ 147:.\vuggeControl.c **** {  
+ 272              		.loc 1 147 0
  273              		.cfi_startproc
  274 0000 80B5     		push	{r7, lr}
  275              		.cfi_def_cfa_offset 8
@@ -452,36 +454,36 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  279              		.cfi_def_cfa_offset 16
  280 0004 00AF     		add	r7, sp, #0
  281              		.cfi_def_cfa_register 7
- 146:.\vuggeControl.c ****     uint8 shutdown = i2cPtr_[1];
- 282              		.loc 1 146 0
+ 148:.\vuggeControl.c ****     uint8 shutdown = i2cPtr_[1];
+ 282              		.loc 1 148 0
  283 0006 084B     		ldr	r3, .L16
  284 0008 1A68     		ldr	r2, [r3]
  285 000a FB1D     		add	r3, r7, #7
  286 000c 5278     		ldrb	r2, [r2, #1]
  287 000e 1A70     		strb	r2, [r3]
- 147:.\vuggeControl.c ****     if(shutdown == 0x0f)
- 288              		.loc 1 147 0
+ 149:.\vuggeControl.c ****     if(shutdown == 0x0f)
+ 288              		.loc 1 149 0
  289 0010 FB1D     		add	r3, r7, #7
  290 0012 1B78     		ldrb	r3, [r3]
  291 0014 0F2B     		cmp	r3, #15
  292 0016 04D1     		bne	.L14
- 148:.\vuggeControl.c ****     {  
- 149:.\vuggeControl.c ****         // Set some pin LOW to shutdown motorcircuit??
- 150:.\vuggeControl.c ****         //UART_1_UartPutString("\n\n\nShutdown ready!!!!\n\n\n"); // For debugging purpose
- 151:.\vuggeControl.c ****         i2cPtr_[4] = 0b00010000;
- 293              		.loc 1 151 0
+ 150:.\vuggeControl.c ****     {  
+ 151:.\vuggeControl.c ****         // Set some pin LOW to shutdown motorcircuit??
+ 152:.\vuggeControl.c ****         //UART_1_UartPutString("\n\n\nShutdown ready!!!!\n\n\n"); // For debugging purpose
+ 153:.\vuggeControl.c ****         i2cPtr_[4] = 0b00010000;
+ 293              		.loc 1 153 0
  294 0018 034B     		ldr	r3, .L16
  295 001a 1B68     		ldr	r3, [r3]
  296 001c 0433     		add	r3, r3, #4
  297 001e 1022     		mov	r2, #16
  298 0020 1A70     		strb	r2, [r3]
  299              	.L14:
- 152:.\vuggeControl.c ****     }
- 153:.\vuggeControl.c **** }
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 9
 
 
- 300              		.loc 1 153 0
+ 154:.\vuggeControl.c ****     }
+ 155:.\vuggeControl.c **** }
+ 300              		.loc 1 155 0
  301 0022 BD46     		mov	sp, r7
  302 0024 02B0     		add	sp, sp, #8
  303              		@ sp needed
@@ -501,14 +503,14 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  317              		.type	checkEndstop, %function
  318              	checkEndstop:
  319              	.LFB38:
- 154:.\vuggeControl.c **** 
- 155:.\vuggeControl.c **** /* Function Name: checkEndstop
- 156:.\vuggeControl.c ****    Summary:
- 157:.\vuggeControl.c ****     Checks enstopstatus. If TRUE set statusPTR to error message: END_STP = 0b10100000 (160_dec A0_h
- 158:.\vuggeControl.c **** */
- 159:.\vuggeControl.c **** void checkEndstop()
- 160:.\vuggeControl.c **** {
- 320              		.loc 1 160 0
+ 156:.\vuggeControl.c **** 
+ 157:.\vuggeControl.c **** /* Function Name: checkEndstop
+ 158:.\vuggeControl.c ****    Summary:
+ 159:.\vuggeControl.c ****     Checks enstopstatus. If TRUE set statusPTR to error message: END_STP = 0b10100000 (160_dec A0_h
+ 160:.\vuggeControl.c **** */
+ 161:.\vuggeControl.c **** void checkEndstop()
+ 162:.\vuggeControl.c **** {
+ 320              		.loc 1 162 0
  321              		.cfi_startproc
  322 0000 80B5     		push	{r7, lr}
  323              		.cfi_def_cfa_offset 8
@@ -516,37 +518,37 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  325              		.cfi_offset 14, -4
  326 0002 00AF     		add	r7, sp, #0
  327              		.cfi_def_cfa_register 7
- 161:.\vuggeControl.c ****     
- 162:.\vuggeControl.c ****     if(getEndstopGPIO() == TRUE)
- 328              		.loc 1 162 0
+ 163:.\vuggeControl.c ****     
+ 164:.\vuggeControl.c ****     if(getEndstopGPIO() == TRUE)
+ 328              		.loc 1 164 0
  329 0004 FFF7FEFF 		bl	getEndstopGPIO
  330 0008 031C     		mov	r3, r0
  331 000a 012B     		cmp	r3, #1
  332 000c 09D1     		bne	.L18
- 163:.\vuggeControl.c ****     {  
- 164:.\vuggeControl.c ****         //UART_1_UartPutString("\n\n\nENDSTOP!!!!\n\n\n"); // For debugging purpose
- 165:.\vuggeControl.c ****         i2cPtr_[4] = 0b10100000;
- 333              		.loc 1 165 0
+ 165:.\vuggeControl.c ****     {  
+ 166:.\vuggeControl.c ****         //UART_1_UartPutString("\n\n\nENDSTOP!!!!\n\n\n"); // For debugging purpose
+ 167:.\vuggeControl.c ****         i2cPtr_[4] = 0b10100000;
+ 333              		.loc 1 167 0
  334 000e 064B     		ldr	r3, .L20
  335 0010 1B68     		ldr	r3, [r3]
  336 0012 0433     		add	r3, r3, #4
  337 0014 A022     		mov	r2, #160
  338 0016 1A70     		strb	r2, [r3]
- 166:.\vuggeControl.c ****         endstopStatusPtr_ = 0;
- 339              		.loc 1 166 0
+ 168:.\vuggeControl.c ****         endstopStatusPtr_ = 0;
+ 339              		.loc 1 168 0
  340 0018 044B     		ldr	r3, .L20+4
  341 001a 0022     		mov	r2, #0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 10
+
+
  342 001c 1A60     		str	r2, [r3]
- 167:.\vuggeControl.c ****         lukSystem();
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 10
-
-
- 343              		.loc 1 167 0
+ 169:.\vuggeControl.c ****         lukSystem();
+ 343              		.loc 1 169 0
  344 001e FFF7FEFF 		bl	lukSystem
  345              	.L18:
- 168:.\vuggeControl.c ****     }
- 169:.\vuggeControl.c **** }
- 346              		.loc 1 169 0
+ 170:.\vuggeControl.c ****     }
+ 171:.\vuggeControl.c **** }
+ 346              		.loc 1 171 0
  347 0022 BD46     		mov	sp, r7
  348              		@ sp needed
  349 0024 80BD     		pop	{r7, pc}
@@ -559,7 +561,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  356              	.LFE38:
  357              		.size	checkEndstop, .-checkEndstop
  358              		.section	.rodata
- 359 0016 0000     		.align	2
+ 359              		.align	2
  360              	.LC13:
  361 0018 4F766572 		.ascii	"Overflow!\000"
  361      666C6F77 
@@ -572,10 +574,10 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  367              		.type	loopIsr, %function
  368              	loopIsr:
  369              	.LFB39:
- 170:.\vuggeControl.c **** 
- 171:.\vuggeControl.c **** CY_ISR(loopIsr)
- 172:.\vuggeControl.c **** {
- 370              		.loc 1 172 0
+ 172:.\vuggeControl.c **** 
+ 173:.\vuggeControl.c **** CY_ISR(loopIsr)
+ 174:.\vuggeControl.c **** {
+ 370              		.loc 1 174 0
  371              		.cfi_startproc
  372 0000 80B5     		push	{r7, lr}
  373              		.cfi_def_cfa_offset 8
@@ -583,27 +585,27 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  375              		.cfi_offset 14, -4
  376 0002 00AF     		add	r7, sp, #0
  377              		.cfi_def_cfa_register 7
- 173:.\vuggeControl.c ****     if(ready == TRUE) error("Overflow!");
- 378              		.loc 1 173 0
+ 175:.\vuggeControl.c ****     if(ready == TRUE) error("Overflow!");
+ 378              		.loc 1 175 0
  379 0004 064B     		ldr	r3, .L24
  380 0006 1B78     		ldrb	r3, [r3]
  381 0008 012B     		cmp	r3, #1
  382 000a 03D1     		bne	.L23
- 383              		.loc 1 173 0 is_stmt 0 discriminator 1
+ 383              		.loc 1 175 0 is_stmt 0 discriminator 1
  384 000c 054B     		ldr	r3, .L24+4
  385 000e 181C     		mov	r0, r3
  386 0010 FFF7FEFF 		bl	error
  387              	.L23:
- 174:.\vuggeControl.c ****     ready = TRUE;
- 388              		.loc 1 174 0 is_stmt 1
+ 176:.\vuggeControl.c ****     ready = TRUE;
+ 388              		.loc 1 176 0 is_stmt 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 11
+
+
  389 0014 024B     		ldr	r3, .L24
  390 0016 0122     		mov	r2, #1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 11
-
-
  391 0018 1A70     		strb	r2, [r3]
- 175:.\vuggeControl.c **** }
- 392              		.loc 1 175 0
+ 177:.\vuggeControl.c **** }
+ 392              		.loc 1 177 0
  393 001a BD46     		mov	sp, r7
  394              		@ sp needed
  395 001c 80BD     		pop	{r7, pc}
@@ -623,10 +625,10 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  409              		.type	error, %function
  410              	error:
  411              	.LFB40:
- 176:.\vuggeControl.c **** 
- 177:.\vuggeControl.c **** void error(char* str)
- 178:.\vuggeControl.c **** {
- 412              		.loc 1 178 0
+ 178:.\vuggeControl.c **** 
+ 179:.\vuggeControl.c **** void error(char* str)
+ 180:.\vuggeControl.c **** {
+ 412              		.loc 1 180 0
  413              		.cfi_startproc
  414 0000 80B5     		push	{r7, lr}
  415              		.cfi_def_cfa_offset 8
@@ -637,14 +639,14 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  420 0004 00AF     		add	r7, sp, #0
  421              		.cfi_def_cfa_register 7
  422 0006 7860     		str	r0, [r7, #4]
- 179:.\vuggeControl.c ****     debugOut_PutString(str);    
- 423              		.loc 1 179 0
+ 181:.\vuggeControl.c ****     debugOut_PutString(str);    
+ 423              		.loc 1 181 0
  424 0008 7B68     		ldr	r3, [r7, #4]
  425 000a 181C     		mov	r0, r3
  426 000c FFF7FEFF 		bl	debugOut_PutString
  427              	.L27:
- 180:.\vuggeControl.c ****     while(TRUE);
- 428              		.loc 1 180 0 discriminator 1
+ 182:.\vuggeControl.c ****     while(TRUE);
+ 428              		.loc 1 182 0 discriminator 1
  429 0010 FEE7     		b	.L27
  430              		.cfi_endproc
  431              	.LFE40:
@@ -656,11 +658,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  437              		.file 4 ".\\Generated_Source\\PSoC4/cytypes.h"
  438              		.file 5 ".\\fixedMath.h"
  439              		.file 6 ".\\globals.h"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 12
+
+
  440              		.file 7 ".\\i2cKommunikation.h"
  441              		.file 8 ".\\regulering.h"
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 12
-
-
  442              		.section	.debug_info,"",%progbits
  443              	.Ldebug_info0:
  444 0000 DA020000 		.4byte	0x2da
@@ -716,11 +718,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  494 006c 02       		.uleb128 0x2
  495 006d 08       		.byte	0x8
  496 006e 07       		.byte	0x7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 13
+
+
  497 006f AB010000 		.4byte	.LASF9
  498 0073 04       		.uleb128 0x4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 13
-
-
  499 0074 04       		.byte	0x4
  500 0075 05       		.byte	0x5
  501 0076 696E7400 		.ascii	"int\000"
@@ -776,11 +778,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  551 00dc BB000000 		.4byte	0xbb
  552 00e0 03       		.uleb128 0x3
  553 00e1 33020000 		.4byte	.LASF20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 14
+
+
  554 00e5 05       		.byte	0x5
  555 00e6 12       		.byte	0x12
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 14
-
-
  556 00e7 8C000000 		.4byte	0x8c
  557 00eb 03       		.uleb128 0x3
  558 00ec 4A000000 		.4byte	.LASF21
@@ -811,7 +813,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  583 0126 0B       		.uleb128 0xb
  584 0127 4300     		.ascii	"C\000"
  585 0129 01       		.byte	0x1
- 586 012a 53       		.byte	0x53
+ 586 012a 55       		.byte	0x55
  587 012b E0000000 		.4byte	0xe0
  588 012f 02       		.uleb128 0x2
  589 0130 91       		.byte	0x91
@@ -821,7 +823,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  593 0134 0C       		.uleb128 0xc
  594 0135 19020000 		.4byte	.LASF27
  595 0139 01       		.byte	0x1
- 596 013a 5E       		.byte	0x5e
+ 596 013a 60       		.byte	0x60
  597 013b 00000000 		.4byte	.LFB34
  598 013f 44000000 		.4byte	.LFE34-.LFB34
  599 0143 01       		.uleb128 0x1
@@ -829,19 +831,19 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  601 0145 0D       		.uleb128 0xd
  602 0146 2E000000 		.4byte	.LASF24
  603 014a 01       		.byte	0x1
- 604 014b 77       		.byte	0x77
+ 604 014b 79       		.byte	0x79
  605 014c 00000000 		.4byte	.LFB35
  606 0150 34000000 		.4byte	.LFE35-.LFB35
  607 0154 01       		.uleb128 0x1
  608 0155 9C       		.byte	0x9c
  609 0156 69010000 		.4byte	0x169
  610 015a 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 15
+
+
  611 015b 2E000000 		.4byte	.LASF24
  612 015f 01       		.byte	0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 15
-
-
- 613 0160 79       		.byte	0x79
+ 613 0160 7B       		.byte	0x7b
  614 0161 73000000 		.4byte	0x73
  615 0165 02       		.uleb128 0x2
  616 0166 91       		.byte	0x91
@@ -850,7 +852,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  619 0169 0E       		.uleb128 0xe
  620 016a 76010000 		.4byte	.LASF29
  621 016e 01       		.byte	0x1
- 622 016f 86       		.byte	0x86
+ 622 016f 88       		.byte	0x88
  623 0170 00000000 		.4byte	.LFB36
  624 0174 08000000 		.4byte	.LFE36-.LFB36
  625 0178 01       		.uleb128 0x1
@@ -858,7 +860,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  627 017a 0F       		.uleb128 0xf
  628 017b 6F000000 		.4byte	.LASF25
  629 017f 01       		.byte	0x1
- 630 0180 90       		.byte	0x90
+ 630 0180 92       		.byte	0x92
  631 0181 00000000 		.4byte	.LFB37
  632 0185 2C000000 		.4byte	.LFE37-.LFB37
  633 0189 01       		.uleb128 0x1
@@ -867,7 +869,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  636 018f 0A       		.uleb128 0xa
  637 0190 D4010000 		.4byte	.LASF26
  638 0194 01       		.byte	0x1
- 639 0195 92       		.byte	0x92
+ 639 0195 94       		.byte	0x94
  640 0196 97000000 		.4byte	0x97
  641 019a 02       		.uleb128 0x2
  642 019b 91       		.byte	0x91
@@ -876,7 +878,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  645 019e 0C       		.uleb128 0xc
  646 019f 80010000 		.4byte	.LASF28
  647 01a3 01       		.byte	0x1
- 648 01a4 9F       		.byte	0x9f
+ 648 01a4 A1       		.byte	0xa1
  649 01a5 00000000 		.4byte	.LFB38
  650 01a9 30000000 		.4byte	.LFE38-.LFB38
  651 01ad 01       		.uleb128 0x1
@@ -884,7 +886,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  653 01af 10       		.uleb128 0x10
  654 01b0 62010000 		.4byte	.LASF30
  655 01b4 01       		.byte	0x1
- 656 01b5 AB       		.byte	0xab
+ 656 01b5 AD       		.byte	0xad
  657 01b6 00000000 		.4byte	.LFB39
  658 01ba 28000000 		.4byte	.LFE39-.LFB39
  659 01be 01       		.uleb128 0x1
@@ -892,19 +894,19 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  661 01c0 0D       		.uleb128 0xd
  662 01c1 5C010000 		.4byte	.LASF31
  663 01c5 01       		.byte	0x1
- 664 01c6 B1       		.byte	0xb1
+ 664 01c6 B3       		.byte	0xb3
  665 01c7 00000000 		.4byte	.LFB40
  666 01cb 12000000 		.4byte	.LFE40-.LFB40
  667 01cf 01       		.uleb128 0x1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 16
+
+
  668 01d0 9C       		.byte	0x9c
  669 01d1 E4010000 		.4byte	0x1e4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 16
-
-
  670 01d5 11       		.uleb128 0x11
  671 01d6 73747200 		.ascii	"str\000"
  672 01da 01       		.byte	0x1
- 673 01db B1       		.byte	0xb1
+ 673 01db B3       		.byte	0xb3
  674 01dc DA000000 		.4byte	0xda
  675 01e0 02       		.uleb128 0x2
  676 01e1 91       		.byte	0x91
@@ -956,11 +958,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  722 023f E0000000 		.4byte	0xe0
  723 0243 05       		.uleb128 0x5
  724 0244 03       		.byte	0x3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 17
+
+
  725 0245 00000000 		.4byte	pwmSineAngle_
  726 0249 14       		.uleb128 0x14
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 17
-
-
  727 024a 9C010000 		.4byte	.LASF37
  728 024e 08       		.byte	0x8
  729 024f 37       		.byte	0x37
@@ -1016,11 +1018,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  779 02ba 01       		.byte	0x1
  780 02bb 2C       		.byte	0x2c
  781 02bc C6020000 		.4byte	0x2c6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 18
+
+
  782 02c0 05       		.uleb128 0x5
  783 02c1 03       		.byte	0x3
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 18
-
-
  784 02c2 00000000 		.4byte	i2cPtr_
  785 02c6 07       		.uleb128 0x7
  786 02c7 04       		.byte	0x4
@@ -1076,11 +1078,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  836 0025 3B       		.uleb128 0x3b
  837 0026 0B       		.uleb128 0xb
  838 0027 49       		.uleb128 0x49
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 19
+
+
  839 0028 13       		.uleb128 0x13
  840 0029 00       		.byte	0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 19
-
-
  841 002a 00       		.byte	0
  842 002b 04       		.uleb128 0x4
  843 002c 24       		.uleb128 0x24
@@ -1136,11 +1138,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  893 005e 49       		.uleb128 0x49
  894 005f 13       		.uleb128 0x13
  895 0060 11       		.uleb128 0x11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 20
+
+
  896 0061 01       		.uleb128 0x1
  897 0062 12       		.uleb128 0x12
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 20
-
-
  898 0063 06       		.uleb128 0x6
  899 0064 40       		.uleb128 0x40
  900 0065 18       		.uleb128 0x18
@@ -1196,11 +1198,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  950 0098 19       		.uleb128 0x19
  951 0099 03       		.uleb128 0x3
  952 009a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 21
+
+
  953 009b 3A       		.uleb128 0x3a
  954 009c 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 21
-
-
  955 009d 3B       		.uleb128 0x3b
  956 009e 0B       		.uleb128 0xb
  957 009f 11       		.uleb128 0x11
@@ -1256,11 +1258,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1007 00d3 12       		.uleb128 0x12
  1008 00d4 06       		.uleb128 0x6
  1009 00d5 40       		.uleb128 0x40
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 22
+
+
  1010 00d6 18       		.uleb128 0x18
  1011 00d7 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 22
-
-
  1012 00d9 19       		.uleb128 0x19
  1013 00da 00       		.byte	0
  1014 00db 00       		.byte	0
@@ -1316,11 +1318,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1064 010f 05       		.uleb128 0x5
  1065 0110 00       		.byte	0
  1066 0111 03       		.uleb128 0x3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 23
+
+
  1067 0112 08       		.uleb128 0x8
  1068 0113 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 23
-
-
  1069 0114 0B       		.uleb128 0xb
  1070 0115 3B       		.uleb128 0x3b
  1071 0116 0B       		.uleb128 0xb
@@ -1376,11 +1378,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1121 000e 0000     		.2byte	0
  1122 0010 00000000 		.4byte	.LFB33
  1123 0014 88000000 		.4byte	.LFE33-.LFB33
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 24
+
+
  1124 0018 00000000 		.4byte	.LFB34
  1125 001c 44000000 		.4byte	.LFE34-.LFB34
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 24
-
-
  1126 0020 00000000 		.4byte	.LFB35
  1127 0024 34000000 		.4byte	.LFE35-.LFB35
  1128 0028 00000000 		.4byte	.LFB36
@@ -1436,11 +1438,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1168      6E74385F 
  1168      7400
  1169              	.LASF40:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 25
+
+
  1170 0021 73696E65 		.ascii	"sineA\000"
  1170      4100
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 25
-
-
  1171              	.LASF32:
  1172 0027 49324342 		.ascii	"I2CBuf\000"
  1172      756600
@@ -1496,11 +1498,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1194 00fb 30202D66 		.ascii	"0 -ffunction-sections\000"
  1194      66756E63 
  1194      74696F6E 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 26
+
+
  1194      2D736563 
  1194      74696F6E 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 26
-
-
  1195              	.LASF1:
  1196 0111 756E7369 		.ascii	"unsigned char\000"
  1196      676E6564 
@@ -1556,11 +1558,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1222 0194 69326350 		.ascii	"i2cPtr_\000"
  1222      74725F00 
  1223              	.LASF37:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 27
+
+
  1224 019c 70726576 		.ascii	"prevFrek\000"
  1224      4672656B 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 27
-
-
  1224      00
  1225              	.LASF44:
  1226 01a5 72656164 		.ascii	"ready\000"
@@ -1616,11 +1618,11 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 1
  1248      7400
  1249              	.LASF20:
  1250 0233 66697831 		.ascii	"fix16_t\000"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc9SVFFx.s 			page 28
+
+
  1250      365F7400 
  1251              	.LASF6:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccc0FcPc.s 			page 28
-
-
  1252 023b 6C6F6E67 		.ascii	"long int\000"
  1252      20696E74 
  1252      00

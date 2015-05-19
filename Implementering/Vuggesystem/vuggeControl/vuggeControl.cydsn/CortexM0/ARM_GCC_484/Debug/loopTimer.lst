@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
   24:.\Generated_Source\PSoC4/loopTimer.c **** #include "loopTimer.h"
   25:.\Generated_Source\PSoC4/loopTimer.c **** 
   26:.\Generated_Source\PSoC4/loopTimer.c **** uint8 loopTimer_initVar = 0u;
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 2
 
 
   27:.\Generated_Source\PSoC4/loopTimer.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
   70:.\Generated_Source\PSoC4/loopTimer.c ****             #if (CY_PSOC5A)
   71:.\Generated_Source\PSoC4/loopTimer.c ****                 /* Set last 2 bits of control2 register if one shot(halt on
   72:.\Generated_Source\PSoC4/loopTimer.c ****                 interrupt) is enabled*/
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 3
 
 
   73:.\Generated_Source\PSoC4/loopTimer.c ****                 loopTimer_CONTROL2 |= 0x03u;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  121:.\Generated_Source\PSoC4/loopTimer.c ****     #if (loopTimer_UsingHWCaptureCounter)/* Capture counter is enabled */
  122:.\Generated_Source\PSoC4/loopTimer.c ****         loopTimer_CAPTURE_COUNT_CTRL |= loopTimer_CNTR_ENABLE;
  123:.\Generated_Source\PSoC4/loopTimer.c ****         loopTimer_SetCaptureCount(loopTimer_INIT_CAPTURE_COUNT);
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 4
 
 
  124:.\Generated_Source\PSoC4/loopTimer.c ****     #endif /* Configure capture counter value */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  159:.\Generated_Source\PSoC4/loopTimer.c ****         loopTimer_ClearFIFO();
   68              		.loc 1 159 0
   69 0036 FFF7FEFF 		bl	loopTimer_ClearFIFO
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 5
 
 
  160:.\Generated_Source\PSoC4/loopTimer.c ****     #endif /* Configure additional features of UDB implementation */
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  183:.\Generated_Source\PSoC4/loopTimer.c ****     #if (loopTimer_UsingFixedFunction)
  184:.\Generated_Source\PSoC4/loopTimer.c ****         loopTimer_GLOBAL_ENABLE |= loopTimer_BLOCK_EN_MASK;
  185:.\Generated_Source\PSoC4/loopTimer.c ****         loopTimer_GLOBAL_STBY_ENABLE |= loopTimer_BLOCK_STBY_EN_MASK;
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 6
 
 
  186:.\Generated_Source\PSoC4/loopTimer.c ****     #endif /* Set Enable bit for enabling Fixed function timer*/
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  211:.\Generated_Source\PSoC4/loopTimer.c **** *  loopTimer_initVar: Is modified when this function is called for the
  212:.\Generated_Source\PSoC4/loopTimer.c **** *   first time. Is used to ensure that initialization happens only once.
  213:.\Generated_Source\PSoC4/loopTimer.c **** *
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 7
 
 
  214:.\Generated_Source\PSoC4/loopTimer.c **** *******************************************************************************/
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  227:.\Generated_Source\PSoC4/loopTimer.c **** 
  228:.\Generated_Source\PSoC4/loopTimer.c **** 
  229:.\Generated_Source\PSoC4/loopTimer.c **** /*******************************************************************************
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 8
 
 
  230:.\Generated_Source\PSoC4/loopTimer.c **** * Function Name: loopTimer_Stop
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  195 0018 73000F40 		.word	1074724979
  196              		.cfi_endproc
  197              	.LFE3:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 9
 
 
  198              		.size	loopTimer_Stop, .-loopTimer_Stop
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  229 0018 80BD     		pop	{r7, pc}
  230              	.L16:
  231 001a C046     		.align	2
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 10
 
 
  232              	.L15:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  257 0008 BD46     		mov	sp, r7
  258              		@ sp needed
  259 000a 80BD     		pop	{r7, pc}
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 11
 
 
  260              	.L19:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  289 000c BD46     		mov	sp, r7
  290              		@ sp needed
  291 000e 80BD     		pop	{r7, pc}
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 12
 
 
  292              	.L23:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  319              		.loc 1 363 0
  320 000a 181C     		mov	r0, r3
  321 000c BD46     		mov	sp, r7
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 13
 
 
  322              		@ sp needed
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  383:.\Generated_Source\PSoC4/loopTimer.c ****     #else
  384:.\Generated_Source\PSoC4/loopTimer.c ****         control = 0u;
  385:.\Generated_Source\PSoC4/loopTimer.c ****     #endif /* (!loopTimer_UDB_CONTROL_REG_REMOVED) */
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 14
 
 
  386:.\Generated_Source\PSoC4/loopTimer.c **** }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  386 0004 024B     		ldr	r3, .L33
  387 0006 1B78     		ldrb	r3, [r3]
  388 0008 DBB2     		uxtb	r3, r3
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 15
 
 
  411:.\Generated_Source\PSoC4/loopTimer.c ****    #endif /* (loopTimer_UsingFixedFunction) */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  421 000a 1A70     		strb	r2, [r3]
  433:.\Generated_Source\PSoC4/loopTimer.c ****     #if(loopTimer_UsingFixedFunction)
  434:.\Generated_Source\PSoC4/loopTimer.c ****         uint16 period_temp = (uint16)period;
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 16
 
 
  435:.\Generated_Source\PSoC4/loopTimer.c ****         CY_SET_REG16(loopTimer_PERIOD_LSB_PTR, period_temp);
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  453 0002 00AF     		add	r7, sp, #0
  454              		.cfi_def_cfa_register 7
  458:.\Generated_Source\PSoC4/loopTimer.c ****    #if(loopTimer_UsingFixedFunction)
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 17
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 17
 
 
  459:.\Generated_Source\PSoC4/loopTimer.c ****        return ((uint8)CY_GET_REG16(loopTimer_CAPTURE_LSB_PTR));
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  486              		.cfi_def_cfa_offset 16
  487 0004 00AF     		add	r7, sp, #0
  488              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 18
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 18
 
 
  489 0006 021C     		mov	r2, r0
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  508:.\Generated_Source\PSoC4/loopTimer.c **** uint8 loopTimer_ReadCounter(void) 
  509:.\Generated_Source\PSoC4/loopTimer.c **** {
  517              		.loc 1 509 0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 19
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 19
 
 
  518              		.cfi_startproc
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  529:.\Generated_Source\PSoC4/loopTimer.c **** 
  530:.\Generated_Source\PSoC4/loopTimer.c ****     
  531:.\Generated_Source\PSoC4/loopTimer.c **** /*******************************************************************************
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 20
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 20
 
 
  532:.\Generated_Source\PSoC4/loopTimer.c ****  * The functions below this point are only available using the UDB
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  586:.\Generated_Source\PSoC4/loopTimer.c **** /*******************************************************************************
  587:.\Generated_Source\PSoC4/loopTimer.c **** * Function Name: loopTimer_SetTriggerMode
  588:.\Generated_Source\PSoC4/loopTimer.c **** ********************************************************************************
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 21
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 21
 
 
  589:.\Generated_Source\PSoC4/loopTimer.c **** *
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  643:.\Generated_Source\PSoC4/loopTimer.c **** }
  644:.\Generated_Source\PSoC4/loopTimer.c **** 
  645:.\Generated_Source\PSoC4/loopTimer.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 22
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 22
 
 
  646:.\Generated_Source\PSoC4/loopTimer.c **** /*******************************************************************************
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  700:.\Generated_Source\PSoC4/loopTimer.c **** #endif /* loopTimer_InterruptOnCaptureCount */
  701:.\Generated_Source\PSoC4/loopTimer.c **** 
  702:.\Generated_Source\PSoC4/loopTimer.c **** 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 23
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 23
 
 
  703:.\Generated_Source\PSoC4/loopTimer.c **** #if (loopTimer_UsingHWCaptureCounter)
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  757:.\Generated_Source\PSoC4/loopTimer.c **** *  void
  758:.\Generated_Source\PSoC4/loopTimer.c **** *
  759:.\Generated_Source\PSoC4/loopTimer.c **** * Return:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 24
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 24
 
 
  760:.\Generated_Source\PSoC4/loopTimer.c **** *  void
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  596 001d 00000000 		.4byte	0
  597 0021 00000000 		.4byte	.Ldebug_line0
  598 0025 02       		.uleb128 0x2
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 25
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 25
 
 
  599 0026 01       		.byte	0x1
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  653 0086 08       		.byte	0x8
  654 0087 A5020000 		.4byte	.LASF11
  655 008b 05       		.uleb128 0x5
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 26
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 26
 
 
  656 008c 59020000 		.4byte	.LASF13
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  710 00ff 01       		.byte	0x1
  711 0100 1701     		.2byte	0x117
  712 0102 00000000 		.4byte	.LFB4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 27
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 27
 
 
  713 0106 20000000 		.4byte	.LFE4-.LFB4
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  767 0181 91       		.byte	0x91
  768 0182 77       		.sleb128 -9
  769 0183 00       		.byte	0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 28
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 28
 
 
  770 0184 0E       		.uleb128 0xe
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  824 01fc 0E       		.uleb128 0xe
  825 01fd 19010000 		.4byte	.LASF32
  826 0201 01       		.byte	0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 29
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 29
 
 
  827 0202 FC01     		.2byte	0x1fc
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  881 001d 00       		.byte	0
  882 001e 03       		.uleb128 0x3
  883 001f 24       		.uleb128 0x24
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 30
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 30
 
 
  884 0020 00       		.byte	0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  938 0056 19       		.uleb128 0x19
  939 0057 11       		.uleb128 0x11
  940 0058 01       		.uleb128 0x1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 31
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 31
 
 
  941 0059 12       		.uleb128 0x12
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  995 0091 0E       		.uleb128 0xe
  996 0092 3A       		.uleb128 0x3a
  997 0093 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 32
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 32
 
 
  998 0094 3B       		.uleb128 0x3b
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1052 00cc 0D       		.uleb128 0xd
  1053 00cd 2E       		.uleb128 0x2e
  1054 00ce 00       		.byte	0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 33
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 33
 
 
  1055 00cf 3F       		.uleb128 0x3f
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1109 0107 3B       		.uleb128 0x3b
  1110 0108 05       		.uleb128 0x5
  1111 0109 27       		.uleb128 0x27
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 34
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 34
 
 
  1112 010a 19       		.uleb128 0x19
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1166 0054 20000000 		.4byte	.LFE8-.LFB8
  1167 0058 00000000 		.4byte	.LFB9
  1168 005c 14000000 		.4byte	.LFE9-.LFB9
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 35
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 35
 
 
  1169 0060 00000000 		.4byte	.LFB10
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1219 0000 6C6F6E67 		.ascii	"long long int\000"
  1219      206C6F6E 
  1219      6720696E 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 36
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 36
 
 
  1219      7400
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1239      66756E63 
  1239      74696F6E 
  1239      2D736563 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 37
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 37
 
 
  1239      74696F6E 
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1262              	.LASF37:
  1263 01c4 6C6F6F70 		.ascii	"loopTimer_interruptState\000"
  1263      54696D65 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 38
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 38
 
 
  1263      725F696E 
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 1
  1284              	.LASF2:
  1285 0292 73686F72 		.ascii	"short int\000"
  1285      7420696E 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccB6cJ7f.s 			page 39
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccKMIUuB.s 			page 39
 
 
  1285      7400
