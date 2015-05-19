@@ -113,38 +113,45 @@ Det forventes at det mekaniske vuggesystem er i stand til at "vippe" barnevognen
 Dette afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch.
 \subsubsection{Vuggeudsving sensor}
 \textbf{Formål} \\
-Formålet er at teste om Vuggeudsvingssensoren påmonteret en barnevognskurv der "vipper" over en horisontal akse jf. afsnit \ref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav er i stand til at detektere vinklen i forhold til tyngdefeltet. For at testen kan godkendes forventes en præcision på mindst +/- 2 grader.
+Formålet er at teste om Vuggeudsving Sensor monteret på en barnevognskurv der "vipper" over en horisontal akse jf. afsnit \vref{kravspec:ikke_funk_nivellering} i Ikke-funktionelle krav er i stand til at detektere vinklen i forhold til tyngdefeltet. For at testen kan godkendes forventes en præcision på mindst +/- 2 grader.
+
+Testen dokumenteres med en sammenligning af den målte vinkel fra Vuggeudsving Sensor relativ til den målte vinkel af et elektronisk vaterpas. Vinklen måles fra den mekaniske yderposition til den anden mekaniske yderposition i 5 graders intervaller.
 
 \textbf{Overordnet opstilling af Vuggeudsving sensor test}
 
 \begin{itemize}
-		\item Testen foregår i et rum med et horisontalt nivelleret gulv
-	\item Baby Watch barnevognen monteres med Vuggeudsvingssensoren jf.\ref{Vuggesystem: Implementering_VuggeudsvingSensor} i Implementeringen for Vuggesystemet 
-	\item Baby Watch barnevogns kurven sættes i et vandret niveau
+	\item Testen foregår i et rum med et horisontalt nivelleret gulv
+	\item Til testen skal bruges Baby Watch barnevognen monteret med Vuggeudsvings Sensor jf.\vref{Vuggesystem: Implementering_VuggeudsvingSensor} i Implementeringen for Vuggesystemet
+	\item Et PSoC 4 Pioneer Kit af typen CY8CKIT-042 
+	\item En mobiltelefon af typen Samsung Galaxy S4 mini REF med vaterpas-programmet Clinometer REF og streamming programmet Mobizen REF
+	\item En Windows 8 computer med et terminalprogram, med USB-porte og Microsoft Excel installeret REF
+	\item Programmene Clinometer og Mobizen startes på mobiltelefonen og Mobizen startes ligeledes på computeren
+	\item PSoC4 Kittet tilsluttes en computer via USB
+	\item Terminalprogrammet startes på computeren og indstilles til PSoC4 kittes USB Com-port
+	\item Baby Watch barnevogns kurven sættes i en mekanisk yderposition
 	\item PSoC4 Pioneer Kittet er tilsluttet en computer
-	\item Computeren har startet et terminal program som har oprettet forbindelse til den givne com port PSoC4 Pioneer Kittet sidder på
-	\item PSoC4 Pioneer Kittet programmeres med vinkelmåler test programmet. (BILAG)
+	\item PSoC4 Pioneer Kittet programmeres med vinkelsen REF programmet
 \end{itemize}
-
-// Figur 1 - med evt. opstilling
 
 \textbf{Testbeskrivelse}
 \begin{itemize}
 \item Opsæt systemet som beskrevet ovenfor
-\item Baby Watch barnevognskurven vippes med håndkraft fra yderposition til yderposition og stoppes i vandret position
-\item På terminalprogrammet på computeren udskrives data som angiver vinklen i fix16.16 format
-\item Disse data ligges ind i et data array i MatLab (REFERENCE) og plottes med en vertikal akser der angiver vinklen og en horisontal akse der angiver tid i sek
+\item Baby Watch barnevognskurven vippes med håndkraft fra yderposition til yderposition i intervallet -24.7, -20, -15, -10, -5, 0, 5, 10, 15, 20, 24.5 grader\footnotemark målt med det elektriske vaterpas 
+\item På terminalprogrammet på computeren udskrives data som angiver vinklen i fix16.16 format ved hvert af intervallerne
+\item Disse data ligges ind i Microsoft EXCEL og sammenlignes
 \end{itemize}
 
 \textbf{Forventet resultat} \\
-Der forventes en kontinuert kurve der begynder i 0 graders vinkel som efterfølgende skifter karakter til en trekantkurve der går fra -24.7 grader til 24.8 grader vinkel og til sidst stopper på 0 grader vinkel igen. Yderpositions vinklerne (-24,7 og 24.8 grader vinkel) baseres ud fra beskrivelsen af det mekaniske vugge implementationen afsnit  \ref{Vuggesystem: Implementering_MV}.
-  \\
+Det forventes at de målte data fra Vinkeludving Sensor passer overens med det elektroniske vaterpas med max +/- 2 grader difference.
+ \\
+
+\footnotetext{Der forventes en kontinuert kurve der begynder i 0 graders vinkel som efterfølgende skifter karakter til en trekantkurve der går fra -24.7 grader til 24.8 grader vinkel og til sidst stopper på 0 grader vinkel igen.}
+
 \textbf{Resultat} \\
-// Tekst \\
+Resultatet er som forventet:
+%\figur{1}{vuggesystem/modultest/XXX.pdf}{Samlings tabel af målte Vuggeudsving Sensor vinkeler og elektronsk vaterpas værdier}{vuggesystem:ModulT_VugUdSens}
 
-// Figur 2 - Billede af MatLab plot
-
-\textit{Testen er godkendt/ikke-godkendt}
+\textit{Testen er godkendt}
 
 \subsubsection{Vuggesystemet}
 \textbf{Formål} \\

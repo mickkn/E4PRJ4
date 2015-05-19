@@ -53,7 +53,7 @@ Barnevogne har som standard fjedrende led. Disse led er blevet stabiliseret med 
 
 \newpage
 \subsection{Software implementering}
-\subsubsection{Regulerings MCU}
+\subsubsection{Regulerings MCU} \label{Vuggesystem: R_MCU} 
 Regulerings MCU'en er implementeret på et Cypress CY8CKIT-042 PSoC4 Pioneer Kit \citep{website:Cypress}. Denne platform består af en ARM Cortex-M0 CPU forbundet med en simpel FPGA der alt sammen kan programmes og styres med Cypress' egen udviklings suite, PSoC Creator 3 \citep{website:PSoC_Creator}. Dette giver en fleksibel micro controller platform med mulighed for at bruge flere specialiseret embedded hardware FPGA blokke der kan styrer diverse interfaces, GPIO'er, Timer, interrupts mm. \\
 På nedenstående Top Design for fra PSoC Creator kan hardware setup'et for Regulerings MCU'en ses. Hver indrammende boks markerer en specialiseret funktionalitet håndteret af en eller flere hardware blokke.
 \figur{1}{vuggesystem/impl/SW_ReguleringsMCU_Top_Design.JPG}{Top Design for Vuggesystems Regulerings MCU}{VS_impl_Reg_MCU}
@@ -147,17 +147,21 @@ Portene er tildelt således at der tages hensyn til den interne fysiske kobling 
 
 \figur{1}{vuggesystem/impl/PSOC_INTERNKOBLING.pdf}{Billede af den interne kobling i PSoC4}{vuggesystem:intern_kobling}
 
-Vuggesystemet anvender fire interrupt service rutiner: 
+Vuggesystemet anvender fire interrupt service rutiner, disse er blevet prioritet for at sikre systemet bedst muligt mod kritiske fejl. De fire ISR'er er som følger med højeste prioritet først:
 \begin{itemize}
-\item \textbf{Endstop\_isr} forbundet med en GPIO
-\item \textbf{I2CVuggesystem\_SCB\_IRQ} der foregår som et internt interrupt til I2C hardwareblokken der står for kommunikationen mellem Baby Watch Controller og Vuggesystem
-\item \textbf{sensorI2C\_SCB\_IRQ} er ligeledes et internt interrupt til I2C hardwareblokken der står for kommunikationen mellem Vuggesystem og Vuggeudsvings sensor
-\item \textbf{loop\_isr} er et timer interrupt
+\item \textbf{Endstop\_isr} er en del af \textit{Endstop switch} hardware boksen\footnotemark  fra Regulerings MCU'ens Top Design. Den reagerer når systemets mekaniske vuggemekanisme har nået en af yderpositionerne og derfor hurtigt skal lukke vuggesystemet ned. Dette medfører at GPIO-pinen går lav (0V) hvilket trigger ISR'en
+\item \textbf{I2CVuggesystem\_SCB\_IRQ} foregår som et internt interrupt til \textit{Controller I2C} hardware boksen. Denne ISR har fået anden højeste prioritet da vigtige informationer som f.eks at vuggesystemet skal lukke ned kan blev sendt
+\item \textbf{sensorI2C\_SCB\_IRQ} er også et internt interrupt. Den tilhører \textit{Sensor input} hardware boksen. 
+\item \textbf{loop\_isr} er et timer-styret interrupt der tilhører \textit{Loop timing} hardware boksen. 
 \end{itemize}
 
+\footnotetext{Beskrivelser af hardware boksene kan findes i afsnit \vref{Vuggesystem: R_MCU}}
+
+\figur{0.2}{vuggesystem/impl/VS_ISR_PRIOTERING.pdf}{Billede af interrupt service rutine prioriteringen i PSoC 4'en}{vuggesystem:ISR_PRIORITERING}
 
 \textbf{Beskrivelse af C kode filerne i Regulerings MCU:} \\
 Koden er implementeret som beskrevet i applikations modellen fra Vuggesystem Systemarkitektur afsnit \vref{Vuggesystem:SD} og klassediagrammet fra Vuggesystem Design Software design \vref{VuggeSystem_Klassediagram}. \\
+
 
 \textbf{vuggeControl (main):} \\
 Tanken bag vuggesystemets main-funktion \verb+VuggeControl+, er at den under opstart skal initier alle hardware blokkene og deres funktionaliteter igennem initierings kald til de andre  filer i Regulerings MCU. Derefter skal den kører i loop som beskrevet i sekvens diagrammet i afsnit \vref{Vuggesystem:SD}. Loopet kører med en frekvens på 200Hz ved hjælp af \textit{Loop timing} hardware boksen beskrevet i ovenstående afsnit \vref{vuggesystem: impl,Loop timing}. \\ 
