@@ -3076,10 +3076,10 @@ ARM GAS  .\Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  259              	
  260              	/* Clock_1 */
  261              	.set Clock_1__DIVIDER_MASK, 0x0000FFFF
- 262              	.set Clock_1__ENABLE, CYREG_CLK_DIVIDER_B00
+ 262              	.set Clock_1__ENABLE, CYREG_CLK_DIVIDER_A00
  263              	.set Clock_1__ENABLE_MASK, 0x80000000
  264              	.set Clock_1__MASK, 0x80000000
- 265              	.set Clock_1__REGISTER, CYREG_CLK_DIVIDER_B00
+ 265              	.set Clock_1__REGISTER, CYREG_CLK_DIVIDER_A00
  266              	
  267              	/* ESSwitch */
  268              	.set ESSwitch__0__DM__MASK, 0x38000
@@ -3356,13 +3356,13 @@ ARM GAS  .\Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  527              	
  528              	/* sensorI2C_SCBCLK */
  529              	.set sensorI2C_SCBCLK__DIVIDER_MASK, 0x0000FFFF
- 530              	.set sensorI2C_SCBCLK__ENABLE, CYREG_CLK_DIVIDER_A00
+ 530              	.set sensorI2C_SCBCLK__ENABLE, CYREG_CLK_DIVIDER_B00
  531              	.set sensorI2C_SCBCLK__ENABLE_MASK, 0x80000000
 ARM GAS  .\Generated_Source\PSoC4\CyBootAsmGnu.s 			page 57
 
 
  532              	.set sensorI2C_SCBCLK__MASK, 0x80000000
- 533              	.set sensorI2C_SCBCLK__REGISTER, CYREG_CLK_DIVIDER_A00
+ 533              	.set sensorI2C_SCBCLK__REGISTER, CYREG_CLK_DIVIDER_B00
  534              	
  535              	/* sensorI2C_scl */
  536              	.set sensorI2C_scl__0__DM__MASK, 0x7000

@@ -7,7 +7,7 @@ Archive member included because of file (symbol)
 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
                               .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o) (I2CVuggesystem_EzI2CInit)
 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
-                              .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o) (I2CVuggesystem_EZI2C_STRETCH_ISR)
+                              .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o) (I2CVuggesystem_EZI2C_NO_STRETCH_ISR)
 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
                               .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o) (CyDelayCycles)
 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
@@ -170,19 +170,22 @@ Discarded input sections
                 0x00000000       0x18 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
  .text.I2CVuggesystem_ScbModeStop
                 0x00000000        0xc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
+ .text.I2CVuggesystem_I2CSlaveNackGeneration
+                0x00000000       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
  .text          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .data          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .text.I2CVuggesystem_EzI2CStop
                 0x00000000       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .text.I2CVuggesystem_EzI2CGetActivity
-                0x00000000       0x38 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+                0x00000000       0x54 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .text.I2CVuggesystem_EzI2CGetAddress1
                 0x00000000       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .text.I2CVuggesystem_EzI2CSetReadBoundaryBuffer1
                 0x00000000       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
  .text          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
  .data          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
  .data          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
  .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
  .text          0x00000000        0x0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
@@ -588,7 +591,7 @@ END GROUP
                 0x00003f80                appl2_start = (appl1_start + ALIGN ((((0x8000 - appl1_start) - (0x2 * CY_FLASH_ROW_SIZE)) / 0x2), CY_FLASH_ROW_SIZE))
                 0x00000000                appl_start = (CY_APPL_NUM == 0x1)?appl1_start:appl2_start
 
-.text           0x00000000     0x312c
+.text           0x00000000     0x2f64
  CREATE_OBJECT_SYMBOLS
                 0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
  *(.romvectors)
@@ -602,327 +605,324 @@ END GROUP
                 0x00000010                Reset
                 0x00000001                ASSERT ((. != __cy_reset), No reset code)
  *(.psocinit)
- .psocinit      0x00000018      0x35c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
-                0x000001a8                cyfitter_cfg
-                0x00000374                . = MAX (., 0x100)
+ .psocinit      0x00000018      0x358 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
+                0x000001a4                cyfitter_cfg
+                0x00000370                . = MAX (., 0x100)
  *(.text .text.* .gnu.linkonce.t.*)
- .text          0x00000374       0x60 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .text.main     0x000003d4       0x88 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x000003d4                main
+ .text          0x00000370       0x60 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .text.main     0x000003d0       0x88 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x000003d0                main
  .text.initVuggesystem
-                0x0000045c       0x44 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x0000045c                initVuggesystem
+                0x00000458       0x44 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x00000458                initVuggesystem
  .text.reguleringsStatus
-                0x000004a0       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x000004a0                reguleringsStatus
+                0x0000049c       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x0000049c                reguleringsStatus
  .text.lukSystem
-                0x000004d4        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x000004d4                lukSystem
+                0x000004d0        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x000004d0                lukSystem
  .text.checkOn_Off
-                0x000004dc       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x000004dc                checkOn_Off
+                0x000004d8       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x000004d8                checkOn_Off
  .text.checkEndstop
-                0x00000508       0x30 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x00000508                checkEndstop
- .text.loopIsr  0x00000538       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x00000538                loopIsr
- .text.error    0x00000560       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x00000560                error
- .text.initI2C  0x00000574       0x40 .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
-                0x00000574                initI2C
+                0x00000504       0x30 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x00000504                checkEndstop
+ .text.loopIsr  0x00000534       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x00000534                loopIsr
+ .text.error    0x0000055c       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x0000055c                error
+ .text.initI2C  0x00000570       0x40 .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
+                0x00000570                initI2C
  .text.sendConKom
-                0x000005b4       0x10 .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
-                0x000005b4                sendConKom
+                0x000005b0       0x10 .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
+                0x000005b0                sendConKom
  .text.initSensors
-                0x000005c4       0x28 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x000005c4                initSensors
+                0x000005c0       0x28 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x000005c0                initSensors
  .text.getVuggeUdsvingSens
-                0x000005ec      0x10c .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x000005ec                getVuggeUdsvingSens
+                0x000005e8      0x10c .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x000005e8                getVuggeUdsvingSens
  .text.getEndstopGPIO
-                0x000006f8       0x14 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x000006f8                getEndstopGPIO
+                0x000006f4       0x14 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x000006f4                getEndstopGPIO
  .text.setupI2CDevice
-                0x0000070c       0x50 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x0000070c                setupI2CDevice
+                0x00000708       0x50 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x00000708                setupI2CDevice
  .text.readI2CReg
-                0x0000075c       0x68 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x0000075c                readI2CReg
+                0x00000758       0x68 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x00000758                readI2CReg
  .text.writeI2CReg
-                0x000007c4       0x50 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x000007c4                writeI2CReg
+                0x000007c0       0x50 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x000007c0                writeI2CReg
  .text.readGyroData
-                0x00000814       0x48 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x00000814                readGyroData
+                0x00000810       0x48 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x00000810                readGyroData
  .text.readAccData
-                0x0000085c       0x74 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x0000085c                readAccData
+                0x00000858       0x74 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x00000858                readAccData
  .text.EndstopGPIO
-                0x000008d0       0x14 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x000008d0                EndstopGPIO
+                0x000008cc       0x14 .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x000008cc                EndstopGPIO
  .text.initRegulering
-                0x000008e4       0x54 .\CortexM0\ARM_GCC_484\Debug\regulering.o
-                0x000008e4                initRegulering
+                0x000008e0       0x54 .\CortexM0\ARM_GCC_484\Debug\regulering.o
+                0x000008e0                initRegulering
  .text.updateRegParameter
-                0x00000938       0xf0 .\CortexM0\ARM_GCC_484\Debug\regulering.o
-                0x00000938                updateRegParameter
+                0x00000934       0xf0 .\CortexM0\ARM_GCC_484\Debug\regulering.o
+                0x00000934                updateRegParameter
  .text.beregnRegulering
-                0x00000a28       0xa4 .\CortexM0\ARM_GCC_484\Debug\regulering.o
-                0x00000a28                beregnRegulering
+                0x00000a24       0xa4 .\CortexM0\ARM_GCC_484\Debug\regulering.o
+                0x00000a24                beregnRegulering
  .text.PWMStyring
-                0x00000acc       0x3c .\CortexM0\ARM_GCC_484\Debug\regulering.o
-                0x00000acc                PWMStyring
+                0x00000ac8       0x3c .\CortexM0\ARM_GCC_484\Debug\regulering.o
+                0x00000ac8                PWMStyring
  .text.getReguleringsStatus
-                0x00000b08       0x18 .\CortexM0\ARM_GCC_484\Debug\regulering.o
-                0x00000b08                getReguleringsStatus
+                0x00000b04       0x18 .\CortexM0\ARM_GCC_484\Debug\regulering.o
+                0x00000b04                getReguleringsStatus
  .text.fix16abs
-                0x00000b20       0x20 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000b20                fix16abs
+                0x00000b1c       0x20 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000b1c                fix16abs
  .text.fix16mul
-                0x00000b40       0x38 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000b40                fix16mul
+                0x00000b3c       0x38 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000b3c                fix16mul
  .text.fix16div
-                0x00000b78       0x3c .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000b78                fix16div
+                0x00000b74       0x3c .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000b74                fix16div
  .text.fix16sin
-                0x00000bb4       0x28 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000bb4                fix16sin
+                0x00000bb0       0x28 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000bb0                fix16sin
  .text.fix16atan2
-                0x00000bdc       0x98 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000bdc                fix16atan2
+                0x00000bd8       0x98 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000bd8                fix16atan2
  .text.fix16rad2deg
-                0x00000c74       0x24 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000c74                fix16rad2deg
- .text.cordic   0x00000c98       0xa4 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
-                0x00000c98                cordic
+                0x00000c70       0x24 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000c70                fix16rad2deg
+ .text.cordic   0x00000c94       0xa4 .\CortexM0\ARM_GCC_484\Debug\fixedMath.o
+                0x00000c94                cordic
  .text.IntDefaultHandler
-                0x00000d3c        0x8 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
-                0x00000d3c                IntDefaultHandler
- .text.Start_c  0x00000d44       0x98 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
-                0x00000d44                Start_c
+                0x00000d38        0x8 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
+                0x00000d38                IntDefaultHandler
+ .text.Start_c  0x00000d40       0x98 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
+                0x00000d40                Start_c
  .text.initialize_psoc
-                0x00000ddc       0x64 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
-                0x00000ddc                initialize_psoc
+                0x00000dd8       0x64 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
+                0x00000dd8                initialize_psoc
  .text.CYMEMZERO
-                0x00000e40       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
+                0x00000e3c       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
  .text.cfg_write_bytes32
-                0x00000e60       0x80 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
+                0x00000e5c       0x80 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
  .text.AnalogSetDefault
-                0x00000ee0        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
+                0x00000edc        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
  .text.I2CVuggesystem_Init
-                0x00000ee8        0xc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
-                0x00000ee8                I2CVuggesystem_Init
+                0x00000ee4        0xc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
+                0x00000ee4                I2CVuggesystem_Init
  .text.I2CVuggesystem_Enable
-                0x00000ef4       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
-                0x00000ef4                I2CVuggesystem_Enable
+                0x00000ef0       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
+                0x00000ef0                I2CVuggesystem_Enable
  .text.I2CVuggesystem_Start
-                0x00000f14       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
-                0x00000f14                I2CVuggesystem_Start
+                0x00000f10       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
+                0x00000f10                I2CVuggesystem_Start
  .text.I2CVuggesystem_ScbEnableIntr
-                0x00000f38       0x10 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
- .text.I2CVuggesystem_I2CSlaveNackGeneration
-                0x00000f48       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
-                0x00000f48                I2CVuggesystem_I2CSlaveNackGeneration
+                0x00000f34       0x10 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
  .text.I2CVuggesystem_EzI2CInit
-                0x00000f98       0xec .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
-                0x00000f98                I2CVuggesystem_EzI2CInit
+                0x00000f44       0xec .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+                0x00000f44                I2CVuggesystem_EzI2CInit
  .text.I2CVuggesystem_EzI2CSetAddress1
-                0x00001084       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
-                0x00001084                I2CVuggesystem_EzI2CSetAddress1
+                0x00001030       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+                0x00001030                I2CVuggesystem_EzI2CSetAddress1
  .text.I2CVuggesystem_EzI2CSetBuffer1
-                0x000010b8       0x48 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
-                0x000010b8                I2CVuggesystem_EzI2CSetBuffer1
- .text.I2CVuggesystem_EZI2C_STRETCH_ISR
-                0x00001100      0x454 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
-                0x00001100                I2CVuggesystem_EZI2C_STRETCH_ISR
- *fill*         0x00001554        0x4 
- .text          0x00001558       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
-                0x00001558                CyDelayCycles
-                0x0000156c                CyEnterCriticalSection
-                0x00001574                CyExitCriticalSection
+                0x00001064       0x48 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+                0x00001064                I2CVuggesystem_EzI2CSetBuffer1
+ .text.I2CVuggesystem_EZI2C_NO_STRETCH_ISR
+                0x000010ac      0x2e0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
+                0x000010ac                I2CVuggesystem_EZI2C_NO_STRETCH_ISR
+ *fill*         0x0000138c        0x4 
+ .text          0x00001390       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
+                0x00001390                CyDelayCycles
+                0x000013a4                CyEnterCriticalSection
+                0x000013ac                CyExitCriticalSection
  .text.CyIntSetVector
-                0x00001580       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x00001580                CyIntSetVector
+                0x000013b8       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x000013b8                CyIntSetVector
  .text.CyIntSetPriority
-                0x000015cc       0xa8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x000015cc                CyIntSetPriority
+                0x00001404       0xa8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x00001404                CyIntSetPriority
  .text.CyIntEnable
-                0x00001674       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x00001674                CyIntEnable
+                0x000014ac       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x000014ac                CyIntEnable
  .text.CyIntDisable
-                0x000016a0       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x000016a0                CyIntDisable
- .text.CyHalt   0x000016cc       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x000016cc                CyHalt
+                0x000014d8       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x000014d8                CyIntDisable
+ .text.CyHalt   0x00001504       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x00001504                CyHalt
  .text.CyDelayUs
-                0x000016e0       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
-                0x000016e0                CyDelayUs
+                0x00001518       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+                0x00001518                CyDelayUs
  .text.Endstop_isr_StartEx
-                0x00001708       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
-                0x00001708                Endstop_isr_StartEx
+                0x00001540       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+                0x00001540                Endstop_isr_StartEx
  .text.Endstop_isr_SetVector
-                0x0000172c       0x18 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
-                0x0000172c                Endstop_isr_SetVector
+                0x00001564       0x18 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+                0x00001564                Endstop_isr_SetVector
  .text.Endstop_isr_SetPriority
-                0x00001744       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
-                0x00001744                Endstop_isr_SetPriority
+                0x0000157c       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+                0x0000157c                Endstop_isr_SetPriority
  .text.Endstop_isr_Enable
-                0x00001794       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
-                0x00001794                Endstop_isr_Enable
+                0x000015cc       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+                0x000015cc                Endstop_isr_Enable
  .text.Endstop_isr_Disable
-                0x000017a8       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
-                0x000017a8                Endstop_isr_Disable
+                0x000015e0       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+                0x000015e0                Endstop_isr_Disable
  .text.PWM_Start
-                0x000017bc       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x000017bc                PWM_Start
+                0x000015f4       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x000015f4                PWM_Start
  .text.PWM_Init
-                0x000017e0       0x58 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x000017e0                PWM_Init
+                0x00001618       0x58 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x00001618                PWM_Init
  .text.PWM_Enable
-                0x00001838       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x00001838                PWM_Enable
+                0x00001670       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x00001670                PWM_Enable
  .text.PWM_WriteCounter
-                0x00001858       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x00001858                PWM_WriteCounter
+                0x00001690       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x00001690                PWM_WriteCounter
  .text.PWM_WritePeriod
-                0x00001878       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x00001878                PWM_WritePeriod
+                0x000016b0       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x000016b0                PWM_WritePeriod
  .text.PWM_WriteCompare
-                0x00001898       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x00001898                PWM_WriteCompare
+                0x000016d0       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x000016d0                PWM_WriteCompare
  .text.PWM_WriteDeadTime
-                0x000018b8       0x44 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x000018b8                PWM_WriteDeadTime
+                0x000016f0       0x44 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x000016f0                PWM_WriteDeadTime
  .text.debugOut_Start
-                0x000018fc       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x000018fc                debugOut_Start
+                0x00001734       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x00001734                debugOut_Start
  .text.debugOut_Init
-                0x00001920       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x00001920                debugOut_Init
+                0x00001758       0x28 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x00001758                debugOut_Init
  .text.debugOut_Enable
-                0x00001948       0x38 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x00001948                debugOut_Enable
+                0x00001780       0x38 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x00001780                debugOut_Enable
  .text.debugOut_PutChar
-                0x00001980       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x00001980                debugOut_PutChar
+                0x000017b8       0x34 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x000017b8                debugOut_PutChar
  .text.debugOut_PutString
-                0x000019b4       0x54 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x000019b4                debugOut_PutString
+                0x000017ec       0x54 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x000017ec                debugOut_PutString
  .text.debugOut_IntClock_Start
-                0x00001a08       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
-                0x00001a08                debugOut_IntClock_Start
+                0x00001840       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
+                0x00001840                debugOut_IntClock_Start
  .text.sensorI2C_Init
-                0x00001a24        0xc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
-                0x00001a24                sensorI2C_Init
+                0x0000185c        0xc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+                0x0000185c                sensorI2C_Init
  .text.sensorI2C_Enable
-                0x00001a30       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
-                0x00001a30                sensorI2C_Enable
+                0x00001868       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+                0x00001868                sensorI2C_Enable
  .text.sensorI2C_Start
-                0x00001a50       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
-                0x00001a50                sensorI2C_Start
+                0x00001888       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+                0x00001888                sensorI2C_Start
  .text.sensorI2C_ScbEnableIntr
-                0x00001a74       0x10 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+                0x000018ac       0x10 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
  .text.sensorI2C_I2CInit
-                0x00001a84       0xe8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
-                0x00001a84                sensorI2C_I2CInit
+                0x000018bc       0xe8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
+                0x000018bc                sensorI2C_I2CInit
  .text.sensorI2C_I2CMasterSendStart
-                0x00001b6c      0x110 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001b6c                sensorI2C_I2CMasterSendStart
+                0x000019a4      0x110 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x000019a4                sensorI2C_I2CMasterSendStart
  .text.sensorI2C_I2CMasterSendRestart
-                0x00001c7c      0x108 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001c7c                sensorI2C_I2CMasterSendRestart
+                0x00001ab4      0x108 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x00001ab4                sensorI2C_I2CMasterSendRestart
  .text.sensorI2C_I2CMasterSendStop
-                0x00001d84       0xbc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001d84                sensorI2C_I2CMasterSendStop
+                0x00001bbc       0xbc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x00001bbc                sensorI2C_I2CMasterSendStop
  .text.sensorI2C_I2CMasterWriteByte
-                0x00001e40       0xcc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001e40                sensorI2C_I2CMasterWriteByte
+                0x00001c78       0xcc .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x00001c78                sensorI2C_I2CMasterWriteByte
  .text.sensorI2C_I2CMasterReadByte
-                0x00001f0c       0xa8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001f0c                sensorI2C_I2CMasterReadByte
+                0x00001d44       0xa8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x00001d44                sensorI2C_I2CMasterReadByte
  .text.sensorI2C_I2CReStartGeneration
-                0x00001fb4       0xb4 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x00001fb4                sensorI2C_I2CReStartGeneration
+                0x00001dec       0xb4 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x00001dec                sensorI2C_I2CReStartGeneration
  .text.sensorI2C_sda_Read
-                0x00002068       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
-                0x00002068                sensorI2C_sda_Read
+                0x00001ea0       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
+                0x00001ea0                sensorI2C_sda_Read
  .text.sensorI2C_scl_Write
-                0x00002084       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
-                0x00002084                sensorI2C_scl_Write
+                0x00001ebc       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
+                0x00001ebc                sensorI2C_scl_Write
  .text.sensorI2C_scl_Read
-                0x000020d0       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
-                0x000020d0                sensorI2C_scl_Read
+                0x00001f08       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
+                0x00001f08                sensorI2C_scl_Read
  .text.loopTimer_Init
-                0x000020ec       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x000020ec                loopTimer_Init
+                0x00001f24       0x4c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001f24                loopTimer_Init
  .text.loopTimer_Enable
-                0x00002138       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x00002138                loopTimer_Enable
+                0x00001f70       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001f70                loopTimer_Enable
  .text.loopTimer_Start
-                0x00002158       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x00002158                loopTimer_Start
+                0x00001f90       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001f90                loopTimer_Start
  .text.loopTimer_SetInterruptMode
-                0x0000217c       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x0000217c                loopTimer_SetInterruptMode
+                0x00001fb4       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001fb4                loopTimer_SetInterruptMode
  .text.loopTimer_ReadStatusRegister
-                0x0000219c       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x0000219c                loopTimer_ReadStatusRegister
+                0x00001fd4       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001fd4                loopTimer_ReadStatusRegister
  .text.loopTimer_WritePeriod
-                0x000021b0       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x000021b0                loopTimer_WritePeriod
+                0x00001fe8       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00001fe8                loopTimer_WritePeriod
  .text.loopTimer_ReadCapture
-                0x000021d0       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x000021d0                loopTimer_ReadCapture
+                0x00002008       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x00002008                loopTimer_ReadCapture
  .text.loopTimer_WriteCounter
-                0x000021e4       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x000021e4                loopTimer_WriteCounter
+                0x0000201c       0x20 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x0000201c                loopTimer_WriteCounter
  .text.loopTimer_ClearFIFO
-                0x00002204       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x00002204                loopTimer_ClearFIFO
+                0x0000203c       0x1c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x0000203c                loopTimer_ClearFIFO
  .text.loop_isr_StartEx
-                0x00002220       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
-                0x00002220                loop_isr_StartEx
+                0x00002058       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+                0x00002058                loop_isr_StartEx
  .text.loop_isr_SetVector
-                0x00002244       0x18 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
-                0x00002244                loop_isr_SetVector
+                0x0000207c       0x18 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+                0x0000207c                loop_isr_SetVector
  .text.loop_isr_SetPriority
-                0x0000225c       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
-                0x0000225c                loop_isr_SetPriority
+                0x00002094       0x50 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+                0x00002094                loop_isr_SetPriority
  .text.loop_isr_Enable
-                0x000022ac       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
-                0x000022ac                loop_isr_Enable
+                0x000020e4       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+                0x000020e4                loop_isr_Enable
  .text.loop_isr_Disable
-                0x000022c0       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
-                0x000022c0                loop_isr_Disable
+                0x000020f8       0x14 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+                0x000020f8                loop_isr_Disable
  .text.sensorI2C_I2C_ISR
-                0x000022d4      0x4ec .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
-                0x000022d4                sensorI2C_I2C_ISR
- .text          0x000027c0       0x9c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivsi3.o)
-                0x000027c0                __aeabi_uidiv
-                0x000027c0                __udivsi3
-                0x00002848                __aeabi_uidivmod
- .text          0x0000285c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_dvmd_tls.o)
-                0x0000285c                __aeabi_idiv0
-                0x0000285c                __aeabi_ldiv0
- .text          0x00002860       0x48 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_aeabi_ldivmod.o)
-                0x00002860                __aeabi_ldivmod
- .text          0x000028a8       0x44 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_muldi3.o)
-                0x000028a8                __muldi3
-                0x000028a8                __aeabi_lmul
- .text          0x000028ec       0x6c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(bpabi.o)
-                0x000028ec                __gnu_ldivmod_helper
-                0x00002924                __gnu_uldivmod_helper
- .text          0x00002958      0x3b8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divdi3.o)
-                0x00002958                __divdi3
- .text          0x00002d10      0x384 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivdi3.o)
-                0x00002d10                __udivdi3
- .text          0x00003094       0x3c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_clzsi2.o)
-                0x00003094                __clzsi2
+                0x0000210c      0x4ec .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
+                0x0000210c                sensorI2C_I2C_ISR
+ .text          0x000025f8       0x9c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivsi3.o)
+                0x000025f8                __aeabi_uidiv
+                0x000025f8                __udivsi3
+                0x00002680                __aeabi_uidivmod
+ .text          0x00002694        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00002694                __aeabi_idiv0
+                0x00002694                __aeabi_ldiv0
+ .text          0x00002698       0x48 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+                0x00002698                __aeabi_ldivmod
+ .text          0x000026e0       0x44 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_muldi3.o)
+                0x000026e0                __muldi3
+                0x000026e0                __aeabi_lmul
+ .text          0x00002724       0x6c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(bpabi.o)
+                0x00002724                __gnu_ldivmod_helper
+                0x0000275c                __gnu_uldivmod_helper
+ .text          0x00002790      0x3b8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divdi3.o)
+                0x00002790                __divdi3
+ .text          0x00002b48      0x384 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivdi3.o)
+                0x00002b48                __udivdi3
+ .text          0x00002ecc       0x3c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_clzsi2.o)
+                0x00002ecc                __clzsi2
  .text.__libc_init_array
-                0x000030d0       0x4c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-init.o)
-                0x000030d0                __libc_init_array
- .text.memset   0x0000311c       0x10 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memset.o)
-                0x0000311c                memset
+                0x00002f08       0x4c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-init.o)
+                0x00002f08                __libc_init_array
+ .text.memset   0x00002f54       0x10 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memset.o)
+                0x00002f54                memset
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
@@ -935,81 +935,81 @@ END GROUP
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.gcc_except_table)
 
-.v4_bx          0x0000312c        0x0
+.v4_bx          0x00002f64        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0000312c        0x0
+.iplt           0x00002f64        0x0
  .iplt          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x0000312c        0x4
+.eh_frame       0x00002f64        0x4
  *(.eh_frame)
- .eh_frame      0x0000312c        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .eh_frame      0x0000312c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtend.o
-                0x00003130                PROVIDE (__exidx_start, .)
+ .eh_frame      0x00002f64        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .eh_frame      0x00002f64        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtend.o
+                0x00002f68                PROVIDE (__exidx_start, .)
 
-.ARM.exidx      0x00003130        0x8
+.ARM.exidx      0x00002f68        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x00003130        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divdi3.o)
- .ARM.exidx     0x00003138        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivdi3.o)
+ .ARM.exidx     0x00002f68        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divdi3.o)
+ .ARM.exidx     0x00002f70        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_udivdi3.o)
                                   0x8 (size before relaxing)
-                0x00003138                __exidx_end = .
+                0x00002f70                __exidx_end = .
 
-.rodata         0x00003138      0x358
+.rodata         0x00002f70      0x358
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00003138       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
- .rodata        0x0000315c        0xc .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
-                0x0000315c                imuInitArray
- .rodata        0x00003168      0x2f0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
-                0x00003458                . = ALIGN (0x4)
+ .rodata        0x00002f70       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+ .rodata        0x00002f94        0xc .\CortexM0\ARM_GCC_484\Debug\sensorFortolker.o
+                0x00002f94                imuInitArray
+ .rodata        0x00002fa0      0x2f0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
+                0x00003290                . = ALIGN (0x4)
  *(.init)
- .init          0x00003458        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
-                0x00003458                _init
- .init          0x0000345c        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
-                0x00003464                . = ALIGN (0x4)
-                0x00003464                __preinit_array_start = .
+ .init          0x00003290        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
+                0x00003290                _init
+ .init          0x00003294        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
+                0x0000329c                . = ALIGN (0x4)
+                0x0000329c                __preinit_array_start = .
  *(.preinit_array)
-                0x00003464                __preinit_array_end = .
-                0x00003464                . = ALIGN (0x4)
-                0x00003464                __init_array_start = .
+                0x0000329c                __preinit_array_end = .
+                0x0000329c                . = ALIGN (0x4)
+                0x0000329c                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x00003464        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .init_array    0x00003468        0x4 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
-                0x0000346c                __init_array_end = .
-                0x0000346c                . = ALIGN (0x4)
+ .init_array    0x0000329c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .init_array    0x000032a0        0x4 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
+                0x000032a4                __init_array_end = .
+                0x000032a4                . = ALIGN (0x4)
  *(.fini)
- .fini          0x0000346c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
-                0x0000346c                _fini
- .fini          0x00003470        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
-                0x00003478                . = ALIGN (0x4)
-                0x00003478                __fini_array_start = .
+ .fini          0x000032a4        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
+                0x000032a4                _fini
+ .fini          0x000032a8        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
+                0x000032b0                . = ALIGN (0x4)
+                0x000032b0                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x00003478        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .fini_array    0x000032b0        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x0000347c                __fini_array_end = .
-                0x0000347c                . = ALIGN (0x4)
+                0x000032b4                __fini_array_end = .
+                0x000032b4                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x0000347c                . = ALIGN (0x4)
+                0x000032b4                . = ALIGN (0x4)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x0000347c                . = ALIGN (0x4)
-                0x0000347c                __cy_regions = .
-                0x0000347c        0x4 LONG 0x3490 __cy_region_init_ram
-                0x00003480        0x4 LONG 0x200000c8 __cy_region_start_data
-                0x00003484        0x4 LONG 0x60 __cy_region_init_size_ram
-                0x00003488        0x4 LONG 0xb8 __cy_region_zero_size_ram
-                0x0000348c                __cy_regions_end = .
-                0x00003490                . = ALIGN (0x8)
- *fill*         0x0000348c        0x4 
-                0x00003490                _etext = .
+                0x000032b4                . = ALIGN (0x4)
+                0x000032b4                __cy_regions = .
+                0x000032b4        0x4 LONG 0x32c8 __cy_region_init_ram
+                0x000032b8        0x4 LONG 0x200000c8 __cy_region_start_data
+                0x000032bc        0x4 LONG 0x60 __cy_region_init_size_ram
+                0x000032c0        0x4 LONG 0xb8 __cy_region_zero_size_ram
+                0x000032c4                __cy_regions_end = .
+                0x000032c8                . = ALIGN (0x8)
+ *fill*         0x000032c4        0x4 
+                0x000032c8                _etext = .
 
 .ramvectors     0x20000000       0xc0
                 0x20000000                __cy_region_start_ram = .
@@ -1021,7 +1021,7 @@ END GROUP
  *(.noinit)
  .noinit        0x200000c0        0x4 .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
 
-.data           0x200000c8       0x60 load address 0x00003490
+.data           0x200000c8       0x60 load address 0x000032c8
                 0x200000c8                __cy_region_start_data = .
  *(.jcr)
  .jcr           0x200000c8        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
@@ -1042,10 +1042,10 @@ END GROUP
  *(.ram)
                 0x20000128                _edata = .
 
-.igot.plt       0x20000128        0x0 load address 0x000034f0
+.igot.plt       0x20000128        0x0 load address 0x00003328
  .igot.plt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
-.bss            0x20000128       0xb8 load address 0x000034f0
+.bss            0x20000128       0xb8 load address 0x00003328
                 0x20000128                PROVIDE (__bss_start__, .)
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
@@ -1064,64 +1064,64 @@ END GROUP
  .bss           0x20000164        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
                 0x20000164                I2CVuggesystem_initVar
                 0x20000168                I2CVuggesystem_customIntrHandler
- .bss           0x2000016c        0x2 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
- .bss           0x2000016e        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
-                0x2000016e                PWM_initVar
- .bss           0x2000016f        0x2 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
-                0x2000016f                debugOut_initVar
- *fill*         0x20000171        0x3 
- .bss           0x20000174        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
-                0x20000174                sensorI2C_initVar
-                0x20000178                sensorI2C_customIntrHandler
- .bss           0x2000017c        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
-                0x2000017c                loopTimer_initVar
+ .bss           0x2000016c        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+                0x2000016c                PWM_initVar
+ .bss           0x2000016d        0x2 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+                0x2000016d                debugOut_initVar
+ *fill*         0x2000016f        0x1 
+ .bss           0x20000170        0x8 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+                0x20000170                sensorI2C_initVar
+                0x20000174                sensorI2C_customIntrHandler
+ .bss           0x20000178        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+                0x20000178                loopTimer_initVar
  *(COMMON)
- *fill*         0x2000017d        0x3 
- COMMON         0x20000180       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
-                0x20000180                I2CBuf
-                0x20000185                prevUdsving
-                0x20000186                going_up_
-                0x20000188                reguleringsStatus_
-                0x2000018c                fixedPointReg_
-                0x20000190                angleInc
-                0x20000194                i2cPtr_
-                0x20000198                prevFrek
-                0x2000019c                sineA
-                0x200001a0                reguleringsStatusPtr_
-                0x200001a4                pwmSineAngle_
-                0x200001a8                endstopStatusPtr_
- COMMON         0x200001ac        0xd .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
-                0x200001ac                I2CVuggesystem_protectBuf1
-                0x200001ae                I2CVuggesystem_bufSizeBuf1
-                0x200001b0                I2CVuggesystem_dataBuffer1
-                0x200001b4                I2CVuggesystem_curStatus
-                0x200001b5                I2CVuggesystem_fsmState
-                0x200001b6                I2CVuggesystem_indexBuf1
-                0x200001b8                I2CVuggesystem_offsetBuf1
- COMMON         0x200001b9        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
-                0x200001b9                sensorI2C_state
- *fill*         0x200001ba        0x2 
- COMMON         0x200001bc       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
-                0x200001bc                sensorI2C_mstrWrBufIndexTmp
-                0x200001c0                sensorI2C_mstrStatus
-                0x200001c4                sensorI2C_mstrWrBufIndex
-                0x200001c8                sensorI2C_mstrRdBufPtr
-                0x200001cc                sensorI2C_mstrRdBufIndex
-                0x200001d0                sensorI2C_mstrWrBufPtr
-                0x200001d4                sensorI2C_mstrWrBufSize
-                0x200001d8                sensorI2C_mstrControl
-                0x200001dc                sensorI2C_mstrRdBufSize
+ *fill*         0x20000179        0x3 
+ COMMON         0x2000017c       0x2c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
+                0x2000017c                I2CBuf
+                0x20000181                prevUdsving
+                0x20000182                going_up_
+                0x20000184                reguleringsStatus_
+                0x20000188                fixedPointReg_
+                0x2000018c                angleInc
+                0x20000190                i2cPtr_
+                0x20000194                prevFrek
+                0x20000198                sineA
+                0x2000019c                reguleringsStatusPtr_
+                0x200001a0                pwmSineAngle_
+                0x200001a4                endstopStatusPtr_
+ COMMON         0x200001a8        0xd .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+                0x200001a8                I2CVuggesystem_protectBuf1
+                0x200001aa                I2CVuggesystem_bufSizeBuf1
+                0x200001ac                I2CVuggesystem_dataBuffer1
+                0x200001b0                I2CVuggesystem_curStatus
+                0x200001b1                I2CVuggesystem_fsmState
+                0x200001b2                I2CVuggesystem_indexBuf1
+                0x200001b4                I2CVuggesystem_offsetBuf1
+ COMMON         0x200001b5        0x1 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
+                0x200001b5                sensorI2C_state
+ *fill*         0x200001b6        0x2 
+ COMMON         0x200001b8       0x24 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+                0x200001b8                sensorI2C_mstrWrBufIndexTmp
+                0x200001bc                sensorI2C_mstrStatus
+                0x200001c0                sensorI2C_mstrWrBufIndex
+                0x200001c4                sensorI2C_mstrRdBufPtr
+                0x200001c8                sensorI2C_mstrRdBufIndex
+                0x200001cc                sensorI2C_mstrWrBufPtr
+                0x200001d0                sensorI2C_mstrWrBufSize
+                0x200001d4                sensorI2C_mstrControl
+                0x200001d8                sensorI2C_mstrRdBufSize
                 0x200001e0                . = ALIGN (0x8)
+ *fill*         0x200001dc        0x4 
  *(.ram.b)
                 0x200001e0                _end = .
                 0x200001e0                __end = .
                 0x200001e0                PROVIDE (end, .)
                 0x200001e0                PROVIDE (__bss_end__, .)
-                0x00003490                __cy_region_init_ram = LOADADDR (.data)
+                0x000032c8                __cy_region_init_ram = LOADADDR (.data)
                 0x00000060                __cy_region_init_size_ram = (_edata - ADDR (.data))
                 0x000000b8                __cy_region_zero_size_ram = (_end - _edata)
 
-.heap           0x200001e0       0x80 load address 0x000034f0
+.heap           0x200001e0       0x80 load address 0x00003328
                 0x200001e0                . = _end
                 0x20000260                . = (. + 0x80)
  *fill*         0x200001e0       0x80 
@@ -1157,7 +1157,7 @@ END GROUP
                 0x90600000        0x4 .\CortexM0\ARM_GCC_484\Debug\cymetadata.o
                 0x90600000                cy_meta_chipprotect
 
-.rel.dyn        0x000034f0        0x0 load address 0x90600004
+.rel.dyn        0x00003328        0x0 load address 0x90600004
  .rel.iplt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
 .stab
@@ -1234,7 +1234,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x41b9
+.debug_info     0x00000000     0x4183
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x2de .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
  .debug_info    0x000002de       0xe0 .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
@@ -1246,21 +1246,21 @@ END GROUP
  .debug_info    0x000010df      0x454 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
  .debug_info    0x00001533      0x1eb .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
  .debug_info    0x0000171e      0x25c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
- .debug_info    0x0000197a      0x1b9 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
- .debug_info    0x00001b33       0xbf .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
- .debug_info    0x00001bf2      0xc5b .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
- .debug_info    0x0000284d      0x244 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
- .debug_info    0x00002a91      0x262 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
- .debug_info    0x00002cf3      0x375 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
- .debug_info    0x00003068      0x14d .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
- .debug_info    0x000031b5      0x1eb .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
- .debug_info    0x000033a0      0x119 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
- .debug_info    0x000034b9      0x466 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
- .debug_info    0x0000391f      0x14c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
- .debug_info    0x00003a6b      0x14c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
- .debug_info    0x00003bb7      0x236 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
- .debug_info    0x00003ded      0x244 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
- .debug_info    0x00004031      0x188 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
+ .debug_info    0x0000197a      0x183 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
+ .debug_info    0x00001afd       0xbf .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
+ .debug_info    0x00001bbc      0xc5b .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+ .debug_info    0x00002817      0x244 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+ .debug_info    0x00002a5b      0x262 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+ .debug_info    0x00002cbd      0x375 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+ .debug_info    0x00003032      0x14d .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
+ .debug_info    0x0000317f      0x1eb .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+ .debug_info    0x0000336a      0x119 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
+ .debug_info    0x00003483      0x466 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+ .debug_info    0x000038e9      0x14c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
+ .debug_info    0x00003a35      0x14c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
+ .debug_info    0x00003b81      0x236 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+ .debug_info    0x00003db7      0x244 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+ .debug_info    0x00003ffb      0x188 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
 
 .debug_abbrev   0x00000000     0x1a07
  *(.debug_abbrev)
@@ -1290,7 +1290,7 @@ END GROUP
  .debug_abbrev  0x000017fb      0x177 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
  .debug_abbrev  0x00001972       0x95 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
 
-.debug_line     0x00000000     0x285e
+.debug_line     0x00000000     0x2816
  *(.debug_line)
  .debug_line    0x00000000      0x25c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
  .debug_line    0x0000025c       0x9c .\CortexM0\ARM_GCC_484\Debug\i2cKommunikation.o
@@ -1301,22 +1301,22 @@ END GROUP
  .debug_line    0x000009f6      0x1bb .\CortexM0\ARM_GCC_484\Debug\Cm0Start.o
  .debug_line    0x00000bb1      0x1c0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(cyfitter_cfg.o)
  .debug_line    0x00000d71      0x12d .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem.o)
- .debug_line    0x00000e9e      0x108 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
- .debug_line    0x00000fa6      0x16f .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
- .debug_line    0x00001115       0x69 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
- .debug_line    0x0000117e      0x703 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
- .debug_line    0x00001881      0x14a .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
- .debug_line    0x000019cb      0x171 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
- .debug_line    0x00001b3c      0x203 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
- .debug_line    0x00001d3f       0xba .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
- .debug_line    0x00001df9      0x12c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
- .debug_line    0x00001f25       0xa9 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
- .debug_line    0x00001fce      0x2b0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
- .debug_line    0x0000227e       0xb3 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
- .debug_line    0x00002331       0xb3 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
- .debug_line    0x000023e4      0x178 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
- .debug_line    0x0000255c      0x157 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
- .debug_line    0x000026b3      0x1ab .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
+ .debug_line    0x00000e9e      0x115 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
+ .debug_line    0x00000fb3      0x11a .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
+ .debug_line    0x000010cd       0x69 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyBootAsmGnu.o)
+ .debug_line    0x00001136      0x703 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+ .debug_line    0x00001839      0x14a .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+ .debug_line    0x00001983      0x171 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+ .debug_line    0x00001af4      0x203 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+ .debug_line    0x00001cf7       0xba .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
+ .debug_line    0x00001db1      0x12c .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+ .debug_line    0x00001edd       0xa9 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
+ .debug_line    0x00001f86      0x2b0 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+ .debug_line    0x00002236       0xb3 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
+ .debug_line    0x000022e9       0xb3 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
+ .debug_line    0x0000239c      0x178 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+ .debug_line    0x00002514      0x157 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+ .debug_line    0x0000266b      0x1ab .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
 
 .debug_frame    0x00000000     0x20f4
  *(.debug_frame)
@@ -1355,7 +1355,7 @@ END GROUP
  .debug_frame   0x000020ac       0x28 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memcpy-stub.o)
  .debug_frame   0x000020d4       0x20 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memset.o)
 
-.debug_str      0x00000000     0x220b
+.debug_str      0x00000000     0x21f0
  *(.debug_str)
  .debug_str     0x00000000      0x298 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.o
                                 0x2e1 (size before relaxing)
@@ -1377,33 +1377,33 @@ END GROUP
                                 0x343 (size before relaxing)
  .debug_str     0x000009f0      0x1e4 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C.o)
                                 0x397 (size before relaxing)
- .debug_str     0x00000bd4       0xab .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
-                                0x332 (size before relaxing)
- .debug_str     0x00000c7f      0x713 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
+ .debug_str     0x00000bd4       0x84 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(I2CVuggesystem_EZI2C_INT.o)
+                                0x30b (size before relaxing)
+ .debug_str     0x00000c58      0x713 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(CyLib.o)
                                 0x8f2 (size before relaxing)
- .debug_str     0x00001392      0x14b .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
+ .debug_str     0x0000136b      0x14b .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(Endstop_isr.o)
                                 0x322 (size before relaxing)
- .debug_str     0x000014dd      0x144 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
+ .debug_str     0x000014b6      0x144 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(PWM.o)
                                 0x2e0 (size before relaxing)
- .debug_str     0x00001621      0x1fe .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
+ .debug_str     0x000015fa      0x1fe .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut.o)
                                 0x3a7 (size before relaxing)
- .debug_str     0x0000181f      0x107 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
+ .debug_str     0x000017f8      0x107 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(debugOut_IntClock.o)
                                 0x2a2 (size before relaxing)
- .debug_str     0x00001926      0x137 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
+ .debug_str     0x000018ff      0x137 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C.o)
                                 0x302 (size before relaxing)
- .debug_str     0x00001a5d       0xa4 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
+ .debug_str     0x00001a36       0xa4 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C.o)
                                 0x248 (size before relaxing)
- .debug_str     0x00001b01      0x2aa .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
+ .debug_str     0x00001ada      0x2aa .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_MASTER.o)
                                 0x4b1 (size before relaxing)
- .debug_str     0x00001dab       0xb5 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
+ .debug_str     0x00001d84       0xb5 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_sda.o)
                                 0x254 (size before relaxing)
- .debug_str     0x00001e60       0xa2 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
+ .debug_str     0x00001e39       0xa2 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_scl.o)
                                 0x254 (size before relaxing)
- .debug_str     0x00001f02      0x1ae .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
+ .debug_str     0x00001edb      0x1ae .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loopTimer.o)
                                 0x35a (size before relaxing)
- .debug_str     0x000020b0      0x112 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
+ .debug_str     0x00002089      0x112 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(loop_isr.o)
                                 0x2f8 (size before relaxing)
- .debug_str     0x000021c2       0x49 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
+ .debug_str     0x0000219b       0x55 .\CortexM0\ARM_GCC_484\Debug\vuggeControl.a(sensorI2C_I2C_INT.o)
                                 0x309 (size before relaxing)
 
 .debug_loc

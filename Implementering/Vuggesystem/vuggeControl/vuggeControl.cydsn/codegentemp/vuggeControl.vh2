@@ -2,7 +2,7 @@
 --	Conversion of vuggeControl.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu May 14 14:26:02 2015
+--	Mon May 18 13:49:49 2015
 --
 
 USE cypress.cypress.all;
@@ -1865,7 +1865,7 @@ loop_isr:cy_isr_v1_0
 		id=>"38321056-ba6d-401c-98e7-a21e84ee201e/81fcee8a-3b8b-4be1-9a5f-a5e2e619a938",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"127877237.851662",
+		period=>"645161290.322581",
 		is_direct=>'0',
 		is_digital=>'0')
 	PORT MAP(clock_out=>\sensorI2C:Net_847\,

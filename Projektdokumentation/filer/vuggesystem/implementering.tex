@@ -19,12 +19,12 @@ Endstop sensorene er blevet realiseret ved hjælp af to end stop switches. En en
 \figur{0.2}{vuggesystem/impl/ES_SWITCH.pdf}{Generisk end stop switch}{VS_Im_ES_SWITCH}
  Disse end stop switches er placeret således at når barnevognskurven på Baby Watch systemet går ud i en yder vippeposition så aktivers en end stop switch.
 \figur{0.5}{vuggesystem/impl/Endstop_Sensor.pdf}{Monteret endstop sensor}{VS_Im_ES_Sensor}
-Endstop sensorne er herefter forbundet til endstop kredsløbet som anvist i Vuggesystem Design afsnit \ref{Vuggesystem: Design_ES}. \\
+Endstop sensorne er herefter forbundet til endstop kredsløbet som anvist i Vuggesystem Design afsnit \vref{Vuggesystem: Design_ES}. \\
 Implementeringen af endstop sensor kredsløbet kan ses i det foregående Motorstyringskreds afsnit på figur \vref{vugsys:motorkreds_layout}
 \newpage
 \subsubsection{Vuggeudsving sensor}
 \label{Vuggesystem: Implementering_VuggeudsvingSensor}
-Vuggeudsvingssensoren er implementeret som beskrevet i Vuggesystem Design afsnittet \ref{Vuggesystem: Design_Vugggeudsving_sensor} ved hjælp af en MPU6050 chip med indbygget accelerometer, gyroskop og I2C bus interface. Den er placeret på undersiden af barnevognskurven ud for aksen der vippes henover. Nedenfor kan ses et billede af implementeringen. 
+Vuggeudsvingssensoren er implementeret som beskrevet i Vuggesystem Design afsnittet \vref{Vuggesystem: Design_Vugggeudsving_sensor} ved hjælp af en MPU6050 chip med indbygget accelerometer, gyroskop og I2C bus interface. Den er placeret på undersiden af barnevognskurven ud for aksen der vippes henover. Nedenfor kan ses et billede af implementeringen. 
 \figur{0.5}{vuggesystem/impl/Vuggeudsving_sensor.pdf}{Monteret Vuggeudsving sensor}{VS_Im_Vuggeudsving_Sensor}
 Chippen er delvist skjult bag en beskyttelse. Den gule streg på billedet markerer aksen barnevognskurven og derved chippen vipper henover. 
 De parsnoede ledning er for at beskytte I2C kommunikationen mod støj.
@@ -36,7 +36,7 @@ Motor positionssensoren bliver ikke implementeret i denne iteration af projektet
 \newpage
 \subsubsection{Mekanisk vuggesystem}
 \label{Vuggesystem: Implementering_MV} 
-Det mekaniske vuggesystem er implementeret ud fra skitsen i Vuggesystem Design Mekanisk Vuggesystem afsnit \ref{Vuggesystem: Design_MekVug}. \\
+Det mekaniske vuggesystem er implementeret ud fra skitsen i Vuggesystem Design Mekanisk Vuggesystem afsnit \vref{Vuggesystem: Design_MekVug}. \\
 \textit{Motor:}\\
 Motoren er placeret under barnevognskurvens tyngde center med en påsat gearing på 1:16 samt en kæde der giver en yderligere gearing på 1:8. Dette betyder at ved en hel vugning af barnevognskurven (fra yder position til yder position) roterer motoren 8 gange.
 \figur{0.5}{vuggesystem/impl/Mekanisk_Vuggesystem_Motor.pdf}{Motor til det mekaniske vuggesystem med vist gearing}{VS_Im_Gear}
@@ -58,22 +58,22 @@ Regulerings MCU'en er implementeret på et Cypress CY8CKIT-042 PSoC4 Pioneer Kit
 På nedenstående Top Design for fra PSoC Creator kan hardware setup'et for Regulerings MCU'en ses. Hver firkant markerer en specialiseret funktionalitet håndteret af en eller flere hardware blokke.
 \figur{1}{vuggesystem/impl/SW_ReguleringsMCU_Top_Design.JPG}{Top Design for Vuggesystems Regulerings MCU}{VS_impl_Reg_MCU}
 Følgende vil gennemgå hver hver funktionalitet: \\
-\textit{Sensor input:} \\ Denne firkant består af en I2C master blok der sørger for at et I2C-interface. Dette kan bruges i aflæsningen af Vuggeudsvings sensoren. I dette setup er overføringshastigheden sat til Fast-Mode dvs. med en bitrate på 400 kHz. \\
-\textit{Debug:} \\ Debug firkanten sørger for et UART interface mellem PSoC4 micro controlleren og en computerterminal samt at sætte en GPIO-pin høj. Begge dele er til debugging af Regulerings MCU'en. \\
-\textit{Motor styring:} \\ Motor styring består af en PWM blok med to PWM outputs der går til henholdvis Mos driver A og Mos driver B i motorstyringskredsen, se Vuggesystem Design Mosfet driver afsnit \ref{Vuggesytem:HW_DESIGN_MOSDRIVER}. Outputtene er inverterede i forhold til hinanden og via PWMblokken er der lavet et deadband mellem de to PWMsignaler. For yderligere beskrivelse af PWM-styresignalet kan afsnit \ref{Vuggesystem:Styresignal} i Vuggesystem Design Styresignal ses. \\
+\textit{Sensor input:} \\ Denne boks består af en I2C master blok der sørger for et I2C-interface mellem Regulerings MCU'en og Vuggeudsving sensoren. Dette bruges i aflæsningen af sensoren. I dette setup er overføringshastigheden sat til Normal-Mode dvs. med en bitrate på 100 kHz. \\
+\textit{Debug:} \\ Debug boksen sørger for et UART interface mellem PSoC4 micro controlleren og en computerterminal samt at sætte en GPIO-pin høj. Begge dele er til debugging af Regulerings MCU'en. \\
+\textit{Motor styring:} \\ Motor styring består af en PWM blok med to PWM outputs der går til henholdvis Mos driver A og Mos driver B i motorstyringskredsen, se Vuggesystem Design Mosfet driver afsnit \vref{Vuggesytem:HW_DESIGN_MOSDRIVER}. Outputtene er inverterede i forhold til hinanden og via PWMblokken er der lavet et deadband mellem de to PWMsignaler. For yderligere beskrivelse af PWM-styresignalet kan afsnit \vref{Vuggesystem:Styresignal} i Vuggesystem Design Styresignal ses. \\
 \textit{Loop timing:} \\ Denne funktionalitet bruges til at styre loop timingen for main funktionen i Regulerings MCU'en, også kaldet \verb+vuggeControl+. Firkanten indeholder tre hardware blokke, en Clock, en Timer og et Interrupt. Disse sørger tilsammen for at loop timingen for \verb+vuggeControl+ bliver 200 gange i sekundet. \\  
 \textit{Shutdown switch:} \\ Denne GPIO-pin sættes høj (3.3V) hvis forbindelsen til motoren skal lukkes. Dette er ikke implementeret i denne iteration af projektet. \\
-
-\textit{Controller I2C:} \\ Denne firkant består af et I2C-Slave interface der sørger for komminkationen mellem Regulerings MCU'en og Baby Watch Controller. Denne I2C bus forbindelse kører ligeledes med Fast-Mode. \\ 
-\textit{Endstop switch:} \\ Endstop switch firkanten består af en pulled-up GPIO-pin forbundet med et Interrupt. Denne funktionalitet bruges til Endstopsensorne, afsnit \ref{EndstopS_IBD} i Vuggesystem Systemarkitektur Hardware arkitektur. Ved aktivering af en Endstop sensor trækkes signalet lav og interruptet aktives \\ 
+\textit{Controller I2C:} \\ Denne boks består af et I2C-Slave interface der sørger for komminkationen mellem Regulerings MCU'en og Baby Watch Controller. Denne I2C bus forbindelse kører ligeledes med Normal-Mode. \\ 
+\textit{Endstop switch:} \\ Endstop switch boksen består af en pulled-up GPIO-pin forbundet med et Interrupt. Denne funktionalitet bruges til Endstopsensorne, afsnit \vref{EndstopS_IBD} i Vuggesystem Systemarkitektur Hardware arkitektur. Ved aktivering af en Endstop sensor trækkes signalet lav og interruptet aktives \\ 
 
 \textbf{Beskrivelse af fysiske output fra PSoC4 Pioneer Kittet:} \\
 
 \textbf{Beskrivelse af C kode filerne i Regulerings MCU:} \\
-Koden er implementeret som beskrevet i applikations modellen fra Vuggesystem Systemarkitektur afsnit \ref{Vuggesystem:SD} og klassediagrammet fra Vuggesystem Design Software design \ref{VuggeSystem_Klassediagram}. \\
+Koden er implementeret som beskrevet i applikations modellen fra Vuggesystem Systemarkitektur afsnit \vref{Vuggesystem:SD} og klassediagrammet fra Vuggesystem Design Software design \vref{VuggeSystem_Klassediagram}. \\
 \textbf{vuggeControl (main):} \\
 Tanken bag vuggesystemets main-funktion \verb+VuggeControl+, er at den under opstart skal initier alle hardware blokkene og deres funktionaliteter igennem initierings kald til de andre  filer i Regulerings MCU. Derefter skal den kører i loop med en frekvens på 200Hz. Hvilket er beskrevet i sekvensdiagrammet for Regulerings MCU'en. \\ \verb+VuggeControl+filen indeholder få hjælpefunktioner som hver især sørger for tjekke system kritiske informationer, debugging eller nødstop af motoren(Hvilket ikke er fuldt implementeret i denne iteration af projektet). \\Af systemkritiske informationer kan nævnes; et eksternt interrupt om at en Endstop Sensor er aktiveret og at systemet derfor skal gå i nødstop, at Baby Watch Controller vil slukke vuggesystemet og at regulerings status skal tjekkes for fejl i reguleringen.\\ Nødstop-funktionen LukSystem() er egentligt tiltænkt at skulle slukke et relæ der styrer strømtilførelsen til motoren men som nævnt tidligere er denne funktionalitet ikke implementeret i denne udgave af projektet. Funktionen sørger istedet for at neutraliserer PWM-signalet der styrer motoren så motoren derigennem ikke får strøm. \\ Til at styrer main-loopets 200Hz hastighed bruges et timer-interrupt der sætter et flag højt hver gang et nyt gennemløb af loopet skal køres. I main-loopet kaldes der først førnævnte system kritiske tjek efterfulgt af en opdatering af de nyeste vuggeudsving- og vuggefrekvensværdier fra Baby Watch Controller, herefter hentes og beregnes barnevognskurvens vinkel. Denne vinkel videresendes til reguleringen som beregner et output som lægges ind til motorstyringens PWM blok. Loopet slutter med at resette flaget så det er klart til et nyt gennemløb. \\
 \textbf{i2cKommunikation} \\ 
+
 \verb+i2cKommunikation+ filen sørger for initierer den førnævnte Controller I2C hardware der indeholdte et I2C Slave interface og derefter bruge denne til at opdaterer et I2C register med informationer som skal kommunikeres mellem de to moduler jf. Grænseflade mellem Vuggesystem og Controller i den overordnede Baby Watch Systemarkitektur afsnit \ref{overordnet:i2c_tabel}. Som sikkerhed i kommunikationen er der sat begrænsning på at register 0x04 der indeholder vuggesystemet status ikke kan ændres udfra dvs. fra Baby Watch Controller.\\
 \label{vugsys:impl, sensFortolk}\textbf{\ref{vugsys:impl, sensFortolk} sensorFortolker}  \\
 \verb+sensorFortolker+ står for alt kommunikation mellem sensorer (Endstop Sensor og Vuggeudsving sensor) og Regulerings MCU samt beregninger af data fra disse der giver barnevognskurvens nuværende vinkel. Dette gøres, som nævnt under Regulerings MCUs hardware moduler, vha. hjælp af et I2C Master interface og et GPIO styret interrupt. 

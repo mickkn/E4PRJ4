@@ -25,7 +25,7 @@
 *   Initial Parameter Constants
 ****************************************/
 
-#define I2CVuggesystem_EZI2C_CLOCK_STRETCHING         (1u)
+#define I2CVuggesystem_EZI2C_CLOCK_STRETCHING         (0u)
 #define I2CVuggesystem_EZI2C_MEDIAN_FILTER_ENABLE     (1u)
 #define I2CVuggesystem_EZI2C_NUMBER_OF_ADDRESSES      (0u)
 #define I2CVuggesystem_EZI2C_PRIMARY_SLAVE_ADDRESS    (8u)

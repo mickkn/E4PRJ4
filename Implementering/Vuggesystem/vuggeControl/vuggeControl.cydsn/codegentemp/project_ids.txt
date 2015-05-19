@@ -1,5 +1,5 @@
-C:\Users\Jeppe\Documents\Engineer\4_Semester\E4PRJ4\Implementering\Vuggesystem\vuggeControl\vuggeControl.cydsn\vuggeControl.cyprj|9100cece-c134-4201-b02a-f9d2b141eb2d
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|2a1f46d3-c67e-4081-9c5a-dd4b7116ddd7
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|f1aec932-b02b-4aa2-9b5d-61da9ac98d25
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|0e27f629-cca7-4208-9314-8e5fbebfcc8c
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|eaa262cf-1acc-4884-bbfa-25d742aa3ffb
+C:\Users\Jeppe\Documents\Engineer\4_Semester\E4PRJ4\Implementering\Vuggesystem\vuggeControl\vuggeControl.cydsn\vuggeControl.cyprj|99af3862-0afa-437a-a41c-36819b03b747
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|cf267886-0fe4-4209-8f10-025f74f9cef2
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|6969140a-2828-42e9-95aa-0fabfb1b2f81
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|de7284fd-966d-4db2-ab73-eb631ca92eba
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|dd563ae1-df5d-4c2d-8bbd-2787c124e68b

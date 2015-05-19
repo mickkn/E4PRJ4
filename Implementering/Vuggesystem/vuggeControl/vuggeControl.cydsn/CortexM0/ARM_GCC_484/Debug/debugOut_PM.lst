@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
   26:.\Generated_Source\PSoC4/debugOut_PM.c ****     /* enableState - disabled */
   27:.\Generated_Source\PSoC4/debugOut_PM.c ****     0u,
   28:.\Generated_Source\PSoC4/debugOut_PM.c **** };
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 2
 
 
   29:.\Generated_Source\PSoC4/debugOut_PM.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
   49              		.thumb_func
   50              		.type	debugOut_RestoreConfig, %function
   51              	debugOut_RestoreConfig:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 3
 
 
   52              	.LFB1:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
   73              		.type	debugOut_Sleep, %function
   74              	debugOut_Sleep:
   75              	.LFB2:
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 4
 
 
   97:.\Generated_Source\PSoC4/debugOut_PM.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
   90 000e 1340     		and	r3, r2
   91 0010 03D0     		beq	.L4
  137:.\Generated_Source\PSoC4/debugOut_PM.c ****         {
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 5
 
 
  138:.\Generated_Source\PSoC4/debugOut_PM.c ****             debugOut_backup.enableState = 1u;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  157:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_Sleep() was called. The debugOut_Wakeup() function
  158:.\Generated_Source\PSoC4/debugOut_PM.c **** *  calls the debugOut_RestoreConfig() function to restore the 
  159:.\Generated_Source\PSoC4/debugOut_PM.c **** *  configuration. If the component was enabled before the 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 6
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 6
 
 
  160:.\Generated_Source\PSoC4/debugOut_PM.c **** *  debugOut_Sleep() function was called, the debugOut_Wakeup()
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  150 001a 80BD     		pop	{r7, pc}
  151              	.L11:
  152              		.align	2
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 7
 
 
  153              	.L10:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  207 0059 6D000000 		.4byte	.LASF7
  208 005d 03       		.uleb128 0x3
  209 005e 04       		.byte	0x4
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 8
 
 
  210 005f 05       		.byte	0x5
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  264 00cc 01       		.byte	0x1
  265 00cd 3A       		.byte	0x3a
  266 00ce 00000000 		.4byte	.LFB0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 9
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 9
 
 
  267 00d2 08000000 		.4byte	.LFE0-.LFB0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  321 0010 17       		.uleb128 0x17
  322 0011 00       		.byte	0
  323 0012 00       		.byte	0
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 10
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 10
 
 
  324 0013 02       		.uleb128 0x2
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  378 0049 00       		.byte	0
  379 004a 07       		.uleb128 0x7
  380 004b 13       		.uleb128 0x13
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 11
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 11
 
 
  381 004c 01       		.byte	0x1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  435 0083 3F       		.uleb128 0x3f
  436 0084 19       		.uleb128 0x19
  437 0085 03       		.uleb128 0x3
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 12
 
 
  438 0086 0E       		.uleb128 0xe
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  492 0004 08000000 		.4byte	.LFE0
  493 0008 00000000 		.4byte	.LFB1
  494 000c 08000000 		.4byte	.LFE1
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 13
 
 
  495 0010 00000000 		.4byte	.LFB2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  520              	.LASF18:
  521 0084 64656275 		.ascii	"debugOut_Sleep\000"
  521      674F7574 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 14
 
 
  521      5F536C65 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 1
  543 0170 73686F72 		.ascii	"short unsigned int\000"
  543      7420756E 
  543      7369676E 
-ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccuYjIE3.s 			page 15
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccoGYjHI.s 			page 15
 
 
  543      65642069 
