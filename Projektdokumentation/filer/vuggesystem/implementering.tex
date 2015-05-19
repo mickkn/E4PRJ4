@@ -143,9 +143,17 @@ Til debugging er der tilføjet to ekstra porte. En til at styrer en GPIO-pin og 
   	\hline
     \end{tabular}
 \end{center}
-Portene er tildelt således at der tages hensyn til den interne fysiske kobling i PSoC4 chippen. Dette gøres for at reducerer støjen fra opadliggende porte så signaler såsom I2C ikke bliver påvirket af PWM signalerne eller andre I2C signaler, og GPIO interrupts ikke aktiveres tilfældigt. Nedenstående figur viser den interne kobling i PSoC4 chippen.
+Portene er tildelt således at der tages hensyn til den interne fysiske kobling i PSoC4 chippen. Dette gøres for at reducerer støjen fra opadliggende porte så signaler såsom I2C ikke bliver påvirket af PWM signalerne eller andre I2C signaler, og GPIO interrupts ikke aktiveres tilfældigt. Nedenstående figur viser den interne kobling i PSoC4 chippen. De brugte porte er markeret med sort.
 
-%\figur{0.75}{vuggesystem/impl/PSOC_INTERNKOBLING.pdf}{Billede af den interne kobling i PSoC4}{vuggesystem:intern_kobling}
+\figur{1}{vuggesystem/impl/PSOC_INTERNKOBLING.pdf}{Billede af den interne kobling i PSoC4}{vuggesystem:intern_kobling}
+
+Vuggesystemet anvender fire interrupt service rutiner: 
+\begin{itemize}
+\item \textbf{Endstop\_isr} forbundet med en GPIO
+\item \textbf{I2CVuggesystem\_SCB\_IRQ} der foregår som et internt interrupt til I2C hardwareblokken der står for kommunikationen mellem Baby Watch Controller og Vuggesystem
+\item \textbf{sensorI2C\_SCB\_IRQ} er ligeledes et internt interrupt til I2C hardwareblokken der står for kommunikationen mellem Vuggesystem og Vuggeudsvings sensor
+\item \textbf{loop\_isr} er et timer interrupt
+\end{itemize}
 
 
 \textbf{Beskrivelse af C kode filerne i Regulerings MCU:} \\
@@ -216,3 +224,5 @@ SensorFortolker koden ses på: \citep{cd} under \verb+sensorFortolker.c+ og \ver
 Denne fil sørger for at beregne regulerings outputtet, initierer PWM blokken og styrer denne PWM blok. Reguleringen sørger også for at lave fejltjek på på de vuggeudsvings- og vuggefrekvensværdier fra Baby Watch Controller før de bruges. Dette gøres for at øge datasikkerheden. Reguleringen bruger disse værdier sammen med den nuværende vinkel angivet i et fixed16.16 dataformat til at beregne et output til motorstyringens PWM. 
 \\ MERE \\
 Kode ses på: \citep{cd} under \verb+regulering.c+ og \verb+regulering.h+\\
+
+\newpage
