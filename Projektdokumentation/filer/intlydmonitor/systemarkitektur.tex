@@ -39,17 +39,18 @@ Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonit
 \ref{IL_SD} viser interaktionen mellem Intelligent Lydmonitors subklasser.
 
 Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har tre funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen og \textit{highpass()} som højpasfiltrerer den nedsamplede sekvens af hensyn til lavfrekvent støj fra vind og vejr. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{set()} for at gemme samplen.
-\textbf{RecBuf} er cirkulær buffer med mulighed for midlertidig locking af bufferområder. Det er altså en buffer der muliggør påfyldning af data ét sted mens aflæsning foregår fra et låst segment. Se \ref{intlyd:sw:circ_buf} for yderligere beskrivelse. Når RecBuf har indsamlet nye samples svarende til 5 sekunders optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON niveauer (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og det nyligt fundne BABYCON-niveau sammenlignes med tidligere niveauer for at finde sænke risiko for en evt. fejlmelding. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
+\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 5 sekunders optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON niveauer (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og det nyligt fundne BABYCON-niveau sammenlignes med tidligere niveauer for at finde sænke risiko for en evt. fejlmelding. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
 
 \subsubsection*{Klassediagram}
-I UML-klassediagrammet herunder ses en oversigt over system-klassernes attributter og funktioner samt deres indbyrdes relationer. 
+Softwaren er først gennemtænkt som klasser i C++, hvilket har vist sig ikke muligt at implementere på Blackfin533. UML-klassediagrammet er dog bibeholdt da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 
+
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent Lydmonitor}{IL_UML}
 Funktionsbeskrivelser findes i det efterfølgende afsnit. 
 
 \subsubsection*{Funktionsbeskrivelse}
 
 \textit{PreFilter} \\
-\textbf{Ansvar:} Klassen indeholder funktionaliteten til forfiltrering og nedsampling af den diskrete sampling-sekvens.
+\textbf{Ansvar:} Indeholder funktionaliteten til forfiltrering og nedsampling af den diskrete sampling-sekvens.
 
 
 \begin{center}
@@ -143,27 +144,27 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+RecBuf(int size) +						\\ \hline
-    \textbf{Parametre} 	& int size, størrelsen a buffer		\\ \hline
+    \textbf{Funktion}	& \verb+void cg_init(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Constructor allokerer og initialiserer buffer, mem0 og mem1 med størrelsen size		\\ \hline
+    \textbf{Beskrivelse}& Her sættes attributter rb\_currActiveBuffer, rb\_index og rb\_ready til 0. Herudover initieres de to buffere og alle pladser sættes til 0. 		\\ \hline
     \end{tabular}
 \end{center} 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void storeData(fract16 sample ) +						\\ \hline
-    \textbf{Parametre} 	& fract16 sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang efter filtrering	\\ \hline
+    \textbf{Funktion}	& \verb+void storeData(fract32 sample ) +						\\ \hline
+    \textbf{Parametre} 	& fract32 sample: Diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang efter filtrering	\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Gemmer diskret sample i RecBuf med pladsen index\_		\\ \hline
+    \textbf{Beskrivelse}& Gemmer diskret sample i RecBuf med pladsen cg\_index		\\ \hline
     \end{tabular}
 \end{center} 
 
 
 
 \textit{Analyzer} \\
-\textbf{Ansvar:} Klassen Analyzer indeholder analyse-funktionerne.
+\textbf{Ansvar:} Analyzer indeholder analyse-funktionerne.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -228,38 +229,23 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 
 
 \textit{Categorizer} \\
-\textbf{Ansvar:} Klassen Categorizer står for BABYCON kategorisering af resultaterne fra Analyzer
+\textbf{Ansvar:} Categorizer står for BABYCON kategorisering af resultaterne fra Analyzer
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+Categorizer(Statistician* statPtr,+ \\
-    					& \verb+uint broadFreqLow, uint broadFreqHigh,+\\
-    					& \verb+uint dBroadThreshHighBC1,+\\
-    					& \verb+uint dBroadThreshLowBC2, uint dBroadThreshHighBC2,+ \\
-    					& \verb+uint firstPeakFreqBC1, uint secondPeakFreqBC1,+ \\
-    					& \verb+uint freqMargin) +						\\ \hline
-    \textbf{Parametre} 	& Statistician* statPtr, pointer til klassen Statistician \\
-    					& uint broadFreqLow, lavest tilladelige værdi for frekvenshældning for BABYCON2 \\
-    					& uint broadFreqHigh, højest tilladelige værdi for frekvenshældning for BABYCON2 \\
-    					& uint dBroadThreshHighBC1, høje threshhold for frekvenshældning ved BABYCON1 \\
-    					& uint dBroadThreshLowBC2, lave threshhold for frekvenshældning ved BABYCON2  \\
-    					& uint dBroadThreshHighBC2, høje threshhold for frekvenshældning ved BABYCON2 \\
-    					& uint firstPeakFreqBC1, analysefrekvensen for frekvensspektrets første peak       \\	
-    					& uint secondPeakFreqBC1, analysefrekvensen for frekvensspektrets anden peak \\
-    					& uint freqMargin, margin til bestemmelse af frekvenspeaks \\ \hline
+    \textbf{Funktion}	& \verb+void cg_init(void)+ \\ \hline
+    \textbf{Parametre} 	& Ingen\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Constructor sætter relevante kategoriseringsparametre		\\ \hline
+    \textbf{Beskrivelse}& Sætter alle attributter til de korrekte værdier. Udregner værdier der skal bruges til at bestemme typen af indkommen lyd	\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void categorize(int* freqSpecPtr, uint freqSpecSize, int tpr) +						\\ \hline
-    \textbf{Parametre} 	& int* freqSpecPtr, pointer til frekvensspektrum \\
-    					& uint freqSpecSize, størrelse af freqSpec \\
-    					& int tpr, tonal power ratio	\\ \hline
+    \textbf{Funktion}	& \verb+void cg_categorize(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
     \textbf{Beskrivelse}& Kategoriserer BABYCON-niveau på baggrund af frekvensspektrum og TPR. Kalder Statisticians calcSignificans() med BABYCON-niveau		\\ \hline
     \end{tabular}
@@ -268,17 +254,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void categorize(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen 								\\ \hline
-    \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Hvis categorize kaldes uden parametre kaldes calcSignificans() med BABYCON3		\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+bool checkBC1(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+bool cg_checkBC1(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen 								\\ \hline
     \textbf{Returværdi}	& bool, true hvis BABYCON1 	 								\\ \hline
     \textbf{Beskrivelse}& Returnerer true hvis BABYCON1		\\ \hline
@@ -288,7 +264,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+bool checkBC2(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+bool cg_checkBC2(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen 								\\ \hline
     \textbf{Returværdi}	& bool, true hvis BABYCON2 	 								\\ \hline
     \textbf{Beskrivelse}& Returnerer true hvis BABYCON2		\\ \hline
@@ -298,26 +274,46 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 
 
 \textit{Statistician} \\
-\textbf{Ansvar:} Klassen Statistician står for at beregne mest signifikante BABYCON status. Giver besked til TwoWireCom. 
+\textbf{Ansvar:} Statistician står for at beregne mest signifikante BABYCON status. Giver besked til TwoWireCom. 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void calcSignificans(uint bc) +						\\ \hline
-    \textbf{Parametre} 	& uint bc, BABYCON-niveau		\\ \hline
+    \textbf{Funktion}	& \verb+void ss_init(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Indsætter den modtagne BABYCON i FIFO-kø og beregner mest signifikante BABYCON status, sender aktiv besked til TwoWireCom		\\ \hline
+    \textbf{Beskrivelse}& Sætter relevante attributter og initiere ss\_sigContainer med BABYCON3 som default	\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void calcSignificans(int bc) +						\\ \hline
+    \textbf{Parametre} 	& int bc, BABYCON-niveau		\\ \hline
+    \textbf{Returværdi}	& Ingen	 								\\ \hline
+    \textbf{Beskrivelse}& Indsætter den modtagne BABYCON i FIFO-kø og beregner mest signifikante BABYCON status, kalder TwoWireCom's send-funktion		\\ \hline
     \end{tabular}
 \end{center}
 
 
 \textit{TwoWireCom} \\
-\textbf{Ansvar:} Klassen TwoWireCom står for at sende BABYCON-niveau til Controller jf. \ref{overordnet:graenseflade_IL}
+\textbf{Ansvar:} TwoWireCom står for at sende BABYCON-niveau til Controller jf. \ref{overordnet:graenseflade_IL}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void send(int bc) +						\\ \hline
+    \textbf{Funktion}	& \verb+void tw_init(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen			\\ \hline
+    \textbf{Returværdi}	& Ingen	 								\\ \hline
+    \textbf{Beskrivelse}& Sætter retning på GPIO pins og kalder tw\_send med BABYCON3 som def		\\ \hline
+    \end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{ | l | p{11,8cm} |}
+    \hline
+    \textbf{Funktion}	& \verb+void tw_send(int bc) +						\\ \hline
     \textbf{Parametre} 	& int bc: Nuværende BABYCON-niveau			\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
     \textbf{Beskrivelse}& Sender BABYCON-niveau til Controller		\\ \hline
