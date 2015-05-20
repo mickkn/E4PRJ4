@@ -204,19 +204,22 @@ TeraTerminalen udskriver som forventet de afsendte værdier i figur \ref{control
 \subsection*{Powercontrol}
 
 \subsubsection*{Formål}
-At teste funktionaliteten af power on og off signal fra Controller til PSU.
+At teste funktionaliteten af powerOn og powerOff signal fra Controller til PSU.
 
 \subsubsection*{Fremgangsmåde}
 \begin{enumerate}
-\item 
+\item Start programmet
 \item Sæt ON/OFF-knap til ON
-\
+\item Mål udgangsspænding (powOn\_out) i forhold til ground
+\item Sæt ON/OFF-knap til OFF
+\item Mål udgangsspænding (powOn\_out) i forhold til ground
 
 \end{enumerate}
 
-\subsubsection*{Forventet resultat} 
-
+\subsubsection*{Forventet resultat}
+Når ON/OFF-knappen sættes i ON position forventes det at spændingen på (powOn\_out) i forhold til ground er 3,3 V. Omvendt når ON/OFF-knappen sættes i OFF position forventes det at spændingen afbrydes og derfor er 0 V
 
 \subsubsection*{Resultat} 
+Når ON/OFF-knappen sættes i ON position er spændingen 3,3 V og når ON/OFF-knappen sættes i OFF position er spændingen 0 V, som forventet.
 
 \textit{Testen er godkendt}
