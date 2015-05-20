@@ -174,5 +174,17 @@ Hvis BABYCON-niveauet 0 modtages eller hvis der udlæses en fejl i vugge\_status
 \lstinputlisting[language=C++, firstnumber=95, linerange=95-114]{filer/controller/implementering/main.cpp}
 
 Når ON/OFF-kontakten sættes i OFF, forlader programmet ON-løkken og begynder nedlukningssekvensen. Der stoppes for vukningen og ventes på at ''shutdown ready'' modtages fra Vuggesystemet. Derefter slukkes PSUen, pingTråden stoppes og den grønne LED slukkes. Der slukkes også hvis der har været en fejl i systemet.
-\lstinputlisting[language=C++, firstnumber=114, linerange=95-135]{filer/controller/implementering/main.cpp}
+\lstinputlisting[language=C++, firstnumber=114, linerange=95-136]{filer/controller/implementering/main.cpp}
 
+\subsubsection*{''Manuel start''}
+
+Der er lavet en interruptrutine til ''Manuel start''-knappen, funktionen bliver aktiveret på falling edge for eftersom der ikke er implementeret et prel-kredsløb har det ikke den store indflydelse om det er falling eller rising edge. Det har medført at interruptrutinen kun ændre en global variabel \verb+manStart+ som der kigges på i ON-løkken i main. Variablen sættes kun hvis systemet er ON og der ikke er et BABYCON niveau på 0. 
+\lstinputlisting[language=C++, firstnumber=136, linerange=136-144]{filer/controller/implementering/main.cpp}
+
+Funktionen der eksekveres sørger for at der vugges i 2 min som ikke kan afbrydes af andet end fejl i systemet og OFF fra ON/OFF-kontakten. Derefter vugges der 3 min, som også kan afbrydes af BABYCON-niveauet 1. Til sidst slukkes ''Manuel start''-LEDen
+\lstinputlisting[language=C++, firstnumber=144, linerange=144-166]{filer/controller/implementering/main.cpp}
+
+\subsubsection*{Ping tråd}
+
+Tråden der sørger for at kontrollere internet forbindelsen og advisere brugeren via den røde Wi-Fi-LED er som før nævnt opbygget med systemkald til ping. 
+\lstinputlisting[language=C++, firstnumber=166, linerange=166-192]{filer/controller/implementering/main.cpp}

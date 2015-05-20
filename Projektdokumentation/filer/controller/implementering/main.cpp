@@ -69,7 +69,7 @@ while(1) {
 
 			/* babycon 2c loop */
 			while(on_off == on and vugge_status < 128 and babyCon == 2 and !manStart and looptime != done)
-			i2cWrite(on_ff_reg,ON); 		// write on
+			i2cWrite(on_off_reg,ON); 		// write on
 			i2cWrite(frekvens_reg,c_frekvens);	// write frequency
 			i2cWrite(vinkel_reg,c_vinkel);		// write angle
 			i2cRead(status_reg,vugge_status);	// read status
@@ -138,96 +138,53 @@ void manStartISR() {
 	/* set manStart to true and turn on LED */
 	if(on_off == on and babyCon > 0) {
 		manStart = true;
-		panel.setLedValue(panel.ledMan_,ON);
+		msLed(ON);
 	}
-	if(MODULTEST || DEBUG)printf("[MANUELSTART ISR]\n");
-
 }
 
 void manStartFunc() {
-
-	panel.setLedValue(panel.ledMan_,ON); // turn on LED
-	if(MODULTEST || DEBUG)printf("[MANUELSTART RUNNING]\n");
+	msLed(ON); // turn on LED
 	/* "manuel start" 2 min loop */
-	int currentTime = millis();
-	int loopBreak = currentTime+MSLOOPTIME2;
-
-	while((panel.getButValue(panel.butOnOff_) == 1)
-			&& (currentTime < loopBreak)
-			&& (VSStatus < 128)) {
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_ONOFF,VS_ON);		// write on
-		if(DEBUG)printf("OnOff : 0xf0\n");
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_FREQ,M_FREQ);		// write frequency
-		if(DEBUG)printf("Freq  : 0x%x\n", M_FREQ);
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_ANGLE,M_ANGLE);	// write angle
-		if(DEBUG)printf("Angle : 0x%x\n", M_ANGLE);
-		usleep(I2CDELAY);
-		i2c.readReg(I2C_STAT,VSStatus);		// read status
-		if(DEBUG)printf("Status: 0x%x\n\n", VSStatus);
-		currentTime = millis();
+	while(on_off == on and looptime != done and vugge_status < 128) {
+		i2cWrite(on_off_reg,ON); 		// write on
+		i2cWrite(frekvens_reg,m_frekvens);	// write frequency
+		i2cWrite(vinkel_reg,m_vinkel);		// write angle
+		i2cRead(status_reg,vugge_status);	// read status
 	}
 
 	/* "manuel start" 3 min loop */
-	currentTime = millis();
-	loopBreak = currentTime+MSLOOPTIME3;
-
-	while((panel.getButValue(panel.butOnOff_) == 1)
-			&& (currentTime < loopBreak)
-			&& (VSStatus < 128)
-			&& (tw.getBabyconLevel() != 1)) {
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_ONOFF,VS_ON);		// write on
-		if(DEBUG)printf("OnOff : 0xf0\n");
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_FREQ,M_FREQ);		// write frequency
-		if(DEBUG)printf("Freq  : 0x%x\n", M_FREQ);
-		usleep(I2CDELAY);
-		i2c.writeReg(I2C_ANGLE,M_ANGLE);	// write angle
-		if(DEBUG)printf("Angle : 0x%x\n", M_ANGLE);
-		usleep(I2CDELAY);
-		i2c.readReg(I2C_STAT,VSStatus);		// read status
-		if(DEBUG)printf("Status: 0x%x\n\n", VSStatus);
-		currentTime = millis();
+	while(on_off == on and looptime != done and vugge_status < 128 and babyCon != 1) {
+		i2cWrite(on_off_reg,ON); 		// write on
+		i2cWrite(frekvens_reg,m_frekvens);	// write frequency
+		i2cWrite(vinkel_reg,m_vinkel);		// write angle
+		i2cRead(status_reg,vugge_status);	// read status
 	}
 
 	manStart = false;
-	if(MODULTEST || DEBUG)printf("[MANUELSTART DONE]\n");
-	panel.setLedValue(panel.ledMan_,OFF);
+	msLed(OFF); // turn off LED
 }
 
 void* thread_pingNet(void* arg) {
 
 	/* loop forever */
 	while(1){
-		usleep(5000000); // Sleep to allow cancel of program
+		delay(5sec); // Sleep to allow cancel of program
 
 		int status;
 
 		status = system("ping -w 2 8.8.8.8"); // Ping Google DNS
 
-		if(DEBUG)printf("[STATUS]: %d\n",status);
-
-		if(status == 0) {
-			panel.setLedValue(panel.ledWifi_, OFF);
-			if(MODULTEST)printf("[INTERNET CONNECTED]\n");
-		}
+		if(status == 0)
+			wifiLed(OFF);
 		else {
-			status = system("ping -w 2 4.2.2.2"); //
-			if(status == 0) {
-				panel.setLedValue(panel.ledWifi_, OFF);
-				if(MODULTEST)printf("[INTERNET CONNECTED]\n");
-			}
-			else {
-				panel.setLedValue(panel.ledWifi_, ON);
-				if(MODULTEST)printf("INTERNET NOT CONNECTED\n");
-			}
+			status = system("ping -w 2 4.2.2.2"); // Ping another public DNS
+			if(status == 0)
+				wifiLed(OFF);
+			else
+				wifiLed(ON);
 		}
-		if(panel.getButValue(panel.butOnOff_) == 0) {
-			panel.setLedValue(panel.ledWifi_, OFF);
-			if(MODULTEST)printf("[INTERNET CONNECTED]\n");
+		if(on_off == off) {
+			wifiLed(OFF);	// quit loop if turned OFF
 		 	break;
 		}
 	}
