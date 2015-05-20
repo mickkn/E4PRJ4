@@ -103,6 +103,54 @@ Resultatet kan ses på følgende terminal skærmbillede figur \ref{ctrl}. Det se
 
 \textit{Testen er godkendt}
 
+
+
+\subsection*{Webserver}
+
+\subsubsection*{Formål}
+Formålet med denne modultest er at teste om Baby Watch webserveren kan vise og skifte mellem de tre Babycon niveau samt om hjemmesiden opdatere hvert 10. sek.
+
+\subsubsection*{Fremgangsmåde}
+\begin{enumerate}
+\item Start en Windows 8.1 computer \citep{website:Windows_8_1} der er på netværk med Baby Watch systemet
+\item Lav forbindelse til Baby Watch Controller via ssh
+\item Start test programmet på Baby Watch Controller \textit{BW\_website\_test} som kan findes i \citep{cd} via \textit{/SW/Controller/BW\_website\_test}
+\item På computeren åbnes en internetbrowser der forbindes til hjemmesiden "10.0.2.5"
+\item På hjemmesiden vises Babycon 3 niveau jf. afsnit \vref{Ikke-funk:webskitser} i Kravspecifikationen Ikke-funktionelle krav om webskitser
+\item I testprogramme via ssh forbindelsen skrives 2
+\item Hjemmesiden opdateres indenfor max 10 sekunder til Babycon 2 niveau
+\item I testprogramme via ssh forbindelsen skrives 1
+\item Hjemmesiden opdateres indenfor max 10 sekunder til Babycon 1 niveau
+\item Der ventes i max 10 sekunder på at hjemmesiden opdaterer igen
+\end{enumerate}
+
+\subsubsection*{Forventet resultat} 
+Der forventes at hjemmesiden kan skifte mellem alle niveauer og at hjemmesiden opdateres hvert 10 sekundet.
+
+\subsubsection*{Resultat} 
+Hjemmesiden og derved webserveren gør som forventet:
+\figur{0.55}{controller/modultest/server_BC3_test.pdf}{Baby Watch hjemmesiden viser Babycon 3 niveau}{controller:BW_Web3} 
+
+
+\figur{0.55}{controller/modultest/server_BC2_test.pdf}{Baby Watch hjemmesiden viser Babycon 2 niveau}{controller:BW_Web2}
+
+\figur{0.55}{controller/modultest/server_BC1_test.pdf}{Baby Watch hjemmesiden viser Babycon 1 niveau}{controller:BW_Web1}
+
+\figur{0.55}{controller/modultest/server_BC1_test_10sec.pdf}{Hjemmesiden er opdateret 10 sekunder efter i forhold til foregående billede. Markeret med rød cirkel}{controller:BW_Web1_10sek}
+
+\textit{Testen er godkendt}
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection*{I2C kommunikation med PSoC testprogram}
 
 \subsubsection*{Formål}
