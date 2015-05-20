@@ -179,7 +179,7 @@ Til at styrer main-loopets 200Hz hastighed bruges et timer-interrupt der sætter
 \label{vugsys:impl, sensFortolk}\textbf{sensorFortolker}  \\
 \verb+sensorFortolker+ står for alt kommunikation mellem sensorer (Endstop Sensor og Vuggeudsving sensor) og Regulerings MCU samt beregninger af data fra disse der giver barnevognskurvens nuværende vinkel. Dette gøres, som nævnt under Regulerings MCUs hardware moduler, vha. hjælp af et I2C Master interface og et GPIO styret interrupt. 
 \textbf{Sensor konfiguration:} \\
-Da den valgte sensorkreds (MPU6050) er i stand til at køre på mange forskellige måder kræves der en indledende opsætning af sensoren før den kan benyttes. Dette gøres ved at skrive til en række registre på enheden gennem I2C bussen (REF I2C protokol). Der skrives til følgende registre:
+Da den valgte sensorkreds (MPU6050) er i stand til at køre på mange forskellige måder kræves der en indledende opsætning af sensoren før den kan benyttes. Dette gøres ved at skrive til en række registre på enheden gennem I2C bussen \citep{I2C}. Der skrives til følgende registre:
 \begin{center}
     \begin{tabular}{| c | c | p{8cm} |}
     \hline
