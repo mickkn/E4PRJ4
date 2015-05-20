@@ -1,7 +1,7 @@
 %psu
 \chapter{Power Supply Unit}
 
-Dette kapitel omhandler strømdistributionen for Baby Watch. Som beskrevet kapitlet Overordnet så styrer Controlleren hvorvidt Vuggesystemet og den Intelligente Lydmonitor skal forsynes med strøm. Der benyttes et relæ til at styre dette. Forsyningsbatteriet skal reguleres ned til 3 forskellige spændinger:
+Dette kapitel omhandler strømdistributionen for Baby Watch. Som beskrevet i kapitlet Overordnet, så styrer Controlleren hvorvidt Vuggesystemet og den Intelligente lydmonitor skal forsynes med strøm. Der benyttes et relæ til at styre dette. Forsyningsbatteriet skal reguleres ned til 3 forskellige spændinger:
 
 \begin{itemize}
 \item \textbf{Controller:} Kræver 5 V / 1200 mA (Raspberry Pi + Betjeningspanel)
@@ -13,6 +13,9 @@ Dette kapitel omhandler strømdistributionen for Baby Watch. Som beskrevet kapit
 
 Ved nedkonverteringen til 7,5 V benyttes en DC-DC konverter (LM2596S). Fra denne spænding reguleres der til hhv. 5 V og 3,3 V vha. spændingsregulatorer (LM317). 
 
+\section{Design}
+
+I dette afsnit beskrives designet af Power Supply Unit. Der kigges der på komponent data og udregnes komponentværdier for de brugte kredsløb.
 
 \subsection{DC-DC konverter (LM2596S)}
 
@@ -20,22 +23,22 @@ DC-DC konverteren (LM2596S), se figur \ref{psu:DCkonv}, kan tage spændingsinput
 
 \figur{0.4}{psu/LM2596S_fabriksbillede}{Fabriksbillede af LM2596S - DC-DC konverter}{psu:DCkonv}
 
-Som figur \ref{psu:DCkonv} er der 3 indstilige potentiometre samt 4 lodde øer. De 4 lodde øer er VIN-, VIN+, VOUT- og VOUT+. VIN- og VOUT- er ikke isoleret fra hinanden og kobles til samme stelplan. De 3 potentiometre bruges til at indstille udgangsspænding, maksimum udgangsstrøm og det sidste bruges til at styre en LED som lyser når strømmen når over det indstillede niveau. 
+Som det kan ses på figur \ref{psu:DCkonv}, er der 3 indstillingspotentiometre samt 4 loddeøer. De 4 loddeøer er VIN-, VIN+, VOUT- og VOUT+. VIN- og VOUT- er ikke isoleret fra hinanden og kobles til samme stelplan. De 3 potentiometre bruges til at indstille udgangsspænding, maksimum udgangsstrøm og det sidste bruges til at styre en LED som lyser når strømmen kommer over det indstillede niveau. 
 
 \subsection{Spændingsregulatorer (LM317)}
 
-Spændingsregulatoren LM317 er variabel justerbar mellem 1,2 V til 33 V og kan levere op til 3 A. Lm317 benyttes derfor til at regulere fra 7,5 V til hhv. 5 V og 3,3 V. 
+Spændingsregulatoren LM317 er justerbar mellem 1,2 V til 33 V og kan levere op til 3 A. LM317 benyttes derfor til at regulere fra 7,5 V til hhv. 5 V og 3,3 V. 
 
-\figur{0.4}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
+\figur{0.5}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
 
-Den variable udgangsspænding beregnes via formlen \ref{eq:Vout}. $I_{Q}$ er strømmen der løber fra ben 1, den er opgivet til at være <100uA og typisk 50uA, som er den værdi der vælges at benytte i formlen. Spændingsforskellen mellem udgangen (ben 2) og referencen (ben 1) er de 1,25 V der også optræder i formlen for $V_{out}$   
+Den variable udgangsspænding beregnes via formel \ref{eq:Vout}. $I_{Q}$ er strømmen der løber fra ben 1, den er opgivet til at være <100 $\mu$A og typisk 50 $\mu$A, som er den værdi der vælges at benytte i formlen. Spændingsforskellen mellem udgangen (ben 2) og referencen (ben 1) er de 1,25 V der også optræder i formlen for $V_{out}$   
 
 \begin{equation} 
 { V }_{ out }=1,25V\cdot \left( 1+\frac { R2 }{ R1 }  \right) +{ I }_{ Q }\cdot R2
 \label{eq:Vout}
 \end{equation}
 
-Foruden den afsætte effekt til det objekt regulatoren skal forsyne, så løber der en strøm gennem R1 og R2, dette er et effekttab som skal regnes med i den samlede effekt afsættelse der afgør hvorvidt regulatoren skal køles. Strømen gennem R1 og R2 kaldes $I_{G}$ og beregnes vha. ohms lov:
+Foruden den afsætte effekt til det objekt regulatoren skal forsyne, så løber der en strøm igennem R1 og R2, dette er et effekttab som skal regnes med i den samlede effektafsættelse der afgør hvorvidt regulatoren skal køles. Strømmen igennem R1 og R2 kaldes $I_{G}$ og beregnes vha. ohms lov:
 
 \begin{equation} 
 { I }_{ G }=\frac { 1,25V }{ 240\Omega  } +50uA=5,26mA
@@ -50,33 +53,31 @@ Den samlede effekt beregnes ved formel \ref{eq:P_lm317}
 \end{equation}
 
 
-\textbf{5 V til Controller} \newline
-5 V skal benyttes til at forsynes Raspberry Pi'en. Ligning \ref{eq:Vout5V} viser beregningen af R2 når ønsket udgangsspænding er 5 V.  
+\subsubsection*{5 V til Controller}
+5 V skal benyttes til at forsyne Raspberry Pi'en. Ligning \ref{eq:Vout5V} viser beregningen af R2 når ønsket udgangsspænding er 5 V.  
 
 \begin{equation} 
 { V }_{ out }=1,25V\cdot \left( 1+\frac { 720\Omega  }{ 240\Omega  }  \right) +50uA\cdot 720\Omega =5V
 \label{eq:Vout5V}
 \end{equation}
 
-R2 er beregnet til 720$\Omega$ og tilhørende simulering ses på figur \ref{psu:LM3175Vsim}. Simuleringen viser som forventet at udgangsspændingen er 5V. 
+R2 er beregnet til 720 $\Omega$ og tilhørende simulering ses på figur \ref{psu:LM3175Vsim}. Simuleringen viser som forventet at udgangsspændingen er 5V. 
 
 \figur{0.6}{psu/LM3175V_simulering.pdf}{Simulering af LM317 justeret til 5 V}{psu:LM3175Vsim}
 
-Raspberry Pi'en forbruger maksimalt 1200mA og typisk 700mA i den ønskede opstilling. Der regnes med den maksimale værdi i forhold til at analyse på worst case tilfældet. Strømmen til Raspberry Pi'en skrives som $I_{L}$
+Raspberry Pi'en forbruger maksimalt 1200 mA og typisk 700 mA i den ønskede opstilling. Der regnes med den maksimale værdi i analysen, da man er interesseret i worst case tilfældet. Strømmen til Raspberry Pi'en skrives som $I_{L}$
 
 \begin{equation} 
 { P }_{ 5V }=(7,5V-5V)\cdot 1200mA+7,5V\cdot 5,26mA=3,39W
 \label{eq:P5V}
 \end{equation}
 
-Ud fra formel \ref{eq:P5V} så er den maksimalt afsatte effekt i regulatoren 3,39W hvilket kræver køleplade og aktiv køling f.eks i form af en blæser, da effektafsættelsen er større en 1W som er grænsen for hvornår regulatoren kræver køling. Hvis der regnes med en $I_{L}=700mA$ så bliver effektafsættelsen reduceret til 2,14W.
+Ud fra formel \ref{eq:P5V} så er den maksimalt afsatte effekt i regulatoren 3,39 W hvilket kræver køleplade og aktiv køling f.eks i form af en blæser, da effektafsættelsen er større en 1 W som er grænsen for hvornår regulatoren kræver køling. Hvis der regnes med en $I_{L}=700 mA$ så bliver effektafsættelsen reduceret til 2,14 W.
 
+\subsubsection*{3,3 V til Vuggesystem}
+3,3 V til Vuggesystemet skal bruges til at forsyne PSoC'en, motorstyringskreds samt sensorer. Strømforbruget er sat til et maksimum på 500 mA.
 
-
-\textbf{3,3 V til Vuggesystem}\newline
-3,3 V til Vuggesystemet skal bruges til at forsyne PSoC'en, motorstyringskreds samt sensorer. Strømforbruget er sat til et maksimum på 500mA.
-
-Ligning \ref{eq:Vout3.3V} viser at R2 er fundet til 390$\Omega$ når udgangsspændingen skal være 3,3 V. Figur \ref{psu:LM31733Csim} viser simuleringen og verificerer beregningen. 
+Ligning \ref{eq:Vout3.3V} viser at R2 er fundet til 390 $\Omega$ når udgangsspændingen skal være 3,3 V. Figur \ref{psu:LM31733Vsim} viser simuleringen og verificerer beregningen. 
 
 \begin{equation} 
 { V }_{ out }=1,25V\cdot \left( 1+\frac { 390\Omega  }{ 240\Omega  }  \right) +50uA\cdot 390\Omega =3,3V
@@ -92,10 +93,9 @@ Der foretages også effektberegning på denne regulator. Effektafsættelsen er m
 \label{eq:P3.3V}
 \end{equation}
 
+\subsection*{Relæ-styring}
 
-\subsection{Relæ styring}
-
-Forsyningen til den Intelligente Lydmonitor og til Vuggesystemet skal kunne afbrydes af Controlleren, når ON/OFF-knappen på betjeningspanelet sættes i OFF position. Vuggesystemet giver signal via I2C at forsyningen kan afbrydes og herefter sender Controlleren via signalet PowerOn et signal til PSU'en at 3,3 V og 7,5 V forsyningen skal afbrydes. Afbrydelsen foregår vha. et relæ. Relæet der benyttes er et Finder 40.52S som er godkendt til en middel belastning på 8 A hvilket dækker behovet. 
+Forsyningen til den Intelligente Lydmonitor og til Vuggesystemet skal kunne afbrydes af Controlleren, når ON/OFF-kontakten på betjeningspanelet sættes i OFF position. Vuggesystemet giver et ''shutdown ready''-signal via I2C til Controlleren og herefter sender Controlleren via signalet PowerOn et signal til PSU'en om at 3,3 V og 7,5 V forsyningen skal afbrydes. Afbrydelsen foregår vha. et relæ. Relæet der benyttes er et Finder 40.52S som er godkendt til en middel belastning på 8 A hvilket dækker behovet. 
 
 \figur{0.6}{psu/relay4052.pdf}{Udsnit af datablad for Finder 40.52S}{psu:relayDatasheet}
 
@@ -110,7 +110,7 @@ Raspberry Pi'en afgiver 3,3 V og BC517 har et base emitter spændingsfald på 1,
 \label{eq:R_base}
 \end{equation}
 
-Ligning \ref{eq:R_base} viser udregningen af base modstanden. Modstandens værdi vælges til 18$\Omega$ da dette er en E24 standart.  
+Ligning \ref{eq:R_base} viser udregningen af base modstanden. Modstandens værdi vælges til 18$\Omega$ da dette er en E24 standard.  
 
 Da relæet kan operere ved 7,5 V, benyttes denne spænding til at trække relæet og spændingen leveres af DC-DC konverteren. Der er en spændingsforskel mellem kollektor og emitter på BC517 når denne er i mætning på 1 V ($V_{CEsat} = 1 V$). Det efterlader 6,5 V til relæet når det skal klikke. 
 
@@ -120,30 +120,29 @@ Samlet giver det anledning til nedenstående kredsløbsdiagram for relæstyringe
 
 Dioden (1N4007) i figur \ref{psu:relaySim} er indsat for at beskytte transistoren mod tilbageløbende strøm når relæet klikker. 
 
-
-\subsection{Samlet PSU print}
-
 \figur{1}{psu/PSUmultisim.pdf}{Samlet kredsløbsdiagram for PSU'en}{psu:PSUsamlet}
 
 Figur \ref{psu:PSUsamlet} viser det samlede kredsløbsdiagram for PSU'en med tilhørende powOn\_out pin som Raspberry Pi'ens GPIO23 skal forbindes til. Der er desuden indtegnet en hovedafbryder til PSU'en samt 12 V forbindelse til den blæser der skal køle spændingsregulatorerne.
 
-Figur \ref{psu:PSU_PCB} viser PCB printudlægget for PSU'en. Det er tegnet i programmet EAGLE, hvorefter de eksporterede Geber filer blev sendt til værkstedet som har produceret printet. 
+\subsection*{Printdesign}
+
+Figur \ref{psu:PSU_PCB} viser PCB printudlægget for PSU'en. Det er tegnet i programmet EAGLE, hvorefter de eksporterede Gerber filer blev sendt til værkstedet som har produceret printet. 
 
 \figur{0.8}{psu/PSU_EAGLE.pdf}{PCB layout}{psu:PSU_PCB}
 
-\subsection{Implementering af PSU}
+\section{Implementering}
 
-Det udarbejde print er monteret med tilhørende komponenter. Komponenterne er monteret på oversiden, dvs. at de  ikke nødvendigvis er helt nede ved printets overflade, da der skulle være plads nok til en loddekolbe. Det færdig monterede print kan ses på figur \ref{psu:PSU_print_monteret}.
+Det udarbejdet print er monteret med tilhørende komponenter. Komponenterne er monteret på oversiden, dvs. at de  ikke nødvendigvis er helt nede ved printets overflade, da der skulle være plads nok til en loddekolbe. Det færdig monterede print kan ses på figur \ref{psu:PSU_print_monteret}.
 
 \figur{0.6}{psu/PSU_print.pdf}{PSU print}{psu:PSU_print_monteret}
 
-Ovenstående print er sammen med DC-DC konverteren monteret på en Forex plade med banan bøsninger til ind og udgange af PSU'en. Der er isat en hovedafbryder i form af en enkelt afbryder. Blæseren er monteret således at begge spændingsregulatorer og DC-DC konverteren bliver kølet. Begge print er monteret med 1 cm luft til Forex pladen for at sikre god udluftning på begge sider af begge print. Det endelige resultat kan ses på figur  \ref{psu:PSU_forex_monteret}.
+Ovenstående print er sammen med DC-DC konverteren monteret på en Forex-plade med bananbøsninger til ind- og udgange af PSU'en. Der er isat en hovedafbryder i form af en enkelt afbryder. Blæseren er monteret således at begge spændingsregulatorer og DC-DC konverteren bliver kølet. Begge print er monteret med 1 cm luft til Forex pladen for at sikre god udluftning på begge sider af begge print. Det endelige resultat kan ses på figur  \ref{psu:PSU_forex_monteret}.
 
-\figur{1}{psu/PSU_monteret.pdf}{PSU monteret på Forex.}{psu:PSU_forex_monteret}
+\figur{1}{psu/PSU_monteret.pdf}{PSU monteret på Forex-plade.}{psu:PSU_forex_monteret}
 
-\subsection{Modultest}
+\section{Modultest}
 
-Modultesten for PSU'en er opbygget anderledes. Nedenstående tabel angiver modultesten i steps. Tabellen beskriver hvad der specifikt testes, hvad det forventede resultat er, selve resultatet og eventuelle kommentarer til resultatet. Der refereres til specifikke steder i kredsløbsdiagrammet, se figur \ref{psu:PSUsamlet}
+Nedenstående tabel angiver modultesten i steps. Tabellen beskriver hvad der specifikt testes, hvad det forventede resultat er, selve resultatet og eventuelle kommentarer til resultatet. Der refereres til specifikke steder i kredsløbsdiagrammet, se figur \ref{psu:PSUsamlet}
 
 \begin{center}
 \label{modultest_psu} 
@@ -171,7 +170,7 @@ Modultesten for PSU'en er opbygget anderledes. Nedenstående tabel angiver modul
 			&Foretaget efter én nats opladning  
 			\\ \hline 
 			
-\textbf{2}	&Batteriet tilsluttes og hovedafbryderen (S1)sættes ON
+\textbf{2}	&Batteriet tilsluttes og hovedafbryderen (S1) sættes ON
 			&Det forventes blæseren starter og DC-DC konverteren starter (indikeres med en diode på selve konverteren)
 			&Når S1 sættes ON starter blæseren og DC-DC konverteren lyser blå, hvilket indikerer at den er tændt.
 			&  \\ \hline 
