@@ -146,9 +146,10 @@ Ovenstående print er sammen med DC-DC konverteren monteret på en Forex plade m
 Modultesten for PSU'en er opbygget anderledes. Nedenstående tabel angiver modultesten i steps. Tabellen beskriver hvad der specifikt testes, hvad det forventede resultat er, selve resultatet og eventuelle kommentarer til resultatet. Der refereres til specifikke steder i kredsløbsdiagrammet, se figur \ref{psu:PSUsamlet}
 
 \begin{center}
-\begin{longtable}{|p{0,5cm}|p{3,8cm}|p{3,8cm}|p{2,2cm}|p{2,2cm}|} % l for left, c for center, r for right
+\label{modultest_psu} 
+\begin{longtable}{|p{0,5cm}|p{3,3cm}|p{3,3cm}|p{3,3cm}|p{3,3cm}|} % l for left, c for center, r for right
+\caption{PSU modultest - Uden belastning}\\
 \hline
-\multicolumn{5}{|l|}{\textbf{PSU}} \\ \hline
 \multicolumn{1}{|c|}{} &
 \textbf{Test} &
 \textbf{Forventet \newline resultat} &
@@ -164,47 +165,31 @@ Modultesten for PSU'en er opbygget anderledes. Nedenstående tabel angiver modul
 \textbf{Kommentar} \\ \hline 
 \endhead
 
-\textbf{1}	&
-			&
-			&
+\textbf{1}	&12 V DC Batteriets spænding testes med voltmeter
+			&Der forventes en spænding på 12 V DC +/- 0,5 V
+			&Voltmeteret viser 12,5 V DC
+			&Foretaget efter én nats opladning  
+			\\ \hline 
+			
+\textbf{2}	&Batteriet tilsluttes og hovedafbryderen (S1)sættes ON
+			&Det forventes blæseren starter og DC-DC konverteren starter (indikeres med en diode på selve konverteren)
+			&Når S1 sættes ON starter blæseren og DC-DC konverteren lyser blå, hvilket indikerer at den er tændt.
 			&  \\ \hline 
 			
-\textbf{2}	&
-			&
-			&
+\textbf{3}	&5 V udgangen til Controller måles med voltmeter
+			&Det forventes at udgangen til Controlller har spændingen 5 V +/- 0,5 V
+			&Voltmeteret viser 5,14 V
 			&  \\ \hline 
 			
-\textbf{3}	&
-			&
-			&
-			&  \\ \hline 
-			
-\textbf{4}	&
-			&
-			&
+\textbf{4}	&Høj (3,3 V) på powOn\_out 
+			&Det forventes at relæet klikker og at 7,5 V og 3,3 V forbindelserne aktiveres. Resultatet forventes at være indenfor +/- 0,5 V
+			&Når der gives 3,3 V på powOn\_out klikker relæet som forventet. 7,5 V udgangen viser 7,56 V og 3,3 V udgangen viser 3,26 V
 			&  \\ \hline  
 			
-\textbf{5}	&
-			&
-			&
-			&  \\ \hline 					
-			
-\textbf{6}	&
-			&
-			&
-			&  \\ \hline 
-			
-\textbf{7}	&
-			&
-			&
-			&  \\ \hline 
-			
-\textbf{8}	&
-			&
-			&
-			&  \\ \hline 
-			
-			
+\textbf{5}	&Lav (0 V) på powOn\_out 
+			&Det forventes at relæet klikker tilbage og at spændingerne på 7,5 V og 3,3 V udgangene afbrydes til 0 V +/- 0,3 V
+			&Relæet klikker tilbage som forventet og de 2 udgange afbrydes. 3,3 V udgangen viser 0 V mens 7,5 V udgangen viser 600 mV som aftager mod 0 V
+			&Testen er udført ubelastet, derfor aflades de 7,5 V gennem kondensatorerne (C1 - C4)  \\ \hline 					
+					
 \end{longtable}
-	\label{lab:modultest_psu} 
 \end{center}
