@@ -10,7 +10,7 @@ I ''Remote System Explorer'' i Eclipse laves en ny SSH forbindelse til Raspberry
 
 \subsubsection*{GPIOsocket}
 
-På Controllerboksen sidder der 2 knapper og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket\footnote{http://wiringpi.com/} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
+På betjeningspanelet sidder der 1 kontakt, en ''Manuelstart''-knap og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket\footnote{http://wiringpi.com/} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
 
 Der blev dog valgt at lave 3 GPIOsocket funktioner der tager sig af at skrive og læse fra det fil arkiv der oprettes når gpio funktionen bliver kaldt. Funktionerne består en \verb+Export+, en \verb+Unexport+ samt en \verb+Direction+ funktion som hhv. opretter og nedlægger et filbibliotek til det ønskede ben på Raspberry Pi'en og sætte retningen på benet (input/output).
 
@@ -32,7 +32,7 @@ Næsten det samme gør sig gældende for knaptryk, hvor \verb+getButValue()+ kal
 
 For at kunne aflæse BABYCON-niveauet fra den Intelligente lydmonitor er der lavet en 2-ledet forbindelse, direkte ind på 2 GPIO ben på Raspberryen. Disse gør også brug af GPIOsocket funktionerne i en klasse specifikt til læsning af niveauet.
 
-Funktionerne er implementeret på samme måde som \verb+getButValue()+ hvor der dog læses på 2 ben og returneres en BABYCON værdi på imellem 0-3.
+Funktionerne er implementeret på samme måde som \verb+getButValue()+ hvor der dog læses på 2 ben og returneres en BABYCON værdi fra 0-3.
 
 \subsubsection*{I2C}
 
@@ -44,7 +44,7 @@ I I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra W
 gpio load i2c
 \end{lstlisting}
 
-På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
+På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocket+ klassen.
 
 Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{http://hertaville.com/2013/04/01/interfacing-an-i2c-gpio-expander-mcp23017-to-the-raspberry-pi-using-c/} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
 
@@ -83,15 +83,15 @@ echo "Baby Watch har registreret en alarmerende baby (Undtagelsestilstand)" | ma
 echo "Fejl i vuggesystem, afventer genstart." | mail -s "Baby Watch: Fejl!" e4prj4@gmail.com
 \end{lstlisting}
 
-Der er ikke implementeret noget fejltjek på om e-mails bliver sendt, der kunne dog sagtens implementeres noget der indikere fejl ved e-mail afsendelse da \verb+system()+ returnere 0 ved korrekt afsendelse og en værdi større end 0 ved fejl. Der er dog ikke implementeret en indikering af fejl, og en afsendelse af en fejl e-mail ved fejl i e-mail afsendelse giver jo ikke meget mening.
+Der er ikke implementeret noget fejltjek på om e-mails bliver afsendt. Det er muligt at implementere, da \verb+system()+ returnerer 0 ved korrekt afsendelse og større end 0 ved fejl. Det er ikke muligt at sende en e-mail, hvis e-mailen ikke bliver afsendt korrekt. 
 
-Derimod er den røde Wi-Fi diode en indikation af om der er internet forbindelse og alarm e-mails sendes op til 10 gange, så der burde være en god sikkerhed for at Babypasseren bliver adviseret.
+Den røde Wi-Fi diode indikerer af om der er internet forbindelse og alarm e-mails sendes op til 10 gange, så der er en god sikkerhed for at Babypasseren bliver adviseret.
 
 \subsubsection*{Netværksstatus}
 
-Baby Watch kræver at der er noget synligt, der indikerer at der er en fejl på netværket, nærmere bestemt internet forbindelsen, da det ikke er muligt at sende en fejl e-mail når internet forbindelsen er afbrudt. Det bliver indikeret af en rød LED på forsiden af Controllerboksen.
+Baby Watch kræver at der er noget synligt, der indikerer at der er en fejl på netværket, nærmere bestemt internet forbindelsen, da det ikke er muligt at sende en fejl e-mail når internet forbindelsen er afbrudt. Det bliver indikeret af den røde Wi-Fi LED på betjeningspanelet.
 
-For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden der med et interval pinger googles DNS server for svar og returnere \verb+true+ eller \verb+false+ alt efter om der er forbindelse eller ej. For at gøre det ekstra sikkert er der indført en ekstra ping adresse hvis googles DNS ikke svarer, dvs. der er et dobbelttjek på internet forbindelsen.
+For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden der med et interval pinger googles DNS server for svar og returnere \verb+true+ eller \verb+false+ alt efter om der er forbindelse eller ej. For at gøre det ekstra sikkert er der indført en ekstra ping adresse hvis googles DNS ikke svarer, dvs. der er et dobbelttjek på internet forbindelsen. Den ekstra DNS server er 4.2.2.2, som er en offentlig DNS server. Netop denne DNS server benyttes ofte til at tjekke internet forbindelse vha. en ping kommando. DNS serveren er ejet af ''Level 3 Communications'' og DNS serveren agerer back up for private DNS servere, hvis disse er overbelastede pga. trafik.  
 
 Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et systemkald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
 
@@ -107,7 +107,7 @@ Baby Watch webserveren er er implementeret med en microframework Flask  webserve
 En Flask webserver består af en python-template der styrer en eller flere html-templates. Igennem python-templaten kan diverse billeder og tekst-strenge styres og opdateres løbende på html siden. Webserveren sørger selv for at sende de nødvendige data til en given bruger(browser) som tilgår websiden. 
 
 \textbf{Beskrivelse af python-templaten og dens funktionaliteter}\\
-En flask server python templaten er opbygget på samme måde som andre højniveau sprog. \\
+Flask serverens python template er opbygget på samme måde som andre højniveau sprog. \\
 Først kaldes de nødvendige biblioteker ved hjælp af \verb+import+. I dette tilfælde bruges "flask", "render template", "logging" og "datetime" (Den næst sidste er til at skjule flask serverudskrifter og den sidste er til opdateringstidspunktet). \\ 
 Herefter oprettes et Flask server objekt kaldet app vha. af kommandoen: \verb+app = Flask( name )+ \\ 
 Objektet fyldes med funktionaliter til blandt andet at vise opdateringstidspunktet og til at ændre tekst og billeder på hjemmesiden. Objektet returner til sidst sin templateData ved hjælp af en pointer. \\
@@ -173,7 +173,7 @@ Herefter kigges der på hvilket BABYCON-niveau der modtages fra Intelligent lydm
 Hvis BABYCON-niveauet 0 modtages eller hvis der udlæses en fejl i vugge\_status reageres der ved at stoppe vugningen indtil der er genstartet for systemet. Grøn LED blinker ved fejl\footnote{Fejl LED blinkning er implementeret men ikke dokumenteret}.
 \lstinputlisting[language=C++, firstnumber=95, linerange=95-114]{filer/controller/implementering/main.cpp}
 
-Når ON/OFF-kontakten sættes i OFF, forlader programmet ON-løkken og begynder nedlukningssekvensen. Der stoppes for vukningen og ventes på at ''shutdown ready'' modtages fra Vuggesystemet. Derefter slukkes PSUen, pingTråden stoppes og den grønne LED slukkes. Der slukkes også hvis der har været en fejl i systemet.
+Når ON/OFF-kontakten sættes i OFF, forlader programmet ON-løkken og begynder nedlukningssekvensen. Der stoppes for vukningen og ventes på at ''shutdown ready'' modtages fra Vuggesystemet. Derefter slukkes PSUen, ping tråden stoppes og den grønne LED slukkes. Det er desuden muligt at slukke uden ''shutdown ready'', hvis der har været en fejl.  
 \lstinputlisting[language=C++, firstnumber=114, linerange=95-136]{filer/controller/implementering/main.cpp}
 
 \subsubsection*{''Manuel start''}
