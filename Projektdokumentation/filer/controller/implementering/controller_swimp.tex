@@ -4,13 +4,13 @@
 
 \textit{Derfor blev der valgt en løsning om at bruge Eclipse til Linux. Og da Raspberry Pi kører på en Linux platform, gjorde det tingene meget lettere.}
 
-For at kunne krydskompilere er det nemmeste at bruge en speciel version af Eclipse, som er modificeret til formålet, efter lidt undersøgelser blev der fundet frem til ''Eclipse Kepler Release for C/C++ Developers''\footnote{https://www.eclipse.org/downloads/packages/eclipse-ide-cc-developers/keplerr} og en ''Official Raspbian (armhf) cross compiling toolchain''\footnote{https://github.com/raspberrypi/tools} med kompilere til Raspberry Pi (Raspbian OS). Eclipse skal lige sættes op, så der bruges \verb+arm-linux-gnueabihf-+ som kompiler prefix i projektet.
+For at kunne krydskompilere er det nemmeste at bruge en speciel version af Eclipse, som er modificeret til formålet, efter lidt undersøgelser blev der fundet frem til ''Eclipse Kepler Release for C/C++ Developers'' \citep{website:eclipsekepler} og en ''Official Raspbian (armhf) cross compiling toolchain'' \citep{website:rpitoolchain} med kompilere til Raspberry Pi (Raspbian OS). Eclipse skal lige sættes op, så der bruges \verb+arm-linux-gnueabihf-+ som kompiler prefix i projektet.
 
 I ''Remote System Explorer'' i Eclipse laves en ny SSH forbindelse til Raspberry Pi'ens IP, så der fra programmet kan oprettes direkte forbindelse til Raspberry Pi'en. Derefter i Debug Configurations sættes ''Connection'' til den oprettet enhed og stien på Raspberry Pi'en hvori man ønsker at køre sit program fra. I dette tilfæle \verb+/home/pi/Debug/+
 
 \subsubsection*{GPIOsocket}
 
-På betjeningspanelet sidder der 1 kontakt, en ''Manuelstart''-knap og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket\footnote{http://wiringpi.com/} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
+På betjeningspanelet sidder der 1 kontakt, en ''Manuelstart''-knap og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket \citep{website:wiringpi} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
 
 Der blev dog valgt at lave 3 GPIOsocket funktioner der tager sig af at skrive og læse fra det fil arkiv der oprettes når gpio funktionen bliver kaldt. Funktionerne består en \verb+Export+, en \verb+Unexport+ samt en \verb+Direction+ funktion som hhv. opretter og nedlægger et filbibliotek til det ønskede ben på Raspberry Pi'en og sætte retningen på benet (input/output).
 
@@ -46,11 +46,11 @@ gpio load i2c
 
 På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocket+ klassen.
 
-Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{http://hertaville.com/2013/04/01/interfacing-an-i2c-gpio-expander-mcp23017-to-the-raspberry-pi-using-c/} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
+Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen \citep{website:ic2lib} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
 
 \subsubsection*{Mail SMTP}
 
-For at der kunne sendes mails fra Pi'en var det nødvendigt at installere en form for SMTP server, der kunne tilgås fra et C++ program. Der blev fundet frem til \verb+ssmtp+ og \verb+mailutils+\footnote{https://rpi.tnet.com/project/faqs/smtp} som er linux pakker til Raspbian linux.
+For at der kunne sendes mails fra Pi'en var det nødvendigt at installere en form for SMTP server, der kunne tilgås fra et C++ program. Der blev fundet frem til \verb+ssmtp+ og \verb+mailutils+ \citep{website:ssmtpmailutils} som er linux pakker til Raspbian linux.
 
 For at installere disse pakker er brugt disse kommandoer på Raspberry Pi'en. \newline
 \verb+sudo apt-get install ssmtp+ \newline
