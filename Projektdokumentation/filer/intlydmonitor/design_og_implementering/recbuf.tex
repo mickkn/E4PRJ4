@@ -1,96 +1,101 @@
 %RecBuf design
 \subsection{RecBuf}
 I dette afsnit beskrives principper og design for RecBuf i Intelligent Lydmonitor.
-Samples modtaget fra prefiltret gemmes i et ud af to identiske buffere som RecBuf indeholder. Når det første array er fyldt kaldes Analyzers analyze() med værdien 0 eller 1 hvilken repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
+Samples modtaget fra prefiltret gemmes i et ud af to identiske buffere som RecBuf indeholder. Når den første buffer er fyldt kaldes Analyzers analyze() med værdien 0 eller 1 hvilken repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
 
 \begin{verbatim}
-class RecBuf {
-	friend class Analyzer;
-public:
-	RecBuf(int size_);
-	void storeData(fract16 sample_);
-	virtual ~RecBuf();
-	
-private:
-	Analyzer* analyzePtr;
-	int currActiveBuffer_;
-	int index_;
-	int size_;
-	fract16 *mem0_;
-	fract16 *mem1_;
-};
+//includes
+#include "Talkthrough.h"
+
+//defines
+#define RB_SIZE 256 /* Must be power of two */
+#define RB_MEM_0 0
+#define RB_MEM_1 1
+
+//Attributes
+extern fract32 rb_mem0[RB_SIZE];
+extern fract32 rb_mem1[RB_SIZE];
+extern bool rb_currActiveBuffer;
+extern unsigned int rb_index;
+extern bool rb_ready;
+
+//Prototypes
+void rb_init(void);
+void rb_storeData(fract32 sample);
 \end{verbatim}
 
-Herover ses et udsnit fra headeren for kassen RecBuf. Det er her værd at lægge mærke til at klassen benytter \textbf{friend class Analyzer} for at Analyzer har mulighed for at tilgå privatdata i RecBuf. Af private attributter ses det at der er en pointer til klassen Analyzer, som skal bruges til at kalde funktionen \textbf{analyze()} ved fyldt buffer. 
+Herover ses et udsnit fra headeren for kassen RecBuf. Det er her værd at lægge mærke til at attributter der skal bruges erklæres ved brug af extern, som gør det muligt at tilgå variablerne i forskellige scopes. 
 
 \begin{verbatim}
-RecBuf::RecBuf(int size)
+void rb_init(void)
 {
-	currActiveBuffer_ = 0;
-	index_ = 0;
-	size_ = (size>0 && size<MAXSIZE ? size : MAXSIZE);
-
-	//Creating array mem0 and mem1
-	mem0_ = new fract16[size_] ();
-	mem1_ = new fract16[size_] ();
+	rb_currActiveBuffer = 0;
+	rb_index = 0;
+	rb_ready = 0;
+	//Initializing memory
+	int i;
+	for(i=0; i< RB_SIZE; i++)
+	{
+		rb_mem0[i] = 0;
+		rb_mem1[i] = 0;
+	}
 }
 \end{verbatim}
 
-Herover ses constructoren for RecBuf. Først initieres de to private attributter \textbf{currActiveBuffer\_} og \textbf{index\_} til 0. RecBuf modtager en int kaldet \textbf{size}. Det tjekkes at size er større end 0 og mindre end en define kaldet \textbf{MAXSIZE}, passer betingelsen sætttes den private attribut \textbf{size\_} lig med size og ellers sættes size\_ lig med MAXSIZE. Herefter oprettes der dynamisk to buffere af typen fract16 med størrelsen size\_ som initieres til 0. 
+Herover ses funktionen rb\_init, det ses at de forskellige attributter initieres samt at de to buffere initieres med alle pladser sat til 0.
+
+
+RecBuf indeholder kun en anden funktion kaldet \textbf{rb\_storeData()} denne funktion er implementeret som en switch case der tjekker på variablen \textbf{rb\_currActiveBuffer}. Case 0 er vist herunder. 
+Hvis den private variable rb\_index er lig med RB\_SIZE betyder det at rb\_mem0 er fuld. I dette tilfælde sættes rb\_index lig med 0 og rb\_currActiveBuffer opdateres til 1 så den repræsenterer bufferen rb\_mem1. Herefter sættes den første plads i rb\_mem1 med værdien sample. Slutteligt sættes rb\_ready lig true, hvilket bruges senere til at kalde analyze() fra Analyzer. Hvis ikke rb\_index er lig med RB\_SIZE sættes rb\_mem0[rb\_index] med sample. Slutteligt inkrementeres rb\_index. 
 
 \begin{verbatim}
-RecBuf::~RecBuf()
+void rb_storeData(fract32 sample)
 {
-	delete [] mem0_;
-	delete [] mem1_;
-}
-\end{verbatim}
-
-Herover ses destructoren for RecBuf. Denne sørger for at delete det dynamisk allokerede hukommelse til mem0\_ og mem1\_ for at undgå memory-leak. 
-
-Klassen RecBuf indeholder kun en funktion kaldet \textbf{storeData()} denne funktion er implementeret som en switch case der tjekker på variablen \textbf{currActiveBuffer\_}. Case 0 er vist herunder. 
-Hvis den private variable index\_ er lig med size\_ betyder det at mem0\_ er fuld. I dette tilfælde sættes index\_ lig med 0 og currActiveBuffer\_ opdateres til 1 så den repræsenterer bufferen mem1\_. Herefter sættes den første plads i mem1\_ med den værdien sample. Slutteligt kaldes analyze med et 0, da mem0\_ nu er fuld og klar til at blive analyseret. Hvis ikke index\_ er lig med size\_ sættes mem0\_[index\_] med sample. Slutteligt inkrementeres index\_. 
-
-\begin{verbatim}
-	switch(currActiveBuffer_)
+	switch(rb_currActiveBuffer)
 	{
 	case 0:
-		if(index_ == size_)
+		if(rb_index == RB_SIZE)
 		{
-			index_ = 0;
-			currActiveBuffer_ = 1;
-			mem1_[index_] = sample;
-			analyzePtr->analyze(0);
+			rb_index = 0;
+			rb_currActiveBuffer = 1;
+			rb_mem1[rb_index] = sample;
+			rb_ready = true;
 		}
 		else
 		{
-			mem0_[index_] = sample;
+			rb_mem0[rb_index] = sample;
 		}
-		index_++;
+		rb_index++;
 		break;
 \end{verbatim}
 
 Case 1 er vist herunder og er næsten magen til case 0. Forskellen på case 1 og case 0 er følgende: 
-currActiveBuffer\_ sættes til 0 for at repræsentere mem0\_ i stedet for mem1\_. 
-analyze kaldes med 1 i stedet for 0. 
+rb\_currActiveBuffer sættes til 0 for at repræsentere rb\_mem0 i stedet for rb\_mem1. 
 
 \begin{verbatim}
-case 1:
-		if(index_ == size_)
+	case 1:
+		if(rb_index == RB_SIZE)
 		{
-			index_ = 0;
-			currActiveBuffer_ = 0;
-			mem0_[index_] = sample;
-			analyzePtr->analyze(1);
+			rb_index = 0;
+			rb_currActiveBuffer = 0;
+			rb_mem0[rb_index] = sample;
+			rb_ready = true;
 		}
 		else
 		{
-			mem1_[index_] = sample;
+			rb_mem1[rb_index] = sample;
 		}
-		index_++;
+		rb_index++;
+		break;
+
+	default:
 		break;
 	}
+}
+
 \end{verbatim}
+
+
 
 
 

@@ -1,2 +1,99 @@
 %statistician
 \subsection{Statistician}
+Herunder følger beskrivelsen og implementeringen for Statistician i Intelligent Lydmonitor.
+Statistician har til opgave at bestemme signifikansen af en given BABYCON og med TwoWireCom's tw\_send() sende BABYCON status til Controller. 
+
+Herunder ses et uddrag af headeren for Statistician. 
+
+
+Herunder ses funktionen ss\_init(). Her sættes relevante attributter. Desuden sættes alle pladserne i bufferen, som skal indeholde BABYCON statusser, som default til BABYCON3
+
+\begin{verbatim}
+void ss_init(void)
+{
+	ss_bc = 3;
+	ss_significans = 1;
+	ss_bbyCon3 = 0;
+	ss_bbyCon2 = 0;
+	ss_bbyCon1 = 0;
+
+	int i;
+	for(i=0; i< SS_SIZE; i++)
+	{
+		ss_sigContainer[i] = BABYCON3;
+	}
+}
+\end{verbatim}
+
+I det følgende vil uddrag af funktionen ss\_calcSignificans blive beskrevet 
+
+Først følger koden som sørger for at funktionen har den ønskede FIFO funktionalitet
+En midlertidig oprettes og indholdet af ss\_sigContainer kopieres over i den midlertidige buffer. 
+Herefter opdateres plads 0 i ss\_sigContainer med den modtagne BABYCON status, bc. Herefter shiftes de resterende pladser en gang mod højre, herved forsvinder den ældste værdi fra bufferen. 
+
+\begin{verbatim}
+int temp[SS_SIZE];
+	//Copying into a temporary array
+	int i = 0;
+	for(i = 0; i<SS_SIZE; i++)
+	{
+		temp[i] = ss_sigContainer[i];
+	}
+	ss_sigContainer[0] = bc;
+
+	for(i = 0; i<SS_SIZE-2;i++)
+	{
+		ss_sigContainer[i+1] = temp[i];
+	}
+\end{verbatim}
+
+Herefter tælles der hvor mange forekomster der er af henholdsvis BABYCON1, BABYCON2 og BABYCON3. Dette gøres med en switch case. 
+
+\begin{verbatim}
+ss_bbyCon1 = 0;
+ss_bbyCon2 = 0;
+ss_bbyCon3 = 0;
+
+....
+for (int i=0; i<SS_SIZE; i++)
+{
+	switch(ss_sigContainer[i])
+	{
+	case BABYCON1:
+		ss_bbyCon1++;
+		break;
+	
+	case BABYCON2:
+		ss_bbyCon2++;
+		break;
+	
+	case BABYCON3:
+		ss_bbyCon3++;
+		break;
+		}
+	}
+\end{verbatim}
+
+Slutteligt tjekkes der hvilken BABYCON status der forekommer flest gange. Den mest forekomne sendes med tw\_send() til Controller. 
+\begin{verbatim}
+ss_significans = 1;
+
+...
+	if(ss_bbyCon1> ss_significans)
+	{
+		ss_significans = ss_bbyCon1;
+		ss_bc = BABYCON1;
+	}
+	if(ss_bbyCon2> ss_significans)
+	{
+		ss_significans = ss_bbyCon2;
+		ss_bc = BABYCON2;
+	}
+	if(ss_bbyCon3 > ss_significans)
+	{
+		ss_significans = ss_bbyCon3;
+		ss_bc = BABYCON3;
+	}
+
+	tw_send(ss_bc);
+\end{verbatim}
