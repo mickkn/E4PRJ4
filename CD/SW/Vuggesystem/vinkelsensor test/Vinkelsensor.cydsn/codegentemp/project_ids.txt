@@ -1,0 +1,6 @@
+C:\Users\Felix\Google Drev\E4PRJ4 gDrive\Vuggesystem arbejdsdokumenter\Modultest\vinkelsensor test\Vinkelsensor.cydsn\Vinkelsensor.cyprj|f97d0583-99d2-485e-bfa8-26fd9c2706b7
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|f317b609-35eb-4bd8-b1e2-b881414b067c
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|74ec5628-6ea2-4e90-9f05-065ef0af1a53
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|bd5fdd2d-626e-4757-96f6-48d4701633a1
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|477e4a2f-2d7f-4985-aee7-be29beefed22
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|f593437e-4846-44b0-b86e-fc564f36eff3

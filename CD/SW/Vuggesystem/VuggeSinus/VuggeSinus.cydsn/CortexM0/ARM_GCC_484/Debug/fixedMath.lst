@@ -1,0 +1,1654 @@
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"fixedMath.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	cordic_ctab
+  18              		.data
+  19              		.align	2
+  20              		.type	cordic_ctab, %object
+  21              		.size	cordic_ctab, 72
+  22              	cordic_ctab:
+  23 0000 0FC90000 		.word	51471
+  24 0004 B1760000 		.word	30385
+  25 0008 B63E0000 		.word	16054
+  26 000c D51F0000 		.word	8149
+  27 0010 FA0F0000 		.word	4090
+  28 0014 FF070000 		.word	2047
+  29 0018 FF030000 		.word	1023
+  30 001c FF010000 		.word	511
+  31 0020 FF000000 		.word	255
+  32 0024 7F000000 		.word	127
+  33 0028 3F000000 		.word	63
+  34 002c 1F000000 		.word	31
+  35 0030 0F000000 		.word	15
+  36 0034 07000000 		.word	7
+  37 0038 03000000 		.word	3
+  38 003c 01000000 		.word	1
+  39 0040 00000000 		.word	0
+  40 0044 00000000 		.word	0
+  41              		.section	.text.fix16abs,"ax",%progbits
+  42              		.align	2
+  43              		.global	fix16abs
+  44              		.code	16
+  45              		.thumb_func
+  46              		.type	fix16abs, %function
+  47              	fix16abs:
+  48              	.LFB33:
+  49              		.file 1 ".\\fixedMath.c"
+   1:.\fixedMath.c **** /* ========================================
+   2:.\fixedMath.c ****  *
+   3:.\fixedMath.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\fixedMath.c ****  * All Rights Reserved
+   5:.\fixedMath.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\fixedMath.c ****  *
+   7:.\fixedMath.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\fixedMath.c ****  * WHICH IS THE PROPERTY OF your company.
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 2
+
+
+   9:.\fixedMath.c ****  *
+  10:.\fixedMath.c ****  * ========================================
+  11:.\fixedMath.c **** */
+  12:.\fixedMath.c **** 
+  13:.\fixedMath.c **** #include "fixedMath.h"
+  14:.\fixedMath.c **** #include "stdlib.h"
+  15:.\fixedMath.c **** 
+  16:.\fixedMath.c **** #define RAD_TO_DEG_SCALE 3754936 // ((360 deg) / (2 * pi rad)) * 2^16
+  17:.\fixedMath.c **** 
+  18:.\fixedMath.c **** #define COEFF1  51472  // pi/4 * 2^16
+  19:.\fixedMath.c **** #define COEFF2 154416  // COEFF1 * 3
+  20:.\fixedMath.c **** 
+  21:.\fixedMath.c **** //cordic defines
+  22:.\fixedMath.c **** // 1.0 = 65536
+  23:.\fixedMath.c **** // 1/k = 0.6072529350088812561694
+  24:.\fixedMath.c **** // pi = 3.1415926536897932384626
+  25:.\fixedMath.c **** //Constants
+  26:.\fixedMath.c **** #define cordic_1K 0x00009B74
+  27:.\fixedMath.c **** #define MUL 65536.000000
+  28:.\fixedMath.c **** #define CORDIC_NTAB 18
+  29:.\fixedMath.c **** int cordic_ctab [] = {0x0000C90F, 0x000076B1, 0x00003EB6, 0x00001FD5, 0x00000FFA,
+  30:.\fixedMath.c ****                     0x000007FF, 0x000003FF, 0x000001FF, 0x000000FF, 0x0000007F, 
+  31:.\fixedMath.c ****                     0x0000003F, 0x0000001F, 0x0000000F, 0x00000007, 0x00000003, 
+  32:.\fixedMath.c ****                     0x00000001, 0x00000000, 0x00000000, };
+  33:.\fixedMath.c **** 
+  34:.\fixedMath.c **** fix16_t fix16abs(fix16_t a)
+  35:.\fixedMath.c **** {
+  50              		.loc 1 35 0
+  51              		.cfi_startproc
+  52 0000 80B5     		push	{r7, lr}
+  53              		.cfi_def_cfa_offset 8
+  54              		.cfi_offset 7, -8
+  55              		.cfi_offset 14, -4
+  56 0002 82B0     		sub	sp, sp, #8
+  57              		.cfi_def_cfa_offset 16
+  58 0004 00AF     		add	r7, sp, #0
+  59              		.cfi_def_cfa_register 7
+  60 0006 7860     		str	r0, [r7, #4]
+  36:.\fixedMath.c ****     if(a < 0) return -a; 
+  61              		.loc 1 36 0
+  62 0008 7B68     		ldr	r3, [r7, #4]
+  63 000a 002B     		cmp	r3, #0
+  64 000c 02DA     		bge	.L2
+  65              		.loc 1 36 0 is_stmt 0 discriminator 1
+  66 000e 7B68     		ldr	r3, [r7, #4]
+  67 0010 5B42     		neg	r3, r3
+  68 0012 00E0     		b	.L3
+  69              	.L2:
+  37:.\fixedMath.c ****     else return a;
+  70              		.loc 1 37 0 is_stmt 1
+  71 0014 7B68     		ldr	r3, [r7, #4]
+  72              	.L3:
+  38:.\fixedMath.c **** }
+  73              		.loc 1 38 0
+  74 0016 181C     		mov	r0, r3
+  75 0018 BD46     		mov	sp, r7
+  76 001a 02B0     		add	sp, sp, #8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 3
+
+
+  77              		@ sp needed
+  78 001c 80BD     		pop	{r7, pc}
+  79              		.cfi_endproc
+  80              	.LFE33:
+  81              		.size	fix16abs, .-fix16abs
+  82              		.global	__aeabi_lmul
+  83 001e C046     		.section	.text.fix16mul,"ax",%progbits
+  84              		.align	2
+  85              		.global	fix16mul
+  86              		.code	16
+  87              		.thumb_func
+  88              		.type	fix16mul, %function
+  89              	fix16mul:
+  90              	.LFB34:
+  39:.\fixedMath.c **** 
+  40:.\fixedMath.c **** fix16_t fix16mul(fix16_t a, fix16_t b)
+  41:.\fixedMath.c **** {
+  91              		.loc 1 41 0
+  92              		.cfi_startproc
+  93 0000 B0B5     		push	{r4, r5, r7, lr}
+  94              		.cfi_def_cfa_offset 16
+  95              		.cfi_offset 4, -16
+  96              		.cfi_offset 5, -12
+  97              		.cfi_offset 7, -8
+  98              		.cfi_offset 14, -4
+  99 0002 84B0     		sub	sp, sp, #16
+ 100              		.cfi_def_cfa_offset 32
+ 101 0004 00AF     		add	r7, sp, #0
+ 102              		.cfi_def_cfa_register 7
+ 103 0006 F860     		str	r0, [r7, #12]
+ 104 0008 B960     		str	r1, [r7, #8]
+  42:.\fixedMath.c ****     return (fix16_t)(((int64_t) a * (int64_t) b) >> 16);
+ 105              		.loc 1 42 0
+ 106 000a F968     		ldr	r1, [r7, #12]
+ 107 000c 3960     		str	r1, [r7]
+ 108 000e C917     		asr	r1, r1, #31
+ 109 0010 7960     		str	r1, [r7, #4]
+ 110 0012 B968     		ldr	r1, [r7, #8]
+ 111 0014 0A1C     		mov	r2, r1
+ 112 0016 C917     		asr	r1, r1, #31
+ 113 0018 0B1C     		mov	r3, r1
+ 114 001a 3868     		ldr	r0, [r7]
+ 115 001c 7968     		ldr	r1, [r7, #4]
+ 116 001e FFF7FEFF 		bl	__aeabi_lmul
+ 117 0022 021C     		mov	r2, r0
+ 118 0024 0B1C     		mov	r3, r1
+ 119 0026 1904     		lsl	r1, r3, #16
+ 120 0028 140C     		lsr	r4, r2, #16
+ 121 002a 0C43     		orr	r4, r1
+ 122 002c 1D14     		asr	r5, r3, #16
+ 123 002e 231C     		mov	r3, r4
+  43:.\fixedMath.c **** }
+ 124              		.loc 1 43 0
+ 125 0030 181C     		mov	r0, r3
+ 126 0032 BD46     		mov	sp, r7
+ 127 0034 04B0     		add	sp, sp, #16
+ 128              		@ sp needed
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 4
+
+
+ 129 0036 B0BD     		pop	{r4, r5, r7, pc}
+ 130              		.cfi_endproc
+ 131              	.LFE34:
+ 132              		.size	fix16mul, .-fix16mul
+ 133              		.global	__aeabi_ldivmod
+ 134              		.section	.text.fix16div,"ax",%progbits
+ 135              		.align	2
+ 136              		.global	fix16div
+ 137              		.code	16
+ 138              		.thumb_func
+ 139              		.type	fix16div, %function
+ 140              	fix16div:
+ 141              	.LFB35:
+  44:.\fixedMath.c **** 
+  45:.\fixedMath.c **** fix16_t fix16div(fix16_t a, fix16_t b)
+  46:.\fixedMath.c **** {
+ 142              		.loc 1 46 0
+ 143              		.cfi_startproc
+ 144 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 145              		.cfi_def_cfa_offset 20
+ 146              		.cfi_offset 4, -20
+ 147              		.cfi_offset 5, -16
+ 148              		.cfi_offset 6, -12
+ 149              		.cfi_offset 7, -8
+ 150              		.cfi_offset 14, -4
+ 151 0002 85B0     		sub	sp, sp, #20
+ 152              		.cfi_def_cfa_offset 40
+ 153 0004 00AF     		add	r7, sp, #0
+ 154              		.cfi_def_cfa_register 7
+ 155 0006 F860     		str	r0, [r7, #12]
+ 156 0008 B960     		str	r1, [r7, #8]
+  47:.\fixedMath.c ****     return (fix16_t) (((int64_t)a << 16) / b);
+ 157              		.loc 1 47 0
+ 158 000a FA68     		ldr	r2, [r7, #12]
+ 159 000c 151C     		mov	r5, r2
+ 160 000e D217     		asr	r2, r2, #31
+ 161 0010 161C     		mov	r6, r2
+ 162 0012 2A0C     		lsr	r2, r5, #16
+ 163 0014 3404     		lsl	r4, r6, #16
+ 164 0016 1443     		orr	r4, r2
+ 165 0018 2B04     		lsl	r3, r5, #16
+ 166 001a BA68     		ldr	r2, [r7, #8]
+ 167 001c 3A60     		str	r2, [r7]
+ 168 001e D217     		asr	r2, r2, #31
+ 169 0020 7A60     		str	r2, [r7, #4]
+ 170 0022 181C     		mov	r0, r3
+ 171 0024 211C     		mov	r1, r4
+ 172 0026 3A68     		ldr	r2, [r7]
+ 173 0028 7B68     		ldr	r3, [r7, #4]
+ 174 002a FFF7FEFF 		bl	__aeabi_ldivmod
+ 175 002e 031C     		mov	r3, r0
+ 176 0030 0C1C     		mov	r4, r1
+  48:.\fixedMath.c **** 
+  49:.\fixedMath.c **** }
+ 177              		.loc 1 49 0
+ 178 0032 181C     		mov	r0, r3
+ 179 0034 BD46     		mov	sp, r7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 5
+
+
+ 180 0036 05B0     		add	sp, sp, #20
+ 181              		@ sp needed
+ 182 0038 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 183              		.cfi_endproc
+ 184              	.LFE35:
+ 185              		.size	fix16div, .-fix16div
+ 186 003a C046     		.section	.text.fix16sin,"ax",%progbits
+ 187              		.align	2
+ 188              		.global	fix16sin
+ 189              		.code	16
+ 190              		.thumb_func
+ 191              		.type	fix16sin, %function
+ 192              	fix16sin:
+ 193              	.LFB36:
+  50:.\fixedMath.c **** 
+  51:.\fixedMath.c **** // This is a wrapper function for the cordic implementation of sine calculations.
+  52:.\fixedMath.c **** fix16_t fix16sin(fix16_t rads)
+  53:.\fixedMath.c **** {
+ 194              		.loc 1 53 0
+ 195              		.cfi_startproc
+ 196 0000 80B5     		push	{r7, lr}
+ 197              		.cfi_def_cfa_offset 8
+ 198              		.cfi_offset 7, -8
+ 199              		.cfi_offset 14, -4
+ 200 0002 84B0     		sub	sp, sp, #16
+ 201              		.cfi_def_cfa_offset 24
+ 202 0004 00AF     		add	r7, sp, #0
+ 203              		.cfi_def_cfa_register 7
+ 204 0006 7860     		str	r0, [r7, #4]
+  54:.\fixedMath.c ****     fix16_t s, c;
+  55:.\fixedMath.c ****     cordic(rads, (int*) &s, (int*) &c, 32);
+ 205              		.loc 1 55 0
+ 206 0008 7968     		ldr	r1, [r7, #4]
+ 207 000a 3A1C     		mov	r2, r7
+ 208 000c 0C32     		add	r2, r2, #12
+ 209 000e 3B1C     		mov	r3, r7
+ 210 0010 0833     		add	r3, r3, #8
+ 211 0012 081C     		mov	r0, r1
+ 212 0014 111C     		mov	r1, r2
+ 213 0016 1A1C     		mov	r2, r3
+ 214 0018 2023     		mov	r3, #32
+ 215 001a FFF7FEFF 		bl	cordic
+  56:.\fixedMath.c ****     return s;
+ 216              		.loc 1 56 0
+ 217 001e FB68     		ldr	r3, [r7, #12]
+  57:.\fixedMath.c **** }
+ 218              		.loc 1 57 0
+ 219 0020 181C     		mov	r0, r3
+ 220 0022 BD46     		mov	sp, r7
+ 221 0024 04B0     		add	sp, sp, #16
+ 222              		@ sp needed
+ 223 0026 80BD     		pop	{r7, pc}
+ 224              		.cfi_endproc
+ 225              	.LFE36:
+ 226              		.size	fix16sin, .-fix16sin
+ 227              		.section	.text.fix16cos,"ax",%progbits
+ 228              		.align	2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 6
+
+
+ 229              		.global	fix16cos
+ 230              		.code	16
+ 231              		.thumb_func
+ 232              		.type	fix16cos, %function
+ 233              	fix16cos:
+ 234              	.LFB37:
+  58:.\fixedMath.c **** 
+  59:.\fixedMath.c **** // This is a wrapper function for the cordic implementation of cosine calculations.
+  60:.\fixedMath.c **** fix16_t fix16cos(fix16_t rads)
+  61:.\fixedMath.c **** {
+ 235              		.loc 1 61 0
+ 236              		.cfi_startproc
+ 237 0000 80B5     		push	{r7, lr}
+ 238              		.cfi_def_cfa_offset 8
+ 239              		.cfi_offset 7, -8
+ 240              		.cfi_offset 14, -4
+ 241 0002 84B0     		sub	sp, sp, #16
+ 242              		.cfi_def_cfa_offset 24
+ 243 0004 00AF     		add	r7, sp, #0
+ 244              		.cfi_def_cfa_register 7
+ 245 0006 7860     		str	r0, [r7, #4]
+  62:.\fixedMath.c ****     fix16_t s, c;
+  63:.\fixedMath.c ****     cordic(rads, (int*) &s, (int*) &c, 32);
+ 246              		.loc 1 63 0
+ 247 0008 7968     		ldr	r1, [r7, #4]
+ 248 000a 3A1C     		mov	r2, r7
+ 249 000c 0C32     		add	r2, r2, #12
+ 250 000e 3B1C     		mov	r3, r7
+ 251 0010 0833     		add	r3, r3, #8
+ 252 0012 081C     		mov	r0, r1
+ 253 0014 111C     		mov	r1, r2
+ 254 0016 1A1C     		mov	r2, r3
+ 255 0018 2023     		mov	r3, #32
+ 256 001a FFF7FEFF 		bl	cordic
+  64:.\fixedMath.c ****     return c;
+ 257              		.loc 1 64 0
+ 258 001e BB68     		ldr	r3, [r7, #8]
+  65:.\fixedMath.c **** }
+ 259              		.loc 1 65 0
+ 260 0020 181C     		mov	r0, r3
+ 261 0022 BD46     		mov	sp, r7
+ 262 0024 04B0     		add	sp, sp, #16
+ 263              		@ sp needed
+ 264 0026 80BD     		pop	{r7, pc}
+ 265              		.cfi_endproc
+ 266              	.LFE37:
+ 267              		.size	fix16cos, .-fix16cos
+ 268              		.section	.text.fix16atan2,"ax",%progbits
+ 269              		.align	2
+ 270              		.global	fix16atan2
+ 271              		.code	16
+ 272              		.thumb_func
+ 273              		.type	fix16atan2, %function
+ 274              	fix16atan2:
+ 275              	.LFB38:
+  66:.\fixedMath.c **** 
+  67:.\fixedMath.c **** /* atan2 implementation is based on Jim Shima's 1999/04/23 algorithm             *
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 7
+
+
+  68:.\fixedMath.c ****  * see: http://dspguru.com//dsp/tricks/fixed-point-atan2-with-self-normalization */
+  69:.\fixedMath.c **** fix16_t fix16atan2(fix16_t y, fix16_t x)
+  70:.\fixedMath.c **** {
+ 276              		.loc 1 70 0
+ 277              		.cfi_startproc
+ 278 0000 80B5     		push	{r7, lr}
+ 279              		.cfi_def_cfa_offset 8
+ 280              		.cfi_offset 7, -8
+ 281              		.cfi_offset 14, -4
+ 282 0002 86B0     		sub	sp, sp, #24
+ 283              		.cfi_def_cfa_offset 32
+ 284 0004 00AF     		add	r7, sp, #0
+ 285              		.cfi_def_cfa_register 7
+ 286 0006 7860     		str	r0, [r7, #4]
+ 287 0008 3960     		str	r1, [r7]
+  71:.\fixedMath.c ****     fix16_t abs_y = fix16abs(y)+1;      // kludge to prevent 0/0 condition
+ 288              		.loc 1 71 0
+ 289 000a 7B68     		ldr	r3, [r7, #4]
+ 290 000c 181C     		mov	r0, r3
+ 291 000e FFF7FEFF 		bl	fix16abs
+ 292 0012 031C     		mov	r3, r0
+ 293 0014 0133     		add	r3, r3, #1
+ 294 0016 3B61     		str	r3, [r7, #16]
+  72:.\fixedMath.c ****     fix16_t angle;
+  73:.\fixedMath.c ****     if (x>=0)
+ 295              		.loc 1 73 0
+ 296 0018 3B68     		ldr	r3, [r7]
+ 297 001a 002B     		cmp	r3, #0
+ 298 001c 16DB     		blt	.L13
+ 299              	.LBB2:
+  74:.\fixedMath.c ****     {
+  75:.\fixedMath.c ****         fix16_t r = fix16div((x - abs_y),  (x + abs_y));
+ 300              		.loc 1 75 0
+ 301 001e 3A68     		ldr	r2, [r7]
+ 302 0020 3B69     		ldr	r3, [r7, #16]
+ 303 0022 D21A     		sub	r2, r2, r3
+ 304 0024 3968     		ldr	r1, [r7]
+ 305 0026 3B69     		ldr	r3, [r7, #16]
+ 306 0028 CB18     		add	r3, r1, r3
+ 307 002a 101C     		mov	r0, r2
+ 308 002c 191C     		mov	r1, r3
+ 309 002e FFF7FEFF 		bl	fix16div
+ 310 0032 031C     		mov	r3, r0
+ 311 0034 FB60     		str	r3, [r7, #12]
+  76:.\fixedMath.c ****         angle = COEFF1 - fix16mul(COEFF1, r);
+ 312              		.loc 1 76 0
+ 313 0036 164A     		ldr	r2, .L17
+ 314 0038 FB68     		ldr	r3, [r7, #12]
+ 315 003a 101C     		mov	r0, r2
+ 316 003c 191C     		mov	r1, r3
+ 317 003e FFF7FEFF 		bl	fix16mul
+ 318 0042 031C     		mov	r3, r0
+ 319 0044 124A     		ldr	r2, .L17
+ 320 0046 D31A     		sub	r3, r2, r3
+ 321 0048 7B61     		str	r3, [r7, #20]
+ 322              	.LBE2:
+ 323 004a 15E0     		b	.L14
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 8
+
+
+ 324              	.L13:
+ 325              	.LBB3:
+  77:.\fixedMath.c ****     }
+  78:.\fixedMath.c ****     else
+  79:.\fixedMath.c ****     {
+  80:.\fixedMath.c ****         fix16_t r = fix16div((x + abs_y), (abs_y - x));
+ 326              		.loc 1 80 0
+ 327 004c 3A68     		ldr	r2, [r7]
+ 328 004e 3B69     		ldr	r3, [r7, #16]
+ 329 0050 D218     		add	r2, r2, r3
+ 330 0052 3969     		ldr	r1, [r7, #16]
+ 331 0054 3B68     		ldr	r3, [r7]
+ 332 0056 CB1A     		sub	r3, r1, r3
+ 333 0058 101C     		mov	r0, r2
+ 334 005a 191C     		mov	r1, r3
+ 335 005c FFF7FEFF 		bl	fix16div
+ 336 0060 031C     		mov	r3, r0
+ 337 0062 BB60     		str	r3, [r7, #8]
+  81:.\fixedMath.c ****         angle = COEFF2 - fix16mul(COEFF1, r);
+ 338              		.loc 1 81 0
+ 339 0064 0A4A     		ldr	r2, .L17
+ 340 0066 BB68     		ldr	r3, [r7, #8]
+ 341 0068 101C     		mov	r0, r2
+ 342 006a 191C     		mov	r1, r3
+ 343 006c FFF7FEFF 		bl	fix16mul
+ 344 0070 031C     		mov	r3, r0
+ 345 0072 084A     		ldr	r2, .L17+4
+ 346 0074 D31A     		sub	r3, r2, r3
+ 347 0076 7B61     		str	r3, [r7, #20]
+ 348              	.L14:
+ 349              	.LBE3:
+  82:.\fixedMath.c ****     }
+  83:.\fixedMath.c ****     if (y < 0) return(-angle);     // negate if in quad III or IV
+ 350              		.loc 1 83 0
+ 351 0078 7B68     		ldr	r3, [r7, #4]
+ 352 007a 002B     		cmp	r3, #0
+ 353 007c 02DA     		bge	.L15
+ 354              		.loc 1 83 0 is_stmt 0 discriminator 1
+ 355 007e 7B69     		ldr	r3, [r7, #20]
+ 356 0080 5B42     		neg	r3, r3
+ 357 0082 00E0     		b	.L16
+ 358              	.L15:
+  84:.\fixedMath.c ****     else return(angle);
+ 359              		.loc 1 84 0 is_stmt 1
+ 360 0084 7B69     		ldr	r3, [r7, #20]
+ 361              	.L16:
+  85:.\fixedMath.c **** }
+ 362              		.loc 1 85 0
+ 363 0086 181C     		mov	r0, r3
+ 364 0088 BD46     		mov	sp, r7
+ 365 008a 06B0     		add	sp, sp, #24
+ 366              		@ sp needed
+ 367 008c 80BD     		pop	{r7, pc}
+ 368              	.L18:
+ 369 008e C046     		.align	2
+ 370              	.L17:
+ 371 0090 10C90000 		.word	51472
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 9
+
+
+ 372 0094 305B0200 		.word	154416
+ 373              		.cfi_endproc
+ 374              	.LFE38:
+ 375              		.size	fix16atan2, .-fix16atan2
+ 376              		.section	.text.fix16rad2deg,"ax",%progbits
+ 377              		.align	2
+ 378              		.global	fix16rad2deg
+ 379              		.code	16
+ 380              		.thumb_func
+ 381              		.type	fix16rad2deg, %function
+ 382              	fix16rad2deg:
+ 383              	.LFB39:
+  86:.\fixedMath.c **** 
+  87:.\fixedMath.c **** fix16_t fix16rad2deg(fix16_t radAng)
+  88:.\fixedMath.c **** {
+ 384              		.loc 1 88 0
+ 385              		.cfi_startproc
+ 386 0000 80B5     		push	{r7, lr}
+ 387              		.cfi_def_cfa_offset 8
+ 388              		.cfi_offset 7, -8
+ 389              		.cfi_offset 14, -4
+ 390 0002 82B0     		sub	sp, sp, #8
+ 391              		.cfi_def_cfa_offset 16
+ 392 0004 00AF     		add	r7, sp, #0
+ 393              		.cfi_def_cfa_register 7
+ 394 0006 7860     		str	r0, [r7, #4]
+  89:.\fixedMath.c ****     return fix16mul(radAng, RAD_TO_DEG_SCALE);
+ 395              		.loc 1 89 0
+ 396 0008 7A68     		ldr	r2, [r7, #4]
+ 397 000a 054B     		ldr	r3, .L21
+ 398 000c 101C     		mov	r0, r2
+ 399 000e 191C     		mov	r1, r3
+ 400 0010 FFF7FEFF 		bl	fix16mul
+ 401 0014 031C     		mov	r3, r0
+  90:.\fixedMath.c **** }
+ 402              		.loc 1 90 0
+ 403 0016 181C     		mov	r0, r3
+ 404 0018 BD46     		mov	sp, r7
+ 405 001a 02B0     		add	sp, sp, #8
+ 406              		@ sp needed
+ 407 001c 80BD     		pop	{r7, pc}
+ 408              	.L22:
+ 409 001e C046     		.align	2
+ 410              	.L21:
+ 411 0020 B84B3900 		.word	3754936
+ 412              		.cfi_endproc
+ 413              	.LFE39:
+ 414              		.size	fix16rad2deg, .-fix16rad2deg
+ 415              		.section	.text.cordic,"ax",%progbits
+ 416              		.align	2
+ 417              		.global	cordic
+ 418              		.code	16
+ 419              		.thumb_func
+ 420              		.type	cordic, %function
+ 421              	cordic:
+ 422              	.LFB40:
+  91:.\fixedMath.c **** 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 10
+
+
+  92:.\fixedMath.c **** //Cordic sine and cosine calculations
+  93:.\fixedMath.c **** 
+  94:.\fixedMath.c **** void cordic(int theta, int *s, int *c, int n)
+  95:.\fixedMath.c **** {
+ 423              		.loc 1 95 0
+ 424              		.cfi_startproc
+ 425 0000 80B5     		push	{r7, lr}
+ 426              		.cfi_def_cfa_offset 8
+ 427              		.cfi_offset 7, -8
+ 428              		.cfi_offset 14, -4
+ 429 0002 8CB0     		sub	sp, sp, #48
+ 430              		.cfi_def_cfa_offset 56
+ 431 0004 00AF     		add	r7, sp, #0
+ 432              		.cfi_def_cfa_register 7
+ 433 0006 F860     		str	r0, [r7, #12]
+ 434 0008 B960     		str	r1, [r7, #8]
+ 435 000a 7A60     		str	r2, [r7, #4]
+ 436 000c 3B60     		str	r3, [r7]
+  96:.\fixedMath.c ****   int k, d, tx, ty, tz;
+  97:.\fixedMath.c ****   int x=cordic_1K,y=0,z=theta;
+ 437              		.loc 1 97 0
+ 438 000e 234B     		ldr	r3, .L27
+ 439 0010 BB62     		str	r3, [r7, #40]
+ 440 0012 0023     		mov	r3, #0
+ 441 0014 7B62     		str	r3, [r7, #36]
+ 442 0016 FB68     		ldr	r3, [r7, #12]
+ 443 0018 3B62     		str	r3, [r7, #32]
+  98:.\fixedMath.c ****   n = (n>CORDIC_NTAB) ? CORDIC_NTAB : n;
+ 444              		.loc 1 98 0
+ 445 001a 3B68     		ldr	r3, [r7]
+ 446 001c 122B     		cmp	r3, #18
+ 447 001e 00DD     		ble	.L24
+ 448 0020 1223     		mov	r3, #18
+ 449              	.L24:
+ 450 0022 3B60     		str	r3, [r7]
+  99:.\fixedMath.c ****   for (k=0; k<n; ++k)
+ 451              		.loc 1 99 0
+ 452 0024 0023     		mov	r3, #0
+ 453 0026 FB62     		str	r3, [r7, #44]
+ 454 0028 2AE0     		b	.L25
+ 455              	.L26:
+ 100:.\fixedMath.c ****   {
+ 101:.\fixedMath.c ****     d = z>>17;
+ 456              		.loc 1 101 0 discriminator 2
+ 457 002a 3B6A     		ldr	r3, [r7, #32]
+ 458 002c 5B14     		asr	r3, r3, #17
+ 459 002e FB61     		str	r3, [r7, #28]
+ 102:.\fixedMath.c ****     //get sign. for other architectures, you might want to use the more portable version
+ 103:.\fixedMath.c ****     //d = z>=0 ? 0 : -1;
+ 104:.\fixedMath.c ****     tx = x - (((y>>k) ^ d) - d);
+ 460              		.loc 1 104 0 discriminator 2
+ 461 0030 7A6A     		ldr	r2, [r7, #36]
+ 462 0032 FB6A     		ldr	r3, [r7, #44]
+ 463 0034 1A41     		asr	r2, r2, r3
+ 464 0036 FB69     		ldr	r3, [r7, #28]
+ 465 0038 5340     		eor	r3, r2
+ 466 003a FA69     		ldr	r2, [r7, #28]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 11
+
+
+ 467 003c D21A     		sub	r2, r2, r3
+ 468 003e BB6A     		ldr	r3, [r7, #40]
+ 469 0040 D318     		add	r3, r2, r3
+ 470 0042 BB61     		str	r3, [r7, #24]
+ 105:.\fixedMath.c ****     ty = y + (((x>>k) ^ d) - d);
+ 471              		.loc 1 105 0 discriminator 2
+ 472 0044 BA6A     		ldr	r2, [r7, #40]
+ 473 0046 FB6A     		ldr	r3, [r7, #44]
+ 474 0048 1A41     		asr	r2, r2, r3
+ 475 004a FB69     		ldr	r3, [r7, #28]
+ 476 004c 5A40     		eor	r2, r3
+ 477 004e FB69     		ldr	r3, [r7, #28]
+ 478 0050 D21A     		sub	r2, r2, r3
+ 479 0052 7B6A     		ldr	r3, [r7, #36]
+ 480 0054 D318     		add	r3, r2, r3
+ 481 0056 7B61     		str	r3, [r7, #20]
+ 106:.\fixedMath.c ****     tz = z - ((cordic_ctab[k] ^ d) - d);
+ 482              		.loc 1 106 0 discriminator 2
+ 483 0058 114B     		ldr	r3, .L27+4
+ 484 005a FA6A     		ldr	r2, [r7, #44]
+ 485 005c 9200     		lsl	r2, r2, #2
+ 486 005e D258     		ldr	r2, [r2, r3]
+ 487 0060 FB69     		ldr	r3, [r7, #28]
+ 488 0062 5340     		eor	r3, r2
+ 489 0064 FA69     		ldr	r2, [r7, #28]
+ 490 0066 D21A     		sub	r2, r2, r3
+ 491 0068 3B6A     		ldr	r3, [r7, #32]
+ 492 006a D318     		add	r3, r2, r3
+ 493 006c 3B61     		str	r3, [r7, #16]
+ 107:.\fixedMath.c ****     x = tx; y = ty; z = tz;
+ 494              		.loc 1 107 0 discriminator 2
+ 495 006e BB69     		ldr	r3, [r7, #24]
+ 496 0070 BB62     		str	r3, [r7, #40]
+ 497 0072 7B69     		ldr	r3, [r7, #20]
+ 498 0074 7B62     		str	r3, [r7, #36]
+ 499 0076 3B69     		ldr	r3, [r7, #16]
+ 500 0078 3B62     		str	r3, [r7, #32]
+  99:.\fixedMath.c ****   for (k=0; k<n; ++k)
+ 501              		.loc 1 99 0 discriminator 2
+ 502 007a FB6A     		ldr	r3, [r7, #44]
+ 503 007c 0133     		add	r3, r3, #1
+ 504 007e FB62     		str	r3, [r7, #44]
+ 505              	.L25:
+  99:.\fixedMath.c ****   for (k=0; k<n; ++k)
+ 506              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 507 0080 FA6A     		ldr	r2, [r7, #44]
+ 508 0082 3B68     		ldr	r3, [r7]
+ 509 0084 9A42     		cmp	r2, r3
+ 510 0086 D0DB     		blt	.L26
+ 108:.\fixedMath.c ****   }
+ 109:.\fixedMath.c ****  *c = x; *s = y;
+ 511              		.loc 1 109 0 is_stmt 1
+ 512 0088 7B68     		ldr	r3, [r7, #4]
+ 513 008a BA6A     		ldr	r2, [r7, #40]
+ 514 008c 1A60     		str	r2, [r3]
+ 515 008e BB68     		ldr	r3, [r7, #8]
+ 516 0090 7A6A     		ldr	r2, [r7, #36]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 12
+
+
+ 517 0092 1A60     		str	r2, [r3]
+ 110:.\fixedMath.c **** }
+ 518              		.loc 1 110 0
+ 519 0094 BD46     		mov	sp, r7
+ 520 0096 0CB0     		add	sp, sp, #48
+ 521              		@ sp needed
+ 522 0098 80BD     		pop	{r7, pc}
+ 523              	.L28:
+ 524 009a C046     		.align	2
+ 525              	.L27:
+ 526 009c 749B0000 		.word	39796
+ 527 00a0 00000000 		.word	cordic_ctab
+ 528              		.cfi_endproc
+ 529              	.LFE40:
+ 530              		.size	cordic, .-cordic
+ 531              		.text
+ 532              	.Letext0:
+ 533              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 534              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 535              		.file 4 ".\\fixedMath.h"
+ 536              		.section	.debug_info,"",%progbits
+ 537              	.Ldebug_info0:
+ 538 0000 3D030000 		.4byte	0x33d
+ 539 0004 0400     		.2byte	0x4
+ 540 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 541 000a 04       		.byte	0x4
+ 542 000b 01       		.uleb128 0x1
+ 543 000c 32000000 		.4byte	.LASF30
+ 544 0010 01       		.byte	0x1
+ 545 0011 C9000000 		.4byte	.LASF31
+ 546 0015 12010000 		.4byte	.LASF32
+ 547 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 548 001d 00000000 		.4byte	0
+ 549 0021 00000000 		.4byte	.Ldebug_line0
+ 550 0025 02       		.uleb128 0x2
+ 551 0026 01       		.byte	0x1
+ 552 0027 06       		.byte	0x6
+ 553 0028 22020000 		.4byte	.LASF0
+ 554 002c 02       		.uleb128 0x2
+ 555 002d 01       		.byte	0x1
+ 556 002e 08       		.byte	0x8
+ 557 002f B4000000 		.4byte	.LASF1
+ 558 0033 02       		.uleb128 0x2
+ 559 0034 02       		.byte	0x2
+ 560 0035 05       		.byte	0x5
+ 561 0036 01020000 		.4byte	.LASF2
+ 562 003a 02       		.uleb128 0x2
+ 563 003b 02       		.byte	0x2
+ 564 003c 07       		.byte	0x7
+ 565 003d F2000000 		.4byte	.LASF3
+ 566 0041 03       		.uleb128 0x3
+ 567 0042 09000000 		.4byte	.LASF6
+ 568 0046 02       		.byte	0x2
+ 569 0047 37       		.byte	0x37
+ 570 0048 4C000000 		.4byte	0x4c
+ 571 004c 02       		.uleb128 0x2
+ 572 004d 04       		.byte	0x4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 13
+
+
+ 573 004e 05       		.byte	0x5
+ 574 004f 19020000 		.4byte	.LASF4
+ 575 0053 02       		.uleb128 0x2
+ 576 0054 04       		.byte	0x4
+ 577 0055 07       		.byte	0x7
+ 578 0056 D7000000 		.4byte	.LASF5
+ 579 005a 03       		.uleb128 0x3
+ 580 005b 75010000 		.4byte	.LASF7
+ 581 005f 02       		.byte	0x2
+ 582 0060 4D       		.byte	0x4d
+ 583 0061 65000000 		.4byte	0x65
+ 584 0065 02       		.uleb128 0x2
+ 585 0066 08       		.byte	0x8
+ 586 0067 05       		.byte	0x5
+ 587 0068 E5010000 		.4byte	.LASF8
+ 588 006c 02       		.uleb128 0x2
+ 589 006d 08       		.byte	0x8
+ 590 006e 07       		.byte	0x7
+ 591 006f A8010000 		.4byte	.LASF9
+ 592 0073 04       		.uleb128 0x4
+ 593 0074 04       		.byte	0x4
+ 594 0075 05       		.byte	0x5
+ 595 0076 696E7400 		.ascii	"int\000"
+ 596 007a 02       		.uleb128 0x2
+ 597 007b 04       		.byte	0x4
+ 598 007c 07       		.byte	0x7
+ 599 007d 92010000 		.4byte	.LASF10
+ 600 0081 03       		.uleb128 0x3
+ 601 0082 CC010000 		.4byte	.LASF11
+ 602 0086 03       		.byte	0x3
+ 603 0087 41       		.byte	0x41
+ 604 0088 41000000 		.4byte	0x41
+ 605 008c 03       		.uleb128 0x3
+ 606 008d DD010000 		.4byte	.LASF12
+ 607 0091 03       		.byte	0x3
+ 608 0092 4D       		.byte	0x4d
+ 609 0093 5A000000 		.4byte	0x5a
+ 610 0097 02       		.uleb128 0x2
+ 611 0098 04       		.byte	0x4
+ 612 0099 04       		.byte	0x4
+ 613 009a 2C000000 		.4byte	.LASF13
+ 614 009e 02       		.uleb128 0x2
+ 615 009f 08       		.byte	0x8
+ 616 00a0 04       		.byte	0x4
+ 617 00a1 7F010000 		.4byte	.LASF14
+ 618 00a5 02       		.uleb128 0x2
+ 619 00a6 01       		.byte	0x1
+ 620 00a7 08       		.byte	0x8
+ 621 00a8 F3010000 		.4byte	.LASF15
+ 622 00ac 02       		.uleb128 0x2
+ 623 00ad 04       		.byte	0x4
+ 624 00ae 07       		.byte	0x7
+ 625 00af D4010000 		.4byte	.LASF16
+ 626 00b3 03       		.uleb128 0x3
+ 627 00b4 24000000 		.4byte	.LASF17
+ 628 00b8 04       		.byte	0x4
+ 629 00b9 13       		.byte	0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 14
+
+
+ 630 00ba 81000000 		.4byte	0x81
+ 631 00be 05       		.uleb128 0x5
+ 632 00bf 00000000 		.4byte	.LASF18
+ 633 00c3 01       		.byte	0x1
+ 634 00c4 22       		.byte	0x22
+ 635 00c5 B3000000 		.4byte	0xb3
+ 636 00c9 00000000 		.4byte	.LFB33
+ 637 00cd 1E000000 		.4byte	.LFE33-.LFB33
+ 638 00d1 01       		.uleb128 0x1
+ 639 00d2 9C       		.byte	0x9c
+ 640 00d3 E4000000 		.4byte	0xe4
+ 641 00d7 06       		.uleb128 0x6
+ 642 00d8 6100     		.ascii	"a\000"
+ 643 00da 01       		.byte	0x1
+ 644 00db 22       		.byte	0x22
+ 645 00dc B3000000 		.4byte	0xb3
+ 646 00e0 02       		.uleb128 0x2
+ 647 00e1 91       		.byte	0x91
+ 648 00e2 74       		.sleb128 -12
+ 649 00e3 00       		.byte	0
+ 650 00e4 07       		.uleb128 0x7
+ 651 00e5 0B020000 		.4byte	.LASF19
+ 652 00e9 01       		.byte	0x1
+ 653 00ea 28       		.byte	0x28
+ 654 00eb B3000000 		.4byte	0xb3
+ 655 00ef 00000000 		.4byte	.LFB34
+ 656 00f3 38000000 		.4byte	.LFE34-.LFB34
+ 657 00f7 01       		.uleb128 0x1
+ 658 00f8 9C       		.byte	0x9c
+ 659 00f9 16010000 		.4byte	0x116
+ 660 00fd 06       		.uleb128 0x6
+ 661 00fe 6100     		.ascii	"a\000"
+ 662 0100 01       		.byte	0x1
+ 663 0101 28       		.byte	0x28
+ 664 0102 B3000000 		.4byte	0xb3
+ 665 0106 02       		.uleb128 0x2
+ 666 0107 91       		.byte	0x91
+ 667 0108 6C       		.sleb128 -20
+ 668 0109 06       		.uleb128 0x6
+ 669 010a 6200     		.ascii	"b\000"
+ 670 010c 01       		.byte	0x1
+ 671 010d 28       		.byte	0x28
+ 672 010e B3000000 		.4byte	0xb3
+ 673 0112 02       		.uleb128 0x2
+ 674 0113 91       		.byte	0x91
+ 675 0114 68       		.sleb128 -24
+ 676 0115 00       		.byte	0
+ 677 0116 07       		.uleb128 0x7
+ 678 0117 F8010000 		.4byte	.LASF20
+ 679 011b 01       		.byte	0x1
+ 680 011c 2D       		.byte	0x2d
+ 681 011d B3000000 		.4byte	0xb3
+ 682 0121 00000000 		.4byte	.LFB35
+ 683 0125 3A000000 		.4byte	.LFE35-.LFB35
+ 684 0129 01       		.uleb128 0x1
+ 685 012a 9C       		.byte	0x9c
+ 686 012b 48010000 		.4byte	0x148
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 15
+
+
+ 687 012f 06       		.uleb128 0x6
+ 688 0130 6100     		.ascii	"a\000"
+ 689 0132 01       		.byte	0x1
+ 690 0133 2D       		.byte	0x2d
+ 691 0134 B3000000 		.4byte	0xb3
+ 692 0138 02       		.uleb128 0x2
+ 693 0139 91       		.byte	0x91
+ 694 013a 64       		.sleb128 -28
+ 695 013b 06       		.uleb128 0x6
+ 696 013c 6200     		.ascii	"b\000"
+ 697 013e 01       		.byte	0x1
+ 698 013f 2D       		.byte	0x2d
+ 699 0140 B3000000 		.4byte	0xb3
+ 700 0144 02       		.uleb128 0x2
+ 701 0145 91       		.byte	0x91
+ 702 0146 60       		.sleb128 -32
+ 703 0147 00       		.byte	0
+ 704 0148 07       		.uleb128 0x7
+ 705 0149 E9000000 		.4byte	.LASF21
+ 706 014d 01       		.byte	0x1
+ 707 014e 34       		.byte	0x34
+ 708 014f B3000000 		.4byte	0xb3
+ 709 0153 00000000 		.4byte	.LFB36
+ 710 0157 28000000 		.4byte	.LFE36-.LFB36
+ 711 015b 01       		.uleb128 0x1
+ 712 015c 9C       		.byte	0x9c
+ 713 015d 88010000 		.4byte	0x188
+ 714 0161 08       		.uleb128 0x8
+ 715 0162 14020000 		.4byte	.LASF22
+ 716 0166 01       		.byte	0x1
+ 717 0167 34       		.byte	0x34
+ 718 0168 B3000000 		.4byte	0xb3
+ 719 016c 02       		.uleb128 0x2
+ 720 016d 91       		.byte	0x91
+ 721 016e 6C       		.sleb128 -20
+ 722 016f 09       		.uleb128 0x9
+ 723 0170 7300     		.ascii	"s\000"
+ 724 0172 01       		.byte	0x1
+ 725 0173 36       		.byte	0x36
+ 726 0174 B3000000 		.4byte	0xb3
+ 727 0178 02       		.uleb128 0x2
+ 728 0179 91       		.byte	0x91
+ 729 017a 74       		.sleb128 -12
+ 730 017b 09       		.uleb128 0x9
+ 731 017c 6300     		.ascii	"c\000"
+ 732 017e 01       		.byte	0x1
+ 733 017f 36       		.byte	0x36
+ 734 0180 B3000000 		.4byte	0xb3
+ 735 0184 02       		.uleb128 0x2
+ 736 0185 91       		.byte	0x91
+ 737 0186 70       		.sleb128 -16
+ 738 0187 00       		.byte	0
+ 739 0188 07       		.uleb128 0x7
+ 740 0189 9F010000 		.4byte	.LASF23
+ 741 018d 01       		.byte	0x1
+ 742 018e 3C       		.byte	0x3c
+ 743 018f B3000000 		.4byte	0xb3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 16
+
+
+ 744 0193 00000000 		.4byte	.LFB37
+ 745 0197 28000000 		.4byte	.LFE37-.LFB37
+ 746 019b 01       		.uleb128 0x1
+ 747 019c 9C       		.byte	0x9c
+ 748 019d C8010000 		.4byte	0x1c8
+ 749 01a1 08       		.uleb128 0x8
+ 750 01a2 14020000 		.4byte	.LASF22
+ 751 01a6 01       		.byte	0x1
+ 752 01a7 3C       		.byte	0x3c
+ 753 01a8 B3000000 		.4byte	0xb3
+ 754 01ac 02       		.uleb128 0x2
+ 755 01ad 91       		.byte	0x91
+ 756 01ae 6C       		.sleb128 -20
+ 757 01af 09       		.uleb128 0x9
+ 758 01b0 7300     		.ascii	"s\000"
+ 759 01b2 01       		.byte	0x1
+ 760 01b3 3E       		.byte	0x3e
+ 761 01b4 B3000000 		.4byte	0xb3
+ 762 01b8 02       		.uleb128 0x2
+ 763 01b9 91       		.byte	0x91
+ 764 01ba 74       		.sleb128 -12
+ 765 01bb 09       		.uleb128 0x9
+ 766 01bc 6300     		.ascii	"c\000"
+ 767 01be 01       		.byte	0x1
+ 768 01bf 3E       		.byte	0x3e
+ 769 01c0 B3000000 		.4byte	0xb3
+ 770 01c4 02       		.uleb128 0x2
+ 771 01c5 91       		.byte	0x91
+ 772 01c6 70       		.sleb128 -16
+ 773 01c7 00       		.byte	0
+ 774 01c8 07       		.uleb128 0x7
+ 775 01c9 19000000 		.4byte	.LASF24
+ 776 01cd 01       		.byte	0x1
+ 777 01ce 45       		.byte	0x45
+ 778 01cf B3000000 		.4byte	0xb3
+ 779 01d3 00000000 		.4byte	.LFB38
+ 780 01d7 98000000 		.4byte	.LFE38-.LFB38
+ 781 01db 01       		.uleb128 0x1
+ 782 01dc 9C       		.byte	0x9c
+ 783 01dd 46020000 		.4byte	0x246
+ 784 01e1 06       		.uleb128 0x6
+ 785 01e2 7900     		.ascii	"y\000"
+ 786 01e4 01       		.byte	0x1
+ 787 01e5 45       		.byte	0x45
+ 788 01e6 B3000000 		.4byte	0xb3
+ 789 01ea 02       		.uleb128 0x2
+ 790 01eb 91       		.byte	0x91
+ 791 01ec 64       		.sleb128 -28
+ 792 01ed 06       		.uleb128 0x6
+ 793 01ee 7800     		.ascii	"x\000"
+ 794 01f0 01       		.byte	0x1
+ 795 01f1 45       		.byte	0x45
+ 796 01f2 B3000000 		.4byte	0xb3
+ 797 01f6 02       		.uleb128 0x2
+ 798 01f7 91       		.byte	0x91
+ 799 01f8 60       		.sleb128 -32
+ 800 01f9 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 17
+
+
+ 801 01fa AE000000 		.4byte	.LASF25
+ 802 01fe 01       		.byte	0x1
+ 803 01ff 47       		.byte	0x47
+ 804 0200 B3000000 		.4byte	0xb3
+ 805 0204 02       		.uleb128 0x2
+ 806 0205 91       		.byte	0x91
+ 807 0206 70       		.sleb128 -16
+ 808 0207 0A       		.uleb128 0xa
+ 809 0208 05010000 		.4byte	.LASF26
+ 810 020c 01       		.byte	0x1
+ 811 020d 48       		.byte	0x48
+ 812 020e B3000000 		.4byte	0xb3
+ 813 0212 02       		.uleb128 0x2
+ 814 0213 91       		.byte	0x91
+ 815 0214 74       		.sleb128 -12
+ 816 0215 0B       		.uleb128 0xb
+ 817 0216 1E000000 		.4byte	.LBB2
+ 818 021a 2C000000 		.4byte	.LBE2-.LBB2
+ 819 021e 2F020000 		.4byte	0x22f
+ 820 0222 09       		.uleb128 0x9
+ 821 0223 7200     		.ascii	"r\000"
+ 822 0225 01       		.byte	0x1
+ 823 0226 4B       		.byte	0x4b
+ 824 0227 B3000000 		.4byte	0xb3
+ 825 022b 02       		.uleb128 0x2
+ 826 022c 91       		.byte	0x91
+ 827 022d 6C       		.sleb128 -20
+ 828 022e 00       		.byte	0
+ 829 022f 0C       		.uleb128 0xc
+ 830 0230 4C000000 		.4byte	.LBB3
+ 831 0234 2C000000 		.4byte	.LBE3-.LBB3
+ 832 0238 09       		.uleb128 0x9
+ 833 0239 7200     		.ascii	"r\000"
+ 834 023b 01       		.byte	0x1
+ 835 023c 50       		.byte	0x50
+ 836 023d B3000000 		.4byte	0xb3
+ 837 0241 02       		.uleb128 0x2
+ 838 0242 91       		.byte	0x91
+ 839 0243 68       		.sleb128 -24
+ 840 0244 00       		.byte	0
+ 841 0245 00       		.byte	0
+ 842 0246 07       		.uleb128 0x7
+ 843 0247 BF010000 		.4byte	.LASF27
+ 844 024b 01       		.byte	0x1
+ 845 024c 57       		.byte	0x57
+ 846 024d B3000000 		.4byte	0xb3
+ 847 0251 00000000 		.4byte	.LFB39
+ 848 0255 24000000 		.4byte	.LFE39-.LFB39
+ 849 0259 01       		.uleb128 0x1
+ 850 025a 9C       		.byte	0x9c
+ 851 025b 6E020000 		.4byte	0x26e
+ 852 025f 08       		.uleb128 0x8
+ 853 0260 0B010000 		.4byte	.LASF28
+ 854 0264 01       		.byte	0x1
+ 855 0265 57       		.byte	0x57
+ 856 0266 B3000000 		.4byte	0xb3
+ 857 026a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 18
+
+
+ 858 026b 91       		.byte	0x91
+ 859 026c 74       		.sleb128 -12
+ 860 026d 00       		.byte	0
+ 861 026e 0D       		.uleb128 0xd
+ 862 026f C2000000 		.4byte	.LASF33
+ 863 0273 01       		.byte	0x1
+ 864 0274 5E       		.byte	0x5e
+ 865 0275 00000000 		.4byte	.LFB40
+ 866 0279 A4000000 		.4byte	.LFE40-.LFB40
+ 867 027d 01       		.uleb128 0x1
+ 868 027e 9C       		.byte	0x9c
+ 869 027f 19030000 		.4byte	0x319
+ 870 0283 08       		.uleb128 0x8
+ 871 0284 13000000 		.4byte	.LASF29
+ 872 0288 01       		.byte	0x1
+ 873 0289 5E       		.byte	0x5e
+ 874 028a 73000000 		.4byte	0x73
+ 875 028e 02       		.uleb128 0x2
+ 876 028f 91       		.byte	0x91
+ 877 0290 54       		.sleb128 -44
+ 878 0291 06       		.uleb128 0x6
+ 879 0292 7300     		.ascii	"s\000"
+ 880 0294 01       		.byte	0x1
+ 881 0295 5E       		.byte	0x5e
+ 882 0296 19030000 		.4byte	0x319
+ 883 029a 02       		.uleb128 0x2
+ 884 029b 91       		.byte	0x91
+ 885 029c 50       		.sleb128 -48
+ 886 029d 06       		.uleb128 0x6
+ 887 029e 6300     		.ascii	"c\000"
+ 888 02a0 01       		.byte	0x1
+ 889 02a1 5E       		.byte	0x5e
+ 890 02a2 19030000 		.4byte	0x319
+ 891 02a6 02       		.uleb128 0x2
+ 892 02a7 91       		.byte	0x91
+ 893 02a8 4C       		.sleb128 -52
+ 894 02a9 06       		.uleb128 0x6
+ 895 02aa 6E00     		.ascii	"n\000"
+ 896 02ac 01       		.byte	0x1
+ 897 02ad 5E       		.byte	0x5e
+ 898 02ae 73000000 		.4byte	0x73
+ 899 02b2 02       		.uleb128 0x2
+ 900 02b3 91       		.byte	0x91
+ 901 02b4 48       		.sleb128 -56
+ 902 02b5 09       		.uleb128 0x9
+ 903 02b6 6B00     		.ascii	"k\000"
+ 904 02b8 01       		.byte	0x1
+ 905 02b9 60       		.byte	0x60
+ 906 02ba 73000000 		.4byte	0x73
+ 907 02be 02       		.uleb128 0x2
+ 908 02bf 91       		.byte	0x91
+ 909 02c0 74       		.sleb128 -12
+ 910 02c1 09       		.uleb128 0x9
+ 911 02c2 6400     		.ascii	"d\000"
+ 912 02c4 01       		.byte	0x1
+ 913 02c5 60       		.byte	0x60
+ 914 02c6 73000000 		.4byte	0x73
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 19
+
+
+ 915 02ca 02       		.uleb128 0x2
+ 916 02cb 91       		.byte	0x91
+ 917 02cc 64       		.sleb128 -28
+ 918 02cd 09       		.uleb128 0x9
+ 919 02ce 747800   		.ascii	"tx\000"
+ 920 02d1 01       		.byte	0x1
+ 921 02d2 60       		.byte	0x60
+ 922 02d3 73000000 		.4byte	0x73
+ 923 02d7 02       		.uleb128 0x2
+ 924 02d8 91       		.byte	0x91
+ 925 02d9 60       		.sleb128 -32
+ 926 02da 09       		.uleb128 0x9
+ 927 02db 747900   		.ascii	"ty\000"
+ 928 02de 01       		.byte	0x1
+ 929 02df 60       		.byte	0x60
+ 930 02e0 73000000 		.4byte	0x73
+ 931 02e4 02       		.uleb128 0x2
+ 932 02e5 91       		.byte	0x91
+ 933 02e6 5C       		.sleb128 -36
+ 934 02e7 09       		.uleb128 0x9
+ 935 02e8 747A00   		.ascii	"tz\000"
+ 936 02eb 01       		.byte	0x1
+ 937 02ec 60       		.byte	0x60
+ 938 02ed 73000000 		.4byte	0x73
+ 939 02f1 02       		.uleb128 0x2
+ 940 02f2 91       		.byte	0x91
+ 941 02f3 58       		.sleb128 -40
+ 942 02f4 09       		.uleb128 0x9
+ 943 02f5 7800     		.ascii	"x\000"
+ 944 02f7 01       		.byte	0x1
+ 945 02f8 61       		.byte	0x61
+ 946 02f9 73000000 		.4byte	0x73
+ 947 02fd 02       		.uleb128 0x2
+ 948 02fe 91       		.byte	0x91
+ 949 02ff 70       		.sleb128 -16
+ 950 0300 09       		.uleb128 0x9
+ 951 0301 7900     		.ascii	"y\000"
+ 952 0303 01       		.byte	0x1
+ 953 0304 61       		.byte	0x61
+ 954 0305 73000000 		.4byte	0x73
+ 955 0309 02       		.uleb128 0x2
+ 956 030a 91       		.byte	0x91
+ 957 030b 6C       		.sleb128 -20
+ 958 030c 09       		.uleb128 0x9
+ 959 030d 7A00     		.ascii	"z\000"
+ 960 030f 01       		.byte	0x1
+ 961 0310 61       		.byte	0x61
+ 962 0311 73000000 		.4byte	0x73
+ 963 0315 02       		.uleb128 0x2
+ 964 0316 91       		.byte	0x91
+ 965 0317 68       		.sleb128 -24
+ 966 0318 00       		.byte	0
+ 967 0319 0E       		.uleb128 0xe
+ 968 031a 04       		.byte	0x4
+ 969 031b 73000000 		.4byte	0x73
+ 970 031f 0F       		.uleb128 0xf
+ 971 0320 73000000 		.4byte	0x73
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 20
+
+
+ 972 0324 2F030000 		.4byte	0x32f
+ 973 0328 10       		.uleb128 0x10
+ 974 0329 AC000000 		.4byte	0xac
+ 975 032d 11       		.byte	0x11
+ 976 032e 00       		.byte	0
+ 977 032f 11       		.uleb128 0x11
+ 978 0330 86010000 		.4byte	.LASF34
+ 979 0334 01       		.byte	0x1
+ 980 0335 1D       		.byte	0x1d
+ 981 0336 1F030000 		.4byte	0x31f
+ 982 033a 05       		.uleb128 0x5
+ 983 033b 03       		.byte	0x3
+ 984 033c 00000000 		.4byte	cordic_ctab
+ 985 0340 00       		.byte	0
+ 986              		.section	.debug_abbrev,"",%progbits
+ 987              	.Ldebug_abbrev0:
+ 988 0000 01       		.uleb128 0x1
+ 989 0001 11       		.uleb128 0x11
+ 990 0002 01       		.byte	0x1
+ 991 0003 25       		.uleb128 0x25
+ 992 0004 0E       		.uleb128 0xe
+ 993 0005 13       		.uleb128 0x13
+ 994 0006 0B       		.uleb128 0xb
+ 995 0007 03       		.uleb128 0x3
+ 996 0008 0E       		.uleb128 0xe
+ 997 0009 1B       		.uleb128 0x1b
+ 998 000a 0E       		.uleb128 0xe
+ 999 000b 55       		.uleb128 0x55
+ 1000 000c 17       		.uleb128 0x17
+ 1001 000d 11       		.uleb128 0x11
+ 1002 000e 01       		.uleb128 0x1
+ 1003 000f 10       		.uleb128 0x10
+ 1004 0010 17       		.uleb128 0x17
+ 1005 0011 00       		.byte	0
+ 1006 0012 00       		.byte	0
+ 1007 0013 02       		.uleb128 0x2
+ 1008 0014 24       		.uleb128 0x24
+ 1009 0015 00       		.byte	0
+ 1010 0016 0B       		.uleb128 0xb
+ 1011 0017 0B       		.uleb128 0xb
+ 1012 0018 3E       		.uleb128 0x3e
+ 1013 0019 0B       		.uleb128 0xb
+ 1014 001a 03       		.uleb128 0x3
+ 1015 001b 0E       		.uleb128 0xe
+ 1016 001c 00       		.byte	0
+ 1017 001d 00       		.byte	0
+ 1018 001e 03       		.uleb128 0x3
+ 1019 001f 16       		.uleb128 0x16
+ 1020 0020 00       		.byte	0
+ 1021 0021 03       		.uleb128 0x3
+ 1022 0022 0E       		.uleb128 0xe
+ 1023 0023 3A       		.uleb128 0x3a
+ 1024 0024 0B       		.uleb128 0xb
+ 1025 0025 3B       		.uleb128 0x3b
+ 1026 0026 0B       		.uleb128 0xb
+ 1027 0027 49       		.uleb128 0x49
+ 1028 0028 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 21
+
+
+ 1029 0029 00       		.byte	0
+ 1030 002a 00       		.byte	0
+ 1031 002b 04       		.uleb128 0x4
+ 1032 002c 24       		.uleb128 0x24
+ 1033 002d 00       		.byte	0
+ 1034 002e 0B       		.uleb128 0xb
+ 1035 002f 0B       		.uleb128 0xb
+ 1036 0030 3E       		.uleb128 0x3e
+ 1037 0031 0B       		.uleb128 0xb
+ 1038 0032 03       		.uleb128 0x3
+ 1039 0033 08       		.uleb128 0x8
+ 1040 0034 00       		.byte	0
+ 1041 0035 00       		.byte	0
+ 1042 0036 05       		.uleb128 0x5
+ 1043 0037 2E       		.uleb128 0x2e
+ 1044 0038 01       		.byte	0x1
+ 1045 0039 3F       		.uleb128 0x3f
+ 1046 003a 19       		.uleb128 0x19
+ 1047 003b 03       		.uleb128 0x3
+ 1048 003c 0E       		.uleb128 0xe
+ 1049 003d 3A       		.uleb128 0x3a
+ 1050 003e 0B       		.uleb128 0xb
+ 1051 003f 3B       		.uleb128 0x3b
+ 1052 0040 0B       		.uleb128 0xb
+ 1053 0041 27       		.uleb128 0x27
+ 1054 0042 19       		.uleb128 0x19
+ 1055 0043 49       		.uleb128 0x49
+ 1056 0044 13       		.uleb128 0x13
+ 1057 0045 11       		.uleb128 0x11
+ 1058 0046 01       		.uleb128 0x1
+ 1059 0047 12       		.uleb128 0x12
+ 1060 0048 06       		.uleb128 0x6
+ 1061 0049 40       		.uleb128 0x40
+ 1062 004a 18       		.uleb128 0x18
+ 1063 004b 9742     		.uleb128 0x2117
+ 1064 004d 19       		.uleb128 0x19
+ 1065 004e 01       		.uleb128 0x1
+ 1066 004f 13       		.uleb128 0x13
+ 1067 0050 00       		.byte	0
+ 1068 0051 00       		.byte	0
+ 1069 0052 06       		.uleb128 0x6
+ 1070 0053 05       		.uleb128 0x5
+ 1071 0054 00       		.byte	0
+ 1072 0055 03       		.uleb128 0x3
+ 1073 0056 08       		.uleb128 0x8
+ 1074 0057 3A       		.uleb128 0x3a
+ 1075 0058 0B       		.uleb128 0xb
+ 1076 0059 3B       		.uleb128 0x3b
+ 1077 005a 0B       		.uleb128 0xb
+ 1078 005b 49       		.uleb128 0x49
+ 1079 005c 13       		.uleb128 0x13
+ 1080 005d 02       		.uleb128 0x2
+ 1081 005e 18       		.uleb128 0x18
+ 1082 005f 00       		.byte	0
+ 1083 0060 00       		.byte	0
+ 1084 0061 07       		.uleb128 0x7
+ 1085 0062 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 22
+
+
+ 1086 0063 01       		.byte	0x1
+ 1087 0064 3F       		.uleb128 0x3f
+ 1088 0065 19       		.uleb128 0x19
+ 1089 0066 03       		.uleb128 0x3
+ 1090 0067 0E       		.uleb128 0xe
+ 1091 0068 3A       		.uleb128 0x3a
+ 1092 0069 0B       		.uleb128 0xb
+ 1093 006a 3B       		.uleb128 0x3b
+ 1094 006b 0B       		.uleb128 0xb
+ 1095 006c 27       		.uleb128 0x27
+ 1096 006d 19       		.uleb128 0x19
+ 1097 006e 49       		.uleb128 0x49
+ 1098 006f 13       		.uleb128 0x13
+ 1099 0070 11       		.uleb128 0x11
+ 1100 0071 01       		.uleb128 0x1
+ 1101 0072 12       		.uleb128 0x12
+ 1102 0073 06       		.uleb128 0x6
+ 1103 0074 40       		.uleb128 0x40
+ 1104 0075 18       		.uleb128 0x18
+ 1105 0076 9642     		.uleb128 0x2116
+ 1106 0078 19       		.uleb128 0x19
+ 1107 0079 01       		.uleb128 0x1
+ 1108 007a 13       		.uleb128 0x13
+ 1109 007b 00       		.byte	0
+ 1110 007c 00       		.byte	0
+ 1111 007d 08       		.uleb128 0x8
+ 1112 007e 05       		.uleb128 0x5
+ 1113 007f 00       		.byte	0
+ 1114 0080 03       		.uleb128 0x3
+ 1115 0081 0E       		.uleb128 0xe
+ 1116 0082 3A       		.uleb128 0x3a
+ 1117 0083 0B       		.uleb128 0xb
+ 1118 0084 3B       		.uleb128 0x3b
+ 1119 0085 0B       		.uleb128 0xb
+ 1120 0086 49       		.uleb128 0x49
+ 1121 0087 13       		.uleb128 0x13
+ 1122 0088 02       		.uleb128 0x2
+ 1123 0089 18       		.uleb128 0x18
+ 1124 008a 00       		.byte	0
+ 1125 008b 00       		.byte	0
+ 1126 008c 09       		.uleb128 0x9
+ 1127 008d 34       		.uleb128 0x34
+ 1128 008e 00       		.byte	0
+ 1129 008f 03       		.uleb128 0x3
+ 1130 0090 08       		.uleb128 0x8
+ 1131 0091 3A       		.uleb128 0x3a
+ 1132 0092 0B       		.uleb128 0xb
+ 1133 0093 3B       		.uleb128 0x3b
+ 1134 0094 0B       		.uleb128 0xb
+ 1135 0095 49       		.uleb128 0x49
+ 1136 0096 13       		.uleb128 0x13
+ 1137 0097 02       		.uleb128 0x2
+ 1138 0098 18       		.uleb128 0x18
+ 1139 0099 00       		.byte	0
+ 1140 009a 00       		.byte	0
+ 1141 009b 0A       		.uleb128 0xa
+ 1142 009c 34       		.uleb128 0x34
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 23
+
+
+ 1143 009d 00       		.byte	0
+ 1144 009e 03       		.uleb128 0x3
+ 1145 009f 0E       		.uleb128 0xe
+ 1146 00a0 3A       		.uleb128 0x3a
+ 1147 00a1 0B       		.uleb128 0xb
+ 1148 00a2 3B       		.uleb128 0x3b
+ 1149 00a3 0B       		.uleb128 0xb
+ 1150 00a4 49       		.uleb128 0x49
+ 1151 00a5 13       		.uleb128 0x13
+ 1152 00a6 02       		.uleb128 0x2
+ 1153 00a7 18       		.uleb128 0x18
+ 1154 00a8 00       		.byte	0
+ 1155 00a9 00       		.byte	0
+ 1156 00aa 0B       		.uleb128 0xb
+ 1157 00ab 0B       		.uleb128 0xb
+ 1158 00ac 01       		.byte	0x1
+ 1159 00ad 11       		.uleb128 0x11
+ 1160 00ae 01       		.uleb128 0x1
+ 1161 00af 12       		.uleb128 0x12
+ 1162 00b0 06       		.uleb128 0x6
+ 1163 00b1 01       		.uleb128 0x1
+ 1164 00b2 13       		.uleb128 0x13
+ 1165 00b3 00       		.byte	0
+ 1166 00b4 00       		.byte	0
+ 1167 00b5 0C       		.uleb128 0xc
+ 1168 00b6 0B       		.uleb128 0xb
+ 1169 00b7 01       		.byte	0x1
+ 1170 00b8 11       		.uleb128 0x11
+ 1171 00b9 01       		.uleb128 0x1
+ 1172 00ba 12       		.uleb128 0x12
+ 1173 00bb 06       		.uleb128 0x6
+ 1174 00bc 00       		.byte	0
+ 1175 00bd 00       		.byte	0
+ 1176 00be 0D       		.uleb128 0xd
+ 1177 00bf 2E       		.uleb128 0x2e
+ 1178 00c0 01       		.byte	0x1
+ 1179 00c1 3F       		.uleb128 0x3f
+ 1180 00c2 19       		.uleb128 0x19
+ 1181 00c3 03       		.uleb128 0x3
+ 1182 00c4 0E       		.uleb128 0xe
+ 1183 00c5 3A       		.uleb128 0x3a
+ 1184 00c6 0B       		.uleb128 0xb
+ 1185 00c7 3B       		.uleb128 0x3b
+ 1186 00c8 0B       		.uleb128 0xb
+ 1187 00c9 27       		.uleb128 0x27
+ 1188 00ca 19       		.uleb128 0x19
+ 1189 00cb 11       		.uleb128 0x11
+ 1190 00cc 01       		.uleb128 0x1
+ 1191 00cd 12       		.uleb128 0x12
+ 1192 00ce 06       		.uleb128 0x6
+ 1193 00cf 40       		.uleb128 0x40
+ 1194 00d0 18       		.uleb128 0x18
+ 1195 00d1 9742     		.uleb128 0x2117
+ 1196 00d3 19       		.uleb128 0x19
+ 1197 00d4 01       		.uleb128 0x1
+ 1198 00d5 13       		.uleb128 0x13
+ 1199 00d6 00       		.byte	0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 24
+
+
+ 1200 00d7 00       		.byte	0
+ 1201 00d8 0E       		.uleb128 0xe
+ 1202 00d9 0F       		.uleb128 0xf
+ 1203 00da 00       		.byte	0
+ 1204 00db 0B       		.uleb128 0xb
+ 1205 00dc 0B       		.uleb128 0xb
+ 1206 00dd 49       		.uleb128 0x49
+ 1207 00de 13       		.uleb128 0x13
+ 1208 00df 00       		.byte	0
+ 1209 00e0 00       		.byte	0
+ 1210 00e1 0F       		.uleb128 0xf
+ 1211 00e2 01       		.uleb128 0x1
+ 1212 00e3 01       		.byte	0x1
+ 1213 00e4 49       		.uleb128 0x49
+ 1214 00e5 13       		.uleb128 0x13
+ 1215 00e6 01       		.uleb128 0x1
+ 1216 00e7 13       		.uleb128 0x13
+ 1217 00e8 00       		.byte	0
+ 1218 00e9 00       		.byte	0
+ 1219 00ea 10       		.uleb128 0x10
+ 1220 00eb 21       		.uleb128 0x21
+ 1221 00ec 00       		.byte	0
+ 1222 00ed 49       		.uleb128 0x49
+ 1223 00ee 13       		.uleb128 0x13
+ 1224 00ef 2F       		.uleb128 0x2f
+ 1225 00f0 0B       		.uleb128 0xb
+ 1226 00f1 00       		.byte	0
+ 1227 00f2 00       		.byte	0
+ 1228 00f3 11       		.uleb128 0x11
+ 1229 00f4 34       		.uleb128 0x34
+ 1230 00f5 00       		.byte	0
+ 1231 00f6 03       		.uleb128 0x3
+ 1232 00f7 0E       		.uleb128 0xe
+ 1233 00f8 3A       		.uleb128 0x3a
+ 1234 00f9 0B       		.uleb128 0xb
+ 1235 00fa 3B       		.uleb128 0x3b
+ 1236 00fb 0B       		.uleb128 0xb
+ 1237 00fc 49       		.uleb128 0x49
+ 1238 00fd 13       		.uleb128 0x13
+ 1239 00fe 3F       		.uleb128 0x3f
+ 1240 00ff 19       		.uleb128 0x19
+ 1241 0100 02       		.uleb128 0x2
+ 1242 0101 18       		.uleb128 0x18
+ 1243 0102 00       		.byte	0
+ 1244 0103 00       		.byte	0
+ 1245 0104 00       		.byte	0
+ 1246              		.section	.debug_aranges,"",%progbits
+ 1247 0000 54000000 		.4byte	0x54
+ 1248 0004 0200     		.2byte	0x2
+ 1249 0006 00000000 		.4byte	.Ldebug_info0
+ 1250 000a 04       		.byte	0x4
+ 1251 000b 00       		.byte	0
+ 1252 000c 0000     		.2byte	0
+ 1253 000e 0000     		.2byte	0
+ 1254 0010 00000000 		.4byte	.LFB33
+ 1255 0014 1E000000 		.4byte	.LFE33-.LFB33
+ 1256 0018 00000000 		.4byte	.LFB34
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 25
+
+
+ 1257 001c 38000000 		.4byte	.LFE34-.LFB34
+ 1258 0020 00000000 		.4byte	.LFB35
+ 1259 0024 3A000000 		.4byte	.LFE35-.LFB35
+ 1260 0028 00000000 		.4byte	.LFB36
+ 1261 002c 28000000 		.4byte	.LFE36-.LFB36
+ 1262 0030 00000000 		.4byte	.LFB37
+ 1263 0034 28000000 		.4byte	.LFE37-.LFB37
+ 1264 0038 00000000 		.4byte	.LFB38
+ 1265 003c 98000000 		.4byte	.LFE38-.LFB38
+ 1266 0040 00000000 		.4byte	.LFB39
+ 1267 0044 24000000 		.4byte	.LFE39-.LFB39
+ 1268 0048 00000000 		.4byte	.LFB40
+ 1269 004c A4000000 		.4byte	.LFE40-.LFB40
+ 1270 0050 00000000 		.4byte	0
+ 1271 0054 00000000 		.4byte	0
+ 1272              		.section	.debug_ranges,"",%progbits
+ 1273              	.Ldebug_ranges0:
+ 1274 0000 00000000 		.4byte	.LFB33
+ 1275 0004 1E000000 		.4byte	.LFE33
+ 1276 0008 00000000 		.4byte	.LFB34
+ 1277 000c 38000000 		.4byte	.LFE34
+ 1278 0010 00000000 		.4byte	.LFB35
+ 1279 0014 3A000000 		.4byte	.LFE35
+ 1280 0018 00000000 		.4byte	.LFB36
+ 1281 001c 28000000 		.4byte	.LFE36
+ 1282 0020 00000000 		.4byte	.LFB37
+ 1283 0024 28000000 		.4byte	.LFE37
+ 1284 0028 00000000 		.4byte	.LFB38
+ 1285 002c 98000000 		.4byte	.LFE38
+ 1286 0030 00000000 		.4byte	.LFB39
+ 1287 0034 24000000 		.4byte	.LFE39
+ 1288 0038 00000000 		.4byte	.LFB40
+ 1289 003c A4000000 		.4byte	.LFE40
+ 1290 0040 00000000 		.4byte	0
+ 1291 0044 00000000 		.4byte	0
+ 1292              		.section	.debug_line,"",%progbits
+ 1293              	.Ldebug_line0:
+ 1294 0000 0A020000 		.section	.debug_str,"MS",%progbits,1
+ 1294      02003301 
+ 1294      00000201 
+ 1294      FB0E0D00 
+ 1294      01010101 
+ 1295              	.LASF18:
+ 1296 0000 66697831 		.ascii	"fix16abs\000"
+ 1296      36616273 
+ 1296      00
+ 1297              	.LASF6:
+ 1298 0009 5F5F696E 		.ascii	"__int32_t\000"
+ 1298      7433325F 
+ 1298      7400
+ 1299              	.LASF29:
+ 1300 0013 74686574 		.ascii	"theta\000"
+ 1300      6100
+ 1301              	.LASF24:
+ 1302 0019 66697831 		.ascii	"fix16atan2\000"
+ 1302      36617461 
+ 1302      6E3200
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 26
+
+
+ 1303              	.LASF17:
+ 1304 0024 66697831 		.ascii	"fix16_t\000"
+ 1304      365F7400 
+ 1305              	.LASF13:
+ 1306 002c 666C6F61 		.ascii	"float\000"
+ 1306      7400
+ 1307              	.LASF30:
+ 1308 0032 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1308      4320342E 
+ 1308      382E3420 
+ 1308      32303134 
+ 1308      30353236 
+ 1309 0065 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1309      20726576 
+ 1309      6973696F 
+ 1309      6E203231 
+ 1309      31333538 
+ 1310 0098 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1310      66756E63 
+ 1310      74696F6E 
+ 1310      2D736563 
+ 1310      74696F6E 
+ 1311              	.LASF25:
+ 1312 00ae 6162735F 		.ascii	"abs_y\000"
+ 1312      7900
+ 1313              	.LASF1:
+ 1314 00b4 756E7369 		.ascii	"unsigned char\000"
+ 1314      676E6564 
+ 1314      20636861 
+ 1314      7200
+ 1315              	.LASF33:
+ 1316 00c2 636F7264 		.ascii	"cordic\000"
+ 1316      696300
+ 1317              	.LASF31:
+ 1318 00c9 2E5C6669 		.ascii	".\\fixedMath.c\000"
+ 1318      7865644D 
+ 1318      6174682E 
+ 1318      6300
+ 1319              	.LASF5:
+ 1320 00d7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1320      20756E73 
+ 1320      69676E65 
+ 1320      6420696E 
+ 1320      7400
+ 1321              	.LASF21:
+ 1322 00e9 66697831 		.ascii	"fix16sin\000"
+ 1322      3673696E 
+ 1322      00
+ 1323              	.LASF3:
+ 1324 00f2 73686F72 		.ascii	"short unsigned int\000"
+ 1324      7420756E 
+ 1324      7369676E 
+ 1324      65642069 
+ 1324      6E7400
+ 1325              	.LASF26:
+ 1326 0105 616E676C 		.ascii	"angle\000"
+ 1326      6500
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 27
+
+
+ 1327              	.LASF28:
+ 1328 010b 72616441 		.ascii	"radAng\000"
+ 1328      6E6700
+ 1329              	.LASF32:
+ 1330 0112 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1330      73657273 
+ 1330      5C4A6570 
+ 1330      70655C47 
+ 1330      6F6F676C 
+ 1331 0140 73797374 		.ascii	"system arbejdsdokumenter\\VuggeSinus\\VuggeSinus.cy"
+ 1331      656D2061 
+ 1331      7262656A 
+ 1331      6473646F 
+ 1331      6B756D65 
+ 1332 0171 64736E00 		.ascii	"dsn\000"
+ 1333              	.LASF7:
+ 1334 0175 5F5F696E 		.ascii	"__int64_t\000"
+ 1334      7436345F 
+ 1334      7400
+ 1335              	.LASF14:
+ 1336 017f 646F7562 		.ascii	"double\000"
+ 1336      6C6500
+ 1337              	.LASF34:
+ 1338 0186 636F7264 		.ascii	"cordic_ctab\000"
+ 1338      69635F63 
+ 1338      74616200 
+ 1339              	.LASF10:
+ 1340 0192 756E7369 		.ascii	"unsigned int\000"
+ 1340      676E6564 
+ 1340      20696E74 
+ 1340      00
+ 1341              	.LASF23:
+ 1342 019f 66697831 		.ascii	"fix16cos\000"
+ 1342      36636F73 
+ 1342      00
+ 1343              	.LASF9:
+ 1344 01a8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1344      206C6F6E 
+ 1344      6720756E 
+ 1344      7369676E 
+ 1344      65642069 
+ 1345              	.LASF27:
+ 1346 01bf 66697831 		.ascii	"fix16rad2deg\000"
+ 1346      36726164 
+ 1346      32646567 
+ 1346      00
+ 1347              	.LASF11:
+ 1348 01cc 696E7433 		.ascii	"int32_t\000"
+ 1348      325F7400 
+ 1349              	.LASF16:
+ 1350 01d4 73697A65 		.ascii	"sizetype\000"
+ 1350      74797065 
+ 1350      00
+ 1351              	.LASF12:
+ 1352 01dd 696E7436 		.ascii	"int64_t\000"
+ 1352      345F7400 
+ 1353              	.LASF8:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc4fwdww.s 			page 28
+
+
+ 1354 01e5 6C6F6E67 		.ascii	"long long int\000"
+ 1354      206C6F6E 
+ 1354      6720696E 
+ 1354      7400
+ 1355              	.LASF15:
+ 1356 01f3 63686172 		.ascii	"char\000"
+ 1356      00
+ 1357              	.LASF20:
+ 1358 01f8 66697831 		.ascii	"fix16div\000"
+ 1358      36646976 
+ 1358      00
+ 1359              	.LASF2:
+ 1360 0201 73686F72 		.ascii	"short int\000"
+ 1360      7420696E 
+ 1360      7400
+ 1361              	.LASF19:
+ 1362 020b 66697831 		.ascii	"fix16mul\000"
+ 1362      366D756C 
+ 1362      00
+ 1363              	.LASF22:
+ 1364 0214 72616473 		.ascii	"rads\000"
+ 1364      00
+ 1365              	.LASF4:
+ 1366 0219 6C6F6E67 		.ascii	"long int\000"
+ 1366      20696E74 
+ 1366      00
+ 1367              	.LASF0:
+ 1368 0222 7369676E 		.ascii	"signed char\000"
+ 1368      65642063 
+ 1368      68617200 
+ 1369              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

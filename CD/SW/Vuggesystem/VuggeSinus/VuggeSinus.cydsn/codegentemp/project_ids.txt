@@ -1,0 +1,5 @@
+C:\Users\Jeppe\Google Drev\E4PRJ4 gDrive\Vuggesystem arbejdsdokumenter\VuggeSinus\VuggeSinus.cydsn\VuggeSinus.cyprj|d4033ec0-e2b5-411b-a75f-86794e1e4cab
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|62f3b6c2-b106-49e3-9390-12e9fb6d08e5
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|215d137f-cc73-436c-b5dd-e68e8124331a
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|57c42aa1-7371-4a18-95d1-f767ba4b85e9
+C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|b88fb318-8b53-4887-8292-efe3d04968b1
