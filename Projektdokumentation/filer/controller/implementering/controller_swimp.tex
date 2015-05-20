@@ -8,26 +8,43 @@ For at kunne krydskompilere er det nemmeste at bruge en speciel version af Eclip
 
 I ''Remote System Explorer'' i Eclipse laves en ny SSH forbindelse til Raspberry Pi'ens IP, så der fra programmet kan oprettes direkte forbindelse til Raspberry Pi'en. Derefter i Debug Configurations sættes ''Connection'' til den oprettet enhed og stien på Raspberry Pi'en hvori man ønsker at køre sit program fra. I dette tilfæle \verb+/home/pi/Debug/+
 
-\subsubsection*{GPIO}
+\subsubsection*{GPIOsocket}
 
 På Controllerboksen sidder der 2 knapper og 3 LED-dioder, disse skal kunne tilgås fra programmet vha. GPIO benene på Raspberry Pi'en. Der blev hurtigt fundet frem til WiringPi biblioteket\footnote{http://wiringpi.com/} til formålet. Dette er et bibliotek der gør det meget nemt at håndtere GPIO benene på Raspberry Pi'en.
 
 Der blev dog valgt at lave 3 GPIOsocket funktioner der tager sig af at skrive og læse fra det fil arkiv der oprettes når gpio funktionen bliver kaldt. Funktionerne består en \verb+Export+, en \verb+Unexport+ samt en \verb+Direction+ funktion som hhv. opretter og nedlægger et filbibliotek til det ønskede ben på Raspberry Pi'en og sætte retningen på benet (input/output).
 
+Funktionerne er oprettet som standard Open - Write - Close funktioner. F.eks. ved gpioExport findes der en \verb+export+ fil i \verb+/sys/class/gpio/export+ som åbnes og skrives et pin nummer til. Derfra overtager wiringPi-pakken, og opretter et filarkiv i \verb+/sys/class/gpio/gpio#+, i denne sti ligger der så en \verb+direction+ fil som der kan skrives in eller out til, alt efter om man ønsker input eller output.
+
+Desuden er der interne PULLDOWN og PULLUP modstande som kan aktiveres softwaremæssigt, når en INPUT pin oprettes. Som standard, sættes den interne PULLDOWN modstand ved oprettelse af en INPUT pin. Dette er udnyttet i hardwaren.
+
 \subsubsection*{Betjeningspanel}
 
-Betjeningspanel-klassen er implementeret med funktioner til at skrive til en LED og læse fra en knap. Constructoren sørger for at oprette et filarkiv til det ønskede GPIO-ben, vha. GPIOsocket funktionerne. Så knapperne er sat op som INPUTS og LEDerne er sat op som OUTPUTS. Filarkivet består af en række filer, hvor en fil ved navn \verb+value+ kan hhv. læses fra og skrives til fra programmet.
+Betjeningspanel-klassen er implementeret med funktioner til at skrive til en LED og læse fra en knap. Constructoren sørger for at oprette et filarkiv til det ønskede GPIO-ben, vha. GPIOsocket funktionerne, samt sætte nogle public members de korrekte bennumre. 
 
-Desuden er der interne PULLDOWN og PULLUP modstande i en Raspberry som kan aktiveres software mæssigt.
-UNDERSØG NÆRMERE OG DOKUMENTER EVT: AUTOMATIK 
+Knapperne er sat op som INPUTS og LEDerne er sat op som OUTPUTS. Filarkivet består af en række filer, hvor en fil ved navn \verb+value+ kan hhv. læses fra og skrives til fra programmet.
+
+Funktionerne er oprettet som Open - Read/Write - Close funktioner. Når der ønskes skrevet til en LED kaldes \verb+setLedValue()+ funktionen der modtager bennavn og value, åbner den respektive value fil, skrive value til den og lukker den igen.
+
+Næsten det samme gør sig gældende for knaptryk, hvor \verb+getButValue()+ kaldes som modtager et pinnavn og åbner den respektive value fil, læser værdien deri (1 eller 0) og lukker filen igen. Den læste værdi returneres og bruges i programmet. 
 
 \subsubsection*{Two Wire TTL}
 
-For at kunne aflæse BABYCON niveauet fra den Intelligente lydmonitor er der lavet en 2 ledet forbindelse, direkte ind på 2 GPIO ben på Raspberryen. Disse gør også brug af GPIOsocket funktionerne i en klasse specifikt til læsning af niveauet.
+For at kunne aflæse BABYCON-niveauet fra den Intelligente lydmonitor er der lavet en 2-ledet forbindelse, direkte ind på 2 GPIO ben på Raspberryen. Disse gør også brug af GPIOsocket funktionerne i en klasse specifikt til læsning af niveauet.
+
+Funktionerne er implementeret på samme måde som \verb+getButValue()+ hvor der dog læses på 2 ben og returneres en BABYCON værdi på imellem 0-3.
 
 \subsubsection*{I2C}
 
-I I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje \verb+gpio load i2c+. På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
+I I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje .
+
+\textbf{gpio\_load\_i2c.sh}
+\begin{lstlisting}
+#!/bin/sh
+gpio load i2c
+\end{lstlisting}
+
+På Raspberry Pi Model B, oprettes der en filnode \verb+/dev/i2c-1+ som der benyttes i \verb+I2Csocet+ klassen.
 
 Inspirationen til I2Csocket klassen er taget fra Hertaville bloggen\footnote{http://hertaville.com/2013/04/01/interfacing-an-i2c-gpio-expander-mcp23017-to-the-raspberry-pi-using-c/} der skulle bruges en åben kode, som kunne redigeres om nødvendigt, derfor er klassen blevet oprettet i stedet for at bruge WiringPiI2C.h biblioteket.
 
@@ -54,8 +71,21 @@ Og for at sende en email bruges følgende linje. \newline
 
 Kommandoen til e-mail afsendelse er samlet i 2 shell scripts. Disse bliver kaldt fra programmet med et systemkald. Der er hhv. et \verb+mail_alarm.sh+ og et \verb+mail_error.sh+ script. Der med \verb+system("/sti/scriptnavn.sh")+ kaldes fra programmet ved alarm eller fejl.
 
-KODE FRA SCRIPTS HER
+\textbf{mail\_alarm.sh:}
+\begin{lstlisting}
+#!/bin/sh
+echo "Baby Watch har registreret en alarmerende baby (Undtagelsestilstand)" | mail -s "Baby Watch: Alarm!" e4prj4@gmail.com
+\end{lstlisting}
 
+\textbf{mail\_error.sh:}
+\begin{lstlisting}
+#!/bin/sh
+echo "Fejl i vuggesystem, afventer genstart." | mail -s "Baby Watch: Fejl!" e4prj4@gmail.com
+\end{lstlisting}
+
+Der er ikke implementeret noget fejltjek på om e-mails bliver sendt, der kunne dog sagtens implementeres noget der indikere fejl ved e-mail afsendelse da \verb+system()+ returnere 0 ved korrekt afsendelse og en værdi større end 0 ved fejl. Der er dog ikke implementeret en indikering af fejl, og en afsendelse af en fejl e-mail ved fejl i e-mail afsendelse giver jo ikke meget mening.
+
+Derimod er den røde Wi-Fi diode en indikation af om der er internet forbindelse og alarm e-mails sendes op til 10 gange, så der burde være en god sikkerhed for at Babypasseren bliver adviseret.
 
 \subsubsection*{Netværksstatus}
 
@@ -63,15 +93,15 @@ Baby Watch kræver at der er noget synligt, der indikerer at der er en fejl på 
 
 For at kontrollere internet forbindelsen er der oprettet en tråd i programkoden der med et interval pinger googles DNS server for svar og returnere \verb+true+ eller \verb+false+ alt efter om der er forbindelse eller ej. For at gøre det ekstra sikkert er der indført en ekstra ping adresse hvis googles DNS ikke svarer, dvs. der er et dobbelttjek på internet forbindelsen.
 
-Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et system kald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
+Der blev undersøgt lidt på hvordan man pinger inde fra et \verb+C+++ program. Løsningen blev at lavet et systemkald til den indbyggede \verb+ping+ funktion i Linux. Når der laves et system kald til ping med kommandoen \verb+system("ping -w 2 ip-adresse")+ returneres 0 ved svar og et positivt tal forskellig fra 0 ved intet svar. På den måde er det let kontrollere internet forbindelsen. \verb+-w+ flaget der bliver brugt at en deadline for svar i sekunder, dette er brugt for at undgå at programmet står i unødigt lang tid og prøver at få svar.
 
 \subsubsection*{PSU-styring}
 
 \textit{Controlleren skal så længe der er tændt for strømforsyningen, være tændt. Men den skal så kunne styre hvornår Vuggesystemet og den Intelligente lydmonitor er i drift. Dette er blevet implementeret på strømforsyningen med et relæ der styres af et GPIO-ben på Controlleren.}
 
-Der er oprettet en klasse 
+Der er oprettet en klasse der kan skrive en HØJ(3,3 V) eller en LAV(0 V) til GPIO benet forbundet til PSUen. Klassen består af en funktion der modtager et parameter. Funktionaliteten er aktiv høj, dvs. relæet på PSUen forbinder 7.5 V til resten af forsyningerne når der kommer en HØJ fra Controlleren.
 
-\subsubsection*{HTTP Server}
+\subsubsection*{HTTP-server}
 
 Baby Watch webserveren er er implementeret med en microframework Flask  webserver udviklet af Armin Ronacher(REFERENCE). Servertypen hører under en fri BSD license(REFERENCE) og er igennem sin simple og lette struktur et ideel valg til en webserver integreret på et embedded-system med begrænset CPU-kraft. \\
 En Flask webserver består af en python-template der styrer en eller flere html-templates. Igennem python-templaten kan diverse billeder og tekst-strenge styres og opdateres løbende på html siden. Webserveren sørger selv for at sende de nødvendige data til en given bruger(browser) som tilgår websiden. 
@@ -123,3 +153,26 @@ Body'en består af syv divisioner, en til højreside billede, en til toppen, en 
 Tanken bag implementeringen er at ved henholdsvis oprettelsen og nedlæggelsen af et Website objekt skal \verb+initWebServer()+ og \verb+stopWebServer()+ kaldes så starten og terminering af flaskserveren følger Website objektets livscyklus. \\ 
 De tre opdaterings funktioner; \verb+updateToBabyCon1()+, \verb+updateToBabyCon2()+ og \verb+updateToBabyCon3()+ er implementeret således at de hver især sender en parameter fra 1-3 til \verb+updateFile(int)+. \\ 
 +updateFile(int)+ er skrevet sådan at den ved hjælp af en switch case tjekker på input parameteren og herefter opdaterer funktionen de valgte filer ved hjælp af FILE pointere. Disse FILE pointerer bruges til at indlæse filer som angiver Babycon tilstanden og herefter overskrive filerne som flask-serveren anvender til hjemmesiden.
+
+\subsubsection*{Opbygning af Main}
+
+Et overblik over main opbygningen i pseudokode. 
+
+Først initialiseres wiringPi og der oprettes en tråd-variabel til netværksstatussen og der sørges for at alle LEDer er slukket til at starte med.  
+\lstinputlisting[language=C++, firstnumber=1, linerange=1-17]{filer/controller/implementering/main.cpp}
+
+Programmet er opbygget i én ydre while løkke som virker som OFF-løkken og en indre while-løkke der er ON-løkken som er aktiv når ON/OFF kontakten er i ON position.
+\lstinputlisting[language=C++, firstnumber=17, linerange=17-23]{filer/controller/implementering/main.cpp}
+
+I ON-løkken tændes PSUen, der oprettes en tråd til ping som skal køre så længe programmet er i ON-løkken, den grønne LED ON/OFF tændes og der kigges på om ''Manuel start''-knappen er trykket.
+\lstinputlisting[language=C++, firstnumber=23, linerange=23-38]{filer/controller/implementering/main.cpp}
+
+Herefter kigges der på hvilket BABYCON-niveau der modtages fra Intelligent lydmonitor og handles derpå.
+\lstinputlisting[language=C++, firstnumber=38, linerange=38-95]{filer/controller/implementering/main.cpp}
+
+Hvis BABYCON-niveauet 0 modtages eller hvis der udlæses en fejl i vugge\_status reageres der ved at stoppe vugningen indtil der er genstartet for systemet. Grøn LED blinker ved fejl\footnote{Fejl LED blinkning er implementeret men ikke dokumenteret}.
+\lstinputlisting[language=C++, firstnumber=95, linerange=95-114]{filer/controller/implementering/main.cpp}
+
+Når ON/OFF-kontakten sættes i OFF, forlader programmet ON-løkken og begynder nedlukningssekvensen. Der stoppes for vukningen og ventes på at ''shutdown ready'' modtages fra Vuggesystemet. Derefter slukkes PSUen, pingTråden stoppes og den grønne LED slukkes. Der slukkes også hvis der har været en fejl i systemet.
+\lstinputlisting[language=C++, firstnumber=114, linerange=95-135]{filer/controller/implementering/main.cpp}
+

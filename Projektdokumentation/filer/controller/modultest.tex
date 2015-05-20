@@ -164,43 +164,6 @@ På figur \ref{controller:error_vs} ses at den første BABYCON3 sekvens modtages
 
 \textit{Testen er godkendt}
 
-\subsection*{I2C kommunikation med PSoC testprogram}
-
-\subsubsection*{Formål}
-Formålet med denne modultest er at teste I2C kommunikationen med vuggesystemet vha. et testprogram på PSoCen, der udskriver i et terminalvindue via UART.
-
-\subsubsection*{Fremgangsmåde}
-\begin{enumerate}
-\item Start TeraTerminal, med PSoCen forbundet med testprogrammet på
-\item Test UART ved tryk på reset på PSoC - se terminal udskrift ''Baby Watch - USB UART!''
-\item Sæt testprintet i BABYCON3
-\item Sæt ON/OFF-knap i ON
-\item Iagttag terminaludskriften
-\item Sæt testprintet i BABYCON2 
-\item Iagttag terminaludskriften
-\item Sæt testprintet i BABYCON1
-\item Sæt ON/OFF-knap i OFF
-\end{enumerate}
-
-\subsubsection*{Forventet resultat} 
-TeraTerminalen udskrifterne skal udskrive værdier der passer med testværdierne.
-\begin{enumerate}
-\item ON:  0xF0
-\item OFF: 0x0F
-\item BABYCON1 -  Frekvens: 0x00 Vinkel: 0x00
-\item BABYCON2A - Frekvens: 0x32 Vinkel: 0xC8
-\item BABYCON2B - Frekvens: 0x64 Vinkel: 0x78
-\item BABYCON2C - Frekvens: 0xC8 Vinkel: 0x50
-\item BABYCON3 -  Frekvens: 0x00 Vinkel: 0x00
-\end{enumerate}
-
-\subsubsection*{Resultat} 
-TeraTerminalen udskriver som forventet de afsendte værdier i figur \ref{controller:BABYCON_test_VS}. På figuren er indsat BABYCON niveauer for forståelsens skyld.
-
-\figur{0.9}{controller/modultest/BABYCON_test_VS}{TeraTerminaludskrift - Modultest: I2C kommunikation med PSoC testprogram}{controller:BABYCON_test_VS} 
-
-\textit{Testen er godkendt}
-
 \subsection*{Powercontrol}
 
 \subsubsection*{Formål}
