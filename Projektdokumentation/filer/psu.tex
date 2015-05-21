@@ -31,6 +31,8 @@ Spændingsregulatoren LM317 er justerbar mellem 1,2 V til 33 V og kan levere op 
 
 \figur{0.5}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
 
+Standardværdierne for komponenterne i \ref{psu:LM317_schematic} er: C1=420uF, C2=220nF, C3=100nF og R1=240$\Omega$. Modstanden R2 varieres afhængigt at ønsket udgangsspænding. 
+
 Den variable udgangsspænding beregnes via formel \ref{eq:Vout}. $I_{Q}$ er strømmen der løber fra ben 1, den er opgivet til at være <100 $\mu$A og typisk 50 $\mu$A, som er den værdi der vælges at benytte i formlen. Spændingsforskellen mellem udgangen (ben 2) og referencen (ben 1) er de 1,25 V der også optræder i formlen for $V_{out}$   
 
 \begin{equation} 
