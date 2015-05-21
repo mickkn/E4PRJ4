@@ -1,7 +1,7 @@
 %IL: forundersøgelse
 \section{Forundersøgelse}
 
-I dette afsnit undersøges og analyseres udvalgte lyde fra babygråd og typisk omgivelsesstøj såsom trafikstøj og fuglefløjt.
+I dette afsnit undersøges og analyseres udvalgte lyde fra babygråd og typisk omgivelsesstøj såsom trafikstøj og fuglefløjt og omgivelsesstøj fra natur.
 
 \subsection*{Situationer}
 Der udføres analyser på lyd-optagelser af følgende situationer:
@@ -50,7 +50,7 @@ Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default fi
 
 %\newpage
 \subsection{Analysekode gennemgang}
-I dette afsnit findes en kort gennemgang i de benyttede funktion i matlab. Syntax for plots er udeladt, og der henvises til bilag med komplet analysekode for denne. \\
+I dette afsnit findes en kort gennemgang i de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til bilag med komplet analysekode for denne. \\
 \\
 \textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal, for at få lyden i mono hvilket gør den lettere at analysere, sætte den ønskede længde af hanning-vinduet og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
 \begin{verbatim}%**** EXTRACT SAMPLES *********************************************%
@@ -74,7 +74,7 @@ r1_win = r1_win .* hanning(length(r1_win))'; %Window with hanning
 x = [r1_win, rSpace, r2_win, rSpace, r3_win];
 \end{verbatim}
 
-Efterfølgende båndpas filtreres optagelsen men 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se bilag med komplet kode for syntax.
+Efterfølgende båndpas filtreres optagelsen med 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se bilag med komplet kode for syntax.
 
 \textbf{Korttids-analyse}. For korttids-analysen, opdeles optagelsen i korte slices, der hver især behandles med dft og efterfølgende analyseres med hensyn til dominant tone i dft-spektret via matlabs ''max''-funktion samt generelt toneindhold via tonal power ratio funktionen.
 \begin{verbatim}%**** SHORT-TIME DFT (Spectogram) *********************************%
@@ -229,7 +229,7 @@ Nøgle-værdier for kort-tidsanalysen opsummeret i tabellen herunder. Maximal TP
 \end{center}
 
 \textbf{Korttids-analyse: Tonal Power Ratio}	\\
-Babygråd producerer en højere TPR end omgivelsesstøj som trafik og fuglefløjt. Katte-optagelse producerer imidlertid en maxTPR på højde med babygråd, og latter kommer også deropad. Der er ikke tydelig forskel i TPR på højlydt og moderat babygråd, og det er således ikke et korttids analyseværktøj, der kan bruges til at skelne mellem disse. Ej helle kan det bruges til med sikkerhed at konkludere hvorvidt der er tale om en baby.
+Babygråd producerer en højere TPR end omgivelsesstøj som trafik og fuglefløjt og omgivelsesstøj fra natur. Katte-optagelse producerer imidlertid en maxTPR på højde med babygråd, og latter kommer også deropad. Der er ikke tydelig forskel i TPR på højlydt og moderat babygråd, og det er således ikke et korttids analyseværktøj, der kan bruges til at skelne mellem disse. Ej helle kan det bruges til med sikkerhed at konkludere hvorvidt der er tale om en baby.
 
 \textbf{Korttids-analyse: Dominerende frekvensindhold}	\\
 Dominerende frekvenser for babygråd ligger typisk mellem 700 og 1900 Hz, med lidt højere båndbredde for Højlydt babygråd end for moderat. Fuglefløjt og katte optagelserne har lyseste dominerende frekvens på op til 2,3 kHz-området for den midlede kurve. 
