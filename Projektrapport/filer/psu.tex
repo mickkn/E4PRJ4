@@ -20,8 +20,28 @@ Regulatoren (LM317) benyttes til at regulere fra 7,5 V til hhv. 3,3 V og 5 V. Ne
 
 \figur{0.5}{psu/LM317_schematic.pdf}{Schematic for LM317}{psu:LM317_schematic}
 
+Standardværdierne for komponenterne i \ref{psu:LM317_schematic} er: C1=420uF, C2=220nF, C3=100nF og R1=240$\Omega$. Modstanden R2 er beregnet til $720\Omega$ for 5 V og $390\Omega$ for 3,3 V, se ligningerne \ref{eq:Vout5V} og \ref{eq:Vout3.3V}. Strømmen på 50uA i de to ligningerne er strømmen der løber fra ben 1. De 1,25 V er spændingsforskellen mellem ben 2 og ben 1. 
+
+\begin{equation} 
+{ V }_{ out }=1,25V\cdot \left( 1+\frac { 720\Omega  }{ 240\Omega  }  \right) +50uA\cdot 720\Omega =5V
+\label{eq:Vout5V}
+\end{equation}
+\begin{equation} 
+{ V }_{ out }=1,25V\cdot \left( 1+\frac { 390\Omega  }{ 240\Omega  }  \right) +50uA\cdot 390\Omega =3,3V
+\label{eq:Vout3.3V}
+\end{equation}
+
+Relæ styring...
 
 
 
+\figur{1}{psu/PSUmultisim.pdf}{Samlet kredsløbsdiagram for PSU'en}{psu:PSUsamlet}
+
+Figur tekst 
 
 \section{Implementering}
+
+
+
+\figur{1}{psu/PSU_monteret.pdf}{PSU monteret på Forex-plade.}{psu:PSU_forex_monteret}
+
