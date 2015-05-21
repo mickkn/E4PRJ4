@@ -1,2 +1,33 @@
 % Controller
 \chapter{Controller}
+
+Controllerens funktion er at modtage et BABYCON-niveau fra den Intelligente lydmonitor og handle på det. Controlleren består af et betjeningspanel og en Raspberry Pi. Raspberry Pi'en fungerer som hjernen i Controlleren og styrer betjeningspanelets dioder og handler på panelets knapper. Raspberry Pi'en handler på det modtagede BABYCON-niveau ved at sende data over I2C til Vuggesystemet. Raspberry Pi'en indeholder desuden en webserver samt en mail klient som hhv. opdaterer en hjemmeside med BABYCON-niveau og meddeler babypasseren via e-mail ved alarm eller fejl.
+
+De følgende afsnit \ref{ctrl_sysark},   \ref{ctrl_design} og \ref{ctrl_implementering} deler Controlleren op i Systemarkitektur, Design og Implementering. For yderligere information herom, se Projektdokumentationen XXX
+
+\section{Systemarkitektur}
+\label{ctrl_sysark}
+
+Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbejdet 4 sekvens diagrammer, som af pladshensyn kun er repræsenteret i Projektdokumentationen, men herunder nævnt. 
+
+\begin{enumerate}
+\item \textbf{BABYCON-niveauer:} Beskriver Controllerens opførsel ved de forskellige BABYCON-niveauer.
+\item \textbf{''Manuel start'':} Beskriver forløbet når Babypasseren aktiverer ''Manuel start''
+\item \textbf{:} 
+\end{enumerate}
+
+
+Hardwarearkitekturen er 
+\figur{1}{controller/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
+
+
+
+
+
+\section{Design}
+\label{ctrl_design}
+
+
+
+\section{Implementering}
+\label{ctrl_implementering}
