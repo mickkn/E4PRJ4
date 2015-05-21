@@ -1,0 +1,46 @@
+% Baby watch overordnet
+\chapter{Baby Watch}
+
+I Baby Watch afsnittet beskrives sammenhænget imellem alle delelementerne.
+
+\section{Domænemodel}
+
+Domænemodellen er til for at give et indblik i opbygningen af systemet, uden nødvendigvis at have den store tekniske forståelse for elektroniske systemer.
+
+\figur{1}{overordnet/domaenemodel}{Domænemodellen for Baby Watch}{bw:domaenemodel}
+
+På domænemodellen figur \ref{bw:domaenemodel} beskrives grafisk hvordan der interageres imellem delelementerne. 
+
+\begin{itemize}
+\item \textbf{\textit{Babypasser:}}
+Er aktøren der tjekker en Internetenhed(Computer, Tablet el.lign.) og betjener betjeningspanelet på Controller 
+\item \textbf{\textit{Internetenhed:}}
+Enheden hvorfra der tilgås e-mail-serveren og hjemmesiden via en internet browser. Dette kan sagtens være forskellige enheder koblet op på det lokale netværk
+\item \textbf{\textit{Baby:}}
+Barnet der skal vugges og som afgiver lyd til den Intelligente lydmonitor
+\item \textbf{\textit{Controller:}}
+Styrer Baby Watch funktionaliteterne. Sender e-mails, hoster og opdaterer hjemmesiden, sender vuggedata til vuggesystemet og modtager baby status fra lydmonitoren
+\item \textbf{\textit{Intelligent lydmonitor:}}
+Modtager et analogt lydsignal fra Baby og sender et babystatus signal til Controller
+\item \textbf{\textit{Vuggesystem:}}
+Modtager vuggedata fra Controller og vugger Baby. Derudover afgiver den fejl og yderligere status tilbage til Controller.
+\end{itemize}
+
+\section{Internt blokdiagram}
+
+På det interne blokdiagram figur \ref{bw:ibd} kan få et overblik over hvilke signaler der flyder imellem alle delelementerne. Det er beskrevet med signaltyper og portnavne. Her er også beskrevet den fælles strømforsyning for systemet.
+
+\figur{1}{overordnet/overordnet_ibd}{Internt Block Diagram for Baby Watch}{bw:ibd}
+
+\begin{itemize}
+\item \textbf{\textit{Controller:}}
+Controlleren er samlingspunkt for alle delene i systemet. Der er en \iic forbindelse til dataoverførsel til vuggesystemet, som kan læse og skrive. En logisk TTL signal til lydmonitoren til modtagelse af babystatussen. Derudover er der en netværksforbindelse over Wi-Fi og nogle fysiske knapper til at tænde og slukke for programmet samt aktivere den manuelle startfunktion. Controlleren skal forsynes med 5 VDC 1200 mA og har et \verb+powOn_out+ ben der fungere som sluk og tænd funktion af forsyningen til Vuggesystem og Intelligent lydmonitor.
+\item \textbf{\textit{Intelligent lydmonitor:}}
+Den intelligente lydmonitor er en DSP(Digital Signal Processor) som modtager lyd analogt fra babyen. Denne lyd bliver processeret og analyseret, og en babystatus bliver sendt til Controlleren via to logiske TTL ben. Den intelligente lydmonitor skal forsynes med 7,5 VDC 1500 mA.
+\item \textbf{\textit{Vuggesystem:}}
+Vuggesystemet der skal styre vuggemotoren bliver styret af Controlleren med vuggedata og skal vugge babyvognen med den respektive frekvens og vinkel. Der bliver med \iic både modtaget vuggedata og sendt status tilbage til Controlleren. Vuggesystemet skal forsynes med 3,3 VDC 500 mA fra strømforsyningen.
+\item \textbf{\textit{Power:}}
+Strømforsyningen skal forsyne alle de 3 delelementer i Baby Watch, Controller, Intelligent lydmonitor og Vuggesystem med de respektive spænding- og strømkrav.
+\end{itemize}
+
+% tekst om sammenhængende imellem delelementer

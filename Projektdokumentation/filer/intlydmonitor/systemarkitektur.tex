@@ -7,7 +7,7 @@ I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
 Overordnet skal den intelligente lydmonitor fungere som følger:
 \begin{itemize}
 	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med Blackfin's ADC
-	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples for herefter at blive højpasfiltreret. Det forfiltrerede sample gemmes i bufferen, der skal holde 5 sekunders optagelse.
+	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples for herefter at blive højpasfiltreret. Det forfiltrerede sample gemmes i bufferen.
 	\item Den filtrerede sample-sekvens i bufferen analyseres først for Sound Pressure Level (SPL) for at bedømme hvorvidt der er lyd nok til at den efterfølgende FFT kan betale sig. 
 	\item Et evt. resultat af FFT'en kategoriseres som én af tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} 
 	\item Den fundne BABYCON state holdes op mod en statistik over tidligere states for at sikre mod evt. fejl-state.

@@ -188,3 +188,14 @@ Funktionen der eksekveres sørger for at der vugges i 2 min som ikke kan afbryde
 
 Tråden der sørger for at kontrollere internet forbindelsen og advisere brugeren via den røde Wi-Fi-LED er som før nævnt opbygget med systemkald til ping. 
 \lstinputlisting[language=C++, firstnumber=166, linerange=166-192]{filer/controller/implementering/main.cpp}
+
+\subsubsection*{Programstart ved boot-up}
+
+Hovedprogrammet er sat til at starte automatisk når strømmen forbindes til Controlleren. I Raspbian findes der en \verb+/etc/rc.local+ fil der bliver eksekveret ved opstart. I denne fil er tilføjet en enkel linje kode.
+
+\begin{lstlisting}[language=sh]
+# Run E4PRJ4 application
+sudo /home/pi/Debug/E4PRJ4
+\end{lstlisting}
+
+Programmet starter først op når Raspberry Pien er startet helt op, da det er en computer. Det tager cirka 40 sekunder.

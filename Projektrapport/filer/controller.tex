@@ -1,0 +1,46 @@
+% Controller
+\chapter{Controller}
+
+Controllerens funktion er at modtage et BABYCON-niveau fra den Intelligente lydmonitor og handle på det. Controlleren består af et betjeningspanel og en Raspberry Pi. Raspberry Pi'en fungerer som hjernen i Controlleren og styrer betjeningspanelets dioder og handler på panelets knapper. Raspberry Pi'en handler på det modtagede BABYCON-niveau ved at sende data over I2C til Vuggesystemet. Raspberry Pi'en indeholder desuden en webserver samt en mail klient som hhv. opdaterer en hjemmeside med BABYCON-niveau og meddeler babypasseren via e-mail ved alarm eller fejl.
+
+De følgende afsnit \ref{ctrl_sysark},   \ref{ctrl_design} og \ref{ctrl_implementering} deler Controlleren op i Systemarkitektur, Design og Implementering. For yderligere information herom, se Projektdokumentationen XXX
+
+\section{Systemarkitektur}
+\label{ctrl_sysark}
+
+Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbejdet 3 sekvens diagrammer, som af pladshensyn kun er repræsenteret i Projektdokumentationen, men herunder nævnt. 
+
+\begin{itemize}
+\item \textbf{BABYCON-niveauer:} Beskriver Controllerens opførsel ved de forskellige BABYCON-niveauer.
+\item \textbf{''Manuel start'':} Beskriver forløbet når Babypasseren aktiverer ''Manuel start''
+\item \textbf{Power Off:} Beskriver forløbet når Controllerens ON/OFF-knap afbrydes og Baby Watch systemet slukkes 
+\end{itemize}
+
+
+Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet et IBD, se figur \ref{controller:ibd}. Til IBD'et er det udarbejdet en forklarende signaltabel som ses i Projektdokumentationen, XXX(REFERENCE TIL SIGNALTABEL CONTROLLER)
+
+\figur{1}{controller/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
+
+
+
+\section{Design}
+\label{ctrl_design}
+
+Software funktionaliteten for Controlleren deles op i klasser og ud fra denne opdeling er nedenstående klassediagram udarbejdet, se figur \ref{controller:klassediagram}. De tilhørende klassebeskrivelser kan ses i Projektdokumentationen, XXXX.
+
+\figur{0.9}{controller/Klassediagram.pdf}{Klassediagram for Controller}{controller:klassediagram}
+
+Hardwaredesignet for Controlleren består af betjeningspanelet samt stik til forbindelser til/fra Controlleren. Det samlede kredsløbsdiagram med GPIO forbindelser til Raspberry Pi'en kan ses på figur \ref{controller:hwdesign}.
+
+\figur{1}{controller/controller_samlet.pdf}{Samlet kredsløbsdiagram for Controller}{controller:hwdesign}
+
+\section{Implementering}
+\label{ctrl_implementering}
+
+SW
+
+
+HW
+
+
+

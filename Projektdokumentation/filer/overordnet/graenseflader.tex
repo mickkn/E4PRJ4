@@ -1,21 +1,21 @@
 %Grænseflader
 \section{Grænseflader}
-I dette afsnit beskrives specifikke hardware grænseflader og protokoller for kommunikation mellem systemets moduler. Disse grænseflader er således modul-udviklernes kontrakt for fyldestgørelse af modulets funktionalitet.
+I dette afsnit beskrives specifikke hardwaregrænseflader og protokoller for kommunikation mellem systemets moduler. Disse grænseflader er således modul-udviklernes kontrakt for fyldestgørelse af modulets funktionalitet.
 
 \subsection{Fysiske forbindelser}
 
-Der er valgt at benytte USB kabler til forbindelse mellem Controller og Intelligent Lydmonitor, samt til forbindelsen mellem Controller og Vuggesystem. USB kablerne der benyttes er standart AB kabler, med et USB A stik i den ene ende samt USB B stik i den anden ende. Controlleren skal have USB type B hun stik, mens den Intelligente Lydmonitor samt Vuggesystemet skal benytte USB A hun stik. 
+Der er valgt at benytte USB-kabler til forbindelse mellem Controller og Intelligent lydmonitor, samt til forbindelsen mellem Controller og Vuggesystem. USB kablerne der benyttes er standard AB kabler, med et USB A stik i den ene ende samt USB B stik i den anden ende. Controlleren skal have USB type B hun stik, mens den Intelligente Lydmonitor samt Vuggesystemet skal benytte USB A hun stik. 
 
 Strømmen til Controller, Intelligent Lydmonitor samt til Vuggesystemet leveres fysisk via et 2,5 mm DC stik.
 
 \subsection{Grænseflade mellem Intelligent Lydmonitor og Controller}
 \label{overordnet:graenseflade_IL}
-Kommunikationen mellem Intelligent Lydmonitor og Controller foregår via 2 signal ledere, der forbindes til 2 GPIO'er på Controller. Den intelligente Lydmonitor opdaterer via denne forbindelse BABYCON niveauet.  
+Kommunikationen mellem Intelligent lydmonitor og Controller foregår via 2 signalledere, der forbindes til 2 GPIO ben på Controller. Den Intelligente lydmonitor opdaterer via denne forbindelse BABYCON-niveauet.  
 
 \subsubsection{Kommunikationsprotokol}
 \label{overordnet:Kommunikationsprotokol}
 
-Tabellerne \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} viser kommunikationsprotokollen for 2WireTTL forbindelsen mellem Intelligent Lydmonitor og Controller. De 2 GPIO porte på controllenren repræsenteres af hhv MSB og LSB, som mest og mindst betydende bit af 2WireTTL forbindelsen, som skal være aktiv-høj.
+Tabellerne \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} viser kommunikationsprotokollen for 2WireTTL forbindelsen mellem Intelligent lydmonitor og Controller. De to GPIO porte på Controlleren repræsenteres af hhv. MSB og LSB, som mest og mindst betydende bit af 2WireTTL forbindelsen, som skal være aktiv-høj.
 
 \begin{table}[H]
 	\caption{BABYCON1 }
@@ -71,10 +71,10 @@ Tabellerne \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:
 	\label{Overordnet:Kommunikationsprotokol/IL_fejl}
 \end{table}
 
-2WireTTL forbindelsen har som ovenstående tabeller \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} viser 4 kombinationsmuligheder. 3 af dem til de 3 BABYCON niveauer, samt en til fejlindikation fra den Intelligente Lydmonitors side. 
+2WireTTL forbindelsen har som ovenstående tabeller \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} viser fire kombinationsmuligheder. Tre af dem til de tre BABYCON-niveauer, samt en til fejlindikation fra den Intelligente lydmonitors side. 
 
 \subsection{Grænseflade mellem Vuggesystem og Controller}
-Kommunikationen mellem Vuggesystemet og Controllen foregår via I2C. Der benyttes 5 skifteregistre til kommunikationen, disse registre beskrives i kommunikationsprotokollen herunder.
+Kommunikationen mellem Vuggesystemet og Controllen foregår via I2C. Der benyttes fem skifteregistre til kommunikationen, disse registrer beskrives i kommunikationsprotokollen herunder.
 
 \subsubsection{Kommunikationsprotokol}
 Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskrevet på næste side...
@@ -117,7 +117,7 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \subsection{Grænseflade mellem Controllers servere og ekstern internet enhed}
 \subsubsection*{Fysiske porte}
 
-Raspberry Pi'en der er Controlleren hovedenhed, er forbundet til netværket via en trådløs Wi-Fi dongle. Netværket består af en router der er koblet op til internettet.
+Raspberry Pien der er Controllerens hovedenhed, er forbundet til netværket via en trådløs Wi-Fi dongle. Netværket består af en router der er koblet op til internettet.
 
 \subsubsection*{Kommunikationsprotokol}
 

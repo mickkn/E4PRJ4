@@ -12,9 +12,9 @@ Hardwarearkitekturen beskriver den fysiske grænseflade til den intelligente lyd
 
 \figur{1}{controller/sysark/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
 
-Figur \ref{controller:ibd} viser IBD'et for Controlleren. Signaltabellen \ref{ctrl:signaltabel} angiver specificerer de interne forbindelser. De 2 lidt bredere sorte forbindelser i IBD'et angiver en forbindelse der består af flere ledere, frem for de alm. forbindelser der udgør en enkelt ledet forbindelse. 
+Figur \ref{controller:ibd} viser IBDet for Controlleren. Signaltabellen tabel \ref{controller:signaltabel} specificerer de interne forbindelser. De 2 lidt bredere sorte forbindelser i IBDet angiver en forbindelse der består af flere ledere, frem for de alm. forbindelser der udgør en enkelt ledet forbindelse. 
 
-Controlleren består af 2 dele
+Controlleren består af to dele
 \begin{description}
 \item[Raspberry Pi] Linux baseret computer der styrer hele systemet. 
 \item[Betjeningspanel] Panel med 3 lysdioder og 2 trykknapper til brugerinteraktion.
@@ -27,6 +27,7 @@ Controlleren består af 2 dele
 I signaltabellen beskrives hvilke signaler der sendes imellem blokkene i Controller.  
 
 \begin{center}
+\label{controller:signaltabel}
 \begin{longtable}{|p{2,5cm}|p{1,8cm}|p{2,6cm}|p{2,8cm}|p{3cm}|}
 \caption{Signaltabel for Controller}\\
 \hline
@@ -128,6 +129,6 @@ butPress
 
 Figur \ref{controller:RPI_GPIO} viser GPIO porten på Raspberry Pi'en. Der er desuden tilføjet enkelte portes specielle muligheder (SPI, I2C mm.), hvis de er tilstede. 
 
-\figur{0.7}{controller/RaspberryGPIO.pdf}{Raspberry Pi model Bs GPIO port}{controller:RPI_GPIO}
+\figur{0.7}{controller/RaspberryGPIO.pdf}{Raspberry Pi Model Bs GPIO port}{controller:RPI_GPIO}
 
 
