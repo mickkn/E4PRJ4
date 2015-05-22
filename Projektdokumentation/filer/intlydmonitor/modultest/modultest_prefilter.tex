@@ -2,7 +2,7 @@
 \subsection{Modultest Prefilter}
 
 \textbf{Formål} \\
-Formålet med at teste Prefilter er at tjekke at decimeringen nedsampler fra 48kHz til 24kHz med lavpasfiltrering tilstrækkelig til at dæmpe spektrale replika med 50dB. 
+Formålet med at teste Prefilter er at tjekke at decimeringen nedsampler fra 48kHz til 24kHz med lavpasfiltrering tilstrækkelig til at dæmpe frekvenser over 12kHz med 50dB. 
 
 \textbf{Opstilling til test af Prefilter test}
 
@@ -10,27 +10,24 @@ Formålet med at teste Prefilter er at tjekke at decimeringen nedsampler fra 48k
 	\item Blackfin 533 er sluttet til 230VAC
 	\item Blackfin 533 er tilsuttet PC via COM-port
 	\item CCES er kørende på PC
-	\item En sinus-generator er tilsluttet Blackfin 533's Audio In left\_channel0
+	\item Analog Discovery er tilsluttet Blackfin 533's Audio left\_in\_channel0 og left\_out\_channel0
 \end{itemize}
 
 \textbf{Testprocedure}
 \begin{enumerate}
-	\item Sinusgeneratoren sættes til at generere en sinustone på 880Hz
 	\item Projektet med Prefilter testen eksekveres 
-	\item Genererede Prefilter samples gemmes i global buffer. 
-	\item Ved CCES Debug mode benyttes file dump til at eksportere bufferen til Matlab
-	\item I matlab genereres FFT-spektrum 
-	\item Magnituden på de spektrale replika eftervises
+	\item Analog Discoverys network analyzer sættes til at generere et frekvensspektrum fra 10Hz til 50kHz. 
+	\item Outputtet aflæses via Analog Discoverys program Waveforms. 
 \end{enumerate}
 
 \textbf{Forventet resultat} \\
-Det forventes at magnituden er 50dB mindre end for sinustonen. 
+Det forventes en dæmpning ved de 12kHz på 50dB.
 
 
 \textbf{Resultat} \\
 
 
-På Figur \ref{FirstRecBufTest} ses FFT'en for de Prefitrerede samples 
+På Figur \ref{FirstRecBufTest} ses resultatet af testen
 
 \figur{0.3}{intlydmonitor/modultest/First_output}{Første udskrift i kommandoprompten}{FirstRecBufTest}
 
