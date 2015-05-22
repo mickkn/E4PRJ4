@@ -1,2 +1,52 @@
 %Modultst analyzer
 \subsection{Modultest Analyzer}
+
+\textbf{Formål} \\
+Formålet med at teste Analyzer er at tjekke at de individuelle funktioner i Analyzer fungerer som de skal. Ved test af Analyzer benyttes en fuld RecBuf med data læst med ADC'en og filtreret med Prefiltret. 
+Disse funktioner er:
+\begin{itemize}
+	\item Beregning af Sound Pressure Level
+	\item Beregning af Fast Fourier Transformation
+	\item Beregning af Tonal Power Ratio
+	\item Omregning fra gain til dB
+	\item Smoothing af FFT-spektrum
+\end{itemize}
+
+\textbf{Opstilling til test af Analyzer}
+
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CCES er kørende på PC
+	\item En sinus-generator er tilsluttet Blackfin 533's Audio In left\_channel0
+\end{itemize}
+
+\textbf{Testprocedure for SPL}
+\begin{enumerate}
+	\item Den tilkoblede sinusgenerator generere en sinus med amplituden 1V og frekvensen 880Hz.	
+	\item RecBuf fyldes med data læst med ADC'en og filtreret med Prefiltret.
+	\item Projektet med Analyzer testen eksekveres 
+	\item CCES memory browser benyttes til at aflæse variablen an\_spl. 
+	\item Testen gentages fra punkt 1 dog med sinus med en amplitude på 0.5V.
+\end{enumerate}
+
+\textbf{Forventet resultat} \\
+Det forventes at magnituden er 50dB mindre end for sinustonen. 
+
+
+\textbf{Resultat} \\
+
+
+På Figur \ref{FirstRecBufTest} ses FFT'en for de Prefitrerede samples 
+
+\figur{0.3}{intlydmonitor/modultest/First_output}{Første udskrift i kommandoprompten}{FirstRecBufTest}
+
+
+
+
+\textit{Testen er godkendt}
+
+
+
+
+

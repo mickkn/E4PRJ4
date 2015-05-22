@@ -1,3 +1,42 @@
 %Modultest Prefilter
 \subsection{Modultest Prefilter}
 
+\textbf{Formål} \\
+Formålet med at teste Prefilter er at tjekke at decimeringen nedsampler fra 48kHz til 24kHz med lavpasfiltrering tilstrækkelig til at dæmpe frekvenser over 12kHz med 50dB. 
+
+\textbf{Opstilling til test af Prefilter test}
+
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CCES er kørende på PC
+	\item Analog Discovery er tilsluttet Blackfin 533's Audio left\_in\_channel0 og left\_out\_channel0
+\end{itemize}
+
+\textbf{Testprocedure}
+\begin{enumerate}
+	\item Projektet med Prefilter testen eksekveres 
+	\item Analog Discoverys network analyzer sættes til at generere et frekvensspektrum fra 10Hz til 50kHz. 
+	\item Outputtet aflæses via Analog Discoverys program Waveforms. 
+\end{enumerate}
+
+\textbf{Forventet resultat} \\
+Det forventes en dæmpning ved de 12kHz på 50dB.
+
+
+\textbf{Resultat} \\
+
+
+På Figur \ref{FirstRecBufTest} ses resultatet af testen
+
+\figur{0.3}{intlydmonitor/modultest/First_output}{Første udskrift i kommandoprompten}{FirstRecBufTest}
+
+
+
+
+\textit{Testen er godkendt}
+
+
+
+
+
