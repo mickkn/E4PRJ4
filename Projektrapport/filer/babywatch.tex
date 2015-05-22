@@ -28,7 +28,7 @@ Modtager vuggedata fra Controller og vugger Baby. Derudover afgiver den fejl og 
 
 \section{Internt blokdiagram}
 
-På det interne blokdiagram figur \ref{bw:ibd} kan få et overblik over hvilke signaler der flyder imellem alle delelementerne. Det er beskrevet med signaltyper og portnavne. Her er også beskrevet den fælles strømforsyning for systemet.
+På det interne blokdiagram figur \ref{bw:ibd} fås et overblik over hvilke signaler der flyder imellem alle delelementerne. Det er beskrevet med signaltyper og portnavne. Her er også beskrevet den fælles strømforsyning for systemet.
 
 \figur{1}{overordnet/overordnet_ibd}{Internt Block Diagram for Baby Watch}{bw:ibd}
 
@@ -43,4 +43,26 @@ Vuggesystemet der skal styre vuggemotoren bliver styret af Controlleren med vugg
 Strømforsyningen skal forsyne alle de 3 delelementer i Baby Watch, Controller, Intelligent lydmonitor og Vuggesystem med de respektive spænding- og strømkrav.
 \end{itemize}
 
-% tekst om sammenhængende imellem delelementer
+\section{Grænseflader}
+
+For at se en mere detaljeret beskrivelse se grænseflade afsnittet i projektdokumentationen.
+
+\subsection{Fysiske forbindelser}
+
+Der er brugt skærmede USB-kabler til \iic-forbindelsen for at modvirke støj på dataforbindelsen. Der er ligeledes brugt et USB-kabel til 2WireTTL for at fastholde standarden. Ved \verb+powerOn+ signalet, er der brugt et 3,5 mm minijack kabel, og dertilhørende sokler.
+
+\subsection{Kommunikationsprotokol}
+
+\iic-protokollen er opbygget med registre, der er 5 registrer.
+
+\begin{itemize}
+\item \textbf{\textit{ID}} Et ID register som ikke bliver brugt i systemet, men er til for at skelne \iic slaver imellem hinanden ved flere slaver i et system
+\item \textbf{\textit{ON\_OFF}} Register til tænd og sluk af vuggesystemet, Controller skriver til dette register
+\item \textbf{\textit{Frekvens}} Register til at angive vuggefrekvens til vuggesystemet, Controller skriver til dette register
+\item \textbf{\textit{Vinkel}} Register til at angive vuggevinklen til vuggesystemet, Controller skriver til dette register
+\item \textbf{\textit{Status}} Register der læses af Controller. Registeret består af en 8 bits bitsekvens \verb+<0x0000xxxx>+ hvoraf de 4 MSB er brugt til status kommunikation til Controlleren. \verb+<ERR>+ er en fejl der sætter vuggesystemet i undtagelsestilstand, \verb+<STALL>+ er en bit der sættes hvis fejlen er opstået ved en belastning og \verb+END_STP+ er hvis fejlen er opstået ved at vuggen er kommet i en yderposition. \verb+SD_RDY+ er en indikation til Controller om at vuggesystemet er klar til at lukke ned, når der sendes et OFF signal til vuggesystemet. 
+\begin{center}
+\verb+<ERR><STALL><END_STP><SD_RDY><X><X><X><X>+
+\end{center}
+\end{itemize}
+
