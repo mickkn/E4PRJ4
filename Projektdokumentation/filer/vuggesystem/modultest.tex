@@ -60,7 +60,7 @@ Formålet med testen er at se om Vuggesystemet melder om fejl ved aktivering af 
 	\item PSoC4 Pioneer Kittet er tilsluttet computeren
 	\item Computeren har startet terminal programmet som har oprettet forbindelse til den givne com port PSoC4 Pioneer Kittet sidder på
 	\item PSoC4 Pioneer Kittet programmeres med \textit{VuggeControl} programmet på \citep{cd} under 
-	\textit{/SW/Vuggesystem/vuggeControl}   
+	\textit{/SW/Vuggesystem/Testprogrammer/vuggeControl}   
 \end{itemize}
 
 \textbf{Testbeskrivelse}
@@ -92,8 +92,8 @@ Formålet med denne modultest er at observere om det mekaniske vuggesystem er i 
 	\item Testen forgår i et rum med et horisontal nivelleret gulv
 	\item Baby Watch Vuggesystemet er monteret jf. afsnit \ref{Vuggesystem: Implementering} Implementering for Vuggesystemet
 	\item Motorens plus og minus indgange kobles til henholdsvis MOT\_A og MOT\_B jf. afsnit \ref{Vuggesytem:HW_DESIGN_HBRO} i Hardware Design for Vuggesystemet
-	\item En tonegenerator af typen Analog Discovery \citep{analogD} er koblet til Mos Driver A indgang M\_A og Mos Driver B indgang M\_B på motorkredsen jf. afsnit \vref{Vuggesytem:HW_DESIGN_MOSDRIVER} i Hardware Design for Vuggesystemet
-	\item Tonegeneratoren generer et PWM signal på 20kHz med en duty cycle på 50\% positiv
+	\item Et PSoC 4 Pioneer Kit \citep{Cypress} er programmeret med test programmet \textit{mekanisk\_test} som kan findes på \citep{cd} under \textit{SW/Vuggesystem/Testprogrammer/mekaniske\_test}
+	\item De to 20kHz PWM signaler PSoC'en generer er koblet til henholdsvis Mos Driver A indgang M\_A og Mos Driver B indgang M\_B på motorkredsen jf. afsnit \vref{Vuggesytem:HW_DESIGN_MOSDRIVER} i Hardware Design for Vuggesystemet
 	\item Barnevognskurven sættes i hovedende yderpositionen
 \end{itemize}
 
@@ -101,11 +101,12 @@ Formålet med denne modultest er at observere om det mekaniske vuggesystem er i 
 \textbf{Testbeskrivelse}
 \begin{itemize}
 	\item Opsæt systemet som beskrevet ovenfor
-	\item Duty cycle øges 90\% positiv
-	\item Barnevognskurven skifter til fodende yderpositionen
-	\item Duty cycle reduceres til 10\% positiv
-	\item Barnevognskurven skifter til hovedende yderpositionen
-	\item Punkt 2 til 5 gentages yderligere 2 gange
+	\item Start PSoC'en
+	\item Motoren vipper barnevognskurven til fodende yderpositionen
+	\item Systemet venter i 0.5 sekunder
+	\item Motoren vipper barnevognskurven til hovedende yderpositionen
+	\item Systemet venter i 0.5 sekunder
+	\item Punkt 3 til 6 gentages yderligere 2 gange
 \end{itemize}
 
 \textbf{Forventet resultat} \\
@@ -138,7 +139,7 @@ Testen dokumenteres med en sammenligning af den målte vinkel fra Vuggeudsvingss
 	\item Terminalprogrammet startes på computeren og indstilles til PSoC4 kittes USB Com-port
 	\item Baby Watch barnevogns kurven sættes i en mekanisk yderposition
 	\item PSoC4 Pioneer Kittet er tilsluttet en computer
-	\item PSoC4 Pioneer Kittet programmeres med programmet \textit{vinkelsensor test} på bilags cd'en \citep{cd} hvilket kan findes under \textit{/SW/Vuggesystem/vinkelsensor test}
+	\item PSoC4 Pioneer Kittet programmeres med programmet \textit{vinkelsensor test} på bilags cd'en \citep{cd} hvilket kan findes under \textit{/SW/Vuggesystem/Testprogrammer/vinkelsensor test}
 \end{itemize}
 
 \textbf{Testbeskrivelse}
