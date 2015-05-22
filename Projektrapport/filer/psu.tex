@@ -1,20 +1,24 @@
 % PSU
 \chapter{Power Supply Unit}
 
-Det følgende kapitel omhandler spændingsforsyning til hele Baby Watch systemet. Nedenstående forsynes at et 12 V DC batteri. 12 V batteriet skal nedkonverteres til de 3 nedenstående spændinger: 
+Det følgende kapitel omhandler spændingsforsyning til hele Baby Watch systemet. Kapitlet er orienterende og uddybende information forefindes i Projektdokumentationen, XXXX (PSU). Nedenstående forsynes at et 12 V DC batteri. 12 V batteriet skal nedkonverteres til de 3 nedenstående spændinger: 
 \begin{itemize}
 \item \textbf{Controller:} Kræver 5 V / 1200 mA (Raspberry Pi + Betjeningspanel)
 
 \item \textbf{Vuggesystem:} Kræver 3,3 V / 500 mA (PSoC + Motorstyringskreds)
 
-\item \textbf{Intelligent lydmonitor:} Kræver 7.5 V / 1500 mA (BlackFin 533 kit + Mikrofonkreds)
+\item \textbf{Intelligent lydmonitor:} Kræver 7,5 V / 1500 mA (BlackFin 533 kit + Mikrofonkreds)
 \end{itemize}
 
 Det er den Intelligente lydmonitor der kræver størst spænding, derfor foretages første nedkonvertering fra 12 V til 7,5 V med en DC-DC konverter og de to resterende spændinger på 3,3 V og 5 V reguleres med spændingsregulatorer. De to regulatorer regulerer fra 7,5 V og ikke 12 V for at sænke effektforbruget i regulatorerne. 
 
 \section{Design}
 
-DC-DC konverteren (LM2696S) er af typen stepdown. Den tager et input på 5-35 V og har justerbart output på 1,25-30 V. Det maksimale strømoutput er på 4 A og overstiger effekten 15 W skal konverteren køles. 
+DC-DC konverteren (LM2696S) er af typen stepdown. Den tager et input på 5-35 V og har justerbart output på 1,25-30 V. Det maksimale strømoutput er på 4 A og overstiger effekten 15 W skal konverteren køles. I dette system forbruges maksimalt 2,5 mA, ca. 19 W, der er derfor monteret køleplader på konverteren. Figur \ref{psu:DCkonv} viser DC-DC konverteren, som det ses er der 3 indstillelige potentiometre som indstiller ønsket spænding, strøm, samt indikation hvis strømmen når over et indstillet niveau.  
+
+\figur{0.4}{psu/LM2596S_fabriksbillede}{Fabriksbillede af LM2596S - DC-DC konverter}{psu:DCkonv} 
+
+\newpage
 
 Regulatoren (LM317) benyttes til at regulere fra 7,5 V til hhv. 3,3 V og 5 V. Nedenstående figur (\ref{psu:LM317_schematic)} angiver kredsløbsdiagrammet for én LM317.
 
@@ -31,17 +35,16 @@ Standardværdierne for komponenterne i \ref{psu:LM317_schematic} er: C1=420uF, C
 \label{eq:Vout3.3V}
 \end{equation}
 
-Relæ styring...
+Controlleren sender signal til PSUen om hvorvidt de 3,3 V og 7,5 V udgange skal være ON. Problematikken om at afbryde forsyningen til disse to udgange løses med et relæ. Relæet der designes efter er et Finder 40.52S. Raspberry Piens GPIO port kan ikke drive relæet, derfor indsættes en transistor som vha. de tilgængelige 7,5 V efter DC-DC konverteren kan løse denne opgave. Figur \ref{psu:relayControl} viser kredsløbsdiagrammet for relæ styringen. Modstangen på $18k\Omega$ er indsat for at begrænse strømmen fra Raspberry Pien til 0,1 mA. 
 
+\figur{0.6}{psu/relayControl.pdf}{Kredsløbsdiagram for relæ styringen}{psu:relayControl}
 
-
+Samlet ender du ud med kredsløbsdiagrammet på figur \ref{psu:PSUsamlet} som herefter er tegnet i EAGLE og sendt til print produktion. 
 \figur{1}{psu/PSUmultisim.pdf}{Samlet kredsløbsdiagram for PSU'en}{psu:PSUsamlet}
-
-Figur tekst 
 
 \section{Implementering}
 
-
+Implementeringen ses på figur \ref{psu:PSU_forex_monteret}. Til venste ses bagsiden hvorpå det porducerede print og DC-DC konverteren er monteret. Der er desuden placeret en blæser, da effektforbruget er så højt at komponenterne kræver køling. For beregninger af effektforbrug, se Projektdokumentationen, XXXX (PSU, design)
 
 \figur{1}{psu/PSU_monteret.pdf}{PSU monteret på Forex-plade.}{psu:PSU_forex_monteret}
 
