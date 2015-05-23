@@ -2,7 +2,7 @@
 Design afsnittet for vuggesystemet beskriver først hardware designet efterfulgt af software designet.
 \subsection{Hardware design}
 \subsubsection{Motorstyringskreds}
-I denne sektion beskrives det kredsløb der benyttes til at styre ankerspændingen for vuggesystemets motor. Kredsløbet modtager et PWM signal fra controlleren som styrer ankerspændingen. Kredsen er forsynet med bateriets 12V (VCC) og 3.3 volt fra PSoC. Kredsen styres med et PWM signal, og det inverterede signal, kaldt M\_A og M\_B. Den sidste forbindelse, ES\_SIG, er outputtet fra endstop kredsløbet.\\
+I denne sektion beskrives det kredsløb der benyttes til at styre ankerspændingen for vuggesystemets motor. Kredsløbet modtager et PWM signal fra controlleren som styrer ankerspændingen. Kredsen er forsynet med motorbateriets 12V (VCC) og 3.3 volt fra PSoC. Da motorkredsløbet er galvinisk adskilt fra resten af systemet er der to stelforbindelser. Motorkredsløbets stel er betegnet GND mens resten af systemets ground i dette afsnit betegnes A\_GND. Kredsen styres med et PWM signal, og det inverterede signal, kaldt M\_A og M\_B. Den sidste forbindelse, ES\_SIG, er outputtet fra endstop kredsløbet.\\
 
 \figur{0.6}{vuggesystem/design/stik.pdf}{Forbindelser til motorkreds}{motor_kreds_forb}
 
@@ -22,18 +22,23 @@ H-broens MOSFETs bliver drevet ved hjælp af 2 dobbelt siddede MOSFET drivere, s
 
 \figur{0.75}{vuggesystem/design/mos_driver.pdf}{Dual MOSFET driver, A siden}{MOS_driver}
 
-Driveren kan drive en MOSFET der sidder til ground, og en MOSFET der sidder fra VCC, og de to drivere er koblet ens til hhv. A siden og B siden. signalet til den lave MOSFET, og det interne logik drives fra VCC, mens signalet til den høje MOSFET drives fra en bootstrap kreds bestående af C1 og D1. Kredsen fungerer ved at C1 oplades til en diode spænding under VCC når den lave MOSFET fra den anden side af broen er tændt. Når den lave MOSFET slukkes vil potentialet ved VB således ligge ca. 11,3 V over potentialet ved source benet af den høje MOSFET, og der er således den nødvændige spænding for at trække gaten i mætning. \\
-Driverens input er et digitalt input, med en fast overgang fra lav til høj mellem 0.8 og 3 V, og kan således styres med 3.3V logik uafhængigt af hvilken forsyningsspænding driveren er koblet med. \\
+Driveren kan drive en MOSFET der sidder til ground, og en MOSFET der sidder fra VCC, og de to drivere er koblet ens til hhv. A siden og B siden. signalet til den lave MOSFET, og det interne logik drives fra VCC, mens signalet til den høje MOSFET drives fra en bootstrap kreds bestående af C1 og D1. Kredsen fungerer ved at C1 oplades til en diode spænding under VCC når den lave MOSFET fra den anden side af broen er tændt. Når den lave MOSFET slukkes vil potentialet ved VB således ligge ca. 11,3 V over potentialet ved source benet af den høje MOSFET, og der er således den nødvændige spænding for at trække gaten i mætning. Da denne kreds skal nå at lade op tændes driverens høje og lave side på skift.\\
+Driverens input er et digitalt input, med en fast overgang fra lav til høj mellem 0.8 og 3 V, og kan således styres med 3.3V logik eller højere uafhængigt af hvilken forsyningsspænding driveren er koblet med. I denne kreds drives driverne fra optocouplernes schmidt trigger koblet til batteriets 12V. Disse omtales nedenfor.\\
 Kondensatoren C2 hjælper til at afkoble driveren fra forsyningen. \\
 
 \subsubsection*{Styresignal}
 \label{Vuggesystem:Styresignal} 
 Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tænd i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
 
-Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. 
+Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. \\
 
 Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til det mindst mulige tid på 1\% af periodetiden, eller 500ns.
 Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket er vel under det genererede deadband. \\
+
+\subsection{Opto koblere}
+\label{Vuggesystem:optokoblere}
+Da systemet indeholder støjfølsomme komponenter, såsom mpu6050 sensoren, og motor kredsens støj aldrig ville kunne elimineres helt, er det valgt at lave galvanisk adskillelse fra motor kredsløbet til resten af systemet. Dette er gjort med to optokoblere på motor signalerne. Da det som nævnt ovenfor er vigtigt at motor driver signalerne drives helt ned, samt at skiftetiden fra høj til lav ønskes minimeret, er der valgt en optokobler med en digital buffer i udgangen. De to optokoblere er koblet som vist her:\\
+\figur{0.2}{vuggesystem/design/opto_couplers.pdf}{Optokoblere på motorkredsens styresignal for galvanisk adskillelse af motorkredsløbet.}{VS:opto_kobler}
 
 \subsubsection{strømforbrug}
 Det dominerende strømforbrug i systemet stammer fra vuggesystemets motor. Denne strøm trækkes direkte fra systemets batteri, og har derfor ikke indflydelse på dimensioneringen af systemets reguleringskreds. Tilgengæld er den vigtig for at kunne vurdere hvor stort et batteri der skal til for at drive systemet en given tid.\\ 
