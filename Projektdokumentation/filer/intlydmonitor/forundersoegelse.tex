@@ -38,7 +38,7 @@ ${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n
 \end{center}
 
 Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. 
-\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \textit{\verb+k+k} er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
+\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+k er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
 Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
 \begin{itemize}
 	\item Er lokalt maximum: ${ \left| X(k-1,n) \right|  }^{ 2 }\le { \left| X(k,n) \right|  }^{ 2 }\le { \left| X(k+1,n) \right|  }^{ 2 }$
