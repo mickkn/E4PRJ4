@@ -227,8 +227,15 @@ SensorFortolker koden ses på: \citep{cd} under \verb+sensorFortolker.c+ og \ver
 \textbf{regulering}\label{vuggesystem_impl:regulering}  \\
 Denne fil sørger for at beregne regulerings outputtet, initierer PWM blokken og styrer denne PWM blok. Reguleringen sørger også for at lave fejltjek på vuggeudsvings- og vuggefrekvensværdier fra Baby Watch Controller før de bruges. Reguleringen bruger disse værdier sammen med den nuværende vinkel angivet i et fixed16.16 dataformat til at beregne et output til motorstyringens PWM.
 
-Selve reguleringen foregår via en PID regulator 
-\\ MERE \\
+Den teoretiske model fra afsnit \vref{Vuggesystem: Design_MekVug} er ikke blevet brugt i implementeringen af reguleringen da det viste sig at de instrumenter der var til rådighed på Aarhus School of Engineering ikke kunne måle systemet tilstrækkeligt. Tilmed er systemet som tidligere beskrevet ustabilt af natur da vægtmomentet er forskudt vertikalt i forhold til aksen der vippes over hvilket giver en inverterende pendul effekt jf. \vref{Vuggesystem: Design_MekVug}. Dette har umuliggjordet at bruge de teknikker der lært i faget E4IRT til at karakteriserer et system. En karakteristik ved hjælp af forskellige påtrykte sinus-funktioner som brugt i testprogrammet \textit{vuggesinus} fra \citep{cd} under \textit{SW/Vuggesystem/Testprogrammer/vuggeSinus} vil således give blive ustabilt næsten med det samme. Et step på systemet vil heller ikke være mulig da systemet ikke kan udfører en hel rotation (det er kun muligt at vippe fra en yderposition til en anden yderposition hvilket svarer til lidt under 50 grader rotation). 
+
+PID regulator
+
+Ziegler/Nicols
+
+Lead/lag regulator
+
+
 Kode ses på: \citep{cd} under \verb+regulering.c+ og \verb+regulering.h+\\
 
 

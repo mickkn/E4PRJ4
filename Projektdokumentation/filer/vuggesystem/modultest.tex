@@ -166,25 +166,23 @@ Resultatet er som forventet:
 \textbf{Formål} \\
 Formålet er at teste hele vuggesystemet som reguleringsmodul for Baby Watch systemet. Modultesten dokumenteres med grafer af vinklen i forhold til tid til hver vuggetilstand jf.\vref{kravspec:ikke_funk_nivellering} målt med en elektronisk vinkelmåler og med video.
 
-Den fulde test vil bestå af fem deltests som dokumenterer funktionen af Vuggesystem modulet.
+Den fulde test vil bestå af tre deltests som dokumenterer funktionen af Vuggesystem modulet.
 
 Testen udføres under forudsætningen  at vuggesystemets software regulerings implementering ikke er færdigudviklet jf. afsnit \vref{vuggesystem_impl:regulering} i Vuggesystem Implementering. Det vil sige at vuggesystemet ikke forventes at kunne regulerer med vægt i barnevognskurven eller fuldt ud at kunne regulerer ud fra de Ikke-funktionelle i Kravspecifikationen afsnit \vref{kravspec:ikke_funk_nivellering}.
 
 SKRIV citat fra nivellering
 
-Det forventes derfor at alle disse parametre ikke passer overens med vinkelmålingerne, men at der kan observeres forskelle mellem de fem vuggetilstande.
+Det forventes derfor at alle disse parametre ikke passer overens med vinkelmålingerne, men at der kun kan observeres forskelle mellem de fem vuggetilstande.
 
 \textit{Deltests}*
 \begin{itemize}
 	\item 1. Vuggesystemet regulerer barnevognskurven i en 0 graders vinkel-amplitude med en vippe-frekvens på 0 Hz. Der forsøges med en ændring i  barnevognskurvens vinkel-amplitude på 5 grader ved at trække ned i barnevognskurvens fodende. 
-	\item 2. Vuggesystemet regulerer barnevognskurven i sekvens af fire af de fem vuggetilstande; Vuggetilstand- 0, A, B, C og tilbage til A: 
+	\item 2. Vuggesystemet regulerer barnevognskurven i sekvens af fire ud af de fem vuggetilstande; Vuggetilstand- 0, A, B, C og tilbage til A: 
 		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz i 20 sekunder 
 		\subitem 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz i 20 sekunder  
 		\subitem 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz i 20 sekunder 
 		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz i 20 sekunder
-	\item 3. Vuggesystemet regulerer barnevognskurven i 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
-	\item 4. Barnevognskurven presses ned i en yderposition så en endstop sensor aktives
-	\item 5. Barnevognskurven presses ned i modsatte yderposition så den anden endstop sensor aktives
+	\item 3. Vuggesystemet vugges med manuel vuggetilstand som regulerer barnevognskurven i 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
 \end{itemize}
 *Alle vinkler er i forhold til tyngdefeltet.
 
@@ -197,12 +195,17 @@ Det forventes derfor at alle disse parametre ikke passer overens med vinkelmåli
 	\item En mobiltelefon af typen Samsung Galaxy S4 Mini \citep{website:Samsung} har det elektroniske vinkelmåler program Physics Toolbox \citep{website:physicstoolbox} installeret og tændt
 	\item En mobiltelefon af typen Samsung Galaxy S4 Mini er sat i optagelses tilstand og klar til optagelse
 \end{itemize}
-// Figur med billede af testopstillingen
+
 
 \textbf{Testbeskrivelse}
 \begin{itemize}
 	\item Testen opsættes om beskrevet ovenfor
-	\item Hvert punkt i \textit{Deltests} under Formål udføres og dokumenteres med video
+	\item Test 1 Vuggesystemet sætte i babycon3 mode
+	\subitem Der tages et 10 sekunder plot af vinklen i forhold til tid
+	\item Test 2 Vuggesystemet sætte i babycon2 mode
+	\subitem Det tages et 80 sekunder plot af vinklen i forhold til tid
+	\item Test 3 Vuggesystemet sætte i manuel mode
+	\subitem Der tages et 20 sekunder plot af vinklen i forhold til tid
 \end{itemize}
 
 \textbf{Forventet resultat} \\
@@ -214,18 +217,15 @@ Der forventes at:
 		\subitem 6 graders vinkel-amplitude med en vippe-frekvens på 1 Hz  i 20 sekunder  
 		\subitem 4 graders vinkel-amplitude med en vippe-frekvens på 2 Hz i 20 sekunder 
 		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.5 Hz i 20 sekunder
-	\item 3. Barnevognskurven vugges i en 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
-	\item 4. Når barnevognskurven presses ned i en yderposition aktives en endstop sensor og vuggesystemet stopper med alt vugning 
-	\item 5. Når barnevognskurven presses ned i den modsatte yderposition aktives en endstop sensor og vuggesystemet stopper med alt vugning 
+	\item 3. Barnevognskurven vugges med manuel vuggetilstand i en 8 graders vinkel amplitude med en vippe frekvens på 0.75 Hz
 \end{itemize}
-.
+
 
 \textbf{Resultat} \\
 1.
 2.
 3.
-4.
-5.
+
 
 
 
