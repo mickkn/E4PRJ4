@@ -1,2 +1,14 @@
-% Resume
-\chapter{Resumé}
+% Opgaveformulering
+\chapter{Systembeskrivelse}
+
+Barnevognen har et betjeningspanel der kan betjenes af personen der har ansvaret for babyen der skal vugges i søvn. Betjeningspanelet er koblet op til en controller-computer, som sørger for kommunikationen. Denne computer er koblet op til internettet trådløst. Controller-computeren sørger for at hoste en hjemmeside og sende e-mails til personen der passer barnet.
+
+Baby Watch kan lytte til lydene i og omkring barnevognen vha. en intelligent lydmonitor, denne lydmonitor videregiver en baby-tilstand til controller-computeren som ud fra forudbestemte værdier sender signal til en microcontroller som styrer og regulerer vugningen. Microcontrolleren styrer en motor til at trække barnevognskurven i en angivet vuggefrekvens og vinkel. Vugningen sker ved at der sidder et gyroskop der måler vinklen på barnevognskurven, og der kan derfor vugges frem og tilbage når gyropskopet måler forudbestemte vinkel grænser.
+
+Der skelnes imellem 3 niveauer, kaldet BABYCON\footnote{Baby Condition - babyens humørtilstand målt i gråd}. BABYCON1 er en alarm-tilstand hvor babyen behøver tilsyn. BABYCON2 er en tilstand hvor babyen vugges, da babyen ud fra lydoptagelser viser sig at være urolig. BABYCON3 er en tilstand hvor babyen blot overvåges, og vuggen vugger derfor ikke. 
+
+''Manuel start'' kan aktiveres når babyen ligges i barnevognen og herved starter vuggen, som skal sikre at babyen falder i søvn uden der står en og aktivt vugger barnevognen. 
+
+Figur \ref{op:systegning} illustrer ovenstående beskrivelse. 
+
+\figur{0.6}{Systemtegning_edit}{Systemtegning}{op:systegning} 

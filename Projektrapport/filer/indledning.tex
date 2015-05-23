@@ -1,2 +1,23 @@
 % Indledning
-\chapter{Indledning}
+\chapter{Indledning og opgaveformulering}
+
+Velkommen til Baby Watch, 4. semesterprojektet foråret 2015. Formålet med projektet er at lave en prototype af en intelligent babymonitor til barnevogne med dertilhørende vuggesystem, statushjemmeside og e-mail notifikation.
+
+Systemet har tre tilstande; en ''manuel start''-tilstand, hvor barnet lægges til at sove, en monitorerings-tilstand og en undtagelses-tilstand.
+I \textbf{''manuel start''-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterval, hvorefter monitoreringen overtager.
+I \textbf{monitorerings-tilstanden} styres barnevognens vuggefunktion på baggrund af analysen af den aktuelle baby-lydoptagelse.
+I \textbf{undtagelses-tilstanden} skal barnevognen ikke vugge. En e-mail afsendes til den registrerede babypasser, og statushjemmesiden opdateres indtil systemet resettes manuelt ude ved barnevognen. 
+
+Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden bliver på hjemmesiden kategoriseret i tre konditioner vist via en BABYCON statusbar:
+\vspace{1cm}
+\label{kravspec:indledning_babycon_states}
+\begin{itemize}
+\item \textbf{BABYCON3} 
+\newline På dette niveau kategoriseres lydsignalet fra babyen som roligt. Derfor skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i BABYCON niveau. 
+
+\item \textbf{BABYCON2}
+\newline På dette niveau kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge gennem en sekvens af tre forskellige vugge-tilstande. Hvis babyen bliver beroliget af en bestemt vuggetilstand, detekteres dette af den intelligente lydmonitor. Dette vil medføre en ændring til BABYCON3. Hvis babyen afgiver en alarmerende lyd, vil det medføre en ændring til BABYCON1.  
+
+\item \textbf{BABYCON1}
+\newline På dette niveau kategoriseres lydsignalet fra barnet som alarmerende. Undtagelses-tilstanden aktiveres. 
+\end{itemize}

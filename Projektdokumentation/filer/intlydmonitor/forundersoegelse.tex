@@ -29,7 +29,7 @@ Disse parametre analyseres med redskaberne Short-Time DFT, en max-funktion, Tona
 FFT af kortere optagelsessegmenter. Produktet af dette, kan plottes som et spektogram, der således viser optagelsens frekvensindhold som variation af tiden.
 
 \textbf{Max} \\
-Matlabs funktion "max", finder den højeste værdi i matrixen. I denne analyse, vil den benyttes på FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output). For yderlige beskrivelse af max-funktionen se \citep{website:Mathworks}
+Matlabs funktion "max", finder den højeste værdi i matrixen. I denne analyse, vil den benyttes på FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output). For yderlige beskrivelse af max-funktionen se \citep{website:max}
 
 \textbf{Tonal Power Ratio} \\
 Tonal Power Ratio benyttes til beregne tonaliteten i optagelsen, og er altså et udtryk for forholdet mellem energiindholdet i dominante toner og det samlede energiindhold. Hvid støj vil således have en TPR = 0 og en ren sinus-tone vil have en TPR = 1. TPR beregnes som følger: 
@@ -37,7 +37,9 @@ Tonal Power Ratio benyttes til beregne tonaliteten i optagelsen, og er altså et
 ${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n) \right|  }^{ 2 } }  } $
 \end{center}
 
-Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. Det tonale indhold beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
+Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. 
+\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+k er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
+Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
 \begin{itemize}
 	\item Er lokalt maximum: ${ \left| X(k-1,n) \right|  }^{ 2 }\le { \left| X(k,n) \right|  }^{ 2 }\le { \left| X(k+1,n) \right|  }^{ 2 }$
 	\item Ligger over en forudbestemt grænseværdi ${ G }_{ T }$.
@@ -46,7 +48,7 @@ Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}
 Resultatet af vil ligge mellem $0\le { v }_{ Tpr }\le 1$
 
 \textbf{Smoothing} \\
-Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes.
+Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes. For yderligere beskrivelse af smooth se \citep{website:smooth}
 
 %\newpage
 \subsection{Analysekode gennemgang}

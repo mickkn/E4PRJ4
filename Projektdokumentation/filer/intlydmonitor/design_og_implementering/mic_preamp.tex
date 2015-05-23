@@ -106,5 +106,13 @@ ${ f }_{ H }=\frac { 1 }{ 2\pi \cdot { R }_{ 2 }\cdot { C }_{ 2 } } \quad \Longr
 
 Dette begrænser altså ikke netop ikke signalets båndbredde.
 
+\textbf{Mic Preamp samlet kredsløb}
+
+På Figur \ref{intlyd:mic_preamp:multisim} ses kredsløbet for Mic Preamp. Der benyttes i virkeligheden en elektret mikrofon. Denne er simuleret ved en spændingskilde, en kondensator og en transistor. Ved implementering skal benyttes et coaxialkabel til at forbinde mikrofon til mikrofonprintet. Coaxialkablet er simuleret ved en modstand, en spole og en kondensator. 
+
+\figur{1}{intlydmonitor/design/mic_preamp_multisim}{Opbygning af Mic preamp i multisim}{intlyd:mic_preamp:multisim}
+
+Af Figur \ref{intlyd:mic_preamp:multisim} er Pos en forsyning på 7.5V, Neg er GND og virGND er en virtual ground på 3.5V. Ved OpAmp'en er der indsat to afkoblingskondensatorer C5 og C7. 
+Forsyningen til mikrofonen kommer fra pos gennem R3. 
 
 

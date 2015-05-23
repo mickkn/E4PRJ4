@@ -30,15 +30,25 @@ Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vug
 Ved vugning jf. UC2 gennemgår vugningen af barnet en sekvens af tre vuggetilstande med et interval på 2 min.
 \begin{enumerate}
 
-\item Vugning foregår med en frekvens på 0,5 Hz og en amplitude på \SI{10}{\degree} +/- \SI{2}{\degree}
-\item Vugning foregår med en frekvens på 1 Hz og en amplitude på \SI{6}{\degree} +/- \SI{2}{\degree}
-\item Vugning foregår med en frekvens på 2 Hz og en amplitude på \SI{4}{\degree} +/- \SI{2}{\degree}
+\item Vugning foregår med en frekvens på 0,5 Hz og en vinkel-amplitude på \SI{10}{\degree} +/- \SI{2}{\degree}
+\item Vugning foregår med en frekvens på 1 Hz og en vinkel-amplitude på \SI{6}{\degree} +/- \SI{2}{\degree}
+\item Vugning foregår med en frekvens på 2 Hz og en vinkel-amplitude på \SI{4}{\degree} +/- \SI{2}{\degree}
 \end{enumerate}
+
+Udover de tre sekventielle tilstande har Baby Watch; en manuel vuggetilstand der vugger med en frekvens på 0,75 Hz og en vinkel-amplitude på \SI{8}{\degree} +/- \SI{2}{\degree} og en "nul"-vuggetilstand der ikke vugger men bare nivellere planet hvorpå barnet ligger til \SI{0}{\degree} +/- \SI{2}{\degree}.
 
 \subsection*{Baby status}
 For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
 \begin{itemize}
-\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres minimum hvert 10. sekund.
+\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres mindst hvert 10. sekund.
 \item Statushjemmesiden skal være opdateret senest 5 sekunder efter controlleren har opdateret babystatus.
-\item Når BABYCON-statusbaren opdateres til BABYCON1 niveau skal hjemmesiden afspillede en alarmlyd og BABYCON-statusbarens røde felt skal blinket med 2 Hz interval
+\item Når BABYCON-statusbaren opdateres til BABYCON1-niveau skal hjemmesiden afspille en alarmlyd.
+\item I undtagelsestilstand afsendes der mails med maksimum 20 sekunders interval. 
+\end{itemize}
+
+\subsection*{Controller}
+Krav til Controllerens advisering og virkemåder
+\begin{itemize}
+\item Wi-Fi-LEDen skal tænde maksimum 15 sekunder efter afbrydelse af netværket
+\item Wi-Fi-LEDen skal slukke maksimum 25 sekunder efter re-etablering af netværket
 \end{itemize}
