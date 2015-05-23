@@ -35,7 +35,7 @@ Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en 
 Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til det mindst mulige tid på 1\% af periodetiden, eller 500ns.
 Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket er vel under det genererede deadband. \\
 
-\subsection{Opto koblere}
+\subsubsection{Opto koblere}
 \label{Vuggesystem:optokoblere}
 Da systemet indeholder støjfølsomme komponenter, såsom mpu6050 sensoren, og motor kredsens støj aldrig ville kunne elimineres helt, er det valgt at lave galvanisk adskillelse fra motor kredsløbet til resten af systemet. Dette er gjort med to optokoblere på motor signalerne. Da det som nævnt ovenfor er vigtigt at motor driver signalerne drives helt ned, samt at skiftetiden fra høj til lav ønskes minimeret, er der valgt en optokobler med en digital buffer i udgangen. De to optokoblere er koblet som vist her:\\
 \figur{0.2}{vuggesystem/design/opto_couplers.pdf}{Optokoblere på motorkredsens styresignal for galvanisk adskillelse af motorkredsløbet.}{VS:opto_kobler}
@@ -95,6 +95,7 @@ Softwaredesignet for Vuggesystemet udarbejdes vha. et klassediagram med tilhøre
 \figur{1}{vuggesystem/sysark/reguleringsMCU_klassediagram.pdf}{UML klassediagram for Regulerings MCU}{VuggeSystem_Klassediagram}
 
 \subsubsection*{Funktionsbeskrivelser}
+\label{vugsys:design_funkBeskrivelser}
 {\centering
 \textbf{vuggeControl}\par
 }
