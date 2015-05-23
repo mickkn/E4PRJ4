@@ -47,7 +47,7 @@ int temp[SS_SIZE];
 	}
 \end{verbatim}
 
-Herefter tælles der hvor mange forekomster der er af henholdsvis BABYCON1, BABYCON2 og BABYCON3. Dette gøres med en switch case. 
+Herefter tælles der hvor mange forekomster der er af henholdsvis BABYCON1, BABYCON2 og BABYCON3. Dette gøres med en switch case. BABYCON1 vægtes med 11, BABYCON vægtes med 6 og BABYCON3 vægtes med 1. Dette gøres for at minimere fejl i systemet. 
 
 \begin{verbatim}
 ss_bbyCon1 = 0;
@@ -55,26 +55,26 @@ ss_bbyCon2 = 0;
 ss_bbyCon3 = 0;
 
 ....
-for (int i=0; i<SS_SIZE; i++)
-{
-	switch(ss_sigContainer[i])
-	{
-	case BABYCON1:
-		ss_bbyCon1++;
-		break;
-	
-	case BABYCON2:
-		ss_bbyCon2++;
-		break;
-	
-	case BABYCON3:
-		ss_bbyCon3++;
-		break;
+	for (int i=0; i<SS_SIZE; i++)
+		{
+			switch(ss_sigContainer[i])
+			{
+			case BABYCON1:
+				ss_bbyCon1+=11;
+				break;
+
+			case BABYCON2:
+				ss_bbyCon2+=6;
+				break;
+
+			case BABYCON3:
+				ss_bbyCon3+=1;
+				break;
+			}
 		}
-	}
 \end{verbatim}
 
-Slutteligt tjekkes der hvilken BABYCON status der forekommer flest gange. Den mest forekomne sendes med tw\_send() til Controller. 
+Slutteligt tjekkes der hvilken BABYCON status der har den højest vægtede værdi. Den med højest værdi sendes med tw\_send() til Controller. 
 \begin{verbatim}
 ss_significans = 1;
 

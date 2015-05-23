@@ -1,2 +1,39 @@
 %Modultest categorizer
 \subsection{Modultest Categorizer}
+
+\textbf{Formål} \\
+Formålet er at teste om Categorizer kan kategorisere henholdsvis BABYCON1, BABYCON2 og BABYCON3 på baggrund af analyseresultater fra Analyzer.
+
+\textbf{Opstilling til test af Categorizer test}
+
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CCES er kørende på PC
+\end{itemize}
+
+\textbf{Testprocedure}
+\begin{enumerate}
+	\item Først afspilles en lydfil svarende til BABYCON3, i dette tilfælde trafikstøj.
+	\item Programmet med Categorizer eksekveres 
+	\item Kommandoprompten aflæses for kategoriserede BABYCON status
+	\item Testen gentages med en lydfil svarende til henholdsvis BABYCON2 og BABYCON1, lyden urolig og lyden alarmerende. 
+\end{enumerate}
+
+\textbf{Forventet resultat} \\
+Det forventes for første test at kommandoprompten udskriver BABYCON3.
+Det forventes for anden test at kommandoprompten udskriver BABYCON2.
+Det forventes for tredje test at kommandoprompten udskriver BABYCON1. 
+
+\textbf{Resultat} \\
+Som det ses herunder består Categorizer alle 3 tests. 
+
+\figur{0.3}{intlydmonitor/modultest/Categorizer_1}{Print af kommandoprompten - lyd Traffik}{CG1}
+
+Som det ses af Figur \ref{TwoWireComTest} forekommer alle fire kombinationer. \\
+
+\figur{0.3}{intlydmonitor/modultest/Categorizer_2}{Print af kommandoprompten - lyd urolig}{CG2}
+
+\figur{0.3}{intlydmonitor/modultest/Categorizer_3}{Print af kommandoprompten - lyd alarmerende}{CG3}
+
+\textit{Testen er godkendt}
