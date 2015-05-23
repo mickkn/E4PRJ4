@@ -19,7 +19,7 @@ Overordnet skal den intelligente lydmonitor fungere som følger:
 \newpage
 \subsection{Hardware arkitektur}
 I dette afsnit beskrives hardware arkitekturen for Intelligent Lydmonitor. Den er skitseret IBD'et herunder:
-\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
+\figur{0.7}{intlydmonitor/sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
 
 Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent Lydmonitor} af tre dele: 
 \begin{itemize}
@@ -30,7 +30,7 @@ Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent Lydmonitor} af tre
 
 \newpage
 \subsection{Software arkitektur}
-I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelser.
+I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelser. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samle-båndet og en BABYCON status som produkt i enden.
 
 \subsubsection*{Sekvensdiagram}
 Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonitor.
@@ -38,11 +38,11 @@ Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonit
 
 \ref{IL_SD} viser interaktionen mellem Intelligent Lydmonitors subklasser.
 
-Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har tre funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen og \textit{highpass()} som højpasfiltrerer den nedsamplede sekvens af hensyn til lavfrekvent støj fra vind og vejr. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
-\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON niveauer (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og det nyligt fundne BABYCON-niveau sammenlignes med tidligere niveauer for at finde sænke risiko for en evt. fejlmelding. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
+Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har to funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen. Disse to danner tilsammem en decimering, der sænker sample frekvensen og dermed letter den efterfølgende processering. Et højpasfilter var desuden del af klassen ved første udkast, men da midlingsfilteret, der senere benyttes på det genererede fft spektrum, har en naturlig indsvingning med højpaskarakter, kunne en højpasfiltrering i forfiltreringen undgås. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
+\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON niveauer (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og det nyligt fundne BABYCON-niveau sammenlignes med tidligere niveauer for at finde sænke risiko for en evt. fejlmelding. Var den analyserede SPL-værdi under et threshold, kaldes Statistician's calSignificanas() direkte med status BABYCON 3. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
 
 \subsubsection*{Klassediagram}
-Softwaren er først gennemtænkt som klasser i C++, det skabte dog en del problemer i forbindelse med at aflæse data fra ADC'en på Blackfin533. Derfor er implementeringen foretaget i C. UML-klassediagrammet er dog bibeholdt da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 
+Softwaren er oprindelig tænkt som klasser i C++. Dette skabte dog en del uforudsete problemer ved aflæsning af data fra ADC'en på Blackfin533. Derfor er implementeringen foretaget i C. UML-klassediagrammet er dog bibeholdt da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 
 
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent Lydmonitor}{IL_UML}
 Funktionsbeskrivelser findes i det efterfølgende afsnit. 
@@ -50,101 +50,36 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \subsubsection*{Funktionsbeskrivelse}
 
 \textit{PreFilter} \\
-\textbf{Ansvar:} Indeholder funktionaliteten til forfiltrering og nedsampling af den diskrete sampling-sekvens.
+\textbf{Ansvar:} Indeholder funktionaliteten til forfiltrering og nedsampling af den diskrete sampling-sekvens modtaget fra ADC'en.
 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void init(int lpFreq, int hpFreq, int factor, int *curSample) +						\\ \hline
-    \textbf{Parametre} 	& int lpFreq knækfrekvens for LP-filter,\\&
-    						  int hpFreq knækfrekvens for HP-filter,\\&
-    						  int factor nedsamplingsfaktor, \\&
-    						  int *curSample pointer til placering af nyeste sample		\\ \hline
+    \textbf{Funktion}	& \verb+void pf_initDecima(void) +						\\ \hline
+    \textbf{Parametre} 	& Ingen. 											\\ \hline
     \textbf{Returværdi}	& Ingen																				\\ \hline
-    \textbf{Beskrivelse}	& Initialiserer filtre og downsampling, ved at kalde deres init-funktioner		\\ \hline
+    \textbf{Beskrivelse}	& Initialiserer FIR lavpasfilter og nedsampling med en faktor 2.		\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void initLP(int freqLP) +						\\ \hline
-    \textbf{Parametre} 	& int lpFreq knækfrekvens for LP-filter		\\ \hline
+    \textbf{Funktion}	& \verb+void pf_sampleRdy(fract32 sample) +						\\ \hline
+    \textbf{Parametre} 	& fract32 sample, diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang.		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Initialiserer LP-filter		\\ \hline
+    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Decimerer input og kalder \verb+rb_storeData()+ med filtreret sample som parameter.\\ \hline
     \end{tabular}
 \end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void initHP(int freqHP) +						\\ \hline
-    \textbf{Parametre} 	& int hpFreq knækfrekvens for HP-filter		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Initialiserer HP-filter		\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void initDown(int factor) +						\\ \hline
-    \textbf{Parametre} 	& int factor faktor for nedsampling		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Initialiserer downsampling		\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+void sampleRdy(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Kalder funktionerne lowpass(), highpass() og downsample()		\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+int highpass(int sample) +						\\ \hline
-    \textbf{Parametre} 	& Int sample, sample til HP-filtrering		\\ \hline
-    \textbf{Returværdi}	& int, værdi efter filtrering 								\\ \hline
-    \textbf{Beskrivelse}& Højpasfiltrerer sample		\\ \hline
-    \end{tabular}
-\end{center}
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+int lowpass(int sample) +						\\ \hline
-    \textbf{Parametre} 	& Int sample, sample til LP-filtrering		\\ \hline
-    \textbf{Returværdi}	& int, værdi efter filtrering 								\\ \hline
-    \textbf{Beskrivelse}& Lavpasfiltrerer sample		\\ \hline
-    \end{tabular}
-\end{center}
-
-
-\begin{center}
-    \begin{tabular}{ | l | p{11,8cm} |}
-    \hline
-    \textbf{Funktion}	& \verb+bool downsample(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	&  bool, 1 hvis det givne sample skal beholdes og 0 hvis det skal frasorteres 								\\ \hline
-    \textbf{Beskrivelse}& Frasorterer samples jf. valgt nedsampling		\\ \hline
-    \end{tabular}
-\end{center}
-
 
 \textit{RecBuf} \\
-\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte multiple buffering. Der fyldes i en buffer til denne er fuld, dette data sættes til behandling mens den næste buffer fyldes osv.
+\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte multiple buffering. Der fyldes samples i en buffer til denne er fuld, hvorefter indholdet sættes til behandling. Mens behandlingen af den ene buffer foretages, fyldes samples i den anden buffer. Når denne er fuld gentages proceduren igen med første buffer.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void cg_init(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+void rb_init(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
     \textbf{Beskrivelse}& Her sættes attributter rb\_currActiveBuffer, rb\_index og rb\_ready til 0. Herudover initieres de to buffere og alle pladser sættes til 0. 		\\ \hline
@@ -169,61 +104,60 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void analyze(uint startindex, uint size) +			\\ \hline
-    \textbf{Parametre} 	& uint startindex, startindex for datatilgang i RecBuf		\\ 
-    					& uint size, størrelse på datasekvens						\\ \hline
+    \textbf{Funktion}	& \verb+void an_analyze(bool curBufRdy) +			\\ \hline
+    \textbf{Parametre} 	& bool curBufRdy, nummer på nuværende fyldt buffer i RecBuf-klassen.	\\ \hline
     \textbf{Returværdi}	& Ingen 													\\ \hline
-    \textbf{Beskrivelse}& Sætter startIndex og recSize og kalder funktionerne calcSPL() og hvis SPL er over splThresh kaldes calcFFT(). Slutteligt kaldes categorize() med analyseresultatet	\\ \hline
+    \textbf{Beskrivelse}& Sætter variablen bool og kalder funktionerne \verb+calcSPL()+. Hvis returneret SPL er under an\_splThresh, kaldes \verb+ss_calcSignificans()+ direkte med status BABYCON3. Hvis returneret SPL er over an\_splThresh anvendes funktionerne \verb+an_calcFFT()+, \verb+an_calcTPR()+ og \verb+an_smooth()+ inden \verb+cg_categorize()+ kaldes til slut.	\\ \hline
     \end{tabular}
 \end{center} 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+int calcSPL(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+int an_calcSPL(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& int, værdi af SPL 								\\ \hline
-    \textbf{Beskrivelse}& Beregner Sound Pressure Level af samplesekvensen fra RecBuf. Denne tilgås via RecBuf's get()		\\ \hline
+    \textbf{Returværdi}	& float, SPL-værdi som dBV.							\\ \hline
+    \textbf{Beskrivelse}& Beregner Sound Pressure Level af samplesekvensen fra RecBuf. \\ \hline
     \end{tabular}
 \end{center} 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void calcFFT(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+void an_calcFFT(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Beregner frekvensspektret via en fast fourier transformation af samplesekvensen fra RecBuf. Denne tilgås via RecBuf's get(). Herefter kaldes gain2dB() og smooth() for at klargøre data til efterfølgende kategorisering. Frekvensspektret gemmes i freqSpec\\ \hline
+    \textbf{Beskrivelse}& Beregner frekvensspektret via en fast fourier transformation af samplesekvensen fra RecBuf. Frekvensspektret gemmes i fract32 arrayet an\_freqSpec\\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void gain2dB(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+void an_gain2dB(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Konverterer frekvensspektret freqSpec fra gg til dB \\ \hline
+    \textbf{Beskrivelse}& Konverterer frekvensspektret i arrayet an\_freqSpec fra gg til dB og gemmer det som arrayet float an\_freqSpecdB. \\ \hline
     \end{tabular}
 \end{center}  
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void smooth(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+void an_smooth(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Udglatter frekvensspektret vha. et rekursivt midlingsfilter  \\ \hline
+    \textbf{Beskrivelse}& Udglatter frekvensspektret i arrayet an\_freqSpecdB vha. et rekursivt midlingsfilter og gemmer det som arrayet an\_freqSpecSmooth.  \\ \hline
     \end{tabular}
 \end{center}
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
-    \textbf{Funktion}	& \verb+void calcTPR(void) +						\\ \hline
+    \textbf{Funktion}	& \verb+void an_calcTPR(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Beregner TPR (Tonal power ratio) for frekvensspektret freqSpec  \\ \hline
+    \textbf{Beskrivelse}& Beregner TPR (Tonal power ratio) for frekvensspektret an\_freqSpec.  \\ \hline
     \end{tabular}
 \end{center} 
 
