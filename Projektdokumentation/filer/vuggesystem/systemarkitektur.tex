@@ -18,7 +18,7 @@ Vuggesystemet består af tre dele
 
 \textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.\\
 \textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.\\
-\textbf{Sensor block:} Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motorens position.
+\textbf{Sensor block:} Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motoraksens position.
 
 
 Følgende beskriver vuggesystemets kobling og grænseflade.
@@ -112,7 +112,7 @@ Applikationsmodellen indeholder funktionaliteter for op til flere Use Cases, men
 \subsection*{Applikationsmodel} 
 \subsubsection*{Domænemodel} 
 
-\figur{1}{vuggesystem/sysark/Domain_Klasse_kommunikation.pdf}{Domain kommunikations model for Vuggesystem}{VuggeSystem_Domain}
+\figur{1}{vuggesystem/sysark/Domain_Klasse_kommunikation.pdf}{Figuren er tiltet for at øge størrelsen. Domain kommunikations model for Vuggesystem}{VuggeSystem_Domain}
 
 \vspace{1mm}
 Figur \ref{VuggeSystem_Domain} viser en domænemodel for kommunikationen mellem systemets interne SW-moduler. Blokken Baby Watch Controller tilhører ikke Vuggesystemet, men er sat på for identificerer udadgående grænseflader derfor er denne markeret bag en stiplet linje.
