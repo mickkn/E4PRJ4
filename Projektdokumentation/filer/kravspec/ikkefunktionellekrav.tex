@@ -40,7 +40,15 @@ Udover de tre sekventielle tilstande har Baby Watch; en manuel vuggetilstand der
 \subsection*{Baby status}
 For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
 \begin{itemize}
-\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres minimum hvert 10. sekund.
+\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres mindst hvert 10. sekund.
 \item Statushjemmesiden skal være opdateret senest 5 sekunder efter controlleren har opdateret babystatus.
-\item Når BABYCON-statusbaren opdateres til BABYCON1 niveau skal hjemmesiden afspillede en alarmlyd og BABYCON-statusbarens røde felt skal blinket med 2 Hz interval
+\item Når BABYCON-statusbaren opdateres til BABYCON1-niveau skal hjemmesiden afspille en alarmlyd.
+\item I undtagelsestilstand afsendes der mails med maksimum 20 sekunders interval. 
+\end{itemize}
+
+\subsection*{Controller}
+Krav til Controllerens advisering og virkemåder
+\begin{itemize}
+\item Wi-Fi-LEDen skal tænde maksimum 15 sekunder efter afbrydelse af netværket
+\item Wi-Fi-LEDen skal slukke maksimum 25 sekunder efter re-etablering af netværket
 \end{itemize}

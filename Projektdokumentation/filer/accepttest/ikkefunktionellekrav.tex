@@ -1,85 +1,82 @@
 % Ikke-funktionelle krav
-\begin{center}
-\label{accepttest:ikkefunktionellekrav} 
-\begin{longtable}{|p{0,5cm}|p{3,8cm}|p{3,8cm}|p{2,2cm}|p{2,2cm}|} % l for left, c for center, r for right 
-\hline
-\multicolumn{5}{|l|}{\textbf{Ikke-funktionelle krav}} \\ \hline
-\multicolumn{1}{|c|}{} &
-\textbf{Test} &
-\textbf{Forventet \newline Resultat} &
-\textbf{Resultat} &
-\textbf{Godkendt/ \newline Kommentar} \\ \hline 
-\endfirsthead
 
-\multicolumn{5}{l}{...fortsat fra forrige side} \\ \hline 
-\multicolumn{1}{|c|}{} &
-\textbf{Test} &
-\textbf{Forventet \newline Resultat} &
-\textbf{Resultat} &
-\textbf{Godkendt/ \newline Kommentar} \\ \hline 
-\endhead
+\section{Ikke-funktionelle krav}
+
+De ikke-funktionelle krav er testet i forbindelse med de forskellige modultests.
 
 
-%%%% Tabel Opsætning
-
-% &Test
-% &Forventet
-% &Resultat
-% &Godkendt/Kommentar
-
-&\multicolumn{4}{|c|}{\textbf{Mikrofon:}} \\ \hline
-
-\textbf{1}	&Mikrofonens parametre undersøges gennem producentens dokumentation.
-
-			&De anførte mikrofon parametre er i overensstemmelse med kravene
-			
-			&Skriv her
-			&Skriv her 
-			\\ \hline
-
-&\multicolumn{4}{|c|}{\textbf{Vuggesystem:}} \\ \hline
-
-\textbf{1}	&Vuggens vinkel måles med et digitalt vaterpas når vuggen er i højeste vugge niveau (aktiveret med manuel vuggestart), og det samlede udsving udregnes ud fra den største og mindste målte vinkel.
-
-			&Det målte vinkel udsving ligger mellem \SI{36}{\degree} og \SI{44}{\degree}.
-			
-			&Skriv her
-			&Skriv her 
-			\\\hline
-			 
-			 
-\textbf{2}	&Vuggen indstilles til at vippe med hhv. 0.5, 1, 1.5, og \SI{2}{\hertz}, og der tælles hvor mange udsving vuggen gør over en periode på 30 sekunder. 
-
-			&Det samlede antal udsving for de 4 optællinger ligger inden for \SI{10}{\percent} af hhv. 15, 30, 45, og 60.
-			
-			&Skriv her
-			&Skriv her
-			\\\hline
+%\begin{center}
+%\label{accepttest:ikkefunktionellekrav} 
+%\begin{longtable}{|p{0,5cm}|p{3,8cm}|p{3,8cm}|p{2,2cm}|p{2,2cm}|} % l for left, c for center, r for right 
+%\hline
+%\multicolumn{5}{|l|}{\textbf{Ikke-funktionelle krav}} \\ \hline
+%\multicolumn{1}{|c|}{} &
+%\textbf{Test} &
+%\textbf{Forventet \newline Resultat} &
+%\textbf{Resultat} &
+%\textbf{Godkendt/ \newline Kommentar} \\ \hline 
+%\endfirsthead
+%
+%\multicolumn{5}{l}{...fortsat fra forrige side} \\ \hline 
+%\multicolumn{1}{|c|}{} &
+%\textbf{Test} &
+%\textbf{Forventet \newline Resultat} &
+%\textbf{Resultat} &
+%\textbf{Godkendt/ \newline Kommentar} \\ \hline 
+%\endhead
 
 
-\textbf{3}  &Vuggen slukkes mens vuggen er nær ved fuldt udsving, og vinklen af vuggen måles når vuggen er faldet til ro. 
-			&Den målte vinkel skal være mellem \SI{-5}{\degree} og \SI{5}{\degree}.
-			&Skriv her
-			&Skriv her
-			\\ \hline
-
-
-\textbf{4}  &FIXME: Test af begrænsning i vinkelfrekvens, og vinkelacceleration er svær at udtænke. TODO: snak med Carl
-			&Skriv her
-			&Skriv her
-			&Skriv her
-			\\ \hline
-			
-			
-&\multicolumn{4}{|c|}{\textbf{Baby status}} \\ \hline
-
-\textbf{1}  &Systemet konfigureres til at skrive til en log ved opdatering af baby status, og får lov at køre i \SI{1}{\minute}. Mens systemet kører overvåges hjemmesiden, og opdateringstidspunkterne noteres. Til sidst sammenholdes loggen med de noterede tider, og forsinkelsen beregnes som differencen fra opdatering af babystatus, til opdatering af hjemmesiden.
-			&Den længste pause mellem to opdateringer af baby status, og den største forsinkelse til opdatering af hjemmesiden er under \SI{5}{\second}.
-			&Skriv her
-			&Skriv her
-			\\ \hline
-			
-\end{longtable}
-\end{center}
-
-
+%%%%% Tabel Opsætning
+%
+%% &Test
+%% &Forventet
+%% &Resultat
+%% &Godkendt/Kommentar
+%
+%
+%&\multicolumn{4}{|c|}{\textbf{Vuggesystem:}} \\ \hline
+%
+%\textbf{1}	&Vuggens vinkel måles med et digitalt vaterpas når vuggen er i højeste vugge niveau (aktiveret med manuel vuggestart), og det samlede udsving udregnes ud fra den største og mindste målte vinkel.
+%
+%			&Det målte vinkel udsving ligger mellem \SI{36}{\degree} og \SI{44}{\degree}.
+%			
+%			&Skriv her
+%			&Skriv her 
+%			\\\hline
+%			 
+%			 
+%\textbf{2}	&Vuggen indstilles til at vippe med hhv. 0.5, 1, 1.5, og \SI{2}{\hertz}, og der tælles hvor mange udsving vuggen gør over en periode på 30 sekunder. 
+%
+%			&Det samlede antal udsving for de 4 optællinger ligger inden for \SI{10}{\percent} af hhv. 15, 30, 45, og 60.
+%			
+%			&Skriv her
+%			&Skriv her
+%			\\\hline
+%
+%
+%\textbf{3}  &Vuggen slukkes mens vuggen er nær ved fuldt udsving, og vinklen af vuggen måles når vuggen er faldet til ro. 
+%			&Den målte vinkel skal være mellem \SI{-5}{\degree} og \SI{5}{\degree}.
+%			&Skriv her
+%			&Skriv her
+%			\\ \hline
+%
+%
+%\textbf{4}  &FIXME: Test af begrænsning i vinkelfrekvens, og vinkelacceleration er svær at udtænke. TODO: snak med Carl
+%			&Skriv her
+%			&Skriv her
+%			&Skriv her
+%			\\ \hline
+%			
+%			
+%&\multicolumn{4}{|c|}{\textbf{Baby status}} \\ \hline
+%
+%\textbf{1}  &Systemet konfigureres til at skrive til en log ved opdatering af baby status, og får lov at køre i \SI{1}{\minute}. Mens systemet kører overvåges hjemmesiden, og opdateringstidspunkterne noteres. Til sidst sammenholdes loggen med de noterede tider, og forsinkelsen beregnes som differencen fra opdatering af babystatus, til opdatering af hjemmesiden.
+%			&Den længste pause mellem to opdateringer af baby status, og den største forsinkelse til opdatering af hjemmesiden er under \SI{5}{\second}.
+%			&Skriv her
+%			&Skriv her
+%			\\ \hline
+%			
+%\end{longtable}
+%\end{center}
+%
+%

@@ -1,3 +1,90 @@
 \chapter{Kravspecifikation}
 
-\figur{0.9}{usecase_diagram}{Diagram over use cases i Baby Watch}{krav:usecase_diagram}
+Kravspecifikationen som er opsat for systemet, er opsat med en fully-dressed use case tankegang. Der er opsat use cases for de forskellige dele i systemet. \\
+Der er 3 aktører i systemet, en Baby, en Babypasser og en Installatør. Installatøren er ikke beskrevet yderligere i systemet, men hans funktion ville være at levere og installere barnevognen hos kunden.
+
+\begin{table}[!htbp] \centering
+	\begin{tabular}{|p{2.5cm}|p{11.5cm}|}
+	\hline
+		\textbf{Aktør navn} & \textbf{Beskrivelse} \\\hline
+		Babypasser 
+		& En person som ønsker at benytte systemet til at 
+		  berolige Baby til at falde i søvn samt monitorerer Babys tilstand elektronisk
+		\\\hline
+		Baby 
+		& Spædbarn som monitoreres og beroliges af system
+		\\\hline
+		Installatør
+		& Tekniker, der opsætter systemet (optræder i den ikke-implementerede UC5)
+		\\\hline
+	\end{tabular}
+\end{table}
+
+Use case diagrammet på figur \ref{krav:usecase_diagram}, giver et overblik over alle use cases og hvilke aktører der der bruger dem.
+
+\figur{0.65}{usecase_diagram}{Diagram over use cases i Baby Watch}{krav:usecase_diagram}
+
+\begin{itemize}
+\item \textbf{\textit{UC1:}} Stiller kravene op for hvordan den manuelle opstart af vugningen skal fungere
+\item \textbf{\textit{UC2:}} Stiller kravene op for hvordan barnevognen starter, opererer og stopper vugningen
+\item \textbf{\textit{UC3:}} Stiller kravene op for hvordan lydmonitoren skal optager lyd og outputter babyens tilstand
+\item \textbf{\textit{UC4:}} Stiller kravene op for undtagelsestilstanden skal gå i funktion og advisere babypasseren
+\item \textbf{\textit{Ikke-funktionelle krav:}} Giver et overblik over de ikke-funktionelle krav i systemet. 
+\end{itemize}
+
+Se kravspecifikationen i projektdokumentationen.
+
+%\section{Ikke-funktionelle krav}
+%
+%\subsection*{Mikrofon}
+%For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, skal systemets mikrofon opfylde følgende krav:
+%\begin{itemize}
+%\item Mikrofonen skal have en max SPL rating på min. \SI{120}{\dB}.\footnote{FIXME indsæt reference til studie om gråd volumen}
+%\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{10}{\kilo\hertz}
+%\end{itemize}
+%
+%\subsection*{Vuggemekanisme}
+%
+%\textbf{Nivellering}: \label{kravspec:ikke_funk_nivellering}
+%\begin{itemize}
+%	\item Vuggesystemet skal kunne nivellere planet, hvorpå babyen ligger, til vandret position indenfor \SI{2}{\degree}.
+%	\item Barnevognens understel må stå på et plan med op til \SI{5}{\degree} hældning.
+%	\item Når systemet er tændt, men ikke skal vugge, nivelleres planet, hvorpå babyen ligger, automatisk til vandret.
+%\end{itemize}
+%
+%Ved vugning jf. UC2 gennemgår vugningen af barnet
+%Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vugning:
+%\begin{itemize}
+%\item Vuggen skal kunne vippe planet, hvorpå babyen ligger, med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
+%\item Vuggen skal kunne variere frekvensen hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}, med en fejlmargin på \SI{0.2}{\hertz}.
+%\item Vuggen skal vende tilbage til vandret indenfor en vinkel på \SI{2}{\degree} når systemet lukkes ned.
+%\item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{80}{\degree\per\second}, med en fejlmargin på \SI{10}{\percent}.
+%\item Vuggens vinkel acceleration skal være begrænset ved \SI{20}{\degree\per\square\second}, med en fejlmargin på \SI{10}{\percent}.
+%\end{itemize}
+%
+%\textbf{Vuggetilstande}: \label{kravspec:ikke_funk_vuggetilstande}
+%Ved vugning jf. UC2 gennemgår vugningen af barnet en sekvens af tre vuggetilstande med et interval på 2 min.
+%\begin{enumerate}
+%
+%\item Vugning foregår med en frekvens på 0,5 Hz og en vinkel-amplitude på \SI{10}{\degree} +/- \SI{2}{\degree}
+%\item Vugning foregår med en frekvens på 1 Hz og en vinkel-amplitude på \SI{6}{\degree} +/- \SI{2}{\degree}
+%\item Vugning foregår med en frekvens på 2 Hz og en vinkel-amplitude på \SI{4}{\degree} +/- \SI{2}{\degree}
+%\end{enumerate}
+%
+%Udover de tre sekventielle tilstande har Baby Watch; en manuel vuggetilstand der vugger med en frekvens på 0,75 Hz og en vinkel-amplitude på \SI{8}{\degree} +/- \SI{2}{\degree} og en "nul"-vuggetilstand der ikke vugger men bare nivellere planet hvorpå barnet ligger til \SI{0}{\degree} +/- \SI{2}{\degree}.
+%
+%\subsection*{Baby status}
+%For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
+%\begin{itemize}
+%\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres mindst hvert 10. sekund.
+%\item Statushjemmesiden skal være opdateret senest 5 sekunder efter controlleren har opdateret babystatus.
+%\item Når BABYCON-statusbaren opdateres til BABYCON1-niveau skal hjemmesiden afspille en alarmlyd.
+%\item I undtagelsestilstand afsendes der mails med maksimum 20 sekunders interval. 
+%\end{itemize}
+%
+%\subsection*{Controller}
+%Krav til Controllerens advisering og virkemåder
+%\begin{itemize}
+%\item Wi-Fi-LEDen skal tænde maksimum 15 sekunder efter afbrydelse af netværket
+%\item Wi-Fi-LEDen skal slukke maksimum 25 sekunder efter re-etablering af netværket
+%\end{itemize}
