@@ -36,6 +36,8 @@ Funktionerne er implementeret på samme måde som \verb+getButValue()+ hvor der 
 
 \subsubsection*{I2C}
 
+For at aktivere \iic på en Raspberry Pi, tilgår man opsætnings-menuen med \verb+sudo raspi-config+, gå til \verb+Advanced Options+ vælg \verb+A7 I2C+ og sig ja til alle punkterne efterfulgt af en genstart af systemet.
+
 I I2C forbindelsen til Vuggesystemet er der også brugt interne funktioner fra WiringPi biblioteket. Der laves et system kald til et script der opretter en I2C forbindelse. Scriptet består af kun 1 linje .
 
 \textbf{gpio\_load\_i2c.sh}
