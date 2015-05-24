@@ -5,23 +5,23 @@ Prefilter står for forfiltreringen af signalet modtaget fra Blackfin-kittets AD
 Denne forfiltrering består af
 \begin{itemize}
 	\item Decimation bestående af lavpasfiltrering og downsampling
-	\item Højpasfiltrering til fra filtrering af lavfrekvent støj såsom vind.
+	\item Oprindeligt: Højpasfiltrering til fra filtrering af lavfrekvent støj såsom vind.
 \end{itemize}
 
 \subsubsection{Decimation}
-Blackfin kittets AD1836 kan sample enten med 48kHz eller 96 kHz. Idet mikrofonens båndbredde er 10kHz, tillader shannons samplings sætning os at opnå en beregningsmæssig besparelse ved at decimere fra 48kHz til et 24kHz signal (min 20kHz er nødvendig).
+Blackfin kittets AD1836 sampler med 48 kHz. Idet mikrofonens båndbredde er 10kHz, tillader shannons samplings sætning os at opnå en beregningsmæssig besparelse ved at decimere fra 48kHz til et 24kHz signal (min 20kHz er nødvendig).
 Vores range of interest bliver 0-10 kHz.
 
 \subsubsection*{Lavpasfiltrering} 
 Det ønskes at lave et FIR lavpasfiltr, der dæmper ripple fra det spektrale spejlings-replika omkring den nye sample-frekvens med ca. 60dB. 
 I figurudsnittet herunder ses en illustration af lavpasfilterets frekvensrespons relativt til båndbredden B':
 
-\figur{0.8}{intlydmonitor/design/lp_understanding_dsp_fig_10_2}{Lavpasfilterets frekvensrespons relativt til båndbredden B'. Kilde: Lyons, fig. 10.2}{intlyd:prefilter:lp_kar}
+\figur{0.6}{intlydmonitor/design/lp_understanding_dsp_fig_10_2}{Lavpasfilterets frekvensrespons relativt til båndbredden B'. Kilde: Lyons, fig. 10.2}{intlyd:prefilter:lp_kar}
 Vi kan beregne den nødvendige filterorden ved Lyons Eq.5-49:
 \begin{center}
 ${ N }_{ FIR }\approx \frac { Atten }{ 22\cdot \left( { f }_{ stop }-{ f }_{ pass } \right)  }$
 \end{center}
-Hvor Atten er den ønskede dæmpning i dB og f\begin{tiny}stop\end{tiny} og f\begin{tiny}pass\end{tiny} er frekvenser normaliseret til fs. I vores tilfælde bliver ${ N }_{ FIR }=33$. Dette er relativt småt, og en two-stage decimation er ikke nødvendig for at sænke den totale orden.
+Hvor Atten er den ønskede dæmpning i dB og f\begin{tiny}stop\end{tiny} og f\begin{tiny}pass\end{tiny} er frekvenser normaliseret til fs. I vores tilfælde bliver ${ N }_{ FIR }=33$.
 
 Filteret beregnes i matlab med funktionen \verb+fir1()+ som følger:
 \begin{verbatim}%**** LOW PASS ***********************************************
@@ -41,25 +41,84 @@ Denne filterorden når dog ikke helt ønskede dæmpning ved f\begin{tiny}stop\en
 Markeret på figuren er f\begin{tiny}pass\end{tiny}, f\begin{tiny}stop\end{tiny} og et punkt midt i stopbåndet. Det ses at der opnås ca. 45 dB dæmpning ved f\begin{tiny}stop\end{tiny}, men at den generelle dæmpning i pasbåndet er ca. 63 dB. Dette regnes for tilstrækkeligt
 
 \subsubsection*{Downsampling} 
-Nedsamplingen sker ved en faktor 2 og er således ligetil: Et evt. polyphase filter er unødvendigt
+Nedsamplingen sker ved en faktor 2 og er således ligetil; en fler-steps decimation er ikke mulig.
 
 \subsubsection{Højpasfiltrering}
-Af forundersøgelsen konkluderes det, at frekvenser under 500 Hz ikke skulle benyttes til bestemmelse af babygråd. Der designes således et 2. orden IIR butterworth højpasfilter til frafiltrering af disse. Filtret designes med matlabs \verb+butter()+ funktion som følger:
-\begin{verbatim}%**** HIGH PASS **********************************************
-order = 2;
-f_hp = 500;
-f_cutoff = f_hp/fs_new;
-
-[b,a] = butter(order, f_cutoff,'high')
-figure(3),freqz(b,a)
-%*************************************************************
-\end{verbatim}
-Følgende filterkarakteristik opnås:
-\figur{0.6}{intlydmonitor/design/hp_freqz}{Frekvensrespons for designet højpasfilter}{intlyd:prefilter:hp_freqz}
-
-Markeret på figureren er f\begin{tiny}cutoff\end{tiny}.
+Af forundersøgelsen konkluderes det, at frekvenser under 500 Hz ikke skulle benyttes til bestemmelse af babygråd. I det oprindelige design-udkast blev der således designes et 2. orden IIR butterworth højpasfilter til frafiltrering af disse. Imidlertid ligegyldiggør midlingsfiltret, senere anvendt på det genererede frekvensspektrum, dette grundet dets iboende indsvingning. Se \ref{intlyd:analyzer:smooth_hp} for mere information om dette.
 
 \subsubsection{Implementering på blackfin}
-\textbf{Datatype} \\
-Filterkoefficienterne beregnes i matlab i formatet \verb+float+. Ved implementering på blackfin omkonverteres disse værdier til typen \verb+fract16+ med funktionen \verb+float_to_fr16+.
+\textbf{pf\_initDecima()} \\
+Ved implementering af decimation, benyttes biblioteksfunktionen \verb+fir_decima+ fundet i \verb+filter.h+. Denne initieres med funktionen \verb+fir_init()+, der modtager parametrene:
+\begin{itemize}
+	\item \verb+fir_state_fr32 state+: Struct indeholdende samlet information om filteret. Denne struct sættes ved funktionen \verb+fir_init()+ og benyttes som inputparameter ved decimeationsfunktionen \verb+fir_decima()+
+	\item \verb+coeffs+: pointer til fract32 array indeholdende lavpas filtercoefficienter. 
+	\item \verb+delay+: pointer til fract32 array med filter delay-taps
+	\item \verb+ncoeffs+: int indeholdende antal filtercoefficienter i \verb+coeffs+
+	\item \verb+index+: int indeholdende decimationsindex
+\end{itemize}
 
+Herunder følger forklaring af implementering: \\
+\verb+fir_state_fr32 state+. Struct indeholdende fract32-pointere til filter coefficienter, start på delay line, og en read/write pointer, samt ints med antal koefficienter og decimationsindex. 
+\verb+coeffs+. Filtercoefficienter er genererede i matlab i formatet float. Ved implementering på blackfin omkonverteres disse værdier til typen \verb+fract32+ med funktionen \verb+ fract32 float_to_fr32(float)+ og gemmes i arrayet \verb+pf_decima_coeffs[]+ som følger:
+\begin{verbatim}
+/* Set FIR LP-filter coefficients */
+	float FIR_coeffs[PF_DEC_COEFFS] = {
+			-0.001515603015026F,-0.001197321235543F,-0.000162377229104F,
+			0.002007097428441F, 0.004999844177995F, 0.007169100219368F,
+			0.005883929182627F,-0.000946918098159F,-0.012809250681504F,
+			-0.025235218667458F,-0.030363789714498F,-0.019735100768254F,
+			0.011623756610677F, 0.061726144399357F, 0.120708742345494F,
+			0.173377185422071F, 0.204469779623516F, 0.204469779623516F,
+			0.173377185422071F, 0.120708742345494F, 0.061726144399357F,
+			0.011623756610677F,-0.019735100768254F,-0.030363789714498F,
+			-0.025235218667458F,-0.012809250681504F,-0.000946918098159F,
+			0.005883929182627F, 0.007169100219368F, 0.004999844177995F,
+			0.002007097428441F,-0.000162377229104F,-0.001197321235543F,
+			-0.001515603015026F	};
+
+	int k;
+	for (k = 0; k < PF_DEC_COEFFS; k++) {
+		pf_decima_coeffs[k] = float_to_fr32 (FIR_coeffs[k]);
+	}
+\end{verbatim}
+Herudover initieres arrayet \verb+pf_decima_delay[PF_DEC_COEFFS]+ samt input bufferen \verb+pf_decima_input[]+ med en størrelse lige decimations-indexet (2).
+
+Filterkoefficienter og delay-line oprettes i med specifik placering i hukommelsen for at lette efterfølgende foldning:
+\begin{verbatim}
+#pragma section("L1_data_a")
+fract32 pf_decima_coeffs[PF_DEC_COEFFS];
+#pragma section("L1_data_b")
+fract32 pf_decima_delay[PF_DEC_COEFFS];
+\end{verbatim}
+
+\textbf{pf\_sampleRdy(fract32 sample)} \\
+Denne funktion kaldes fra interrupt service rutinen koblet til erhvervelsen af ny samples fra blackfin boardets  AD1836 codec. Kodesekvens er som følger:
+\begin{verbatim}
+pf_decima_input[pf_decima_count] = sample;
+pf_decima_count = (pf_decima_count+1)%PF_DEC_INSAMPLES;
+if(pf_decima_count == PF_DEC_INSAMPLES-1)
+{
+	fir_decima_fr32 (pf_decima_input,
+	                pf_decima_output,
+	                PF_DEC_INSAMPLES,
+	                &pf_decima_state);
+	rb_storeData(pf_decima_output[0]);
+}
+\end{verbatim}
+Således opdateres input-bufferen første med det nyest erhvervede sample. Når input-bufferen er fyldt, kaldes funktionen \verb+fir_decima_fr32()+, der opdaterer output arrayet med den filtrerede sekvens. Denne gemmes i RecBuf med funktionen \verb+rb_storeData()+.
+Følgende ligning ligger til bunds for decimations-algoritmen:
+\begin{center}
+$y\left( i \right) =\sum _{ j=0 }^{ k-1 }{ x\left( i\bullet l-j \right) \bullet h\left( j \right)  } $
+\end{center}
+Hvor:
+\begin{itemize}
+	\item h = array af koefficienter
+	\item k = antal koefficienter
+	\item n = længde
+	\item l = decimationsindex
+	\item i = {0,1 ..., (n!l)-1}
+	\item x = input
+	\item y = output
+\end{itemize}
+For domænet [-1.0, +1.0) \\
+For mere information om funktionen \verb+fir_decima_fr32()+, se INDSÆT REFERENCE TIL LIBRARY MANUAL s. 943
