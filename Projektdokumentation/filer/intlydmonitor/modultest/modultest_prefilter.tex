@@ -2,37 +2,36 @@
 \subsection{Modultest Prefilter}
 
 \textbf{Formål} \\
-Formålet med at teste Prefilter er at tjekke at decimeringen nedsampler fra 48kHz til 24kHz med lavpasfiltrering tilstrækkelig til at dæmpe frekvenser over 12kHz med 50dB. 
+Testens formål er at eftervise korrekt decimeringen, herunder nedsampling fra 48kHz til 24kHz og lavpasfiltrering tilstrækkelig til at dæmpe frekvenser over nyquist-frekvensen, 12kHz, med 50dB. 
 
 \textbf{Opstilling til test af Prefilter test}
 
 \begin{itemize}
 	\item Blackfin 533 er sluttet til 230VAC
-	\item Blackfin 533 er tilsuttet PC via COM-port
-	\item CCES er kørende på PC
+	\item Blackfin 533 er tilsuttet PC via USB-port
+	\item CrossCore Embedded Studio (CCES) er installeret på PC
 	\item Analog Discovery er tilsluttet Blackfin 533's Audio left\_in\_channel0 og left\_out\_channel0
 \end{itemize}
 
 \textbf{Testprocedure}
 \begin{enumerate}
-	\item Projektet med Prefilter testen eksekveres 
-	\item Analog Discoverys network analyzer sættes til at generere et frekvensspektrum fra 10Hz til 50kHz. 
-	\item Outputtet aflæses via Analog Discoverys program Waveforms. 
+	\item Projektet med Prefilter testen eksekveres med CCES 
+	\item Prefilter sættes til bypass-mode
+	\item Digilent Waveforms Network analyzer sættes til at generere et frekvenssweep fra 10Hz til 50kHz på Analog Discovery. 
+	\item Bodeplottet aflæses i Network analyzer. 
+	\item Prefilter sættes aktiv
+	\item Pkt. 3 og 4 gentages
 \end{enumerate}
 
 \textbf{Forventet resultat} \\
-Det forventes en dæmpning ved de 12kHz på 50dB.
-
+Ved aktivering af Prefilter forventes en dæmpning på 50dB for frekvenser over 12 kHz. Det forventes at se en knækfrekvens for lavpasfilteret ved 10 kHz.
 
 \textbf{Resultat} \\
+Herunder ses bodeplots genereret af Waveform's netværksanalyse:
+\figur{1}{intlydmonitor/modultest/prefilter_bode_bypass}{Målt bodeplot for Prefilter i bypass-mode}{pf_bypass}
+\figur{1}{intlydmonitor/modultest/prefilter_bode_active}{Målt bodeplot for Prefilter i active-mode}{pf_active}
 
-
-På Figur \ref{FirstRecBufTest} ses resultatet af testen
-
-\figur{0.3}{intlydmonitor/modultest/First_output}{Første udskrift i kommandoprompten}{FirstRecBufTest}
-
-
-
+Ved aktivering af Prefilter, ses en dæmpning af frekvenser over 8 kHz med godt 53dB. Imidlertid findes et frekvens-peak omkring 20kHz. Afvigelsen fra den forventede knækfrekvens og magnitudeboblen ved 20kHz skyldes formodentlig en kvantiseringsfejl af filter-koefficienterne. Der forefindes ikke vigtige analysepunkter for bestemmelse af babygråd over 6kHz. Desuden er båndbredden  af den anvendte mikrofon, MCE100, 50Hz-10kHz, og det vil derfor være et minimum af signaler i 20kHz området. Den opnåede filtrering regnes derfor som tilstrækkelig
 
 \textit{Testen er godkendt}
 
