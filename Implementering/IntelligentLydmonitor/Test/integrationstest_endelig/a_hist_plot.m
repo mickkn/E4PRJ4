@@ -1,8 +1,7 @@
 clc, clear, close all
-%**** RECBUF TEST *********************************
-load Cat1.dat;
-x = Cat1;
-
+%**** HISTOGRAM PLOTTER *****************************************
+load Latter2.dat;
+x = Latter2;
 N = length(x);
 
 %**** Plot sample ***********************************************
@@ -14,14 +13,10 @@ title('Statistician buffer')
 grid on
 axis([0 N 0 3])
 
-%**** Plot histogram ***********************************************
-
-% for i = 1 : 3
-%     x(i)=i;
-% end
-
+%**** Plot histogram ********************************************
 edges = [1 2 3];
 figure(2), hist(x, edges)
 xlabel('BABYCON')
 ylabel('Count')
-title('Cat1: Histogram over 100 målinger')
+title('Latter: Histogram over 100 m?linger')
+\ No newline at end of file

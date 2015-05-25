@@ -156,6 +156,8 @@ Tanken bag implementeringen er at ved henholdsvis oprettelsen og nedlæggelsen a
 De tre opdaterings funktioner; \verb+updateToBabyCon1()+, \verb+updateToBabyCon2()+ og \verb+updateToBabyCon3()+ er implementeret således at de hver især sender en parameter fra 1-3 til \verb+updateFile(int)+. \\ 
 +updateFile(int)+ er skrevet sådan at den ved hjælp af en switch case tjekker på input parameteren og herefter opdaterer funktionen de valgte filer ved hjælp af FILE pointere. Disse FILE pointerer bruges til at indlæse filer som angiver Babycon tilstanden og herefter overskrive filerne som flask-serveren anvender til hjemmesiden.
 
+I denne iteration af Baby Watch systemet er der stadig begrænset funktionalitet på HTTP-serveren. Den mangler lydafspilning af alarmlyde og en timer der indikerer hvor lang tid babyen har lagt i barnevognen.
+
 \subsubsection*{Opbygning af Main}
 
 Et overblik over main opbygningen i pseudokode. 
