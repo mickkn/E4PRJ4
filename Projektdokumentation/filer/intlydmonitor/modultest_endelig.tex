@@ -1,0 +1,87 @@
+\section{Modultest: Intelligent Lydmonitor}
+
+\subsection{Formål}
+I dette afsnit følger den endelige modultest for Intelligent Lydmonitor. Den endelig funktionalitetsgrad og træfsikkerhed skal bestemmes. Dette gøres ved at lave histogram med 100 på hinanden følgende BABYCON statuser for hver lydfil. Intelligent lydmonitor testes med følgende lydfiler:
+\begin{itemize}
+	\item Hoejlydt\_babygraad1.wav
+	\item Hoejlydt\_babygraad2.wav
+	\item Moderat\_babygraad1.wav
+	\item Moderat\_babygraad2.wav
+	\item Trafik.wav
+	\item Cat.wav
+	\item Fuglefloejt.wav
+	\item Latter.wav
+\end{itemize}
+
+\subsection{Testopstilling}
+\begin{itemize}
+	\item Blackfin 533 er sluttet til 230VAC
+	\item Blackfin 533 er tilsuttet PC via COM-port
+	\item CrossCore Embedded Studio (CCES) samt en lydafspiller er kørende på PC
+	\item Lydoutputtet på en PC er tilstluttet Blackfin 533's Audio In left\_channel0
+\end{itemize}
+
+Data til histogrammet indsamles med Statistician-klassens test-funktion \verb+hitRatioTest()+, der kaldes ved hver ny BABYCON erhvervelse. Funktionen er vist herunder:
+\begin{verbatim}void hitRatioTest(int bc)
+{
+    ss_Histogram[ss_hist_count++] = bc;
+    if(ss_hist_count == SS_HIST_SIZE)
+    {
+        ss_hist_count = 0;
+        printf("Statistician: Histogram ready\n");
+    }
+}
+\end{verbatim}
+
+Herunder ses et screenshot af eksport af arrayet \verb+ss_Histogram[]+ via CrossCore Embedded Studio's "memory browser" 
+\figur{1}{intlydmonitor/modultest_endelig/hist_export}{Eksport af ss\_Histogram data}{IL_hist_export}
+
+Et matlab-program til plot af disse data ses herunder:
+\begin{verbatim}%**** HISTOGRAM PLOT *****************************************
+load data.dat;
+x = data;
+N = length(x);
+
+edges = [1 2 3];
+figure(2), hist(x, edges)
+xlabel('BABYCON')
+ylabel('Count')
+title('Data: Histogram over 100 målinger')
+\end{verbatim}
+
+\subsection{Testprocedure}
+Følgende procedure gentages for alle specificerede lydfiler:
+\begin{enumerate}
+	\item Lydfilen afspilles i "loop-mode" på PC
+	\item Projektet "Intelligent\_Lydmonitor startes i debug-mode
+	\item Et breakpoint sættes i "Statistician.c", linje 124 i funktionen \verb+hitRatioTest()+ efter linjen \verb+printf("Statistician: Histogram ready\n");+ 
+	\item Der klikkes på "resume"
+	\item Projektet køres indtil breakpoint
+	\item CCES memory browser benyttes til at eksportere arrayet \verb+ss_Histogram+ til en .dat-fil
+	\item Testen loades i matlab projektet "a\_hist\_plot.m" og eksekveres
+	\item Matlab eksekveres og et histogram printes 
+\end{enumerate}
+
+\subsection{Forventede resultater} 
+\textit{Detektion af Højlydt babygråd:} Det forventes af optagelserne af ''Hoejlydt\_babygraad1.wav'' og ''Hoejlydt\_babygraad2.wav'' primært resulterer i BABYCON1. Dog forventes en mængde BABYCON2 detektioner, idet en baby's gråd er svært kvantiserbar og ofte vil ligge i et mellemleje mellem BABYCON1 og BABYCON2. \\
+
+\textit{Detektion af Moderat babygråd:} Det forventes at optagelserne ''Moderat\_babygraad1.wav'' og ''Moderat\_babygraad2.wav'' primært resulterer i BABYCON2. Dog forventes ligeledes nogle få BABYCON1 detektioner, samt en del BABYCON3 detektioner, grundet optagelsernes dynamiske karakter. \\
+
+\textit{Detektion af Omgivelsesstøj:} Det forventes at optagelserne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav'' primært resulterer i BABYCON3. Dog forventes nogle få BABYCON2 detektioner. Kun et minimum BABYCON1 detektioner forventes og tolereres, eftersom denne status er af disruptiv karakter for systemet.\\
+
+\subsection{Resultat} 
+I følgende afsnit ses histogrammer for BABYCON detektioner af tidligere beskrevne lydfiler. Ligeledes forefindes en opsummering af detektions-resultater på tabelform samt en endelig "hit rate" (træfsikkerhed) for systemet.
+
+\subsubsection{Histogrammer}
+\figur{1}{intlydmonitor/modultest_endelig/hoejlydt_1_2_hist}{Histogram over BABYCON-status for 100 optagelser af lydfilerne ''Hoejlydt\_babygraad1.wav'' og ''Hoejlydt\_babygraad2.wav''}{IL_test_hoej_hist}
+\figur{1}{intlydmonitor/modultest_endelig/moderat_1_2_hist}{Histogram over BABYCON-status for 100 optagelser af lydfilerne ''Moderat\_babygraad1.wav'' og ''Moderat\_babygraad2.wav''}{IL_test_mod_hist}
+\figur{1}{intlydmonitor/modultest_endelig/omgivelser_hist}{Histogram over BABYCON-status for 100 optagelser af lydfilerne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav''}{IL_test_omg_hist}
+
+\subsubsection{Resultat opsummering}
+
+\subsubsection{Hit rate}
+
+\subsubsection{Konklusion}
+
+\textit{Er testen godkendt?}
+
