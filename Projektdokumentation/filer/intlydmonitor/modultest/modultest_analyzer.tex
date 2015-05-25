@@ -19,27 +19,98 @@ De individuelle analyse-funktioner i Analyzer skal valideres. Disse funktioner e
 	\item En sinus-generator er tilsluttet Blackfin 533's Audio In left\_channel0
 \end{itemize}
 
-\textit{\textbf{Test af Sound Pressure Level}}\\
-\textbf{Testprocedure}
+\textbf{\textit{Test af Sound Pressure Level}}\\
+\textbf{SPL: Testprocedure}
 \begin{enumerate}
-	\item Den tilkoblede sinusgenerator genererer en sinus med amplituden 1V og frekvensen 880Hz.	
-	\item Projektet med Analyzer testen eksekveres 
-	\item RecBuf fyldes med data læst fra ADC'en og filtreret med Prefiltret.
-	\item Projektet køres indtil breakpoint, sat umiddelbart efter benyttelsen af funktionen \verb+an_calcSPl()+
-	\item CCES memory browser benyttes til at aflæse variablen an\_spl. 
-	\item Testen punkt 1-5 gentages med en sinus med en amplitude 100mV.
+	\item Den tilkoblede sinusgenerator genererer en sinus med amplituden 1V og frekvensen 880Hz	
+	\item Projektet med Analyzer testen startes i debug-mode
+	\item Et breakpoint sættes i "Analyzer.c", linje 36 
+	\item Der klikkes på "resume"
+	\item Projektet køres indtil breakpoint
+	\item CCES memory browser benyttes til at aflæse variablen an\_spl 
+	\item Testen punkt 1-5 gentages med en sinus med en amplitude 100mV
 \end{enumerate}
 
-\textbf{Forventet resultat} \\
-Ved input-sinus med amplituden 1V forventes at variablen \verb+an_spl+ er 0dBV +/- 1dBV. Ved amplituden 100mV forventes en værdi på -20dBV +/- 1dBV.
+\textbf{SPL: Forventet resultat} \\
+Jævnfør beregningerne i \ref{an_spl} forventes ved input-sinus med amplituden 1V at variablen \verb+an_spl+ er 0dBV. Ved amplituden 100mV forventes en værdi på -20dBV. Eftersom funktionen blot er tænkt som grovfiltrering, accepteres en afvigelse på +/- 2dBV.
 
-\textbf{Resultat} \\
+\textbf{SPL: Resultat} \\
+\figur{1}{intlydmonitor/modultest/an_spl_1V_880Hz}{Aflæst SPL-værdi ved 880Hz sinus med 1 V amplitude}{an_spl_1V}
+\figur{1}{intlydmonitor/modultest/an_spl_100mV_880Hz}{Aflæst SPL-værdi ved 880Hz sinus med 100 mV amplitude}{an_spl_100mV}
+Som det ses af ovenstående figurer, \ref{an_spl_1V} og \ref{an_spl_100mV}, måles hhv. 0.53 dBV ved input med 1V amplitude og -18.76 dBV ved input på 100mV amplitude. SPL er således målt med afvigelse på hhv. 0.53 dBV og 1.24 dBV, hvilket er inden for den specificerede tollerence.
+ 
+\textit{Testen af Sound Pressure Level er godkendt}
 
-%\figur{0.3}{intlydmonitor/modultest/First_output}{Første udskrift i kommandoprompten}{FirstRecBufTest}
+\textbf{\textit{Test af Fast Fourier Transformation}}\\
+\textbf{FFT: Testprocedure}
+\begin{enumerate}
+	\item Der genereres et to-tonet testsignal bestående af to overlejrede sinuser med 1V amplitude og frekvenserne 1kHz og 6kHz.	
+	\item Projektet med Analyzer testen startes i debug-mode
+	\item Et breakpoint sættes i "Analyzer.c", linje 40 
+	\item Der klikkes på "resume"
+	\item Projektet køres indtil breakpoint
+	\item CCES memory browser benyttes til at eksportere arrayet \verb+an_freqSpec+ til en .dat-fil 
+	\item .dat-filen loades i matlab og printes med x-akse svarende til de enkelte pladsers repræsenterede frekvenser.
+\end{enumerate}
+Se BILAG Analyzer\_test.m for matlab testkode. Et screenshot af data-eksport ses herunder:
+\figur{1}{intlydmonitor/modultest/an_freqSpec_data_export}{Eksport af an\_freqSpec[]}{an_freqSpec_data_exp}
+
+\textbf{FFT: Forventet resultat} \\
+På plottet af arrayet \verb+an_freqSpec[]+ forventes markante frekvenspeaks at befinde sig ved hhv. 1kHz og 6kHz. 
+
+\textbf{FFT: Resultat} \\
+\figur{0.7}{intlydmonitor/modultest/an_freqSpec_print}{Genereret frekvensspektrum med x-aksens frekvensbins repræsenteret som frekvenser}{an_freqSpec_print}
+Som vi kan se på \ref{an_freqSpec_print}, forefindes som forventet to tydelige frekvenspeaks ved 1kHz og 4kHz. Imidlertid ses også 2. og 3. harmoniske af 1kHz-sinusen. Idet test-signalet blev genereret i Matlab og dermed outputtet via PC'ens lavkvalitets DAC, tilstrives denne harmoniske forvrængning DAC'en.
+\textit{Testen af Fast Fourier Transform er godkendt}
+
+\textbf{\textit{Test af omregning fra gain til dB}}\\
+\textbf{FFT: Testprocedure}
+\begin{enumerate}
+	\item Der genereres et to-tonet testsignal bestående af to overlejrede sinuser med 1V amplitude og frekvenserne 1kHz og 6kHz.	
+	\item Projektet med Analyzer testen startes i debug-mode
+	\item Et breakpoint sættes i "Analyzer.c", linje 41 
+	\item Der klikkes på "resume"
+	\item Projektet køres indtil breakpoint
+	\item CCES memory browser benyttes til at eksportere arrayet \verb+an_freqSpecdB+ til en .dat-fil 
+	\item .dat-filen loades i matlab og printes med x-akse svarende til de enkelte pladsers repræsenterede frekvenser.
+\end{enumerate}
+
+\textbf{g2dB: Forventet resultat} \\
+De to peaks fra "Test af Fast Fourier Transformation" har en gain målt til hhv. 0.03998 gg og 0.02673 gg. I dB giver dette:
+\begin{center} 
+$peak1kHZdB=20\log _{ 10 }{ \left( 0.03998 \right)  } =-27.96\quad dB $ \\
+$peak4kHzdB=20\log _{ 10 }{ \left( 0.02673 \right)  } =-31,46\quad dB $
+\end{center}
+Disse værdier forventes set på frekvensspektret.
+
+\textbf{g2dB: Resultat} \\
+\figur{0.7}{intlydmonitor/modultest/an_freqSpecdB_print}{Genereret frekvensspektrum med x-aksens frekvensbins repræsenteret som frekvenser}{an_freqSpecdB_print}
+Som det ses af \ref{an_freqSpecdB_print} opnås præcis de forventede peak-værdier.
+ 
+\textit{Testen er godkendt}
+
+\textbf{\textit{Test af Smoothing af FFT-spektrum}}\\
+\textbf{Smooth: Testprocedure}
+\begin{enumerate}
+	\item Optagelsen "Hoejlydt\_babygraad2" afspilles fra computeren.
+	\item Projektet med Analyzer testen startes i debug-mode
+	\item Et breakpoint sættes i "Analyzer.c", linje 43 
+	\item Der klikkes på "resume"
+	\item Projektet køres indtil breakpoint
+	\item CCES memory browser benyttes til at eksportere arrayet \verb+an_freqSpecdB+ til en .dat-fil 
+	\item .dat-filen loades i matlab og printes med x-akse svarende til de enkelte pladsers repræsenterede frekvenser.
+	\item CCES memory browser benyttes til at eksportere arrayet \verb+an_freqSpecSmooth+ til en .dat-fil 
+	\item .dat-filen loades i matlab og printes med x-akse svarende til de enkelte pladsers repræsenterede frekvenser.
+\end{enumerate}
+
+\textbf{Smooth: Forventet resultat} \\
+Der forventes at se et markant glattere signal med en indsvingning fra 0-818 Hz. Der forventes ligeledes at karakteristiske peaks bibeholdes, dog forskubbet omtrent 800 Hz til højre.
+
+\textbf{Smooth: Resultat} \\
+\figur{1}{intlydmonitor/modultest/an_freqSpecSmooth_hoejlydt2_pre_post}{Hoejlydt\_baby2 FFT med og uden smoothing}{an_freqSpecSmooth_print}
+Der opnås betydelig udglatning af signalet, der som forventet har en filter-indsvingning fra 0-818 Hz og er forskubbet omtret 800 Hz.
 
 \textit{Testen er godkendt}
 
-
-
-
-
+\textbf{\textit{Analyzer samlet konklusion}}\\
+Det er således lykkedes at analysere data med hensyn til SPl, FFT, g2dB og Smooth, og et categoriserbart datasæt er klargjort.
