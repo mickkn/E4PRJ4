@@ -72,7 +72,7 @@ Følgende vil gennemgå funktionaliteten for hver boks fra start fra venstre mod
     \begin{tabular}{| p{14.5cm} |}
     \hline
     \textit{Debug:} \\ \hline
-    Debug boksen sørger for et UART interface mellem PSoC4 micro controlleren og en computerterminal samt at sætte en GPIO-pin høj. Begge dele er til debugging af Regulerings MCU'en. \\ \hline
+    Debug boksen sørger for et UART interface mellem PSoC4 micro controlleren og en computerterminal samt at sætte en GPIO-pin høj mens PSoC4 chippen laver aktive beregninger. Begge dele er til debugging af Regulerings MCU'en. \\ \hline
     \end{tabular}
 \end{center}
 
@@ -168,19 +168,25 @@ Koden er implementeret som beskrevet i applikationsmodellen fra Vuggesystem Syst
 \textbf{vuggeControl (main):} \\
 Tanken bag vuggesystemets main-funktion \verb+VuggeControl+, er at den under opstart skal initier alle hardware blokkene og deres funktionaliteter igennem initierings kald til de andre  filer i Regulerings MCU. Derefter skal den kører i loop som beskrevet i sekvens diagrammet i afsnit \vref{Vuggesystem:SD}. Loopet kører med en frekvens på 200Hz ved hjælp af \textit{Loop timing} hardware boksen beskrevet i ovenstående afsnit \vref{vuggesystem: impl,Loop timing}. \\ 
 
+
 \verb+VuggeControl+filen indeholder få hjælpefunktioner som hver især sørger for tjekke systemkritiske informationer, debugging eller nødstop af motoren(Hvilket ikke er fuldt implementeret i denne iteration af projektet). \\
 
 Af systemkritiske informationer kan nævnes; et eksternt interrupt om at en Endstop Sensor er aktiveret og at systemet derfor skal gå i nødstop, at Baby Watch Controller vil slukke vuggesystemet og at regulerings status skal tjekkes for fejl i reguleringen.\\ 
 
 Nødstop-funktionen der lukker vuggesystemet er egentligt tiltænkt at skulle slukke et relæ der styrer strømtilførelsen til motoren men som nævnt tidligere er denne funktionalitet ikke implementeret i denne udgave af projektet. Funktionen sørger istedet for at neutraliserer PWM-signalet der styrer motoren så motoren derigennem ikke får strøm. \\ 
 
-Til at styrer main-loopets 200Hz hastighed bruges et timer-interrupt der sætter et flag højt hver gang et nyt gennemløb af loopet skal køres. I main-loopet kaldes der først førnævnte systemkritiske tjek efterfulgt af en opdatering af de nyeste vuggeudsving- og vuggefrekvensværdier fra Baby Watch Controller, herefter hentes og beregnes barnevognskurvens vinkel relativ til tyngdefeltet. Denne vinkel videresendes til reguleringen som beregner et output som lægges ind til motorstyringens PWM blok. Loopet slutter med at resette flaget så det er klart til et nyt gennemløb. Koden kan ses på \citep{cd} under \verb+vuggeControl.c+ \\
+Til at styrer main-loopets 200Hz hastighed bruges et timer-interrupt der sætter et flag højt hver gang et nyt gennemløb af loopet skal køres. I main-loopet kaldes der først førnævnte systemkritiske tjek efterfulgt af en opdatering af de nyeste vuggeudsving- og vuggefrekvensværdier fra Baby Watch Controller, herefter hentes og beregnes barnevognskurvens vinkel relativ til tyngdefeltet. Denne vinkel videresendes til reguleringen som beregner et output som lægges ind til motorstyringens PWM blok. Loopet slutter med at resette flaget så det er klart til et nyt gennemløb. \\
+For at være sikre på at PSoC4 chippen kan nå at gennemføre main loopet med 200Hz måles der på aktivitets GPIO'en fra \textit{Debug} hardware boksen.
+\figur{0.9}{vuggesystem/impl/aktivitets_debug.pdf}{Oscilloskopbillede af PSoC4 chippens aktive beregninger i forhold til et 200Hz loop}{VS:aktivity_debug}
+Som det kan ses af oscilloskop billedet bliver ca 20\% af loop tiden brugt på beregninger. 1.1ms $\div$ 5ms $\approx$ 20\%
+
+vuggeControl koden kan ses på \citep{cd} under \verb+vuggeControl.c+ \\
 
 \label{vugsys:impl, i2cKommunikation}\textbf{i2cKommunikation} \\ \verb+i2cKommunikation+ filen sørger for initierer den førnævnte Controller I2C hardware der indeholdte et I2C Slave interface og derefter bruge denne til at opdaterer et I2C register med informationer som skal kommunikeres mellem de to moduler jf. Grænseflade mellem Vuggesystem og Controller i den overordnede Baby Watch Systemarkitektur afsnit \ref{overordnet:i2c_tabel}. Som sikkerhed i kommunikationen er der sat begrænsning på at register 0x04 der indeholder vuggesystemet status ikke kan ændres udfra dvs. fra Baby Watch Controller. Kode ses på: \citep{cd} under \verb+i2cKommunikation.c+ og \verb+i2cKommunikation.h+\\
 
 \label{vugsys:impl, sensFortolk}\textbf{sensorFortolker}  \\
 \verb+sensorFortolker+ står for alt kommunikation mellem sensorer (Endstop Sensor og Vuggeudsving sensor) og Regulerings MCU samt beregninger af data fra disse der giver barnevognskurvens nuværende vinkel. Dette gøres, som nævnt under Regulerings MCUs hardware moduler, vha. hjælp af et I2C Master interface og et GPIO styret interrupt. 
-\textbf{Sensor konfiguration:} \\
+\textit{Sensor konfiguration:} \\
 Da den valgte sensorkreds (MPU6050) er i stand til at køre på mange forskellige måder kræves der en indledende opsætning af sensoren før den kan benyttes. Dette gøres ved at skrive til en række registre på enheden gennem I2C bussen \citep{I2C}. Der skrives til følgende registre:
 \begin{center}
     \begin{tabular}{| c | c | p{8cm} |}
@@ -196,7 +202,7 @@ Da den valgte sensorkreds (MPU6050) er i stand til at køre på mange forskellig
     0x6B & 0b00000001 & chippens clk sættes til at være x gyroskopets oscilator, da denne er mere præcis \\ \hline
     \end{tabular}
 \end{center}
-\textbf{Dataindsamling:} \\
+\textit{Dataindsamling:} \\
 MPU6050 chippen genererer en puls på dataInt benet, hvorefter der læses fra følgende I2C registre:
 \figur{0.75}{vuggesystem/impl/i2cDataReg.pdf}{udsnit af i2c register oversigt fra datablad}{vugsys:dataReg}
 Herefter bitshiftes de høje databytes (\_H) 8 bits til vænstre og adderes med de tilhørende lave databytes.\\
@@ -238,7 +244,7 @@ For at komme dette til livs er en PID regulator implementeret, hvis konstanter e
 Idet systemet ikke kan bringes til stabilitet med et rent P led kan en traditionel Ziegler-Nichols kalibrering ikke benyttes. Det er dog muligt at udføre en lignende kalibrering hvor systemet bringes til stabil oscillation med et PD led hvor der benyttes en fast ratio mellem de to, svarende til ovennævnte medtode. herved kan en egenfrekvens bestemmes, samt en grænseforstærkning, og parametrene for PID kan bestemmes.\\
 
 \textit{Lead/lag regulator}\\
-Efter at en fungerende PID-regulering er implementeret, kan en frekvenskarakteristik af systemet med denne regulering udføres. Ved hjælp af denne frekvenskarakteristik samt den teoretiske udredning af det mekaniske vuggesystem fra afsnit \vref{Vuggesystem: Design_MekVug} og implementeringen af det mekaniske vuggesystem med værdier for vægt og gearing for systemet, kan en overføringsfunktion for vuggesytem således laves. Denne overføringsfunktion kan derefter udvides med en lead/lag regulering, som beskrevet i bilaget Analysis and Design procedure \citep{IRT} fra E4IRT faget. Dette vil give en forberedt regulering af vuggesystem i forhold til PID-reguleringen.
+Efter at en fungerende PID-regulering er implementeret, kan en frekvenskarakteristik af systemet med denne regulering udføres. Ved hjælp af denne frekvenskarakteristik samt den teoretiske udredning af det mekaniske vuggesystem fra afsnit \vref{Vuggesystem: Design_MekVug} og implementeringen af det mekaniske vuggesystem med værdier for vægt og gearing for systemet, kan en overføringsfunktion for vuggesytem således laves. Denne overføringsfunktion kan derefter udvides med en lead/lag regulering, som beskrevet i bilaget Analysis and Design procedure \citep{IRT} fra E4IRT faget på \citep{cd} under \textit{/Andet}. Dette vil give en forberedt regulering af vuggesystem i forhold til PID-reguleringen.
 
 Kode ses på: \citep{cd} under \verb+regulering.c+ og \verb+regulering.h+\\
 
