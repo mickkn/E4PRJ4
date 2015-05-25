@@ -5,7 +5,7 @@ Prefilter står for forfiltreringen af signalet modtaget fra Blackfin-kittets AD
 Denne forfiltrering består af
 \begin{itemize}
 	\item Decimation bestående af lavpasfiltrering og downsampling
-	\item Oprindeligt: Højpasfiltrering til fra filtrering af lavfrekvent støj såsom vind.
+	\item Oprindeligt: Højpasfiltrering til frafiltrering af lavfrekvent støj såsom vind.
 \end{itemize}
 
 \subsubsection{Decimation}
@@ -13,8 +13,8 @@ Blackfin kittets AD1836 sampler med 48 kHz. Idet mikrofonens båndbredde er 10kH
 Vores range of interest bliver 0-10 kHz.
 
 \subsubsection*{Lavpasfiltrering} 
-Det ønskes at lave et FIR lavpasfiltr, der dæmper ripple fra det spektrale spejlings-replika omkring den nye sample-frekvens med ca. 60dB. 
-I figurudsnittet herunder ses en illustration af lavpasfilterets frekvensrespons relativt til båndbredden B':
+Det ønskes at lave et FIR lavpasfilter, der dæmper ripple fra det spektrale spejlings-replika omkring den nye sample-frekvens med ca. 60dB. 
+I figurudsnittet herunder ses en illustration af lavpasfiltrets frekvensrespons relativt til båndbredden B':
 
 \figur{0.6}{intlydmonitor/design/lp_understanding_dsp_fig_10_2}{Lavpasfilterets frekvensrespons relativt til båndbredden B'. Kilde: Lyons, fig. 10.2}{intlyd:prefilter:lp_kar}
 Vi kan beregne den nødvendige filterorden ved Lyons Eq.5-49:
@@ -23,7 +23,7 @@ ${ N }_{ FIR }\approx \frac { Atten }{ 22\cdot \left( { f }_{ stop }-{ f }_{ pas
 \end{center}
 Hvor Atten er den ønskede dæmpning i dB og f\begin{tiny}stop\end{tiny} og f\begin{tiny}pass\end{tiny} er frekvenser normaliseret til fs. I vores tilfælde bliver ${ N }_{ FIR }=33$.
 
-Filteret beregnes i matlab med funktionen \verb+fir1()+ som følger:
+Filtret beregnes i matlab med funktionen \verb+fir1()+ som følger:
 \begin{verbatim}%**** LOW PASS ***********************************************
 atten = 60;                 %ønsket dæmpning i dB
 f_pass =  bw/fs             %freq normalized to fs
@@ -81,7 +81,7 @@ Herunder følger forklaring af implementering: \\
 		pf_decima_coeffs[k] = float_to_fr32 (FIR_coeffs[k]);
 	}
 \end{verbatim}
-Herudover initieres arrayet \verb+pf_decima_delay[PF_DEC_COEFFS]+ samt input bufferen \verb+pf_decima_input[]+ med en størrelse lige decimations-indexet (2).
+Herudover initieres arrayet \verb+pf_decima_delay[PF_DEC_COEFFS]+ samt input bufferen \verb+pf_decima_input[]+ med en størrelse lig decimations-indexet (2).
 
 Filterkoefficienter og delay-line oprettes i med specifik placering i hukommelsen for at lette efterfølgende foldning:
 \begin{verbatim}
@@ -105,8 +105,8 @@ if(pf_decima_count == PF_DEC_INSAMPLES-1)
 	rb_storeData(pf_decima_output[0]);
 }
 \end{verbatim}
-Således opdateres input-bufferen første med det nyest erhvervede sample. Når input-bufferen er fyldt, kaldes funktionen \verb+fir_decima_fr32()+, der opdaterer output arrayet med den filtrerede sekvens. Denne gemmes i RecBuf med funktionen \verb+rb_storeData()+.
-Følgende ligning ligger til bunds for decimations-algoritmen:
+Således opdateres input-bufferen først med det nyest erhvervede sample. Når input-bufferen er fyldt, kaldes funktionen \verb+fir_decima_fr32()+, der opdaterer output arrayet med den filtrerede sekvens. Denne gemmes i RecBuf med funktionen \verb+rb_storeData()+.
+Følgende ligning ligger til bund for decimations-algoritmen:
 \begin{center}
 $y\left( i \right) =\sum _{ j=0 }^{ k-1 }{ x\left( i\bullet l-j \right) \bullet h\left( j \right)  } $
 \end{center}
