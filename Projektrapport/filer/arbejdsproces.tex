@@ -30,7 +30,7 @@ Gruppen har som beskrevet arbejdet i tre mindre teams i den fag-specifikke fase.
 Felix og Jeppe har... SKRIV HER
 
 \subsection*{Kristian og Lukas}
-Kristian og Lukas har... SKRIV HER :D
+Kristian og Lukas har haft ansvaret for udviklingen af den Intelligente Lydmonitor. Denne består af en mikrofon-kreds til måling  og en software implementering af optagelse, analyse og kategorisering af baby-lyd på et Blackfin 533 (BF533) udviklingsboard. For mikrofonkredsen benyttes en elektret mikrofon og kredsen efterfølges af et 4. ordens analogt Butterworth lavpasfilter til sikring af høj signal-to-noise-ratio på indgangen af udviklingsboardets AD1836 codec. Som forundersøgelse for software-implementeringen er foretaget analyse af diverse almindelige lyde fra et babyvugnings-scenario, hvor DSP-redskaberne Windowing, Fast Fourier Transform, Tonal Power Ratio og spektrogram (Short-time DFT) benyttes. Disse redskaber indgår ligeledes ved implementering på BF533-boardet, hvor decimering, analyse af Sound Pressure Level samt flere buffering metoder også tages i brug. For at realisere projektet tilgås desuden udviklingsboardets AD1836 codec samt BF533 GPIO'er til kommunikation med Controller. 
 
 \subsection*{Mick og Poul}
 Mick og Poul har haft ansvaret for Controlleren. Controlleren består primært af software afviklet på en Raspberry Pi. Opgaverne har indbefattet kommunikation imellem både Intelligent lydmonitor og Vuggesystemet, netværksforbindelse og e-mail afsendelse. 
