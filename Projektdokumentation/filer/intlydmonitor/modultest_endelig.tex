@@ -63,13 +63,13 @@ Følgende procedure gentages for alle specificerede lydfiler:
 \end{enumerate}
 
 \subsection{Forventede resultater} 
-\textit{Detektion af Højlydt babygråd:} Det forventes af optagelserne af ''Hoejlydt\_babygraad1.wav'' og ''Hoejlydt\_babygraad2.wav'' primært resulterer i BABYCON1. Dog forventes en mængde BABYCON2 detektioner, idet en baby's gråd er svært kvantiserbar og ofte vil ligge i et mellemleje mellem BABYCON1 og BABYCON2. \\
+\textit{Højlydt babygråd:} Det forventes af optagelserne af ''Hoejlydt\_babygraad1.wav'' og ''Hoejlydt\_babygraad2.wav'' primært resulterer i BABYCON1. Dog forventes en mængde BABYCON2 detektioner, idet en baby's gråd er svært kvantiserbar og ofte vil ligge i et mellemleje mellem BABYCON1 og BABYCON2. 
 
-\textit{Detektion af Moderat babygråd:} Det forventes at optagelserne ''Moderat\_babygraad1.wav'' og ''Moderat\_babygraad2.wav'' primært resulterer i BABYCON2. Dog forventes ligeledes nogle få BABYCON1 detektioner, samt en del BABYCON3 detektioner, grundet optagelsernes dynamiske karakter. \\
+\textit{Moderat babygråd:} Det forventes at optagelserne ''Moderat\_babygraad1.wav'' og ''Moderat\_babygraad2.wav'' primært resulterer i BABYCON2. Dog forventes ligeledes nogle få BABYCON1 detektioner, samt en del BABYCON3 detektioner, grundet optagelsernes dynamiske karakter. 
 
-\textit{Detektion af Omgivelsesstøj:} Det forventes at optagelserne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav'' primært resulterer i BABYCON3. Dog forventes nogle få BABYCON2 detektioner. Kun et minimum BABYCON1 detektioner forventes og tolereres, eftersom denne status er af disruptiv karakter for systemet.\\
+\textit{Omgivelsesstøj:} Det forventes at optagelserne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav'' primært resulterer i BABYCON3. Dog forventes nogle få BABYCON2 detektioner. Kun et minimum BABYCON1 detektioner forventes og tolereres, eftersom denne status er af disruptiv karakter for systemet.
 
-\subsection{Resultat} 
+\subsection{Resultater} 
 I følgende afsnit ses histogrammer for BABYCON detektioner af tidligere beskrevne lydfiler. Ligeledes forefindes en opsummering af detektions-resultater på tabelform samt en endelig "hit rate" (træfsikkerhed) for systemet.
 
 \subsubsection{Histogrammer}
@@ -78,10 +78,29 @@ I følgende afsnit ses histogrammer for BABYCON detektioner af tidligere beskrev
 \figur{1}{intlydmonitor/modultest_endelig/omgivelser_hist}{Histogram over BABYCON-status for 100 optagelser af lydfilerne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav''}{IL_test_omg_hist}
 
 \subsubsection{Resultat opsummering}
+Resultater af testen er opsummere i de tre kategorier ''Højlydt babygråd'', ''Moderat babygråd'' og ''Omgivelsesstøj'' med en procentvis detektering af de tre BABYCON statuser.
 
-\subsubsection{Hit rate}
+\begin{center}
+    \begin{tabular}{ | l | l | l | l |}     					
+    \hline
+	\textbf{Kategori}	& \textbf{BABYCON1}	& \textbf{BABYCON2}	& \textbf{BABYCON3}  \\ \hline
+    Højlydt babygråd	& 49,50\%			& 34,50\%			& 16,00\%   		\\ \hline
+    Moderat babygråd 	& 0,00\%			& 59,50\%			& 40,50\%   		\\ \hline
+    Omgivelsesstøj 		& 0,25\%			& 11,00\%			& 91,25\%   		\\ \hline
+    \end{tabular}
+\end{center}
+
+
+\subsubsection{Hit ratio}
+Idet det antages at en optagelse af ''Højlydt babygråd'' altid bør resultere i et BABYCON1, og ''Moderat babygråd'' og ''Omgivelsesstøj'' ligeledes bør resultere i hhv. BABYCON2 og BABYCON3, kan en hit ratio for den enkelte detektionstype aflæses direkte af tabellen afsnittet herover. Den samlede hit-radio bliver:
+
+\begin{center}
+$ HitRatio=\frac { hits }{ total\quad tries } =\frac { 99+119+365 }{ 200+200+400 } =72.9 $\%
+\end{center}
+
 
 \subsubsection{Konklusion}
+Antages en løs tankegang hvor brugssituationen tages i betragtning, er det langt hen ad vejen lykkedes at implementere den Intelligente Lydmonitor tilfredsstillende. \textit{BABYCON1} detekteres næsten udelukkende ved optagelser af højlydt babygråd med en detektion ved 1\% af Latter tilfældene. \textit{BABYCON2} detekteres i højest grad ved moderat babygråd, med en del detektioner ved højlydt babygråd samt dyrelyde som katte-mjauen en fuglefløjt. \textit{BABYCON3} detekteres mellem 70 og 100\% af tiden ved andre optagelser end babygråd, hvor fuglefløjt har laveste og trafikstøj højeste procentsats. BABYCON3 detekteres indimellem ved både højlydt og moderat babygråd, men eftersom denne status er fredelig, antages denne fejltagelse for mindre væsentlig.
 
-\textit{Er testen godkendt?}
+For et mere rigidt udgangspunkt, hvor det antages at de givne optagelser af eksempelvis ''Højlydt babygråd'' hver gang bør resultere i BABYCON1,  er det lykkedes at implementere en Intelligent Lydmonitor, der for de angivne lydfiler har en \textit{HitRatio = 72.9\%}.
 

@@ -19,4 +19,3 @@ figure(2), hist(x, edges)
 xlabel('BABYCON')
 ylabel('Count')
 title('Latter: Histogram over 100 m?linger')
-\ No newline at end of file
