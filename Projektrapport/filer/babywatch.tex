@@ -53,14 +53,18 @@ Der er brugt skærmede USB-kabler til \iic-forbindelsen for at modvirke støj p�
 
 \subsection{Kommunikationsprotokol}
 
-\iic-protokollen er opbygget med registre, der er 5 registrer.
+\iic-protokollen er opbygget med registre, der er fem registrer.
 
 \begin{itemize}
 \item \textbf{\textit{ID}} Et ID register som ikke bliver brugt i systemet, men er til for at skelne \iic slaver imellem hinanden ved flere slaver i et system
 \item \textbf{\textit{ON\_OFF}} Register til tænd og sluk af vuggesystemet, Controller skriver til dette register
-\item \textbf{\textit{Frekvens}} Register til at angive vuggefrekvens til vuggesystemet, Controller skriver til dette register
-\item \textbf{\textit{Vinkel}} Register til at angive vuggevinklen til vuggesystemet, Controller skriver til dette register
-\item \textbf{\textit{Status}} Register der læses af Controller. Registeret består af en 8 bits bitsekvens \verb+<0x0000xxxx>+ hvoraf de 4 MSB er brugt til status kommunikation til Controlleren. \verb+<ERR>+ er en fejl der sætter vuggesystemet i undtagelsestilstand, \verb+<STALL>+ er en bit der sættes hvis fejlen er opstået ved en belastning og \verb+END_STP+ er hvis fejlen er opstået ved at vuggen er kommet i en yderposition. \verb+SD_RDY+ er en indikation til Controller om at vuggesystemet er klar til at lukke ned, når der sendes et OFF signal til vuggesystemet. 
+\item \textbf{\textit{Frekvens}} Register til at angive vuggefrekvens til vuggesystemet, Controller skriver til dette register. \verb+0-255+.
+\item \textbf{\textit{Vinkel}} Register til at angive vuggevinklen til vuggesystemet, Controller skriver til dette register. \verb+0-255+.
+\item \textbf{\textit{Status}} Register der læses af Controller. Registeret består af en 8 bits bitsekvens hvor 1 er status-aktiv og 0 status-deaktiv \verb+<0x0000xxxx>+ hvoraf de 4 MSBs er brugt til status kommunikation til Controlleren.\\ 
+\verb+<ERR>+ er en fejl der sætter vuggesystemet i undtagelsestilstand. \\
+\verb+<STALL>+ er en bit der sættes hvis fejlen er opstået ved en belastning. \\
+\verb+<END_STP>+ er hvis fejlen er opstået ved at vuggen er kommet i en yderposition. \\
+\verb+<SD_RDY>+ er en indikation til Controller om at vuggesystemet er klar til at lukke ned, når der sendes et OFF signal til vuggesystemet fra Controller til \verb+ON\_OFF registeret+. 
 \begin{center}
 \verb+<ERR><STALL><END_STP><SD_RDY><X><X><X><X>+
 \end{center}

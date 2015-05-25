@@ -1,7 +1,35 @@
 %analyzer
 \subsection{Analyzer}
+Analyzer har til opgave at foretage følgende analyser:
+\begin{itemize}
+	\item Sound Pressure Level
+	\item Fast Fourier Transformation
+	\item Tonal Power Ratio
+	\item Smoothing af frekvensspektrum
+\end{itemize}
 
-\subsubsection{SPL}
+\subsubsection{Overordnet analyse-funktion}
+Klassens analyse-funktioner benyttes af en overordnet analyse-funktion, der kaldes fra \verb+RecBuf+ når en databuffer er fyldt. Denne modtager således et buffer-nummer når den kaldes. Funktionen følger sekvensen beskrevet i \ref{IL_SD}. Implementeringen er vist herunder:
+\begin{verbatim}void an_analyze(bool curBufRdy)
+{
+    an_curBufRdy = curBufRdy;
+
+    an_spl = an_calcSPL();
+    if(an_spl > AN_SPLTHRESH)
+    {
+        an_calcFFT();			
+        an_tpr = an_calcTPR();
+        an_g2dB();
+        an_smooth(AN_M_SMOOTH);
+
+        cg_categorize();
+    }
+    else
+        ss_calcSignificans(BABYCON3);
+}\end{verbatim}
+Hvis den indledende SPL-analyse er under threshold, kaldes \verb+Statistician+ med funktionen \verb+ss_calcSignificans()+ således direkte med BABYCON3. Eller gennemløbes klassens øvrige analyse-funktion er og videre processering foretages af \verb+Categorizer+.
+
+\subsubsection{Sound Pressure Level} \label{an_spl}
 I dette afsnit beskrives design og implementering af Analyzers funktion \verb+calcSPL()+.\\ \\
 \textbf{\textit{Princip}}\\
 For at ikke at benytte unødig processorkraft på beregne FFT af en støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Dette beregnes som dBV, hvor et signal med amplituden 1 V vil resultere i en SPL måling på 0 dBV. Den maksimale amplitude for input-signalet er 1.65 V. Målt i dBV er dette:
@@ -16,9 +44,177 @@ ${ SPL }_{ 100mV }\quad =\quad 20\cdot \log _{ 10 }{ \left( \frac { 0.1V }{ 1V }
 
 Idet ADC'en kører i med en opløsning på 16 bit, hvoraf det første er sign, vil dette resultere i følgende værdier som fract16 for maximal amplitude og amplitude på 100 mV:
 \begin{center}
-${ floatval }_{ 1,65V }=1-{ 2 }^{ -15 }=0.9999694824$ \\
+${ floatval }_{ 1,65V }=1-{ 2 }^{ -15 }=0.9999694824$ 
+\end{center}
+\begin{center}
 $fractVal_{ 100mV }=\frac { { 2 }^{ 15 }-1 }{ 1.65V } \cdot 100mV\cdot { 2 }^{ -16 }=0.06060421105$
 \end{center}
 
 \textbf{\textit{Implementering}} \\
 Det målte SPL-niveau skal kun tænktes som grov-filtrering, implementeres ganske simpelt ved at finde optagelsens højeste værdi. Analyzer-modulet initieres således med en forudbestemt SPL threshhold, der benyttes til at vurdere hvorvidt optagelsen indeholder signal nok til at en FFT kan betale sig.
+\begin{verbatim}
+float an_calcSPL(void)
+{
+    /* Find max-value */
+    fract32 maxFr = 0.0;
+    fract32* bufPtr = NULL;
+    if(an_curBufRdy == 0)   bufPtr = rb_mem0;
+    else                    bufPtr = rb_mem1;
+	
+    int i;
+    for(i = 0; i < AN_NFFT; i++)
+    {
+        if(bufPtr[i] > maxFr)
+            maxFr = bufPtr[i];
+    }
+    
+    /* Convert to volts */
+    float curVolt = fr32_to_float(maxFr)*AN_MAXVOLT;
+	
+    /* Calc and return SPL i dBV */
+    return 20*log10f(curVolt);
+}
+\end{verbatim}
+Således sættes først \verb+bufPtr+ på baggrund af status på \verb+an_curBufRdy+, hvorefter RecBufs hukommelse analyseres for højeste værdi. Efterfølgende omkonverteres denne sample-værdi til den tilsvarende værdi i volt. Slutteligt konverteres denne til dBV.
+
+\subsubsection{Fast Fourier Transformation}
+\textbf{\textit{Implementering}} \\
+Til at generere frekvens-spektrum, anvendes radix-2 Fast Fourier Transform algoritmen. Denne er implementeret i følgende biblioteksfunktion: \\
+\verb+void rfft_fr32(input[], output[], twiddle_table[], twiddle_stride, + \\
+\verb+                           fft_size, block_exponent, scale_method);+
+
+\begin{center}
+    \begin{tabular}{ | l | p{9,6cm} |}
+    \hline
+    \verb+const fract32 input[]+		& Input array					\\ \hline
+    \verb+complex_fract32 output[]+ 	& Output array					\\ \hline
+    \verb+const complex_fract32+ 		& Trigonometriske twiddle koefficitenter. Disse sættes med   \\
+    	\verb+twiddle_table[]+  			& funktionen \verb+twidfftrad2_fr32()+. Twiddle benyttes som udgangspunkt ikke 	\\ \hline
+    \verb+int twiddle_stride+			& Sættes til 1 idet der ønskes en fft af størrelsen \verb+fft_size+	\\ \hline
+	\verb+int fft_size+    				& Størrelse på input- og output array. Denne skal være en potens af 2, og minimum 8. Der anvendes N\_FFT = 1024, hvilket er funktionen maksimale størrelse\\ \hline
+	\verb+int *block_exponent+			& Sættes i denne funktion og benyttes til senere at generere et magnitude spektrum\\ \hline
+	\verb+int scale_method+		& Skaleringsmetode for fft-spektrum. Dynamisk skalering vælges, og funktionen bestemmer således selv om skalering er nødvendig \\ \hline
+    \end{tabular}
+\end{center}
+For mere information, se INDSÆT REF TIL LIBRARY MANUAL s 1003. 
+
+Det genererede sprektrum er komplekst, og for at få magnitude-spektret benyttes biblioteksfunktionen:
+\verb+void fft_magnitude_fr32(input[], output[], fft_size, block_exponent, mode)+ \\
+Parametrene \verb+input[]+, \verb+fft_size+, og \verb+block_exponent+ benyttes også i funktionen \verb+rfft_fr32()+, hvor \verb+input[]+ er \verb+output[]+ fra \verb+rfft_fr32+. Dette medfører også at \verb+mode+ sættes til 0. \verb+output[]+ er fft amplitude spektret og gemmes i arrayet \verb+an_freqSpec+. \\
+For mere information, se INDSÆT REF TIL LIBRARY MANUAL s 935.
+
+\subsubsection{Tonal Power Ratio}
+\textit{\textbf{Princip}} \\
+Tonal Power Ratio beregnes med nedenstående algoritme: 
+\begin{center}
+${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n) \right|  }^{ 2 } }  } $
+\end{center}
+Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. 
+\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+k er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
+Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
+\begin{itemize}
+	\item Er lokalt maximum: ${ \left| X(k-1,n) \right|  }^{ 2 }\le { \left| X(k,n) \right|  }^{ 2 }\le { \left| X(k+1,n) \right|  }^{ 2 }$
+	\item Ligger over en forudbestemt grænseværdi ${ G }_{ T }$.
+\end{itemize} 
+
+For vores tilfælde beregnes TPR for ét enkelt fft-sprektrum ad gangen, og variablen n fra ovenstående algoritme har således en fast værdi på 0.
+
+\textit{\textbf{Implementering}} \\
+Algoritmen er implementeret med følgende kode:
+\begin{verbatim}float an_calcTPR(void)
+{
+    fract32 sum = 0;		//Total sum af spektrum
+    fract32 delay[3] = {0};	//Energy delay taps. delay[0] equals current sample
+    fract32 e_T = 0;		//Sum of peaks
+    fract32 g_T = 0;		//Threshold value
+
+    int i;
+    for(i = 0; i<AN_NFFT; i++)
+    {
+        delay[2] = delay[1];
+        delay[1] = delay[0];
+        delay[0] = an_freqSpec[i]*an_freqSpec[i];
+
+        if(delay[1] > g_T)
+            if((delay[2] < delay[1]) && (delay[1]< delay[0]))
+                e_T += delay[1]>>AN_TPR_SCALING;
+
+        sum = sum + delay[1]>>AN_TPR_SCALING;
+    }
+
+    return fr32_to_float(e_T)/fr32_to_float(sum);
+}\end{verbatim}
+
+Idet det lokale maksimum findes ved at sammenligne sample-værdien før og efter analyse-punktet, er hele algoritmen forskubbet med én sampleværdi. Det er således \verb+delay[1]+, der summeres på \verb+e_T+ og \verb+sum+. Funktionen gennemløber alle fft magnitude bins i \verb+an_freqSpec[]+, generet i funktionen \verb+an_calcFFT()+. Der opdateres for hvert gennemløb en delay-linje med kvadratet på de givne frekvensbins. Hvis værdien af \verb+delay[1]+ er større end threshold \verb+g_T+ og et lokalt maksimum, lægges dette til det tonale indhold, \verb+e_T+. Ved summation nedskalleres værdien for at undgå overflow af fixedpoint-typen. Denne nedskalering har minimal indvirkning på den endelige TPR-værdi (kun kvantiseringsfejl grundet opløsningsnedsættelsen), idet forholdet mellem de to i sidste ende danner TPR-værdien. Dette forhold beregnes ved først at konvertere summerne til floats, så divisions-operatoren kan benyttes.
+
+\textit{OBS: Denne analyse-funktion indgår ikke i den endelige detektion af babygråd, og der er således ikke lavet modultest for funktionen.}
+
+\subsubsection{Smoothing af frekvensspektrum}
+For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Dda det ikke er muligt at tage log10 til typen \verb+fract32+, omkonverteres denne til float. Vi får således et float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
+\begin{verbatim}void an_g2dB(void)
+{
+    int i;
+    for(i = 0; i<AN_NFFT; i++)
+    {
+        an_freqSpecdB[i] = 20*log10f(fr32_to_float(an_freqSpec[i]));
+    }
+}\end{verbatim}
+
+Til smoothing af dette frekvenspektrum benyttes et rekursivt midlingsfilter. Dette benyttes frem for det simplere løbende midlingsfilter, idet det væsentlig mindre beregningtungt for filtre af højere orden, mens det giver præcis samme output.
+
+\textbf{\textit{Princip}} \\
+Algoritmen for det rekursive midlingsfilter er som følger:
+\begin{center}
+$y\left( n \right) =\frac { 1 }{ M } \cdot \left( x\left( n \right) -x\left( n-M \right)  \right) +y\left( n-1 \right) $
+\end{center}
+Hvor x(n) er input, y(n) er output og M er filtrets orden (længde).
+
+\textbf{\textit{Anvendelse af transient respons som højpasfiltrering}}\\ \label{intlyd:analyzer:smooth_hp} 
+Filtret har en transient respons, og vil have en indsvingning på M samples (her frekvensbins). Den vil således starte på værdien 0 og svinge ind til den korrekte output-værdi efter M samples. Spektret har som udgangspunkt negative magnituder på dB-skalaen, og vil derfor svinge oppefra og ned, som det ses på \ref{an_freqSpecSmooth_no_shift} herunder:
+
+\figur{0.6}{intlydmonitor/implementering/an_freqSpecSmooth_no_shift}{Smoothed Hoejlydt\_baby2 uden vertikalt shift}{an_freqSpecSmooth_no_shift}
+
+Ved imidlertid at hæve hele spektret, så det ligger godt over 0dB, opnås en sving opad, der giver det endelige spektrum en karakter af at være blevet højpasfiltreret. Der er valgt en orden på M = 35, hvilket resulterer i en højpasfiltrering med knæk-frekvensen:
+\begin{center}
+$ freq\_ fac=\frac { 1 }{ \left( { 1 }/{ { \left( N\_ FFT/2+1 \right)  } } \right) \cdot { fs }/{ 2 } } =42.75\cdot { 10 }^{ -3 }\frac { bins }{ Hz } $
+\end{center}
+\begin{center}
+${ f }_{ hp }=\frac { M }{ freq\_ fac } =818\quad Hz $
+\end{center} 
+
+Hvor freq\_fac er omregningsfaktoren fra Hz til bin-nummer i frekvensspektret. Filtrets transiente respons vil således være udløbet ved 818 Hz. Idet Categorizers lavtliggende analysepunkter er på 1000 Hz og 1400 Hz, får dette ikke indvirkning på værdien i disse punkter. Højpasfiltrets dæmpning (stejlhed) bestemmes af hvor meget niveauet hæves. Det midlede frekvensspektrum bliver som vist på figur \ref{an_freqSpecSmooth_shift} herunder:
+
+\figur{0.6}{intlydmonitor/implementering/an_freqSpecSmooth_shift}{Smoothed Hoejlydt\_baby2 med vertikalt shift}{an_freqSpecSmooth_shift}
+
+\textbf{\textit{Implementering}} \\
+Algoritmen med det rekursive filter er implementeret som følger:
+\begin{verbatim}void an_smooth(unsigned int m)
+{
+    /* RECURSIVE FILTER*/
+    float scaling = 1.0/m;
+    float verticalShift = -an_freqSpecdB[430];	// [430] roughly equals 10 kHz
+    int n;
+    for(n = 0; n<AN_NFFT; n++)
+    {
+        an_freqSpecdB[n]+=verticalShift;    //raise level.
+        an_freqSpecSmooth[n]=0;             //reset
+    }
+
+    /* First round */
+    an_freqSpecSmooth[0]=scaling*an_freqSpecdB[0];
+
+    for(n = 1; n<AN_NFFT; n++)
+    {
+        if(n<m)	/* Next M rounds */
+        {
+            an_freqSpecSmooth[n]=scaling*
+                  an_freqSpecdB[n]+an_freqSpecSmooth[n-1];
+        }
+        else if(n<AN_NFFT)
+        {
+            an_freqSpecSmooth[n]=scaling*
+                 (an_freqSpecdB[n]-an_freqSpecdB[n-m])+an_freqSpecSmooth[n-1];
+        }
+    }
+}\end{verbatim}
+Frekvensspektret hæves således med en værdi svarende til magnituden af 10kHz, da denne ved de analyserede spektra typisk ligger lavt. Ved gennemløb af algoritmen, forefindes nogle-særtilfælde, hvor der endnu ikke er oprettet en delay-linje. For første gennemløb er både x(n-M) og y(m-1) lig 0. For de næste M gennemløb er x(n-M) lig nul. Først efter M runder, opererer filtret sikkert med den originale ligning.

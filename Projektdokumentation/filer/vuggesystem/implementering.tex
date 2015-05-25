@@ -28,7 +28,7 @@ Implementeringen af endstop sensor kredsløbet kan ses i det foregående Motorst
 \label{Vuggesystem: Implementering_VuggeudsvingSensor}
 Vuggeudsvingssensoren er implementeret som beskrevet i Vuggesystem Design afsnittet \vref{Vuggesystem: Design_Vugggeudsving_sensor} ved hjælp af en MPU6050 chip med indbygget accelerometer, gyroskop og I2C bus interface. Den er placeret på undersiden af barnevognskurven ud for aksen der vippes henover. Nedenfor kan ses et billede af implementeringen. 
 \figur{0.5}{vuggesystem/impl/Vuggeudsving_sensor.pdf}{Monteret Vuggeudsving sensor}{VS_Im_Vuggeudsving_Sensor}
-Chippen er delvist skjult bag en beskyttelse. Den gule streg på billedet markerer aksen barnevognskurven og derved chippen vipper henover. 
+Chippen er delvist skjult bag en beskyttelse. Den røde streg på billedet markerer aksen barnevognskurven og derved chippen vipper henover. 
 De parsnoede ledning er for at beskytte I2C kommunikationen mod støj.
 
 
@@ -45,7 +45,7 @@ Motoren er placeret under barnevognskurvens tyngde center med en påsat gearing 
 \figur{0.5}{vuggesystem/impl/Mekanisk_Vuggesystem_Akse.pdf}{Tandhjul påsat motoren til det mekaniske vuggesystem}{VS_Im_Akse}
 
 \textit{Vuggeudsving:}
-Som det ses på de tre nedenstående figurer så opfylder vuggesystemet kravspecifikationens ikke-funktionelle krav afsnit \ref{kravspec:ikke_funk_nivellering} om at barnevognen skal kunne vugge med mindst +/- 10 grader. Det implementerede vuggesystem  kan ideelt vippe ud til +/- 24,5 grader. Dette gør at Baby Watch systemet vil være i stand til at stå på en skrånende flade på op til 14,5 grader. Dette bliver ikke afprøvet og tested i denne iteration af projektet. 
+Som det ses på de tre nedenstående figurer så opfylder vuggesystemet kravspecifikationens ikke-funktionelle krav afsnit \ref{kravspec:ikke_funk_nivellering} om at barnevognen skal kunne vugge med mindst +/- 10 grader. Det implementerede vuggesystem  kan ideelt vippe ud til +/- 24,5 grader. Dette gør at Baby Watch systemet vil være i stand til at stå på en skrånende flade på op til 14,5 grader. Dette bliver ikke afprøvet og tested i denne iteration af projektet. Vægten af barnevognskurven blev målt til 9.7 kg.
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Vandret.pdf}{Baby Watch barnevogn i vandret position}{VS_MV_Vandret}
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Hojre.pdf}{Baby Watch barnevogn i højre yderposition}{VS_MV_Hojre}
 \figur{0.35}{vuggesystem/impl/Mekanisk_Vuggesystem_Venstre.pdf}{Baby Watch barnevogn i venstre yderposition}{VS_MV_Venstre}
@@ -231,22 +231,15 @@ Denne fil sørger for at beregne regulerings outputtet, initierer PWM blokken og
 
 Den teoretiske model fra afsnit \vref{Vuggesystem: Design_MekVug} er ikke blevet brugt i implementeringen af reguleringen da systemet er for ustabilt til at kunne karakteriseres uden først at have en grundlæggende regulering. Problematikken i at karakterisere systemet gennem målinger grunder hovedsageligt i to ting: For det første kan barnevognen kun befinde sig indenfor et bestemt vinkelområde grundet denne mekaniske opbygning, hvilket forhindrer et step på indgangen, da dette ville resultere i en konstant vinkelfrekvens. Systemets anden problematik kommer sig af at systemet som tidligere beskrevet ustabilt af natur da vuggens tyngdecenter er forskudt vertikalt i forhold til aksen der vippes over hvilket giver en inverterende pendul effekt jf. \vref{Vuggesystem: Design_MekVug}. Dette besværliggør en karakteristik ved hjælp af forskellige påtrykte sinus-funktioner som brugt i testprogrammet \textit{vuggesinus} fra \citep{cd} under \textit{SW/Vuggesystem/Testprogrammer/vuggeSinus} vil således give blive ustabilt næsten med det samme.\\
 
-\textbf{PID regulator}\\
+\textit{PID-regulator}\\
 For at komme dette til livs er en PID regulator implementeret, hvis konstanter er bestemt ud fra en grov trial-and-error fremgangsmåde, hvormed der er opnået marginal stabilitet. Først blev PD konstanterne fundet ved at sætte D til P/8, og så forøge P fra 1 indtil systemet begynde at blive ustabilt. Denne metode blev benyttet da systemet ikke kunne bringes til stabilitet med en ren P regulering. Efter at en stabil PD regulering var bleet bestemt er der tilføjet et minimalt i led ved at øge dette lidt ad gangen indtil den statiske fejl ved regulering til en konstant 0 graders vinkel kom under en grad på mindre end 5 sekunder. Systemet var nu marginalt stabilt og yderligere målinger kan således udføres. \\
 
-\textbf{Ziegler/Nichols}\\
-Idet systemet ikke kan bringes til stabilitet med et rent P led kan en traditionel Ziegler-Nichols kalibrering ikke benyttes. Det er dog muligt at udføre en lignende kalibrering hvor systemet bringes til stabil oscillation med et PD led hvor der benyttes en fast ratio mellem de to, svarende til ovennævnte medtode. herved kan en egenfrekvens bestemmes, samt en grænseforstækning, og parametrene for PID kan bestemmes.\\
+\textit{Ziegler/Nichols}\\
+Idet systemet ikke kan bringes til stabilitet med et rent P led kan en traditionel Ziegler-Nichols kalibrering ikke benyttes. Det er dog muligt at udføre en lignende kalibrering hvor systemet bringes til stabil oscillation med et PD led hvor der benyttes en fast ratio mellem de to, svarende til ovennævnte medtode. herved kan en egenfrekvens bestemmes, samt en grænseforstærkning, og parametrene for PID kan bestemmes.\\
 
-\textbf{Lead/lag regulator}\\
-Efter at en fungerende regulering er implementeret, kan en frekvens karakteristik af sytemet med denne regulering udføres, hvorudfra ønskede forbedringer kan laves ved brug af kendt teori om lead/lag regulering, som beskrevet i TODO: regulerings design afsnit. På denne måde kan systemet tilpasses for at tilpasse systemets regulering mere præcist, samt tilpasse MERE - nævn ikke funk krav
-
+\textit{Lead/lag regulator}\\
+Efter at en fungerende PID-regulering er implementeret, kan en frekvenskarakteristik af systemet med denne regulering udføres. Ved hjælp af denne frekvenskarakteristik samt den teoretiske udredning af det mekaniske vuggesystem fra afsnit \vref{Vuggesystem: Design_MekVug} og implementeringen af det mekaniske vuggesystem med værdier for vægt og gearing for systemet, kan en overføringsfunktion for vuggesytem således laves. Denne overføringsfunktion kan derefter udvides med en lead/lag regulering, som beskrevet i bilaget Analysis and Design procedure \citep{IRT} fra E4IRT faget. Dette vil give en forberedt regulering af vuggesystem i forhold til PID-reguleringen.
 
 Kode ses på: \citep{cd} under \verb+regulering.c+ og \verb+regulering.h+\\
-
-
-
-
-
-
 
 \newpage
