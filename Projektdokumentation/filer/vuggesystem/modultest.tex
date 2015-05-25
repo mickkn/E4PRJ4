@@ -168,19 +168,18 @@ Formålet er at teste vuggesystemet som reguleringsmodul for Baby Watch systemet
 
 Den fulde test vil bestå af tre deltests som dokumenterer funktionen af Vuggesystem modulet.
 
-Testen udføres under forudsætningen af at vuggesystemets software regulerings implementering ikke er færdigudviklet jf. afsnit \vref{vuggesystem_impl:regulering} i Vuggesystem Implementering. Det vil sige at vuggesystemet ikke forventes at kunne regulerer med vægt i barnevognskurven eller fuldt ud at kunne regulerer ud fra de Ikke-funktionelle i Kravspecifikationen afsnit \vref{kravspec:ikke_funk_nivellering}. I denne modultest af vuggesystemet vuggefrekvensen være blevet sat ned med en faktor 6 som beskrevet i regulerings afsnittet \vref{vuggesystem_impl:regulering} i Implementeringen af Vuggesystemet Software
+Testen udføres under forudsætningen af at vuggesystemets software regulerings implementering ikke er færdigudviklet jf. afsnit \vref{vuggesystem_impl:regulering} i Vuggesystem Implementering. Det vil sige at vuggesystemet ikke forventes at kunne regulere med vægt i barnevognskurven eller fuldt ud at kunne regulere ud fra de Ikke-funktionelle i Kravspecifikationen afsnit \vref{kravspec:ikke_funk_nivellering}. I denne modultest af vuggesystemet vuggefrekvensen være blevet sat ned med en faktor 6 som beskrevet i regulerings afsnittet \vref{vuggesystem_impl:regulering} i Implementeringen af Vuggesystemet Software
 
-\textit{Deltests}*
+\textit{Deltests}\footnote{Alle vinkler er i forhold til tyngdefeltet.}
 \begin{itemize}
-	\item Test 1 - Vuggesystemet regulerer barnevognskurven i en 0 graders vinkel-amplitude med en vippe-frekvens på 0 Hz. Der forsøges med en ændring i  barnevognskurvens vinkel-amplitude på 5 grader ved at trække op i barnevognskurvens fodende. Testen dokumenteres med plot af vinkel-udsvinget i forhold til tid, vinkel-hastigheden i forhold til tid og vinkel-accelerationen i forhold til tid. Resultatet vil blive sammenlignet i forhold til de Ikke-funktionelle krav afsnit\vref{kravspec:ikke_funk_nivellering}
-	\item Test 2 - Vuggesystemet regulerer barnevognskurven i sekvens af fire ud af de fem vuggetilstande; Vuggetilstand- 0, A, B, C og tilbage til A at ned med en faktor 6 jf. afsnit \vref{vuggesystem_impl:regulering}: 
+	\item Test 1 - Vuggesystemet regulerer barnevognskurven til en 0 graders vinkel-amplitude med en vippe-frekvens på 0 Hz. Systemet påtvinges nu en vinkelfejl på ca. 5 grader ved at løfte i barnevognskurvens fodende, hvorefter barnevognen slippes. Dette resulterer i en step forstyrelse på reguleringen, og reguleringens grænseværdier for vinkelhastighed og vinkelaccelleration   burde derfor nåes. Testen dokumenteres med plot af vinkel-udsvinget i forhold til tid, vinkel-hastigheden i forhold til tid og vinkel-accelerationen i forhold til tid. Resultatet vil blive sammenlignet i forhold til de Ikke-funktionelle krav afsnit\vref{kravspec:ikke_funk_nivellering}
+	\item Test 2 - Vuggesystemet regulerer barnevognskurven i sekvens af tre ud af de fem vuggetilstande; Vuggetilstand- A, B, C gentaget 2 gange. Alle frekvenser er sat ned med en faktor 6 jf. afsnit \vref{vuggesystem_impl:regulering}: 
 		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.08Hz i 20 sekunder 
 		\subitem 6 graders vinkel-amplitude med en vippe-frekvens på 0.16Hz i 20 sekunder  
 		\subitem 4 graders vinkel-amplitude med en vippe-frekvens på 0.32Hz i 20 sekunder 
-		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.08Hz i 20 sekunder
 	\item Test 3 - Vuggesystemet vugges med manuel vuggetilstand som regulerer barnevognskurven i 8 graders vinkel amplitude med en vippe-frekvens på 0.12Hz
 \end{itemize}
-*Alle vinkler er i forhold til tyngdefeltet.
+
 
 
 \textbf{Overordnet opstilling af Vuggesystem modultest}
@@ -193,39 +192,54 @@ Testen udføres under forudsætningen af at vuggesystemets software regulerings 
 
 
 \textbf{Testbeskrivelse}
-\begin{itemize}
+\begin{enumerate}
 	\item Testen opsættes om beskrevet ovenfor
 	\item Test 1 - Vuggesystemet sætte i babycon3 mode
 	\subitem Der tages et 16 sekunder plot af vinklen i forhold til tid
+	\subitem I matlab udregnes den første- og den andenafledte af den målte datasekvens, og de tre sekvenser plottes sammen.
 	\item Test 2 - Vuggesystemet sætte i babycon2 mode
-	\subitem Det tages et 80 sekunder plot af vinklen i forhold til tid
+	\subitem Det tages et plot af vinklen ift. tiden, hvor barnevognen når gennem hver af de 3 vuggetilstande 2 gange.
 	\item Test 3 - Vuggesystemet sætte i manuel mode
 	\subitem Der tages et 20 sekunder plot af vinklen i forhold til tid
-\end{itemize}
+\end{enumerate}
 
 \textbf{Forventet resultat} \\
 Der forventes at:
 \begin{itemize}
 	\item Test 1 - Barnevognskurven bliver rettet tilbage til 0 graders vinkel-amplitude med en vippe-frekvens på 0 Hz med en hastighed og acceleration svarende til de Ikke-funktionelle krav
-	\item Test 2 - Barnevognskurven vugges i en sekvens af:
+	\item Test 2 - Barnevognskurven vugges i en gentagende sekvens af:
 		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.08Hz i 20 sekunder 
 		\subitem 6 graders vinkel-amplitude med en vippe-frekvens på 0.16Hz  i 20 sekunder  
 		\subitem 4 graders vinkel-amplitude med en vippe-frekvens på 0.32Hz i 20 sekunder 
-		\subitem 10 graders vinkel-amplitude med en vippe-frekvens på 0.08Hz i 20 sekunder
 	\item Test 3 - Barnevognskurven vugges med manuel vuggetilstand i en 8 graders vinkel amplitude med en vippe-frekvens på 0.12Hz
 \end{itemize}
 
 
 \textbf{Resultat} \\
 Test 1:
-\figur{1}{vuggesystem/modultest/reguleringFemgrader.JPG}{Plot af test 1}{vuggesystem:ModulT_Femgrader}
-Som det kan ses af figur \ref{vuggesystem:ModulT_Femgrader} blabla bla
-Ved hjælp af Matlab blev vinkel-hastigheden beregnet ud fra målingen til 6.1 grader pr sekund og vinkel-accelerationen til 26.3 grader pr sekund i anden. MANGLER IKKE-FUNK KRAV\\
+\figur{1}{vuggesystem/modultest/reguleringFemgrader.pdf}{Plot af test 1}{vuggesystem:ModulT_Femgrader}
+Som det kan ses af figur \ref{vuggesystem:ModulT_Femgrader} tvinges barnevognen ud til +5 grader, hvorefter den slippes efter ca. 10 sekunder. Herefter retter reguleringen ind, og man ser to peaks i hastighed og accelleration: først ved korrektionen, og derefter et større ved overstyrringen.
+Ved hjælp af Matlab blev den maximale vinkel-hastighed beregnet ud fra målingen til 6.1 grader pr sekund og den maximale vinkel-acceleration til 26.3 grader pr sekund i anden. I forhold til de Ikke-funktionelle krav afsnit \vref{kravspec:ikke_funk_nivellering} er de målte værdier således langt indenfor det acceptable område. \\
 
 Test 2: \\
+\figur{1}{vuggesystem/modultest/regtest_sek.pdf}{Plot af test2}{vuggesystem:ModulT_sekvens}
+I figur \ref{vuggesystem:ModulT_sekvens} ses sekvensen af de tre vugge tilstande gentaget to gange. Som det ses af grafen er der tydelig forskel på vuggeudsvinget og vuggefrekvensen mellem de tre tilstande.
+\figur{1}{vuggesystem/modultest/regtest_A.pdf}{vuggetilstand A isoleret med reference signal i rød}{vuggesystem:ModulT_A}
+På figur \ref{vuggesystem:ModulT_A} ses de to gennemløb af vuggetilstand A sammenlignet med en reference graf der angiver den korrekte vuggefrekvens på 0.08Hz og vuggeudsving på +/- 10 grader. 
+ 
+\figur{1}{vuggesystem/modultest/regtest_B.pdf}{vuggetilstand B isoleret med reference signal i rød}{vuggesystem:ModulT_B}
+På figur \ref{vuggesystem:ModulT_B} ses ligeledes vuggetilstand B sammenlignet med en reference graf der angiver den korrekte vuggefrekvens på 0.16Hz og vuggeudsving på +/- 6 grader.
+
+\figur{1}{vuggesystem/modultest/regtest_C.pdf}{vuggetilstand C isoleret med reference signal i rød}{vuggesystem:ModulT_C}
+På figur \ref{vuggesystem:ModulT_C} ses vuggetilstand C sammenlignet med en reference graf der angiver den korrekte vuggefrekvens på 0.32Hz og vuggeudsving på +/- 4 grader.
+
+
+Disse gennemløb må siges at ligge tæt og af deres respektive reference signal hvad både angår vuggefrekvens og -udsving.
 
 Test 3: \\
+\figur{1}{vuggesystem/modultest/regtest_man.pdf}{Manuel vuggetilstand isoleret med reference signal i rød}{vuggesystem:ModulT_man}
 
+BEREGNING AF FREKVENSFEJL: den er ca. 9 procent for lav alle steder - test godkendt, men givet at fejl er systematisk kan den tages op som en fremtidig forbedring.
 
 
 
