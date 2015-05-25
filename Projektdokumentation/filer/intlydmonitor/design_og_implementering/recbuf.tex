@@ -1,7 +1,7 @@
 %RecBuf design
 \subsection{RecBuf}
 I dette afsnit beskrives principper og design for RecBuf i Intelligent Lydmonitor.
-Samples modtaget fra prefiltret gemmes i et ud af to identiske buffere som RecBuf indeholder. Når den første buffer er fyldt kaldes Analyzers analyze() med værdien 0 eller 1 hvilken repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
+Samples modtaget fra prefiltret gemmes i det ene af to identiske buffere som RecBuf indeholder. Når den første buffer er fyldt kaldes Analyzers analyze() med værdien 0 eller 1, hvilket repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
 
 \begin{verbatim}
 //includes
@@ -29,21 +29,20 @@ Herover ses et udsnit fra headeren for kassen RecBuf. Det er her værd at lægge
 \begin{verbatim}
 void rb_init(void)
 {
-	rb_currActiveBuffer = 0;
-	rb_index = 0;
-	rb_ready = 0;
-	//Initializing memory
-	int i;
-	for(i=0; i< RB_SIZE; i++)
-	{
-		rb_mem0[i] = 0;
-		rb_mem1[i] = 0;
-	}
+    rb_currActiveBuffer = 0;
+    rb_index = 0;
+    rb_ready = 0;
+    //Initializing memory
+    int i;
+    for(i=0; i< RB_SIZE; i++)
+    {
+        rb_mem0[i] = 0;
+        rb_mem1[i] = 0;
+    }
 }
 \end{verbatim}
 
-Herover ses funktionen rb\_init, det ses at de forskellige attributter initieres samt at de to buffere initieres med alle pladser sat til 0.
-
+Herover ses funktionen rb\_init, det ses at attributter og buffere initieres til 0.
 
 RecBuf indeholder kun en anden funktion kaldet \textbf{rb\_storeData()} denne funktion er implementeret som en switch case der tjekker på variablen \textbf{rb\_currActiveBuffer}. Case 0 er vist herunder. 
 Hvis den private variable rb\_index er lig med RB\_SIZE betyder det at rb\_mem0 er fuld. I dette tilfælde sættes rb\_index lig med 0 og rb\_currActiveBuffer opdateres til 1 så den repræsenterer bufferen rb\_mem1. Herefter sættes den første plads i rb\_mem1 med værdien sample. Slutteligt sættes rb\_ready lig true, hvilket bruges senere til at kalde analyze() fra Analyzer. Hvis ikke rb\_index er lig med RB\_SIZE sættes rb\_mem0[rb\_index] med sample. Slutteligt inkrementeres rb\_index. 
@@ -51,49 +50,49 @@ Hvis den private variable rb\_index er lig med RB\_SIZE betyder det at rb\_mem0 
 \begin{verbatim}
 void rb_storeData(fract32 sample)
 {
-	switch(rb_currActiveBuffer)
-	{
-	case 0:
-		if(rb_index == RB_SIZE)
-		{
-			rb_index = 0;
-			rb_currActiveBuffer = 1;
-			rb_mem1[rb_index] = sample;
-			rb_ready = true;
-		}
-		else
-		{
-			rb_mem0[rb_index] = sample;
-		}
-		rb_index++;
-		break;
+    switch(rb_currActiveBuffer)
+    {
+    case 0:
+        if(rb_index == RB_SIZE)
+        {
+            rb_index = 0;
+            rb_currActiveBuffer = 1;
+            rb_mem1[rb_index] = sample;
+            rb_ready = true;
+        }
+        else
+        {
+            rb_mem0[rb_index] = sample;
+        }
+        rb_index++;
+        break;
+...
 \end{verbatim}
 
 Case 1 er vist herunder og er næsten magen til case 0. Forskellen på case 1 og case 0 er følgende: 
 rb\_currActiveBuffer sættes til 0 for at repræsentere rb\_mem0 i stedet for rb\_mem1. 
 
 \begin{verbatim}
-	case 1:
-		if(rb_index == RB_SIZE)
-		{
-			rb_index = 0;
-			rb_currActiveBuffer = 0;
-			rb_mem0[rb_index] = sample;
-			rb_ready = true;
-		}
-		else
-		{
-			rb_mem1[rb_index] = sample;
-		}
-		rb_index++;
-		break;
+...
+    case 1:
+        if(rb_index == RB_SIZE)
+        {
+            rb_index = 0;
+            rb_currActiveBuffer = 0;
+            rb_mem0[rb_index] = sample;
+            rb_ready = true;
+        }
+        else
+        {
+            rb_mem1[rb_index] = sample;
+        }
+        rb_index++;
+        break;
 
-	default:
-		break;
-	}
-}
-
-\end{verbatim}
+    default:
+        break;
+    }
+}\end{verbatim}
 
 
 
