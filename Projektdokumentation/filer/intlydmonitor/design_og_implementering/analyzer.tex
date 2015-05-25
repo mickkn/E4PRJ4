@@ -96,12 +96,12 @@ Til at generere frekvens-spektrum, anvendes radix-2 Fast Fourier Transform algor
 	\verb+int scale_method+		& Skaleringsmetode for fft-spektrum. Dynamisk skalering vælges, og funktionen bestemmer således selv om skalering er nødvendig \\ \hline
     \end{tabular}
 \end{center}
-For mere information, se INDSÆT REF TIL LIBRARY MANUAL s 1003. 
+For mere information, se \citep{C_Cpp_man_for_bf} s. 1003. 
 
 Det genererede sprektrum er komplekst, og for at få magnitude-spektret benyttes biblioteksfunktionen:
 \verb+void fft_magnitude_fr32(input[], output[], fft_size, block_exponent, mode)+ \\
 Parametrene \verb+input[]+, \verb+fft_size+, og \verb+block_exponent+ benyttes også i funktionen \verb+rfft_fr32()+, hvor \verb+input[]+ er \verb+output[]+ fra \verb+rfft_fr32+. Dette medfører også at \verb+mode+ sættes til 0. \verb+output[]+ er fft amplitude spektret og gemmes i arrayet \verb+an_freqSpec+. \\
-For mere information, se INDSÆT REF TIL LIBRARY MANUAL s 935.
+For mere information, se \citep{C_Cpp_man_for_bf} s. 935.
 
 \subsubsection{Tonal Power Ratio}
 \textit{\textbf{Princip}} \\
