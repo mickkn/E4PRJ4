@@ -16,10 +16,45 @@ Formålet er at teste klassen RecBufs håndtering af dens to buffere, herunder b
 \begin{enumerate}
 	\item Først initieres rb\_mem0 og rb\_mem1 med 3 pladser  
 	\item For nemmere at kunne teste RecBuf, testes der med ints i stedet for fracts
-	\item Der skrives en for løkke som fylder pladserne med index nummer
-	\item Der skrives en for løkke som fylder pladserne med index nummer + 10
+	\item Testkoden eksekveres. Koden kan ses herunder. 
 	\item Kommandoprompten aflæses for at se om værdierne passer med det forventede
 \end{enumerate}
+
+\begin{verbatim}
+int main(void)
+{
+     rb_mem0[3]
+     rb_mem1[3]
+     
+     
+     int i = 0;
+     for(i = 0; i<6; i++)
+     {
+          storeData(i);
+     }
+     
+     printf("Content of mem0_ is\n");
+     
+     for(i = 0; i<3; i++)
+     {
+          printf("Index %d is: %d", i, rb_mem0[i]);
+     }
+     
+     printf("Content of mem1_ is\n");
+     
+     for(i = 0; i<3; i++)
+     {
+          printf("Index %d is: %d", i, rb_mem1[i]);
+     }
+
+
+     for(i = 0; i<6; i++)
+     {
+          storeData(i+10);
+     }
+     
+     .... samme printfunktion som før      
+\end{verbatim}
 
 \textbf{Forventet resultat} \\
 Det forventede resultat af første udskrift kan ses i Tabel \ref{IL:modultest:values1}:
