@@ -3,7 +3,8 @@
 \subsection{ADC forfiltrering}
 
 For at tilpasse signalet til ADC'en i Blackfin533 bedst muligt, laves der en filtrering af signalet inden ADC'en. 
-Ordenen af dette filter beregnes ud fra ADC'ens SNR (Signal To Noise Ratio). Blackfin's ADC er en AD1836, hvilken kan køre med henholdsvis 16-/18-/20-/24-Bit data. Herudover understøtter den en samplerate på 96KHz. Alle specifikationr for AD1836 kan ses i \textbf{INDSÆT REFERENCE TIL DATASHEET AD1836}. \\
+Ordenen af dette filter beregnes ud fra ADC'ens SNR (Signal To Noise Ratio). Blackfin's ADC er en AD1836, hvilken kan køre med henholdsvis 16-/18-/20-/24-Bit data. Herudover understøtter den en samplerate på 96KHz. Alle specifikationr for AD1836 kan ses i 
+\citep{AD1836}. \\
 
 Til beregning af AD1836's SNR benyttes følgende formel:
 \begin{center}
