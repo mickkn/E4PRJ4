@@ -1,7 +1,7 @@
 clc, clear, close all
 %**** RECBUF TEST *********************************
-load Fuglefloejt1.dat;
-x = Fuglefloejt1;
+load Cat1.dat;
+x = Cat1;
 
 N = length(x);
 
@@ -24,4 +24,4 @@ edges = [1 2 3];
 figure(2), hist(x, edges)
 xlabel('BABYCON')
 ylabel('Count')
-title('Fuglefloejt1: Histogram over 100 målinger')
+title('Cat1: Histogram over 100 målinger')

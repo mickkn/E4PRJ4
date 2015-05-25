@@ -4,10 +4,9 @@ Herunder følger beskrivelsen og implementeringen for Categorizer i Intelligent 
 Categorizer har til opgave at kategoriserer BABYCON status på baggrund af analyseresultater. 
 
 
-Herunder ses et uddrag af headeren for Categorizer, her er det vigtige en definerede CG\_FREQ\_FAC som er en skaleringsfaktor der ændrer fra Hz til en bin. I Headeren findes ligeledes alle attributter og prototyper.
+Herunder ses et uddrag af headeren for Categorizer. Bemærk den definerede CG\_FREQ\_FAC som er en skaleringsfaktor der ændrer fra Hz til en bin. I Headeren findes ligeledes alle attributter og prototyper.
 
-\begin{verbatim}
-//defines
+\begin{verbatim}//defines
 #define CG_FS 24000
 #define CG_BABYCON1 1
 #define CG_BABYCON2 2
@@ -16,53 +15,51 @@ Herunder ses et uddrag af headeren for Categorizer, her er det vigtige en define
 #define CG_TPR_THRESH 4000.0
 \end{verbatim}
 
-Herunder ses funktionen cg\_init som sætter relevante threshholds som benyttes i blandt andet cg\_checkBC1 herudover beregnes cg\_broadStart og cg\_broadEnd som repræsenterer bin ved frekvensen cq\_broadFreqLow og bin ved frekvensen cg\_broadFreqHigh. 
+Herunder ses funktionen cg\_init som sætter relevante threshholds der benyttes i blandt andet cg\_checkBC1. Herudover beregnes cg\_broadStart og cg\_broadEnd som repræsenterer bin ved frekvensen cq\_broadFreqLow og bin ved frekvensen cg\_broadFreqHigh. 
 
-\begin{verbatim}
-void cg_init(void)
+\begin{verbatim}void cg_init(void)
 {
-	cg_freq_fac = 0.04275; //((1.0)/(1/(AN_NFFT/2+1)*(CG_FS/2)));
-	cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
-	cg_dBroadThreshHighBC1 = 26;
-	cg_dBroadThreshLowBC2 = 14;
-	cg_dBroadThreshHighBC2 = 24;
-	cg_broadFreqLow = 1000;
-	cg_broadFreqHigh = 5500;
-	cg_firstPeakFreqBC1 = 1400;
-	cg_secondPeakFreqBC1 = 4000;
-	cg_freqMargin = 600;
+    cg_freq_fac = 0.04275; //((1.0)/(1/(AN_NFFT/2+1)*(CG_FS/2)));
+    cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
+    cg_dBroadThreshHighBC1 = 26;
+    cg_dBroadThreshLowBC2 = 14;
+    cg_dBroadThreshHighBC2 = 24;
+    cg_broadFreqLow = 1000;
+    cg_broadFreqHigh = 5500;
+    cg_firstPeakFreqBC1 = 1400;
+    cg_secondPeakFreqBC1 = 4000;
+    cg_freqMargin = 600;
 
-	cg_broadStart = (int)floor(cg_broadFreqLow*cg_freq_fac);
-	cg_broadEnd = (int)floor(cg_broadFreqHigh*cg_freq_fac);
+    cg_broadStart = (int)floor(cg_broadFreqLow*cg_freq_fac);
+    cg_broadEnd = (int)floor(cg_broadFreqHigh*cg_freq_fac);
 
-	cg_margin = (int)floor(cg_freqMargin*cg_freq_fac);
-	cg_BC1First = (int)floor(cg_firstPeakFreqBC1*cg_freq_fac);
-	cg_BC1Second = (int)floor(cg_secondPeakFreqBC1*cg_freq_fac);
+    cg_margin = (int)floor(cg_freqMargin*cg_freq_fac);
+    cg_BC1First = (int)floor(cg_firstPeakFreqBC1*cg_freq_fac);
+    cg_BC1Second = (int)floor(cg_secondPeakFreqBC1*cg_freq_fac);
 }
 \end{verbatim}
 
 Herunder ses funktionen cg\_categorize som har til opgave at kategoriserer BABYCON status. 
 Først opdateres attributten cg\_babyCon med default værdien BABYCON3. 
-Herefter beregnes hældningen, cg\_dBroad fra cg\_broadStart til cg\_broadEnd. Denne skal bruges i henholdsvis cg\_checkBC2() og cg\_checkBC1() som der tjekkes for umiddelbart herefter. Er cg\_checkBC2() sand opdateres cg\_babyCon med BABYCON2, hvis cg\_checkBC1() er sand opdateres cg\_babyCon med BABYCON1.
+Herefter beregnes hældningen, cg\_dBroad fra cg\_broadStart til cg\_broadEnd. Denne skal bruges i henholdsvis cg\_checkBC2() og cg\_checkBC1() som der tjekkes for umiddelbart herefter. Er cg\_checkBC2() sand, opdateres cg\_babyCon med BABYCON2, hvis cg\_checkBC1() er sand opdateres cg\_babyCon med BABYCON1.
 Slutteligt kaldes Statisticians funktion ss\_calcSignificans med det opdaterede cg\_babyCon.
 
-\begin{verbatim}
-void cg_categorize(void)
+\begin{verbatim}void cg_categorize(void)
 {
-	cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
+    cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
 
-	if(true)
-	{
-		cg_dBroad = an_freqSpecSmooth[cg_broadStart]-an_freqSpecSmooth[cg_broadEnd];
+    if(true)
+    {
+        cg_dBroad = an_freqSpecSmooth[cg_broadStart]-an_freqSpecSmooth[cg_broadEnd];
 
-		if(cg_checkBC2())
-			cg_babyCon= CG_BABYCON2;
+        if(cg_checkBC2())
+            cg_babyCon= CG_BABYCON2;
 
-		if(cg_checkBC1())
-			cg_babyCon= CG_BABYCON1;
+        if(cg_checkBC1())
+            cg_babyCon= CG_BABYCON1;
 
-		ss_calcSignificans(cg_babyCon);
-	}
+        ss_calcSignificans(cg_babyCon);
+    }
 }
 \end{verbatim}
 
@@ -72,12 +69,12 @@ Der tjekkes først at hældningen cg\_dBroad ligger over og under de to threshho
 \begin{verbatim}
 bool cg_checkBC2(void)
 {
-	if((cg_dBroad > cg_dBroadThreshLowBC2) && (cg_dBroad < cg_dBroadThreshHighBC2))
-	{
-		return true;
-	}
-	else
-		return false;
+    if((cg_dBroad > cg_dBroadThreshLowBC2) && (cg_dBroad < cg_dBroadThreshHighBC2))
+    {
+        return true;
+    }
+    else
+        return false;
 }
 \end{verbatim}
 
@@ -87,15 +84,15 @@ Her skal flere konditioner være opfyldt før der returneres true. Først tjekke
 \begin{verbatim}
 bool cg_checkBC1(void)
 {
-	if((cg_dBroad < cg_dBroadThreshHighBC1) &&
+    if((cg_dBroad < cg_dBroadThreshHighBC1) &&
 	  (an_freqSpecSmooth[cg_BC1First] > an_freqSpecSmooth[cg_BC1First - cg_margin]) &&
 	  (an_freqSpecSmooth[cg_BC1First] > an_freqSpecSmooth[cg_BC1First + cg_margin]) &&
 	  (an_freqSpecSmooth[cg_BC1Second] > an_freqSpecSmooth[cg_BC1Second - cg_margin]) &&
 	  (an_freqSpecSmooth[cg_BC1Second] > an_freqSpecSmooth[cg_BC1Second + cg_margin]))
-	{
-		return true;
-	}
-	else
-		return false;
+    {
+        return true;
+    }
+    else
+        return false;
 }
 \end{verbatim}

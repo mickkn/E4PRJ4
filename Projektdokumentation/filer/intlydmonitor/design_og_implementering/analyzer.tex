@@ -75,7 +75,7 @@ float an_calcSPL(void)
     return 20*log10f(curVolt);
 }
 \end{verbatim}
-Således sættes først \verb+bufPtr+ på baggrund af status på \verb+an_curBufRdy+, hvorefter RecBufs hukommelse analyseres for højeste værdi. Efterfølgende omkonverteres denne sample-værdi til den tilsvarende værdi i volt. Slutteligt konverteres denne til dBV.
+Således sættes først \verb+bufPtr+ på baggrund af status på \verb+an_curBufRdy+, hvorefter RecBufs hukommelse analyseres for højeste værdi. Efterfølgende konverteres denne sample-værdi til den tilsvarende værdi i volt. Slutteligt konverteres denne til dBV.
 
 \subsubsection{Fast Fourier Transformation}
 \textbf{\textit{Implementering}} \\
@@ -110,7 +110,7 @@ Tonal Power Ratio beregnes med nedenstående algoritme:
 ${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n) \right|  }^{ 2 } }  } $
 \end{center}
 Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. 
-\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+k er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
+\textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+ er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
 Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
 \begin{itemize}
 	\item Er lokalt maximum: ${ \left| X(k-1,n) \right|  }^{ 2 }\le { \left| X(k,n) \right|  }^{ 2 }\le { \left| X(k+1,n) \right|  }^{ 2 }$
@@ -150,7 +150,7 @@ Idet det lokale maksimum findes ved at sammenligne sample-værdien før og efter
 \textit{OBS: Denne analyse-funktion indgår ikke i den endelige detektion af babygråd, og der er således ikke lavet modultest for funktionen.}
 
 \subsubsection{Smoothing af frekvensspektrum}
-For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Dda det ikke er muligt at tage log10 til typen \verb+fract32+, omkonverteres denne til float. Vi får således et float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
+For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Eftersom det ikke er muligt at tage log10 til typen \verb+fract32+, konverteres denne til float. Vi får således et float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
 \begin{verbatim}void an_g2dB(void)
 {
     int i;
@@ -160,7 +160,7 @@ For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for 
     }
 }\end{verbatim}
 
-Til smoothing af dette frekvenspektrum benyttes et rekursivt midlingsfilter. Dette benyttes frem for det simplere løbende midlingsfilter, idet det væsentlig mindre beregningtungt for filtre af højere orden, mens det giver præcis samme output.
+Til smoothing af dette frekvenspektrum benyttes et rekursivt midlingsfilter. Dette benyttes frem for det simplere løbende midlingsfilter, idet det er væsentlig mindre beregningtungt for filtre af højere orden, mens det giver præcis samme output.
 
 \textbf{\textit{Princip}} \\
 Algoritmen for det rekursive midlingsfilter er som følger:
@@ -169,12 +169,12 @@ $y\left( n \right) =\frac { 1 }{ M } \cdot \left( x\left( n \right) -x\left( n-M
 \end{center}
 Hvor x(n) er input, y(n) er output og M er filtrets orden (længde).
 
-\textbf{\textit{Anvendelse af transient respons som højpasfiltrering}}\\ \label{intlyd:analyzer:smooth_hp} 
+\textbf{\textit{Anvendelse af transient respons som højpasfiltrering}}\\ \label{intlyd:analyzer:smooth_hp}
 Filtret har en transient respons, og vil have en indsvingning på M samples (her frekvensbins). Den vil således starte på værdien 0 og svinge ind til den korrekte output-værdi efter M samples. Spektret har som udgangspunkt negative magnituder på dB-skalaen, og vil derfor svinge oppefra og ned, som det ses på \ref{an_freqSpecSmooth_no_shift} herunder:
 
 \figur{0.6}{intlydmonitor/implementering/an_freqSpecSmooth_no_shift}{Smoothed Hoejlydt\_baby2 uden vertikalt shift}{an_freqSpecSmooth_no_shift}
 
-Ved imidlertid at hæve hele spektret, så det ligger godt over 0dB, opnås en sving opad, der giver det endelige spektrum en karakter af at være blevet højpasfiltreret. Der er valgt en orden på M = 35, hvilket resulterer i en højpasfiltrering med knæk-frekvensen:
+Ved imidlertid at hæve hele spektret, så det ligger godt over 0dB, opnås et sving opad, der giver det endelige spektrum en karakter af at være blevet højpasfiltreret. Der er valgt en orden på M = 35, hvilket resulterer i en højpasfiltrering med knæk-frekvensen:
 \begin{center}
 $ freq\_ fac=\frac { 1 }{ \left( { 1 }/{ { \left( N\_ FFT/2+1 \right)  } } \right) \cdot { fs }/{ 2 } } =42.75\cdot { 10 }^{ -3 }\frac { bins }{ Hz } $
 \end{center}
