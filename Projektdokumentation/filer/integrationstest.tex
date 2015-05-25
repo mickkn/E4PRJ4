@@ -1,1 +1,80 @@
 \chapter{Integrationstest}
+
+Der er lavet en integrationstest for hele systemet, sidst i forløbet. Integrationstesten er opbygget, så der testes forskellige sammensætninger af systemet delelementer. F.eks. er Controlleren koblet op med vuggesystemet for at se om funktionerne virker planmæssigt.
+
+\section{Kommunikation}
+
+Alt kommunikationen er testet imellem Controller og de tre andre blokke, Intelligent lydmonitor, Vuggesystem og PSU.
+
+\subsection*{Intelligent lydmonitor (2WireTTL)}
+
+I denne test er Blackfin-boardet koblet op til en Computer som er ''lyd-giveren''. Computeren har en række lydfiler der simulerer en rigtig situation. Lyderfilerne som er brugt i denne test er \verb+Hoejlydt_babygraad2.wav+, \verb+Moderat_babygraad2.wav+, \verb+Fuglefloejt3.wav+ og \verb+Trafik1.wav+. Filerne skulle hhv. bringe systemet i BABYCON1, BABYCON2, BABYCON3 og BABYCON3. Lydfilerne findes på bilags-CDen \citep{cd}. Computeren er koblet til Blackfin med et mini-jack til phono kabel i AUDIO-IN LEFT 1. 
+
+\figur{0.6}{integrationstest/kom_il}{Opstilling for test af Int. lydmonitor}{inttest:il} 
+
+Controlleren er sat i debug-tilstand, som gør at den udskriver en del aktivitet når den kører. Her ses det at den intelligente lydmonitor bringer controlleren i de rette BABYCON-tilstande. Dvs. at 2WireTTL overførslen virker som forventet
+
+\subsection*{Vuggesystem (I$^2$C)}
+
+I denne test undersøges det om \iic linjen fungerer som forventet. Der er som intelligent lydmonitor, tilkoblet et testprint der simulere hvilket BABYCON-niveau der ønskes. Testens formål er kun at kigge på \iic-forbindelsen, derfor er der brugt BABYCON-niveauet 2 til formålet, som laver forskellige skrivninger.
+
+\figur{0.6}{integrationstest/kom_vs}{Opstilling for test af Vuggesystemet}{inttest:vs}
+
+For at få en idé om hvad der bliver skrevet til vuggesystemet er Controllerens program startet op i debug tilstand som udskriver \iic-data via en SSH-forbindelse fra terminalen på en computer i samme netværk. 
+
+Hvis der er fejl ved \iic skrivninger og læsninger ser det ud som på terminal udskriften i figur \ref{inttest:i2c_fejl}. Fejlen er fremprovokeret ved at trække stikket til vuggesystemet, men fremkommer også når Vuggesystemet ikke får sendt et \verb+ACK+ i tide.
+\figur{0.6}{integrationstest/i2c_fejl}{Fejl i \iic forbindelsen. Debug-tilstand}{inttest:i2c_fejl}
+
+Systemet blev sat i gang og på de følgende figurer ses at \iic dataen bliver overført uden fejl. Det kan ydermere bekræftes at testen viser at \iic-forbindelsen virker som forventet.
+
+\figur{0.4}{integrationstest/i2c_2a}{BABYCON2A overførsel. Debug-tilstand}{inttest:i2c_2a}
+\figur{0.4}{integrationstest/i2c_2b}{BABYCON2B overførsel. Debug-tilstand}{inttest:i2c_2b}
+\figur{0.4}{integrationstest/i2c_2c}{BABYCON2C overførsel. Debug-tilstand}{inttest:i2c_2c}
+
+For at være sikker på at en \iic læsning er mulig, blev \verb+end_stop+-sensoren aktiveret i run-time, og staks læser Controlleren en fejl i statusregisteret og stopper vugningen efterfulgt af e-mail afsendelse.
+\figur{0.3}{integrationstest/i2c_endstop}{Læsningstest. End\_stop. Debug-tilstand}{inttest:i2c_endstop}
+
+\subsection*{PSU}
+
+Forbindelsen til PSUen er testet auditivt. Dvs. at der testes om relæet slår til og fra ved hhv. tænd og sluk af Controlleren, ved at lytte til relæet. Samtidigt er PSoCen fra vuggesystemet koblet op, som visuelt kan ses starte op ved at se at dioden lyser.
+
+Mini-jack kablet er koblet til både Controller og PSU.
+
+\figur{0.6}{integrationstest/kom_psu1}{Opstilling for test af PSU Controller}{inttest:kom_psu1}
+\figur{0.6}{integrationstest/kom_psu2}{Opstilling for test af PSU ved PSU}{inttest:kom_psu2}
+
+Det kan bekræftes at PSUen tænder for sine forsyninger med det samme, Controlleren tændes. Og PSUen slukker når Controlleren slukkes og har modtaget et shutdown ready fra Vuggesystemet, eller der er sket en fejl. Begge dele er testet i integrationstesten. Førstnævnte er testet ved at tilslutte int. lydmonitor-testprintet, indstillet til BABYCON3 og sidstnævnte er testet ved at afkoble testprintet. 
+
+\newpage
+\section{Advisering}
+
+Her testes om adviseringen af Babypasseren virker som forventet. Da det er en vigtig del af Baby Watch, at Babypasseren bliver alarmeret hvis Babyen græder.
+
+\subsection*{E-Mail}
+
+For at teste e-mail adviseringen, er Controlleren koblet op til en router med internet adgang. Controlleren startes og der kontrolleres at Wi-Fi-LEDen \textbf{ikke} lyser. Dette er en indikation af at Controlleren har en fungerende internet forbindelse og er i stand til at sende en e-mail til Babypasseren.
+
+Controlleren er koblet op med den Intelligente lydmonitor, og der afspilles en alarmerende lyd, \verb+Hoejlydt_babygraad2.wav+. På figur \ref{inttest:email_alarm} ses at der modtages en passende alarm e-mail i mailboksen.
+
+\figur{0.8}{integrationstest/test_mail_alarm}{Alarmerende e-mail}{inttest:test_mail_alarm}
+
+Det kan bekræftes at e-mail adviseringen virker som forventet, og så længe Controlleren har forbindelse til internettet har den mulighed for at sende en e-mail.
+
+\newpage
+\subsection*{Hjemmeside}
+
+For at hjemmesiden fungerer (kan tilgås), kræves det at Controlleren er på det lokale netværk. Dette er der ikke et direkte fejltjek på. Men hvis Wi-Fi-LEDen ikke lyser, er det en god indikation af at hjemmesiden kan tilgås. Hvis hjemmesiden ikke kan tilgås via den lokale ip adresse og Wi-Fi-LEDen ikke lyser formodes det at der er opstået en fejl internt i Controllerens computer. Hvis dette sker, kræves der i første omgang en restart af Controlleren, efterfulgt af et tekniker besøg hvis det fortsætter. 
+
+Denne test, tester opdateringen af hjemmesiden og det er underforstået at Controlleren er på netværket.
+
+Controlleren er koblet op med den Intelligente lydmonitor, og der afspilles en alarmerende lyd, \verb+Hoejlydt_babygraad2.wav+. På figur \ref{inttest:test_web3} ses det at hjemmesiden er opdateret til BABYCON3.
+
+\figur{0.55}{integrationstest/test_web3}{Baby Watch hjemmesidetest i BABYCON3}{inttest:test_web3}
+
+Controlleren er koblet op med den Intelligente lydmonitor, og der afspilles en alarmerende lyd, \verb+Moderat_babygraad2.wav+. På figur \ref{inttest:test_web2} ses det at hjemmesiden er opdateret til BABYCON2.
+
+\figur{0.55}{integrationstest/test_web2}{Baby Watch hjemmesidetest i BABYCON2}{inttest:test_web2}
+
+Controlleren er koblet op med den Intelligente lydmonitor, og der afspilles en alarmerende lyd, \verb+Trafik1.wav+. På figur \ref{inttest:test_web1} ses det at hjemmesiden er opdateret til BABYCON1. Samtidigt kan man se at der er modtaget en alarm e-mail.
+
+\figur{0.55}{integrationstest/test_web1}{Baby Watch hjemmesidetest i BABYCON1}{inttest:test_web1}

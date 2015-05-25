@@ -18,6 +18,9 @@ bool onStatus = false;
 /* system loop */
 while(1) {
 
+	/* reset error status in OFF-loop */
+	vugge_status = 0;
+
 	/* system on-loop */
 	while(on_off == on) {
 
