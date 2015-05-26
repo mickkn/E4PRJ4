@@ -27,6 +27,7 @@ bool manStart = false;
 bool errorFlag = false;
 bool DEBUG = false;
 bool MODULTEST = false;
+
 int modultest_onoff = 1;
 
 #define ERRORDELAY	500000 // 500ms
@@ -43,13 +44,13 @@ int modultest_onoff = 1;
 #define MSLOOPTIME2 20000 	//  2min=120000ms (Test = 20000ms)
 #define MSLOOPTIME3 30000 	//  3min=180000ms (Test = 30000ms)
 unsigned char VSStatus = 0;
-unsigned char A_FREQ  = 0x32; 	// 0,5 Hz (50)
+unsigned char A_FREQ  = 0x08; 	// 0,08 Hz (8) // afgrænsningsværdi
 unsigned char A_ANGLE = 0xC8;	// 10 grader (200)
-unsigned char B_FREQ  = 0x64; 	// 1 Hz (100)
+unsigned char B_FREQ  = 0x10; 	// 0,16 Hz (16) // afgrænsningsværdi
 unsigned char B_ANGLE = 0x78;	// 6 grader (120)
-unsigned char C_FREQ  = 0xC8;	// 2 Hz (200)
+unsigned char C_FREQ  = 0x20;	// 0,32 Hz (33) // afgrænsningsværdi
 unsigned char C_ANGLE = 0x50;	// 4 grader (80)
-unsigned char M_FREQ  = 0x4B;	// 0,75 Hz (75)
+unsigned char M_FREQ  = 0x0C;	// 0,12 Hz (12) // afgrænsningsværdi
 unsigned char M_ANGLE = 0xA0;	// 8 grader (160)
 unsigned char VS_ON  = 0xF0;		// ON
 unsigned char VS_OFF = 0x0F;		// OFF
@@ -67,7 +68,12 @@ void manStartFunc();
 void* thread_pingNet(void* arg);
 bool pingFlag = false;
 
-int main() {
+int main(int argc, char *argv[]) {
+
+	for(int i=0 ; i < argc ; ++i) {
+		if(!strcmp(argv[i], "-m"))MODULTEST =true;
+		if(!strcmp(argv[i], "-debug"))DEBUG = true;
+	}
 
 	/* initialize wiringPi*/
 	wiringPiSetup();
@@ -93,6 +99,10 @@ int main() {
 			printf("[OUTSIDE ON LOOP]\n");
 			modultest_onoff = 0;
 		}
+
+		/* reset error status in OFF-loop */
+		VSStatus = 0;
+
 		/* system on-loop */
 		while(panel.getButValue(panel.butOnOff_) == 1) {
 
