@@ -15,7 +15,7 @@ Der udføres analyser på lyd-optagelser af følgende situationer:
 \end{itemize} 
 Disse analyseres således som beskrevet i efterfølgende afsnit.
 
-\subsection{Metode}
+\subsection*{Metode}
 Der analyseres tre optagelser af hver af de udvalgte lyde i formatet .wav. Lydene analyseres i både lange (~5 sek) og korte (~5 msek) optagelsessegmenter i Matlab med hensyn til:
 \begin{itemize}
 	\item Frekvensindhold
@@ -53,7 +53,7 @@ For yderlige information se \citep[pp. 56-57]{TPR_calc}
 Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes. For yderligere beskrivelse af smooth se \citep{website:smooth}
 
 %\newpage
-\subsection{Analysekode gennemgang}
+\subsection*{Analysekode gennemgang}
 I dette afsnit findes en kort gennemgang af de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til \citep[SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m]{cd} \\
 \\
 \textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal,\footnote{Dette gøres for at få lyden i mono, hvilket gør den lettere at analysere} sætte den ønskede længde af hanning-vinduet og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
@@ -117,7 +117,7 @@ TPR_global = sum(afPeaks(k_peak))/fSum
 \end{verbatim}
 
 \newpage
-\subsection{Analyser}
+\subsection*{Analyser}
 Resultatet af korttids-analysen er 3-plots:
 \begin{enumerate}
 	\item Sampleplot af det givne lydsignal (blå)
@@ -265,7 +265,7 @@ Højlydt babygråd har tydelige frekvenspeaks, der ligger ret ensartet prøveopt
 Både højydt og moderat babygråd har magnitudefald i omegnen af 20 dB. Højlydt babygråd har magnitudefald under på 25 dB, men den nedre grænse er ikke ensartet, som det ses af \ref{intlyd:forundersoegelse:mod_baby_lang} analysen øverst højre. Moderat babygråds fald er imidlertid mere ensformigt, og ligger hver gang mellem -12 dB og -20 dB. Støjsignalernes magnitudefald ligger samtidig mellem 10 og 20 dB fra det for babygråd. Magnitudefaldet mellem 1 kHz og 6 kHz
 
 \newpage
-\subsection{Konklusion}
+\subsection*{Konklusion}
 For korttids-analysen giver maxværdien af tonal power ratio ikke et ensformigt billede af hvorvidt der er tale om en baby. Min og max frekvenserne for det dominerende toneindhold er en indikator, men denne metodik vurderes følsom overfor uforudset støj. \\
 For langtids-analysen er TPR en plausibel metode for detektion af babyens tilstand. Højlydt babygråd vil da have TPR i omegnen 0.336 og moderat babygråd vil have TPR i nærheden af 0.374. Implementeres denne metodik, bliver kalibrering dog nødvendig. Analyse af det dominerende frekvensindhold giver et udmærket billede af hvorvidt der er højlydt babygråd. Dog giver visse tilfælde af latter lignende frekvenspeaks, og endnu en analysemetode vil være nødvendig for at frasortere denne støjtype. Moderat babygråd viser ikke på samme måde tydelige frekvenspeaks. Analyse af magnitudefaldet fra 1 kHz til 6 kHz giver et billede af hvorvidt der er tale om babygråd. \\
 Analyse af magnitudefaldet vil sammen med detektering af frekvenspeaks være tilstrækkeligt for detekteringen og kategoriseringen af babygråd. Til forfining af detektion kunne tonal power ratio benyttes. Til videre forfining kunne en dB-måling af grådens lydstyrke (i tids-domænet) endvidere benyttes til at fjerne støj fra det fjerne. 

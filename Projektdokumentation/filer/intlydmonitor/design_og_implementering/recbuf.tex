@@ -1,5 +1,5 @@
 %RecBuf design
-\subsection{RecBuf}
+\subsection*{RecBuf}
 I dette afsnit beskrives principper og design for RecBuf i Intelligent Lydmonitor.
 Samples modtaget fra prefiltret gemmes i den ene af to identiske buffere som RecBuf indeholder. Når den første buffer er fyldt kaldes Analyzers analyze() med værdien 0 eller 1, hvilket repræsenterer hvilken buffer Analyzer skal analysere data fra. Indholdet af den buffer som Analyzer arbejder på skal altså være færdig analyseret inden den andet buffer er fyldt. Der opstår således et hastigheds-krav til analyze og et størrelseskrav til bufferne i Recbuf. 
 
