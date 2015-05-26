@@ -93,7 +93,7 @@ x = x + offset;     %use offset to fit both sampleplot and TPR
 figure(1)
 subplot(3,1,1)
 plot(x)
-xlabel('Tid/Samples')
+xlabel('Samples')
 ylabel('Amplitude')
 title('Rec: Sample-plot')
 grid on
@@ -122,8 +122,8 @@ plot(f_axis,X_smooth_log1,'r','linewidth',2)
 plot(f_axis,X_smooth_log2,'k','linewidth',2)
 hold off
 axis([0.1 10000 0 inf])
-xlabel('Frekvens i Herz')
-ylabel('Størrelse dB rel. 1 Volt')
+xlabel('Frekvens [Hz]')
+ylabel('Magnitude [dB]')
 title('FFT')
 grid on
 
@@ -167,7 +167,7 @@ plot(xAxis,TPR,'r','linewidth',1)
 hold on
 plot(xAxis,TPR_smooth,'k','linewidth',2)
 hold off
-xlabel('Tid/sample')
+xlabel('Samples')
 ylabel('Tonal Power Ratio')
 title('Tonal Power Ratio')
 grid on
