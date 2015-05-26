@@ -28,10 +28,10 @@ Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent Lydmonitor} af tre
 \item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via to signalledere sender kategoriseringen til Controller. 
 \end{itemize}
 
-\newpage
 \subsection{Software arkitektur}
 I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelse. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samlebåndet og en BABYCON status som produkt i enden.
 
+\newpage
 \subsubsection*{Sekvensdiagram}
 Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonitor.
 \figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_SD.pdf}{SD for Intelligent Lydmonitor}{IL_SD}

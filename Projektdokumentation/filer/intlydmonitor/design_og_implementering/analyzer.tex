@@ -10,7 +10,8 @@ Analyzer har til opgave at foretage følgende analyser:
 
 \subsubsection{Overordnet analyse-funktion}
 Klassens analyse-funktioner benyttes af en overordnet analyse-funktion, der kaldes fra \verb+RecBuf+ når en databuffer er fyldt. Denne modtager således et buffer-nummer når den kaldes. Funktionen følger sekvensen beskrevet i \ref{IL_SD}. Implementeringen er vist herunder:
-\begin{verbatim}void an_analyze(bool curBufRdy)
+\begin{lstlisting}[language=C,numbers=none]
+void an_analyze(bool curBufRdy)
 {
     an_curBufRdy = curBufRdy;
 
@@ -26,7 +27,8 @@ Klassens analyse-funktioner benyttes af en overordnet analyse-funktion, der kald
     }
     else
         ss_calcSignificans(BABYCON3);
-}\end{verbatim}
+}\end{lstlisting}
+
 Hvis den indledende SPL-analyse er under threshold, kaldes \verb+Statistician+ med funktionen \verb+ss_calcSignificans()+ således direkte med BABYCON3. Eller gennemløbes klassens øvrige analyse-funktion er og videre processering foretages af \verb+Categorizer+.
 
 \subsubsection{Sound Pressure Level} \label{an_spl}
@@ -52,7 +54,7 @@ $fractVal_{ 100mV }=\frac { { 2 }^{ 15 }-1 }{ 1.65V } \cdot 100mV\cdot { 2 }^{ -
 
 \textbf{\textit{Implementering}} \\
 Det målte SPL-niveau skal kun tænktes som grov-filtrering, implementeres ganske simpelt ved at finde optagelsens højeste værdi. Analyzer-modulet initieres således med en forudbestemt SPL threshhold, der benyttes til at vurdere hvorvidt optagelsen indeholder signal nok til at en FFT kan betale sig.
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 float an_calcSPL(void)
 {
     /* Find max-value */
@@ -74,7 +76,7 @@ float an_calcSPL(void)
     /* Calc and return SPL i dBV */
     return 20*log10f(curVolt);
 }
-\end{verbatim}
+\end{lstlisting}
 Således sættes først \verb+bufPtr+ på baggrund af status på \verb+an_curBufRdy+, hvorefter RecBufs hukommelse analyseres for højeste værdi. Efterfølgende konverteres denne sample-værdi til den tilsvarende værdi i volt. Slutteligt konverteres denne til dBV.
 
 \subsubsection{Fast Fourier Transformation}
@@ -121,7 +123,8 @@ For vores tilfælde beregnes TPR for ét enkelt fft-sprektrum ad gangen, og vari
 
 \textit{\textbf{Implementering}} \\
 Algoritmen er implementeret med følgende kode:
-\begin{verbatim}float an_calcTPR(void)
+\begin{lstlisting}[language=C,numbers=none]
+float an_calcTPR(void)
 {
     fract32 sum = 0;		//Total sum af spektrum
     fract32 delay[3] = {0};	//Energy delay taps. delay[0] equals current sample
@@ -143,7 +146,8 @@ Algoritmen er implementeret med følgende kode:
     }
 
     return fr32_to_float(e_T)/fr32_to_float(sum);
-}\end{verbatim}
+}
+\end{lstlisting}
 
 Idet det lokale maksimum findes ved at sammenligne sample-værdien før og efter analyse-punktet, er hele algoritmen forskubbet med én sampleværdi. Det er således \verb+delay[1]+, der summeres på \verb+e_T+ og \verb+sum+. Funktionen gennemløber alle fft magnitude bins i \verb+an_freqSpec[]+, generet i funktionen \verb+an_calcFFT()+. Der opdateres for hvert gennemløb en delay-linje med kvadratet på de givne frekvensbins. Hvis værdien af \verb+delay[1]+ er større end threshold \verb+g_T+ og et lokalt maksimum, lægges dette til det tonale indhold, \verb+e_T+. Ved summation nedskalleres værdien for at undgå overflow af fixedpoint-typen. Denne nedskalering har minimal indvirkning på den endelige TPR-værdi (kun kvantiseringsfejl grundet opløsningsnedsættelsen), idet forholdet mellem de to i sidste ende danner TPR-værdien. Dette forhold beregnes ved først at konvertere summerne til floats, så divisions-operatoren kan benyttes.
 
@@ -151,14 +155,15 @@ Idet det lokale maksimum findes ved at sammenligne sample-værdien før og efter
 
 \subsubsection{Smoothing af frekvensspektrum}
 For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Eftersom det ikke er muligt at tage log10 til typen \verb+fract32+, konverteres denne til float. Vi får således float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
-\begin{verbatim}void an_g2dB(void)
+\begin{lstlisting}[language=C,numbers=none]
+void an_g2dB(void)
 {
     int i;
     for(i = 0; i<AN_NFFT; i++)
     {
         an_freqSpecdB[i] = 20*log10f(fr32_to_float(an_freqSpec[i]));
     }
-}\end{verbatim}
+}\end{lstlisting}
 
 Til smoothing af dette frekvenspektrum benyttes et rekursivt midlingsfilter. Dette benyttes frem for det simplere løbende midlingsfilter, idet det er væsentlig mindre beregningtungt for filtre af højere orden, mens det giver præcis samme output.
 
@@ -169,10 +174,11 @@ $y\left( n \right) =\frac { 1 }{ M } \cdot \left( x\left( n \right) -x\left( n-M
 \end{center}
 Hvor x(n) er input, y(n) er output og M er filtrets orden (længde).
 
+\newpage
 \textbf{\textit{Anvendelse af transient respons som højpasfiltrering}}\\ \label{intlyd:analyzer:smooth_hp}
 Filtret har en transient respons, og vil have en indsvingning på M samples (her frekvensbins). Den vil således starte på værdien 0 og svinge ind til den korrekte output-værdi efter M samples. Spektret har som udgangspunkt negative magnituder på dB-skalaen, og vil derfor svinge oppefra og ned, som det ses på \ref{an_freqSpecSmooth_no_shift} herunder:
 
-\figur{0.6}{intlydmonitor/implementering/an_freqSpecSmooth_no_shift}{Smoothed Hoejlydt\_baby2 uden vertikalt shift}{an_freqSpecSmooth_no_shift}
+\figur{0.45}{intlydmonitor/implementering/an_freqSpecSmooth_no_shift}{Smoothed Hoejlydt\_baby2 uden vertikalt shift}{an_freqSpecSmooth_no_shift}
 
 Ved imidlertid at hæve hele spektret, så det ligger godt over 0dB, opnås et sving opad, der giver det endelige spektrum en karakter af at være blevet højpasfiltreret. Der er valgt en orden på M = 35, hvilket resulterer i en højpasfiltrering med knæk-frekvensen:
 \begin{center}
@@ -184,11 +190,12 @@ ${ f }_{ hp }=\frac { M }{ freq\_ fac } =818\quad Hz $
 
 Hvor freq\_fac er omregningsfaktoren fra Hz til bin-nummer i frekvensspektret. Filtrets transiente respons vil således være udløbet ved 818 Hz. Idet Categorizers lavtliggende analysepunkter er på 1000 Hz og 1400 Hz, får dette ikke indvirkning på værdien i disse punkter. Højpasfiltrets dæmpning (stejlhed) bestemmes af hvor meget niveauet hæves. Det midlede frekvensspektrum bliver som vist på figur \ref{an_freqSpecSmooth_shift} herunder:
 
-\figur{0.6}{intlydmonitor/implementering/an_freqSpecSmooth_shift}{Smoothed Hoejlydt\_baby2 med vertikalt shift}{an_freqSpecSmooth_shift}
+\figur{0.45}{intlydmonitor/implementering/an_freqSpecSmooth_shift}{Smoothed Hoejlydt\_baby2 med vertikalt shift}{an_freqSpecSmooth_shift}
 
 \textbf{\textit{Implementering}} \\
 Algoritmen med det rekursive filter er implementeret som følger:
-\begin{verbatim}void an_smooth(unsigned int m)
+\begin{lstlisting}[language=C,numbers=none]
+void an_smooth(unsigned int m)
 {
     /* RECURSIVE FILTER*/
     float scaling = 1.0/m;
@@ -216,5 +223,5 @@ Algoritmen med det rekursive filter er implementeret som følger:
                  (an_freqSpecdB[n]-an_freqSpecdB[n-m])+an_freqSpecSmooth[n-1];
         }
     }
-}\end{verbatim}
+}\end{lstlisting}
 Frekvensspektret hæves således med en værdi svarende til magnituden af 10kHz, da denne ved de analyserede spektra typisk ligger lavt. Ved gennemløb af algoritmen, forefindes nogle særtilfælde, hvor der endnu ikke er oprettet en delay-linje. For første gennemløb er både x(n-M) og y(m-1) lig 0. For de næste M gennemløb er x(n-M) lig nul. Først efter M runder, opererer filtret sikkert med den originale ligning.

@@ -21,7 +21,7 @@ Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden 
 \end{itemize}
  
 \subsection*{Systemtegning}
-\figur{1}{kravspec/Systemtegning}{Skitse af systemet Baby Watch}{kravspec:systemtegning}
+\figur{0.72}{kravspec/Systemtegning}{Skitse af systemet Baby Watch}{kravspec:systemtegning}
 
 Figur \ref{kravspec:systemtegning} illustrerer systemet. Barnevognen er udstyret med en controller som står for at styre de andre delsystem. På controlleren sidder et brugerpanel som sørger for at babypasseren fysisk kan interagere med systemet via knapper og LED'er.
 Den intelligente lydmonitor består af en mikrofon og en digital signal processer (DSP), som sender informationer til controlleren om babyens tilstand ud fra en processering af babyens lyde; herunder pitch og power. Vuggesystemet består af en motor og et selvregulerende system, som sørger for, at barnet altid vugges ud fra et vandret niveau. Vuggesystemet opererer med tre vuggetilstande (med hver deres frekvens og amplitude) på baggrund af kontrolsignalet fra controlleren. Controlleren indholder også en http server med statushjemmesiden og en e-mail client. Controlleren har forbindelse via Wi-Fi til internettet. Babypasseren kan opsøge information om babyens tilstand på statushjemmesiden og modtager e-mails når systemet detekterer, at babyen er i en alarmerende tilstand eller hvis der opstår fejl i systemet.
