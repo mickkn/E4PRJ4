@@ -1,2 +1,23 @@
 % IL stat
-\section{Intelligent lydmonitor}
+\section{Statistician}
+
+Statistician har til opgave at bestemme den mest signifikante BABYCON-status. Der tages i gennemgangen af Statistician udgangspunkt i den endelige bestemmelse af signifikant BABYCON for en optagelse af højlydt babygråd.
+ 
+For hver 1024 input samples (fft-størrelse i Analyzer), svarende til 46 ms lydoptagelse, leveres en ny BABYCON status fra Categorizer. Idet mange lydsegmenter vil indeholde stilhed og støj, modtages en betydelig mængde andre statuser end den ønskede BABYCON1. I \ref{il_cat_hist} eksemplificeres denne problematik.
+
+\figur{0.7}{intlydmonitor/stat_short_time_kategoriseringer}{Histogram for 100 på hinanden følgende BABYCON statuser modtaget fra Categorizer}{il_cat_hist}
+
+En vægtning af fra Categorizer modtagne statuser er derfor nødvendig for at finde den rette BABYCON. Ved trial and error er følgende vægtinger fundet:
+\begin{center}
+    \begin{tabular}{ | l | l |}
+    \hline
+    \textbf{Modtaget status}	& \textbf{Vægtning}		\\ \hline
+    BABYCON1							& 11					\\ \hline
+    BABYCON2							& 6						\\ \hline
+    BABYCON3							& 1						\\ \hline   
+    \end{tabular}
+\end{center}
+
+Når signifikant BABYCON status er fundet ved vægtning, sendes denne til TwoWireCom.
+
+For en fuld gennemgang af Categorizer, se \textit{Intelligent lydmonitor -> Softwaredesign- og implementering -> Statistician p. 125}.
