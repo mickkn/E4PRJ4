@@ -2,7 +2,7 @@
  * RecBuf.h
  *
  *  Created on: 18/05/2015
- *      Author: Kristian
+ *      Author: Hedegaard & Boye
  */
 
 #ifndef RECBUF_H_

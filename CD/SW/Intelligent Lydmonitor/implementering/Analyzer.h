@@ -2,7 +2,7 @@
  * Analyzer.h
  *
  *  Created on: 19/05/2015
- *      Author: Lukas
+ *      Author: Hedegaard & Boye
  */
 
 #ifndef ANALYZER_H_

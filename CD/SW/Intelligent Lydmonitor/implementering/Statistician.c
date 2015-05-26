@@ -2,7 +2,7 @@
  * Statistician.c
  *
  *  Created on: 19/05/2015
- *      Author: Kristian
+ *      Author: Hedegaard & Boye
  */
 
 #include "Statistician.h"
