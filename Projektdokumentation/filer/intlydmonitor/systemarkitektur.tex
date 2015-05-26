@@ -1,16 +1,16 @@
 \newpage
 \section{Systemarkitektur}
 
-I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
+I dette afsnit beskrives systemarkitekturen for den Intelligente lydmonitor.
 
 \subsection*{Overordnet virkemåde}
-Overordnet skal den Intelligent Lydmonitor fungere som følger:
+Overordnet skal den Intelligent lydmonitor fungere som følger:
 \begin{itemize}
-	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med codec AD1836 på Blackfin udviklingsboardet
-	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples. Det forfiltrerede sample gemmes i bufferen.
-	\item Den filtrerede sample-sekvens i bufferen analyseres først for Sound Pressure Level (SPL) for at bedømme hvorvidt der er lyd nok til at den efterfølgende FFT og udglatning kan betale sig. 
+	\item Babygråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med codec AD1836 på Blackfin udviklingsboardet
+	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples. Det forfiltrerede sample gemmes i bufferen
+	\item Den filtrerede sample-sekvens i bufferen analyseres først for Sound Pressure Level (SPL) for at bedømme, hvorvidt der er lyd nok til at den efterfølgende FFT og udglatning kan betale sig
 	\item Et evt. resultat af FFT'en kategoriseres som én af tre BABYCON-states, som beskrevet i \ref{kravspec:indledning_babycon_states} 
-	\item Den fundne BABYCON state holdes op mod en statistik over tidligere states og den signifikante status findes.
+	\item Den fundne BABYCON-state holdes op mod en statistik over tidligere states, og den signifikante status findes.
 	\item Det endelige kategoriseringsresultat sendes til Controller via TwoWireCom
 \end{itemize}
 
@@ -18,33 +18,33 @@ Overordnet skal den Intelligent Lydmonitor fungere som følger:
 
 \newpage
 \subsection{Hardware arkitektur}
-I dette afsnit beskrives hardware arkitekturen for Intelligent Lydmonitor. Den er skitseret IBD'et herunder:
-\figur{0.7}{intlydmonitor/sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent Lydmonitor}{IL_IBD}
+I dette afsnit beskrives hardware arkitekturen for Intelligent lydmonitor. Den er skitseret IBD'et herunder:
+\figur{0.7}{intlydmonitor/sysark/Intelligent_Lydmonitor_IBD.pdf}{IBD for Intelligent lydmonitor}{IL_IBD}
 
-Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent Lydmonitor} af tre dele: 
+Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent lydmonitor} af tre dele: 
 \begin{itemize}
-\item \textbf{Mikrofon} optager signalet babyLyd, som er lyden Baby producerer. 
-\item \textbf{Mic Preamp} modtager og forstærker signalet opLyd fra Mikrofon, hvilket er den lyd Mikrofon har optaget. 
-\item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via to signalledere sender kategoriseringen til Controller. 
+\item \textbf{Mikrofon} optager signalet babyLyd, som er lyden babyen producerer
+\item \textbf{Mic Preamp} modtager og forstærker signalet opLyd fra Mikrofon, hvilket er den lyd Mikrofon har optaget 
+\item \textbf{Blackfin} modtager forstærket lyd, forLyd, fra Mic Preamp. Blackfin analyserer lyden og kategoriserer denne, inden den via to signalledere sender kategoriseringen til Controller
 \end{itemize}
 
 \subsection{Software arkitektur}
-I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelse. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samlebåndet og en BABYCON status som produkt i enden.
+I dette afsnit beskrives software-arkitekturen for Intelligent lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelse. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samlebåndet og en BABYCON-status som produkt i enden.
 
 \newpage
 \subsubsection*{Sekvensdiagram}
-Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonitor.
-\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_SD.pdf}{SD for Intelligent Lydmonitor}{IL_SD}
+Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent lydmonitor.
+\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_SD.pdf}{SD for Intelligent lydmonitor}{IL_SD}
 
-\ref{IL_SD} viser interaktionen mellem Intelligent Lydmonitors subklasser.
+\ref{IL_SD} viser interaktionen mellem Intelligent lydmonitors subklasser.
 
-Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har to funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen. Disse to danner tilsammem en decimering, der sænker samplefrekvensen og dermed letter den efterfølgende processering. Et højpasfilter var desuden del af klassen ved første udkast, men da midlingsfilteret, der senere benyttes på det genererede fft spektrum, har en naturlig indsvingning med højpaskarakter, kunne en højpasfiltrering i forfiltreringen undgås. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
-\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON statuser (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og den nyligt fundne BABYCON-status sammenlignes med tidligere statuser for at sænke risiko for en evt. fejlmelding. Var den analyserede SPL-værdi under et threshold, kaldes Statistician's calSignificanas() direkte med status BABYCON 3. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
+Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har to funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, og  \textit{downsample()} som nedsampler sekvensen. Disse to danner tilsammem en decimering, der sænker samplefrekvensen og dermed letter den efterfølgende processering. Et højpasfilter var desuden del af klassen ved første udkast, men da midlingsfilteret, der senere benyttes på det genererede fft spektrum, har en naturlig indsvingning med højpaskarakter, kunne en højpasfiltrering i forfiltreringen undgås. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
+\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggøre påfyldning af data i en buffer, mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON-statuser (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og den nyligt fundne BABYCON-status sammenlignes med tidligere statuser for at sænke risiko for en evt. fejlmelding. Var den analyserede SPL-værdi under et threshold, kaldes Statistician's calSignificanas() direkte med status BABYCON3. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
 
 \subsubsection*{Klassediagram}
-Softwaren er oprindelig tænkt som klasser i C++. Dette skabte dog en del uforudsete problemer ved aflæsning af data fra ADC'en på Blackfin533. Derfor er implementeringen foretaget i C. UML-klassediagrammet er dog bibeholdt da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 
+Softwaren er oprindelig tænkt som klasser i C++. Dette skabte dog en del uforudsete problemer ved aflæsning af data fra ADC'en på Blackfin533. Derfor er implementeringen foretaget i C. UML-klassediagrammet er dog bibeholdt, da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer, som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 
 
-\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent Lydmonitor}{IL_UML}
+\figur{1}{intlydmonitor/sysark/Intelligent_Lydmonitor_UML.pdf}{UML for Intelligent lydmonitor}{IL_UML}
 Funktionsbeskrivelser findes i det efterfølgende afsnit. 
 
 \subsubsection*{Funktionsbeskrivelse}
@@ -57,9 +57,9 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
     \textbf{Funktion}	& \verb+void pf_initDecima(void) +						\\ \hline
-    \textbf{Parametre} 	& Ingen. 											\\ \hline
+    \textbf{Parametre} 	& Ingen 											\\ \hline
     \textbf{Returværdi}	& Ingen																				\\ \hline
-    \textbf{Beskrivelse}	& Initialiserer FIR lavpasfilter og nedsampling med en faktor 2.		\\ \hline
+    \textbf{Beskrivelse}	& Initialiserer FIR lavpasfilter og nedsampling med en faktor 2		\\ \hline
     \end{tabular}
 \end{center}
 
@@ -67,14 +67,14 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \begin{tabular}{ | l | p{11,8cm} |}
     \hline
     \textbf{Funktion}	& \verb+void pf_sampleRdy(fract32 sample) +						\\ \hline
-    \textbf{Parametre} 	& fract32 sample, diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang.		\\ \hline
+    \textbf{Parametre} 	& fract32 sample, diskret værdi som repræsenterer det momentane spændingsniveau på Blackfin 533 ADC indgang 	\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Decimerer input og kalder \verb+rb_storeData()+ med filtreret sample som parameter.\\ \hline
+    \textbf{Beskrivelse}	& Kaldes ved erhvervelse af nyt sample. Decimerer input og kalder \verb+rb_storeData()+ med filtreret sample som parameter\\ \hline
     \end{tabular}
 \end{center}
 
 \textit{RecBuf} \\
-\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er det valgt at benytte multiple buffering. Der fyldes samples i en buffer til denne er fuld, hvorefter indholdet sættes til behandling. Mens behandlingen af den ene buffer foretages, fyldes samples i den anden buffer. Når denne er fuld gentages proceduren igen med første buffer.
+\textbf{Ansvar:} For at kunne opsamle data, mens der bliver behandlet andet data, er der valgt at benytte multiple buffering. Der fyldes samples i en buffer til denne er fuld, hvorefter indholdet sættes til behandling. Mens behandlingen af den ene buffer foretages, fyldes samples i den anden buffer. Når denne er fuld gentages proceduren igen med første buffer.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -82,7 +82,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void rb_init(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen 								\\ \hline
-    \textbf{Beskrivelse}& Her sættes attributter rb\_currActiveBuffer, rb\_index og rb\_ready til 0. Herudover initieres de to buffere og alle pladser sættes til 0. 		\\ \hline
+    \textbf{Beskrivelse}& Her sættes attributter rb\_currActiveBuffer, rb\_index og rb\_ready til 0. Herudover initieres de to buffere og alle pladser sættes til 0 		\\ \hline
     \end{tabular}
 \end{center} 
 
@@ -107,7 +107,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void an_analyze(bool curBufRdy) +			\\ \hline
     \textbf{Parametre} 	& bool curBufRdy, nummer på nuværende fyldt buffer i RecBuf-klassen.	\\ \hline
     \textbf{Returværdi}	& Ingen 													\\ \hline
-    \textbf{Beskrivelse}& Sætter variablen bool og kalder funktionerne \verb+calcSPL()+. Hvis returneret SPL er under an\_splThresh, kaldes \verb+ss_calcSignificans()+ direkte med status BABYCON3. Hvis returneret SPL er over an\_splThresh anvendes funktionerne \verb+an_calcFFT()+, \verb+an_calcTPR()+ og \verb+an_smooth()+ inden \verb+cg_categorize()+ kaldes til slut.	\\ \hline
+    \textbf{Beskrivelse}& Sætter variablen bool og kalder funktionerne \verb+calcSPL()+. Hvis returneret SPL er under an\_splThresh, kaldes \verb+ss_calcSignificans()+ direkte med status BABYCON3. Hvis returneret SPL er over an\_splThresh anvendes funktionerne \verb+an_calcFFT()+, \verb+an_calcTPR()+ og \verb+an_smooth()+ inden \verb+cg_categorize()+ kaldes til slut	\\ \hline
     \end{tabular}
 \end{center} 
 
@@ -116,8 +116,8 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \hline
     \textbf{Funktion}	& \verb+int an_calcSPL(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
-    \textbf{Returværdi}	& float, SPL-værdi som dBV.							\\ \hline
-    \textbf{Beskrivelse}& Beregner Sound Pressure Level af samplesekvensen fra RecBuf. \\ \hline
+    \textbf{Returværdi}	& float, SPL-værdi som dBV							\\ \hline
+    \textbf{Beskrivelse}& Beregner Sound Pressure Level af samplesekvensen fra RecBuf \\ \hline
     \end{tabular}
 \end{center} 
 
@@ -137,7 +137,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void an_gain2dB(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Konverterer frekvensspektret i arrayet an\_freqSpec fra gg til dB og gemmer det som arrayet float an\_freqSpecdB. \\ \hline
+    \textbf{Beskrivelse}& Konverterer frekvensspektret i arrayet an\_freqSpec fra gg til dB og gemmer det som arrayet float an\_freqSpecdB \\ \hline
     \end{tabular}
 \end{center}  
 
@@ -147,7 +147,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void an_smooth(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Udglatter frekvensspektret i arrayet an\_freqSpecdB vha. et rekursivt midlingsfilter og gemmer det som arrayet an\_freqSpecSmooth.  \\ \hline
+    \textbf{Beskrivelse}& Udglatter frekvensspektret i arrayet an\_freqSpecdB vha. et rekursivt midlingsfilter og gemmer det som arrayet an\_freqSpecSmooth  \\ \hline
     \end{tabular}
 \end{center}
 
@@ -157,13 +157,13 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void an_calcTPR(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen		\\ \hline
     \textbf{Returværdi}	& Ingen							\\ \hline
-    \textbf{Beskrivelse}& Beregner TPR (Tonal power ratio) for frekvensspektret an\_freqSpec.  \\ \hline
+    \textbf{Beskrivelse}& Beregner TPR (Tonal power ratio) for frekvensspektret an\_freqSpec  \\ \hline
     \end{tabular}
 \end{center} 
 
 
 \textit{Categorizer} \\
-\textbf{Ansvar:} Categorizer står for BABYCON kategorisering af resultaterne fra Analyzer
+\textbf{Ansvar:} Categorizer står for BABYCON-kategorisering af resultaterne fra Analyzer.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -208,7 +208,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
 
 
 \textit{Statistician} \\
-\textbf{Ansvar:} Statistician står for at beregne mest signifikante BABYCON status. Giver besked til TwoWireCom. 
+\textbf{Ansvar:} Statistician står for at beregne mest signifikante BABYCON-status. Giver besked til TwoWireCom. 
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -226,13 +226,13 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void calcSignificans(int bc) +						\\ \hline
     \textbf{Parametre} 	& int bc, BABYCON-niveau		\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Indsætter den modtagne BABYCON i FIFO-kø og beregner mest signifikante BABYCON status, kalder TwoWireCom's send-funktion		\\ \hline
+    \textbf{Beskrivelse}& Indsætter den modtagne BABYCON i FIFO-kø og beregner mest signifikante BABYCON-status, kalder TwoWireCom's send-funktion		\\ \hline
     \end{tabular}
 \end{center}
 
 
 \textit{TwoWireCom} \\
-\textbf{Ansvar:} TwoWireCom står for at sende BABYCON-niveau til Controller jf. \ref{overordnet:graenseflade_IL}
+\textbf{Ansvar:} TwoWireCom står for at sende BABYCON-niveau til Controller jf. \ref{overordnet:graenseflade_IL}.
 
 \begin{center}
     \begin{tabular}{ | l | p{11,8cm} |}
@@ -240,7 +240,7 @@ Funktionsbeskrivelser findes i det efterfølgende afsnit.
     \textbf{Funktion}	& \verb+void tw_init(void) +						\\ \hline
     \textbf{Parametre} 	& Ingen			\\ \hline
     \textbf{Returværdi}	& Ingen	 								\\ \hline
-    \textbf{Beskrivelse}& Sætter retning på GPIO pins og kalder tw\_send med BABYCON3 som def		\\ \hline
+    \textbf{Beskrivelse}& Sætter retning på GPIO pins og kalder tw\_send med BABYCON3 som default		\\ \hline
     \end{tabular}
 \end{center}
 
