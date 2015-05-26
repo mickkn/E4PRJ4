@@ -4,7 +4,7 @@
 I dette afsnit beskrives systemarkitekturen for den intelligente lydmonitor.
 
 \subsection*{Overordnet virkemåde}
-Overordnet skal den intelligente lydmonitor fungere som følger:
+Overordnet skal den Intelligent Lydmonitor fungere som følger:
 \begin{itemize}
 	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med Blackfin's ADC
 	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples for herefter at blive højpasfiltreret. Det forfiltrerede sample gemmes i bufferen.
@@ -30,7 +30,7 @@ Som det ses af Figur \ref{IL_IBD} består \textbf{Intelligent Lydmonitor} af tre
 
 \newpage
 \subsection{Software arkitektur}
-I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelser. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samle-båndet og en BABYCON status som produkt i enden.
+I dette afsnit beskrives software-arkitekturen for Intelligent Lydmonitor. Det vil tage udgangspunkt i \ref{IL_virmåde} og består af et sekvensdiagram, et klassediagram og en efterfølgende funktionsbeskrivelse. Overordnet set kan arkitekturen beskrives som en pipeline-arkitektur med audio-indsamling i den ene side af samlebåndet og en BABYCON status som produkt i enden.
 
 \subsubsection*{Sekvensdiagram}
 Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonitor.
@@ -38,8 +38,8 @@ Herunder ses sekvensdiagrammet for en komplet lyd-analyse i Intelligent Lydmonit
 
 \ref{IL_SD} viser interaktionen mellem Intelligent Lydmonitors subklasser.
 
-Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har to funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen. Disse to danner tilsammem en decimering, der sænker sample frekvensen og dermed letter den efterfølgende processering. Et højpasfilter var desuden del af klassen ved første udkast, men da midlingsfilteret, der senere benyttes på det genererede fft spektrum, har en naturlig indsvingning med højpaskarakter, kunne en højpasfiltrering i forfiltreringen undgås. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
-\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON niveauer (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og det nyligt fundne BABYCON-niveau sammenlignes med tidligere niveauer for at finde sænke risiko for en evt. fejlmelding. Var den analyserede SPL-værdi under et threshold, kaldes Statistician's calSignificanas() direkte med status BABYCON 3. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
+Klassen \textbf{PreFilter} står for forfiltreringen af sample-sekvensen. PreFilter har to funktioner, \textit{lowpass()} som lavpasfiltrerer sample-sekvensen, \textit{downsample()} som nedsampler sekvensen. Disse to danner tilsammem en decimering, der sænker samplefrekvensen og dermed letter den efterfølgende processering. Et højpasfilter var desuden del af klassen ved første udkast, men da midlingsfilteret, der senere benyttes på det genererede fft spektrum, har en naturlig indsvingning med højpaskarakter, kunne en højpasfiltrering i forfiltreringen undgås. PreFilter kalder efter sit gennemløb RecBuf's funktion \textit{setData()} for at gemme samplen.
+\textbf{RecBuf} er en multiple buffer. Det er altså to buffere, hvilket muliggør påfyldning af data i en buffer mens aflæsning foregår af den anden buffer. Når RecBuf har indsamlet nye samples svarende til 1/24 sekund optagelse kaldes \textit{analyze()}. \textbf{Analyzer} analyserer nu data i RecBuf via funktionerne \textit{calcSPL()} og dernæst \textit{calcFFT}, hvis SPL er over threshold. Resultatet sendes til \textbf{Categorizer} via funktionen \textit{categorize}, der kategoriserer resultatet indenfor de tre BABYCON statuser (1,2 og 3). Funktionen \textit{calcSignificans} i \textbf{Statistician} kaldes hernæst og den nyligt fundne BABYCON-status sammenlignes med tidligere statuser for at sænke risiko for en evt. fejlmelding. Var den analyserede SPL-værdi under et threshold, kaldes Statistician's calSignificanas() direkte med status BABYCON 3. Til slut sendes det fundne BABYCON-niveau til Controller via \textbf{TwoWireCom}. 
 
 \subsubsection*{Klassediagram}
 Softwaren er oprindelig tænkt som klasser i C++. Dette skabte dog en del uforudsete problemer ved aflæsning af data fra ADC'en på Blackfin533. Derfor er implementeringen foretaget i C. UML-klassediagrammet er dog bibeholdt da det giver et godt abstraktionsniveau. I klassediagrammet ses attributter og funktioner samt deres indbyrdes relationer som er vist som en pointer. I virkeligheden kommer de blot til at kalde hinandens funktioner indbyrdes. 

@@ -18,10 +18,10 @@ På Figur \ref{intlyd:mic_preamp:elektret} ses en tegning af en elektret mikrofo
 Dog har kablingen mellem mikrofonen og forstærkeren en betydelig kapacitet, så mikrofonpakken er implementeret med en indbygget JFET som buffer, som det ses af Figur \ref{intlyd:mic_preamp:elektret_forsyn}
 \figur{0.6}{intlydmonitor/design/elektret_kreds}{Elektret forsyningskredsløb}{intlyd:mic_preamp:elektret_forsyn}
 
-Forsyningen til mikrofonen bliver det halve af Blackfin-kittets 7,5 V, således at det efterfølgende forstærker-kredsløb kan implementeres med +/- 3,75 V forsyning. Således U\begin{tiny}DC\end{tiny} = 3,75 V. 
+Forsyningen til mikrofonen bliver det halve af Blackfin-kittets 7.5 V, således at det efterfølgende forstærker-kredsløb kan implementeres med +/- 3.75 V forsyning. Således U\begin{tiny}DC\end{tiny} = 3.75 V. 
 Vi ved fra databladet for mikrofonen, at den trækker 5mA og at modstanden R\begin{tiny}d\end{tiny} = 2 kOhm (opgivet som "Output Impedance").
 
-Dette giver et spændingsfald på 0.8 V over R\begin{tiny}d\end{tiny} og dermed 2,95 V over den i mikrofonkapslen indbyggede JFET. I dette område af U\begin{tiny}DS\end{tiny} vil transistoren have en strømbegrænsnde virkning og kan derfor bruges som en tilnærmelsesvis lineær strømkilde. Herunder ses for illustration af princippet en JFET med DC arbejdspunktet indtegnet.
+Dette giver et spændingsfald på 0.8 V over R\begin{tiny}d\end{tiny} og dermed 2.95 V over den i mikrofonkapslen indbyggede JFET. I dette område af U\begin{tiny}DS\end{tiny} vil transistoren have en strømbegrænsnde virkning og kan derfor bruges som en tilnærmelsesvis lineær strømkilde. Herunder ses for illustration af princippet en JFET med DC arbejdspunktet indtegnet.
 \figur{1}{intlydmonitor/design/JFET_Karakteristik}{Karakteristik for JFET'en BF245A. Kilde: Analogteknik}{intlyd:mic_preamp:jfet_karakteristik}
 
 Uden lydtryk vil V\begin{tiny}GS\end{tiny} = 0 V, hvilket resulterer i en I\begin{tiny}D\end{tiny}= 4 mA (markeret på venstre graf i figur \ref{intlyd:mic_preamp:jfet_karakteristik}). Dette DC-arbejdspunkt er for vores mikrofon 5 mA. V\begin{tiny}DS\end{tiny} er ca. 3 V og det ses på højre graf at strømmen i arbejdspunktet, I\begin{tiny}D\end{tiny}, vil ligge lidt lavere. Småsignal strømmen, i\begin{tiny}M\end{tiny}, vil således lade strømmen variere omkring dette punkt.
@@ -85,7 +85,7 @@ Der er en betydelig kapacitet på forstærkerens indgang idet mikrofonen er kobl
 
 \figur{0.9}{intlydmonitor/design/OpAmp_med_indgangskapacitet}{OpAmp med kapacitiv belastning på indgangen. Kilde: Analogteknik}{intlyd:mic_preamp:tia_ind_kap}
 
-På figur \ref{intlyd:mic_preamp:tia_ind_kap} ses TIA'en som de næste udregninger tager udgangspunkt i. Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 101pF/m. Desuden foregår der en HF filtrering med et RC filter og en 100nF kondensator i parrallel mellem signal og stel. Se afsnittet med særlige EMC-hensyn INDSÆT REF. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
+På figur \ref{intlyd:mic_preamp:tia_ind_kap} ses TIA'en som de næste udregninger tager udgangspunkt i. Mikrofonen er kobles med ca. 1m coax kabel med kapaciteten 101pF/m. Desuden foregår der en HF filtrering med et RC filter og en 100nF kondensator i parrallel mellem signal og stel. Se \citep[EMC]{cd} for særlige EMC hensyn. Dette giver altså en C\begin{tiny}1\end{tiny} på 100 pF.
 Der regnes med en typis GBP på 9MHz. Der testes for nødvendighed af kondensator i tilbagekobling:
 \begin{center}
 ${ C }_{ 1 }<\frac { 1 }{ 8\pi \cdot GBP\cdot { R }_{ 2 } } \Longrightarrow \quad 101nF<\frac { 1 }{ 8\pi \cdot 9MHz\cdot 28,9k\Omega  } \quad \Longrightarrow \quad 101\cdot { 10 }^{ -9 }<153\cdot { 10 }^{ -15 }$

@@ -47,14 +47,16 @@ Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de 
 
 Resultatet af vil ligge mellem $0\le { v }_{ Tpr }\le 1$
 
+For yderlige information se \citep[pp. 56-57]{TPR_calc}
+
 \textbf{Smoothing} \\
 Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default filteret, moving average, benyttes. For yderligere beskrivelse af smooth se \citep{website:smooth}
 
 %\newpage
 \subsection{Analysekode gennemgang}
-I dette afsnit findes en kort gennemgang i de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til bilag med komplet analysekode for denne. \\
+I dette afsnit findes en kort gennemgang af de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til \citep[SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m]{cd} \\
 \\
-\textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal, for at få lyden i mono hvilket gør den lettere at analysere, sætte den ønskede længde af hanning-vinduet og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
+\textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal,\footnote{Dette gøres for at få lyden i mono, hvilket gør den lettere at analysere} sætte den ønskede længde af hanning-vinduet og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
 \begin{verbatim}%**** EXTRACT SAMPLES *********************************************%
 [rec1, f_s] = wavread('Hoejlydt_babygraad1');
 [rec2, f_s] = wavread('Hoejlydt_babygraad2');
@@ -76,9 +78,9 @@ r1_win = r1_win .* hanning(length(r1_win))'; %Window with hanning
 x = [r1_win, rSpace, r2_win, rSpace, r3_win];
 \end{verbatim}
 
-Efterfølgende båndpas filtreres optagelsen med 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se bilag med komplet kode for syntax.
+Efterfølgende båndpas filtreres optagelsen med 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se \citep[SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m]{cd} for syntaks.
 
-\textbf{Korttids-analyse}. For korttids-analysen, opdeles optagelsen i korte slices, der hver især behandles med dft og efterfølgende analyseres med hensyn til dominant tone i dft-spektret via matlabs ''max''-funktion samt generelt toneindhold via tonal power ratio funktionen.
+\textbf{Korttids-analyse}. For korttids-analysen, opdeles optagelsen i korte dele, der hver især behandles med dft og efterfølgende analyseres med hensyn til dominant tone i dft-spektret via matlabs ''max''-funktion samt generelt toneindhold via tonal power ratio funktionen.
 \begin{verbatim}%**** SHORT-TIME DFT (Spectogram) *********************************%
 segmentlen = 256;
 nOverlap = 60;
@@ -92,7 +94,7 @@ TPR = TonalPowerRatio(abs(s), f_s, 5*10^-2)';
 TPR_smooth = smooth(TPR(:),0.05,'moving');      % Smooth data
 \end{verbatim}
 
-\textbf{Langtids-analyse}. For langtids-analysen, behandles hele optaglesen med en dft. Dft-spektret midles hernæst med et moving average. Midlingen foretages på spektret i dB og gentages med flere længder (parameter 2). Sluttelige findes den globale TPR for hele optagelsen. 
+\textbf{Langtids-analyse}. For langtids-analysen, behandles hele optaglesen med en dft. Dft-spektret midles hernæst med et moving average filter. Midlingen foretages på spektret i dB og gentages med flere længder (parameter 2). Slutteligt findes den globale TPR for hele optagelsen. 
 
 \begin{verbatim}%**** FAST FOURIER TRANSFORM *********************************** 
 NFFT = 2^nextpow2(N);       %Find next power of 2
@@ -120,7 +122,7 @@ Resultatet af korttids-analysen er 3-plots:
 \begin{enumerate}
 	\item Sampleplot af det givne lydsignal (blå)
 	\item Tonal Power Ratio (rød) og midlet TPR (sort)
-	\item Spectogram (colormap: bone), dominerende tone (blå prikker), midlet dominerende tone (rød streg)
+	\item Spektogram (colormap: bone), dominerende tone (blå prikker), midlet dominerende tone (rød streg)
 \end{enumerate}
 Bemærk for plot 3, at data for dominerende frekvens er fjernet ved TPR på 0.
 
@@ -139,7 +141,7 @@ Karakteristisk ved højlydt babygråd er, at dele af Tonal Power Ratio (TPR) nå
 
 \newpage
 \textbf{Langtids-analyse} \\
-Karakteristisk ved langtidsanalysen for højlydt babygråd er, at den dominerende tone (sort streg) ligger omkring 900 Hz. Næste dominante frekvens ligger mellem 3 kHz og 3,1 kHz. Endvidere ses at magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede, i forhold til andre analyserede signaler, med magnitudeforskel på laveste og højeste frekvens (på sort, midlet kurve) på omtrent 25 dB. \\
+Karakteristisk ved langtidsanalysen for højlydt babygråd er, at den dominerende tone (sort streg) ligger omkring 900 Hz. Næste dominante frekvens ligger mellem 3 kHz og 3.1 kHz. Endvidere ses at magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede, i forhold til andre analyserede signaler, med magnitudeforskel på laveste og højeste frekvens (på sort, midlet kurve) på omtrent 25 dB. \\
 De tre optagelser samlet (nederste højre graf) har en TPR = 0.336.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_hoejlydt_babygraad_lang_samling}{Langtids-analyser af højlydt babygråd optagelser. Nederste højre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:hoj_baby_lang}
@@ -154,7 +156,7 @@ Karakteristisk ved optagelsen af moderat babygråd er, at en forholdsvis stor de
 
 \newpage
 \textbf{Langtids-analyse} \\
-Ved langtidsanalysen for højlydt babygråd ligger den dominerende dybe tone (sort streg) på hhv. 1,5 kHz (optagelse 1, øverst venstre), 1 kHz (optagelse 2, øverst højre) og 600 Hz (optagelse 3, nederst venstre). Næste dominante frekvens ligger omkring 2,5 kHz for optagelse 2 og 3. For optagelse 1, findes intet tydeligt peak. Der er altså ikke tydelig korrelation for placering af frekvenspeaks. Magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede, i forhold til andre analyserede signaler, med magnitudeforskel på laveste og højeste frekvens (sort, midlet kurve) på omtrent 20 dB. \\
+Ved langtidsanalysen for højlydt babygråd ligger den dominerende dybe tone (sort streg) på hhv. 1.5 kHz (optagelse 1, øverst venstre), 1 kHz (optagelse 2, øverst højre) og 600 Hz (optagelse 3, nederst venstre). Næste dominante frekvens ligger omkring 2.5 kHz for optagelse 2 og 3. For optagelse 1, findes intet tydeligt peak. Der er altså ikke tydelig korrelation for placering af frekvenspeaks. Magnituden af frekvenserne mellem 1 kHz og 6 kHz er relativt ligeligt distribuerede, i forhold til andre analyserede signaler, med magnitudeforskel på laveste og højeste frekvens (sort, midlet kurve) på omtrent 20 dB. \\
 De tre optagelser samlet (nederste højre graf) har TPR = 0.374.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_moderat_babygraad_lang_samling}{Langtids-analyser af moderat babygråd optagelser. Nederste højre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:mod_baby_lang}
@@ -162,7 +164,7 @@ De tre optagelser samlet (nederste højre graf) har TPR = 0.374.
 \newpage
 \begin{center} \textit{\textbf{Fuglefløjt og omgivelsesstøj fra natur}} \end{center}
 \textbf{Korttids-analyse} \\
-Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi over 0.11, men under 0.13 (plot 2). På spektrogrammet (plot3), de blå prikker, ses det at de dominerende frekvenser ligger meget spredt; det meste af tiden dominerer omgivelsesstøj fra natur (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1,8 kHz til 6 kHz. Den midlede dominerende tone, røde prikker plot 3, ligger mellem 35 Hz og 2500 Hz.
+Karakteristik for fuglefløjt og omgivelsesstøj fra natur er, at TPR ligger på en værdi over 0.11, men under 0.13 (plot 2). På spektrogrammet (plot3), de blå prikker, ses det at de dominerende frekvenser ligger meget spredt; det meste af tiden dominerer omgivelsesstøj fra natur (ca. 100 Hz), og andre gange dominerer fuglefløjt med frekvenser fra 1.8 kHz til 6 kHz. Den midlede dominerende tone, røde prikker plot 3, ligger mellem 35 Hz og 2500 Hz.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_fuglefloejt_kort}{Korttids-analyse af fuglefløjt og omgivelsesstøj fra natur optagelser}{intlyd:forundersoegelse:fugl_kort}
 
@@ -189,13 +191,13 @@ For trafikstøjens frekvensspektrum, er toneindholdet under 1 kHz klart dominere
 \newpage
 \begin{center}\textit{\textbf{Kat}}\end{center}
 \textbf{Korttids-analyse} \\
-Korttids analysen af katteoptagelserne resulterer i en TPR omkring 0.15 (plot 2). Af spektrogrammet (plot 3) fremgår det at frekvenserne ligger fordelt i bånd, båndene har en afstand på mellem 300 og 500 Hz. Dominerende toner ligger mellem 1,5 og 3 kHz.
+Korttids analysen af katteoptagelserne resulterer i en TPR omkring 0.15 (plot 2). Af spektrogrammet (plot 3) fremgår det at frekvenserne ligger fordelt i bånd, båndene har en afstand på mellem 300 og 500 Hz. Dominerende toner ligger mellem 1.5 og 3 kHz.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_kat_kort}{Korttids-analyse af katte-optagelser}{intlyd:forundersoegelse:kat_kort}
 
 \newpage
 \textbf{Langtids-analyse} \\
-Katte-optagelsen producerer et frekvensspektrum med tydelig grundtone og harmoniske (rød kurve). Midles der, findes peaks omkring 1000 Hz og 2,5 kHz. Generelt falder magnituden jo højere frekvensen bliver. For optagelse 1, falder den drastisk efter 5,5 kHz, men for optagelse 2 og 3 falder den fra 2, kHz. For optagelse 2 og 3 er der omkring 30 dB fald mellem 1kHz og 6kHz. De tre optagelser samlet (nederste højre graf) har TPR = 0.295.
+Katte-optagelsen producerer et frekvensspektrum med tydelig grundtone og harmoniske (rød kurve). Midles der, findes peaks omkring 1000 Hz og 2.5 kHz. Generelt falder magnituden jo højere frekvensen bliver. For optagelse 1, falder den drastisk efter 5.5 kHz, men for optagelse 2 og 3 falder den fra 2 kHz. For optagelse 2 og 3 er der omkring 30 dB fald mellem 1kHz og 6kHz. De tre optagelser samlet (nederste højre graf) har TPR = 0.295.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_kat_lang_samling}{Langtids-analyser af katte-optagelser. Nederste højre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:kat_lang}
 
@@ -208,14 +210,14 @@ Latter forekommer stødvis med dominerende tone mellem 300 og 1200 Hz. Der produ
 
 \newpage
 \textbf{Langtids-analyse} \\
-Latter genererer et spektralt indhold med første peak omkring 900 Hz og andet peak mellem 2,6 og 2,9 kHz. Disse peaks ligger meget tæt på de frekvenspeaks, der genereres af højlydt babygråd. Det generelle magnitude-fald er mellem 30 og 50 dB for de analyserede optagelser. De tre optagelser samlet (nederste højre graf) har TPR = 0.253.
+Latter genererer et spektralt indhold med første peak omkring 900 Hz og andet peak mellem 2.6 og 2.9 kHz. Disse peaks ligger meget tæt på de frekvenspeaks, der genereres af højlydt babygråd. Det generelle magnitude-fald er mellem 30 og 50 dB for de analyserede optagelser. De tre optagelser samlet (nederste højre graf) har TPR = 0.253.
 
 \figur{1}{intlydmonitor/forundersoegelse/analyse_latter_lang_samling}{Langtids-analyser af latter-optagelser. Nederste højre graf er analyse af de tre optagelser samlet}{intlyd:forundersoegelse:latter_lang}
 
 
 \newpage
 \begin{center} \textit{\textbf{Korttids-analyse delkonklusion}} \end{center}
-Nøgle-værdier for kort-tidsanalysen opsummeret i tabellen herunder. Maximal TPR-værdi er angivet for den midlede værdi (sorte kurve i figur 2). For minimum- og maksimum-frekvenser er værdier for den midlede kurve (rød kurve, figur 3) ligeledes noterede.
+Nøgle-værdier for korttids-analysen opsummeret i tabellen herunder. Maximal TPR-værdi er angivet for den midlede værdi (sorte kurve i figur 2). For minimum- og maksimum-frekvenser er værdier for den midlede kurve (rød kurve, figur 3) ligeledes noterede.
 
 \begin{center}
     \begin{tabular}{ | l | l | l | l |}
@@ -234,7 +236,7 @@ Nøgle-værdier for kort-tidsanalysen opsummeret i tabellen herunder. Maximal TP
 Babygråd producerer en højere TPR end omgivelsesstøj som trafik og fuglefløjt og omgivelsesstøj fra natur. Katte-optagelse producerer imidlertid en maxTPR på højde med babygråd, og latter kommer også deropad. Der er ikke tydelig forskel i TPR på højlydt og moderat babygråd, og det er således ikke et korttids analyseværktøj, der kan bruges til at skelne mellem disse. Ej helle kan det bruges til med sikkerhed at konkludere hvorvidt der er tale om en baby.
 
 \textbf{Korttids-analyse: Dominerende frekvensindhold}	\\
-Dominerende frekvenser for babygråd ligger typisk mellem 700 og 1900 Hz, med lidt højere båndbredde for Højlydt babygråd end for moderat. Fuglefløjt og katte optagelserne har lyseste dominerende frekvens på op til 2,3 kHz-området for den midlede kurve. 
+Dominerende frekvenser for babygråd ligger typisk mellem 700 og 1900 Hz, med lidt højere båndbredde for Højlydt babygråd end for moderat. Fuglefløjt og katte optagelserne har lyseste dominerende frekvens på op til 2.3 kHz-området for den midlede kurve. 
 Trafikstøjens dominerende frekvenser bevæger sig ikke over 710 Hz. Latter når ligeledes ikke op på lyseste dominerende frekvens for babygråd. Med isolerede optagelser er det altså umiddelbart muligt at identificere både højlydt og moderat babygråd, hvis maksimale udsving analyseres over længere tid (for denne forundersøgelse 15 sek).
 
 \newpage
@@ -254,7 +256,7 @@ Nøgle-værdier for kort-tidsanalysen opsummeret i tabellen herunder. Udover glo
 \end{center}
 
 \textbf{Langtids-analyse: Tonal Power Ratio}	\\
-Begge typer babygråd producerer højere TPR end de resterende optagelser. Nærmeste støjoptagelse (Kat) ligger  12\% lavere. Dette vurderes som tilstrækkelig til adskille almindelig baggrundsstøj fra babygråd. Der er 10\% forskel i TPR mellem højlydt og moderat babygråd. Dette antages tilstrækkeligt til at kende forskel.
+Begge typer babygråd producerer højere TPR end de resterende optagelser. Nærmeste støjoptagelse (Kat) ligger  12\% lavere. Dette vurderes som tilstrækkelig til at adskille almindelig baggrundsstøj fra babygråd. Der er 10\% forskel i TPR mellem højlydt og moderat babygråd. Dette antages tilstrækkeligt til at kende forskel.
 
 \textbf{Langtids-analyse: Dominerende frekvensindhold}	\\
 Højlydt babygråd har tydelige frekvenspeaks, der ligger ret ensartet prøveoptagelserne imellem. Moderat babygråd har ikke tydelige frekvenspeaks. Selvom både kat og latter har lavt frekvenspeak, liggende i samme område som højlydt babygråd, ligger deres andet frekvenspeak lavere end for højlydt babygråd. Latter kan i nogle tilfælde også nå et frekvenspeak i samme område som højlydt babygråd. Langtidsanalyse af dominerende frekvensindhold er en valid måde at identificere højlydt babygråd på. Visse latter-optagelser, vil imidlertid også fanges af denne analysemetodik.
