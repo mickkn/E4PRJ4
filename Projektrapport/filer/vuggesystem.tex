@@ -1,5 +1,6 @@
 % Vuggesystem
-\chapter{Vuggesystem}\label{vuggesys}
+\chapter{Vuggesystem}
+\label{vuggesys}
 Vuggesystemet består af en PSoC4 microcontroller som reguleringsmodul til et mekanisk system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ PSoC4 microcontrolleren bruger en sensorkreds med indbygget accelerometer og gyroskop placeret på akslen barnevognskurven vugges over til at måle vinklen i forhold til tyngdefeltet. \\ I hver af ende af barnevognen er placeret en enstopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kommunikerer også med Controller. Dette sker ved hjælp af et I2C-interface. Kommunikationen består af parametre send til vuggesystemet om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
 
 Til at trække det mekaniske vuggesystem er en motor monteret med en tilhørende motorkreds. Denne motorkreds styres af et PWM-signal genereret ud fra beregninger lavet på baggrund af sensor input og parametrene sendt fra Controller.
@@ -24,27 +25,20 @@ Vuggesystemet består af tre dele
 
 \figur{1}{vuggesystem/reguleringsMCU_SD}{SD for Vuggesystems styre enhed Regulerings MCU}{vuggesystem:SD}
 
-\section{Design}
-\label{vs_design}
-
-\figur{1}{vuggesystem/reguleringsMCU_klassediagram.pdf}{Klassediagram for Vuggesystem}{vuggesystem:klassediagram}
-
-
-
 
 \section{HW Design og Implementering}
 \label{vs_HW}
-Da vuggesystemet er opbygget omkring en PSoC 4 chip er det kun effektdrivende hardware der har været nødvændigt at implementere eksternt, hvorfor det kun er Motorstyringskredsen der er implementeret som et selvstændigt kredsløb, mens systemets sensorer kan kobles direkte til PSoC'en. De to endstop switches er samlet i et signal for at spare en pin. Herunder ses et diagram over det implementerede hardware:\\
+Da vuggesystemet er opbygget omkring en PSoC 4 chip er det kun effektdrivende hardware der har været nødvendigt at implementere eksternt, hvorfor det kun er Motorstyringskredsen der er implementeret som et selvstændigt kredsløb, mens systemets sensorer kan kobles direkte til PSoC'en. De to endstop switches er samlet i et signal for at spare en pin. Herunder ses et diagram over det implementerede hardware:\\
 \figur{1}{vuggesystem/HW_schematic.pdf}{Samlet kredsløbsdiagram for Vuggesystem}{vuggesystem:hwdesign}
 Det ses her at en H-bro med power mosfet's styret af dobbelt siddede MOS drivere benyttes til at styre motoren. Dette kræver et PWM signal som inverteres, med et dødbånd for at sikre mod at der sendes strøm forbi motoren ved skift, hvilket igen er valgt implementeret på PSoC'en i stedet for i ekstern HW. \\ Systemet indeholder desuden to optokoblere som benyttes til at skabe galvanisk adskillelse af motorkredsen som har tendens til støj.
-For en dybdegående gennemgang af design og implementering af ovenstående kreds henvises til projektdokumentationens afsnit \textit{7.2.1 Hardware Design} og \textit{7.3.1 Hardware Implementering}.\\
+For en dybdegående gennemgang af design og implementering af ovenstående kreds henvises til projektdokumentationens afsnit under \textit{Vuggesystemet} \textit{7.2.1 Hardware Design} og \textit{7.3.1 Hardware Implementering}.\\
 
 
 
-\subsection*{Software}
-\label{vs_implementering_sw}
+\subsection*{SW Design og Implementeringen}
+\label{vs_sw}
+Udfra vuggesystemets applikationsmodel se Projektdokumentationen \textit{Kapitel 7 Vuggesystem} -> \textit{7.1.3 Software arkitektur} blev klassediagrammet til vuggesystemet udarbejdet.
+\figur{1}{vuggesystem/reguleringsMCU_klassediagram.pdf}{Klassediagram for Vuggesystem}{vuggesystem:klassediagram}
+Tanken bag styresystemet til vuggesystemet var at det skulle være styret af et ISR\footnote{Interrupt service rutine der sætter et flag ved 'Klar til næste loop'} styret loop der varetog alle reguleringsmæssige kald og beregninger med en frekvens på 200Hz. Frekvensen blev bestemt udfra hvad der var muligt og stadig hurtigt nok til at kunne reguleres udfra\footnote{Se Projektdokumentationen \textit{Kapitel 7 Vuggesystem} afsnit \textit{7.3.2 Software implementering}}. Sideløbende funktionaliteter så som I2C-kommunikationen mellem Vuggesystemet (PSoC4 MC'en) og Controller(Raspberry Pi'en), I2C-kommunikationen mellem PSoC4 MC'en og vinkelsensoren samt aktiveringen af en endstopsensor blev ligeledes styret af ISR. Før loopets begyndelse skulle PSOC4 MC'ens interne hardware moduler\footnote{senserI2C, Debug, PWM, loopTimer og I2CVuggesystem. Se projektdokumentation side XX} initieres samt diverse pointere til f.eks I2C-buffer registre\footnote{i2cPtr og reguleringsStatusPtr Se Projektdokumentationen side XX} hentes.
 
-
-\subsection*{Hardware}
-\label{vs_implementering_hw}
-
+For en dybdegående gennemgang af software design og implementering af vuggesystemet henvises til projektdokumentationens under \textit{Kapitel 7 Vuggesystemet} afsnit \textit{7.2.2 Software design} begyndende på side XX og \textit{7.3.2 Software implementering} begyndende på side XX.
