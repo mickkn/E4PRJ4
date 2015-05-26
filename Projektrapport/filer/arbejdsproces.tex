@@ -6,11 +6,11 @@
 
 Projektarbejdet for dette semesterprojekt har udgangspunkt i ASE-modellen, se figur \ref{ASE_modellen}. ASE-modellen er benyttet fordi den har været gavnlig på tidligere semestre samt at modellen danner grundlag for flere læringsmål for dette semesterprojekt.
 
-ASE-modellen er hovedsagligt opbygget af 2 faser. En fællesfase hvor gruppen samlet udarbejder projektformulering, kravspecifikation og et fælles grundlag for systemarkitekturen. Herefter skiftes til den fagspecifikke fase, hvor gruppen har arbejdet i 3 mindre grupper bestående af 2 personer pr. gruppe. I denne fase arbejdes der med design og implementering inden gruppen skifter tilbage i fællesfase hvor accepttest og færdiggørelse af dokumentation og rapport udarbejdes. 
+ASE-modellen er hovedsagligt opbygget af 2 faser. En fællesfase hvor gruppen samlet udarbejder projektformulering, kravspecifikation og et fælles grundlag for systemarkitekturen. Herefter skiftes til den fagspecifikke fase, hvor gruppen har arbejdet i tre mindre grupper bestående af to personer pr. gruppe. I denne fase arbejdes der med design og implementering inden gruppen skifter tilbage i fællesfase hvor accepttest og færdiggørelse af dokumentation og rapport udarbejdes. 
 
 \figur{1}{ASE_modellen.pdf}{ASE modellen}{ASE_modellen}
 
-I starten af projektet, blev det besluttet at bruge SCRUM. Der blev oprettet et taskboard på redmine til håndteringer af de forskellige tasks og sprint. TILFØJ NOGET MERE
+I starten af projektet, blev det besluttet at bruge SCRUM. Der blev oprettet et taskboard på redmine til håndteringer af de forskellige tasks og sprints. TILFØJ NOGET MERE
 
 4. semester har været et intenst semester og bl.a. derfor har vi i projektets sidste 1,5 måned lagt SCRUM på hylden, for at bruge tiden anderledes og arbejde mere fokuseret på at nå målet, fremfor at bruge tid på SCRUM og planlægningen i forbindelse dertil. 
 
@@ -31,16 +31,13 @@ Felix(FB) og Jeppe(JH) har haft ansvaret for udviklingen af Vuggesystemet jf. af
 Hardwareopgaverne har bestået af udviklen af et mekaniske vuggesystem med tilhørende motor(FB+JH), en motorstyringskreds(FB) og en opsætningen af to endstop sensorer(JH).\\
 Softwareopgaverne har bestået af udviklingen af et reguleringsmodul på en microcontroller med tilhørende interface til en vinkelsensor(FB), kommunikationsinterface til Baby Watch Controller(JH), beregninger af reguleringen(FB+JH), styringen af et PWM-signal til hardware motorkredsen(FB+JH) og en main til at styre alle disse funktionaliteter(JH). \\
 For en uddybende beskrivelse af Vuggesystemet henvises der til afsnit \vref{vuggesys}.
+
 \subsection*{Kristian og Lukas}
 Kristian og Lukas har haft ansvaret for udviklingen af den Intelligente Lydmonitor. Denne består af en mikrofon-kreds til måling  og en software implementering af optagelse, analyse og kategorisering af baby-lyd på et Blackfin 533 (BF533) udviklingsboard. For mikrofonkredsen benyttes en elektret mikrofon og kredsen efterfølges af et 4. ordens analogt Butterworth lavpasfilter til sikring af høj signal-to-noise-ratio på indgangen af udviklingsboardets AD1836 codec. Som forundersøgelse for software-implementeringen er foretaget analyse af diverse almindelige lyde fra et babyvugnings-scenario, hvor DSP-redskaberne Windowing, Fast Fourier Transform, Tonal Power Ratio og spektrogram (Short-time DFT) benyttes. Disse redskaber indgår ligeledes ved implementering på BF533-boardet, hvor decimering, analyse af Sound Pressure Level samt flere buffering metoder også tages i brug. For at realisere projektet tilgås desuden udviklingsboardets AD1836 codec samt BF533 GPIO'er til kommunikation med Controller.  \\
 For en uddybende beskrivelse af den Intelligente Lydmonitor henvises der til afsnit BLA BLA.
 
-
 \subsection*{Mick og Poul}
-Mick og Poul har haft ansvaret for Controlleren. Controlleren består primært af software afviklet på en Raspberry Pi. Opgaverne har indbefattet kommunikation imellem både Intelligent lydmonitor og Vuggesystemet, netværksforbindelse og e-mail afsendelse. 
-Hardwaremæssigt består Controlleren af et betjeningspanel med tre lysdioder, én ON/OFF kontakt samt en ''Manuel start''-knap. Betjeningspanelet er Babypasserens mulighed for at interagere med systemet.
-Mick og Poul har desuden stået for PSU'en til det samlede Baby Watch system. \\
-For en uddybende beskrivelse af Controller henvises der til afsnit BLA BLA.
+Mick(MK) og Poul(PO) har haft ansvaret for udviklingen af Controlleren, som i hovedtræk er styreenheden i systemet, der skal kommunikere imellem alle delene i Baby Watch. Derudover har Mick(MK) og Poul(PO) haft ansvaret for strømforsyningen, til forsyningen af Vuggecontrolleren og den Intelligente lydmonitor. Så der har både været software og hardware opgaver at tage vare på. Softwaredelen er baseret på en Raspberry Pi, hvor linux har været i højsædet, der har været en del forundersøgelse i hvordan der kunne kommunikeres ud til hardwaren fra computeren samt hvordan det kunne gøres nemmere at compile og debugge, ydermere har \iic forbindelsen budt på lidt udfordringer. På 4. semester har vi stiftet trådet programmering, og dette er der blevet draget nytte af i Controller-programmet også. Der er lavet minimalt hardware til Controlleren, men strømforsyningen har derimod budt på udfordringer i printudlæg, som har været nyt for begge.
 
 \subsubsection*{Jeppe}
 Jeppe har også haft en opgaven at udvikle en webserver til Raspberry Pi'en med tilhørende klasse "Website" der kan styre denne webserver via. main programmet på Controlleren. \\
