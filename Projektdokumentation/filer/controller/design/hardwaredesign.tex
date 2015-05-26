@@ -1,8 +1,8 @@
 \subsection{Hardwaredesign}
 
-Controlleren består af et betjeningspanel samt en Raspberry Pi der kontrollerer betjeningspanelet og styrer forbindelserne til hhv. den Intelligente Lydmonitor og Vuggesystemet.
+Controlleren består af et betjeningspanel samt en Raspberry Pi, der kontrollerer betjeningspanelet og styrer forbindelserne til hhv. den Intelligente lydmonitor og Vuggesystemet.
 
-Betjeningspanelet består som beskrevet af 3 lysdioder. Én grøn, én gul og én rød der hhv. indikerer at Baby Watch er tændt/slukket, at Manuel start er aktiveret/deaktiveret samt Wi-Fi status. Ydermere består betjeningspanelet af to knapper, én til at tænde/slukke for Baby Watch systemet og én til at aktivere ''Manuel start''.
+Betjeningspanelet består som beskrevet af tre lysdioder. Én grøn, én gul og én rød der hhv. indikerer at Baby Watch er tændt/slukket, at Manuel start er aktiveret/deaktiveret samt Wi-Fi status. Ydermere består betjeningspanelet af to knapper, én til at tænde/slukke for Baby Watch systemet og én til at aktivere ''Manuel start''.
  
 \subsubsection*{Betjeningspanel}
 
@@ -17,15 +17,15 @@ Til lysdioderne benyttes 5 mm dioder fra komponentrummet:
 
 \figur{1}{controller/design/L53_LEDS_NEW}{Udsnit af datablad for KINGBRIGHT L53 HD, GD og YD }{controller:ledSpec}
 
-Øverst på figur \ref{controller:ledSpec} ses information om lysintensitet som funktion af strømmen og ens for alle tre dioder er at "Relative Value at IF = 10 mA". Strømmen vælges derfor til 10 mA for at der herved er samme lysintensitet i de tre dioder. Nederst ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af 3 kurver angiver spændingsfaldet over hver diode når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
+Øverst på figur \ref{controller:ledSpec} ses information om lysintensitet som funktion af strømmen og ens for alle tre dioder er, at "Relative Value at IF = 10 mA". Strømmen vælges derfor til 10 mA for, at der herved er samme lysintensitet i de tre dioder. Nederst ses strømmen som funktion af spændingen over dioderne. Den indtegnede blå linje på hver af tre kurver angiver spændingsfaldet over hver diode, når strømmen er sat til 10 mA. Ud fra aflæsning på kurverne beregnes for modstandene for dioderne.
 
-\figur{0.5}{controller/design/L53_resistor}{Formodstandsberegninger for de 3 dioder}{controller:resistors}
+\figur{0.5}{controller/design/L53_resistor}{Formodstandsberegninger for de tre dioder}{controller:resistors}
 
 Ud fra modstandsberegningerne i figur \ref{controller:resistors} er kredsløbsdiagrammet, se figur \ref{betjeningspanel:schematic}, opbygget. De to knapper for ON/OFF samt ''Manuel start'' er medtaget sammen med deres GPIO porte på Rasberry Pi Model B.
 
 \figur{0.7}{controller/design/betjeningspanel_multisim}{Kredsløbsdiagram for Betjeningspanel}{betjeningspanel:schematic}
 
-Raspberry Pi'en forsyner LED dioderne med strøm. Der er taget hensyn til at Raspberry Piens sink current har et maksimum på 16 mA pr. output pin samt at 3,3 V udgangen kan levere 50 mA \citep{website:raspi-power}. Dioderne kræver samlet 30 mA i følge designet og det stemmer fint overens med hvad Raspberry Pien kan levere. 
+Raspberry Pien forsyner LED dioderne med strøm. Der er taget hensyn til at Raspberry Piens sink current har et maksimum på 16 mA pr. output pin samt at 3,3 V udgangen kan levere 50 mA \citep{website:raspi-power}. Dioderne kræver samlet 30 mA i følge designet, og det stemmer fint overens med, hvad Raspberry Pien kan levere. 
 
 Tabellen herunder angiver opsætningen af GPIO-benene på Raspberry Pien for at ovenstående diagram kan fungere.
 
@@ -84,37 +84,38 @@ I de to følgende afsnit vil kommunikationen med hhv. Intelligent Lydmonitor og 
 
 \textbf{Kommunikation med Intelligent Lydmonitor}
 
-Kommunikationen med den Intelligente Lydmonitor foregår som beskrevet i systemarkitekturen med 2 signalledere (2WireTTL). Herved opnås der fire kombinationsmuligheder, en for hvert BABYCON-niveau samt en til indikation  af fejl.
+Kommunikationen med den Intelligente Lydmonitor foregår som beskrevet i systemarkitekturen med to signalledere (2WireTTL). Herved opnås der fire kombinationsmuligheder, en for hvert BABYCON-niveau samt en til indikation  af fejl.
 
 GPIO9 og GPIO10 benyttes til denne to-ledet forbindelse til Intelligent lydmonitor, hvor GPIO9 er LSB delen og GPIO10 er MSB delen. 
 
-Til den fysiske forbindelse designes der efter at benytte et USB kabel. Controllerens del af forbindelsen er et USB hun type B stik. Se figur \ref{betjeningspanel:IL_USB}. Figuren viser at 3,3 V er en del af USB stikket, det er kun af testhensyn, for at testprintet vil fungere med dipswitchen, se figur \ref{betjeningspanel:IL_testprint}.
+Et USB kabel benyttes til den fysiske forbindelse.
+Controllerens del af forbindelsen er et USB hun type B stik. Se figur \ref{betjeningspanel:IL_USB}. Figuren viser, at 3,3 V er en del af USB stikket, det er kun af testhensyn, for at testprintet vil fungere med dipswitchen, se figur \ref{betjeningspanel:IL_testprint}.
 
 \figur{0.3}{controller/design/IL_USB}{USB type B for kommunikation med Intelligent Lydmonitor}{betjeningspanel:IL_USB}
  
-Der designes desuden et testprint se figur  \ref{betjeningspanel:IL_testprint}
+Der designes desuden et testprint se figur  \ref{betjeningspanel:IL_testprint}.
 
 \figur{0.5}{controller/design/IL_testprint}{Testprint med dipswitch til at angive BABYCON niveau}{betjeningspanel:IL_testprint}
 
 \textbf{Kommunikaiton med Vuggesystem}
 
-I2C forbindelsen består som beskrevet af en clock (SCL) og en datalinje (SDA) samt en fælles ground forbindelse. Ligeledes med med kommunikationen til den Intelligente Lydmonitor benyttes et USB type B stik.
+I2C forbindelsen består som beskrevet af en clock (SCL) og en datalinje (SDA) samt en fælles ground forbindelse. Der benyttes et USB type B stik.
 
 \figur{0.3}{controller/design/VS_USB}{USB type B for kommunikation med Vuggesystem}{betjeningspanel:VS_USB}
 
-Der designes et testprint således at controlleren kan testes med et simpelt PSoC4 program og datakommunikationen kan verificeres vha. en Logic Analyser.
+Der designes et testprint således at controlleren kan testes med et simpelt PSoC4 program, og datakommunikationen kan verificeres vha. en Logic Analyser.
 
 \figur{0.5}{controller/design/VS_testprint}{Testprint til I2C forbindelsen, med pins til PSoC4 samt Logic Analyser}{betjeningspanel:VS_testprint}
 
 \subsubsection*{Samlet HW-design af Controller}
 
-Figur \ref{controller:controller_samlet} viser samlet kredsløbsdiagram for Controlleren. Betjeningspanelets knapper og dioder, USB stik til kommunikation med Intelligent Lydmonitor og Vuggesystem samt Raspberry Pi'ens GPIO socket.
+Figur \ref{controller:controller_samlet} viser et samlet kredsløbsdiagram for Controlleren. Betjeningspanelets knapper og dioder, USB stik til kommunikation med Intelligent lydmonitor og Vuggesystem samt Raspberry Pi'ens GPIO socket.
 
 \figur{1}{controller/design/controller_samlet}{Samlet kredsløbsdiagram for Controller}{controller:controller_samlet}
 
 \textbf{Fysisk design af Controller} \label{forex_controller}
 
-Der designes en kasse på 18x8x5 cm hvori Raspberry Pi og Betjeningspanelets kredsløb skjules i. Babypasseren skal herved kun have adgang til de tre LED dioder, de to kontakter, de to USB type B stik til kommunikation med hhv. Intelligent lydmonitor og Vuggesystem, 5 VDC forsyningen af Controlleren samt et minijackstik som er det signal der står for at styre forsyningen. 
+Der designes en kasse på 18x8x5 cm, hvori Raspberry Pi og Betjeningspanelets kredsløb skjules i. Babypasseren skal herved kun have adgang til de tre LED dioder, de to kontakter, de to USB type B stik til kommunikation med hhv. Intelligent lydmonitor og Vuggesystem, 5 VDC forsyningen af Controlleren samt et minijackstik, som er det signal, der står for at styre power forsyningen. 
 
 Figurerne \ref{controller:forex_design_1} og \ref{controller:forex_design_2} viser kassen, med tilhørende LEDs, kontakter, stik samt mål på selve kassen. Kassens materiale forventes at være sort Forex.  
 

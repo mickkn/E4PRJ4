@@ -2,9 +2,9 @@
 
 I dette afsnit beskrives systemarkitekturen for Controller.
 
-Softwarearkitekturen er beskrevet i sekvensdiagrammer der giver et indblik i hvordan mainprogrammet interagerer med den intelligente lydmonitor og vuggesystemet.
+Softwarearkitekturen er beskrevet i sekvensdiagrammer, der giver et indblik i, hvordan mainprogrammet interagerer med den Intelligente lydmonitor og Vuggesystemet.
 
-Hardwarearkitekturen beskriver den fysiske grænseflade til den intelligente lydmonitor og vuggesystemet.
+Hardwarearkitekturen beskriver den fysiske grænseflade til den Intelligente lydmonitor og Vuggesystemet.
 
 \input{filer/controller/systemarkitektur/softwarearkitektur}
 
@@ -12,19 +12,19 @@ Hardwarearkitekturen beskriver den fysiske grænseflade til den intelligente lyd
 
 \figur{1}{controller/sysark/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
 
-Figur \ref{controller:ibd} viser IBDet for Controlleren. Signaltabellen tabel \ref{controller:signaltabel} specificerer de interne forbindelser. De 2 lidt bredere sorte forbindelser i IBDet angiver en forbindelse der består af flere ledere, frem for de alm. forbindelser der udgør en enkelt ledet forbindelse. 
+Figur \ref{controller:ibd} viser IBDet for Controlleren. Signaltabellen, tabel \ref{controller:signaltabel},  specificerer de interne forbindelser. De to lidt bredere sorte forbindelser i IBDet angiver en forbindelse, der består af flere ledere frem for de alm. forbindelser, der udgør en enkelt ledet forbindelse. 
 
-Controlleren består af to dele
+Controlleren består af to dele:
 \begin{description}
 \item[Raspberry Pi] Linux baseret computer der styrer hele systemet. 
-\item[Betjeningspanel] Panel med 3 lysdioder og 2 trykknapper til brugerinteraktion.
+\item[Betjeningspanel] Panel med tre lysdioder og to trykknapper til brugerinteraktion.
 \end{description}
 
 \newpage
 
 \subsection{Signaltabel}
 
-I signaltabellen beskrives hvilke signaler der sendes imellem blokkene i Controller.  
+I signaltabellen beskrives hvilke signaler, der sendes imellem blokkene i Controller.  
 
 \begin{center}
 \label{controller:signaltabel}
@@ -127,7 +127,7 @@ butPress
 \end{longtable}
 \end{center}
 
-Figur \ref{controller:RPI_GPIO} viser GPIO porten på Raspberry Pi'en. Der er desuden tilføjet enkelte portes specielle muligheder (SPI, I2C mm.), hvis de er tilstede. 
+Figur \ref{controller:RPI_GPIO} viser den 26 pins GPIO port på Raspberry Pi'en. Der er desuden tilføjet enkelte portes specielle muligheder (SPI, I2C mm.), hvis de er tilstede. 
 
 \figur{0.7}{controller/RaspberryGPIO.pdf}{Raspberry Pi Model Bs GPIO port}{controller:RPI_GPIO}
 

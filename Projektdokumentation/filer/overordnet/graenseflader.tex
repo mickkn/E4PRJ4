@@ -6,11 +6,11 @@ I dette afsnit beskrives specifikke hardwaregrænseflader og protokoller for kom
 
 Der er valgt at benytte USB-kabler til forbindelse mellem Controller og Intelligent lydmonitor, samt til forbindelsen mellem Controller og Vuggesystem. USB kablerne der benyttes er standard AB kabler, med et USB A stik i den ene ende samt USB B stik i den anden ende. Controlleren skal have USB type B hun stik, mens den Intelligente Lydmonitor samt Vuggesystemet skal benytte USB A hun stik. 
 
-Strømmen til Controller, Intelligent Lydmonitor samt til Vuggesystemet leveres fysisk via et 2,5 mm DC stik.
+Strømmen til Controller, Intelligent Lydmonitor samt til Vuggesystemet leveres fysisk via 2,5 mm DC stik.
 
 \subsection{Grænseflade mellem Intelligent Lydmonitor og Controller}
 \label{overordnet:graenseflade_IL}
-Kommunikationen mellem Intelligent lydmonitor og Controller foregår via 2 signalledere, der forbindes til 2 GPIO ben på Controller. Den Intelligente lydmonitor opdaterer via denne forbindelse BABYCON-niveauet.  
+Kommunikationen mellem Intelligent lydmonitor og Controller foregår via to signalledere, der forbindes til to GPIO ben på Controller. Den Intelligente lydmonitor opdaterer via denne forbindelse BABYCON-niveauet.  
 
 \subsubsection{Kommunikationsprotokol}
 \label{overordnet:Kommunikationsprotokol}
@@ -71,13 +71,13 @@ Tabellerne \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:
 	\label{Overordnet:Kommunikationsprotokol/IL_fejl}
 \end{table}
 
-2WireTTL forbindelsen har som ovenstående tabeller \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} viser fire kombinationsmuligheder. Tre af dem til de tre BABYCON-niveauer, samt en til fejlindikation fra den Intelligente lydmonitors side. 
+2WireTTL forbindelsen har ud fra ovenstående tabeller \ref{Overordnet:Kommunikationsprotokol/BABYCON1} til \ref{Overordnet:Kommunikationsprotokol/IL_fejl} fire kombinationsmuligheder. Tre af dem til de tre BABYCON-niveauer, samt en til fejlindikation fra den Intelligente lydmonitors side. 
 
 \subsection{Grænseflade mellem Vuggesystem og Controller}
-Kommunikationen mellem Vuggesystemet og Controllen foregår via I2C. Der benyttes fem skifteregistre til kommunikationen, disse registrer beskrives i kommunikationsprotokollen herunder.
+Kommunikationen mellem Vuggesystemet og Controllen foregår via I2C. Der benyttes fem skifteregistre til kommunikationen. Disse registrer beskrives i kommunikationsprotokollen herunder.
 
 \subsubsection{Kommunikationsprotokol}
-Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskrevet på næste side...
+Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskrevet på næste side.
 
 \begin{center}
 \begin{table}[H]
@@ -91,24 +91,24 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \hline 
 {Reg\#} & \textbf{Navn} & \textbf{Type} & \textbf{Beskrivelse} & \textbf{Startværdi} \\ 
 \hline 
-0x00 & ID & \textbf{R} & Indeholder et id som kan benyttes til at identificere denne enhed, eller til at teste forbindelsen til denne. & 0xFB \\ 
+0x00 & ID & \textbf{R} & Indeholder et ID som kan benyttes til at identificere denne enhed eller til at teste forbindelsen til denne. & 0xFB \\ 
 \hline 
 
 0x01 & ON\_OFF & \textbf(R/W) & Dette register benyttes til at tænde og slukke for systemet. Skrives 0xF0 til dette register begynder systemet at lukke ned. Strømmen til systemet bør ikke afbrydes før SD\_RDY i status registeret er skiftet til et. Hvis systemet er tændt indeholder registeret en værdi forskellig fra 0. & 0xFF \\ \hline
 
-0x02 & Frekvens & \textbf{R/W} & Værdien i dette register styrer frekvensen hvormed der vugges. Område: \SI{0}{\hertz} = \SI{2.550}{\hertz},  1 LSB = \SI{10}{\milli\hertz}. & 0x00 \\ \hline
+0x02 & Frekvens & \textbf{R/W} & Værdien i dette register styrer frekvensen, hvormed der vugges. Område: \SI{0}{\hertz} = \SI{2.550}{\hertz},  1 LSB = \SI{10}{\milli\hertz}. & 0x00 \\ \hline
 
 0x03 & Vinkeludsving & \textbf{R/W} & Værdien i dette register kontrollerer størrelsen af vuggens udsving i grader. Område: +/- \SI{12.75}{\degree}, 1 LSB = \SI{0.05}{\degree}. & 0x00 \\ \hline
 
-\multirow{5}{*}{0x04} & Status & \textbf{R} & Indeholder en bitsekvens som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] et 1 tal indikerer en fejl & 0b0000XXXX \\ \cline{2-5}
+\multirow{5}{*}{0x04} & Status & \textbf{R} & Indeholder en bitsekvens, som indikerer systemets status. Registeret indeholder følgende: [\textbf{ERR} \textbf{STALL} \textbf{END\_STP} \textbf{SD\_RDY} X X X X] et 1 tal indikerer en fejl. & 0b0000XXXX \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{ERR}} & \multicolumn {2}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Vuggesystemet er deaktiveret indtil der er blevet genstartet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP} \\ \cline{2-5}
+	&\multicolumn {2}{p{3cm} |} {\textbf{ERR}} & \multicolumn {2}{p{8cm} |} {Indikerer at der er opstået en fejl i systemet. Vuggesystemet er deaktiveret indtil, det er blevet genstartet. Kendes årsagen til fejlen indikeres denne i STALL og END\_STP.} \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{STALL}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet har været ude af stand til at drive motoren, formentlig pga. for stor belastning} \\ \cline{2-5}
+	&\multicolumn {2}{p{3cm} |} {\textbf{STALL}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet har været ude af stand til at drive motoren, formentlig pga. for stor belastning.} \\ \cline{2-5}
 
 	&\multicolumn {2}{p{3cm} |} {\textbf{END\_STP}} & \multicolumn {2}{p{8cm} |} {Indikerer at vuggen har ramt en af sine mekaniske yderpositioner.} \\ \cline{2-5}
 
-	&\multicolumn {2}{p{3cm} |} {\textbf{SD\_RDY}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet er klar til at få afbrudt strømmen} \\
+	&\multicolumn {2}{p{3cm} |} {\textbf{SD\_RDY}} & \multicolumn {2}{p{8cm} |} {Indikerer at systemet er klar til at få afbrudt strømmen.} \\
 \hline 
 \end{tabular}
 \end{table}
@@ -117,8 +117,8 @@ Forbindelserne ud og ind af dette delsystem er samlet i en I2C bus, som er beskr
 \subsection{Grænseflade mellem Controllers servere og ekstern internet enhed}
 \subsubsection*{Fysiske porte}
 
-Raspberry Pien der er Controllerens hovedenhed, er forbundet til netværket via en trådløs Wi-Fi dongle. Netværket består af en router der er koblet op til internettet.
+Raspberry Pien, der er Controllerens hovedenhed, er forbundet til netværket via en trådløs Wi-Fi dongle. Netværket består af en router, der er koblet op til internettet.
 
 \subsubsection*{Kommunikationsprotokol}
 
-Standard Ethernet TCP/IP protokol
+Standard Ethernet TCP/IP protokol.

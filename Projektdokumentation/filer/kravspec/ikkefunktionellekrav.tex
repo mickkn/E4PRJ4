@@ -4,7 +4,7 @@
 For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, skal systemets mikrofon opfylde følgende krav:
 \begin{itemize}
 \item Mikrofonen skal have en max SPL rating på min. \SI{120}{\dB}.\footnote{FIXME indsæt reference til studie om gråd volumen}
-\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{10}{\kilo\hertz}
+\item Mikrofonen skal have en jævn frekvens respons på maksimalt +/- \SI{5}{\dB} fra \SI{40}{\hertz} til \SI{10}{\kilo\hertz}.
 \end{itemize}
 
 \subsection*{Vuggemekanisme}
@@ -16,12 +16,12 @@ For at kunne opfange et tilstrækkeligt signal til analyse af babyens gråd, ska
 	\item Når systemet er tændt, men ikke skal vugge, nivelleres planet, hvorpå babyen ligger, automatisk til vandret.
 \end{itemize}
 
-Ved vugning jf. UC2 gennemgår vugningen af barnet
+Ved vugning jf. UC2 gennemgår vugningen af barnet.
 Systemets vugge mekanisme skal overholde følgende krav for at sikre en blid vugning:
 \begin{itemize}
-\item Vuggen skal kunne vippe planet, hvorpå babyen ligger, med op til \SI{10}{\degree} i hver retning fra dets vandrete udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
-\item Vuggen skal kunne variere frekvensen hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}, med en fejlmargin på \SI{0.2}{\hertz}.
-\item Vuggen skal vende tilbage til vandret indenfor en vinkel på \SI{2}{\degree} når systemet lukkes ned.
+\item Vuggen skal kunne vippe planet, hvorpå babyen ligger, med op til \SI{10}{\degree} i hver retning fra dets vandrette udgangspunkt, med en fejlmargin på \SI{2}{\degree}.
+\item Vuggen skal kunne variere frekvensen, hvormed der vugges fra \SI{0}{\hertz} til \SI{2}{\hertz}, med en fejlmargin på \SI{0.2}{\hertz}.
+\item Vuggen skal vende tilbage til vandret indenfor en vinkel på \SI{2}{\degree}, når systemet lukkes ned.
 \item Vuggen skal have en begrænsning på vinkelfrekvensen ved \SI{50}{\degree\per\second}. \footnote{De valgte grænseværdier for hastighed og accelleration er bestemt på baggrund af en undersøgelse af almindelig vugning, som dokumenteret på \citep{cd} under textit{/andet/teknologiundersoelse\_af\_alm\_vugning.pdf}}
 \item Vuggens vinkel acceleration skal være begrænset ved \SI{250}{\degree\per\square\second}. \footnote{Se fodnote til bestemmelse af grænseværdi for vinkelacceleration.}
 \end{itemize}
@@ -35,20 +35,20 @@ Ved vugning jf. UC2 gennemgår vugningen af barnet en sekvens af tre vuggetilsta
 \item Vugning foregår med en frekvens på 2 Hz og en vinkel-amplitude på \SI{4}{\degree} +/- \SI{2}{\degree}
 \end{enumerate}
 
-Udover de tre sekventielle tilstande har Baby Watch; en manuel vuggetilstand der vugger med en frekvens på 0,75 Hz og en vinkel-amplitude på \SI{8}{\degree} +/- \SI{2}{\degree} og en "nul"-vuggetilstand der ikke vugger men bare nivellere planet hvorpå barnet ligger til \SI{0}{\degree} +/- \SI{2}{\degree}.
+Udover de tre sekventielle tilstande har Baby Watch; en manuel vuggetilstand der vugger med en frekvens på 0,75 Hz og en vinkel-amplitude på \SI{8}{\degree} +/- \SI{2}{\degree} og en ''nul''-vuggetilstand, der ikke vugger men bare nivellerer planet, hvorpå barnet ligger til \SI{0}{\degree} +/- \SI{2}{\degree}.
 
 \subsection*{Baby status}
-For at sikre at vurderingen af babyens status er pålidelig, samt rettidigt tilgængelig for brugeren skal systemet overholde følgende:
+For at sikre at vurderingen af babyens status er pålidelig samt rettidigt tilgængelig for brugeren, skal systemet overholde følgende:
 \begin{itemize}
-\item Systemets BABYCON-statusbar(se illustration nedenfor) skal opdateres mindst hvert 10. sekund.
-\item Statushjemmesiden skal være opdateret senest 5 sekunder efter controlleren har opdateret babystatus.
+\item Systemets BABYCON-statusbar (se illustration nedenfor) skal opdateres mindst hvert 10. sekund.
+\item Statushjemmesiden skal være opdateret, senest 5 sekunder efter controlleren har opdateret babystatus.
 \item Når BABYCON-statusbaren opdateres til BABYCON1-niveau skal hjemmesiden afspille en alarmlyd.
 \item I undtagelsestilstand afsendes der mails med maksimum 20 sekunders interval. 
 \end{itemize}
 
 \subsection*{Controller}
-Krav til Controllerens advisering og virkemåder
+Krav til Controllerens advisering og virkemåder:
 \begin{itemize}
-\item Wi-Fi-LEDen skal tænde maksimum 15 sekunder efter afbrydelse af netværket
-\item Wi-Fi-LEDen skal slukke maksimum 25 sekunder efter re-etablering af netværket
+\item Wi-Fi-LEDen skal tænde maksimum 15 sekunder efter afbrydelse af netværket.
+\item Wi-Fi-LEDen skal slukke maksimum 25 sekunder efter re-etablering af netværket.
 \end{itemize}

@@ -1,6 +1,6 @@
 \section{Indledning}
 
-Formålet med projektet er at lave en prototype af en intelligent babymonitor til barnevogne med dertilhørende vuggesystem, statushjemmeside og e-mail notifikation.
+Formålet med projektet er, at lave en prototype af en intelligent babymonitor til barnevogne med dertilhørende vuggesystem, statushjemmeside og e-mail notifikation.
 
 Systemet har tre tilstande; en ''manuel start''-tilstand, hvor barnet lægges til at sove, en monitorerings-tilstand og en undtagelses-tilstand.
 I \textbf{''manuel start''-tilstanden}, skal systemet vugge babyen i et fastsat tidsinterval, hvorefter monitoreringen overtager.
@@ -11,7 +11,7 @@ Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden 
 \label{kravspec:indledning_babycon_states}
 \begin{itemize}
 \item \textbf{BABYCON3} 
-\newline På dette niveau kategoriseres lydsignalet fra babyen som roligt. Derfor skal barnevognen ikke vugges. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i BABYCON niveau. 
+\newline På dette niveau kategoriseres lydsignalet fra babyen som roligt. Derfor skal barnevognen ikke vugge. Systemet indsamler lyd og afventer en ændring i lydsignalet, som vil medføre en ændring i BABYCON niveau. 
 
 \item \textbf{BABYCON2}
 \newline På dette niveau kategoriseres lydsignalet fra barnet som uroligt. Heraf skal barnevognen vugge gennem en sekvens af tre forskellige vugge-tilstande. Hvis babyen bliver beroliget af en bestemt vuggetilstand, detekteres dette af den intelligente lydmonitor. Dette vil medføre en ændring til BABYCON3. Hvis babyen afgiver en alarmerende lyd, vil det medføre en ændring til BABYCON1.  
@@ -23,9 +23,9 @@ Statushjemmesiden opdateres løbende  på baggrund babyens tilstand. Tilstanden 
 \subsection*{Systemtegning}
 \figur{0.72}{kravspec/Systemtegning}{Skitse af systemet Baby Watch}{kravspec:systemtegning}
 
-Figur \ref{kravspec:systemtegning} illustrerer systemet. Barnevognen er udstyret med en controller som står for at styre de andre delsystem. På controlleren sidder et brugerpanel som sørger for at babypasseren fysisk kan interagere med systemet via knapper og LED'er.
-Den intelligente lydmonitor består af en mikrofon og en digital signal processer (DSP), som sender informationer til controlleren om babyens tilstand ud fra en processering af babyens lyde; herunder pitch og power. Vuggesystemet består af en motor og et selvregulerende system, som sørger for, at barnet altid vugges ud fra et vandret niveau. Vuggesystemet opererer med tre vuggetilstande (med hver deres frekvens og amplitude) på baggrund af kontrolsignalet fra controlleren. Controlleren indholder også en http server med statushjemmesiden og en e-mail client. Controlleren har forbindelse via Wi-Fi til internettet. Babypasseren kan opsøge information om babyens tilstand på statushjemmesiden og modtager e-mails når systemet detekterer, at babyen er i en alarmerende tilstand eller hvis der opstår fejl i systemet.
+Figur \ref{kravspec:systemtegning} illustrerer systemet. Barnevognen er udstyret med en controller, som står for at styre de andre delsystem. På controlleren sidder et brugerpanel, som sørger for at babypasseren fysisk kan interagere med systemet via knapper og LED'er.
+Den intelligente lydmonitor består af en mikrofon og en digital signal processer (DSP), som sender informationer til controlleren om babyens tilstand ud fra en processering af babyens lyde; herunder pitch og power. Vuggesystemet består af en motor og et selvregulerende system, som sørger for, at barnet altid vugges ud fra et vandret niveau. Vuggesystemet opererer med tre vuggetilstande (med hver deres frekvens og amplitude) på baggrund af kontrolsignalet fra controlleren. Controlleren indholder også en http server med statushjemmesiden og en e-mail client. Controlleren har forbindelse via Wi-Fi til internettet. Babypasseren kan opsøge information om babyens tilstand på statushjemmesiden og modtager e-mails, når systemet detekterer, at babyen er i en alarmerende tilstand, eller hvis der opstår fejl i systemet.
 
 \figur{0.35}{kravspec/controller_beskrivelse}{Controllerens knapper og lysdioder}{kravspec:controller}
 
-Figur \ref{kravspec:controller} viser Controllerens 2 knapper: ON/OFF-knap og ''Manuel start''-knap. De 3 lysdioder er også illustreret. Den grønne indikerer at Baby Watch er ON, den gule indikerer at ''Manuel start'' er aktiveret og den røde indikerer manglende netværksforbindelse. 
+Figur \ref{kravspec:controller} viser Controllerens 2 knapper: ON/OFF-knap og ''Manuel start''-knap. De 3 lysdioder er også illustreret. Den grønne indikerer at Baby Watch er ON, den gule indikerer at ''Manuel start'' er aktiveret, og den røde indikerer manglende netværksforbindelse. 
