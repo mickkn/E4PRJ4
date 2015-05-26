@@ -1,2 +1,36 @@
-% Intelligent lydmonitor
-\chapter{Intelligent lydmonitor}
+% IL sysark
+\section{Systemarkitektur}
+
+Overordnet fungerer den Intelligent Lydmonitor som følger:
+\begin{itemize}
+	\item Babyens gråd detekteres med en mikrofon og forstærkes med en mikrofonforstærker inden det analoge signal konverteres til diskrete samples med codec AD1836 på Blackfin udviklingsboardet
+	\item Den diskrete sample-sekvens forfiltreres. Sample-sekvensen lavpasfiltreres og nedsamples. Det forfiltrerede sample gemmes i bufferen.
+	\item Den filtrerede sample-sekvens i bufferen analyseres først for Sound Pressure Level (SPL) for at bedømme hvorvidt der er lyd nok til at den efterfølgende FFT og udglatning kan betale sig. 
+	\item Et evt. resultat af FFT'en kategoriseres som én af tre BABYCON-states, som beskrevet i kravspecifikationen 
+	\item Den fundne BABYCON state holdes op mod en statistik over tidligere states og den signifikante status findes
+	\item Det endelige kategoriseringsresultat sendes til Controller via TwoWireCom
+\end{itemize}
+En illustration af dette ses i figuren \ref{il_sys_overordnet} herunder. \footnote{Højpasfilteret er en logisk funktionalitet for systemet, men er i realiteten implementeret som side-effekt af den smoothing, der benyttes på det analyserede fft-spektrum. Se <Anvendelse af transient respons som højpasfiltrering> pp. 121-123 i projektdokumentation for beskrivelse.}
+\figur{1}{intlydmonitor/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor }{il_sys_overordnet}
+
+
+Der er således tale om en klassisk pipeline arkitektur, hvor resultatet af et givent led videreprocesseres af det næste i rækken.
+Systemet opdeles således i følgende række af led:
+
+\textbf{HW:} 
+\begin{itemize}
+\item Mikrofon
+\item Mic Preamp
+\item ADC \footnote{Som ADC-led benyttes Blackfin udviklingsboardets codec AD1836. SW for erhvervelse af samples tager udgangspunkt i CrossCore Embedded Studio projektet ''AudioNotchFilter'' benyttet ved undervisning i faget E4DSA forår 2015}
+\end{itemize}
+
+\textbf{SW-klasser:} 
+\begin{itemize}
+\item Prefilter
+\item RecBuf
+\item Analyzer
+\item Statistician
+\item Categorizer
+\item TwoWireCom
+\end{itemize}
+Se <Systemarkitektur> afsnittet i projektdokumentation for uddybende HW- og SW-arkitektur.
