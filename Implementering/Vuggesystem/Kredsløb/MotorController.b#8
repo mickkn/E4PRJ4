@@ -111,11 +111,11 @@
 <wire x1="75.87" y1="0" x2="75.87" y2="82.54" width="0" layer="20"/>
 <wire x1="75.87" y1="82.54" x2="0" y2="82.54" width="0" layer="20"/>
 <wire x1="0" y1="82.54" x2="0" y2="0" width="0" layer="20"/>
-<text x="2.54" y="2.54" size="2.54" layer="1">BabyWatch</text>
-<text x="41.91" y="60.96" size="5.08" layer="1"> +</text>
-<text x="29.21" y="60.96" size="6.4516" layer="1">-</text>
-<text x="46.99" y="35.56" size="2.54" layer="16" rot="MR0">BabyWatch</text>
-<text x="53.34" y="2.54" size="2.54" layer="1">MotorControl</text>
+<text x="2.54" y="2.54" size="2.54" layer="1" font="vector">BabyWatch</text>
+<text x="43.18" y="59.69" size="6.4516" layer="1" font="vector" ratio="18">+</text>
+<text x="27.94" y="59.69" size="6.4516" layer="1" font="vector" ratio="21">-</text>
+<text x="46.99" y="35.56" size="2.54" layer="16" font="vector" rot="MR0">BabyWatch</text>
+<text x="49.53" y="2.54" size="2.54" layer="1" font="vector">MotorControl</text>
 </plain>
 <libraries>
 <library name="SparkFun-Passives">
@@ -1783,10 +1783,14 @@ design rules under a new name.</description>
 <wire x1="21.59" y1="69.85" x2="17.74" y2="69.85" width="1.6764" layer="16"/>
 <wire x1="17.74" y1="69.85" x2="17.74" y2="66.08" width="1.6764" layer="16"/>
 <wire x1="17.74" y1="66.08" x2="17.78" y2="66.04" width="1.6764" layer="16"/>
-<wire x1="40.6" y1="63.5" x2="60.96" y2="66.04" width="0" layer="19" extent="1-1"/>
-<wire x1="40.64" y1="48.26" x2="40.6" y2="43.22" width="0" layer="19" extent="16-16"/>
-<wire x1="40.6" y1="55.88" x2="40.6" y2="63.5" width="0" layer="19" extent="1-1"/>
-<wire x1="22.86" y1="67.31" x2="40.6" y2="63.5" width="0" layer="19" extent="1-1"/>
+<wire x1="40.6" y1="63.5" x2="59.69" y2="63.5" width="1.6764" layer="16"/>
+<wire x1="59.69" y1="63.5" x2="60.96" y2="64.77" width="1.6764" layer="16"/>
+<wire x1="60.96" y1="64.77" x2="60.96" y2="66.04" width="1.6764" layer="16"/>
+<wire x1="40.64" y1="48.26" x2="40.6" y2="55.88" width="0" layer="19" extent="1-1"/>
+<wire x1="40.6" y1="43.22" x2="40.64" y2="48.26" width="0" layer="19" extent="16-16"/>
+<wire x1="40.6" y1="63.5" x2="40.6" y2="64.81" width="1.6764" layer="16"/>
+<wire x1="40.6" y1="64.81" x2="38.1" y2="67.31" width="1.6764" layer="16"/>
+<wire x1="38.1" y1="67.31" x2="22.86" y2="67.31" width="1.6764" layer="16"/>
 </signal>
 <signal name="N$3">
 <contactref element="R1" pad="2"/>
