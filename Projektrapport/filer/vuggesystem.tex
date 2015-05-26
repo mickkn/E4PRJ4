@@ -1,19 +1,15 @@
 % Vuggesystem
 \chapter{Vuggesystem}\label{vuggesys}
-Vuggesystemet består af en PSoC4 microcontroller sat på som et styrebart reguleringsmodul til et mekanisk system. Det mekaniske system vugger en barnevognskurv monteret på en barnevogn. Barnevognskurven vugges over én akse hvilken ses i Baby Watch dokumentationen  PSoC4 microcontrolleren modtager informationer om barnevognskurven 
+Vuggesystemet består af en PSoC4 microcontroller som reguleringsmodul til et mekanisk system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ PSoC4 microcontrolleren bruger en sensorkreds med indbygget accelerometer og gyroskop placeret på akslen barnevognskurven vugges over til at måle vinklen i forhold til tyngdefeltet. \\ I hver af ende af barnevognen er placeret en enstopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kan også kommunikere med Controller dette sker ved hjælp af et I2C-interface. Denne kommunikation består af parametre send til vuggesystemet om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
 
+Til at trække det mekaniske vuggesystem er en motor monteret med en tilhørende motorkreds. \\ Denne motorkreds styres af et dobbelt PWM-signal reguleret udfra beregninger lavet på baggrund af barnevognskurvens aktuelle vinkel i forhold til tyngdefeltet og input parametrene sendt fra Controller.
 
-
-
-
-
+De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur, Design  og Implementering samt en kort opremsning af Modultests af vuggesystemet.
 
 \section{Systemarkitektur}
 \label{vs_sysark}
-
+Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen \textit{Kapitel 3 Kravspecifikation} -> \textit{3.2 Use cases}. Systemarkitekturen er dokumenteret med en BDD, IBD,
 \figur{1}{vuggesystem/Vuggesystem_IBD}{IBD diagram for Vuggesystem}{vuggesystem:ibd}
-
-\subsection{Grænsefladebeskrivelse}
 
 
 \section{Design}
@@ -34,4 +30,7 @@ Vuggesystemet består af en PSoC4 microcontroller sat på som et styrebart regul
 
 
 \subsection*{Hardware}
-\label{vs_implementering_sw}
+\label{vs_implementering_hw}
+
+\section{Modultests}
+\label{vs_modultests}
