@@ -18,10 +18,14 @@ Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspe
 \figur{1}{vuggesystem/reguleringsMCU_klassediagram.pdf}{Klassediagram for Vuggesystem}{vuggesystem:klassediagram}
 
 
-%\figur{1}{vuggesystem/SomeCircuit.pdf}{Samlet kredsløbsdiagram for Vuggesystem}{vuggesystem:hwdesign}
 
-\section{Implementering}
-\label{vs_implementering}
+
+\section{HW Design og Implementering}
+\label{vs_HW}
+Da vuggesystemet er opbygget omkring en PSoC 4 chip er det kun effektdrivende hardware der har været nødvændigt at implementere eksternt, hvorfor det kun er Motorstyringskredsen der er implementeret som et selvstændigt kredsløb, mens systemets sensorer kan kobles direkte til PSoC'en. De to endstop switches er samlet i et signal for at spare en pin. Herunder ses et diagram over det implementerede hardware:\\
+\figur{1}{vuggesystem/HW_schematic.pdf}{Samlet kredsløbsdiagram for Vuggesystem}{vuggesystem:hwdesign}
+Det ses her at en H-bro med power mosfet's styret af dobbelt siddede MOS drivere benyttes til at styre motoren. Dette kræver et PWM signal som inverteres, med et dødbånd for at sikre mod at der sendes strøm forbi motoren ved skift, hvilket igen er valgt implementeret på PSoC'en i stedet for i ekstern HW. \\ Systemet indeholder desuden to optokoblere som benyttes til at skabe galvanisk adskillelse af motorkredsen som har tendens til støj.
+For en dybdegående gennemgang af design og implementering af ovenstående kreds henvises til projektdokumentationens afsnit \textit{7.2.1 Hardware Design} og \textit{7.3.1 Hardware Implementering}.\\
 
 
 
