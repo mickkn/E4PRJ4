@@ -17,7 +17,7 @@ Ved nedkonverteringen til 7,5 V benyttes en DC-DC konverter (LM2596S). Fra denne
 
 I dette afsnit beskrives designet af Power Supply Unit. Der kigges der på komponent data og udregnes komponentværdier for de brugte kredsløb.
 
-\subsection{DC-DC konverter (LM2596S)}
+\subsection*{DC-DC konverter (LM2596S)}
 
 DC-DC konverteren (LM2596S), se figur \ref{psu:DCkonv}, kan tage spændingsinput på 5 V til 35 V og outputte 1,25 V til 30 V. Maks strømoutput er 4 A og overstiger effekten 15 W, så skal den køles. I dette tilfælde skal DC-DC konverteren konvertere 12 V DC til 7,5 V DC. Ved 7,5 V og 15 W, så er der 2 A, da der skal benyttes maksimum 2,5 A, ca. 19 W, derfor er der i implementeringen påsat køleplade på begge sider af den regulator der skal køles. 
 
@@ -25,7 +25,7 @@ DC-DC konverteren (LM2596S), se figur \ref{psu:DCkonv}, kan tage spændingsinput
 
 Som det kan ses på figur \ref{psu:DCkonv}, er der 3 indstillingspotentiometre samt 4 loddeøer. De 4 loddeøer er VIN-, VIN+, VOUT- og VOUT+. VIN- og VOUT- er ikke isoleret fra hinanden og kobles til samme stelplan. De 3 potentiometre bruges til at indstille udgangsspænding, maksimum udgangsstrøm og det sidste bruges til at styre en LED som lyser når strømmen kommer over det indstillede niveau. 
 
-\subsection{Spændingsregulatorer (LM317)}
+\subsection*{Spændingsregulatorer (LM317)}
 
 Spændingsregulatoren LM317 er justerbar mellem 1,2 V til 33 V og kan levere op til 3 A. LM317 benyttes derfor til at regulere fra 7,5 V til hhv. 5 V og 3,3 V. 
 

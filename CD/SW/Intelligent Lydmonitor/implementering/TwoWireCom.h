@@ -2,7 +2,7 @@
  * TwoWireCom.h
  *
  *  Created on: 19/05/2015
- *      Author: Kristian
+ *      Author: Hedegaard & Boye
  */
 
 #ifndef TWOWIRECOM_H_

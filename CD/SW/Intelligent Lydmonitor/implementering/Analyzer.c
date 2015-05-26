@@ -2,7 +2,7 @@
  * Analyzer.c
  *
  *  Created on: 19/05/2015
- *      Author: Lukas
+ *      Author: Hedegaard & Boye
  */
 
 #include "Analyzer.h"
@@ -135,7 +135,7 @@ void an_smooth(unsigned int m)
 	int n;
 	for(n = 0; n<AN_NFFT; n++)
 	{
-		//an_freqSpecdB[n]+=verticalShift;	//raise level.
+		an_freqSpecdB[n]+=verticalShift;	//raise level.
 		an_freqSpecSmooth[n]=0;				//reset
 	}
 

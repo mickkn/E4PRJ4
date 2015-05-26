@@ -1,6 +1,6 @@
 %Spændingsregulering design
 
-\subsection{Spændingsregulering}
+\subsection*{Spændingsregulering}
 Fra systemets overordnede strømdistribution modtages en 7.5 V DC-forsyning der kan levere op til 1.5 A. I laboratoriet er Blackfin533-kittets strømforbrug målt til 1.23 A, og de 250 mA regnes for tilstrækkeligt til kredsløbene med mikrofon preamp og lavpasfiltrering før ADC.
 Blackfin533 får sit strømudtag direkte fra den modtagne DC-forsyning. Dog indsættes en 470 nF kondensator til udglatning af signalet ved strømfluktuation. De integrerede OpAmps i preamp og lavpasfilter, forsynes ligeledes med 0 og 7.5V, men der skal generes et arbejdspunkt på 3.75 V, der skal tjene som virtuel ground. Ud fra et signalbehandlingsmæssigt synspunkt forsynes disse således med +/- 3,75 V.
 Det virtuelle nulpunkt genereres ved en spændingsdeling og en spændingsfølger, så en belastning af det virtuelle nulpunkt ikke ændrer spændingen. En simulering af kredsløbet for denne opstilling ses herunder:  

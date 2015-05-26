@@ -2,7 +2,7 @@
  * Prefilter.h
  *
  *  Created on: 19/05/2015
- *      Author: Lukas
+ *      Author: Hedegaard & Boye
  */
 
 #ifndef PREFILTER_H_

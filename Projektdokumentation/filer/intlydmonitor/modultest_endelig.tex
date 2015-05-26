@@ -1,6 +1,6 @@
 \section{Modultest: Intelligent Lydmonitor}
 
-\subsection{Formål}
+\subsection*{Formål}
 I dette afsnit følger den endelige modultest for Intelligent Lydmonitor. Den endelig funktionalitetsgrad og træfsikkerhed skal bestemmes. Dette gøres ved at lave histogram med 100 på hinanden følgende BABYCON statuser for hver lydfil. Intelligent lydmonitor testes med følgende lydfiler:
 \begin{itemize}
 	\item Hoejlydt\_babygraad1.wav
@@ -13,7 +13,7 @@ I dette afsnit følger den endelige modultest for Intelligent Lydmonitor. Den en
 	\item Latter.wav
 \end{itemize}
 
-\subsection{Testopstilling}
+\subsection*{Testopstilling}
 \begin{itemize}
 	\item Blackfin 533 er sluttet til 230VAC
 	\item Blackfin 533 er tilsuttet PC via COM-port
@@ -49,7 +49,7 @@ ylabel('Count')
 title('Data: Histogram over 100 målinger')
 \end{verbatim}
 
-\subsection{Testprocedure}
+\subsection*{Testprocedure}
 Følgende procedure gentages for alle specificerede lydfiler:
 \begin{enumerate}
 	\item Lydfilen afspilles i "loop-mode" på PC
@@ -62,14 +62,14 @@ Følgende procedure gentages for alle specificerede lydfiler:
 	\item Matlab eksekveres og et histogram printes 
 \end{enumerate}
 
-\subsection{Forventede resultater} 
+\subsection*{Forventede resultater} 
 \textit{Højlydt babygråd:} Det forventes af optagelserne af ''Hoejlydt\_babygraad1.wav'' og ''Hoejlydt\_babygraad2.wav'' primært resulterer i BABYCON1. Dog forventes en mængde BABYCON2 detektioner, idet en baby's gråd er svært kvantiserbar og ofte vil ligge i et mellemleje mellem BABYCON1 og BABYCON2. 
 
 \textit{Moderat babygråd:} Det forventes at optagelserne ''Moderat\_babygraad1.wav'' og ''Moderat\_babygraad2.wav'' primært resulterer i BABYCON2. Dog forventes ligeledes nogle få BABYCON1 detektioner, samt en del BABYCON3 detektioner, grundet optagelsernes dynamiske karakter. 
 
 \textit{Omgivelsesstøj:} Det forventes at optagelserne ''Trafik.wav'', ''Cat.wav'', ''Fuglefloejt.wav'' og ''Latter.wav'' primært resulterer i BABYCON3. Dog forventes nogle få BABYCON2 detektioner. Kun et minimum BABYCON1 detektioner forventes og tolereres, eftersom denne status er af disruptiv karakter for systemet.
 
-\subsection{Resultater} 
+\subsection*{Resultater} 
 I følgende afsnit ses histogrammer for BABYCON detektioner af tidligere beskrevne lydfiler. Ligeledes forefindes en opsummering af detektions-resultater på tabelform samt en endelig "hit rate" (træfsikkerhed) for systemet.
 
 \subsubsection{Histogrammer}
