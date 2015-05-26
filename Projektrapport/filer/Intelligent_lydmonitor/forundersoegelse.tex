@@ -1,8 +1,10 @@
 % Forundersøgelse
 \section{Forundersøgelse}
-I forbindelse med udvikling og design af Intelligent Lydmonitor er der foretaget en forundersøgelse af udvalgte lyde fra babygråd og typiske lyde, der kunne tænkes at være omkring en barnevogn, såsom støj fra trafik og fuglefløjt og omgivelsesstøj fra natur. For fuld beskrivelse af lyde der analyseres se Forundersøgelse i projektdokumentationen. 
+I forbindelse med udvikling og design af Intelligent Lydmonitor er der foretaget en forundersøgelse af udvalgte lyde fra babygråd og typiske lyde, der kunne tænkes at være omkring en barnevogn, såsom støj fra trafik og fuglefløjt og omgivelsesstøj fra natur. For fuld beskrivelse af lyde der analyseres se \textit{Forundersøgelse} -> \textit{Situationer} i projektdokumentationen 
 
+I det følgende beskrives metodikken for enkelte udvalgte lydfiler, højlydt babygråd, for at se resultater for alle lydfiler se \textit{Forundersøgelse} -> \textit{Analyser} i projektdokumentationen. 
 
+\textbf{Metode} \\
 Lyden analyseres i Matlab med hensyn til følgende: 
 \begin{itemize}
 \item Frekvensindhold
@@ -10,6 +12,37 @@ Lyden analyseres i Matlab med hensyn til følgende:
 \item Grad af tonalitet
 \end{itemize}
 
-Disse parametre analyseres med redskaberne Short-time DFT, Matlabs max-funktion, Tonal Power Ratio samt en smoothing-funktion. For fuld beskrivelse af analyseredskaberne se Forundersøgelse i projektdokumentation 
+Disse parametre analyseres med redskaberne Short-time DFT, Matlabs max-funktion, Tonal Power Ratio samt en smoothing-funktion. For fuld beskrivelse af analyseredskaberne se \textit{Forundersøgelse} -> \textit{Metode} i projektdokumentation. 
+
+\textbf{Analyser}\\
+Lydfilerne analyseres med en korttids- og langtids-analyse. 
+
+\textbf{Korttids-analyse}\\
+Resultatet af korttids-analysen er 3 plots:
+\begin{enumerate}
+\item Sampleplot af det givne lydssignal (blå)
+\item Tonal Power Ratio (rød) og midlet TPR (soirt)
+\item Spektrogram (colormap: bone), dominerende tone (blå prikker), midlet dominerende tone (rød streg)
+\end{enumerate}
+Bemærk for plot 3, at data for dominerende frekvens er fjernet ved TPR lig 0.
+
+På Figur \ref{intlyd:kort} ses plottet for korttids-analysen.
+
+\figur{0.6}{intlydmonitor/analyse_hoejlydt_babygraad_kort}{Korttids-analyse af højlydt babygråd optagelser}{intlyd:kort}
 
 
+\textbf{Langtids-analyse} \\
+Resultatet af langtids-analysen er:
+\begin{enumerate}
+\item DFT-spektrum: Originalt (blå), moderat filtreret (rød), kraftigt filtreret (sort).
+\item Global TPR-værdi
+\end{enumerate}
+
+\figur{0.6}{intlydmonitor/analyse_hoejlydt_babygraad_lang}{Langtids-analyse af højlydt babygråd optagelser. Nederste føjre graf er analysen af de tre optagelser samlet}{intlyd:lang}
+
+For fuld beskrivelse af alle lydanalyser henvises til \textit{Forundersøgelse} -> \textit{Analyser}
+
+\textbf{Konklusion}\\ 
+På baggrund af analyseresultaterne fra alle lydanalyser viser det sig at det er muligt at adskille babygråd fra andre lydfiler. Ved at lave en FFT af signalet, smoothe frekvensspektrum og konvertere fra gain til dB, for herefter at analysere magnitudefaldet samt detektere af bestemte frekvenspeaks vil være tilstrækkelig for detektering og kategorisering af babygråd. 
+
+For fuldstændige del-konklusioner samt konklusion på forundersøgelsen henvises til \textit{Forundersøgelse} -> \textit{Konklusioner} i projektdokumentationen. 

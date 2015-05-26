@@ -1,2 +1,13 @@
-% Intelligent lydmonitor
-\chapter{Intelligent lydmonitor}
+% Mikrofon preamp
+\subsection{Mikrofon Preamp}
+Til at opfange lyd er det valgt at benytte en MCE-100 elektret mikrofon. Til at forstærke signalet opfanget af mikrofonen benyttes en Transimpedansforstærker. 
+
+Simuleringskredsløbet kan ses på Figur \ref{intlyd:Preamp_schem}.	
+
+\figur{0.9}{intlydmonitor/Preamp_schem}{Schematic for mikrofon preamp}{intlyd:Preamp_schem}
+
+Mikrofonen forbindes i realiteten til mikrofonprintet via et 1 meter langt coaxialkabel. Dette er på \ref{intlyd:Preamp_schem} simuleret med en modstand, en spole og en kondensator. Elektretmikrofonen er simuleret ved en spændingskilde, en kondensator og en transistor. 
+
+Forstærkeren er designet således at den forstærker signalet fra mikrofonen til et line level på 1.65V, da det er dette level Blackfin533's ADC tager. 
+
+For alle beregninger og overvejelser i forbindelse med Mikrofon preamp henvises til \textit{6.3 Design og implementering} -> \textit{Hardwaredesign- og implementering} -> \textit{Mikrofon preamp} i projektdokumentationen. 
