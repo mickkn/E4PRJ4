@@ -135,7 +135,7 @@ void an_smooth(unsigned int m)
 	int n;
 	for(n = 0; n<AN_NFFT; n++)
 	{
-		//an_freqSpecdB[n]+=verticalShift;	//raise level.
+		an_freqSpecdB[n]+=verticalShift;	//raise level.
 		an_freqSpecSmooth[n]=0;				//reset
 	}
 
