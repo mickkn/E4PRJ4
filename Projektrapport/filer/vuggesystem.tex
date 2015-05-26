@@ -1,16 +1,28 @@
 % Vuggesystem
 \chapter{Vuggesystem}\label{vuggesys}
-Vuggesystemet består af en PSoC4 microcontroller som reguleringsmodul til et mekanisk system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ PSoC4 microcontrolleren bruger en sensorkreds med indbygget accelerometer og gyroskop placeret på akslen barnevognskurven vugges over til at måle vinklen i forhold til tyngdefeltet. \\ I hver af ende af barnevognen er placeret en enstopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kan også kommunikere med Controller dette sker ved hjælp af et I2C-interface. Denne kommunikation består af parametre send til vuggesystemet om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
+Vuggesystemet består af en PSoC4 microcontroller som reguleringsmodul til et mekanisk system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ PSoC4 microcontrolleren bruger en sensorkreds med indbygget accelerometer og gyroskop placeret på akslen barnevognskurven vugges over til at måle vinklen i forhold til tyngdefeltet. \\ I hver af ende af barnevognen er placeret en enstopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kommunikerer også med Controller. Dette sker ved hjælp af et I2C-interface. Kommunikationen består af parametre send til vuggesystemet om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
 
-Til at trække det mekaniske vuggesystem er en motor monteret med en tilhørende motorkreds. \\ Denne motorkreds styres af et dobbelt PWM-signal reguleret udfra beregninger lavet på baggrund af barnevognskurvens aktuelle vinkel i forhold til tyngdefeltet og input parametrene sendt fra Controller.
+Til at trække det mekaniske vuggesystem er en motor monteret med en tilhørende motorkreds. Denne motorkreds styres af et PWM-signal genereret ud fra beregninger lavet på baggrund af sensor input og parametrene sendt fra Controller.
 
-De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur, Design  og Implementering samt en kort opremsning af Modultests af vuggesystemet.
+De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur efterfulgt af Hardware Design og Implementeringen og tilsidst Software Design og Implementeringen.
 
 \section{Systemarkitektur}
 \label{vs_sysark}
-Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen \textit{Kapitel 3 Kravspecifikation} -> \textit{3.2 Use cases}. Systemarkitekturen er dokumenteret med en BDD, IBD,
+Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen \textit{Kapitel 3 Kravspecifikation} -> \textit{3.2 Use cases}. \\ For at begrænse projektrapporten er IBD'en for vuggesystemet taget med. De resterende afsnit kan findes i Projektdokumentationen.
+
+
+Den indeholder en samlet BDD og IBD for hele vuggesystemet samt IBD'er for de enkelte kredsløb, Endstop og Vuggeudsvingsensor. I vuggesystemets systemarkitektur kan også findes en grænseflade beskrivelse samt en applikationsmodel til identifikation og struktur af softwarearkitekturen.
+
 \figur{1}{vuggesystem/Vuggesystem_IBD}{IBD diagram for Vuggesystem}{vuggesystem:ibd}
 
+Vuggesystemet består af tre dele
+
+\textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen styres vha to PWM-signaler.\\
+\textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.\\
+\textbf{Sensor block:} Består af fire sensorer; to Endstopsensorer som registrer om den mekaniske vuggegrænse er nået, Vuggeudsvingsensor der måler kurvens absolutte vinkel i forhold til tyngdefeltet og Motor positionssensoren måler motoraksens rotation(Ikke-implementeret).
+
+
+\figur{1}{vuggesystem/reguleringsMCU_SD}{SD for Vuggesystems styre enhed Regulerings MCU}{vuggesystem:SD}
 
 \section{Design}
 \label{vs_design}
@@ -36,5 +48,3 @@ For en dybdegående gennemgang af design og implementering af ovenstående kreds
 \subsection*{Hardware}
 \label{vs_implementering_hw}
 
-\section{Modultests}
-\label{vs_modultests}
