@@ -1,2 +1,9 @@
-% Intelligent lydmonitor
-\chapter{Intelligent lydmonitor}
+% Categorizer
+\subsection{Categorizer}
+Categorizer står for at bestemme en BABYCON-status på baggrund af resultaterne fra Analyzer. 
+
+På Figur \ref{intlyd:cat_anal} ses et eksempel for en højlydt babygråd lydfil. Analyseresultatet tjekkes for de relevante peaks ved henholdsvis 1400 Hz og 4000 Hz. Dette gøres ved at tjekke med to omkringliggende punkter om henholdsvis 1400 og 4000 er lokale maksima. Er dette tilfældet tjekkes ligeledes magnitudefaldet fra 1kHz til 6kHz, er dette mindre end 26 har vi at gøre med BABYCON1, og Statisticians funktion til at beregne signifikansen kaldes.  
+
+\figur{0.7}{intlydmonitor/cat_analysepunkter}{Analyseresultat smoothet dB med væsentlige analysepunkter}{intlyd:cat_anal}
+
+For en fuld gennemgang af Categorizer, og hvorledes BABYCON2 bestemmes henvises til \textit{6.3.2 Softwaredesign- og implementering} -> \textit{Categorizer} i projektdokumentationen. 
