@@ -1,6 +1,6 @@
 \chapter{Integrationstest}
 
-Der er lavet en integrationstest for hele systemet, sidst i forløbet. Integrationstesten er opbygget, så der testes forskellige sammensætninger af systemet delelementer. F.eks. er Controlleren koblet op med vuggesystemet for at se om funktionerne virker planmæssigt.
+Integrationstesten er opbygget, så der testes forskellige sammensætninger af systemet delelementer. F.eks. er Controlleren koblet op med vuggesystemet for at se om funktionerne virker planmæssigt. Dette er for at sikre at alt kan arbejde sammen.
 
 \section{Kommunikation}
 
@@ -8,7 +8,7 @@ Alt kommunikationen er testet imellem Controller og de tre andre blokke, Intelli
 
 \subsection*{Intelligent lydmonitor (2WireTTL)}
 
-I denne test er Blackfin-boardet koblet op til en Computer som er ''lyd-giveren''. Computeren har en række lydfiler der simulerer en rigtig situation. Lyderfilerne som er brugt i denne test er \verb+Hoejlydt_babygraad2.wav+, \verb+Moderat_babygraad2.wav+, \verb+Fuglefloejt3.wav+ og \verb+Trafik1.wav+. Filerne skulle hhv. bringe systemet i BABYCON1, BABYCON2, BABYCON3 og BABYCON3. Lydfilerne findes på bilags-CDen \citep{cd}. Computeren er koblet til Blackfin med et mini-jack til phono kabel i AUDIO-IN LEFT 1. 
+I denne test er Blackfin-boardet koblet op til en Computer som er ''lyd-giveren''. Computeren har en række lydfiler der simulerer en rigtig situation. Lyderfilerne som er brugt i denne test er \verb+Hoejlydt_babygraad2.wav+, \verb+Moderat_babygraad2.wav+, \verb+Fuglefloejt3.wav+ og \verb+Trafik1.wav+. Filerne skulle hhv. bringe systemet i BABYCON1, BABYCON2, BABYCON3 og BABYCON3. Lydfilerne findes på bilags-CDen \citep{cd}\footnote{CD/SW/Intelligent Lydmonitor/test}. Computeren er koblet til Blackfin med et mini-jack til phono kabel i AUDIO-IN LEFT 1. 
 
 \figur{0.6}{integrationstest/kom_il}{Opstilling for test af Int. lydmonitor}{inttest:il} 
 

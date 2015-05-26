@@ -4,7 +4,7 @@ Modultest for vuggesystemet beskriver først modultests af hardware modulerne ef
 Følgende afsnit beskriver tests for de individuelle hardwaremoduler i Vuggesystem-delen af Baby Watch.
 \subsubsection{Motorkreds}
 \textbf{Formål} \\
-Formålet med testen er at måle om motorkredsen kan styre ankerspændingen over en dc motor baseret på et PWM styresignal. Spændingen bør være konsistent også under belastning. Testen udføres ved at et testprogram sender et pwm signal til kredsen hvor værdien af pulsbredden varieres som en 1Hz sinus fra 10\%-90\%. Herefter måles spændingen over motorens terminaler med et oscilloskop over en periode på 5 sekunder. Målingen laves to gange, først hvor motoren er koblet fra systemet, således at der er minimal belastning på motoren. Herefter gentages målingen hvor motoren er koblet til og barnevognen holdes fast, hvormed motoren belastes mest muligt. Da motorkredsen genererer en spænding fra 0V til batterispændingen ved en variation fra 50\% til 100\% pulsbredde og omvvændt fra 50\% til 0\%, bør det målte signal variere med +/- 80\% af batterispændingen (+/- 9,6V). Omend spændingen skal være uafhængig af belastningen, vil den stadig være afhængig af batterispændingen, som vil falde ved stor belastning. Da det forventes at motoren trækker op mod 10A (se figur \vref{vugsys:stroem_maaling}) og batteriets indre modstand er målt til 0.1Ohm, samtidig med at strømmen løber igennem to transistorer med en on modstand på 0,7V hver, kan det forventes at spændingen under hård belastning falder ned til ca. 7,7V (0,8 * (12V - 10A * 0.24hm)). 
+Formålet med testen er at måle om motorkredsen kan styre ankerspændingen over en dc motor, baseret på et PWM styresignal. Spændingen bør være konsistent også under belastning. Testen udføres ved at et testprogram sender et pwm signal til kredsen hvor værdien af pulsbredden varieres som en 1Hz sinus fra 10\%-90\%. Herefter måles spændingen over motorens terminaler med et oscilloskop over en periode på 5 sekunder. Målingen laves to gange, først hvor motoren er koblet fra systemet, således at der er minimal belastning på motoren. Herefter gentages målingen hvor motoren er koblet til og barnevognen holdes fast, hvormed motoren belastes mest muligt. Da motorkredsen genererer en spænding fra 0V til batterispændingen ved en variation fra 50\% til 100\% pulsbredde og omvvændt fra 50\% til 0\%, bør det målte signal variere med +/- 80\% af batterispændingen (+/- 9,6V). Omend spændingen skal være uafhængig af belastningen, vil den stadig være afhængig af batterispændingen, som vil falde ved stor belastning. Da det forventes at motoren trækker op mod 10A (se figur \vref{vugsys:stroem_maaling}) og batteriets indre modstand er målt til 0.1Ohm, samtidig med at strømmen løber igennem to transistorer med en on modstand på 0,7V hver, kan det forventes at spændingen under hård belastning falder ned til ca. 7,7V (0,8 * (12V - 10A * 0.24hm)). 
 
 \textbf{Overordnet opstilling af Motorkreds test}
 
@@ -16,7 +16,7 @@ Formålet med testen er at måle om motorkredsen kan styre ankerspændingen over
 	\item Under testens første måling tages kæden af motor tanhjulet for at opnå minimal belastning af motoren
 \end{itemize} 
 
-\figur{1}{vuggesystem/modultest/MotorKoblingTest.pdf}{kobling af motor ved de to målinger}{vugsys:mtMotorKobling}
+\figur{1}{vuggesystem/modultest/MotorKoblingTest.pdf}{Kobling af motor ved de to målinger}{VS:mtMotorKobling}
 
 \textbf{Testbeskrivelse}
 \begin{enumerate}
@@ -36,7 +36,7 @@ Det forventes at det målte output er en sinus med med en frekvens på 1Hz og en
 
 \textbf{Resultat} \\
 Herunder ses målingen for testen uden belastning:
-\figur{0.75}{vuggesystem/modultest/MotModulFree.pdf}{spændningen over motoren uden belastning}{VS:mtMotorFri}
+\figur{0.75}{vuggesystem/modultest/MotModulFree.pdf}{Spændningen over motoren uden belastning}{VS:mtMotorFri}
 Det ses her at signalet som forventet varierer fra 9,6V til -9,6V, og man kan konkludere at kredsen fungerer efter hensigten uden belastning.\\
 \\
 Her ses målingen for testen med belastning:
