@@ -20,12 +20,13 @@ Formålet er at teste klassen RecBufs håndtering af dens to buffere, herunder b
 	\item Kommandoprompten aflæses for at se om værdierne passer med det forventede
 \end{enumerate}
 
-\begin{verbatim}
+\newpage
+
+\begin{lstlisting}[language=C,numbers=none]
 int main(void)
 {
      rb_mem0[3]
      rb_mem1[3]
-     
      
      int i = 0;
      for(i = 0; i<6; i++)
@@ -53,8 +54,8 @@ int main(void)
           storeData(i+10);
      }
      
-     .... samme printfunktion som før      
-\end{verbatim}
+     .... samme printfunktion som foer      
+\end{lstlisting}
 
 \textbf{Forventet resultat} \\
 Det forventede resultat af første udskrift kan ses i Tabel \ref{IL:modultest:values1}:

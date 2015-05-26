@@ -37,7 +37,7 @@ Tonal Power Ratio benyttes til beregne tonaliteten i optagelsen, og er altså et
 ${ v }_{ Tpr }=\frac { { E }_{ T }(n) }{ \sum _{ i=0 }^{ K/2-1 }{ { \left| X(k,n) \right|  }^{ 2 } }  } $
 \end{center}
 
-Hvor nævneren er det totale spektrale energiindhold og tælleren, E\begin{tiny}T\end{tiny}, er det tonale indhold. 
+Hvor nævneren er det totale spektrale energiindhold og tælleren, ${ E }_{ T }$, er det tonale indhold. 
 \textit{n} er index for den givne fft i det totale Short-Time DFT spektogram og \verb+k+k er index for en given frekvensbin i det nuværende fft-spektrum. \textit{K} er fft'en længde.
 Det tonale indhold, E\begin{tiny}T\end{tiny}, beregnes ved at tage FFT'en af de enkelte optagelsessegmenter (Short-Time DFT'ens output) og summere alle de bins, der:
 \begin{itemize}
@@ -54,10 +54,11 @@ Til at udjævne analysesignalerne benyttes matlabs "smooth" funktion. Default fi
 
 %\newpage
 \subsection*{Analysekode gennemgang}
-I dette afsnit findes en kort gennemgang af de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til \citep[SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m]{cd} \\
+I dette afsnit findes en kort gennemgang af de benyttede funktioner i matlab. Syntax for plots er udeladt, og der henvises til \citep{cd}\footnote{CD/SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m} \\
 \\
 \textbf{Klargøring af optagelserne}. Dette gøres ved at loade de ønskede filer, ekstrahere den ene kanal,\footnote{Dette gøres for at få lyden i mono, hvilket gør den lettere at analysere} sætte den ønskede længde af hanning-vinduet og shift, samt at benytte hanning-vinduesfunktionen for at minimere ripple i den senere diskrete fourier transformation. Slutteligt konkatteneres de tre optagelser med lidt pause imellem dem, og vi får vores endelige analyse materiale i variablen ''x''. Bemærk at samplefrekvensen for de tre optagelser regnes ens, samt at kun ekstraktionen af den ene optagelse er noteret mellem de to ''...'' i koden herunder:
-\begin{verbatim}%**** EXTRACT SAMPLES *********************************************%
+\begin{lstlisting}[language=Matlab]
+%**** EXTRACT SAMPLES *********************************************%
 [rec1, f_s] = wavread('Hoejlydt_babygraad1');
 [rec2, f_s] = wavread('Hoejlydt_babygraad2');
 [rec3, f_s] = wavread('Hoejlydt_babygraad3');
@@ -76,12 +77,13 @@ r1_win = r1_win .* hanning(length(r1_win))'; %Window with hanning
 ...
 
 x = [r1_win, rSpace, r2_win, rSpace, r3_win];
-\end{verbatim}
+\end{lstlisting}
 
 Efterfølgende båndpas filtreres optagelsen med 100 Hz som nedre knækfrekvens og 10 kHz som øvre knækfrekvens. Se \citep[SW/Intelligent Lydmonitor/forundersøgelse/il\_forundersoegelse.m]{cd} for syntaks.
 
 \textbf{Korttids-analyse}. For korttids-analysen, opdeles optagelsen i korte dele, der hver især behandles med dft og efterfølgende analyseres med hensyn til dominant tone i dft-spektret via matlabs ''max''-funktion samt generelt toneindhold via tonal power ratio funktionen.
-\begin{verbatim}%**** SHORT-TIME DFT (Spectogram) *********************************%
+\begin{lstlisting}[language=Matlab]
+%**** SHORT-TIME DFT (Spectogram) *********************************%
 segmentlen = 256;
 nOverlap = 60;
 NFFT = 1280;
@@ -92,11 +94,12 @@ maxPwr_smooth = smooth(f(nd),0.1,'moving');     % Smooth data
 ...
 TPR = TonalPowerRatio(abs(s), f_s, 5*10^-2)';
 TPR_smooth = smooth(TPR(:),0.05,'moving');      % Smooth data
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Langtids-analyse}. For langtids-analysen, behandles hele optaglesen med en dft. Dft-spektret midles hernæst med et moving average filter. Midlingen foretages på spektret i dB og gentages med flere længder (parameter 2). Slutteligt findes den globale TPR for hele optagelsen. 
 
-\begin{verbatim}%**** FAST FOURIER TRANSFORM *********************************** 
+\begin{lstlisting}[language=Matlab]
+%**** FAST FOURIER TRANSFORM *********************************** 
 NFFT = 2^nextpow2(N);       %Find next power of 2
 X = fft(x,NFFT);
 ...
@@ -114,7 +117,7 @@ fSum = sum(sig);                %sum all freq bins
 G_T = 5*10^-2;                  %threshhold
 k_peak = find(afPeaks > G_T);   %find peak above thresh
 TPR_global = sum(afPeaks(k_peak))/fSum 
-\end{verbatim}
+\end{lstlisting}
 
 \newpage
 \subsection*{Analyser}
@@ -266,6 +269,6 @@ Både højydt og moderat babygråd har magnitudefald i omegnen af 20 dB. Højlyd
 
 \newpage
 \subsection*{Konklusion}
-For korttids-analysen giver maxværdien af tonal power ratio ikke et ensformigt billede af hvorvidt der er tale om en baby. Min og max frekvenserne for det dominerende toneindhold er en indikator, men denne metodik vurderes følsom overfor uforudset støj. \\
+For korttids-analysen giver maxværdien af tonal power ratio ikke et ensformigt billede af hvorvidt der er tale om en baby. Min. og max. frekvenserne for det dominerende toneindhold er en indikator, men denne metodik vurderes følsom overfor uforudset støj. \\
 For langtids-analysen er TPR en plausibel metode for detektion af babyens tilstand. Højlydt babygråd vil da have TPR i omegnen 0.336 og moderat babygråd vil have TPR i nærheden af 0.374. Implementeres denne metodik, bliver kalibrering dog nødvendig. Analyse af det dominerende frekvensindhold giver et udmærket billede af hvorvidt der er højlydt babygråd. Dog giver visse tilfælde af latter lignende frekvenspeaks, og endnu en analysemetode vil være nødvendig for at frasortere denne støjtype. Moderat babygråd viser ikke på samme måde tydelige frekvenspeaks. Analyse af magnitudefaldet fra 1 kHz til 6 kHz giver et billede af hvorvidt der er tale om babygråd. \\
 Analyse af magnitudefaldet vil sammen med detektering af frekvenspeaks være tilstrækkeligt for detekteringen og kategoriseringen af babygråd. Til forfining af detektion kunne tonal power ratio benyttes. Til videre forfining kunne en dB-måling af grådens lydstyrke (i tids-domænet) endvidere benyttes til at fjerne støj fra det fjerne. 

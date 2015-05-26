@@ -7,13 +7,13 @@ Funktionaliteten er implementeret ved hjælp af funktioner fra T\_GPIO\_BANKS.
 Et uddrag af TwoWireCom headeren vises herunder.
 Der benyttes to GPIO pins PF4 og PF6, disse skal repræsentere henholdsvis MSB og LSB jf. \ref{Overordnet:Kommunikationsprotokol/BABYCON1} . Yderlige specifikationer kan findes i databladet \citep{AD1836} side 84. 
 
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 #define TW_OUTPUT_PIN_MSB PF4
 #define TW_OUTPUT_PIN_LSB PF6
-\end{verbatim}
+\end{lstlisting}
 
 Herunder ses koden for funktionen tw\_init() som har til opgave at sætte retningen på de to GPIO pins. Desuden kaldes tw\_send med default værdien BABYCON3. 
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 void tw_init(void)
 {
     /* Set pin direction */
@@ -23,12 +23,12 @@ void tw_init(void)
     /* Set to babycon 3*/
     tw_send(BABYCON3);
 }
-\end{verbatim}
+\end{lstlisting}
 
 \textit{tw\_send(int bc)} implementeres som en switch case, der switcher på de tre BABYCON-statuser 1, 2 og 3. Som default sendes 0. Dette er koden for error. Det kan også være at funktionen er kaldt med en værdi der ikke er 1, 2 eller 3.  
 pFIO\_FLAG's benyttes til at sætte GPIO-pin højt eller lavt, ved at sætte flaget lig med den GPIO pin man ønsker høj eller lav. 
 
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 void tw_send(int bc)
 {
     switch(bc)
@@ -56,4 +56,4 @@ void tw_send(int bc)
         break;
     }
 }
-\end{verbatim}
+\end{lstlisting}

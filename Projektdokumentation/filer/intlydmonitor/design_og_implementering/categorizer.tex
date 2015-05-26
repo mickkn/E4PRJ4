@@ -6,18 +6,20 @@ Categorizer har til opgave at kategorisere BABYCON status på baggrund af analys
 
 Herunder ses et uddrag af headeren for Categorizer. Bemærk den definerede CG\_FREQ\_FAC som er en skaleringsfaktor der ændrer fra Hz til en bin. I Headeren findes ligeledes alle attributter og prototyper.
 
-\begin{verbatim}//defines
+\begin{lstlisting}[language=C,numbers=none]
+//defines
 #define CG_FS 24000
 #define CG_BABYCON1 1
 #define CG_BABYCON2 2
 #define CG_BABYCON3 3
 #define CG_FREQ_FAC ((1.0)/(1/(AN_NFFT/2+1)*(CG_FS/2)))
 #define CG_TPR_THRESH 4000.0
-\end{verbatim}
+\end{lstlisting}
 
 Herunder ses funktionen cg\_init som sætter relevante threshholds der benyttes i blandt andet cg\_checkBC1. Herudover beregnes cg\_broadStart og cg\_broadEnd som repræsenterer bin ved frekvensen cq\_broadFreqLow og bin ved frekvensen cg\_broadFreqHigh. 
 
-\begin{verbatim}void cg_init(void)
+\begin{lstlisting}[language=C,numbers=none]
+void cg_init(void)
 {
     cg_freq_fac = 0.04275; //((1.0)/(1/(AN_NFFT/2+1)*(CG_FS/2)));
     cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
@@ -37,14 +39,15 @@ Herunder ses funktionen cg\_init som sætter relevante threshholds der benyttes 
     cg_BC1First = (int)floor(cg_firstPeakFreqBC1*cg_freq_fac);
     cg_BC1Second = (int)floor(cg_secondPeakFreqBC1*cg_freq_fac);
 }
-\end{verbatim}
+\end{lstlisting}
 
 Herunder ses funktionen cg\_categorize som har til opgave at kategorisere BABYCON status. 
 Først opdateres attributten cg\_babyCon med default værdien BABYCON3. 
 Herefter beregnes hældningen, cg\_dBroad fra cg\_broadStart til cg\_broadEnd. Denne skal bruges i henholdsvis cg\_checkBC2() og cg\_checkBC1() som der tjekkes for umiddelbart herefter. Er cg\_checkBC2() sand, opdateres cg\_babyCon med BABYCON2, hvis cg\_checkBC1() er sand opdateres cg\_babyCon med BABYCON1.
 Slutteligt kaldes Statisticians funktion ss\_calcSignificans med det opdaterede cg\_babyCon.
 
-\begin{verbatim}void cg_categorize(void)
+\begin{lstlisting}[language=C,numbers=none]
+void cg_categorize(void)
 {
     cg_babyCon = CG_BABYCON3; //Set cg_babyCon default 3
 
@@ -61,12 +64,12 @@ Slutteligt kaldes Statisticians funktion ss\_calcSignificans med det opdaterede 
         ss_calcSignificans(cg_babyCon);
     }
 }
-\end{verbatim}
+\end{lstlisting}
 
 Herunder ses funktionen cg\_checkBC2() som har til opgave at tjekke for BABYCON2. 
 Der tjekkes først at hældningen cg\_dBroad ligger over og under de to threshholds. Er dette tilfældet returneres true ellers returneres false. 
 
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 bool cg_checkBC2(void)
 {
     if((cg_dBroad > cg_dBroadThreshLowBC2) && (cg_dBroad < cg_dBroadThreshHighBC2))
@@ -76,12 +79,12 @@ bool cg_checkBC2(void)
     else
         return false;
 }
-\end{verbatim}
+\end{lstlisting}
 
 Den sidste funktion cg\_checkBC1() som har til opgave at tjekke for BABYCON1 er vist herunder. 
 Her skal flere konditioner være opfyldt før der returneres true. Først tjekkes der for at hældningen cg\_dBroad er mindre end threshhold. Desuden skal bins cg\_BC1First og cg\_BC1Second være lokale maksima. 
 
-\begin{verbatim}
+\begin{lstlisting}[language=C,numbers=none]
 bool cg_checkBC1(void)
 {
     if((cg_dBroad < cg_dBroadThreshHighBC1) &&
@@ -95,4 +98,4 @@ bool cg_checkBC1(void)
     else
         return false;
 }
-\end{verbatim}
+\end{lstlisting}
