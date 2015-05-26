@@ -8,21 +8,19 @@ De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur efterful
 
 \section{Systemarkitektur}
 \label{vs_sysark}
-Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen \textit{Kapitel 3 Kravspecifikation} -> \textit{3.2 Use cases}. \\ For at begrænse projektrapporten er IBD'en for vuggesystemet taget med. De resterende afsnit kan findes i Projektdokumentationen.
-
-
-Den indeholder en samlet BDD og IBD for hele vuggesystemet samt IBD'er for de enkelte kredsløb, Endstop og Vuggeudsvingsensor. I vuggesystemets systemarkitektur kan også findes en grænseflade beskrivelse samt en applikationsmodel til identifikation og struktur af softwarearkitekturen.
+Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen \textit{Kapitel 3 Kravspecifikation} -> \textit{3.2 Use cases}. Ud fra den ønskede funktionalitet er følgende hardware opbygning valgt:
 
 \figur{1}{vuggesystem/Vuggesystem_IBD}{IBD diagram for Vuggesystem}{vuggesystem:ibd}
 
-Vuggesystemet består af tre dele
+Den centrale enhed her er Regulerings MCU'en. Herunder ses et sekvensdiagram for dennes adfærd baseret på de opstillede krav til denne del af systemet:
 
-\textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen styres vha to PWM-signaler.\\
-\textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.\\
-\textbf{Sensor block:} Består af fire sensorer; to Endstopsensorer som registrer om den mekaniske vuggegrænse er nået, Vuggeudsvingsensor der måler kurvens absolutte vinkel i forhold til tyngdefeltet og Motor positionssensoren måler motoraksens rotation(Ikke-implementeret).
+\figur{1}{vuggesystem/reguleringsMCU_SD}{SD, for Vuggesystems styre enhed, fra applikationsmodellen}{vuggesystem:SD}
 
+Modulet regulering står for interfacet til :Motorsystem blokken fra figur \ref{vuggesystem:ibd}, mens modulet sensorfortolker står for forbindelsen til blokken :Sensor.\\
 
-\figur{1}{vuggesystem/reguleringsMCU_SD}{SD for Vuggesystems styre enhed Regulerings MCU}{vuggesystem:SD}
+Det ses på figur \ref{vuggesystem:SD} hvordan regulerings MCU'en efter en indledende opsætning kører i en løkke som konstant undersøger vuggesystemets tilstand baseret på sensor data, beregner en korrektion, og sender denne til motor kredsen. \\
+
+Denne arkitektur er benyttet som grundlag for senere designvalg. En fuld beskrivelse af arkitekturen og dens tilblivelse findes i projektdokumentationens afsnit: \textit{Vuggesystem -> Systemarkitektur}.\\
 
 \section{Design}
 \label{vs_design}
