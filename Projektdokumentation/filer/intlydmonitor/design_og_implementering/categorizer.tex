@@ -1,7 +1,7 @@
 %categorizer
 \subsection{Categorizer}
 Herunder følger beskrivelsen og implementeringen for Categorizer i Intelligent Lydmonitor.
-Categorizer har til opgave at kategoriserer BABYCON status på baggrund af analyseresultater. 
+Categorizer har til opgave at kategorisere BABYCON status på baggrund af analyseresultater. 
 
 
 Herunder ses et uddrag af headeren for Categorizer. Bemærk den definerede CG\_FREQ\_FAC som er en skaleringsfaktor der ændrer fra Hz til en bin. I Headeren findes ligeledes alle attributter og prototyper.
@@ -39,7 +39,7 @@ Herunder ses funktionen cg\_init som sætter relevante threshholds der benyttes 
 }
 \end{verbatim}
 
-Herunder ses funktionen cg\_categorize som har til opgave at kategoriserer BABYCON status. 
+Herunder ses funktionen cg\_categorize som har til opgave at kategorisere BABYCON status. 
 Først opdateres attributten cg\_babyCon med default værdien BABYCON3. 
 Herefter beregnes hældningen, cg\_dBroad fra cg\_broadStart til cg\_broadEnd. Denne skal bruges i henholdsvis cg\_checkBC2() og cg\_checkBC1() som der tjekkes for umiddelbart herefter. Er cg\_checkBC2() sand, opdateres cg\_babyCon med BABYCON2, hvis cg\_checkBC1() er sand opdateres cg\_babyCon med BABYCON1.
 Slutteligt kaldes Statisticians funktion ss\_calcSignificans med det opdaterede cg\_babyCon.

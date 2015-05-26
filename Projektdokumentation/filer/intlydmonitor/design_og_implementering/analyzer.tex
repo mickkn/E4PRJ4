@@ -32,7 +32,7 @@ Hvis den indledende SPL-analyse er under threshold, kaldes \verb+Statistician+ m
 \subsubsection{Sound Pressure Level} \label{an_spl}
 I dette afsnit beskrives design og implementering af Analyzers funktion \verb+calcSPL()+.\\ \\
 \textbf{\textit{Princip}}\\
-For at ikke at benytte unødig processorkraft på beregne FFT af en støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Dette beregnes som dBV, hvor et signal med amplituden 1 V vil resultere i en SPL måling på 0 dBV. Den maksimale amplitude for input-signalet er 1.65 V. Målt i dBV er dette:
+For at ikke at benytte unødig processorkraft på beregne FFT af et støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Dette beregnes som dBV, hvor et signal med amplituden 1 V vil resultere i en SPL måling på 0 dBV. Den maksimale amplitude for input-signalet er 1.65 V. Målt i dBV er dette:
 \begin{center}
 ${ SPL }_{ max }\quad =\quad 20\cdot \log _{ 10 }{ \left( \frac { 1.65V }{ 1V }  \right)  } =4,35\quad dBV$
 \end{center}
@@ -42,7 +42,7 @@ Ligeledes vil et signal med amplituden 100 mV resultere i følgende SPL:
 ${ SPL }_{ 100mV }\quad =\quad 20\cdot \log _{ 10 }{ \left( \frac { 0.1V }{ 1V }  \right)  } =-20\quad dBV$
 \end{center}
 
-Idet ADC'en kører i med en opløsning på 16 bit, hvoraf det første er sign, vil dette resultere i følgende værdier som fract16 for maximal amplitude og amplitude på 100 mV:
+Idet ADC'en kører med en opløsning på 16 bit, hvoraf det første er sign, vil dette resultere i følgende værdier som fract16 for maximal amplitude og amplitude på 100 mV:
 \begin{center}
 ${ floatval }_{ 1,65V }=1-{ 2 }^{ -15 }=0.9999694824$ 
 \end{center}
@@ -150,7 +150,7 @@ Idet det lokale maksimum findes ved at sammenligne sample-værdien før og efter
 \textit{OBS: Denne analyse-funktion indgår ikke i den endelige detektion af babygråd, og der er således ikke lavet modultest for funktionen.}
 
 \subsubsection{Smoothing af frekvensspektrum}
-For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Eftersom det ikke er muligt at tage log10 til typen \verb+fract32+, konverteres denne til float. Vi får således et float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
+For på korrekt vis at kunne bestemme peaks i det endelige frekvensspektrum for barnegråden, skal spektret først konverteres fra en gain til en dB-skala. Eftersom det ikke er muligt at tage log10 til typen \verb+fract32+, konverteres denne til float. Vi får således float arrayet \verb+an_freqSpecdB[]+ ved følgende funktion:
 \begin{verbatim}void an_g2dB(void)
 {
     int i;
@@ -217,4 +217,4 @@ Algoritmen med det rekursive filter er implementeret som følger:
         }
     }
 }\end{verbatim}
-Frekvensspektret hæves således med en værdi svarende til magnituden af 10kHz, da denne ved de analyserede spektra typisk ligger lavt. Ved gennemløb af algoritmen, forefindes nogle-særtilfælde, hvor der endnu ikke er oprettet en delay-linje. For første gennemløb er både x(n-M) og y(m-1) lig 0. For de næste M gennemløb er x(n-M) lig nul. Først efter M runder, opererer filtret sikkert med den originale ligning.
+Frekvensspektret hæves således med en værdi svarende til magnituden af 10kHz, da denne ved de analyserede spektra typisk ligger lavt. Ved gennemløb af algoritmen, forefindes nogle særtilfælde, hvor der endnu ikke er oprettet en delay-linje. For første gennemløb er både x(n-M) og y(m-1) lig 0. For de næste M gennemløb er x(n-M) lig nul. Først efter M runder, opererer filtret sikkert med den originale ligning.

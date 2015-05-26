@@ -1,6 +1,6 @@
 %TwoWireCom
 \subsection{TwoWireCom}
-TwoWireCom står for at sende BABYCON-niveauet til Controller via to GPIO pins. 
+TwoWireCom står for at sende BABYCON-status til Controller via to GPIO pins. 
 
 Funktionaliteten er implementeret ved hjælp af funktioner fra T\_GPIO\_BANKS. 
 
@@ -25,7 +25,7 @@ void tw_init(void)
 }
 \end{verbatim}
 
-\textit{tw\_send(int bc)} implementeres som en switch case, der switcher på de tre BABYCON-niveauer 1, 2 og 3. Som default sendes 0. Dette er koden for error. Det kan også være at funktionen er kaldt med en værdi der ikke er 1, 2 eller 3.  
+\textit{tw\_send(int bc)} implementeres som en switch case, der switcher på de tre BABYCON-statuser 1, 2 og 3. Som default sendes 0. Dette er koden for error. Det kan også være at funktionen er kaldt med en værdi der ikke er 1, 2 eller 3.  
 pFIO\_FLAG's benyttes til at sætte GPIO-pin højt eller lavt, ved at sætte flaget lig med den GPIO pin man ønsker høj eller lav. 
 
 \begin{verbatim}
