@@ -12,7 +12,7 @@ Motoren styres med en H-bro implementeret med 4 N-ch power MOSFETs, som vist her
 
 \figur{1}{vuggesystem/design/h_bro.pdf}{N-ch enh. Power MOSFET H-bro}{h_bro_kreds}
 
-De fire N-channel er koblet med en lille modstand foran gaten, og en pull-down modstand fra gaten til source. Den lille modstand sikrer at der ikke opstår or meget ring som resultat af seriekobling af ledningens induktans og gatens kapacitet, og pull-down modstanden sikrer at gaten bliver trukket lav hvis MOS driveren skulle fejle, således at transistoren afbryder. \\ 
+De fire N-channel er koblet med en lille modstand foran gaten, og en pull-down modstand fra gaten til source. Den lille modstand sikrer at der ikke opstår for meget ring som resultat af seriekobling af ledningens induktans og gatens kapacitet, og pull-down modstanden sikrer at gaten bliver trukket lav hvis MOS driveren skulle fejle, således at transistoren afbryder. \\ 
 Signalerne M\_AH, M\_AL, M\_BH, og M\_BL udgør således H-broens styresignaler til hhv. den høje og lave gate i A og B siden af broen. Terminalerne MOT\_A og MOT\_B går til motorens terminaler. Hvis A siden af broen er tændt påtrykkes en spænding med MOT\_A som den positive terminal, og omvendt for B siden. \\
 Kondensatorerne C3 og C4 er placeret så tæt som muligt på H-broens positive og negative forsyning, og hjælper til at afkoble motoren, således at der ikke introduceres for store forstyrrelser på forsyningen. Dimensionering af disse er beskrevet nærmere i EMC afsnittet om vuggesystemet.\\
 
@@ -28,25 +28,25 @@ Kondensatoren C2 hjælper til at afkoble driveren fra forsyningen. \\
 
 \subsubsection*{Styresignal}
 \label{Vuggesystem:Styresignal} 
-Broen styres, som nævn ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tænd i lige lang tid, og middelspændingen over motoren vil således blive 0V. Hæves duty cyclen til over 50 procent opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvændt ved duty cycles under halvtreds procent. \\
+Broen styres som nævnt ovenfor, fra et PWM signal. Dette gøres ved at A sidens MOSFETs modtager PWM signalet direkte, mens B siden modtager det inverterede signal. Benyttes halvtreds procent duty cycle vil de to sidder af broen være tændt i lige lang tid, og middelspændingen over motoren vil således blive 0 V. Hæves duty cyclen til over 50 procent, opnås en gradvis større middelspænding med MOT\_A som den positive terminal, og omvendt ved duty cycles under halvtreds procent. \\
 
 Da MOSFET transistorne tager en hvis tid om at slukke, skal der introduceres en dødtid i styresignalerne, således at signalerne alle går kortvarigt til 0 før de skifter. Dette sikrer at to transistorer fra hver deres side af broen ikke er tændt samtidig, hvilket ville resultere i en kortslutning fra VCC til GND gennem de to transistorer. \\
 
-Dødbåndet i pwm signalet genereres i PSoC'ens PWM komonent, og er sat til det mindst mulige tid på 1\% af periodetiden, eller 500ns.
-Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370pF, og formodstanden er på 10 Ohm, og man får således en tidskonstant på 3.7*10\^-9. Transistoren anskues som afbrudt efter 5 * tau = 18.5 ns, hvilket er vel under det genererede deadband. \\
+Dødbåndet i PWM signalet genereres i PSoC'ens PWM komonent, og er sat til det mindst mulige tid på 1\% af periodetiden, eller 500ns.
+Da MOSFET driveren kortslutter gate signalet til source benet når transistoren skal afbrydes, kan slukketiden estimeres ved at anskue transistoren og dens formodstand, som et RC-led der skal aflades for at slukke transistoren. Gate kapaciteten oplyses i databladet som 370 pF, og formodstanden er på 10 $\Omega$, og man får således en tidskonstant på $3.7*10^{-9}$. Transistoren anskues som afbrudt efter $5*\tau=18.5 ns$, hvilket er vel under det genererede deadband. \\
 
 \subsubsection{Opto koblere}
 \label{Vuggesystem:optokoblere}
 Da systemet indeholder støjfølsomme komponenter, såsom mpu6050 sensoren, og motor kredsens støj aldrig ville kunne elimineres helt, er det valgt at lave galvanisk adskillelse fra motor kredsløbet til resten af systemet. Dette er gjort med to optokoblere på motor signalerne. Da det som nævnt ovenfor er vigtigt at motor driver signalerne drives helt ned, samt at skiftetiden fra høj til lav ønskes minimeret, er der valgt en optokobler med en digital buffer i udgangen. De to optokoblere er koblet som vist her:\\
 \figur{0.2}{vuggesystem/design/opto_couplers.pdf}{Optokoblere på motorkredsens styresignal for galvanisk adskillelse af motorkredsløbet.}{VS:opto_kobler}
 
-\subsubsection{strømforbrug}
+\subsubsection{Strømforbrug}
 Det dominerende strømforbrug i systemet stammer fra vuggesystemets motor. Denne strøm trækkes direkte fra systemets batteri, og har derfor ikke indflydelse på dimensioneringen af systemets reguleringskreds. Tilgengæld er den vigtig for at kunne vurdere hvor stort et batteri der skal til for at drive systemet en given tid.\\ 
-Et tidligt skøn over motorens strømforbrug er gjort ved at sætte et manuelt styret PWM signal på motor kredsen, og så vugge barnevognen med vægt i, så godt som muligt ved manuel regulering. Herunder ses strømmålingen for 60 sekunders test. Målingen er gjort med en /10 probe på spændingsfaldet over en 0.1 Ohm's modstand, og den målte spænding svarer således direkte til strømmen.\\
+Et tidligt skøn over motorens strømforbrug er gjort ved at sætte et manuelt styret PWM signal på motor kredsen, og så vugge barnevognen med vægt i, så godt som muligt ved manuel regulering. Herunder ses strømmålingen for 60 sekunders test. Målingen er gjort med en x10 probe på spændingsfaldet over en 0.1 $\Omega$ modstand, og den målte spænding svarer således direkte til strømmen.\\
 
 \figur{0.75}{vuggesystem/design/stroemforbrug.pdf}{Test af strømforbrug for motor}{vugsys:strom_graf}
 
-Ved måling i Digilent Waveforms (se figur \ref{vugsys:stroem_maaling} svarer ovenstående til en rms belastning ved batteriet på 3.9 Ampere, med peaks på op til 10 Ampere. Det er værd her at bemmærke at disse peaks er med de langsome fluktuationer der kommer som resultat af den varierende belastning ved vugning. Dette er ikke at forvæksle med den højfrekvente fluktuation der opstår som resultat af PWM-styringen, da denne, så vidt muligt, ikke eksponeres til batteriet. 
+Ved måling i Digilent Waveforms (se figur \ref{vugsys:stroem_maaling} svarer ovenstående til en rms belastning ved batteriet på 3.9 A, med peaks på op til 10 A. Det er værd her at bemærke at disse peaks er med de langsomme fluktuationer der kommer som resultat af den varierende belastning ved vugning. Dette er ikke at forveksle med den højfrekvente fluktuation der opstår som resultat af PWM-styringen, da denne, så vidt muligt, ikke eksponeres til batteriet. 
 
 \figur{0.3}{vuggesystem/design/stroemforbrug_maaling.JPG}{Databehandling fra strømmåling}{vugsys:stroem_maaling}
 
@@ -54,7 +54,7 @@ Ved måling i Digilent Waveforms (se figur \ref{vugsys:stroem_maaling} svarer ov
 \subsubsection{Endstopsensor}\label{Vuggesystem: Design_ES} 
 Endstopsensor kredsløbet er designet som et pull-up kredsløb hvor to mekaniske switches kan parallelopkobles. Designet er vist på figuren nedenfor.
 \figur{0.25}{vuggesystem/design/Endstopsensor_design.pdf}{Endstop sensor schematic}{ES_schematic}
-Kredsløbet opererer med 3.3V og ved aktivering af en af endstop sensorene trækkes signalet ned til 0V (GND).
+Kredsløbet opererer med 3.3 V og ved aktivering af en af endstop sensorene trækkes signalet ned til 0 V (GND).
 
 \subsubsection{Vuggeudsving sensor}
 \label{Vuggesystem: Design_Vugggeudsving_sensor} 
@@ -64,8 +64,10 @@ Vuggekurvens vinkel i forhold til jordens tyngdefelt måles vha af en mpu6050 in
 
 \subsubsection{Motor positions sensor}
 Motor positions sensoren er ikke med i denne iteration af projektet.
+
+\newpage
 \subsubsection{Mekanisk vuggesystem}\label{Vuggesystem: Design_MekVug} 
-Det mekaniske vuggesystem er designet ud fra følgende skitse der sikre et vippe fri rum på mindst 5 grader til hver side: \\
+Det mekaniske vuggesystem er designet til at vippe maksimalt 10 grader til hver side, ud fra følgende skitse sikres et vippe frirum på mindst 5 grader til hver side, så i alt 15 grader, se figur \ref{VuggeSystem_Skitse_Mekanik} \\
 
 \figur{0.7}{vuggesystem/design/barnevogn_vinkler.pdf}{Skitse af mekanisk vuggesystem}{VuggeSystem_Skitse_Mekanik}
 
