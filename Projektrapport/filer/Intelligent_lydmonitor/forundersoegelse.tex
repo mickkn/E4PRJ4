@@ -21,7 +21,7 @@ Lydfilerne analyseres med en korttids- og langtids-analyse.
 Resultatet af korttids-analysen er 3 plots:
 \begin{enumerate}
 \item Sampleplot af det givne lydssignal (blå)
-\item Tonal Power Ratio (rød) og midlet TPR (soirt)
+\item Tonal Power Ratio (rød) og midlet TPR (sort)
 \item Spektrogram (colormap: bone), dominerende tone (blå prikker), midlet dominerende tone (rød streg)
 \end{enumerate}
 Bemærk for plot 3, at data for dominerende frekvens er fjernet ved TPR lig 0.
@@ -38,11 +38,10 @@ Resultatet af langtids-analysen er:
 \item Global TPR-værdi
 \end{enumerate}
 
-\figur{0.6}{intlydmonitor/analyse_hoejlydt_babygraad_lang}{Langtids-analyse af højlydt babygråd optagelser. Nederste føjre graf er analysen af de tre optagelser samlet}{intlyd:lang}
-
-For fuld beskrivelse af alle lydanalyser henvises til [\textit{Se projektdokumentationen pp. 72-84}]
+\figur{0.6}{intlydmonitor/analyse_hoejlydt_babygraad_lang}{Langtids-analyse af højlydt babygråd optagelse}{intlyd:lang}
+For en fuld beskrivelse af alle lydanalyser henvises til [\textit{Se projektdokumentationen pp. 72-84}]
 
 \textbf{Konklusion}\\ 
-På baggrund af resultaterne for de udførte lydanalyser konkluderes det, at det er muligt at adskille babygråd fra andre lydfiler. Dette gøres at lave en FFT af signalet, konvertere magnituden til dB og udglatte frekvensspektret, for herefter at analysere for karakteristiske frekspeak og generelt magnitudefaldet mellem to yderfrekvenser. 
+På baggrund af resultaterne for de udførte lydanalyser konkluderes det, at det er muligt at adskille babygråd fra andre lydfiler. Dette gøres ved at lave en FFT af signalet, konvertere magnituden til dB og udglatte frekvensspektret, for herefter at analysere for karakteristiske frekvenspeak og generelt magnitudefaldet mellem to yderfrekvenser. 
 
 For del-konklusioner og komplet konklusion på forundersøgelsen [\textit{Se projektdokumentationen pp. 86-87}]

@@ -2,11 +2,11 @@
 \chapter{Vuggesystem}
 \label{vuggesys}
 \textbf{Vuggesystemet beskrevet i kort prosa:} \\
-Vuggesystemet består af en Regulerings MCU\footnote{Forkortelse af microcontrollerunit} som regulerer det mekaniske system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ Regulerings MCU'en bruger en sensorkreds med indbygget accelerometer og gyroskop placeret på akslen barnevognskurven vugges over til at måle vinklen i forhold til tyngdefeltet. I hver ende af barnevognen er placeret en end-stopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kommunikerer også med Controller. Dette sker ved hjælp af et \iic-interface \citep{I2C}. Kommunikationen består af parametre sendt til vuggesystemet, om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
+Vuggesystemet består af en Regulerings MCU\footnote{Forkortelse af microcontrollerunit} som regulerer det mekaniske system der vugger barnevognskurven monteret på Baby Watch barnevognen. \\ Regulerings MCU'en bruger en sensorkreds, med indbygget accelerometer og gyroskop, placeret på akslen barnevognskurven vugges over, til at måle vinklen i forhold til tyngdefeltet. I hver ende af barnevognen er placeret en end-stopsensor. Disse registrerer når det mekaniske vuggesystems ydre vuggegrænse er nået og ved aktivering nødstoppes vuggesystemet. \\ Vuggesystemet kommunikerer også med Controller. Dette sker ved hjælp af et \iic-interface \citep{I2C}. Kommunikationen består af parametre sendt til vuggesystemet, om hvilken frekvens og hvilken vinkel-amplitude barnevognskurven skal vugges med samt en indikation på eventuelle fejl i vuggesystemet som Controller kan aflæse.
 
 Til at trække det mekaniske vuggesystem er en motor monteret med en tilhørende motorkreds. Denne motorkreds styres af et PWM-signal genereret ud fra beregninger lavet på baggrund af sensor input og parametrene sendt fra Controller.
 
-De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur efterfulgt af Hardware Design og Implementeringen og tilsidst Software Design og Implementeringen.
+De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur efterfulgt af Hardware Design og Implementeringen og til sidst Software Design og Implementeringen.
 \newpage
 \section{Systemarkitektur}
 \label{vs_sysark}
@@ -18,7 +18,7 @@ Nedenstående diagram er en IBD over vuggesystemet med den ønskede funktionalit
 
 Som det ses af IBD'et blev vuggesystemet delt op i tre kernefunktionaliteter, en Motorsystem blok bestående af en motor og en motorkreds, en Sensor blok bestående af to End-stop sensorer og en vinkelsensor\footnote{I denne iteration af projektet er Motor positionssensor ikke implementeret} samt en Regulerings MCU som fungerer som styreenhed. Af disse tre blokke er den centrale enhed Regulerings MCU'en, da denne er styreenheden for vuggesystemet.
 
-For at identificere adfærden af Regulerings MCU'en, blev der udarbejdet en applikationsmodel til at beskrive dette.\\Sekvensdiagrammet på næste side er en del af applikationsmodellen [\textit{Se projektdokumentationen p. 146}] for dennes adfærd baseret på de opstillede krav til denne del af systemet:
+For at identificere adfærden af Regulerings MCU'en, blev der udarbejdet en applikationsmodel til at beskrive dette.\\Sekvensdiagrammet på næste side er en del af applikationsmodellen. [\textit{Se projektdokumentationen p. 146}] for dennes adfærd baseret på de opstillede krav til denne del af systemet:
 
 \figur{1}{vuggesystem/reguleringsMCU_SD}{SD, for Vuggesystems styre enhed, fra applikationsmodellen}{vuggesystem:SD}
 
@@ -31,18 +31,16 @@ Denne arkitektur er benyttet som grundlag for senere designvalg.
 \newpage
 \section{HW Design og Implementering}
 \label{vs_HW}
-Da vuggesystemet er opbygget omkring en PSoC 4 chip(Regulerings MCU'en) er det kun effektdrivende hardware der har været nødvendigt at implementere eksternt, hvorfor det kun er Motorstyringskredsen der er implementeret som et selvstændigt kredsløb, mens systemets sensorer kan kobles direkte til PSoC'en. De to end-stop switches er samlet i et signal for at spare en pin. Herunder ses et diagram over det implementerede hardware:\\
+Da vuggesystemet er opbygget omkring en PSoC 4 chip(Regulerings MCU'en) er det kun effektdrivende hardware der har været nødvendigt at implementere eksternt. Det er derfor kun Motorstyringskredsen der er implementeret som et selvstændigt kredsløb, mens systemets sensorer kan kobles direkte til PSoC'en. De to end-stop switches er samlet i et signal for at spare en pin. Herunder ses et diagram over det implementerede hardware:\\
 \figur{1}{vuggesystem/HW_schematic.pdf}{Samlet kredsløbsdiagram for Vuggesystem}{vuggesystem:hwdesign}
 Det ses her at en H-bro med power MOSFET's styret af dobbeltsiddede MOS-drivere benyttes til at styre motoren. Dette kræver et PWM-signal som inverteres, med et dødbånd for at sikre mod at der sendes strøm forbi motoren ved skift, hvilket igen er valgt implementeret på PSoC'en i stedet for i ekstern HW. \\ Systemet indeholder desuden to optokoblere som benyttes til at skabe galvanisk adskillelse af motorkredsen, som har tendens til støj.
-For en dybdegående gennemgang af design og implementering af ovenstående kreds henvises til projektdokumentationens [\textit{Se projektdokumentationen pp. 149-175}].\\
-
-
+For en dybdegående gennemgang af design og implementering af ovenstående kreds [\textit{Se projektdokumentationen pp. 149-175}].\\
 
 \section{SW Design og Implementeringen}
 \label{vs_sw}
 Figuren \ref{vuggesystem:SD} er en del af vuggesystemets applikationsmodel. Nedenstående klassediagram er udarbejdet på baggrund af denne applikationsmodel.
 \figur{1}{vuggesystem/reguleringsMCU_klassediagram.pdf}{Klassediagram for Vuggesystem}{vuggesystem:klassediagram}
-Tanken bag styresystemet til vuggesystemet var at det skulle være styret af et ISR\footnote{Interrupt service rutine der sætter et flag ved 'Klar til næste loop'}-styret loop der varetog alle reguleringsmæssige kald og beregninger med en frekvens på 200 Hz. Frekvensen blev bestemt ud fra hvad der var muligt og stadig hurtigt nok til at kunne reguleres ud fra når Regulerings MCU'en blev implementeret på en PSoC4\footnote{Microcontroller} \citep{website:Cypress} [\textit{Se projektdokumentationen pp. 171}]. Sideløbende funktionaliteter såsom \iic-kommunikationen mellem Vuggesystemet (PSoC4'en) og Controller (Raspberry Pi'en), \iic-kommunikationen mellem PSoC4'en og vinkelsensoren samt aktiveringen af en end-stopsensor blev ligeledes styret af ISR. Før loopets begyndelse skulle PSOC4'ens interne hardware moduler\footnote{senserI2C, Debug, PWM, loopTimer og I2CVuggesystem. [\textit{Se projektdokumentationen p. 167}]} initieres samt diverse pointere til f.eks I2C-buffer registre\footnote{i2cPtr og reguleringsStatusPtr hentes.}
+Tanken bag styresystemet til vuggesystemet var at det skulle være styret af et ISR\footnote{Interrupt service rutine der sætter et flag ved 'Klar til næste loop'}-styret loop der varetog alle reguleringsmæssige kald og beregninger med en frekvens på 200 Hz. Frekvensen blev bestemt ud fra hvad der var muligt og stadig hurtigt nok til at kunne reguleres ud fra når Regulerings MCU'en blev implementeret på en PSoC4\footnote{Microcontroller} [\textit{Se projektdokumentationen pp. 171}]. Sideløbende funktionaliteter såsom \iic-kommunikationen mellem Vuggesystemet (PSoC4'en) og Controller (Raspberry Pi'en), \iic-kommunikationen mellem PSoC4'en og vinkelsensoren samt aktiveringen af en end-stopsensor blev ligeledes styret af ISR. Før loopets begyndelse skulle PSOC4'ens interne hardware moduler\footnote{senserI2C, Debug, PWM, loopTimer og I2CVuggesystem. [\textit{Se projektdokumentationen p. 167}]} initieres samt diverse pointere til f.eks I2C-buffer registre\footnote{i2cPtr og reguleringsStatusPtr hentes.}
 
 Reguleringen baserer sig i denne iteration af projektet på en simpel PID-regulator\footnote{ [\textit{Se projektdokumentationen p. 174}]}, hvilket kun giver marginal stabilitet, som beskrevet nærmere i afsnit \vref{projektafgraensninger} om projektafgrænsninger.
 

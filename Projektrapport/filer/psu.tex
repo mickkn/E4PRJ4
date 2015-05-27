@@ -1,7 +1,7 @@
 % PSU
 \chapter{Power Supply Unit}
 
-Det følgende kapitel omhandler spændingsforsyning til hele Baby Watch systemet. Kapitlet er orienterende for uddybende information [\textit{Se projektdokumentationen pp. 187-194}]. Nedenstående forsynes at et 12 V DC batteri. 12 V batteriet skal nedkonverteres til de 3 nedenstående spændinger: 
+Det følgende kapitel omhandler spændingsforsyningen til hele Baby Watch systemet. Kapitlet er orienterende. For uddybende information [\textit{Se projektdokumentationen pp. 187-194}]. Nedenstående kredsløb forsynes af et 12 V DC batteri. 12 V batteriet skal nedkonverteres til de 3 nedenstående spændinger: 
 \begin{itemize}
 \item \textbf{Controller:} Kræver 5 V / 1200 mA (Raspberry Pi + Betjeningspanel)
 
@@ -10,11 +10,11 @@ Det følgende kapitel omhandler spændingsforsyning til hele Baby Watch systemet
 \item \textbf{Intelligent Lydmonitor:} Kræver 7.5 V / 1500 mA (BlackFin 533 kit + Mikrofonkreds)
 \end{itemize}
 
-Det er den Intelligente Lydmonitor der kræver størst spænding, derfor foretages første nedkonvertering fra 12 V til 7.5 V med en DC-DC konverter og de to resterende spændinger på 3.3 V og 5 V reguleres med spændingsregulatorer. De to regulatorer regulerer fra 7.5 V og ikke 12 V for at sænke effektforbruget i regulatorerne. 
+Det er den Intelligente Lydmonitor der kræver størst spænding, derfor foretages første nedkonvertering fra 12 V til 7.5 V med en DC-DC konverter og de to resterende spændinger på 3.3 V og 5 V reguleres med lineære spændingsregulatorer. De to regulatorer regulerer fra 7.5 V og ikke 12 V for at sænke effektforbruget i regulatorerne. 
 
 \section{Design}
 
-DC-DC konverteren (LM2696S) er af typen stepdown. Den tager et input på 5-35 V og har justerbart output på 1,25-30 V. Det maksimale strømoutput er på 4 A og overstiger effekten 15 W skal konverteren køles. I dette system forbruges maksimalt 2.5 A, ca. 19 W, der er derfor monteret køleplader på konverteren. Figur \ref{psu:DCkonv} viser DC-DC konverteren, som det ses er der 3 indstillelige potentiometre som indstiller ønsket spænding, strøm. Herudover er der en diode til at indikere hvis strømmen når over et indstillet niveau.  
+DC-DC konverteren (LM2696S) er af typen stepdown. Den tager et input på 5-35 V og har justerbart output på 1,25-30 V. Det maksimale strømoutput er på 4 A og overstiger effekten 15 W skal konverteren køles. I dette system forbruges der maksimalt 2.5 A, ca. 19 W, og der er derfor monteret køleplader på konverteren. Figur \ref{psu:DCkonv} viser DC-DC konverteren. Der er en diode til at indikere hvis strømmen når over et indstillet niveau. Som det ses er der tre potentiometre som indstiller den ønskede spænding, strøm og overstyringsindikatorniveau.  
 
 \figur{0.4}{psu/LM2596S_fabriksbillede}{Fabriksbillede af LM2596S - DC-DC konverter}{psu:DCkonv} 
 

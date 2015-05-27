@@ -1,11 +1,9 @@
 % Baby watch overordnet
 \chapter{Baby Watch}
 
-I Baby Watch afsnittet beskrives sammenhænget imellem alle delelementerne.
+I Baby Watch afsnittet beskrives sammenhængen imellem alle delelementerne.
 
 \section{Domænemodel}
-
-Domænemodellen er til for at give et indblik i opbygningen af systemet, uden at det er nødvendigt at have den store tekniske forståelse for elektroniske systemer.
 
 \figur{1}{overordnet/domaenemodel}{Domænemodellen for Baby Watch}{bw:domaenemodel}
 
@@ -34,7 +32,7 @@ På det interne blokdiagram figur \ref{bw:ibd} fås et overblik over hvilke sign
 
 \begin{itemize}
 \item \textbf{\textit{Controller:}}
-Controlleren er samlingspunkt for alle delene i systemet. Der er en \iic forbindelse til dataoverførsel til vuggesystemet, som kan læse og skrive. En logisk TTL signal til lydmonitoren til modtagelse af babystatussen. Derudover er der en netværksforbindelse over Wi-Fi og nogle fysiske knapper til at tænde og slukke for programmet samt aktivere den manuelle startfunktion. Controlleren skal forsynes med 5 VDC 1200 mA og har et \verb+powOn_out+ ben der fungere som sluk og tænd funktion af forsyningen til Vuggesystem og Intelligent lydmonitor.
+Controlleren er samlingspunkt for alle delene i systemet. Der er en \iic forbindelse til dataoverførsel til vuggesystemet, som kan læse og skrive. Et logisk TTL signal til lydmonitoren til modtagelse af babystatussen. Derudover er der en netværksforbindelse over Wi-Fi og nogle fysiske knapper til at tænde og slukke for programmet samt aktivere den manuelle startfunktion. Controlleren skal forsynes med 5 VDC 1200 mA og har et \verb+powOn_out+ ben der fungere som sluk og tænd funktion af forsyningen til Vuggesystem og Intelligent lydmonitor.
 \item \textbf{\textit{Intelligent lydmonitor:}}
 Den intelligente lydmonitor er en DSP(Digital Signal Processor) som modtager lyd analogt fra babyen. Denne lyd bliver processeret og analyseret, og en babystatus bliver sendt til Controlleren via to logiske TTL ben. Den intelligente lydmonitor skal forsynes med 7,5 VDC 1500 mA.
 \item \textbf{\textit{Vuggesystem:}}
@@ -45,7 +43,7 @@ Strømforsyningen skal forsyne alle de 3 delelementer i Baby Watch, Controller, 
 
 \section{Grænseflader}
 
-For at se en mere detaljeret beskrivelse se grænseflade afsnittet i projektdokumentationen.
+For en mere detaljeret beskrivelse se grænseflade afsnittet i projektdokumentationen\footnote{[\textit{Se projektdokumentationen p. 24}]}.
 
 \subsection{Fysiske forbindelser}
 
@@ -53,18 +51,18 @@ Der er brugt skærmede USB-kabler til \iic-forbindelsen for at modvirke støj p�
 
 \subsection{Kommunikationsprotokol}
 
-\iic-protokollen er opbygget med registre, der er fem registrer.
+\iic-protokollen er opbygget med følgende fem registre:
 
 \begin{itemize}
 \item \textbf{\textit{ID}} Et ID register som ikke bliver brugt i systemet, men er til for at skelne \iic slaver imellem hinanden ved flere slaver i et system
 \item \textbf{\textit{ON\_OFF}} Register til tænd og sluk af vuggesystemet, Controller skriver til dette register
 \item \textbf{\textit{Frekvens}} Register til at angive vuggefrekvens til vuggesystemet, Controller skriver til dette register. \verb+0-255+.
 \item \textbf{\textit{Vinkel}} Register til at angive vuggevinklen til vuggesystemet, Controller skriver til dette register. \verb+0-255+.
-\item \textbf{\textit{Status}} Register der læses af Controller. Registeret består af en 8 bits bitsekvens hvor 1 er status-aktiv og 0 status-deaktiv \verb+<0x0000xxxx>+ hvoraf de 4 MSBs er brugt til status kommunikation til Controlleren.\\ 
+\item \textbf{\textit{Status}} Register der læses af Controller. Registeret består af en 8 bits bitsekvens hvor 1 er status-aktiv og 0 status-inaktiv \verb+<0x0000xxxx>+ hvoraf de 4 MSBs er brugt til status kommunikation til Controlleren.\\ 
 \verb+<ERR>+ er en fejl der sætter vuggesystemet i undtagelsestilstand. \\
 \verb+<STALL>+ er en bit der sættes hvis fejlen er opstået ved en belastning. \\
 \verb+<END_STP>+ er hvis fejlen er opstået ved at vuggen er kommet i en yderposition. \\
-\verb+<SD_RDY>+ er en indikation til Controller om at vuggesystemet er klar til at lukke ned, når der sendes et OFF signal til vuggesystemet fra Controller til \verb+ON\_OFF registeret+. 
+\verb+<SD_RDY>+ er en indikation til Controller om at vuggesystemet er klar til at lukke ned, når der sendes et OFF signal til vuggesystemet fra Controller til \verb+ON_OFF registeret+. 
 \begin{center}
 \verb+<ERR><STALL><END_STP><SD_RDY><X><X><X><X>+
 \end{center}

@@ -1,7 +1,7 @@
 % Controller
 \chapter{Controller}
 
-Controllerens funktion er at modtage et BABYCON-niveau fra den Intelligente lydmonitor og handle på det. Controlleren består af et betjeningspanel og en Raspberry Pi. Raspberry Pien fungerer som hjernen i Controlleren og styrer betjeningspanelets dioder og handler på panelets knapper. Raspberry Pien handler på det modtaget BABYCON-niveau ved at sende data over \iic til Vuggesystemet. Raspberry Pien indeholder desuden en webserver samt en mail klient som hhv. opdaterer en hjemmeside med BABYCON-niveau og meddeler Babypasseren via e-mail ved alarm eller fejl.
+Controllerens funktion er at modtage et BABYCON-niveau fra den Intelligente lydmonitor og handle på det. Controlleren består af et betjeningspanel og en Raspberry Pi. Raspberry Pien fungerer som hjernen i Controlleren og styrer betjeningspanelets dioder og handler på panelets knapper. Raspberry Pien handler på det modtagne BABYCON-niveau ved at sende data over \iic til Vuggesystemet. Raspberry Pien indeholder desuden en webserver samt en mail klient som hhv. opdaterer en hjemmeside med BABYCON-niveau og meddeler Babypasseren via e-mail ved alarm eller fejl.
 
 De følgende afsnit \ref{ctrl_sysark}, \ref{ctrl_design} og \ref{ctrl_implementering} deler Controlleren op i Systemarkitektur, Design og Implementering.
 
@@ -13,10 +13,10 @@ Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbej
 \begin{itemize}
 \item \textbf{BABYCON-niveauer:} Beskriver Controllerens opførsel ved de forskellige BABYCON-niveauer.
 \item \textbf{''Manuel start'':} Beskriver forløbet når Babypasseren aktiverer ''Manuel start''
-\item \textbf{Power Off:} Beskriver forløbet når Controllerens ON/OFF-knap afbrydes og Baby Watch systemet slukkes 
+\item \textbf{Power Off:} Beskriver forløbet når Controllerens ON/OFF-kontakt afbrydes og Baby Watch systemet slukkes 
 \end{itemize}
 
-Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet et internt block diagram, se figur \ref{controller:ibd}. Til det interne block diagram er der udarbejdet en forklarende signaltabel [\textit{Se projektdokumentationen p. 34}].
+Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet et internt blokdiagram, se figur \ref{controller:ibd}. Til det interne blokdiagram er der udarbejdet en forklarende signaltabel [\textit{Se projektdokumentationen p. 34}].
 
 \figur{1}{controller/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
 
@@ -39,9 +39,9 @@ Hardwaredesignet for Controlleren består af betjeningspanelet samt stik til for
 
 Hovedprogrammet er udviklet i Eclipse til Linux \citep{website:eclipsekepler}, hvor der krydskompileres direkte til Raspberry Pi via ssh\footnote{Secure Shell - krypteret fjernadgang}.
 
-Der er lavet et \verb+GPIOsocket+ funktionsbibliotek til at oprette filbiblioteker til de enkelte GPIO-porte. I biblioteket er der 3 funktioner der varetager oprettelse og nedlæggelse af et GPIO-ben, samt opsætning af retning (input/output). Funktionerne bliver brugt af de klasser der bruger GPIO-benene. \verb+GPIOsocket+ biblioteket gør brug af wiringPi biblioteket \citep{website:wiringpi}. Og det dens funktionalitet der gøres brug af når der oprettes og nedlægges gpio-ben.
+Der er lavet et \verb+GPIOsocket+ funktionsbibliotek til at oprette filbiblioteker til de enkelte GPIO-porte. I biblioteket er der 3 funktioner der varetager oprettelse og nedlæggelse af et GPIO-ben, samt opsætning af retning (input/output). Funktionerne bliver brugt af de klasser der bruger GPIO-benene. \verb+GPIOsocket+ biblioteket gør brug af wiringPi biblioteket \citep{website:wiringpi}. Og det er dens funktionalitet der gøres brug af når der oprettes og nedlægges gpio-ben.
 
-HTTP-webserveren er implementeret vha. af en microframework Flask-server \citep{website:flask}.
+HTTP-webserveren er implementeret vha. af en Flask-server \citep{website:flask}.
 
 En detaljeret gennemgang af implementeringen kan findes i Controllerens implementeringsafsnit i projektdokumentationen [\textit{Se projektdokumentationen p. 47}].
 
