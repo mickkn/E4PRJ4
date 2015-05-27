@@ -1,0 +1,1086 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"fixedMath.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.fix16abs,"ax",%progbits
+  18              		.align	2
+  19              		.global	fix16abs
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	fix16abs, %function
+  23              	fix16abs:
+  24              	.LFB33:
+  25              		.file 1 ".\\fixedMath.c"
+   1:.\fixedMath.c **** /* ========================================
+   2:.\fixedMath.c ****  *
+   3:.\fixedMath.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\fixedMath.c ****  * All Rights Reserved
+   5:.\fixedMath.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\fixedMath.c ****  *
+   7:.\fixedMath.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\fixedMath.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\fixedMath.c ****  *
+  10:.\fixedMath.c ****  * ========================================
+  11:.\fixedMath.c **** */
+  12:.\fixedMath.c **** 
+  13:.\fixedMath.c **** #include "fixedMath.h"
+  14:.\fixedMath.c **** #include "stdlib.h"
+  15:.\fixedMath.c **** 
+  16:.\fixedMath.c **** #define RAD_TO_DEG_SCALE 3754936 // ((360 deg) / (2 * pi rad)) * 2^16
+  17:.\fixedMath.c **** 
+  18:.\fixedMath.c **** #define COEFF1  51472  // pi/4 * 2^16
+  19:.\fixedMath.c **** #define COEFF2 154416  // COEFF1 * 3
+  20:.\fixedMath.c **** 
+  21:.\fixedMath.c **** fix16_t fix16abs(fix16_t a)
+  22:.\fixedMath.c **** {
+  26              		.loc 1 22 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+  32 0002 82B0     		sub	sp, sp, #8
+  33              		.cfi_def_cfa_offset 16
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 2
+
+
+  36 0006 7860     		str	r0, [r7, #4]
+  23:.\fixedMath.c ****     if(a < 0) return -a; 
+  37              		.loc 1 23 0
+  38 0008 7B68     		ldr	r3, [r7, #4]
+  39 000a 002B     		cmp	r3, #0
+  40 000c 02DA     		bge	.L2
+  41              		.loc 1 23 0 is_stmt 0 discriminator 1
+  42 000e 7B68     		ldr	r3, [r7, #4]
+  43 0010 5B42     		neg	r3, r3
+  44 0012 00E0     		b	.L3
+  45              	.L2:
+  24:.\fixedMath.c ****     else return a;
+  46              		.loc 1 24 0 is_stmt 1
+  47 0014 7B68     		ldr	r3, [r7, #4]
+  48              	.L3:
+  25:.\fixedMath.c **** }
+  49              		.loc 1 25 0
+  50 0016 181C     		mov	r0, r3
+  51 0018 BD46     		mov	sp, r7
+  52 001a 02B0     		add	sp, sp, #8
+  53              		@ sp needed
+  54 001c 80BD     		pop	{r7, pc}
+  55              		.cfi_endproc
+  56              	.LFE33:
+  57              		.size	fix16abs, .-fix16abs
+  58              		.global	__aeabi_lmul
+  59 001e C046     		.section	.text.fix16mul,"ax",%progbits
+  60              		.align	2
+  61              		.global	fix16mul
+  62              		.code	16
+  63              		.thumb_func
+  64              		.type	fix16mul, %function
+  65              	fix16mul:
+  66              	.LFB34:
+  26:.\fixedMath.c **** 
+  27:.\fixedMath.c **** fix16_t fix16mul(fix16_t a, fix16_t b)
+  28:.\fixedMath.c **** {
+  67              		.loc 1 28 0
+  68              		.cfi_startproc
+  69 0000 B0B5     		push	{r4, r5, r7, lr}
+  70              		.cfi_def_cfa_offset 16
+  71              		.cfi_offset 4, -16
+  72              		.cfi_offset 5, -12
+  73              		.cfi_offset 7, -8
+  74              		.cfi_offset 14, -4
+  75 0002 84B0     		sub	sp, sp, #16
+  76              		.cfi_def_cfa_offset 32
+  77 0004 00AF     		add	r7, sp, #0
+  78              		.cfi_def_cfa_register 7
+  79 0006 F860     		str	r0, [r7, #12]
+  80 0008 B960     		str	r1, [r7, #8]
+  29:.\fixedMath.c ****     return (fix16_t)(((int64_t) a * (int64_t) b) >> 16);
+  81              		.loc 1 29 0
+  82 000a F968     		ldr	r1, [r7, #12]
+  83 000c 3960     		str	r1, [r7]
+  84 000e C917     		asr	r1, r1, #31
+  85 0010 7960     		str	r1, [r7, #4]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 3
+
+
+  86 0012 B968     		ldr	r1, [r7, #8]
+  87 0014 0A1C     		mov	r2, r1
+  88 0016 C917     		asr	r1, r1, #31
+  89 0018 0B1C     		mov	r3, r1
+  90 001a 3868     		ldr	r0, [r7]
+  91 001c 7968     		ldr	r1, [r7, #4]
+  92 001e FFF7FEFF 		bl	__aeabi_lmul
+  93 0022 021C     		mov	r2, r0
+  94 0024 0B1C     		mov	r3, r1
+  95 0026 1904     		lsl	r1, r3, #16
+  96 0028 140C     		lsr	r4, r2, #16
+  97 002a 0C43     		orr	r4, r1
+  98 002c 1D14     		asr	r5, r3, #16
+  99 002e 231C     		mov	r3, r4
+  30:.\fixedMath.c **** }
+ 100              		.loc 1 30 0
+ 101 0030 181C     		mov	r0, r3
+ 102 0032 BD46     		mov	sp, r7
+ 103 0034 04B0     		add	sp, sp, #16
+ 104              		@ sp needed
+ 105 0036 B0BD     		pop	{r4, r5, r7, pc}
+ 106              		.cfi_endproc
+ 107              	.LFE34:
+ 108              		.size	fix16mul, .-fix16mul
+ 109              		.global	__aeabi_ldivmod
+ 110              		.section	.text.fix16div,"ax",%progbits
+ 111              		.align	2
+ 112              		.global	fix16div
+ 113              		.code	16
+ 114              		.thumb_func
+ 115              		.type	fix16div, %function
+ 116              	fix16div:
+ 117              	.LFB35:
+  31:.\fixedMath.c **** 
+  32:.\fixedMath.c **** fix16_t fix16div(fix16_t a, fix16_t b)
+  33:.\fixedMath.c **** {
+ 118              		.loc 1 33 0
+ 119              		.cfi_startproc
+ 120 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 121              		.cfi_def_cfa_offset 20
+ 122              		.cfi_offset 4, -20
+ 123              		.cfi_offset 5, -16
+ 124              		.cfi_offset 6, -12
+ 125              		.cfi_offset 7, -8
+ 126              		.cfi_offset 14, -4
+ 127 0002 85B0     		sub	sp, sp, #20
+ 128              		.cfi_def_cfa_offset 40
+ 129 0004 00AF     		add	r7, sp, #0
+ 130              		.cfi_def_cfa_register 7
+ 131 0006 F860     		str	r0, [r7, #12]
+ 132 0008 B960     		str	r1, [r7, #8]
+  34:.\fixedMath.c ****     return (fix16_t) (((int64_t)a << 16) / b);
+ 133              		.loc 1 34 0
+ 134 000a FA68     		ldr	r2, [r7, #12]
+ 135 000c 151C     		mov	r5, r2
+ 136 000e D217     		asr	r2, r2, #31
+ 137 0010 161C     		mov	r6, r2
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 4
+
+
+ 138 0012 2A0C     		lsr	r2, r5, #16
+ 139 0014 3404     		lsl	r4, r6, #16
+ 140 0016 1443     		orr	r4, r2
+ 141 0018 2B04     		lsl	r3, r5, #16
+ 142 001a BA68     		ldr	r2, [r7, #8]
+ 143 001c 3A60     		str	r2, [r7]
+ 144 001e D217     		asr	r2, r2, #31
+ 145 0020 7A60     		str	r2, [r7, #4]
+ 146 0022 181C     		mov	r0, r3
+ 147 0024 211C     		mov	r1, r4
+ 148 0026 3A68     		ldr	r2, [r7]
+ 149 0028 7B68     		ldr	r3, [r7, #4]
+ 150 002a FFF7FEFF 		bl	__aeabi_ldivmod
+ 151 002e 031C     		mov	r3, r0
+ 152 0030 0C1C     		mov	r4, r1
+  35:.\fixedMath.c **** 
+  36:.\fixedMath.c **** }
+ 153              		.loc 1 36 0
+ 154 0032 181C     		mov	r0, r3
+ 155 0034 BD46     		mov	sp, r7
+ 156 0036 05B0     		add	sp, sp, #20
+ 157              		@ sp needed
+ 158 0038 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 159              		.cfi_endproc
+ 160              	.LFE35:
+ 161              		.size	fix16div, .-fix16div
+ 162 003a C046     		.section	.text.fix16atan2,"ax",%progbits
+ 163              		.align	2
+ 164              		.global	fix16atan2
+ 165              		.code	16
+ 166              		.thumb_func
+ 167              		.type	fix16atan2, %function
+ 168              	fix16atan2:
+ 169              	.LFB36:
+  37:.\fixedMath.c **** 
+  38:.\fixedMath.c **** /* atan2 implementation is based on Jim Shima's 1999/04/23 algorithm             *
+  39:.\fixedMath.c ****  * see: http://dspguru.com//dsp/tricks/fixed-point-atan2-with-self-normalization */
+  40:.\fixedMath.c **** fix16_t fix16atan2(fix16_t y, fix16_t x)
+  41:.\fixedMath.c **** {
+ 170              		.loc 1 41 0
+ 171              		.cfi_startproc
+ 172 0000 80B5     		push	{r7, lr}
+ 173              		.cfi_def_cfa_offset 8
+ 174              		.cfi_offset 7, -8
+ 175              		.cfi_offset 14, -4
+ 176 0002 86B0     		sub	sp, sp, #24
+ 177              		.cfi_def_cfa_offset 32
+ 178 0004 00AF     		add	r7, sp, #0
+ 179              		.cfi_def_cfa_register 7
+ 180 0006 7860     		str	r0, [r7, #4]
+ 181 0008 3960     		str	r1, [r7]
+  42:.\fixedMath.c ****     fix16_t abs_y = fix16abs(y)+1;      // kludge to prevent 0/0 condition
+ 182              		.loc 1 42 0
+ 183 000a 7B68     		ldr	r3, [r7, #4]
+ 184 000c 181C     		mov	r0, r3
+ 185 000e FFF7FEFF 		bl	fix16abs
+ 186 0012 031C     		mov	r3, r0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 5
+
+
+ 187 0014 0133     		add	r3, r3, #1
+ 188 0016 3B61     		str	r3, [r7, #16]
+  43:.\fixedMath.c ****     fix16_t angle;
+  44:.\fixedMath.c ****     if (x>=0)
+ 189              		.loc 1 44 0
+ 190 0018 3B68     		ldr	r3, [r7]
+ 191 001a 002B     		cmp	r3, #0
+ 192 001c 16DB     		blt	.L9
+ 193              	.LBB2:
+  45:.\fixedMath.c ****     {
+  46:.\fixedMath.c ****         fix16_t r = fix16div((x - abs_y),  (x + abs_y));
+ 194              		.loc 1 46 0
+ 195 001e 3A68     		ldr	r2, [r7]
+ 196 0020 3B69     		ldr	r3, [r7, #16]
+ 197 0022 D21A     		sub	r2, r2, r3
+ 198 0024 3968     		ldr	r1, [r7]
+ 199 0026 3B69     		ldr	r3, [r7, #16]
+ 200 0028 CB18     		add	r3, r1, r3
+ 201 002a 101C     		mov	r0, r2
+ 202 002c 191C     		mov	r1, r3
+ 203 002e FFF7FEFF 		bl	fix16div
+ 204 0032 031C     		mov	r3, r0
+ 205 0034 FB60     		str	r3, [r7, #12]
+  47:.\fixedMath.c ****         angle = COEFF1 - fix16mul(COEFF1, r);
+ 206              		.loc 1 47 0
+ 207 0036 164A     		ldr	r2, .L13
+ 208 0038 FB68     		ldr	r3, [r7, #12]
+ 209 003a 101C     		mov	r0, r2
+ 210 003c 191C     		mov	r1, r3
+ 211 003e FFF7FEFF 		bl	fix16mul
+ 212 0042 031C     		mov	r3, r0
+ 213 0044 124A     		ldr	r2, .L13
+ 214 0046 D31A     		sub	r3, r2, r3
+ 215 0048 7B61     		str	r3, [r7, #20]
+ 216              	.LBE2:
+ 217 004a 15E0     		b	.L10
+ 218              	.L9:
+ 219              	.LBB3:
+  48:.\fixedMath.c ****     }
+  49:.\fixedMath.c ****     else
+  50:.\fixedMath.c ****     {
+  51:.\fixedMath.c ****         fix16_t r = fix16div((x + abs_y), (abs_y - x));
+ 220              		.loc 1 51 0
+ 221 004c 3A68     		ldr	r2, [r7]
+ 222 004e 3B69     		ldr	r3, [r7, #16]
+ 223 0050 D218     		add	r2, r2, r3
+ 224 0052 3969     		ldr	r1, [r7, #16]
+ 225 0054 3B68     		ldr	r3, [r7]
+ 226 0056 CB1A     		sub	r3, r1, r3
+ 227 0058 101C     		mov	r0, r2
+ 228 005a 191C     		mov	r1, r3
+ 229 005c FFF7FEFF 		bl	fix16div
+ 230 0060 031C     		mov	r3, r0
+ 231 0062 BB60     		str	r3, [r7, #8]
+  52:.\fixedMath.c ****         angle = COEFF2 - fix16mul(COEFF1, r);
+ 232              		.loc 1 52 0
+ 233 0064 0A4A     		ldr	r2, .L13
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 6
+
+
+ 234 0066 BB68     		ldr	r3, [r7, #8]
+ 235 0068 101C     		mov	r0, r2
+ 236 006a 191C     		mov	r1, r3
+ 237 006c FFF7FEFF 		bl	fix16mul
+ 238 0070 031C     		mov	r3, r0
+ 239 0072 084A     		ldr	r2, .L13+4
+ 240 0074 D31A     		sub	r3, r2, r3
+ 241 0076 7B61     		str	r3, [r7, #20]
+ 242              	.L10:
+ 243              	.LBE3:
+  53:.\fixedMath.c ****     }
+  54:.\fixedMath.c ****     if (y < 0) return(-angle);     // negate if in quad III or IV
+ 244              		.loc 1 54 0
+ 245 0078 7B68     		ldr	r3, [r7, #4]
+ 246 007a 002B     		cmp	r3, #0
+ 247 007c 02DA     		bge	.L11
+ 248              		.loc 1 54 0 is_stmt 0 discriminator 1
+ 249 007e 7B69     		ldr	r3, [r7, #20]
+ 250 0080 5B42     		neg	r3, r3
+ 251 0082 00E0     		b	.L12
+ 252              	.L11:
+  55:.\fixedMath.c ****     else return(angle);
+ 253              		.loc 1 55 0 is_stmt 1
+ 254 0084 7B69     		ldr	r3, [r7, #20]
+ 255              	.L12:
+  56:.\fixedMath.c **** }
+ 256              		.loc 1 56 0
+ 257 0086 181C     		mov	r0, r3
+ 258 0088 BD46     		mov	sp, r7
+ 259 008a 06B0     		add	sp, sp, #24
+ 260              		@ sp needed
+ 261 008c 80BD     		pop	{r7, pc}
+ 262              	.L14:
+ 263 008e C046     		.align	2
+ 264              	.L13:
+ 265 0090 10C90000 		.word	51472
+ 266 0094 305B0200 		.word	154416
+ 267              		.cfi_endproc
+ 268              	.LFE36:
+ 269              		.size	fix16atan2, .-fix16atan2
+ 270              		.section	.text.fix16rad2deg,"ax",%progbits
+ 271              		.align	2
+ 272              		.global	fix16rad2deg
+ 273              		.code	16
+ 274              		.thumb_func
+ 275              		.type	fix16rad2deg, %function
+ 276              	fix16rad2deg:
+ 277              	.LFB37:
+  57:.\fixedMath.c **** 
+  58:.\fixedMath.c **** fix16_t fix16rad2deg(fix16_t radAng)
+  59:.\fixedMath.c **** {
+ 278              		.loc 1 59 0
+ 279              		.cfi_startproc
+ 280 0000 80B5     		push	{r7, lr}
+ 281              		.cfi_def_cfa_offset 8
+ 282              		.cfi_offset 7, -8
+ 283              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 7
+
+
+ 284 0002 82B0     		sub	sp, sp, #8
+ 285              		.cfi_def_cfa_offset 16
+ 286 0004 00AF     		add	r7, sp, #0
+ 287              		.cfi_def_cfa_register 7
+ 288 0006 7860     		str	r0, [r7, #4]
+  60:.\fixedMath.c ****     return fix16mul(radAng, RAD_TO_DEG_SCALE);
+ 289              		.loc 1 60 0
+ 290 0008 7A68     		ldr	r2, [r7, #4]
+ 291 000a 054B     		ldr	r3, .L17
+ 292 000c 101C     		mov	r0, r2
+ 293 000e 191C     		mov	r1, r3
+ 294 0010 FFF7FEFF 		bl	fix16mul
+ 295 0014 031C     		mov	r3, r0
+  61:.\fixedMath.c **** }
+ 296              		.loc 1 61 0
+ 297 0016 181C     		mov	r0, r3
+ 298 0018 BD46     		mov	sp, r7
+ 299 001a 02B0     		add	sp, sp, #8
+ 300              		@ sp needed
+ 301 001c 80BD     		pop	{r7, pc}
+ 302              	.L18:
+ 303 001e C046     		.align	2
+ 304              	.L17:
+ 305 0020 B84B3900 		.word	3754936
+ 306              		.cfi_endproc
+ 307              	.LFE37:
+ 308              		.size	fix16rad2deg, .-fix16rad2deg
+ 309              		.text
+ 310              	.Letext0:
+ 311              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 312              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 313              		.file 4 ".\\fixedMath.h"
+ 314              		.section	.debug_info,"",%progbits
+ 315              	.Ldebug_info0:
+ 316 0000 E7010000 		.4byte	0x1e7
+ 317 0004 0400     		.2byte	0x4
+ 318 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 319 000a 04       		.byte	0x4
+ 320 000b 01       		.uleb128 0x1
+ 321 000c AA000000 		.4byte	.LASF25
+ 322 0010 01       		.byte	0x1
+ 323 0011 3A010000 		.4byte	.LASF26
+ 324 0015 2E000000 		.4byte	.LASF27
+ 325 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 326 001d 00000000 		.4byte	0
+ 327 0021 00000000 		.4byte	.Ldebug_line0
+ 328 0025 02       		.uleb128 0x2
+ 329 0026 01       		.byte	0x1
+ 330 0027 06       		.byte	0x6
+ 331 0028 05020000 		.4byte	.LASF0
+ 332 002c 02       		.uleb128 0x2
+ 333 002d 01       		.byte	0x1
+ 334 002e 08       		.byte	0x8
+ 335 002f 2C010000 		.4byte	.LASF1
+ 336 0033 02       		.uleb128 0x2
+ 337 0034 02       		.byte	0x2
+ 338 0035 05       		.byte	0x5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 8
+
+
+ 339 0036 E9010000 		.4byte	.LASF2
+ 340 003a 02       		.uleb128 0x2
+ 341 003b 02       		.byte	0x2
+ 342 003c 07       		.byte	0x7
+ 343 003d 5A010000 		.4byte	.LASF3
+ 344 0041 03       		.uleb128 0x3
+ 345 0042 11000000 		.4byte	.LASF6
+ 346 0046 02       		.byte	0x2
+ 347 0047 37       		.byte	0x37
+ 348 0048 4C000000 		.4byte	0x4c
+ 349 004c 02       		.uleb128 0x2
+ 350 004d 04       		.byte	0x4
+ 351 004e 05       		.byte	0x5
+ 352 004f FC010000 		.4byte	.LASF4
+ 353 0053 02       		.uleb128 0x2
+ 354 0054 04       		.byte	0x4
+ 355 0055 07       		.byte	0x7
+ 356 0056 48010000 		.4byte	.LASF5
+ 357 005a 03       		.uleb128 0x3
+ 358 005b 7A010000 		.4byte	.LASF7
+ 359 005f 02       		.byte	0x2
+ 360 0060 4D       		.byte	0x4d
+ 361 0061 65000000 		.4byte	0x65
+ 362 0065 02       		.uleb128 0x2
+ 363 0066 08       		.byte	0x8
+ 364 0067 05       		.byte	0x5
+ 365 0068 CD010000 		.4byte	.LASF8
+ 366 006c 02       		.uleb128 0x2
+ 367 006d 08       		.byte	0x8
+ 368 006e 07       		.byte	0x7
+ 369 006f 98010000 		.4byte	.LASF9
+ 370 0073 04       		.uleb128 0x4
+ 371 0074 04       		.byte	0x4
+ 372 0075 05       		.byte	0x5
+ 373 0076 696E7400 		.ascii	"int\000"
+ 374 007a 02       		.uleb128 0x2
+ 375 007b 04       		.byte	0x4
+ 376 007c 07       		.byte	0x7
+ 377 007d 8B010000 		.4byte	.LASF10
+ 378 0081 03       		.uleb128 0x3
+ 379 0082 BC010000 		.4byte	.LASF11
+ 380 0086 03       		.byte	0x3
+ 381 0087 41       		.byte	0x41
+ 382 0088 41000000 		.4byte	0x41
+ 383 008c 03       		.uleb128 0x3
+ 384 008d 00000000 		.4byte	.LASF12
+ 385 0091 03       		.byte	0x3
+ 386 0092 4D       		.byte	0x4d
+ 387 0093 5A000000 		.4byte	0x5a
+ 388 0097 02       		.uleb128 0x2
+ 389 0098 04       		.byte	0x4
+ 390 0099 04       		.byte	0x4
+ 391 009a A4000000 		.4byte	.LASF13
+ 392 009e 02       		.uleb128 0x2
+ 393 009f 08       		.byte	0x8
+ 394 00a0 04       		.byte	0x4
+ 395 00a1 84010000 		.4byte	.LASF14
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 9
+
+
+ 396 00a5 02       		.uleb128 0x2
+ 397 00a6 01       		.byte	0x1
+ 398 00a7 08       		.byte	0x8
+ 399 00a8 DB010000 		.4byte	.LASF15
+ 400 00ac 02       		.uleb128 0x2
+ 401 00ad 04       		.byte	0x4
+ 402 00ae 07       		.byte	0x7
+ 403 00af C4010000 		.4byte	.LASF16
+ 404 00b3 03       		.uleb128 0x3
+ 405 00b4 26000000 		.4byte	.LASF17
+ 406 00b8 04       		.byte	0x4
+ 407 00b9 15       		.byte	0x15
+ 408 00ba 81000000 		.4byte	0x81
+ 409 00be 05       		.uleb128 0x5
+ 410 00bf 08000000 		.4byte	.LASF18
+ 411 00c3 01       		.byte	0x1
+ 412 00c4 15       		.byte	0x15
+ 413 00c5 B3000000 		.4byte	0xb3
+ 414 00c9 00000000 		.4byte	.LFB33
+ 415 00cd 1E000000 		.4byte	.LFE33-.LFB33
+ 416 00d1 01       		.uleb128 0x1
+ 417 00d2 9C       		.byte	0x9c
+ 418 00d3 E4000000 		.4byte	0xe4
+ 419 00d7 06       		.uleb128 0x6
+ 420 00d8 6100     		.ascii	"a\000"
+ 421 00da 01       		.byte	0x1
+ 422 00db 15       		.byte	0x15
+ 423 00dc B3000000 		.4byte	0xb3
+ 424 00e0 02       		.uleb128 0x2
+ 425 00e1 91       		.byte	0x91
+ 426 00e2 74       		.sleb128 -12
+ 427 00e3 00       		.byte	0
+ 428 00e4 07       		.uleb128 0x7
+ 429 00e5 F3010000 		.4byte	.LASF19
+ 430 00e9 01       		.byte	0x1
+ 431 00ea 1B       		.byte	0x1b
+ 432 00eb B3000000 		.4byte	0xb3
+ 433 00ef 00000000 		.4byte	.LFB34
+ 434 00f3 38000000 		.4byte	.LFE34-.LFB34
+ 435 00f7 01       		.uleb128 0x1
+ 436 00f8 9C       		.byte	0x9c
+ 437 00f9 16010000 		.4byte	0x116
+ 438 00fd 06       		.uleb128 0x6
+ 439 00fe 6100     		.ascii	"a\000"
+ 440 0100 01       		.byte	0x1
+ 441 0101 1B       		.byte	0x1b
+ 442 0102 B3000000 		.4byte	0xb3
+ 443 0106 02       		.uleb128 0x2
+ 444 0107 91       		.byte	0x91
+ 445 0108 6C       		.sleb128 -20
+ 446 0109 06       		.uleb128 0x6
+ 447 010a 6200     		.ascii	"b\000"
+ 448 010c 01       		.byte	0x1
+ 449 010d 1B       		.byte	0x1b
+ 450 010e B3000000 		.4byte	0xb3
+ 451 0112 02       		.uleb128 0x2
+ 452 0113 91       		.byte	0x91
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 10
+
+
+ 453 0114 68       		.sleb128 -24
+ 454 0115 00       		.byte	0
+ 455 0116 07       		.uleb128 0x7
+ 456 0117 E0010000 		.4byte	.LASF20
+ 457 011b 01       		.byte	0x1
+ 458 011c 20       		.byte	0x20
+ 459 011d B3000000 		.4byte	0xb3
+ 460 0121 00000000 		.4byte	.LFB35
+ 461 0125 3A000000 		.4byte	.LFE35-.LFB35
+ 462 0129 01       		.uleb128 0x1
+ 463 012a 9C       		.byte	0x9c
+ 464 012b 48010000 		.4byte	0x148
+ 465 012f 06       		.uleb128 0x6
+ 466 0130 6100     		.ascii	"a\000"
+ 467 0132 01       		.byte	0x1
+ 468 0133 20       		.byte	0x20
+ 469 0134 B3000000 		.4byte	0xb3
+ 470 0138 02       		.uleb128 0x2
+ 471 0139 91       		.byte	0x91
+ 472 013a 64       		.sleb128 -28
+ 473 013b 06       		.uleb128 0x6
+ 474 013c 6200     		.ascii	"b\000"
+ 475 013e 01       		.byte	0x1
+ 476 013f 20       		.byte	0x20
+ 477 0140 B3000000 		.4byte	0xb3
+ 478 0144 02       		.uleb128 0x2
+ 479 0145 91       		.byte	0x91
+ 480 0146 60       		.sleb128 -32
+ 481 0147 00       		.byte	0
+ 482 0148 07       		.uleb128 0x7
+ 483 0149 1B000000 		.4byte	.LASF21
+ 484 014d 01       		.byte	0x1
+ 485 014e 28       		.byte	0x28
+ 486 014f B3000000 		.4byte	0xb3
+ 487 0153 00000000 		.4byte	.LFB36
+ 488 0157 98000000 		.4byte	.LFE36-.LFB36
+ 489 015b 01       		.uleb128 0x1
+ 490 015c 9C       		.byte	0x9c
+ 491 015d C6010000 		.4byte	0x1c6
+ 492 0161 06       		.uleb128 0x6
+ 493 0162 7900     		.ascii	"y\000"
+ 494 0164 01       		.byte	0x1
+ 495 0165 28       		.byte	0x28
+ 496 0166 B3000000 		.4byte	0xb3
+ 497 016a 02       		.uleb128 0x2
+ 498 016b 91       		.byte	0x91
+ 499 016c 64       		.sleb128 -28
+ 500 016d 06       		.uleb128 0x6
+ 501 016e 7800     		.ascii	"x\000"
+ 502 0170 01       		.byte	0x1
+ 503 0171 28       		.byte	0x28
+ 504 0172 B3000000 		.4byte	0xb3
+ 505 0176 02       		.uleb128 0x2
+ 506 0177 91       		.byte	0x91
+ 507 0178 60       		.sleb128 -32
+ 508 0179 08       		.uleb128 0x8
+ 509 017a 26010000 		.4byte	.LASF22
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 11
+
+
+ 510 017e 01       		.byte	0x1
+ 511 017f 2A       		.byte	0x2a
+ 512 0180 B3000000 		.4byte	0xb3
+ 513 0184 02       		.uleb128 0x2
+ 514 0185 91       		.byte	0x91
+ 515 0186 70       		.sleb128 -16
+ 516 0187 08       		.uleb128 0x8
+ 517 0188 6D010000 		.4byte	.LASF23
+ 518 018c 01       		.byte	0x1
+ 519 018d 2B       		.byte	0x2b
+ 520 018e B3000000 		.4byte	0xb3
+ 521 0192 02       		.uleb128 0x2
+ 522 0193 91       		.byte	0x91
+ 523 0194 74       		.sleb128 -12
+ 524 0195 09       		.uleb128 0x9
+ 525 0196 1E000000 		.4byte	.LBB2
+ 526 019a 2C000000 		.4byte	.LBE2-.LBB2
+ 527 019e AF010000 		.4byte	0x1af
+ 528 01a2 0A       		.uleb128 0xa
+ 529 01a3 7200     		.ascii	"r\000"
+ 530 01a5 01       		.byte	0x1
+ 531 01a6 2E       		.byte	0x2e
+ 532 01a7 B3000000 		.4byte	0xb3
+ 533 01ab 02       		.uleb128 0x2
+ 534 01ac 91       		.byte	0x91
+ 535 01ad 6C       		.sleb128 -20
+ 536 01ae 00       		.byte	0
+ 537 01af 0B       		.uleb128 0xb
+ 538 01b0 4C000000 		.4byte	.LBB3
+ 539 01b4 2C000000 		.4byte	.LBE3-.LBB3
+ 540 01b8 0A       		.uleb128 0xa
+ 541 01b9 7200     		.ascii	"r\000"
+ 542 01bb 01       		.byte	0x1
+ 543 01bc 33       		.byte	0x33
+ 544 01bd B3000000 		.4byte	0xb3
+ 545 01c1 02       		.uleb128 0x2
+ 546 01c2 91       		.byte	0x91
+ 547 01c3 68       		.sleb128 -24
+ 548 01c4 00       		.byte	0
+ 549 01c5 00       		.byte	0
+ 550 01c6 0C       		.uleb128 0xc
+ 551 01c7 AF010000 		.4byte	.LASF28
+ 552 01cb 01       		.byte	0x1
+ 553 01cc 3A       		.byte	0x3a
+ 554 01cd B3000000 		.4byte	0xb3
+ 555 01d1 00000000 		.4byte	.LFB37
+ 556 01d5 24000000 		.4byte	.LFE37-.LFB37
+ 557 01d9 01       		.uleb128 0x1
+ 558 01da 9C       		.byte	0x9c
+ 559 01db 0D       		.uleb128 0xd
+ 560 01dc 73010000 		.4byte	.LASF24
+ 561 01e0 01       		.byte	0x1
+ 562 01e1 3A       		.byte	0x3a
+ 563 01e2 B3000000 		.4byte	0xb3
+ 564 01e6 02       		.uleb128 0x2
+ 565 01e7 91       		.byte	0x91
+ 566 01e8 74       		.sleb128 -12
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 12
+
+
+ 567 01e9 00       		.byte	0
+ 568 01ea 00       		.byte	0
+ 569              		.section	.debug_abbrev,"",%progbits
+ 570              	.Ldebug_abbrev0:
+ 571 0000 01       		.uleb128 0x1
+ 572 0001 11       		.uleb128 0x11
+ 573 0002 01       		.byte	0x1
+ 574 0003 25       		.uleb128 0x25
+ 575 0004 0E       		.uleb128 0xe
+ 576 0005 13       		.uleb128 0x13
+ 577 0006 0B       		.uleb128 0xb
+ 578 0007 03       		.uleb128 0x3
+ 579 0008 0E       		.uleb128 0xe
+ 580 0009 1B       		.uleb128 0x1b
+ 581 000a 0E       		.uleb128 0xe
+ 582 000b 55       		.uleb128 0x55
+ 583 000c 17       		.uleb128 0x17
+ 584 000d 11       		.uleb128 0x11
+ 585 000e 01       		.uleb128 0x1
+ 586 000f 10       		.uleb128 0x10
+ 587 0010 17       		.uleb128 0x17
+ 588 0011 00       		.byte	0
+ 589 0012 00       		.byte	0
+ 590 0013 02       		.uleb128 0x2
+ 591 0014 24       		.uleb128 0x24
+ 592 0015 00       		.byte	0
+ 593 0016 0B       		.uleb128 0xb
+ 594 0017 0B       		.uleb128 0xb
+ 595 0018 3E       		.uleb128 0x3e
+ 596 0019 0B       		.uleb128 0xb
+ 597 001a 03       		.uleb128 0x3
+ 598 001b 0E       		.uleb128 0xe
+ 599 001c 00       		.byte	0
+ 600 001d 00       		.byte	0
+ 601 001e 03       		.uleb128 0x3
+ 602 001f 16       		.uleb128 0x16
+ 603 0020 00       		.byte	0
+ 604 0021 03       		.uleb128 0x3
+ 605 0022 0E       		.uleb128 0xe
+ 606 0023 3A       		.uleb128 0x3a
+ 607 0024 0B       		.uleb128 0xb
+ 608 0025 3B       		.uleb128 0x3b
+ 609 0026 0B       		.uleb128 0xb
+ 610 0027 49       		.uleb128 0x49
+ 611 0028 13       		.uleb128 0x13
+ 612 0029 00       		.byte	0
+ 613 002a 00       		.byte	0
+ 614 002b 04       		.uleb128 0x4
+ 615 002c 24       		.uleb128 0x24
+ 616 002d 00       		.byte	0
+ 617 002e 0B       		.uleb128 0xb
+ 618 002f 0B       		.uleb128 0xb
+ 619 0030 3E       		.uleb128 0x3e
+ 620 0031 0B       		.uleb128 0xb
+ 621 0032 03       		.uleb128 0x3
+ 622 0033 08       		.uleb128 0x8
+ 623 0034 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 13
+
+
+ 624 0035 00       		.byte	0
+ 625 0036 05       		.uleb128 0x5
+ 626 0037 2E       		.uleb128 0x2e
+ 627 0038 01       		.byte	0x1
+ 628 0039 3F       		.uleb128 0x3f
+ 629 003a 19       		.uleb128 0x19
+ 630 003b 03       		.uleb128 0x3
+ 631 003c 0E       		.uleb128 0xe
+ 632 003d 3A       		.uleb128 0x3a
+ 633 003e 0B       		.uleb128 0xb
+ 634 003f 3B       		.uleb128 0x3b
+ 635 0040 0B       		.uleb128 0xb
+ 636 0041 27       		.uleb128 0x27
+ 637 0042 19       		.uleb128 0x19
+ 638 0043 49       		.uleb128 0x49
+ 639 0044 13       		.uleb128 0x13
+ 640 0045 11       		.uleb128 0x11
+ 641 0046 01       		.uleb128 0x1
+ 642 0047 12       		.uleb128 0x12
+ 643 0048 06       		.uleb128 0x6
+ 644 0049 40       		.uleb128 0x40
+ 645 004a 18       		.uleb128 0x18
+ 646 004b 9742     		.uleb128 0x2117
+ 647 004d 19       		.uleb128 0x19
+ 648 004e 01       		.uleb128 0x1
+ 649 004f 13       		.uleb128 0x13
+ 650 0050 00       		.byte	0
+ 651 0051 00       		.byte	0
+ 652 0052 06       		.uleb128 0x6
+ 653 0053 05       		.uleb128 0x5
+ 654 0054 00       		.byte	0
+ 655 0055 03       		.uleb128 0x3
+ 656 0056 08       		.uleb128 0x8
+ 657 0057 3A       		.uleb128 0x3a
+ 658 0058 0B       		.uleb128 0xb
+ 659 0059 3B       		.uleb128 0x3b
+ 660 005a 0B       		.uleb128 0xb
+ 661 005b 49       		.uleb128 0x49
+ 662 005c 13       		.uleb128 0x13
+ 663 005d 02       		.uleb128 0x2
+ 664 005e 18       		.uleb128 0x18
+ 665 005f 00       		.byte	0
+ 666 0060 00       		.byte	0
+ 667 0061 07       		.uleb128 0x7
+ 668 0062 2E       		.uleb128 0x2e
+ 669 0063 01       		.byte	0x1
+ 670 0064 3F       		.uleb128 0x3f
+ 671 0065 19       		.uleb128 0x19
+ 672 0066 03       		.uleb128 0x3
+ 673 0067 0E       		.uleb128 0xe
+ 674 0068 3A       		.uleb128 0x3a
+ 675 0069 0B       		.uleb128 0xb
+ 676 006a 3B       		.uleb128 0x3b
+ 677 006b 0B       		.uleb128 0xb
+ 678 006c 27       		.uleb128 0x27
+ 679 006d 19       		.uleb128 0x19
+ 680 006e 49       		.uleb128 0x49
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 14
+
+
+ 681 006f 13       		.uleb128 0x13
+ 682 0070 11       		.uleb128 0x11
+ 683 0071 01       		.uleb128 0x1
+ 684 0072 12       		.uleb128 0x12
+ 685 0073 06       		.uleb128 0x6
+ 686 0074 40       		.uleb128 0x40
+ 687 0075 18       		.uleb128 0x18
+ 688 0076 9642     		.uleb128 0x2116
+ 689 0078 19       		.uleb128 0x19
+ 690 0079 01       		.uleb128 0x1
+ 691 007a 13       		.uleb128 0x13
+ 692 007b 00       		.byte	0
+ 693 007c 00       		.byte	0
+ 694 007d 08       		.uleb128 0x8
+ 695 007e 34       		.uleb128 0x34
+ 696 007f 00       		.byte	0
+ 697 0080 03       		.uleb128 0x3
+ 698 0081 0E       		.uleb128 0xe
+ 699 0082 3A       		.uleb128 0x3a
+ 700 0083 0B       		.uleb128 0xb
+ 701 0084 3B       		.uleb128 0x3b
+ 702 0085 0B       		.uleb128 0xb
+ 703 0086 49       		.uleb128 0x49
+ 704 0087 13       		.uleb128 0x13
+ 705 0088 02       		.uleb128 0x2
+ 706 0089 18       		.uleb128 0x18
+ 707 008a 00       		.byte	0
+ 708 008b 00       		.byte	0
+ 709 008c 09       		.uleb128 0x9
+ 710 008d 0B       		.uleb128 0xb
+ 711 008e 01       		.byte	0x1
+ 712 008f 11       		.uleb128 0x11
+ 713 0090 01       		.uleb128 0x1
+ 714 0091 12       		.uleb128 0x12
+ 715 0092 06       		.uleb128 0x6
+ 716 0093 01       		.uleb128 0x1
+ 717 0094 13       		.uleb128 0x13
+ 718 0095 00       		.byte	0
+ 719 0096 00       		.byte	0
+ 720 0097 0A       		.uleb128 0xa
+ 721 0098 34       		.uleb128 0x34
+ 722 0099 00       		.byte	0
+ 723 009a 03       		.uleb128 0x3
+ 724 009b 08       		.uleb128 0x8
+ 725 009c 3A       		.uleb128 0x3a
+ 726 009d 0B       		.uleb128 0xb
+ 727 009e 3B       		.uleb128 0x3b
+ 728 009f 0B       		.uleb128 0xb
+ 729 00a0 49       		.uleb128 0x49
+ 730 00a1 13       		.uleb128 0x13
+ 731 00a2 02       		.uleb128 0x2
+ 732 00a3 18       		.uleb128 0x18
+ 733 00a4 00       		.byte	0
+ 734 00a5 00       		.byte	0
+ 735 00a6 0B       		.uleb128 0xb
+ 736 00a7 0B       		.uleb128 0xb
+ 737 00a8 01       		.byte	0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 15
+
+
+ 738 00a9 11       		.uleb128 0x11
+ 739 00aa 01       		.uleb128 0x1
+ 740 00ab 12       		.uleb128 0x12
+ 741 00ac 06       		.uleb128 0x6
+ 742 00ad 00       		.byte	0
+ 743 00ae 00       		.byte	0
+ 744 00af 0C       		.uleb128 0xc
+ 745 00b0 2E       		.uleb128 0x2e
+ 746 00b1 01       		.byte	0x1
+ 747 00b2 3F       		.uleb128 0x3f
+ 748 00b3 19       		.uleb128 0x19
+ 749 00b4 03       		.uleb128 0x3
+ 750 00b5 0E       		.uleb128 0xe
+ 751 00b6 3A       		.uleb128 0x3a
+ 752 00b7 0B       		.uleb128 0xb
+ 753 00b8 3B       		.uleb128 0x3b
+ 754 00b9 0B       		.uleb128 0xb
+ 755 00ba 27       		.uleb128 0x27
+ 756 00bb 19       		.uleb128 0x19
+ 757 00bc 49       		.uleb128 0x49
+ 758 00bd 13       		.uleb128 0x13
+ 759 00be 11       		.uleb128 0x11
+ 760 00bf 01       		.uleb128 0x1
+ 761 00c0 12       		.uleb128 0x12
+ 762 00c1 06       		.uleb128 0x6
+ 763 00c2 40       		.uleb128 0x40
+ 764 00c3 18       		.uleb128 0x18
+ 765 00c4 9642     		.uleb128 0x2116
+ 766 00c6 19       		.uleb128 0x19
+ 767 00c7 00       		.byte	0
+ 768 00c8 00       		.byte	0
+ 769 00c9 0D       		.uleb128 0xd
+ 770 00ca 05       		.uleb128 0x5
+ 771 00cb 00       		.byte	0
+ 772 00cc 03       		.uleb128 0x3
+ 773 00cd 0E       		.uleb128 0xe
+ 774 00ce 3A       		.uleb128 0x3a
+ 775 00cf 0B       		.uleb128 0xb
+ 776 00d0 3B       		.uleb128 0x3b
+ 777 00d1 0B       		.uleb128 0xb
+ 778 00d2 49       		.uleb128 0x49
+ 779 00d3 13       		.uleb128 0x13
+ 780 00d4 02       		.uleb128 0x2
+ 781 00d5 18       		.uleb128 0x18
+ 782 00d6 00       		.byte	0
+ 783 00d7 00       		.byte	0
+ 784 00d8 00       		.byte	0
+ 785              		.section	.debug_aranges,"",%progbits
+ 786 0000 3C000000 		.4byte	0x3c
+ 787 0004 0200     		.2byte	0x2
+ 788 0006 00000000 		.4byte	.Ldebug_info0
+ 789 000a 04       		.byte	0x4
+ 790 000b 00       		.byte	0
+ 791 000c 0000     		.2byte	0
+ 792 000e 0000     		.2byte	0
+ 793 0010 00000000 		.4byte	.LFB33
+ 794 0014 1E000000 		.4byte	.LFE33-.LFB33
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 16
+
+
+ 795 0018 00000000 		.4byte	.LFB34
+ 796 001c 38000000 		.4byte	.LFE34-.LFB34
+ 797 0020 00000000 		.4byte	.LFB35
+ 798 0024 3A000000 		.4byte	.LFE35-.LFB35
+ 799 0028 00000000 		.4byte	.LFB36
+ 800 002c 98000000 		.4byte	.LFE36-.LFB36
+ 801 0030 00000000 		.4byte	.LFB37
+ 802 0034 24000000 		.4byte	.LFE37-.LFB37
+ 803 0038 00000000 		.4byte	0
+ 804 003c 00000000 		.4byte	0
+ 805              		.section	.debug_ranges,"",%progbits
+ 806              	.Ldebug_ranges0:
+ 807 0000 00000000 		.4byte	.LFB33
+ 808 0004 1E000000 		.4byte	.LFE33
+ 809 0008 00000000 		.4byte	.LFB34
+ 810 000c 38000000 		.4byte	.LFE34
+ 811 0010 00000000 		.4byte	.LFB35
+ 812 0014 3A000000 		.4byte	.LFE35
+ 813 0018 00000000 		.4byte	.LFB36
+ 814 001c 98000000 		.4byte	.LFE36
+ 815 0020 00000000 		.4byte	.LFB37
+ 816 0024 24000000 		.4byte	.LFE37
+ 817 0028 00000000 		.4byte	0
+ 818 002c 00000000 		.4byte	0
+ 819              		.section	.debug_line,"",%progbits
+ 820              	.Ldebug_line0:
+ 821 0000 A6010000 		.section	.debug_str,"MS",%progbits,1
+ 821      02003301 
+ 821      00000201 
+ 821      FB0E0D00 
+ 821      01010101 
+ 822              	.LASF12:
+ 823 0000 696E7436 		.ascii	"int64_t\000"
+ 823      345F7400 
+ 824              	.LASF18:
+ 825 0008 66697831 		.ascii	"fix16abs\000"
+ 825      36616273 
+ 825      00
+ 826              	.LASF6:
+ 827 0011 5F5F696E 		.ascii	"__int32_t\000"
+ 827      7433325F 
+ 827      7400
+ 828              	.LASF21:
+ 829 001b 66697831 		.ascii	"fix16atan2\000"
+ 829      36617461 
+ 829      6E3200
+ 830              	.LASF17:
+ 831 0026 66697831 		.ascii	"fix16_t\000"
+ 831      365F7400 
+ 832              	.LASF27:
+ 833 002e 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 833      73657273 
+ 833      5C46656C 
+ 833      69785C47 
+ 833      6F6F676C 
+ 834 005c 73797374 		.ascii	"system arbejdsdokumenter\\Modultest\\vinkelsensor t"
+ 834      656D2061 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 17
+
+
+ 834      7262656A 
+ 834      6473646F 
+ 834      6B756D65 
+ 835 008d 6573745C 		.ascii	"est\\Vinkelsensor.cydsn\000"
+ 835      56696E6B 
+ 835      656C7365 
+ 835      6E736F72 
+ 835      2E637964 
+ 836              	.LASF13:
+ 837 00a4 666C6F61 		.ascii	"float\000"
+ 837      7400
+ 838              	.LASF25:
+ 839 00aa 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 839      4320342E 
+ 839      382E3420 
+ 839      32303134 
+ 839      30353236 
+ 840 00dd 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 840      20726576 
+ 840      6973696F 
+ 840      6E203231 
+ 840      31333538 
+ 841 0110 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 841      66756E63 
+ 841      74696F6E 
+ 841      2D736563 
+ 841      74696F6E 
+ 842              	.LASF22:
+ 843 0126 6162735F 		.ascii	"abs_y\000"
+ 843      7900
+ 844              	.LASF1:
+ 845 012c 756E7369 		.ascii	"unsigned char\000"
+ 845      676E6564 
+ 845      20636861 
+ 845      7200
+ 846              	.LASF26:
+ 847 013a 2E5C6669 		.ascii	".\\fixedMath.c\000"
+ 847      7865644D 
+ 847      6174682E 
+ 847      6300
+ 848              	.LASF5:
+ 849 0148 6C6F6E67 		.ascii	"long unsigned int\000"
+ 849      20756E73 
+ 849      69676E65 
+ 849      6420696E 
+ 849      7400
+ 850              	.LASF3:
+ 851 015a 73686F72 		.ascii	"short unsigned int\000"
+ 851      7420756E 
+ 851      7369676E 
+ 851      65642069 
+ 851      6E7400
+ 852              	.LASF23:
+ 853 016d 616E676C 		.ascii	"angle\000"
+ 853      6500
+ 854              	.LASF24:
+ 855 0173 72616441 		.ascii	"radAng\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 18
+
+
+ 855      6E6700
+ 856              	.LASF7:
+ 857 017a 5F5F696E 		.ascii	"__int64_t\000"
+ 857      7436345F 
+ 857      7400
+ 858              	.LASF14:
+ 859 0184 646F7562 		.ascii	"double\000"
+ 859      6C6500
+ 860              	.LASF10:
+ 861 018b 756E7369 		.ascii	"unsigned int\000"
+ 861      676E6564 
+ 861      20696E74 
+ 861      00
+ 862              	.LASF9:
+ 863 0198 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 863      206C6F6E 
+ 863      6720756E 
+ 863      7369676E 
+ 863      65642069 
+ 864              	.LASF28:
+ 865 01af 66697831 		.ascii	"fix16rad2deg\000"
+ 865      36726164 
+ 865      32646567 
+ 865      00
+ 866              	.LASF11:
+ 867 01bc 696E7433 		.ascii	"int32_t\000"
+ 867      325F7400 
+ 868              	.LASF16:
+ 869 01c4 73697A65 		.ascii	"sizetype\000"
+ 869      74797065 
+ 869      00
+ 870              	.LASF8:
+ 871 01cd 6C6F6E67 		.ascii	"long long int\000"
+ 871      206C6F6E 
+ 871      6720696E 
+ 871      7400
+ 872              	.LASF15:
+ 873 01db 63686172 		.ascii	"char\000"
+ 873      00
+ 874              	.LASF20:
+ 875 01e0 66697831 		.ascii	"fix16div\000"
+ 875      36646976 
+ 875      00
+ 876              	.LASF2:
+ 877 01e9 73686F72 		.ascii	"short int\000"
+ 877      7420696E 
+ 877      7400
+ 878              	.LASF19:
+ 879 01f3 66697831 		.ascii	"fix16mul\000"
+ 879      366D756C 
+ 879      00
+ 880              	.LASF4:
+ 881 01fc 6C6F6E67 		.ascii	"long int\000"
+ 881      20696E74 
+ 881      00
+ 882              	.LASF0:
+ 883 0205 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cc0OhXRF.s 			page 19
+
+
+ 883      65642063 
+ 883      68617200 
+ 884              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

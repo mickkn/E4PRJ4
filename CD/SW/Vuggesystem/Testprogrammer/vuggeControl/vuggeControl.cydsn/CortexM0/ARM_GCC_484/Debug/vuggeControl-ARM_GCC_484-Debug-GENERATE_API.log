@@ -1,0 +1,4 @@
+--------------- Build Started: 05/26/2015 16:26:55 Project: vuggeControl, Configuration: ARM GCC 4.8.4 Debug ---------------
+cydsfit.exe -.appdatapath "C:\Users\Felix\AppData\Local\Cypress Semiconductor\PSoC Creator\3.1" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "C:\Users\Felix\Google Drev\E4PRJ4 gDrive\Vuggesystem arbejdsdokumenter\Test\Integrationstest\vuggeControl\vuggeControl.cydsn\vuggeControl.cyprj" -d CY8C4245AXI-483 -s "C:\Users\Felix\Google Drev\E4PRJ4 gDrive\Vuggesystem arbejdsdokumenter\Test\Integrationstest\vuggeControl\vuggeControl.cydsn\Generated_Source\PSoC4" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+--------------- Build Canceled: 05/26/2015 16:26:59 ---------------

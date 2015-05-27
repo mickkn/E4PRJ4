@@ -1,0 +1,603 @@
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"i2cKommunikation.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.comm	I2CBuf,5,4
+  18              		.section	.text.initI2C,"ax",%progbits
+  19              		.align	2
+  20              		.global	initI2C
+  21              		.code	16
+  22              		.thumb_func
+  23              		.type	initI2C, %function
+  24              	initI2C:
+  25              	.LFB33:
+  26              		.file 1 ".\\i2cKommunikation.c"
+   1:.\i2cKommunikation.c **** /* ========================================
+   2:.\i2cKommunikation.c ****  *
+   3:.\i2cKommunikation.c ****  * Copyright Baby Watch, 2015
+   4:.\i2cKommunikation.c ****  * All Rights Reserved
+   5:.\i2cKommunikation.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\i2cKommunikation.c ****  *
+   7:.\i2cKommunikation.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\i2cKommunikation.c ****  * WHICH IS THE PROPERTY OF Baby Watch.
+   9:.\i2cKommunikation.c ****  *
+  10:.\i2cKommunikation.c ****  * ========================================
+  11:.\i2cKommunikation.c **** */
+  12:.\i2cKommunikation.c **** //========================================================================
+  13:.\i2cKommunikation.c **** // FILENAME : i2cKommunikation.c
+  14:.\i2cKommunikation.c **** // CREATED : 03-03-2015
+  15:.\i2cKommunikation.c **** // AUTHOR  : Jeppe Hofni
+  16:.\i2cKommunikation.c **** // DESCR.  : h file for PSoC4
+  17:.\i2cKommunikation.c **** //
+  18:.\i2cKommunikation.c **** //------------------------------------------------------------------------
+  19:.\i2cKommunikation.c **** //
+  20:.\i2cKommunikation.c **** // REV.  DATE/AUTHOR  CHANGE DESCRIPTION
+  21:.\i2cKommunikation.c **** // 0.1  03-03-2015 - Jeppe - First writeup of i2cKommunikation.c
+  22:.\i2cKommunikation.c **** // 0.2	30-04-2015 - Jeppe - EZI2C implemented
+  23:.\i2cKommunikation.c **** // 0.3	09-04-2015 - Jeppe - I2C tested
+  24:.\i2cKommunikation.c **** //------------------------------------------------------------------------
+  25:.\i2cKommunikation.c **** // KNOWN ISSUES:
+  26:.\i2cKommunikation.c **** // REV. - ISSUE(S)
+  27:.\i2cKommunikation.c **** // 0.1 - Needs to be sorted proper
+  28:.\i2cKommunikation.c **** // 0.2 - SensorFortolker needs finished implementation
+  29:.\i2cKommunikation.c **** // 0.3 - Non known issuses
+  30:.\i2cKommunikation.c **** //========================================================================
+  31:.\i2cKommunikation.c **** // includes
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 2
+
+
+  32:.\i2cKommunikation.c **** #include "i2cKommunikation.h"
+  33:.\i2cKommunikation.c **** 
+  34:.\i2cKommunikation.c **** // Function declarations
+  35:.\i2cKommunikation.c **** 
+  36:.\i2cKommunikation.c ****     
+  37:.\i2cKommunikation.c **** 
+  38:.\i2cKommunikation.c **** /* Function Name: initI2C
+  39:.\i2cKommunikation.c ****    Summary:
+  40:.\i2cKommunikation.c ****     Sets up the I2C bus, and enables it.
+  41:.\i2cKommunikation.c **** */
+  42:.\i2cKommunikation.c **** void initI2C(void)
+  43:.\i2cKommunikation.c **** {
+  27              		.loc 1 43 0
+  28              		.cfi_startproc
+  29 0000 80B5     		push	{r7, lr}
+  30              		.cfi_def_cfa_offset 8
+  31              		.cfi_offset 7, -8
+  32              		.cfi_offset 14, -4
+  33 0002 00AF     		add	r7, sp, #0
+  34              		.cfi_def_cfa_register 7
+  44:.\i2cKommunikation.c ****     I2CBuf[I2C_ID_REG] = 0xFB; // ID
+  35              		.loc 1 44 0
+  36 0004 0D4B     		ldr	r3, .L2
+  37 0006 FB22     		mov	r2, #251
+  38 0008 1A70     		strb	r2, [r3]
+  45:.\i2cKommunikation.c ****     I2CBuf[I2C_ONOFF_REG] = 0xF0; // ON_OFF
+  39              		.loc 1 45 0
+  40 000a 0C4B     		ldr	r3, .L2
+  41 000c F022     		mov	r2, #240
+  42 000e 5A70     		strb	r2, [r3, #1]
+  46:.\i2cKommunikation.c ****     I2CBuf[I2C_FREK_REG] = 0x00; // Frekvens
+  43              		.loc 1 46 0
+  44 0010 0A4B     		ldr	r3, .L2
+  45 0012 0022     		mov	r2, #0
+  46 0014 9A70     		strb	r2, [r3, #2]
+  47:.\i2cKommunikation.c ****     I2CBuf[I2C_VINK_REG] = 0x00; // Vinkeludsving
+  47              		.loc 1 47 0
+  48 0016 094B     		ldr	r3, .L2
+  49 0018 0022     		mov	r2, #0
+  50 001a DA70     		strb	r2, [r3, #3]
+  48:.\i2cKommunikation.c ****     I2CBuf[I2C_STAT_REG] = 0x00; // Status
+  51              		.loc 1 48 0
+  52 001c 074B     		ldr	r3, .L2
+  53 001e 0022     		mov	r2, #0
+  54 0020 1A71     		strb	r2, [r3, #4]
+  49:.\i2cKommunikation.c ****    
+  50:.\i2cKommunikation.c ****     I2CVuggesystem_EzI2CSetAddress1(I2C_DEV_ADDR);
+  55              		.loc 1 50 0
+  56 0022 0820     		mov	r0, #8
+  57 0024 FFF7FEFF 		bl	I2CVuggesystem_EzI2CSetAddress1
+  51:.\i2cKommunikation.c ****     I2CVuggesystem_EzI2CSetBuffer1(I2C_BUF_SIZE,4,&I2CBuf[0]);
+  58              		.loc 1 51 0
+  59 0028 044B     		ldr	r3, .L2
+  60 002a 0520     		mov	r0, #5
+  61 002c 0421     		mov	r1, #4
+  62 002e 1A1C     		mov	r2, r3
+  63 0030 FFF7FEFF 		bl	I2CVuggesystem_EzI2CSetBuffer1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 3
+
+
+  52:.\i2cKommunikation.c ****     I2CVuggesystem_Start();
+  64              		.loc 1 52 0
+  65 0034 FFF7FEFF 		bl	I2CVuggesystem_Start
+  53:.\i2cKommunikation.c ****     
+  54:.\i2cKommunikation.c **** }
+  66              		.loc 1 54 0
+  67 0038 BD46     		mov	sp, r7
+  68              		@ sp needed
+  69 003a 80BD     		pop	{r7, pc}
+  70              	.L3:
+  71              		.align	2
+  72              	.L2:
+  73 003c 00000000 		.word	I2CBuf
+  74              		.cfi_endproc
+  75              	.LFE33:
+  76              		.size	initI2C, .-initI2C
+  77              		.section	.text.sendConKom,"ax",%progbits
+  78              		.align	2
+  79              		.global	sendConKom
+  80              		.code	16
+  81              		.thumb_func
+  82              		.type	sendConKom, %function
+  83              	sendConKom:
+  84              	.LFB34:
+  55:.\i2cKommunikation.c **** 
+  56:.\i2cKommunikation.c **** /* Function Name: sendConKom
+  57:.\i2cKommunikation.c ****    Summary:
+  58:.\i2cKommunikation.c ****     Returns pointer to I2C transmite buffer
+  59:.\i2cKommunikation.c **** */
+  60:.\i2cKommunikation.c **** uint8* sendConKom()
+  61:.\i2cKommunikation.c **** {
+  85              		.loc 1 61 0
+  86              		.cfi_startproc
+  87 0000 80B5     		push	{r7, lr}
+  88              		.cfi_def_cfa_offset 8
+  89              		.cfi_offset 7, -8
+  90              		.cfi_offset 14, -4
+  91 0002 00AF     		add	r7, sp, #0
+  92              		.cfi_def_cfa_register 7
+  62:.\i2cKommunikation.c ****     return I2CBuf;
+  93              		.loc 1 62 0
+  94 0004 014B     		ldr	r3, .L6
+  63:.\i2cKommunikation.c **** }
+  95              		.loc 1 63 0
+  96 0006 181C     		mov	r0, r3
+  97 0008 BD46     		mov	sp, r7
+  98              		@ sp needed
+  99 000a 80BD     		pop	{r7, pc}
+ 100              	.L7:
+ 101              		.align	2
+ 102              	.L6:
+ 103 000c 00000000 		.word	I2CBuf
+ 104              		.cfi_endproc
+ 105              	.LFE34:
+ 106              		.size	sendConKom, .-sendConKom
+ 107              		.text
+ 108              	.Letext0:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 4
+
+
+ 109              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 110              		.file 3 ".\\i2cKommunikation.h"
+ 111              		.section	.debug_info,"",%progbits
+ 112              	.Ldebug_info0:
+ 113 0000 DC000000 		.4byte	0xdc
+ 114 0004 0400     		.2byte	0x4
+ 115 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 116 000a 04       		.byte	0x4
+ 117 000b 01       		.uleb128 0x1
+ 118 000c 6A000000 		.4byte	.LASF15
+ 119 0010 01       		.byte	0x1
+ 120 0011 03010000 		.4byte	.LASF16
+ 121 0015 50010000 		.4byte	.LASF17
+ 122 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 123 001d 00000000 		.4byte	0
+ 124 0021 00000000 		.4byte	.Ldebug_line0
+ 125 0025 02       		.uleb128 0x2
+ 126 0026 01       		.byte	0x1
+ 127 0027 06       		.byte	0x6
+ 128 0028 2B010000 		.4byte	.LASF0
+ 129 002c 02       		.uleb128 0x2
+ 130 002d 01       		.byte	0x1
+ 131 002e 08       		.byte	0x8
+ 132 002f 1B000000 		.4byte	.LASF1
+ 133 0033 02       		.uleb128 0x2
+ 134 0034 02       		.byte	0x2
+ 135 0035 05       		.byte	0x5
+ 136 0036 3D010000 		.4byte	.LASF2
+ 137 003a 02       		.uleb128 0x2
+ 138 003b 02       		.byte	0x2
+ 139 003c 07       		.byte	0x7
+ 140 003d 18010000 		.4byte	.LASF3
+ 141 0041 02       		.uleb128 0x2
+ 142 0042 04       		.byte	0x4
+ 143 0043 05       		.byte	0x5
+ 144 0044 F3000000 		.4byte	.LASF4
+ 145 0048 02       		.uleb128 0x2
+ 146 0049 04       		.byte	0x4
+ 147 004a 07       		.byte	0x7
+ 148 004b 36000000 		.4byte	.LASF5
+ 149 004f 02       		.uleb128 0x2
+ 150 0050 08       		.byte	0x8
+ 151 0051 05       		.byte	0x5
+ 152 0052 00000000 		.4byte	.LASF6
+ 153 0056 02       		.uleb128 0x2
+ 154 0057 08       		.byte	0x8
+ 155 0058 07       		.byte	0x7
+ 156 0059 48000000 		.4byte	.LASF7
+ 157 005d 03       		.uleb128 0x3
+ 158 005e 04       		.byte	0x4
+ 159 005f 05       		.byte	0x5
+ 160 0060 696E7400 		.ascii	"int\000"
+ 161 0064 02       		.uleb128 0x2
+ 162 0065 04       		.byte	0x4
+ 163 0066 07       		.byte	0x7
+ 164 0067 0E000000 		.4byte	.LASF8
+ 165 006b 04       		.uleb128 0x4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 5
+
+
+ 166 006c 30000000 		.4byte	.LASF18
+ 167 0070 02       		.byte	0x2
+ 168 0071 A1       		.byte	0xa1
+ 169 0072 2C000000 		.4byte	0x2c
+ 170 0076 02       		.uleb128 0x2
+ 171 0077 04       		.byte	0x4
+ 172 0078 04       		.byte	0x4
+ 173 0079 37010000 		.4byte	.LASF9
+ 174 007d 02       		.uleb128 0x2
+ 175 007e 08       		.byte	0x8
+ 176 007f 04       		.byte	0x4
+ 177 0080 FC000000 		.4byte	.LASF10
+ 178 0084 02       		.uleb128 0x2
+ 179 0085 01       		.byte	0x1
+ 180 0086 08       		.byte	0x8
+ 181 0087 EE000000 		.4byte	.LASF11
+ 182 008b 02       		.uleb128 0x2
+ 183 008c 04       		.byte	0x4
+ 184 008d 07       		.byte	0x7
+ 185 008e 47010000 		.4byte	.LASF12
+ 186 0092 05       		.uleb128 0x5
+ 187 0093 E6000000 		.4byte	.LASF13
+ 188 0097 01       		.byte	0x1
+ 189 0098 2A       		.byte	0x2a
+ 190 0099 00000000 		.4byte	.LFB33
+ 191 009d 40000000 		.4byte	.LFE33-.LFB33
+ 192 00a1 01       		.uleb128 0x1
+ 193 00a2 9C       		.byte	0x9c
+ 194 00a3 06       		.uleb128 0x6
+ 195 00a4 5F000000 		.4byte	.LASF14
+ 196 00a8 01       		.byte	0x1
+ 197 00a9 3C       		.byte	0x3c
+ 198 00aa B8000000 		.4byte	0xb8
+ 199 00ae 00000000 		.4byte	.LFB34
+ 200 00b2 10000000 		.4byte	.LFE34-.LFB34
+ 201 00b6 01       		.uleb128 0x1
+ 202 00b7 9C       		.byte	0x9c
+ 203 00b8 07       		.uleb128 0x7
+ 204 00b9 04       		.byte	0x4
+ 205 00ba 6B000000 		.4byte	0x6b
+ 206 00be 08       		.uleb128 0x8
+ 207 00bf 6B000000 		.4byte	0x6b
+ 208 00c3 CE000000 		.4byte	0xce
+ 209 00c7 09       		.uleb128 0x9
+ 210 00c8 8B000000 		.4byte	0x8b
+ 211 00cc 04       		.byte	0x4
+ 212 00cd 00       		.byte	0
+ 213 00ce 0A       		.uleb128 0xa
+ 214 00cf 29000000 		.4byte	.LASF19
+ 215 00d3 03       		.byte	0x3
+ 216 00d4 2F       		.byte	0x2f
+ 217 00d5 BE000000 		.4byte	0xbe
+ 218 00d9 05       		.uleb128 0x5
+ 219 00da 03       		.byte	0x3
+ 220 00db 00000000 		.4byte	I2CBuf
+ 221 00df 00       		.byte	0
+ 222              		.section	.debug_abbrev,"",%progbits
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 6
+
+
+ 223              	.Ldebug_abbrev0:
+ 224 0000 01       		.uleb128 0x1
+ 225 0001 11       		.uleb128 0x11
+ 226 0002 01       		.byte	0x1
+ 227 0003 25       		.uleb128 0x25
+ 228 0004 0E       		.uleb128 0xe
+ 229 0005 13       		.uleb128 0x13
+ 230 0006 0B       		.uleb128 0xb
+ 231 0007 03       		.uleb128 0x3
+ 232 0008 0E       		.uleb128 0xe
+ 233 0009 1B       		.uleb128 0x1b
+ 234 000a 0E       		.uleb128 0xe
+ 235 000b 55       		.uleb128 0x55
+ 236 000c 17       		.uleb128 0x17
+ 237 000d 11       		.uleb128 0x11
+ 238 000e 01       		.uleb128 0x1
+ 239 000f 10       		.uleb128 0x10
+ 240 0010 17       		.uleb128 0x17
+ 241 0011 00       		.byte	0
+ 242 0012 00       		.byte	0
+ 243 0013 02       		.uleb128 0x2
+ 244 0014 24       		.uleb128 0x24
+ 245 0015 00       		.byte	0
+ 246 0016 0B       		.uleb128 0xb
+ 247 0017 0B       		.uleb128 0xb
+ 248 0018 3E       		.uleb128 0x3e
+ 249 0019 0B       		.uleb128 0xb
+ 250 001a 03       		.uleb128 0x3
+ 251 001b 0E       		.uleb128 0xe
+ 252 001c 00       		.byte	0
+ 253 001d 00       		.byte	0
+ 254 001e 03       		.uleb128 0x3
+ 255 001f 24       		.uleb128 0x24
+ 256 0020 00       		.byte	0
+ 257 0021 0B       		.uleb128 0xb
+ 258 0022 0B       		.uleb128 0xb
+ 259 0023 3E       		.uleb128 0x3e
+ 260 0024 0B       		.uleb128 0xb
+ 261 0025 03       		.uleb128 0x3
+ 262 0026 08       		.uleb128 0x8
+ 263 0027 00       		.byte	0
+ 264 0028 00       		.byte	0
+ 265 0029 04       		.uleb128 0x4
+ 266 002a 16       		.uleb128 0x16
+ 267 002b 00       		.byte	0
+ 268 002c 03       		.uleb128 0x3
+ 269 002d 0E       		.uleb128 0xe
+ 270 002e 3A       		.uleb128 0x3a
+ 271 002f 0B       		.uleb128 0xb
+ 272 0030 3B       		.uleb128 0x3b
+ 273 0031 0B       		.uleb128 0xb
+ 274 0032 49       		.uleb128 0x49
+ 275 0033 13       		.uleb128 0x13
+ 276 0034 00       		.byte	0
+ 277 0035 00       		.byte	0
+ 278 0036 05       		.uleb128 0x5
+ 279 0037 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 7
+
+
+ 280 0038 00       		.byte	0
+ 281 0039 3F       		.uleb128 0x3f
+ 282 003a 19       		.uleb128 0x19
+ 283 003b 03       		.uleb128 0x3
+ 284 003c 0E       		.uleb128 0xe
+ 285 003d 3A       		.uleb128 0x3a
+ 286 003e 0B       		.uleb128 0xb
+ 287 003f 3B       		.uleb128 0x3b
+ 288 0040 0B       		.uleb128 0xb
+ 289 0041 27       		.uleb128 0x27
+ 290 0042 19       		.uleb128 0x19
+ 291 0043 11       		.uleb128 0x11
+ 292 0044 01       		.uleb128 0x1
+ 293 0045 12       		.uleb128 0x12
+ 294 0046 06       		.uleb128 0x6
+ 295 0047 40       		.uleb128 0x40
+ 296 0048 18       		.uleb128 0x18
+ 297 0049 9642     		.uleb128 0x2116
+ 298 004b 19       		.uleb128 0x19
+ 299 004c 00       		.byte	0
+ 300 004d 00       		.byte	0
+ 301 004e 06       		.uleb128 0x6
+ 302 004f 2E       		.uleb128 0x2e
+ 303 0050 00       		.byte	0
+ 304 0051 3F       		.uleb128 0x3f
+ 305 0052 19       		.uleb128 0x19
+ 306 0053 03       		.uleb128 0x3
+ 307 0054 0E       		.uleb128 0xe
+ 308 0055 3A       		.uleb128 0x3a
+ 309 0056 0B       		.uleb128 0xb
+ 310 0057 3B       		.uleb128 0x3b
+ 311 0058 0B       		.uleb128 0xb
+ 312 0059 49       		.uleb128 0x49
+ 313 005a 13       		.uleb128 0x13
+ 314 005b 11       		.uleb128 0x11
+ 315 005c 01       		.uleb128 0x1
+ 316 005d 12       		.uleb128 0x12
+ 317 005e 06       		.uleb128 0x6
+ 318 005f 40       		.uleb128 0x40
+ 319 0060 18       		.uleb128 0x18
+ 320 0061 9742     		.uleb128 0x2117
+ 321 0063 19       		.uleb128 0x19
+ 322 0064 00       		.byte	0
+ 323 0065 00       		.byte	0
+ 324 0066 07       		.uleb128 0x7
+ 325 0067 0F       		.uleb128 0xf
+ 326 0068 00       		.byte	0
+ 327 0069 0B       		.uleb128 0xb
+ 328 006a 0B       		.uleb128 0xb
+ 329 006b 49       		.uleb128 0x49
+ 330 006c 13       		.uleb128 0x13
+ 331 006d 00       		.byte	0
+ 332 006e 00       		.byte	0
+ 333 006f 08       		.uleb128 0x8
+ 334 0070 01       		.uleb128 0x1
+ 335 0071 01       		.byte	0x1
+ 336 0072 49       		.uleb128 0x49
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 8
+
+
+ 337 0073 13       		.uleb128 0x13
+ 338 0074 01       		.uleb128 0x1
+ 339 0075 13       		.uleb128 0x13
+ 340 0076 00       		.byte	0
+ 341 0077 00       		.byte	0
+ 342 0078 09       		.uleb128 0x9
+ 343 0079 21       		.uleb128 0x21
+ 344 007a 00       		.byte	0
+ 345 007b 49       		.uleb128 0x49
+ 346 007c 13       		.uleb128 0x13
+ 347 007d 2F       		.uleb128 0x2f
+ 348 007e 0B       		.uleb128 0xb
+ 349 007f 00       		.byte	0
+ 350 0080 00       		.byte	0
+ 351 0081 0A       		.uleb128 0xa
+ 352 0082 34       		.uleb128 0x34
+ 353 0083 00       		.byte	0
+ 354 0084 03       		.uleb128 0x3
+ 355 0085 0E       		.uleb128 0xe
+ 356 0086 3A       		.uleb128 0x3a
+ 357 0087 0B       		.uleb128 0xb
+ 358 0088 3B       		.uleb128 0x3b
+ 359 0089 0B       		.uleb128 0xb
+ 360 008a 49       		.uleb128 0x49
+ 361 008b 13       		.uleb128 0x13
+ 362 008c 3F       		.uleb128 0x3f
+ 363 008d 19       		.uleb128 0x19
+ 364 008e 02       		.uleb128 0x2
+ 365 008f 18       		.uleb128 0x18
+ 366 0090 00       		.byte	0
+ 367 0091 00       		.byte	0
+ 368 0092 00       		.byte	0
+ 369              		.section	.debug_aranges,"",%progbits
+ 370 0000 24000000 		.4byte	0x24
+ 371 0004 0200     		.2byte	0x2
+ 372 0006 00000000 		.4byte	.Ldebug_info0
+ 373 000a 04       		.byte	0x4
+ 374 000b 00       		.byte	0
+ 375 000c 0000     		.2byte	0
+ 376 000e 0000     		.2byte	0
+ 377 0010 00000000 		.4byte	.LFB33
+ 378 0014 40000000 		.4byte	.LFE33-.LFB33
+ 379 0018 00000000 		.4byte	.LFB34
+ 380 001c 10000000 		.4byte	.LFE34-.LFB34
+ 381 0020 00000000 		.4byte	0
+ 382 0024 00000000 		.4byte	0
+ 383              		.section	.debug_ranges,"",%progbits
+ 384              	.Ldebug_ranges0:
+ 385 0000 00000000 		.4byte	.LFB33
+ 386 0004 40000000 		.4byte	.LFE33
+ 387 0008 00000000 		.4byte	.LFB34
+ 388 000c 10000000 		.4byte	.LFE34
+ 389 0010 00000000 		.4byte	0
+ 390 0014 00000000 		.4byte	0
+ 391              		.section	.debug_line,"",%progbits
+ 392              	.Ldebug_line0:
+ 393 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 9
+
+
+ 393      02006900 
+ 393      00000201 
+ 393      FB0E0D00 
+ 393      01010101 
+ 394              	.LASF6:
+ 395 0000 6C6F6E67 		.ascii	"long long int\000"
+ 395      206C6F6E 
+ 395      6720696E 
+ 395      7400
+ 396              	.LASF8:
+ 397 000e 756E7369 		.ascii	"unsigned int\000"
+ 397      676E6564 
+ 397      20696E74 
+ 397      00
+ 398              	.LASF1:
+ 399 001b 756E7369 		.ascii	"unsigned char\000"
+ 399      676E6564 
+ 399      20636861 
+ 399      7200
+ 400              	.LASF19:
+ 401 0029 49324342 		.ascii	"I2CBuf\000"
+ 401      756600
+ 402              	.LASF18:
+ 403 0030 75696E74 		.ascii	"uint8\000"
+ 403      3800
+ 404              	.LASF5:
+ 405 0036 6C6F6E67 		.ascii	"long unsigned int\000"
+ 405      20756E73 
+ 405      69676E65 
+ 405      6420696E 
+ 405      7400
+ 406              	.LASF7:
+ 407 0048 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 407      206C6F6E 
+ 407      6720756E 
+ 407      7369676E 
+ 407      65642069 
+ 408              	.LASF14:
+ 409 005f 73656E64 		.ascii	"sendConKom\000"
+ 409      436F6E4B 
+ 409      6F6D00
+ 410              	.LASF15:
+ 411 006a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 411      4320342E 
+ 411      382E3420 
+ 411      32303134 
+ 411      30353236 
+ 412 009d 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 412      20726576 
+ 412      6973696F 
+ 412      6E203231 
+ 412      31333538 
+ 413 00d0 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 413      66756E63 
+ 413      74696F6E 
+ 413      2D736563 
+ 413      74696F6E 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 10
+
+
+ 414              	.LASF13:
+ 415 00e6 696E6974 		.ascii	"initI2C\000"
+ 415      49324300 
+ 416              	.LASF11:
+ 417 00ee 63686172 		.ascii	"char\000"
+ 417      00
+ 418              	.LASF4:
+ 419 00f3 6C6F6E67 		.ascii	"long int\000"
+ 419      20696E74 
+ 419      00
+ 420              	.LASF10:
+ 421 00fc 646F7562 		.ascii	"double\000"
+ 421      6C6500
+ 422              	.LASF16:
+ 423 0103 2E5C6932 		.ascii	".\\i2cKommunikation.c\000"
+ 423      634B6F6D 
+ 423      6D756E69 
+ 423      6B617469 
+ 423      6F6E2E63 
+ 424              	.LASF3:
+ 425 0118 73686F72 		.ascii	"short unsigned int\000"
+ 425      7420756E 
+ 425      7369676E 
+ 425      65642069 
+ 425      6E7400
+ 426              	.LASF0:
+ 427 012b 7369676E 		.ascii	"signed char\000"
+ 427      65642063 
+ 427      68617200 
+ 428              	.LASF9:
+ 429 0137 666C6F61 		.ascii	"float\000"
+ 429      7400
+ 430              	.LASF2:
+ 431 013d 73686F72 		.ascii	"short int\000"
+ 431      7420696E 
+ 431      7400
+ 432              	.LASF12:
+ 433 0147 73697A65 		.ascii	"sizetype\000"
+ 433      74797065 
+ 433      00
+ 434              	.LASF17:
+ 435 0150 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 435      73657273 
+ 435      5C4A6570 
+ 435      70655C47 
+ 435      6F6F676C 
+ 436 017e 73797374 		.ascii	"system arbejdsdokumenter\\Test\\Integrationstest\\v"
+ 436      656D2061 
+ 436      7262656A 
+ 436      6473646F 
+ 436      6B756D65 
+ 437 01ae 75676765 		.ascii	"uggeControl\\vuggeControl.cydsn\000"
+ 437      436F6E74 
+ 437      726F6C5C 
+ 437      76756767 
+ 437      65436F6E 
+ 438              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccbe6tgg.s 			page 11
+
+

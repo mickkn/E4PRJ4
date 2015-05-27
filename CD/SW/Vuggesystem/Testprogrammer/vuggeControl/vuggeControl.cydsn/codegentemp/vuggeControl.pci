@@ -1,0 +1,18 @@
+# vuggeControl
+# 2015-05-27 09:30:38Z
+
+# IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 2
+# IO_3@[IOP=(3)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 3
+set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
+set_io "ESSwitch(0)" iocell 1 5
+set_io "PWM_A(0)" iocell 2 0
+set_io "PWM_B(0)" iocell 2 1
+set_io "ShutdownSwich(0)" iocell 3 4
+set_io "Tx_1(0)" iocell 1 4
+set_io "\I2CVuggesystem:scl(0)\" iocell 4 0
+set_io "\I2CVuggesystem:sda(0)\" iocell 4 1
+set_io "\sensorI2C:scl(0)\" iocell 0 4
+set_io "\sensorI2C:sda(0)\" iocell 0 5
+set_io "activityDebug(0)" iocell 3 6

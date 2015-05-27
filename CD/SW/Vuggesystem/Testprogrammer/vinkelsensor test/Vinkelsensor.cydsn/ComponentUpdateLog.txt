@@ -1,0 +1,12 @@
+Last Modified Date & Time: 04/01/2015 12:57:03
+
+Vinkelsensor: TopDesign
+	I2C [v1.20] to [v2.0]
+	UART [v1.20] to [v2.0]
+	ACC_DR [v2.0] to [v2.10]
+	GYRO_DR [v2.0] to [v2.10]
+
+Vinkelsensor: Design Wide APIs
+	cy_boot [v4.10] to [v4.20]
+
+
