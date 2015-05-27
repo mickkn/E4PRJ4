@@ -2,7 +2,7 @@
 \section{Forundersøgelse}
 I forbindelse med udvikling og design af Intelligent Lydmonitor er der foretaget en forundersøgelse af udvalgte lyde fra babygråd og typiske lyde, der kunne tænkes at være omkring en barnevogn, såsom støj fra trafik og fuglefløjt og omgivelsesstøj fra natur. For fuld beskrivelse af lyde der analyseres se \textit{Forundersøgelse} -> \textit{Situationer} i projektdokumentationen 
 
-I det følgende beskrives metodikken for enkelte udvalgte lydfiler, højlydt babygråd, for at se resultater for alle lydfiler se \textit{Forundersøgelse} -> \textit{Analyser} i projektdokumentationen. 
+I det følgende beskrives metodikken for enkelte udvalgte lydfiler, højlydt babygråd, for at se resultater for alle lydfiler [\textit{Se projektdokumentationen pp. 72-84}]. 
 
 \textbf{Metode} \\
 Lyden analyseres i Matlab med hensyn til følgende: 
@@ -12,7 +12,7 @@ Lyden analyseres i Matlab med hensyn til følgende:
 \item Grad af tonalitet
 \end{itemize}
 
-Disse parametre analyseres med redskaberne Short-time DFT, Matlabs max-funktion, Tonal Power Ratio samt en smoothing-funktion. For fuld beskrivelse af analyseredskaberne se \textit{Forundersøgelse} -> \textit{Metode} i projektdokumentation. 
+Disse parametre analyseres med redskaberne Short-time DFT, Matlabs max-funktion, Tonal Power Ratio samt en smoothing-funktion. For fuld beskrivelse af analyseredskaberne [\textit{Se projektdokumentationen pp. 69-70}]
 
 \textbf{Analyser}\\
 Lydfilerne analyseres med en korttids- og langtids-analyse. 
@@ -40,9 +40,9 @@ Resultatet af langtids-analysen er:
 
 \figur{0.6}{intlydmonitor/analyse_hoejlydt_babygraad_lang}{Langtids-analyse af højlydt babygråd optagelser. Nederste føjre graf er analysen af de tre optagelser samlet}{intlyd:lang}
 
-For fuld beskrivelse af alle lydanalyser henvises til \textit{Forundersøgelse} -> \textit{Analyser}
+For fuld beskrivelse af alle lydanalyser henvises til [\textit{Se projektdokumentationen p. 72-84}]
 
 \textbf{Konklusion}\\ 
 På baggrund af analyseresultaterne fra alle lydanalyser viser det sig at det er muligt at adskille babygråd fra andre lydfiler. Ved at lave en FFT af signalet, smoothe frekvensspektrum og konvertere fra gain til dB, for herefter at analysere magnitudefaldet samt detektere af bestemte frekvenspeaks vil være tilstrækkelig for detektering og kategorisering af babygråd. 
 
-For fuldstændige del-konklusioner samt konklusion på forundersøgelsen henvises til \textit{Forundersøgelse} -> \textit{Konklusioner} i projektdokumentationen. 
+For fuldstændige del-konklusioner samt konklusion på forundersøgelsen [\textit{Se projektdokumentationen pp. 86-87}]
