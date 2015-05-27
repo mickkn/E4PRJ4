@@ -1,6 +1,6 @@
 % IL prefilter
-\section{Prefilter}
+\subsection{Prefilter}
 
 Prefilter står for forfiltreringen af signalet modtaget fra Blackfin udviklingsboardet AD1836 codec inden det gemmes i RecBuf.
 
-Blackfin kittets AD1836 sampler med 48 kHz. Idet mikrofonens båndbredde er 10kHz, tillader shannons samplingssætning os at opnå en beregningsmæssig besparelse ved at decimere fra 48kHz til et 24kHz signal (min 20kHz er nødvendig). Denne operation foretages netop i Prefilter med en FIR lavpasfiltrering og en faktor 2 nedsampling. For yderligere information, se afsnittet \textit{Intelligent lydmonitor -> Softwaredesign- og implementering ->Prefilter pp. 110-114} i projektdokumentationen. 
+Blackfin kittets AD1836 sampler med 48 kHz. Idet mikrofonens båndbredde er 10kHz, tillader shannons samplingssætning os at opnå en beregningsmæssig besparelse ved at decimere fra 48kHz til et 24kHz signal (min 20kHz er nødvendig). Denne operation foretages netop i Prefilter med en FIR lavpasfiltrering og en faktor 2 nedsampling. For yderligere information [\textit{Se projektdokumentationen pp. 106-109}]. 

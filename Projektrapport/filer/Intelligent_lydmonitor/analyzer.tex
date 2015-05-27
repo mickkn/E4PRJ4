@@ -1,5 +1,5 @@
 % IL analyzer
-\section{Analyzer}
+\subsection{Analyzer}
 Analyzer har til opgave at foretage følgende analyser for at klargøre et frekvensspektrum til analyse ved Categorizer:
 \begin{itemize}
 	\item Sound Pressure Level
@@ -7,21 +7,21 @@ Analyzer har til opgave at foretage følgende analyser for at klargøre et frekv
 	\item Smoothing af frekvensspektrum
 \end{itemize}
 
-Effekten af disse illustreres med en kort beskrivelse af den trinvise klargøring af frekvensspektret. Der benyttes et sample fra en optagelse af højlydt babygråd.
+Effekten af disse illustreres med en kort beskrivelse af den trinvise klargøring af frekvensspektret. Der benyttes en samplesekvens fra en optagelse af højlydt babygråd.
 
 \figur{1}{intlydmonitor/analyzer_gennemgang}{Analyzers trinvise klargøring af frekvensspektrum. Venstre, originalt FFT frekvensspektrum; Midt, frekvensspektrum i dB; Højre, udglattet frekvensspektrum}{il_an}
 Bemærk at y-aksens fft-analyse bins på ovenstående figur er skaleret til frekvenser i Hz.
 
 \subsubsection*{Sound Pressure Level}
-For at ikke at benytte unødig processorkraft på beregne FFT af et støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Er SPL-analysens resultat under en grænseværdi, udføres FFT og udglatning ikke.\footnote{Se \textit{Intelligent lydmonitor -> Softwaredesign- og implementering -> Sound Pressure Level pp. 117-118} i projektdokumentation for beskrivelse af implementering}
+For at ikke at benytte unødig processorkraft på beregne FFT af et støj-signal, beregnes først et udtryk for hvor kraftigt signal, der modtages. Er SPL-analysens resultat under en grænseværdi, udføres FFT og udglatning ikke.\footnote{[\textit{Se projektdokumentationen pp. 112-113}] for beskrivelse af implementering}
 
 \subsubsection*{Fast Fourier Transformation}
-Ved tungere behandling af data benyttes DSP biblioteksfunktioner, der anvender fixed-point typen \verb+fract32+ for på optimalt vis at multiplicere og akkumulere i filter- og fft-funktioner. Ved generering af frekvensspektrum benyttes funktionerne \verb+rfft_fr32()+ og \verb+fft_magnitude_fr32()+.\footnote{Se \textit{pp. 118-119} i projektdokumentation for beskrivelse af implementering} Disse genererer venstre spektrum i \ref{il_an}.
+Ved tungere behandling af data benyttes DSP biblioteksfunktioner, der anvender fixed-point typen \verb+fract32+ for på optimalt vis at multiplicere og akkumulere i filter- og fft-funktioner. Ved generering af frekvensspektrum benyttes funktionerne \verb+rfft_fr32()+ og \verb+fft_magnitude_fr32()+.\footnote{[\textit{Se projektdokumentationen p. 113}] for beskrivelse af implementering} Disse genererer venstre spektrum i figur \ref{il_an}.
 
 \subsubsection*{Smoothing af frekvensspektrum}
 For på korrekt vis at kunne bestemme dominante frekvensområder, konverteres frekvensspektrets magnitude til en dB-skala. Produktet af dette ses midterst i \ref{il_an}.
-Til midling af spektret, benyttes et rekursivt filter med index 35. Resultatet af denne filtrering ses til højre i \ref{il_an}. Bemærk at indsvingningen af filtret resulterer i en højpas-lignende effekt før frekvensbin 35, svarende til 818Hz. \footnote{Se afsnittet \textit{pp. 120-123} i projektdokumentation for beskrivelse af dette}. 
+Til midling af spektret, benyttes et rekursivt filter med index 35. Resultatet af denne filtrering ses til højre i \ref{il_an}. Bemærk at indsvingningen af filtret resulterer i en højpas-lignende effekt før frekvensbin 35, svarende til 818Hz. \footnote{[\textit{Se projektdokumentationen pp. 115-116}]}. 
 
 Der genereres således et udglattet frekvensspektrum, der er klar til kategorisering ved næste led i rækken, Categorizer.
 
-For en fuld gennemgang af Analyzer, se \textit{Intelligent lydmonitor -> Softwaredesign- og implementering -> Analyzer p. 116}.
+For en fuld gennemgang af Analyzer, [\textit{Se projektdokumentationen pp. 111-117}].
