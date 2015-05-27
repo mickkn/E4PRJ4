@@ -5,9 +5,9 @@ I dette afsnit beskrives systemarkitekturen for vuggesystemet.
 \subsection*{Overordnet virkemåde}
 Vuggesystemet fungerer overordnet som følger:
 \begin{itemize}
-	\item Vuggesystemets Regulerings MCU står for at vugge barnevognens kurv med en bestemt vuggefrekvens og et bestemt vinkeludsving. Dette sker på baggrund af værdier for disse modtaget fra Controller
+	\item Vuggesystemets Regulerings MCU(microcontroller unit) står for at vugge barnevognens kurv med en bestemt vuggefrekvens og et bestemt vinkeludsving. Dette sker på baggrund af værdier for disse modtaget fra Controller
 	\item Regulerings MCU'en regulerer vuggesystemet således at vugningen altid foregår ud fra en vandret akse samt at de modtagne værdier for vuggefrekvensen og vinkeludsvinget overholdes  
-	\item Kommunikation mellem Regulerings MCU og Controlleren foregår via I2C protokollen
+	\item Kommunikation mellem Regulerings MCU og Controller foregår via I2C protokollen \citep{I2C}
 \end{itemize}
 
 \subsection{Hardware arkitektur}
@@ -16,8 +16,8 @@ Vuggesystemet fungerer overordnet som følger:
 
 Vuggesystemet består af tre dele
 
-\textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle på et PWM-signal og retningen på motoren styres af et logisk signal.\\
-\textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra controlleren.\\
+\textbf{Motorsystem block:} Består af en motor til at drive vuggebevægelsen samt en motorkreds til strømstyringen af motoren. Motorkredsen sørger for at motorens ankerspænding styres vha dutycycle fra PWM-signaler der også styrer retningen på motoren.\\
+\textbf{Regulerings MCU block:} Styringsenheden for vuggesystemet. Denne sørger for reguleringen af vuggesystemet samt kommunikationen til og fra Controller.\\
 \textbf{Sensor block:} Består af fire sensorer; to Endstop sensorer som måler om barnevognens kurv har nået den mekaniske vuggegrænse, Vuggeudsving sensor måler kurvens absolutte vinkel i forhold til tyngdefelt og Motor positionssensoren måler motoraksens position.
 
 
