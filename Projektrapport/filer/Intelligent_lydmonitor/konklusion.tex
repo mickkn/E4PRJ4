@@ -1,10 +1,11 @@
 % IL sysark
+\newpage
 \section{Konklusion}
+Der er foretaget 100 BABYCON detekteringer af udvalgte lydfiler. Analyseresultater findes i [\textit{projektdokumentationen pp. 134-138}], danner grundlag for den endelige konklusion. 
 
 \textbf{Resultat opsummering}\\
-Ved at foretage 100 gennemløb af hver lydfil er der lavet histogrammer, og herudfra er Tabel \ref{IL:result} der viser hvor mange procent af hver BABYCON-satus de enkelte lydfiler producerer. 
-
-For fuld test og beskrivelse henvises til \textit{6.4 Modultest} -> \textit{Modultest: Intelligent Lydmonitor}
+I tabel \ref{IL:result} herunder ses en procentuel opsummering af de enkelte lydkilder og de producerede BABYCON-statuser 
+For fuld test og beskrivelse henvises [\textit{projektdokumentationen pp. 134-138}].
 
 \begin{table}[!htbp] \centering
 	\caption{Resultattabel}
@@ -18,8 +19,8 @@ For fuld test og beskrivelse henvises til \textit{6.4 Modultest} -> \textit{Modu
 	\end{tabular}
 \end{table}
 
-Ud fra histogrammerne i dokumentationen er der beregnet en hit ratio. 
 \textbf{Hit ratio}\\
+Med det udgangspunkt, at højlydt babygråd altid bør producere BABYCON1, moderat babygråd bør producere BABYCON2 og omgivelsesstøj BABYCON3, er der beregnet en endelig hit ratio. 
 \begin{center}
 $HitRatio=\frac { hits }{ total\quad tries } =\frac { 99+119+365 }{ 200+200+400 } =72.9$\%
 \end{center}
@@ -27,17 +28,19 @@ $HitRatio=\frac { hits }{ total\quad tries } =\frac { 99+119+365 }{ 200+200+400 
 \textbf{Konklusion}\\
 Antages en løs tankegang hvor brugssituationen tages i betragtning, er det langt hen ad
 vejen lykkedes at implementere den Intelligente Lydmonitor tilfredsstillende. BABYCON1
-detekteres næsten udelukkende ved optagelser af højlydt babygråd med en detektion ved
-1\% af Latter tilfældene. BABYCON2 detekteres i højest grad ved moderat babygråd, med
+detekteres næsten udelukkende ved optagelser af højlydt babygråd, dog med 1\% detektion ved
+Latter lydoptagelsen. BABYCON2 detekteres i højest grad ved moderat babygråd, med
 en del detektioner ved højlydt babygråd samt dyrelyde som katte-mjauen en fuglefløjt.
 BABYCON3 detekteres mellem 70 og 100\% af tiden ved andre optagelser end babygråd,
 hvor fuglefløjt har laveste og trafikstøj højeste procentsats. BABYCON3 detekteres
 indimellem ved både højlydt og moderat babygråd, men eftersom denne status er fredelig,
 antages denne fejltagelse for mindre væsentlig.
 
-For et mere rigidt udgangspunkt, hvor det antages at de givne optagelser af eksempelvis
-”Højlydt babygråd” hver gang bør resultere i BABYCON1, er det lykkedes at implementere
+Med et rigidt udgangspunkt, hvor det antages at de givne optagelser af eksempelvis
+”Højlydt babygråd” hver gang bør resultere i BABYCON1, er det således lykkedes at implementere
 en Intelligent Lydmonitor, der for de angivne lydfiler har en HitRatio = 72.9\%.
+
+
 
 
  
