@@ -3,12 +3,12 @@
 
 Controllerens funktion er at modtage et BABYCON-niveau fra den Intelligente lydmonitor og handle på det. Controlleren består af et betjeningspanel og en Raspberry Pi. Raspberry Pien fungerer som hjernen i Controlleren og styrer betjeningspanelets dioder og handler på panelets knapper. Raspberry Pien handler på det modtaget BABYCON-niveau ved at sende data over \iic til Vuggesystemet. Raspberry Pien indeholder desuden en webserver samt en mail klient som hhv. opdaterer en hjemmeside med BABYCON-niveau og meddeler Babypasseren via e-mail ved alarm eller fejl.
 
-De følgende afsnit \ref{ctrl_sysark}, \ref{ctrl_design} og \ref{ctrl_implementering} deler Controlleren op i Systemarkitektur, Design og Implementering. For yderligere information herom, se controller afsnittet i projektdokumentationen.
+De følgende afsnit \ref{ctrl_sysark}, \ref{ctrl_design} og \ref{ctrl_implementering} deler Controlleren op i Systemarkitektur, Design og Implementering.
 
 \section{Systemarkitektur}
 \label{ctrl_sysark}
 
-Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbejdet tre sekvensdiagrammer, som af pladshensyn kun er repræsenteret i Projektdokumentationen, men nævnt herunder. 
+Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbejdet tre sekvensdiagrammer, som er beskrevet herunder. [\textit{Se projektdokumentationen p. 30}]
 
 \begin{itemize}
 \item \textbf{BABYCON-niveauer:} Beskriver Controllerens opførsel ved de forskellige BABYCON-niveauer.
@@ -16,7 +16,7 @@ Softwarearkitekturen er designet ud fra de udarbejdede use cases. Der er udarbej
 \item \textbf{Power Off:} Beskriver forløbet når Controllerens ON/OFF-knap afbrydes og Baby Watch systemet slukkes 
 \end{itemize}
 
-Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet et internt block diagram, se figur \ref{controller:ibd}. Til det interne block diagram er der udarbejdet en forklarende signaltabel, se Controllerens systemarkitektur-afsnit i projektdokumentationen.
+Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet et internt block diagram, se figur \ref{controller:ibd}. Til det interne block diagram er der udarbejdet en forklarende signaltabel [\textit{Se projektdokumentationen p. 34}].
 
 \figur{1}{controller/Controller_IBD}{IBD diagram for Controller}{controller:ibd}
 
@@ -24,11 +24,11 @@ Hardwarearkitekturen er ligeledes udarbejdet ud fra use cases. Der er udarbejdet
 \section{Design}
 \label{ctrl_design}
 
-Softwarefunktionaliteten for Controlleren deles op i klasser og ud fra denne opdeling er nedenstående klassediagram udarbejdet, se figur \ref{controller:klassediagram}. De tilhørende klassebeskrivelser kan ses i i Controlleren design-afsnit i projektdokumentationen.
+Softwarefunktionaliteten for Controlleren deles op i klasser og ud fra denne opdeling er nedenstående klassediagram udarbejdet, se figur \ref{controller:klassediagram}. Klassebeskrivelserne er beskrevet i projektdokumentationen [\textit{Se projektdokumentationen p. 37}]
 
 \figur{0.9}{controller/Klassediagram.pdf}{Klassediagram for Controller}{controller:klassediagram}
 
-Hardwaredesignet for Controlleren består af betjeningspanelet samt stik til forbindelser til/fra Controlleren. Det samlede kredsløbsdiagram med GPIO forbindelser til Raspberry Pi'en kan ses på figur \ref{controller:hwdesign}.
+Hardwaredesignet for Controlleren består af betjeningspanelet samt stik til forbindelser til/fra Controlleren. Det samlede kredsløbsdiagram med GPIO-forbindelser til Raspberry Pi'en kan ses på figur \ref{controller:hwdesign}.
 
 \figur{1}{controller/controller_samlet.pdf}{Samlet kredsløbsdiagram for Controller}{controller:hwdesign}
 
@@ -39,14 +39,16 @@ Hardwaredesignet for Controlleren består af betjeningspanelet samt stik til for
 
 Hovedprogrammet er udviklet i Eclipse til Linux \citep{website:eclipsekepler}, hvor der krydskompileres direkte til Raspberry Pi via ssh\footnote{Secure Shell - krypteret fjernadgang}.
 
-Der er lavet et \verb+GPIOsocket+ funktionsbibliotek til at oprette fil biblioteker til de enkelte GPIO-porte. I biblioteket er der 3 funktioner der varetager oprettelse og nedlæggelse af et GPIO-ben, samt opsætning af retning (input/output). Funktionerne bliver brugt af de klasser der bruger GPIO-benene. \verb+GPIOsocket+ biblioteket gør brug af wiringPi biblioteket \citep{website:wiringpi}. Og det dens funktionalitet der gøres brug af når der oprettes og nedlægges gpio-ben.
+Der er lavet et \verb+GPIOsocket+ funktionsbibliotek til at oprette filbiblioteker til de enkelte GPIO-porte. I biblioteket er der 3 funktioner der varetager oprettelse og nedlæggelse af et GPIO-ben, samt opsætning af retning (input/output). Funktionerne bliver brugt af de klasser der bruger GPIO-benene. \verb+GPIOsocket+ biblioteket gør brug af wiringPi biblioteket \citep{website:wiringpi}. Og det dens funktionalitet der gøres brug af når der oprettes og nedlægges gpio-ben.
 
-HTTP-Webserveren er implementeret vha. af en microframework Flask-server \citep{website:flask}.
+HTTP-webserveren er implementeret vha. af en microframework Flask-server \citep{website:flask}.
 
-En detaljeret gennemgang af implementeringen kan findes i Controllerens implementeringsafsnit i projektdokumentationen.
+En detaljeret gennemgang af implementeringen kan findes i Controllerens implementeringsafsnit i projektdokumentationen [\textit{Se projektdokumentationen p. 47}].
 
 \subsection*{Hardware}
 
 Hardwaren består som sagt af en Raspberry Pi Model B, derudover er der udarbejdet et print til lysdioderne hvor de beregnede for-modstande er monteret. Alt dette er bygget i en kasse lavet i materialet Forex\footnote{PVC plastic plade i 5 mm tykkelse}. På kassen er monteret 2 kontakter til hhv. ''Manuel start'' og tænd/sluk.
 
+\subsection{Konklusion}
 
+Vi er kommet godt i mål med hovedenheden Controller. Vi har måtte tage brug af fag vi har haft på tidligere semestre, men har dog også gjort brug af ISU\footnote{I4ISU - Inlejrede Systemudvikling v/ Søren Hansen} til den trådede del af systemet. Vi blev dog opmærksomme på, sent i forløbet at ISU kunne have været en meget større del af vores software udvikling af Controlleren. Hvor systemet kunne være blevet lavet som et event-drevet system. Men grundet manglende tid blev dette ikke realiseret.
