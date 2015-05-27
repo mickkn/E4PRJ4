@@ -1,5 +1,0 @@
-C:\Users\Jeppe\Google Drev\E4PRJ4 gDrive\Vuggesystem arbejdsdokumenter\Test\Integrationstest\vuggeControl\vuggeControl.cydsn\vuggeControl.cyprj|d5e1b46f-6c6a-420c-87e4-85cc8f6ee378
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|e61c2734-71f1-4698-8f38-50ba7558e069
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|82ba7ff0-70cc-4894-9161-b582478188bc
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|0bf82263-0962-438e-99ac-b0662537bc0c
-C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|a8c07d97-8581-418e-b162-48ff9606196f
