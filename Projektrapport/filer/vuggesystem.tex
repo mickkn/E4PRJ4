@@ -10,7 +10,7 @@ De efterfølgende afsnit beskriver kort vuggesystemets Systemarkitektur efterful
 \newpage
 \section{Systemarkitektur}
 \label{vs_sysark}
-Systemarkitekturen for vuggesystemet er udarbejdet ud fra use casene fra kravspecifikationen i Baby Watch projektdokumentationen [\textit{Se projektdokumentationen p. 12}].
+Systemarkitekturen for vuggesystemet [\textit{Se projektdokumentationen p.141}] er udarbejdet ud fra Baby Watchs fully dressed use cases [\textit{Se projektdokumentationen p. 12}].
 
 Nedenstående diagram er en IBD over vuggesystemet med den ønskede funktionalitet fra use casene:
 
@@ -26,7 +26,7 @@ Modulet regulering står for interfacet til :Motorsystem blokken fra figur \ref{
 
 Det ses på figur \ref{vuggesystem:SD} hvordan regulerings MCU'en efter en indledende opsætning kører i en løkke som konstant undersøger vuggesystemets tilstand baseret på sensor data, beregner en korrektion, og sender denne til motor kredsen.
 
-Denne arkitektur er benyttet som grundlag for senere designvalg. En fuld beskrivelse af arkitekturen og dens tilblivelse findes i projektdokumentationens [\textit{Se projektdokumentationen p. 141}].
+Denne arkitektur er benyttet som grundlag for senere designvalg.
 
 \newpage
 \section{HW Design og Implementering}
@@ -40,11 +40,11 @@ For en dybdegående gennemgang af design og implementering af ovenstående kreds
 
 \section{SW Design og Implementeringen}
 \label{vs_sw}
-Figuren \ref{vuggesystem:SD} er en del af vuggesystemets applikationsmodel [\textit{Se projektdokumentationen pp. 146}]. Klassediagrammet udarbejdet på baggrund af denne applikationsmodel.
+Figuren \ref{vuggesystem:SD} er en del af vuggesystemets applikationsmodel. Nedenstående klassediagram er udarbejdet på baggrund af denne applikationsmodel.
 \figur{1}{vuggesystem/reguleringsMCU_klassediagram.pdf}{Klassediagram for Vuggesystem}{vuggesystem:klassediagram}
-Tanken bag styresystemet til vuggesystemet var at det skulle være styret af et ISR\footnote{Interrupt service rutine der sætter et flag ved 'Klar til næste loop'}-styret loop der varetog alle reguleringsmæssige kald og beregninger med en frekvens på 200 Hz. Frekvensen blev bestemt ud fra hvad der var muligt og stadig hurtigt nok til at kunne reguleres ud fra når Regulerings MCU'en blev implementeret på en PSoC4\footnote{Microcontroller} \citep{website:Cypress} [\textit{Se projektdokumentationen pp. 171}]. Sideløbende funktionaliteter såsom \iic-kommunikationen mellem Vuggesystemet (PSoC4'en) og Controller (Raspberry Pi'en), \iic-kommunikationen mellem PSoC4'en og vinkelsensoren samt aktiveringen af en end-stopsensor blev ligeledes styret af ISR. Før loopets begyndelse skulle PSOC4'ens interne hardware moduler\footnote{senserI2C, Debug, PWM, loopTimer og I2CVuggesystem. Se projektdokumentation side XX} initieres samt diverse pointere til f.eks I2C-buffer registre\footnote{i2cPtr og reguleringsStatusPtr Se Projektdokumentationen side XX} hentes.
+Tanken bag styresystemet til vuggesystemet var at det skulle være styret af et ISR\footnote{Interrupt service rutine der sætter et flag ved 'Klar til næste loop'}-styret loop der varetog alle reguleringsmæssige kald og beregninger med en frekvens på 200 Hz. Frekvensen blev bestemt ud fra hvad der var muligt og stadig hurtigt nok til at kunne reguleres ud fra når Regulerings MCU'en blev implementeret på en PSoC4\footnote{Microcontroller} \citep{website:Cypress} [\textit{Se projektdokumentationen pp. 171}]. Sideløbende funktionaliteter såsom \iic-kommunikationen mellem Vuggesystemet (PSoC4'en) og Controller (Raspberry Pi'en), \iic-kommunikationen mellem PSoC4'en og vinkelsensoren samt aktiveringen af en end-stopsensor blev ligeledes styret af ISR. Før loopets begyndelse skulle PSOC4'ens interne hardware moduler\footnote{senserI2C, Debug, PWM, loopTimer og I2CVuggesystem. [\textit{Se projektdokumentationen p. 167}]} initieres samt diverse pointere til f.eks I2C-buffer registre\footnote{i2cPtr og reguleringsStatusPtr hentes.}
 
-Reguleringen baserer sig i denne iteration af projektet på en simpel PID-regulator\footnote{ se projektdokumentationen s. XX}, hvilket kun giver marginal stabilitet, som beskrevet nærmere i afsnit \vref{projektafgraensninger} om projektafgrænsninger.
+Reguleringen baserer sig i denne iteration af projektet på en simpel PID-regulator\footnote{ [\textit{Se projektdokumentationen p. 174}]}, hvilket kun giver marginal stabilitet, som beskrevet nærmere i afsnit \vref{projektafgraensninger} om projektafgrænsninger.
 
-For en dybdegående gennemgang af software design og implementering af vuggesystemet henvises til projektdokumentationens \textit{Kapitel 7 Vuggesystemet} afsnit \textit{7.2.2 Software design} begyndende på side XX og \textit{7.3.2 Software implementering} begyndende på side XX.
+For en dybdegående gennemgang af software design på vuggesystemet [\textit{Se projektdokumentationen pp. 157}] og for software implementeringen [\textit{Se projektdokumentationen pp. 167}]. For modultests af vuggesystemet [\textit{Se projektdokumentationen pp. 176}]
 
