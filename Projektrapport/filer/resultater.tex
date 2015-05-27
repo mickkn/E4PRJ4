@@ -1,16 +1,4 @@
 % Resultater
 \chapter{Resultater}
 
-På \citep{cd} ligger der en video der demonstrere virkemåden af Baby Watch
-
-\section{Software}
-
-På softwaresiden af projektet er vi kommet godt i mål. Det er lykkedes at udarbejde en Controller der kan klare opgaven at vugge en baby i søvn ved at lytte til babyens lyde og via en vuggemekanisme vugger barnet. Det er ydermere udarbejdet et godt adviserings-system der kan alarmere en babypasser med både e-mail, hjemmeside og lysdioder.
-
-Det er lykkedes, at analysere og detektere om det rent faktisk er barnet der græder, eller om det er andet omkringliggende støj der så skal ignoreres.
-
-Der er udviklet en vuggekontroller der kan regulere en motorkreds med tilbagemelding fra en gyroskop-sensor.
-
-\section{Hardware}
-
-Vi er kommet i mål med en strømforsyning der kan levere strøm til alle styrekredsene i Baby Watch.
+Det er lykkedes at udarbejde et system der ved at lytte til en babys lyde kan styre vugningen af en barnevognskurv, opdatere en status-hjemmeside og sende advarselsemails. Lytte-funktionen er implementeret med realtids analyser af frekvensspektre på DSP-processoren Blackfin 533. En status sendes til en controller-enhed, implementeret på en Raspberry Pi, der håndterer afsendelse af emails samt opdateringen af en Flask-server baseret hjemmeside. Controller-enheden sender via I2C kontrol-beskeder til et vuggesystem. Vuggesystemets regulering er implementeret digitalt på en PSoC4 med styring af en DC-motor anvendt til positionering af barnevognskurven og gyroskoper benyttet til positionsmåling. Endvidere er der implementeret en strømforsyning, der forsyner resten af systemet.
