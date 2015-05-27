@@ -10,7 +10,7 @@ Overordnet fungerer den Intelligent Lydmonitor som følger:
 	\item Den fundne BABYCON state holdes op mod en statistik over tidligere states og den signifikante status findes
 	\item Det endelige kategoriseringsresultat sendes til Controller via TwoWireCom
 \end{itemize}
-En illustration af dette ses i figuren \ref{il_sys_overordnet} herunder. \footnote{Højpasfilteret er en logisk funktionalitet for systemet, men er i realiteten implementeret som side-effekt af den smoothing, der benyttes på det analyserede fft-spektrum. Se \textit{Intelligent lydmonitor -> Softwaredesign- og implementering -> Smoothing af frekvensspektrum -> Anvendelse af transient respons som højpasfiltrering pp. 121-123} i projektdokumentation for beskrivelse.}
+En illustration af dette ses i figuren \ref{il_sys_overordnet} herunder. \footnote{Højpasfilteret i figur \ref{il_sys_overordnet} er en logisk funktionalitet for systemet, men er i realiteten implementeret som side-effekt af den smoothing, der benyttes på det analyserede fft-spektrum. For beskrivelse, [\textit{Se projektdokumentationen pp. 115-116}]}
 \figur{1}{intlydmonitor/Intelligent_Lydmonitor_Systemtegning.pdf}{Overordnet virkemåde for Intelligent Lydmonitor }{il_sys_overordnet}
 
 
@@ -33,4 +33,4 @@ Systemet opdeles således i følgende række af led:
 \item Categorizer
 \item TwoWireCom
 \end{itemize}
-Se \textit{Systemarkitektur} afsnittet i projektdokumentation for uddybende HW- og SW-arkitektur.
+[\textit{Se projektdokumentationen pp. 88-94}] for uddybende HW- og SW-arkitektur.
