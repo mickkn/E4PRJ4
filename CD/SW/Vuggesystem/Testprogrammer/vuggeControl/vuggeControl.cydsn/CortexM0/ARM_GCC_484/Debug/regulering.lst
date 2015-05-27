@@ -1,0 +1,1880 @@
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"regulering.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.comm	sensorDataPtr_,4,4
+  18              		.comm	fixedPointReg_,4,4
+  19              		.comm	reguleringsStatus_,4,4
+  20              		.comm	going_up_,1,1
+  21              		.comm	pwmSineAngle_,4,4
+  22              		.comm	print1,4,4
+  23              		.comm	print2,4,4
+  24              		.comm	prevFrek,1,1
+  25              		.comm	prevUdsving,1,1
+  26              		.comm	angleInc,4,4
+  27              		.comm	sineA,4,4
+  28              		.comm	prev_e,4,4
+  29              		.comm	i_e,4,4
+  30              		.global	mode
+  31              		.bss
+  32              		.type	mode, %object
+  33              		.size	mode, 1
+  34              	mode:
+  35 0000 00       		.space	1
+  36              		.section	.text.initRegulering,"ax",%progbits
+  37              		.align	2
+  38              		.global	initRegulering
+  39              		.code	16
+  40              		.thumb_func
+  41              		.type	initRegulering, %function
+  42              	initRegulering:
+  43              	.LFB33:
+  44              		.file 1 ".\\regulering.c"
+   1:.\regulering.c **** /* ========================================
+   2:.\regulering.c ****  *
+   3:.\regulering.c ****  * Copyright Baby Watch, 2015
+   4:.\regulering.c ****  * All Rights Reserved
+   5:.\regulering.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\regulering.c ****  *
+   7:.\regulering.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\regulering.c ****  * WHICH IS THE PROPERTY OF Baby Watch.
+   9:.\regulering.c ****  *
+  10:.\regulering.c ****  * ========================================
+  11:.\regulering.c **** */
+  12:.\regulering.c **** //========================================================================
+  13:.\regulering.c **** // FILENAME : regulering.c
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 2
+
+
+  14:.\regulering.c **** // CREATED : 03-03-2015
+  15:.\regulering.c **** // AUTHOR  : Jeppe Hofni
+  16:.\regulering.c **** // DESCR.  : h file for PSoC4
+  17:.\regulering.c **** //
+  18:.\regulering.c **** //------------------------------------------------------------------------
+  19:.\regulering.c **** //
+  20:.\regulering.c **** // REV.  DATE/AUTHOR  CHANGE DESCRIPTION
+  21:.\regulering.c **** // 0.1  03-03-2015 - Jeppe - First writeup of regulering.c
+  22:.\regulering.c **** // 0.2	30-04-2015 - Jeppe - First writeup of MotorPWM module
+  23:.\regulering.c **** // 0.3	23-05-2015 - Jeppe and Felix Blix - First write up of control implemented
+  24:.\regulering.c **** //------------------------------------------------------------------------
+  25:.\regulering.c **** // KNOWN ISSUES:
+  26:.\regulering.c **** // REV. - ISSUE(S)
+  27:.\regulering.c **** // 0.1 - Needs to be sorted proper
+  28:.\regulering.c **** // 0.2 - Regulering needs finished implementation
+  29:.\regulering.c **** // 0.3 - Needs proper control
+  30:.\regulering.c **** //========================================================================
+  31:.\regulering.c **** #include "regulering.h"
+  32:.\regulering.c **** #include <fixedMath.h>
+  33:.\regulering.c **** #include <stdio.h>
+  34:.\regulering.c **** 
+  35:.\regulering.c **** uint8_t mode = 0;
+  36:.\regulering.c **** 
+  37:.\regulering.c **** /*        --------------        FUNCTION DEFINITIONS       ---------------          */ 
+  38:.\regulering.c **** 
+  39:.\regulering.c **** /* Function Name: initRegulering
+  40:.\regulering.c ****    Summary:
+  41:.\regulering.c ****     Initiates regulering
+  42:.\regulering.c **** */
+  43:.\regulering.c **** void initRegulering()
+  44:.\regulering.c **** {
+  45              		.loc 1 44 0
+  46              		.cfi_startproc
+  47 0000 80B5     		push	{r7, lr}
+  48              		.cfi_def_cfa_offset 8
+  49              		.cfi_offset 7, -8
+  50              		.cfi_offset 14, -4
+  51 0002 00AF     		add	r7, sp, #0
+  52              		.cfi_def_cfa_register 7
+  45:.\regulering.c ****     prevFrek = 0;
+  53              		.loc 1 45 0
+  54 0004 0F4B     		ldr	r3, .L2
+  55 0006 0022     		mov	r2, #0
+  56 0008 1A70     		strb	r2, [r3]
+  46:.\regulering.c ****     prevUdsving = 0;
+  57              		.loc 1 46 0
+  58 000a 0F4B     		ldr	r3, .L2+4
+  59 000c 0022     		mov	r2, #0
+  60 000e 1A70     		strb	r2, [r3]
+  47:.\regulering.c ****     angleInc = 0; // the sine angle increment for each loop iteration with the current frequncy
+  61              		.loc 1 47 0
+  62 0010 0E4B     		ldr	r3, .L2+8
+  63 0012 0022     		mov	r2, #0
+  64 0014 1A60     		str	r2, [r3]
+  48:.\regulering.c ****     sineA = 0;
+  65              		.loc 1 48 0
+  66 0016 0E4B     		ldr	r3, .L2+12
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 3
+
+
+  67 0018 0022     		mov	r2, #0
+  68 001a 1A60     		str	r2, [r3]
+  49:.\regulering.c ****     reguleringsStatus_ = 0;
+  69              		.loc 1 49 0
+  70 001c 0D4B     		ldr	r3, .L2+16
+  71 001e 0022     		mov	r2, #0
+  72 0020 1A60     		str	r2, [r3]
+  50:.\regulering.c ****     going_up_ = TRUE;
+  73              		.loc 1 50 0
+  74 0022 0D4B     		ldr	r3, .L2+20
+  75 0024 0122     		mov	r2, #1
+  76 0026 1A70     		strb	r2, [r3]
+  51:.\regulering.c ****     pwmSineAngle_ = 0;
+  77              		.loc 1 51 0
+  78 0028 0C4B     		ldr	r3, .L2+24
+  79 002a 0022     		mov	r2, #0
+  80 002c 1A60     		str	r2, [r3]
+  52:.\regulering.c ****     PWM_Start();
+  81              		.loc 1 52 0
+  82 002e FFF7FEFF 		bl	PWM_Start
+  53:.\regulering.c ****     prev_e = 0;
+  83              		.loc 1 53 0
+  84 0032 0B4B     		ldr	r3, .L2+28
+  85 0034 0022     		mov	r2, #0
+  86 0036 1A60     		str	r2, [r3]
+  54:.\regulering.c ****     i_e = 0;
+  87              		.loc 1 54 0
+  88 0038 0A4B     		ldr	r3, .L2+32
+  89 003a 0022     		mov	r2, #0
+  90 003c 1A60     		str	r2, [r3]
+  55:.\regulering.c **** }
+  91              		.loc 1 55 0
+  92 003e BD46     		mov	sp, r7
+  93              		@ sp needed
+  94 0040 80BD     		pop	{r7, pc}
+  95              	.L3:
+  96 0042 C046     		.align	2
+  97              	.L2:
+  98 0044 00000000 		.word	prevFrek
+  99 0048 00000000 		.word	prevUdsving
+ 100 004c 00000000 		.word	angleInc
+ 101 0050 00000000 		.word	sineA
+ 102 0054 00000000 		.word	reguleringsStatus_
+ 103 0058 00000000 		.word	going_up_
+ 104 005c 00000000 		.word	pwmSineAngle_
+ 105 0060 00000000 		.word	prev_e
+ 106 0064 00000000 		.word	i_e
+ 107              		.cfi_endproc
+ 108              	.LFE33:
+ 109              		.size	initRegulering, .-initRegulering
+ 110              		.section	.rodata
+ 111              		.align	2
+ 112              	.LC12:
+ 113 0000 0D0A0A76 		.ascii	"\015\012\012vuggetilstand: 0\015\012\012\000"
+ 113      75676765 
+ 113      74696C73 
+ 113      74616E64 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 4
+
+
+ 113      3A20300D 
+ 114 0017 00       		.align	2
+ 115              	.LC14:
+ 116 0018 0D0A0A76 		.ascii	"\015\012\012vuggetilstand: A\015\012\012\000"
+ 116      75676765 
+ 116      74696C73 
+ 116      74616E64 
+ 116      3A20410D 
+ 117 002f 00       		.align	2
+ 118              	.LC16:
+ 119 0030 0D0A0A76 		.ascii	"\015\012\012vuggetilstand: B\015\012\012\000"
+ 119      75676765 
+ 119      74696C73 
+ 119      74616E64 
+ 119      3A20420D 
+ 120 0047 00       		.align	2
+ 121              	.LC18:
+ 122 0048 0D0A0A76 		.ascii	"\015\012\012vuggetilstand: C\015\012\012\000"
+ 122      75676765 
+ 122      74696C73 
+ 122      74616E64 
+ 122      3A20430D 
+ 123 005f 00       		.align	2
+ 124              	.LC20:
+ 125 0060 0D0A0A76 		.ascii	"\015\012\012vuggetilstand: Manuel\015\012\012\000"
+ 125      75676765 
+ 125      74696C73 
+ 125      74616E64 
+ 125      3A204D61 
+ 126              		.section	.text.updateRegParameter,"ax",%progbits
+ 127              		.align	2
+ 128              		.global	updateRegParameter
+ 129              		.code	16
+ 130              		.thumb_func
+ 131              		.type	updateRegParameter, %function
+ 132              	updateRegParameter:
+ 133              	.LFB34:
+  56:.\regulering.c **** 
+  57:.\regulering.c **** /* Function regParameter
+  58:.\regulering.c ****    Summary:
+  59:.\regulering.c ****     Receives the rocking parametres for the i2C reg and validates them
+  60:.\regulering.c **** */
+  61:.\regulering.c **** void updateRegParameter(uint8 vuggefrekvens, uint8 vuggeudsving)
+  62:.\regulering.c **** {
+ 134              		.loc 1 62 0
+ 135              		.cfi_startproc
+ 136 0000 80B5     		push	{r7, lr}
+ 137              		.cfi_def_cfa_offset 8
+ 138              		.cfi_offset 7, -8
+ 139              		.cfi_offset 14, -4
+ 140 0002 84B0     		sub	sp, sp, #16
+ 141              		.cfi_def_cfa_offset 24
+ 142 0004 00AF     		add	r7, sp, #0
+ 143              		.cfi_def_cfa_register 7
+ 144 0006 0A1C     		mov	r2, r1
+ 145 0008 FB1D     		add	r3, r7, #7
+ 146 000a 011C     		add	r1, r0, #0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 5
+
+
+ 147 000c 1970     		strb	r1, [r3]
+ 148 000e BB1D     		add	r3, r7, #6
+ 149 0010 1A70     		strb	r2, [r3]
+  63:.\regulering.c ****     if((vuggefrekvens == prevFrek) && (vuggeudsving == prevUdsving)) return;
+ 150              		.loc 1 63 0
+ 151 0012 554B     		ldr	r3, .L16
+ 152 0014 1B78     		ldrb	r3, [r3]
+ 153 0016 FA1D     		add	r2, r7, #7
+ 154 0018 1278     		ldrb	r2, [r2]
+ 155 001a 9A42     		cmp	r2, r3
+ 156 001c 06D1     		bne	.L5
+ 157              		.loc 1 63 0 is_stmt 0 discriminator 1
+ 158 001e 534B     		ldr	r3, .L16+4
+ 159 0020 1B78     		ldrb	r3, [r3]
+ 160 0022 BA1D     		add	r2, r7, #6
+ 161 0024 1278     		ldrb	r2, [r2]
+ 162 0026 9A42     		cmp	r2, r3
+ 163 0028 00D1     		bne	.L5
+ 164 002a 9AE0     		b	.L4
+ 165              	.L5:
+  64:.\regulering.c ****     
+  65:.\regulering.c ****     BOOL valid = FALSE;
+ 166              		.loc 1 65 0 is_stmt 1
+ 167 002c 3B1C     		mov	r3, r7
+ 168 002e 0F33     		add	r3, r3, #15
+ 169 0030 0022     		mov	r2, #0
+ 170 0032 1A70     		strb	r2, [r3]
+  66:.\regulering.c ****     if((vuggefrekvens == 0) && (vuggeudsving == 0))// Vugge-niveau 0: 0 Hz (0) 0 grader (0)
+ 171              		.loc 1 66 0
+ 172 0034 FB1D     		add	r3, r7, #7
+ 173 0036 1B78     		ldrb	r3, [r3]
+ 174 0038 002B     		cmp	r3, #0
+ 175 003a 14D1     		bne	.L7
+ 176              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 177 003c BB1D     		add	r3, r7, #6
+ 178 003e 1B78     		ldrb	r3, [r3]
+ 179 0040 002B     		cmp	r3, #0
+ 180 0042 10D1     		bne	.L7
+  67:.\regulering.c ****     {
+  68:.\regulering.c ****         valid = TRUE;
+ 181              		.loc 1 68 0 is_stmt 1
+ 182 0044 3B1C     		mov	r3, r7
+ 183 0046 0F33     		add	r3, r3, #15
+ 184 0048 0122     		mov	r2, #1
+ 185 004a 1A70     		strb	r2, [r3]
+  69:.\regulering.c ****         if(mode != 0){
+ 186              		.loc 1 69 0
+ 187 004c 484B     		ldr	r3, .L16+8
+ 188 004e 1B78     		ldrb	r3, [r3]
+ 189 0050 002B     		cmp	r3, #0
+ 190 0052 07D0     		beq	.L8
+  70:.\regulering.c ****             debugOut_PutString("\r\n\nvuggetilstand: 0\r\n\n");
+ 191              		.loc 1 70 0
+ 192 0054 474B     		ldr	r3, .L16+12
+ 193 0056 181C     		mov	r0, r3
+ 194 0058 FFF7FEFF 		bl	debugOut_PutString
+  71:.\regulering.c ****             mode = 0;
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 6
+
+
+ 195              		.loc 1 71 0
+ 196 005c 444B     		ldr	r3, .L16+8
+ 197 005e 0022     		mov	r2, #0
+ 198 0060 1A70     		strb	r2, [r3]
+  69:.\regulering.c ****         if(mode != 0){
+ 199              		.loc 1 69 0
+ 200 0062 62E0     		b	.L9
+ 201              	.L8:
+  69:.\regulering.c ****         if(mode != 0){
+ 202              		.loc 1 69 0 is_stmt 0 discriminator 1
+ 203 0064 61E0     		b	.L9
+ 204              	.L7:
+  72:.\regulering.c ****         }
+  73:.\regulering.c ****     }
+  74:.\regulering.c ****     else if((vuggefrekvens == A_FREQ) && (vuggeudsving == A_ANGLE))// Vugge-niveau 1: 0,5 Hz (50) 1
+ 205              		.loc 1 74 0 is_stmt 1
+ 206 0066 FB1D     		add	r3, r7, #7
+ 207 0068 1B78     		ldrb	r3, [r3]
+ 208 006a 082B     		cmp	r3, #8
+ 209 006c 14D1     		bne	.L10
+ 210              		.loc 1 74 0 is_stmt 0 discriminator 1
+ 211 006e BB1D     		add	r3, r7, #6
+ 212 0070 1B78     		ldrb	r3, [r3]
+ 213 0072 C82B     		cmp	r3, #200
+ 214 0074 10D1     		bne	.L10
+  75:.\regulering.c ****     {
+  76:.\regulering.c ****         valid = TRUE;
+ 215              		.loc 1 76 0 is_stmt 1
+ 216 0076 3B1C     		mov	r3, r7
+ 217 0078 0F33     		add	r3, r3, #15
+ 218 007a 0122     		mov	r2, #1
+ 219 007c 1A70     		strb	r2, [r3]
+  77:.\regulering.c ****         if(mode != 1){
+ 220              		.loc 1 77 0
+ 221 007e 3C4B     		ldr	r3, .L16+8
+ 222 0080 1B78     		ldrb	r3, [r3]
+ 223 0082 012B     		cmp	r3, #1
+ 224 0084 07D0     		beq	.L11
+  78:.\regulering.c ****             debugOut_PutString("\r\n\nvuggetilstand: A\r\n\n");
+ 225              		.loc 1 78 0
+ 226 0086 3C4B     		ldr	r3, .L16+16
+ 227 0088 181C     		mov	r0, r3
+ 228 008a FFF7FEFF 		bl	debugOut_PutString
+  79:.\regulering.c ****             mode = 1;
+ 229              		.loc 1 79 0
+ 230 008e 384B     		ldr	r3, .L16+8
+ 231 0090 0122     		mov	r2, #1
+ 232 0092 1A70     		strb	r2, [r3]
+  77:.\regulering.c ****         if(mode != 1){
+ 233              		.loc 1 77 0
+ 234 0094 49E0     		b	.L9
+ 235              	.L11:
+  77:.\regulering.c ****         if(mode != 1){
+ 236              		.loc 1 77 0 is_stmt 0 discriminator 1
+ 237 0096 48E0     		b	.L9
+ 238              	.L10:
+  80:.\regulering.c ****         }
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 7
+
+
+  81:.\regulering.c ****     }
+  82:.\regulering.c ****     else if((vuggefrekvens == B_FREQ) && (vuggeudsving == B_ANGLE))// Vugge-niveau 2: 1 Hz (100) 6 
+ 239              		.loc 1 82 0 is_stmt 1
+ 240 0098 FB1D     		add	r3, r7, #7
+ 241 009a 1B78     		ldrb	r3, [r3]
+ 242 009c 102B     		cmp	r3, #16
+ 243 009e 14D1     		bne	.L12
+ 244              		.loc 1 82 0 is_stmt 0 discriminator 1
+ 245 00a0 BB1D     		add	r3, r7, #6
+ 246 00a2 1B78     		ldrb	r3, [r3]
+ 247 00a4 782B     		cmp	r3, #120
+ 248 00a6 10D1     		bne	.L12
+  83:.\regulering.c ****     {
+  84:.\regulering.c ****         valid = TRUE;
+ 249              		.loc 1 84 0 is_stmt 1
+ 250 00a8 3B1C     		mov	r3, r7
+ 251 00aa 0F33     		add	r3, r3, #15
+ 252 00ac 0122     		mov	r2, #1
+ 253 00ae 1A70     		strb	r2, [r3]
+  85:.\regulering.c ****         if(mode != 2){
+ 254              		.loc 1 85 0
+ 255 00b0 2F4B     		ldr	r3, .L16+8
+ 256 00b2 1B78     		ldrb	r3, [r3]
+ 257 00b4 022B     		cmp	r3, #2
+ 258 00b6 07D0     		beq	.L13
+  86:.\regulering.c ****             debugOut_PutString("\r\n\nvuggetilstand: B\r\n\n");
+ 259              		.loc 1 86 0
+ 260 00b8 304B     		ldr	r3, .L16+20
+ 261 00ba 181C     		mov	r0, r3
+ 262 00bc FFF7FEFF 		bl	debugOut_PutString
+  87:.\regulering.c ****             mode = 2;
+ 263              		.loc 1 87 0
+ 264 00c0 2B4B     		ldr	r3, .L16+8
+ 265 00c2 0222     		mov	r2, #2
+ 266 00c4 1A70     		strb	r2, [r3]
+  85:.\regulering.c ****         if(mode != 2){
+ 267              		.loc 1 85 0
+ 268 00c6 30E0     		b	.L9
+ 269              	.L13:
+  85:.\regulering.c ****         if(mode != 2){
+ 270              		.loc 1 85 0 is_stmt 0 discriminator 1
+ 271 00c8 2FE0     		b	.L9
+ 272              	.L12:
+  88:.\regulering.c ****         }
+  89:.\regulering.c ****     }
+  90:.\regulering.c ****     else if((vuggefrekvens) == C_FREQ && (vuggeudsving == C_ANGLE))// Vugge-niveau 3: 2 Hz (200) 4 
+ 273              		.loc 1 90 0 is_stmt 1
+ 274 00ca FB1D     		add	r3, r7, #7
+ 275 00cc 1B78     		ldrb	r3, [r3]
+ 276 00ce 202B     		cmp	r3, #32
+ 277 00d0 14D1     		bne	.L14
+ 278              		.loc 1 90 0 is_stmt 0 discriminator 1
+ 279 00d2 BB1D     		add	r3, r7, #6
+ 280 00d4 1B78     		ldrb	r3, [r3]
+ 281 00d6 502B     		cmp	r3, #80
+ 282 00d8 10D1     		bne	.L14
+  91:.\regulering.c ****     {
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 8
+
+
+  92:.\regulering.c ****         valid = TRUE;
+ 283              		.loc 1 92 0 is_stmt 1
+ 284 00da 3B1C     		mov	r3, r7
+ 285 00dc 0F33     		add	r3, r3, #15
+ 286 00de 0122     		mov	r2, #1
+ 287 00e0 1A70     		strb	r2, [r3]
+  93:.\regulering.c ****         if(mode != 3){
+ 288              		.loc 1 93 0
+ 289 00e2 234B     		ldr	r3, .L16+8
+ 290 00e4 1B78     		ldrb	r3, [r3]
+ 291 00e6 032B     		cmp	r3, #3
+ 292 00e8 07D0     		beq	.L15
+  94:.\regulering.c ****             debugOut_PutString("\r\n\nvuggetilstand: C\r\n\n");
+ 293              		.loc 1 94 0
+ 294 00ea 254B     		ldr	r3, .L16+24
+ 295 00ec 181C     		mov	r0, r3
+ 296 00ee FFF7FEFF 		bl	debugOut_PutString
+  95:.\regulering.c ****             mode = 3;
+ 297              		.loc 1 95 0
+ 298 00f2 1F4B     		ldr	r3, .L16+8
+ 299 00f4 0322     		mov	r2, #3
+ 300 00f6 1A70     		strb	r2, [r3]
+  93:.\regulering.c ****         if(mode != 3){
+ 301              		.loc 1 93 0
+ 302 00f8 17E0     		b	.L9
+ 303              	.L15:
+  93:.\regulering.c ****         if(mode != 3){
+ 304              		.loc 1 93 0 is_stmt 0 discriminator 1
+ 305 00fa 16E0     		b	.L9
+ 306              	.L14:
+  96:.\regulering.c ****         }
+  97:.\regulering.c ****     }
+  98:.\regulering.c ****     else if((vuggefrekvens == M_FREQ) && (vuggeudsving == M_ANGLE))// Manuel vugge-niveau : 0,75 Hz
+ 307              		.loc 1 98 0 is_stmt 1
+ 308 00fc FB1D     		add	r3, r7, #7
+ 309 00fe 1B78     		ldrb	r3, [r3]
+ 310 0100 0C2B     		cmp	r3, #12
+ 311 0102 12D1     		bne	.L9
+ 312              		.loc 1 98 0 is_stmt 0 discriminator 1
+ 313 0104 BB1D     		add	r3, r7, #6
+ 314 0106 1B78     		ldrb	r3, [r3]
+ 315 0108 A02B     		cmp	r3, #160
+ 316 010a 0ED1     		bne	.L9
+  99:.\regulering.c ****     {
+ 100:.\regulering.c ****         valid = TRUE;
+ 317              		.loc 1 100 0 is_stmt 1
+ 318 010c 3B1C     		mov	r3, r7
+ 319 010e 0F33     		add	r3, r3, #15
+ 320 0110 0122     		mov	r2, #1
+ 321 0112 1A70     		strb	r2, [r3]
+ 101:.\regulering.c ****          if(mode != 4){
+ 322              		.loc 1 101 0
+ 323 0114 164B     		ldr	r3, .L16+8
+ 324 0116 1B78     		ldrb	r3, [r3]
+ 325 0118 042B     		cmp	r3, #4
+ 326 011a 06D0     		beq	.L9
+ 102:.\regulering.c ****             debugOut_PutString("\r\n\nvuggetilstand: Manuel\r\n\n");
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 9
+
+
+ 327              		.loc 1 102 0
+ 328 011c 194B     		ldr	r3, .L16+28
+ 329 011e 181C     		mov	r0, r3
+ 330 0120 FFF7FEFF 		bl	debugOut_PutString
+ 103:.\regulering.c ****             mode = 4;
+ 331              		.loc 1 103 0
+ 332 0124 124B     		ldr	r3, .L16+8
+ 333 0126 0422     		mov	r2, #4
+ 334 0128 1A70     		strb	r2, [r3]
+ 335              	.L9:
+ 104:.\regulering.c ****         }
+ 105:.\regulering.c ****     }
+ 106:.\regulering.c ****     
+ 107:.\regulering.c ****     if(valid)
+ 336              		.loc 1 107 0
+ 337 012a 3B1C     		mov	r3, r7
+ 338 012c 0F33     		add	r3, r3, #15
+ 339 012e 1B78     		ldrb	r3, [r3]
+ 340 0130 002B     		cmp	r3, #0
+ 341 0132 16D0     		beq	.L4
+ 108:.\regulering.c ****     {
+ 109:.\regulering.c ****         prevFrek = vuggefrekvens;
+ 342              		.loc 1 109 0
+ 343 0134 0C4B     		ldr	r3, .L16
+ 344 0136 FA1D     		add	r2, r7, #7
+ 345 0138 1278     		ldrb	r2, [r2]
+ 346 013a 1A70     		strb	r2, [r3]
+ 110:.\regulering.c ****         prevUdsving = vuggeudsving;
+ 347              		.loc 1 110 0
+ 348 013c 0B4B     		ldr	r3, .L16+4
+ 349 013e BA1D     		add	r2, r7, #6
+ 350 0140 1278     		ldrb	r2, [r2]
+ 351 0142 1A70     		strb	r2, [r3]
+ 111:.\regulering.c ****         /* peak peak value of desired sine in 16.16 fp is calculated as:                    *
+ 112:.\regulering.c ****          * vuggeUdsving * 20 * 2^16                                                         *
+ 113:.\regulering.c ****          * to account for i2c scale, and 16.16 scale respectively                           */
+ 114:.\regulering.c ****         sineA = vuggeudsving * 3277;
+ 352              		.loc 1 114 0
+ 353 0144 BB1D     		add	r3, r7, #6
+ 354 0146 1B78     		ldrb	r3, [r3]
+ 355 0148 0F4A     		ldr	r2, .L16+32
+ 356 014a 5A43     		mul	r2, r3
+ 357 014c 0F4B     		ldr	r3, .L16+36
+ 358 014e 1A60     		str	r2, [r3]
+ 115:.\regulering.c ****         
+ 116:.\regulering.c ****         /* The incement of the angle per loop iteration is given by following formula:  *
+ 117:.\regulering.c ****          * angleInc = ((f_i2c*100)/loop_freq)*2^16 which becomes 2^15 * f_i2c           *
+ 118:.\regulering.c ****          * when loop freq = 200. f_i2c is the frequency read from the i2c reg not the   *
+ 119:.\regulering.c ****          * i2c frequency itself.                                                        */
+ 120:.\regulering.c ****         angleInc = vuggefrekvens * 18;
+ 359              		.loc 1 120 0
+ 360 0150 FB1D     		add	r3, r7, #7
+ 361 0152 1A78     		ldrb	r2, [r3]
+ 362 0154 131C     		mov	r3, r2
+ 363 0156 DB00     		lsl	r3, r3, #3
+ 364 0158 9B18     		add	r3, r3, r2
+ 365 015a 5B00     		lsl	r3, r3, #1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 10
+
+
+ 366 015c 1A1C     		mov	r2, r3
+ 367 015e 0C4B     		ldr	r3, .L16+40
+ 368 0160 1A60     		str	r2, [r3]
+ 369              	.L4:
+ 121:.\regulering.c ****     }
+ 122:.\regulering.c **** 
+ 123:.\regulering.c **** }
+ 370              		.loc 1 123 0
+ 371 0162 BD46     		mov	sp, r7
+ 372 0164 04B0     		add	sp, sp, #16
+ 373              		@ sp needed
+ 374 0166 80BD     		pop	{r7, pc}
+ 375              	.L17:
+ 376              		.align	2
+ 377              	.L16:
+ 378 0168 00000000 		.word	prevFrek
+ 379 016c 00000000 		.word	prevUdsving
+ 380 0170 00000000 		.word	mode
+ 381 0174 00000000 		.word	.LC12
+ 382 0178 18000000 		.word	.LC14
+ 383 017c 30000000 		.word	.LC16
+ 384 0180 48000000 		.word	.LC18
+ 385 0184 60000000 		.word	.LC20
+ 386 0188 CD0C0000 		.word	3277
+ 387 018c 00000000 		.word	sineA
+ 388 0190 00000000 		.word	angleInc
+ 389              		.cfi_endproc
+ 390              	.LFE34:
+ 391              		.size	updateRegParameter, .-updateRegParameter
+ 392              		.section	.text.beregnRegulering,"ax",%progbits
+ 393              		.align	2
+ 394              		.global	beregnRegulering
+ 395              		.code	16
+ 396              		.thumb_func
+ 397              		.type	beregnRegulering, %function
+ 398              	beregnRegulering:
+ 399              	.LFB35:
+ 124:.\regulering.c **** 
+ 125:.\regulering.c **** 
+ 126:.\regulering.c **** /* Function Name: beregnRegulering
+ 127:.\regulering.c ****    Summary:
+ 128:.\regulering.c ****     Calculates a proportional regulator
+ 129:.\regulering.c **** */
+ 130:.\regulering.c **** fix16_t beregnRegulering(fix16_t currentAngle)
+ 131:.\regulering.c **** {
+ 400              		.loc 1 131 0
+ 401              		.cfi_startproc
+ 402 0000 90B5     		push	{r4, r7, lr}
+ 403              		.cfi_def_cfa_offset 12
+ 404              		.cfi_offset 4, -12
+ 405              		.cfi_offset 7, -8
+ 406              		.cfi_offset 14, -4
+ 407 0002 87B0     		sub	sp, sp, #28
+ 408              		.cfi_def_cfa_offset 40
+ 409 0004 00AF     		add	r7, sp, #0
+ 410              		.cfi_def_cfa_register 7
+ 411 0006 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 11
+
+
+ 132:.\regulering.c ****     //update sine time
+ 133:.\regulering.c ****     if(pwmSineAngle_ >= FIXED_HALF_PI)
+ 412              		.loc 1 133 0
+ 413 0008 394B     		ldr	r3, .L24
+ 414 000a 1A68     		ldr	r2, [r3]
+ 415 000c 394B     		ldr	r3, .L24+4
+ 416 000e 9A42     		cmp	r2, r3
+ 417 0010 03DD     		ble	.L19
+ 134:.\regulering.c ****     {
+ 135:.\regulering.c ****         going_up_ = FALSE;
+ 418              		.loc 1 135 0
+ 419 0012 394B     		ldr	r3, .L24+8
+ 420 0014 0022     		mov	r2, #0
+ 421 0016 1A70     		strb	r2, [r3]
+ 422 0018 07E0     		b	.L20
+ 423              	.L19:
+ 136:.\regulering.c ****     } 
+ 137:.\regulering.c ****     else if (pwmSineAngle_ <= -FIXED_HALF_PI)
+ 424              		.loc 1 137 0
+ 425 001a 354B     		ldr	r3, .L24
+ 426 001c 1A68     		ldr	r2, [r3]
+ 427 001e 374B     		ldr	r3, .L24+12
+ 428 0020 9A42     		cmp	r2, r3
+ 429 0022 02DA     		bge	.L20
+ 138:.\regulering.c ****     {
+ 139:.\regulering.c ****         going_up_ = TRUE;
+ 430              		.loc 1 139 0
+ 431 0024 344B     		ldr	r3, .L24+8
+ 432 0026 0122     		mov	r2, #1
+ 433 0028 1A70     		strb	r2, [r3]
+ 434              	.L20:
+ 140:.\regulering.c ****     }
+ 141:.\regulering.c ****     if(going_up_)  pwmSineAngle_ += angleInc;
+ 435              		.loc 1 141 0
+ 436 002a 334B     		ldr	r3, .L24+8
+ 437 002c 1B78     		ldrb	r3, [r3]
+ 438 002e 002B     		cmp	r3, #0
+ 439 0030 07D0     		beq	.L21
+ 440              		.loc 1 141 0 is_stmt 0 discriminator 1
+ 441 0032 2F4B     		ldr	r3, .L24
+ 442 0034 1A68     		ldr	r2, [r3]
+ 443 0036 324B     		ldr	r3, .L24+16
+ 444 0038 1B68     		ldr	r3, [r3]
+ 445 003a D218     		add	r2, r2, r3
+ 446 003c 2C4B     		ldr	r3, .L24
+ 447 003e 1A60     		str	r2, [r3]
+ 448 0040 06E0     		b	.L22
+ 449              	.L21:
+ 142:.\regulering.c ****     else          pwmSineAngle_ -= angleInc;
+ 450              		.loc 1 142 0 is_stmt 1
+ 451 0042 2B4B     		ldr	r3, .L24
+ 452 0044 1A68     		ldr	r2, [r3]
+ 453 0046 2E4B     		ldr	r3, .L24+16
+ 454 0048 1B68     		ldr	r3, [r3]
+ 455 004a D21A     		sub	r2, r2, r3
+ 456 004c 284B     		ldr	r3, .L24
+ 457 004e 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 12
+
+
+ 458              	.L22:
+ 143:.\regulering.c ****     
+ 144:.\regulering.c ****     //calculate desired angle:
+ 145:.\regulering.c ****     fix16_t R = fix16mul(sineA, fix16sin(pwmSineAngle_));
+ 459              		.loc 1 145 0
+ 460 0050 2C4B     		ldr	r3, .L24+20
+ 461 0052 1C68     		ldr	r4, [r3]
+ 462 0054 264B     		ldr	r3, .L24
+ 463 0056 1B68     		ldr	r3, [r3]
+ 464 0058 181C     		mov	r0, r3
+ 465 005a FFF7FEFF 		bl	fix16sin
+ 466 005e 031C     		mov	r3, r0
+ 467 0060 201C     		mov	r0, r4
+ 468 0062 191C     		mov	r1, r3
+ 469 0064 FFF7FEFF 		bl	fix16mul
+ 470 0068 031C     		mov	r3, r0
+ 471 006a 7B61     		str	r3, [r7, #20]
+ 146:.\regulering.c ****     fix16_t e = R - currentAngle;
+ 472              		.loc 1 146 0
+ 473 006c 7A69     		ldr	r2, [r7, #20]
+ 474 006e 7B68     		ldr	r3, [r7, #4]
+ 475 0070 D31A     		sub	r3, r2, r3
+ 476 0072 3B61     		str	r3, [r7, #16]
+ 147:.\regulering.c ****     fix16_t d = fix16div((e - prev_e), 328); // Derivetive (dt = 5ms)
+ 477              		.loc 1 147 0
+ 478 0074 244B     		ldr	r3, .L24+24
+ 479 0076 1B68     		ldr	r3, [r3]
+ 480 0078 3A69     		ldr	r2, [r7, #16]
+ 481 007a D21A     		sub	r2, r2, r3
+ 482 007c A423     		mov	r3, #164
+ 483 007e 5B00     		lsl	r3, r3, #1
+ 484 0080 101C     		mov	r0, r2
+ 485 0082 191C     		mov	r1, r3
+ 486 0084 FFF7FEFF 		bl	fix16div
+ 487 0088 031C     		mov	r3, r0
+ 488 008a FB60     		str	r3, [r7, #12]
+ 148:.\regulering.c ****     i_e += fix16mul(e, 328);
+ 489              		.loc 1 148 0
+ 490 008c 3A69     		ldr	r2, [r7, #16]
+ 491 008e A423     		mov	r3, #164
+ 492 0090 5B00     		lsl	r3, r3, #1
+ 493 0092 101C     		mov	r0, r2
+ 494 0094 191C     		mov	r1, r3
+ 495 0096 FFF7FEFF 		bl	fix16mul
+ 496 009a 021C     		mov	r2, r0
+ 497 009c 1B4B     		ldr	r3, .L24+28
+ 498 009e 1B68     		ldr	r3, [r3]
+ 499 00a0 D218     		add	r2, r2, r3
+ 500 00a2 1A4B     		ldr	r3, .L24+28
+ 501 00a4 1A60     		str	r2, [r3]
+ 149:.\regulering.c ****     
+ 150:.\regulering.c ****     fix16_t C = fix16mul(K_P, e) + fix16mul(K_D, d) + fix16mul(K_I, i_e);
+ 502              		.loc 1 150 0
+ 503 00a6 F023     		mov	r3, #240
+ 504 00a8 DA02     		lsl	r2, r3, #11
+ 505 00aa 3B69     		ldr	r3, [r7, #16]
+ 506 00ac 101C     		mov	r0, r2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 13
+
+
+ 507 00ae 191C     		mov	r1, r3
+ 508 00b0 FFF7FEFF 		bl	fix16mul
+ 509 00b4 041C     		mov	r4, r0
+ 510 00b6 C023     		mov	r3, #192
+ 511 00b8 5A01     		lsl	r2, r3, #5
+ 512 00ba FB68     		ldr	r3, [r7, #12]
+ 513 00bc 101C     		mov	r0, r2
+ 514 00be 191C     		mov	r1, r3
+ 515 00c0 FFF7FEFF 		bl	fix16mul
+ 516 00c4 031C     		mov	r3, r0
+ 517 00c6 E418     		add	r4, r4, r3
+ 518 00c8 104B     		ldr	r3, .L24+28
+ 519 00ca 1B68     		ldr	r3, [r3]
+ 520 00cc 8022     		mov	r2, #128
+ 521 00ce 5202     		lsl	r2, r2, #9
+ 522 00d0 101C     		mov	r0, r2
+ 523 00d2 191C     		mov	r1, r3
+ 524 00d4 FFF7FEFF 		bl	fix16mul
+ 525 00d8 031C     		mov	r3, r0
+ 526 00da E318     		add	r3, r4, r3
+ 527 00dc BB60     		str	r3, [r7, #8]
+ 151:.\regulering.c ****     
+ 152:.\regulering.c ****     prev_e = e;
+ 528              		.loc 1 152 0
+ 529 00de 0A4B     		ldr	r3, .L24+24
+ 530 00e0 3A69     		ldr	r2, [r7, #16]
+ 531 00e2 1A60     		str	r2, [r3]
+ 153:.\regulering.c ****     
+ 154:.\regulering.c ****     return C;
+ 532              		.loc 1 154 0
+ 533 00e4 BB68     		ldr	r3, [r7, #8]
+ 155:.\regulering.c ****     // Sæt evt regulerings status her - ERR = 0b10000000(128_dec 80_hex) , STALL 0b11000000(192_de
+ 156:.\regulering.c **** }
+ 534              		.loc 1 156 0
+ 535 00e6 181C     		mov	r0, r3
+ 536 00e8 BD46     		mov	sp, r7
+ 537 00ea 07B0     		add	sp, sp, #28
+ 538              		@ sp needed
+ 539 00ec 90BD     		pop	{r4, r7, pc}
+ 540              	.L25:
+ 541 00ee C046     		.align	2
+ 542              	.L24:
+ 543 00f0 00000000 		.word	pwmSineAngle_
+ 544 00f4 1F920100 		.word	102943
+ 545 00f8 00000000 		.word	going_up_
+ 546 00fc E16DFEFF 		.word	-102943
+ 547 0100 00000000 		.word	angleInc
+ 548 0104 00000000 		.word	sineA
+ 549 0108 00000000 		.word	prev_e
+ 550 010c 00000000 		.word	i_e
+ 551              		.cfi_endproc
+ 552              	.LFE35:
+ 553              		.size	beregnRegulering, .-beregnRegulering
+ 554              		.section	.text.PWMStyring,"ax",%progbits
+ 555              		.align	2
+ 556              		.global	PWMStyring
+ 557              		.code	16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 14
+
+
+ 558              		.thumb_func
+ 559              		.type	PWMStyring, %function
+ 560              	PWMStyring:
+ 561              	.LFB36:
+ 157:.\regulering.c **** 
+ 158:.\regulering.c **** /* Function Name: PWMStyring
+ 159:.\regulering.c ****    Summary:
+ 160:.\regulering.c ****      Controls the PWM module with parameter intensity
+ 161:.\regulering.c **** */
+ 162:.\regulering.c **** void PWMStyring(fix16_t intensity)
+ 163:.\regulering.c **** {
+ 562              		.loc 1 163 0
+ 563              		.cfi_startproc
+ 564 0000 80B5     		push	{r7, lr}
+ 565              		.cfi_def_cfa_offset 8
+ 566              		.cfi_offset 7, -8
+ 567              		.cfi_offset 14, -4
+ 568 0002 84B0     		sub	sp, sp, #16
+ 569              		.cfi_def_cfa_offset 24
+ 570 0004 00AF     		add	r7, sp, #0
+ 571              		.cfi_def_cfa_register 7
+ 572 0006 7860     		str	r0, [r7, #4]
+ 164:.\regulering.c ****     uint8 offset = 0;
+ 573              		.loc 1 164 0
+ 574 0008 3B1C     		mov	r3, r7
+ 575 000a 0F33     		add	r3, r3, #15
+ 576 000c 0022     		mov	r2, #0
+ 577 000e 1A70     		strb	r2, [r3]
+ 165:.\regulering.c ****     if(intensity < 0) offset = -hysterese;
+ 578              		.loc 1 165 0
+ 579 0010 7B68     		ldr	r3, [r7, #4]
+ 580 0012 002B     		cmp	r3, #0
+ 581 0014 04DA     		bge	.L27
+ 582              		.loc 1 165 0 is_stmt 0 discriminator 1
+ 583 0016 3B1C     		mov	r3, r7
+ 584 0018 0F33     		add	r3, r3, #15
+ 585 001a F622     		mov	r2, #246
+ 586 001c 1A70     		strb	r2, [r3]
+ 587 001e 06E0     		b	.L28
+ 588              	.L27:
+ 166:.\regulering.c ****     else if(intensity > 0) offset = hysterese;
+ 589              		.loc 1 166 0 is_stmt 1
+ 590 0020 7B68     		ldr	r3, [r7, #4]
+ 591 0022 002B     		cmp	r3, #0
+ 592 0024 03DD     		ble	.L28
+ 593              		.loc 1 166 0 is_stmt 0 discriminator 1
+ 594 0026 3B1C     		mov	r3, r7
+ 595 0028 0F33     		add	r3, r3, #15
+ 596 002a 0A22     		mov	r2, #10
+ 597 002c 1A70     		strb	r2, [r3]
+ 598              	.L28:
+ 167:.\regulering.c ****     intensity /= 2;
+ 599              		.loc 1 167 0 is_stmt 1
+ 600 002e 7B68     		ldr	r3, [r7, #4]
+ 601 0030 002B     		cmp	r3, #0
+ 602 0032 00DA     		bge	.L29
+ 603 0034 0133     		add	r3, r3, #1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 15
+
+
+ 604              	.L29:
+ 605 0036 5B10     		asr	r3, r3, #1
+ 606 0038 7B60     		str	r3, [r7, #4]
+ 168:.\regulering.c ****     intensity += 6553600;
+ 607              		.loc 1 168 0
+ 608 003a 7B68     		ldr	r3, [r7, #4]
+ 609 003c C822     		mov	r2, #200
+ 610 003e D203     		lsl	r2, r2, #15
+ 611 0040 9B18     		add	r3, r3, r2
+ 612 0042 7B60     		str	r3, [r7, #4]
+ 169:.\regulering.c ****     uint8_t comp;
+ 170:.\regulering.c ****     if(intensity > 0) comp = (intensity >> 16) + offset;
+ 613              		.loc 1 170 0
+ 614 0044 7B68     		ldr	r3, [r7, #4]
+ 615 0046 002B     		cmp	r3, #0
+ 616 0048 09DD     		ble	.L30
+ 617              		.loc 1 170 0 is_stmt 0 discriminator 1
+ 618 004a 7B68     		ldr	r3, [r7, #4]
+ 619 004c 1B14     		asr	r3, r3, #16
+ 620 004e D9B2     		uxtb	r1, r3
+ 621 0050 3B1C     		mov	r3, r7
+ 622 0052 0E33     		add	r3, r3, #14
+ 623 0054 3A1C     		mov	r2, r7
+ 624 0056 0F32     		add	r2, r2, #15
+ 625 0058 1278     		ldrb	r2, [r2]
+ 626 005a 8A18     		add	r2, r1, r2
+ 627 005c 1A70     		strb	r2, [r3]
+ 628              	.L30:
+ 171:.\regulering.c **** //    if(intensity > 6553600) intensity = 6553600;
+ 172:.\regulering.c **** //    else if (intensity < -6553600) intensity = -6553600;
+ 173:.\regulering.c **** //    
+ 174:.\regulering.c **** //    uint8_t comp = (fix16mul(intensity, 52429)+6553600)>>16;
+ 175:.\regulering.c ****     PWM_WriteCompare(comp);
+ 629              		.loc 1 175 0 is_stmt 1
+ 630 005e 3B1C     		mov	r3, r7
+ 631 0060 0E33     		add	r3, r3, #14
+ 632 0062 1B78     		ldrb	r3, [r3]
+ 633 0064 181C     		mov	r0, r3
+ 634 0066 FFF7FEFF 		bl	PWM_WriteCompare
+ 176:.\regulering.c **** }
+ 635              		.loc 1 176 0
+ 636 006a BD46     		mov	sp, r7
+ 637 006c 04B0     		add	sp, sp, #16
+ 638              		@ sp needed
+ 639 006e 80BD     		pop	{r7, pc}
+ 640              		.cfi_endproc
+ 641              	.LFE36:
+ 642              		.size	PWMStyring, .-PWMStyring
+ 643              		.section	.text.getReguleringsStatus,"ax",%progbits
+ 644              		.align	2
+ 645              		.global	getReguleringsStatus
+ 646              		.code	16
+ 647              		.thumb_func
+ 648              		.type	getReguleringsStatus, %function
+ 649              	getReguleringsStatus:
+ 650              	.LFB37:
+ 177:.\regulering.c **** 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 16
+
+
+ 178:.\regulering.c **** 
+ 179:.\regulering.c **** /* Function Name: getReguleringsStatus
+ 180:.\regulering.c ****    Summary:
+ 181:.\regulering.c ****     Returns pointer to reguleringsStatus_
+ 182:.\regulering.c **** */
+ 183:.\regulering.c **** int* getReguleringsStatus()
+ 184:.\regulering.c **** {
+ 651              		.loc 1 184 0
+ 652              		.cfi_startproc
+ 653 0000 80B5     		push	{r7, lr}
+ 654              		.cfi_def_cfa_offset 8
+ 655              		.cfi_offset 7, -8
+ 656              		.cfi_offset 14, -4
+ 657 0002 82B0     		sub	sp, sp, #8
+ 658              		.cfi_def_cfa_offset 16
+ 659 0004 00AF     		add	r7, sp, #0
+ 660              		.cfi_def_cfa_register 7
+ 185:.\regulering.c ****     int* reguleringStatPtr = &reguleringsStatus_;
+ 661              		.loc 1 185 0
+ 662 0006 034B     		ldr	r3, .L33
+ 663 0008 7B60     		str	r3, [r7, #4]
+ 186:.\regulering.c ****     return reguleringStatPtr;
+ 664              		.loc 1 186 0
+ 665 000a 7B68     		ldr	r3, [r7, #4]
+ 187:.\regulering.c **** }
+ 666              		.loc 1 187 0
+ 667 000c 181C     		mov	r0, r3
+ 668 000e BD46     		mov	sp, r7
+ 669 0010 02B0     		add	sp, sp, #8
+ 670              		@ sp needed
+ 671 0012 80BD     		pop	{r7, pc}
+ 672              	.L34:
+ 673              		.align	2
+ 674              	.L33:
+ 675 0014 00000000 		.word	reguleringsStatus_
+ 676              		.cfi_endproc
+ 677              	.LFE37:
+ 678              		.size	getReguleringsStatus, .-getReguleringsStatus
+ 679              		.text
+ 680              	.Letext0:
+ 681              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 682              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 683              		.file 4 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 684              		.file 5 ".\\globals.h"
+ 685              		.file 6 ".\\fixedMath.h"
+ 686              		.file 7 ".\\regulering.h"
+ 687              		.section	.debug_info,"",%progbits
+ 688              	.Ldebug_info0:
+ 689 0000 D6020000 		.4byte	0x2d6
+ 690 0004 0400     		.2byte	0x4
+ 691 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 692 000a 04       		.byte	0x4
+ 693 000b 01       		.uleb128 0x1
+ 694 000c 2C010000 		.4byte	.LASF44
+ 695 0010 01       		.byte	0x1
+ 696 0011 55020000 		.4byte	.LASF45
+ 697 0015 94000000 		.4byte	.LASF46
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 17
+
+
+ 698 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 699 001d 00000000 		.4byte	0
+ 700 0021 00000000 		.4byte	.Ldebug_line0
+ 701 0025 02       		.uleb128 0x2
+ 702 0026 01       		.byte	0x1
+ 703 0027 06       		.byte	0x6
+ 704 0028 E7020000 		.4byte	.LASF0
+ 705 002c 03       		.uleb128 0x3
+ 706 002d 00000000 		.4byte	.LASF4
+ 707 0031 02       		.byte	0x2
+ 708 0032 1C       		.byte	0x1c
+ 709 0033 37000000 		.4byte	0x37
+ 710 0037 02       		.uleb128 0x2
+ 711 0038 01       		.byte	0x1
+ 712 0039 08       		.byte	0x8
+ 713 003a B4010000 		.4byte	.LASF1
+ 714 003e 02       		.uleb128 0x2
+ 715 003f 02       		.byte	0x2
+ 716 0040 05       		.byte	0x5
+ 717 0041 A2020000 		.4byte	.LASF2
+ 718 0045 02       		.uleb128 0x2
+ 719 0046 02       		.byte	0x2
+ 720 0047 07       		.byte	0x7
+ 721 0048 57000000 		.4byte	.LASF3
+ 722 004c 03       		.uleb128 0x3
+ 723 004d 36000000 		.4byte	.LASF5
+ 724 0051 02       		.byte	0x2
+ 725 0052 37       		.byte	0x37
+ 726 0053 57000000 		.4byte	0x57
+ 727 0057 02       		.uleb128 0x2
+ 728 0058 04       		.byte	0x4
+ 729 0059 05       		.byte	0x5
+ 730 005a BE020000 		.4byte	.LASF6
+ 731 005e 02       		.uleb128 0x2
+ 732 005f 04       		.byte	0x4
+ 733 0060 07       		.byte	0x7
+ 734 0061 D4010000 		.4byte	.LASF7
+ 735 0065 02       		.uleb128 0x2
+ 736 0066 08       		.byte	0x8
+ 737 0067 05       		.byte	0x5
+ 738 0068 88020000 		.4byte	.LASF8
+ 739 006c 02       		.uleb128 0x2
+ 740 006d 08       		.byte	0x8
+ 741 006e 07       		.byte	0x7
+ 742 006f 37020000 		.4byte	.LASF9
+ 743 0073 04       		.uleb128 0x4
+ 744 0074 04       		.byte	0x4
+ 745 0075 05       		.byte	0x5
+ 746 0076 696E7400 		.ascii	"int\000"
+ 747 007a 02       		.uleb128 0x2
+ 748 007b 04       		.byte	0x4
+ 749 007c 07       		.byte	0x7
+ 750 007d 79000000 		.4byte	.LASF10
+ 751 0081 03       		.uleb128 0x3
+ 752 0082 1E010000 		.4byte	.LASF11
+ 753 0086 03       		.byte	0x3
+ 754 0087 2A       		.byte	0x2a
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 18
+
+
+ 755 0088 2C000000 		.4byte	0x2c
+ 756 008c 03       		.uleb128 0x3
+ 757 008d 69020000 		.4byte	.LASF12
+ 758 0091 03       		.byte	0x3
+ 759 0092 41       		.byte	0x41
+ 760 0093 4C000000 		.4byte	0x4c
+ 761 0097 03       		.uleb128 0x3
+ 762 0098 ED010000 		.4byte	.LASF13
+ 763 009c 04       		.byte	0x4
+ 764 009d A1       		.byte	0xa1
+ 765 009e 37000000 		.4byte	0x37
+ 766 00a2 02       		.uleb128 0x2
+ 767 00a3 04       		.byte	0x4
+ 768 00a4 04       		.byte	0x4
+ 769 00a5 26010000 		.4byte	.LASF14
+ 770 00a9 02       		.uleb128 0x2
+ 771 00aa 08       		.byte	0x8
+ 772 00ab 04       		.byte	0x4
+ 773 00ac 12020000 		.4byte	.LASF15
+ 774 00b0 02       		.uleb128 0x2
+ 775 00b1 01       		.byte	0x1
+ 776 00b2 08       		.byte	0x8
+ 777 00b3 96020000 		.4byte	.LASF16
+ 778 00b7 02       		.uleb128 0x2
+ 779 00b8 04       		.byte	0x4
+ 780 00b9 07       		.byte	0x7
+ 781 00ba 71020000 		.4byte	.LASF17
+ 782 00be 03       		.uleb128 0x3
+ 783 00bf 52000000 		.4byte	.LASF18
+ 784 00c3 05       		.byte	0x5
+ 785 00c4 13       		.byte	0x13
+ 786 00c5 97000000 		.4byte	0x97
+ 787 00c9 03       		.uleb128 0x3
+ 788 00ca AC020000 		.4byte	.LASF19
+ 789 00ce 06       		.byte	0x6
+ 790 00cf 12       		.byte	0x12
+ 791 00d0 8C000000 		.4byte	0x8c
+ 792 00d4 05       		.uleb128 0x5
+ 793 00d5 03020000 		.4byte	.LASF47
+ 794 00d9 01       		.byte	0x1
+ 795 00da 2B       		.byte	0x2b
+ 796 00db 00000000 		.4byte	.LFB33
+ 797 00df 68000000 		.4byte	.LFE33-.LFB33
+ 798 00e3 01       		.uleb128 0x1
+ 799 00e4 9C       		.byte	0x9c
+ 800 00e5 06       		.uleb128 0x6
+ 801 00e6 10000000 		.4byte	.LASF24
+ 802 00ea 01       		.byte	0x1
+ 803 00eb 3D       		.byte	0x3d
+ 804 00ec 00000000 		.4byte	.LFB34
+ 805 00f0 94010000 		.4byte	.LFE34-.LFB34
+ 806 00f4 01       		.uleb128 0x1
+ 807 00f5 9C       		.byte	0x9c
+ 808 00f6 25010000 		.4byte	0x125
+ 809 00fa 07       		.uleb128 0x7
+ 810 00fb 86000000 		.4byte	.LASF20
+ 811 00ff 01       		.byte	0x1
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 19
+
+
+ 812 0100 3D       		.byte	0x3d
+ 813 0101 97000000 		.4byte	0x97
+ 814 0105 02       		.uleb128 0x2
+ 815 0106 91       		.byte	0x91
+ 816 0107 6F       		.sleb128 -17
+ 817 0108 07       		.uleb128 0x7
+ 818 0109 11010000 		.4byte	.LASF21
+ 819 010d 01       		.byte	0x1
+ 820 010e 3D       		.byte	0x3d
+ 821 010f 97000000 		.4byte	0x97
+ 822 0113 02       		.uleb128 0x2
+ 823 0114 91       		.byte	0x91
+ 824 0115 6E       		.sleb128 -18
+ 825 0116 08       		.uleb128 0x8
+ 826 0117 08030000 		.4byte	.LASF23
+ 827 011b 01       		.byte	0x1
+ 828 011c 41       		.byte	0x41
+ 829 011d BE000000 		.4byte	0xbe
+ 830 0121 02       		.uleb128 0x2
+ 831 0122 91       		.byte	0x91
+ 832 0123 77       		.sleb128 -9
+ 833 0124 00       		.byte	0
+ 834 0125 09       		.uleb128 0x9
+ 835 0126 D6020000 		.4byte	.LASF48
+ 836 012a 01       		.byte	0x1
+ 837 012b 82       		.byte	0x82
+ 838 012c C9000000 		.4byte	0xc9
+ 839 0130 00000000 		.4byte	.LFB35
+ 840 0134 10010000 		.4byte	.LFE35-.LFB35
+ 841 0138 01       		.uleb128 0x1
+ 842 0139 9C       		.byte	0x9c
+ 843 013a 7D010000 		.4byte	0x17d
+ 844 013e 07       		.uleb128 0x7
+ 845 013f C2010000 		.4byte	.LASF22
+ 846 0143 01       		.byte	0x1
+ 847 0144 82       		.byte	0x82
+ 848 0145 C9000000 		.4byte	0xc9
+ 849 0149 02       		.uleb128 0x2
+ 850 014a 91       		.byte	0x91
+ 851 014b 5C       		.sleb128 -36
+ 852 014c 0A       		.uleb128 0xa
+ 853 014d 5200     		.ascii	"R\000"
+ 854 014f 01       		.byte	0x1
+ 855 0150 91       		.byte	0x91
+ 856 0151 C9000000 		.4byte	0xc9
+ 857 0155 02       		.uleb128 0x2
+ 858 0156 91       		.byte	0x91
+ 859 0157 6C       		.sleb128 -20
+ 860 0158 0A       		.uleb128 0xa
+ 861 0159 6500     		.ascii	"e\000"
+ 862 015b 01       		.byte	0x1
+ 863 015c 92       		.byte	0x92
+ 864 015d C9000000 		.4byte	0xc9
+ 865 0161 02       		.uleb128 0x2
+ 866 0162 91       		.byte	0x91
+ 867 0163 68       		.sleb128 -24
+ 868 0164 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 20
+
+
+ 869 0165 6400     		.ascii	"d\000"
+ 870 0167 01       		.byte	0x1
+ 871 0168 93       		.byte	0x93
+ 872 0169 C9000000 		.4byte	0xc9
+ 873 016d 02       		.uleb128 0x2
+ 874 016e 91       		.byte	0x91
+ 875 016f 64       		.sleb128 -28
+ 876 0170 0A       		.uleb128 0xa
+ 877 0171 4300     		.ascii	"C\000"
+ 878 0173 01       		.byte	0x1
+ 879 0174 96       		.byte	0x96
+ 880 0175 C9000000 		.4byte	0xc9
+ 881 0179 02       		.uleb128 0x2
+ 882 017a 91       		.byte	0x91
+ 883 017b 60       		.sleb128 -32
+ 884 017c 00       		.byte	0
+ 885 017d 06       		.uleb128 0x6
+ 886 017e 19020000 		.4byte	.LASF25
+ 887 0182 01       		.byte	0x1
+ 888 0183 A2       		.byte	0xa2
+ 889 0184 00000000 		.4byte	.LFB36
+ 890 0188 70000000 		.4byte	.LFE36-.LFB36
+ 891 018c 01       		.uleb128 0x1
+ 892 018d 9C       		.byte	0x9c
+ 893 018e BD010000 		.4byte	0x1bd
+ 894 0192 07       		.uleb128 0x7
+ 895 0193 24020000 		.4byte	.LASF26
+ 896 0197 01       		.byte	0x1
+ 897 0198 A2       		.byte	0xa2
+ 898 0199 C9000000 		.4byte	0xc9
+ 899 019d 02       		.uleb128 0x2
+ 900 019e 91       		.byte	0x91
+ 901 019f 6C       		.sleb128 -20
+ 902 01a0 08       		.uleb128 0x8
+ 903 01a1 9B020000 		.4byte	.LASF27
+ 904 01a5 01       		.byte	0x1
+ 905 01a6 A4       		.byte	0xa4
+ 906 01a7 97000000 		.4byte	0x97
+ 907 01ab 02       		.uleb128 0x2
+ 908 01ac 91       		.byte	0x91
+ 909 01ad 77       		.sleb128 -9
+ 910 01ae 08       		.uleb128 0x8
+ 911 01af CF010000 		.4byte	.LASF28
+ 912 01b3 01       		.byte	0x1
+ 913 01b4 A9       		.byte	0xa9
+ 914 01b5 81000000 		.4byte	0x81
+ 915 01b9 02       		.uleb128 0x2
+ 916 01ba 91       		.byte	0x91
+ 917 01bb 76       		.sleb128 -10
+ 918 01bc 00       		.byte	0
+ 919 01bd 0B       		.uleb128 0xb
+ 920 01be F3020000 		.4byte	.LASF29
+ 921 01c2 01       		.byte	0x1
+ 922 01c3 B7       		.byte	0xb7
+ 923 01c4 E5010000 		.4byte	0x1e5
+ 924 01c8 00000000 		.4byte	.LFB37
+ 925 01cc 18000000 		.4byte	.LFE37-.LFB37
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 21
+
+
+ 926 01d0 01       		.uleb128 0x1
+ 927 01d1 9C       		.byte	0x9c
+ 928 01d2 E5010000 		.4byte	0x1e5
+ 929 01d6 08       		.uleb128 0x8
+ 930 01d7 40000000 		.4byte	.LASF30
+ 931 01db 01       		.byte	0x1
+ 932 01dc B9       		.byte	0xb9
+ 933 01dd E5010000 		.4byte	0x1e5
+ 934 01e1 02       		.uleb128 0x2
+ 935 01e2 91       		.byte	0x91
+ 936 01e3 74       		.sleb128 -12
+ 937 01e4 00       		.byte	0
+ 938 01e5 0C       		.uleb128 0xc
+ 939 01e6 04       		.byte	0x4
+ 940 01e7 73000000 		.4byte	0x73
+ 941 01eb 0D       		.uleb128 0xd
+ 942 01ec 6A000000 		.4byte	.LASF31
+ 943 01f0 07       		.byte	0x7
+ 944 01f1 37       		.byte	0x37
+ 945 01f2 E5010000 		.4byte	0x1e5
+ 946 01f6 05       		.uleb128 0x5
+ 947 01f7 03       		.byte	0x3
+ 948 01f8 00000000 		.4byte	sensorDataPtr_
+ 949 01fc 0D       		.uleb128 0xd
+ 950 01fd C7020000 		.4byte	.LASF32
+ 951 0201 07       		.byte	0x7
+ 952 0202 38       		.byte	0x38
+ 953 0203 73000000 		.4byte	0x73
+ 954 0207 05       		.uleb128 0x5
+ 955 0208 03       		.byte	0x3
+ 956 0209 00000000 		.4byte	fixedPointReg_
+ 957 020d 0D       		.uleb128 0xd
+ 958 020e 23000000 		.4byte	.LASF33
+ 959 0212 07       		.byte	0x7
+ 960 0213 39       		.byte	0x39
+ 961 0214 73000000 		.4byte	0x73
+ 962 0218 05       		.uleb128 0x5
+ 963 0219 03       		.byte	0x3
+ 964 021a 00000000 		.4byte	reguleringsStatus_
+ 965 021e 0D       		.uleb128 0xd
+ 966 021f B4020000 		.4byte	.LASF34
+ 967 0223 07       		.byte	0x7
+ 968 0224 3A       		.byte	0x3a
+ 969 0225 BE000000 		.4byte	0xbe
+ 970 0229 05       		.uleb128 0x5
+ 971 022a 03       		.byte	0x3
+ 972 022b 00000000 		.4byte	going_up_
+ 973 022f 0D       		.uleb128 0xd
+ 974 0230 7A020000 		.4byte	.LASF35
+ 975 0234 07       		.byte	0x7
+ 976 0235 3B       		.byte	0x3b
+ 977 0236 C9000000 		.4byte	0xc9
+ 978 023a 05       		.uleb128 0x5
+ 979 023b 03       		.byte	0x3
+ 980 023c 00000000 		.4byte	pwmSineAngle_
+ 981 0240 0D       		.uleb128 0xd
+ 982 0241 FC010000 		.4byte	.LASF36
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 22
+
+
+ 983 0245 07       		.byte	0x7
+ 984 0246 3E       		.byte	0x3e
+ 985 0247 C9000000 		.4byte	0xc9
+ 986 024b 05       		.uleb128 0x5
+ 987 024c 03       		.byte	0x3
+ 988 024d 00000000 		.4byte	print1
+ 989 0251 0D       		.uleb128 0xd
+ 990 0252 E6010000 		.4byte	.LASF37
+ 991 0256 07       		.byte	0x7
+ 992 0257 3F       		.byte	0x3f
+ 993 0258 C9000000 		.4byte	0xc9
+ 994 025c 05       		.uleb128 0x5
+ 995 025d 03       		.byte	0x3
+ 996 025e 00000000 		.4byte	print2
+ 997 0262 0D       		.uleb128 0xd
+ 998 0263 2E020000 		.4byte	.LASF38
+ 999 0267 07       		.byte	0x7
+ 1000 0268 41       		.byte	0x41
+ 1001 0269 81000000 		.4byte	0x81
+ 1002 026d 05       		.uleb128 0x5
+ 1003 026e 03       		.byte	0x3
+ 1004 026f 00000000 		.4byte	prevFrek
+ 1005 0273 0D       		.uleb128 0xd
+ 1006 0274 A8010000 		.4byte	.LASF39
+ 1007 0278 07       		.byte	0x7
+ 1008 0279 42       		.byte	0x42
+ 1009 027a 81000000 		.4byte	0x81
+ 1010 027e 05       		.uleb128 0x5
+ 1011 027f 03       		.byte	0x3
+ 1012 0280 00000000 		.4byte	prevUdsving
+ 1013 0284 0D       		.uleb128 0xd
+ 1014 0285 F3010000 		.4byte	.LASF40
+ 1015 0289 07       		.byte	0x7
+ 1016 028a 43       		.byte	0x43
+ 1017 028b C9000000 		.4byte	0xc9
+ 1018 028f 05       		.uleb128 0x5
+ 1019 0290 03       		.byte	0x3
+ 1020 0291 00000000 		.4byte	angleInc
+ 1021 0295 0D       		.uleb128 0xd
+ 1022 0296 0A000000 		.4byte	.LASF41
+ 1023 029a 07       		.byte	0x7
+ 1024 029b 44       		.byte	0x44
+ 1025 029c C9000000 		.4byte	0xc9
+ 1026 02a0 05       		.uleb128 0x5
+ 1027 02a1 03       		.byte	0x3
+ 1028 02a2 00000000 		.4byte	sineA
+ 1029 02a6 0D       		.uleb128 0xd
+ 1030 02a7 4E020000 		.4byte	.LASF42
+ 1031 02ab 07       		.byte	0x7
+ 1032 02ac 45       		.byte	0x45
+ 1033 02ad C9000000 		.4byte	0xc9
+ 1034 02b1 05       		.uleb128 0x5
+ 1035 02b2 03       		.byte	0x3
+ 1036 02b3 00000000 		.4byte	prev_e
+ 1037 02b7 0E       		.uleb128 0xe
+ 1038 02b8 695F6500 		.ascii	"i_e\000"
+ 1039 02bc 07       		.byte	0x7
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 23
+
+
+ 1040 02bd 46       		.byte	0x46
+ 1041 02be C9000000 		.4byte	0xc9
+ 1042 02c2 05       		.uleb128 0x5
+ 1043 02c3 03       		.byte	0x3
+ 1044 02c4 00000000 		.4byte	i_e
+ 1045 02c8 0D       		.uleb128 0xd
+ 1046 02c9 64020000 		.4byte	.LASF43
+ 1047 02cd 01       		.byte	0x1
+ 1048 02ce 23       		.byte	0x23
+ 1049 02cf 81000000 		.4byte	0x81
+ 1050 02d3 05       		.uleb128 0x5
+ 1051 02d4 03       		.byte	0x3
+ 1052 02d5 00000000 		.4byte	mode
+ 1053 02d9 00       		.byte	0
+ 1054              		.section	.debug_abbrev,"",%progbits
+ 1055              	.Ldebug_abbrev0:
+ 1056 0000 01       		.uleb128 0x1
+ 1057 0001 11       		.uleb128 0x11
+ 1058 0002 01       		.byte	0x1
+ 1059 0003 25       		.uleb128 0x25
+ 1060 0004 0E       		.uleb128 0xe
+ 1061 0005 13       		.uleb128 0x13
+ 1062 0006 0B       		.uleb128 0xb
+ 1063 0007 03       		.uleb128 0x3
+ 1064 0008 0E       		.uleb128 0xe
+ 1065 0009 1B       		.uleb128 0x1b
+ 1066 000a 0E       		.uleb128 0xe
+ 1067 000b 55       		.uleb128 0x55
+ 1068 000c 17       		.uleb128 0x17
+ 1069 000d 11       		.uleb128 0x11
+ 1070 000e 01       		.uleb128 0x1
+ 1071 000f 10       		.uleb128 0x10
+ 1072 0010 17       		.uleb128 0x17
+ 1073 0011 00       		.byte	0
+ 1074 0012 00       		.byte	0
+ 1075 0013 02       		.uleb128 0x2
+ 1076 0014 24       		.uleb128 0x24
+ 1077 0015 00       		.byte	0
+ 1078 0016 0B       		.uleb128 0xb
+ 1079 0017 0B       		.uleb128 0xb
+ 1080 0018 3E       		.uleb128 0x3e
+ 1081 0019 0B       		.uleb128 0xb
+ 1082 001a 03       		.uleb128 0x3
+ 1083 001b 0E       		.uleb128 0xe
+ 1084 001c 00       		.byte	0
+ 1085 001d 00       		.byte	0
+ 1086 001e 03       		.uleb128 0x3
+ 1087 001f 16       		.uleb128 0x16
+ 1088 0020 00       		.byte	0
+ 1089 0021 03       		.uleb128 0x3
+ 1090 0022 0E       		.uleb128 0xe
+ 1091 0023 3A       		.uleb128 0x3a
+ 1092 0024 0B       		.uleb128 0xb
+ 1093 0025 3B       		.uleb128 0x3b
+ 1094 0026 0B       		.uleb128 0xb
+ 1095 0027 49       		.uleb128 0x49
+ 1096 0028 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 24
+
+
+ 1097 0029 00       		.byte	0
+ 1098 002a 00       		.byte	0
+ 1099 002b 04       		.uleb128 0x4
+ 1100 002c 24       		.uleb128 0x24
+ 1101 002d 00       		.byte	0
+ 1102 002e 0B       		.uleb128 0xb
+ 1103 002f 0B       		.uleb128 0xb
+ 1104 0030 3E       		.uleb128 0x3e
+ 1105 0031 0B       		.uleb128 0xb
+ 1106 0032 03       		.uleb128 0x3
+ 1107 0033 08       		.uleb128 0x8
+ 1108 0034 00       		.byte	0
+ 1109 0035 00       		.byte	0
+ 1110 0036 05       		.uleb128 0x5
+ 1111 0037 2E       		.uleb128 0x2e
+ 1112 0038 00       		.byte	0
+ 1113 0039 3F       		.uleb128 0x3f
+ 1114 003a 19       		.uleb128 0x19
+ 1115 003b 03       		.uleb128 0x3
+ 1116 003c 0E       		.uleb128 0xe
+ 1117 003d 3A       		.uleb128 0x3a
+ 1118 003e 0B       		.uleb128 0xb
+ 1119 003f 3B       		.uleb128 0x3b
+ 1120 0040 0B       		.uleb128 0xb
+ 1121 0041 11       		.uleb128 0x11
+ 1122 0042 01       		.uleb128 0x1
+ 1123 0043 12       		.uleb128 0x12
+ 1124 0044 06       		.uleb128 0x6
+ 1125 0045 40       		.uleb128 0x40
+ 1126 0046 18       		.uleb128 0x18
+ 1127 0047 9642     		.uleb128 0x2116
+ 1128 0049 19       		.uleb128 0x19
+ 1129 004a 00       		.byte	0
+ 1130 004b 00       		.byte	0
+ 1131 004c 06       		.uleb128 0x6
+ 1132 004d 2E       		.uleb128 0x2e
+ 1133 004e 01       		.byte	0x1
+ 1134 004f 3F       		.uleb128 0x3f
+ 1135 0050 19       		.uleb128 0x19
+ 1136 0051 03       		.uleb128 0x3
+ 1137 0052 0E       		.uleb128 0xe
+ 1138 0053 3A       		.uleb128 0x3a
+ 1139 0054 0B       		.uleb128 0xb
+ 1140 0055 3B       		.uleb128 0x3b
+ 1141 0056 0B       		.uleb128 0xb
+ 1142 0057 27       		.uleb128 0x27
+ 1143 0058 19       		.uleb128 0x19
+ 1144 0059 11       		.uleb128 0x11
+ 1145 005a 01       		.uleb128 0x1
+ 1146 005b 12       		.uleb128 0x12
+ 1147 005c 06       		.uleb128 0x6
+ 1148 005d 40       		.uleb128 0x40
+ 1149 005e 18       		.uleb128 0x18
+ 1150 005f 9642     		.uleb128 0x2116
+ 1151 0061 19       		.uleb128 0x19
+ 1152 0062 01       		.uleb128 0x1
+ 1153 0063 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 25
+
+
+ 1154 0064 00       		.byte	0
+ 1155 0065 00       		.byte	0
+ 1156 0066 07       		.uleb128 0x7
+ 1157 0067 05       		.uleb128 0x5
+ 1158 0068 00       		.byte	0
+ 1159 0069 03       		.uleb128 0x3
+ 1160 006a 0E       		.uleb128 0xe
+ 1161 006b 3A       		.uleb128 0x3a
+ 1162 006c 0B       		.uleb128 0xb
+ 1163 006d 3B       		.uleb128 0x3b
+ 1164 006e 0B       		.uleb128 0xb
+ 1165 006f 49       		.uleb128 0x49
+ 1166 0070 13       		.uleb128 0x13
+ 1167 0071 02       		.uleb128 0x2
+ 1168 0072 18       		.uleb128 0x18
+ 1169 0073 00       		.byte	0
+ 1170 0074 00       		.byte	0
+ 1171 0075 08       		.uleb128 0x8
+ 1172 0076 34       		.uleb128 0x34
+ 1173 0077 00       		.byte	0
+ 1174 0078 03       		.uleb128 0x3
+ 1175 0079 0E       		.uleb128 0xe
+ 1176 007a 3A       		.uleb128 0x3a
+ 1177 007b 0B       		.uleb128 0xb
+ 1178 007c 3B       		.uleb128 0x3b
+ 1179 007d 0B       		.uleb128 0xb
+ 1180 007e 49       		.uleb128 0x49
+ 1181 007f 13       		.uleb128 0x13
+ 1182 0080 02       		.uleb128 0x2
+ 1183 0081 18       		.uleb128 0x18
+ 1184 0082 00       		.byte	0
+ 1185 0083 00       		.byte	0
+ 1186 0084 09       		.uleb128 0x9
+ 1187 0085 2E       		.uleb128 0x2e
+ 1188 0086 01       		.byte	0x1
+ 1189 0087 3F       		.uleb128 0x3f
+ 1190 0088 19       		.uleb128 0x19
+ 1191 0089 03       		.uleb128 0x3
+ 1192 008a 0E       		.uleb128 0xe
+ 1193 008b 3A       		.uleb128 0x3a
+ 1194 008c 0B       		.uleb128 0xb
+ 1195 008d 3B       		.uleb128 0x3b
+ 1196 008e 0B       		.uleb128 0xb
+ 1197 008f 27       		.uleb128 0x27
+ 1198 0090 19       		.uleb128 0x19
+ 1199 0091 49       		.uleb128 0x49
+ 1200 0092 13       		.uleb128 0x13
+ 1201 0093 11       		.uleb128 0x11
+ 1202 0094 01       		.uleb128 0x1
+ 1203 0095 12       		.uleb128 0x12
+ 1204 0096 06       		.uleb128 0x6
+ 1205 0097 40       		.uleb128 0x40
+ 1206 0098 18       		.uleb128 0x18
+ 1207 0099 9642     		.uleb128 0x2116
+ 1208 009b 19       		.uleb128 0x19
+ 1209 009c 01       		.uleb128 0x1
+ 1210 009d 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 26
+
+
+ 1211 009e 00       		.byte	0
+ 1212 009f 00       		.byte	0
+ 1213 00a0 0A       		.uleb128 0xa
+ 1214 00a1 34       		.uleb128 0x34
+ 1215 00a2 00       		.byte	0
+ 1216 00a3 03       		.uleb128 0x3
+ 1217 00a4 08       		.uleb128 0x8
+ 1218 00a5 3A       		.uleb128 0x3a
+ 1219 00a6 0B       		.uleb128 0xb
+ 1220 00a7 3B       		.uleb128 0x3b
+ 1221 00a8 0B       		.uleb128 0xb
+ 1222 00a9 49       		.uleb128 0x49
+ 1223 00aa 13       		.uleb128 0x13
+ 1224 00ab 02       		.uleb128 0x2
+ 1225 00ac 18       		.uleb128 0x18
+ 1226 00ad 00       		.byte	0
+ 1227 00ae 00       		.byte	0
+ 1228 00af 0B       		.uleb128 0xb
+ 1229 00b0 2E       		.uleb128 0x2e
+ 1230 00b1 01       		.byte	0x1
+ 1231 00b2 3F       		.uleb128 0x3f
+ 1232 00b3 19       		.uleb128 0x19
+ 1233 00b4 03       		.uleb128 0x3
+ 1234 00b5 0E       		.uleb128 0xe
+ 1235 00b6 3A       		.uleb128 0x3a
+ 1236 00b7 0B       		.uleb128 0xb
+ 1237 00b8 3B       		.uleb128 0x3b
+ 1238 00b9 0B       		.uleb128 0xb
+ 1239 00ba 49       		.uleb128 0x49
+ 1240 00bb 13       		.uleb128 0x13
+ 1241 00bc 11       		.uleb128 0x11
+ 1242 00bd 01       		.uleb128 0x1
+ 1243 00be 12       		.uleb128 0x12
+ 1244 00bf 06       		.uleb128 0x6
+ 1245 00c0 40       		.uleb128 0x40
+ 1246 00c1 18       		.uleb128 0x18
+ 1247 00c2 9742     		.uleb128 0x2117
+ 1248 00c4 19       		.uleb128 0x19
+ 1249 00c5 01       		.uleb128 0x1
+ 1250 00c6 13       		.uleb128 0x13
+ 1251 00c7 00       		.byte	0
+ 1252 00c8 00       		.byte	0
+ 1253 00c9 0C       		.uleb128 0xc
+ 1254 00ca 0F       		.uleb128 0xf
+ 1255 00cb 00       		.byte	0
+ 1256 00cc 0B       		.uleb128 0xb
+ 1257 00cd 0B       		.uleb128 0xb
+ 1258 00ce 49       		.uleb128 0x49
+ 1259 00cf 13       		.uleb128 0x13
+ 1260 00d0 00       		.byte	0
+ 1261 00d1 00       		.byte	0
+ 1262 00d2 0D       		.uleb128 0xd
+ 1263 00d3 34       		.uleb128 0x34
+ 1264 00d4 00       		.byte	0
+ 1265 00d5 03       		.uleb128 0x3
+ 1266 00d6 0E       		.uleb128 0xe
+ 1267 00d7 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 27
+
+
+ 1268 00d8 0B       		.uleb128 0xb
+ 1269 00d9 3B       		.uleb128 0x3b
+ 1270 00da 0B       		.uleb128 0xb
+ 1271 00db 49       		.uleb128 0x49
+ 1272 00dc 13       		.uleb128 0x13
+ 1273 00dd 3F       		.uleb128 0x3f
+ 1274 00de 19       		.uleb128 0x19
+ 1275 00df 02       		.uleb128 0x2
+ 1276 00e0 18       		.uleb128 0x18
+ 1277 00e1 00       		.byte	0
+ 1278 00e2 00       		.byte	0
+ 1279 00e3 0E       		.uleb128 0xe
+ 1280 00e4 34       		.uleb128 0x34
+ 1281 00e5 00       		.byte	0
+ 1282 00e6 03       		.uleb128 0x3
+ 1283 00e7 08       		.uleb128 0x8
+ 1284 00e8 3A       		.uleb128 0x3a
+ 1285 00e9 0B       		.uleb128 0xb
+ 1286 00ea 3B       		.uleb128 0x3b
+ 1287 00eb 0B       		.uleb128 0xb
+ 1288 00ec 49       		.uleb128 0x49
+ 1289 00ed 13       		.uleb128 0x13
+ 1290 00ee 3F       		.uleb128 0x3f
+ 1291 00ef 19       		.uleb128 0x19
+ 1292 00f0 02       		.uleb128 0x2
+ 1293 00f1 18       		.uleb128 0x18
+ 1294 00f2 00       		.byte	0
+ 1295 00f3 00       		.byte	0
+ 1296 00f4 00       		.byte	0
+ 1297              		.section	.debug_aranges,"",%progbits
+ 1298 0000 3C000000 		.4byte	0x3c
+ 1299 0004 0200     		.2byte	0x2
+ 1300 0006 00000000 		.4byte	.Ldebug_info0
+ 1301 000a 04       		.byte	0x4
+ 1302 000b 00       		.byte	0
+ 1303 000c 0000     		.2byte	0
+ 1304 000e 0000     		.2byte	0
+ 1305 0010 00000000 		.4byte	.LFB33
+ 1306 0014 68000000 		.4byte	.LFE33-.LFB33
+ 1307 0018 00000000 		.4byte	.LFB34
+ 1308 001c 94010000 		.4byte	.LFE34-.LFB34
+ 1309 0020 00000000 		.4byte	.LFB35
+ 1310 0024 10010000 		.4byte	.LFE35-.LFB35
+ 1311 0028 00000000 		.4byte	.LFB36
+ 1312 002c 70000000 		.4byte	.LFE36-.LFB36
+ 1313 0030 00000000 		.4byte	.LFB37
+ 1314 0034 18000000 		.4byte	.LFE37-.LFB37
+ 1315 0038 00000000 		.4byte	0
+ 1316 003c 00000000 		.4byte	0
+ 1317              		.section	.debug_ranges,"",%progbits
+ 1318              	.Ldebug_ranges0:
+ 1319 0000 00000000 		.4byte	.LFB33
+ 1320 0004 68000000 		.4byte	.LFE33
+ 1321 0008 00000000 		.4byte	.LFB34
+ 1322 000c 94010000 		.4byte	.LFE34
+ 1323 0010 00000000 		.4byte	.LFB35
+ 1324 0014 10010000 		.4byte	.LFE35
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 28
+
+
+ 1325 0018 00000000 		.4byte	.LFB36
+ 1326 001c 70000000 		.4byte	.LFE36
+ 1327 0020 00000000 		.4byte	.LFB37
+ 1328 0024 18000000 		.4byte	.LFE37
+ 1329 0028 00000000 		.4byte	0
+ 1330 002c 00000000 		.4byte	0
+ 1331              		.section	.debug_line,"",%progbits
+ 1332              	.Ldebug_line0:
+ 1333 0000 7B020000 		.section	.debug_str,"MS",%progbits,1
+ 1333      02007B01 
+ 1333      00000201 
+ 1333      FB0E0D00 
+ 1333      01010101 
+ 1334              	.LASF4:
+ 1335 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 1335      6E74385F 
+ 1335      7400
+ 1336              	.LASF41:
+ 1337 000a 73696E65 		.ascii	"sineA\000"
+ 1337      4100
+ 1338              	.LASF24:
+ 1339 0010 75706461 		.ascii	"updateRegParameter\000"
+ 1339      74655265 
+ 1339      67506172 
+ 1339      616D6574 
+ 1339      657200
+ 1340              	.LASF33:
+ 1341 0023 72656775 		.ascii	"reguleringsStatus_\000"
+ 1341      6C657269 
+ 1341      6E677353 
+ 1341      74617475 
+ 1341      735F00
+ 1342              	.LASF5:
+ 1343 0036 5F5F696E 		.ascii	"__int32_t\000"
+ 1343      7433325F 
+ 1343      7400
+ 1344              	.LASF30:
+ 1345 0040 72656775 		.ascii	"reguleringStatPtr\000"
+ 1345      6C657269 
+ 1345      6E675374 
+ 1345      61745074 
+ 1345      7200
+ 1346              	.LASF18:
+ 1347 0052 424F4F4C 		.ascii	"BOOL\000"
+ 1347      00
+ 1348              	.LASF3:
+ 1349 0057 73686F72 		.ascii	"short unsigned int\000"
+ 1349      7420756E 
+ 1349      7369676E 
+ 1349      65642069 
+ 1349      6E7400
+ 1350              	.LASF31:
+ 1351 006a 73656E73 		.ascii	"sensorDataPtr_\000"
+ 1351      6F724461 
+ 1351      74615074 
+ 1351      725F00
+ 1352              	.LASF10:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 29
+
+
+ 1353 0079 756E7369 		.ascii	"unsigned int\000"
+ 1353      676E6564 
+ 1353      20696E74 
+ 1353      00
+ 1354              	.LASF20:
+ 1355 0086 76756767 		.ascii	"vuggefrekvens\000"
+ 1355      65667265 
+ 1355      6B76656E 
+ 1355      7300
+ 1356              	.LASF46:
+ 1357 0094 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1357      73657273 
+ 1357      5C4A6570 
+ 1357      70655C47 
+ 1357      6F6F676C 
+ 1358 00c2 73797374 		.ascii	"system arbejdsdokumenter\\Test\\Integrationstest\\v"
+ 1358      656D2061 
+ 1358      7262656A 
+ 1358      6473646F 
+ 1358      6B756D65 
+ 1359 00f2 75676765 		.ascii	"uggeControl\\vuggeControl.cydsn\000"
+ 1359      436F6E74 
+ 1359      726F6C5C 
+ 1359      76756767 
+ 1359      65436F6E 
+ 1360              	.LASF21:
+ 1361 0111 76756767 		.ascii	"vuggeudsving\000"
+ 1361      65756473 
+ 1361      76696E67 
+ 1361      00
+ 1362              	.LASF11:
+ 1363 011e 75696E74 		.ascii	"uint8_t\000"
+ 1363      385F7400 
+ 1364              	.LASF14:
+ 1365 0126 666C6F61 		.ascii	"float\000"
+ 1365      7400
+ 1366              	.LASF44:
+ 1367 012c 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1367      4320342E 
+ 1367      382E3420 
+ 1367      32303134 
+ 1367      30353236 
+ 1368 015f 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1368      20726576 
+ 1368      6973696F 
+ 1368      6E203231 
+ 1368      31333538 
+ 1369 0192 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1369      66756E63 
+ 1369      74696F6E 
+ 1369      2D736563 
+ 1369      74696F6E 
+ 1370              	.LASF39:
+ 1371 01a8 70726576 		.ascii	"prevUdsving\000"
+ 1371      55647376 
+ 1371      696E6700 
+ 1372              	.LASF1:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 30
+
+
+ 1373 01b4 756E7369 		.ascii	"unsigned char\000"
+ 1373      676E6564 
+ 1373      20636861 
+ 1373      7200
+ 1374              	.LASF22:
+ 1375 01c2 63757272 		.ascii	"currentAngle\000"
+ 1375      656E7441 
+ 1375      6E676C65 
+ 1375      00
+ 1376              	.LASF28:
+ 1377 01cf 636F6D70 		.ascii	"comp\000"
+ 1377      00
+ 1378              	.LASF7:
+ 1379 01d4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1379      20756E73 
+ 1379      69676E65 
+ 1379      6420696E 
+ 1379      7400
+ 1380              	.LASF37:
+ 1381 01e6 7072696E 		.ascii	"print2\000"
+ 1381      743200
+ 1382              	.LASF13:
+ 1383 01ed 75696E74 		.ascii	"uint8\000"
+ 1383      3800
+ 1384              	.LASF40:
+ 1385 01f3 616E676C 		.ascii	"angleInc\000"
+ 1385      65496E63 
+ 1385      00
+ 1386              	.LASF36:
+ 1387 01fc 7072696E 		.ascii	"print1\000"
+ 1387      743100
+ 1388              	.LASF47:
+ 1389 0203 696E6974 		.ascii	"initRegulering\000"
+ 1389      52656775 
+ 1389      6C657269 
+ 1389      6E6700
+ 1390              	.LASF15:
+ 1391 0212 646F7562 		.ascii	"double\000"
+ 1391      6C6500
+ 1392              	.LASF25:
+ 1393 0219 50574D53 		.ascii	"PWMStyring\000"
+ 1393      74797269 
+ 1393      6E6700
+ 1394              	.LASF26:
+ 1395 0224 696E7465 		.ascii	"intensity\000"
+ 1395      6E736974 
+ 1395      7900
+ 1396              	.LASF38:
+ 1397 022e 70726576 		.ascii	"prevFrek\000"
+ 1397      4672656B 
+ 1397      00
+ 1398              	.LASF9:
+ 1399 0237 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1399      206C6F6E 
+ 1399      6720756E 
+ 1399      7369676E 
+ 1399      65642069 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 31
+
+
+ 1400              	.LASF42:
+ 1401 024e 70726576 		.ascii	"prev_e\000"
+ 1401      5F6500
+ 1402              	.LASF45:
+ 1403 0255 2E5C7265 		.ascii	".\\regulering.c\000"
+ 1403      67756C65 
+ 1403      72696E67 
+ 1403      2E6300
+ 1404              	.LASF43:
+ 1405 0264 6D6F6465 		.ascii	"mode\000"
+ 1405      00
+ 1406              	.LASF12:
+ 1407 0269 696E7433 		.ascii	"int32_t\000"
+ 1407      325F7400 
+ 1408              	.LASF17:
+ 1409 0271 73697A65 		.ascii	"sizetype\000"
+ 1409      74797065 
+ 1409      00
+ 1410              	.LASF35:
+ 1411 027a 70776D53 		.ascii	"pwmSineAngle_\000"
+ 1411      696E6541 
+ 1411      6E676C65 
+ 1411      5F00
+ 1412              	.LASF8:
+ 1413 0288 6C6F6E67 		.ascii	"long long int\000"
+ 1413      206C6F6E 
+ 1413      6720696E 
+ 1413      7400
+ 1414              	.LASF16:
+ 1415 0296 63686172 		.ascii	"char\000"
+ 1415      00
+ 1416              	.LASF27:
+ 1417 029b 6F666673 		.ascii	"offset\000"
+ 1417      657400
+ 1418              	.LASF2:
+ 1419 02a2 73686F72 		.ascii	"short int\000"
+ 1419      7420696E 
+ 1419      7400
+ 1420              	.LASF19:
+ 1421 02ac 66697831 		.ascii	"fix16_t\000"
+ 1421      365F7400 
+ 1422              	.LASF34:
+ 1423 02b4 676F696E 		.ascii	"going_up_\000"
+ 1423      675F7570 
+ 1423      5F00
+ 1424              	.LASF6:
+ 1425 02be 6C6F6E67 		.ascii	"long int\000"
+ 1425      20696E74 
+ 1425      00
+ 1426              	.LASF32:
+ 1427 02c7 66697865 		.ascii	"fixedPointReg_\000"
+ 1427      64506F69 
+ 1427      6E745265 
+ 1427      675F00
+ 1428              	.LASF48:
+ 1429 02d6 62657265 		.ascii	"beregnRegulering\000"
+ 1429      676E5265 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\ccelfiWw.s 			page 32
+
+
+ 1429      67756C65 
+ 1429      72696E67 
+ 1429      00
+ 1430              	.LASF0:
+ 1431 02e7 7369676E 		.ascii	"signed char\000"
+ 1431      65642063 
+ 1431      68617200 
+ 1432              	.LASF29:
+ 1433 02f3 67657452 		.ascii	"getReguleringsStatus\000"
+ 1433      6567756C 
+ 1433      6572696E 
+ 1433      67735374 
+ 1433      61747573 
+ 1434              	.LASF23:
+ 1435 0308 76616C69 		.ascii	"valid\000"
+ 1435      6400
+ 1436              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

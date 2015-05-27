@@ -1,0 +1,2159 @@
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	imuInitArray
+  18              		.section	.rodata
+  19              		.align	2
+  20              		.type	imuInitArray, %object
+  21              		.size	imuInitArray, 10
+  22              	imuInitArray:
+  23 0000 19       		.byte	25
+  24 0001 04       		.byte	4
+  25 0002 1A       		.byte	26
+  26 0003 05       		.byte	5
+  27 0004 1B       		.byte	27
+  28 0005 18       		.byte	24
+  29 0006 1C       		.byte	28
+  30 0007 08       		.byte	8
+  31 0008 6B       		.byte	107
+  32 0009 01       		.byte	1
+  33              		.global	dataReady
+  34              		.bss
+  35              		.type	dataReady, %object
+  36              		.size	dataReady, 1
+  37              	dataReady:
+  38 0000 00       		.space	1
+  39              		.global	accData
+  40 0001 000000   		.align	2
+  41              		.type	accData, %object
+  42              		.size	accData, 8
+  43              	accData:
+  44 0004 00000000 		.space	8
+  44      00000000 
+  45              		.global	gyroData
+  46              		.align	2
+  47              		.type	gyroData, %object
+  48              		.size	gyroData, 4
+  49              	gyroData:
+  50 000c 00000000 		.space	4
+  51              		.global	gyroAng
+  52              		.align	2
+  53              		.type	gyroAng, %object
+  54              		.size	gyroAng, 4
+  55              	gyroAng:
+  56 0010 00000000 		.space	4
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 2
+
+
+  57              		.global	accAng
+  58              		.align	2
+  59              		.type	accAng, %object
+  60              		.size	accAng, 4
+  61              	accAng:
+  62 0014 00000000 		.space	4
+  63              		.global	estAng
+  64              		.align	2
+  65              		.type	estAng, %object
+  66              		.size	estAng, 4
+  67              	estAng:
+  68 0018 00000000 		.space	4
+  69              		.section	.rodata
+  70 000a 0000     		.align	2
+  71              	.LC0:
+  72 000c 0D0A0D0A 		.ascii	"\015\012\015\012Hello \000"
+  72      48656C6C 
+  72      6F2000
+  73 0017 00       		.align	2
+  74              	.LC3:
+  75 0018 20576F72 		.ascii	" World!\015\012\015\012\000"
+  75      6C64210D 
+  75      0A0D0A00 
+  76              		.align	2
+  77              	.LC10:
+  78 0024 25642C20 		.ascii	"%d, \000"
+  78      00
+  79              		.section	.text.main,"ax",%progbits
+  80              		.align	2
+  81              		.global	main
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	main, %function
+  85              	main:
+  86              	.LFB33:
+  87              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*******************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 1.00
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** *  
+   8:.\main.c      **** *
+   9:.\main.c      **** ********************************************************************************
+  10:.\main.c      **** * 
+  11:.\main.c      **** *******************************************************************************/
+  12:.\main.c      **** 
+  13:.\main.c      **** #include <project.h>
+  14:.\main.c      **** #include <stdio.h>
+  15:.\main.c      **** #include <fixedMath.h>
+  16:.\main.c      **** 
+  17:.\main.c      **** /* Macro definitions */
+  18:.\main.c      **** #define DEBUG 1
+  19:.\main.c      **** 
+  20:.\main.c      **** //sample rate and sample period
+  21:.\main.c      **** #define FS 200
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 3
+
+
+  22:.\main.c      **** #define DT 328 // 65536/FS //dt defined as a 16.16 fixed point number
+  23:.\main.c      **** 
+  24:.\main.c      **** /* The scale factor of the mpu6050 gyroscope is 16.4 Lsb per    *
+  25:.\main.c      ****  * deg/s, converted to 16.16 fixed point. (2^16/16.4  )         */
+  26:.\main.c      **** #define GYRO_SCALE_FACTOR 3996
+  27:.\main.c      **** /* The accelerometer scale factor of the mpu6050 accelerometer  *
+  28:.\main.c      ****  * in the +- 4g range is 8192 Lsb/g, converted to 16.16 fixed   *
+  29:.\main.c      ****  * point. (2^16/8192)                                           */
+  30:.\main.c      **** #define ACC_SCALE_FACTOR 8
+  31:.\main.c      **** 
+  32:.\main.c      **** // 180 and 360 in 16.16 fixed point
+  33:.\main.c      **** #define DEG_180 11796480 //(180 << 16)
+  34:.\main.c      **** #define DEG_360 23592960 //(360 << 16)
+  35:.\main.c      **** 
+  36:.\main.c      **** #define GYRO_WEIGHT 58982 //0.90 * 2^16
+  37:.\main.c      **** #define ACC_WEIGHT 6554 // (1 - gyro_weight) * 2^16
+  38:.\main.c      **** 
+  39:.\main.c      **** //I2C defines
+  40:.\main.c      **** #define IMU_ADDRESS 0b1101000 //+1 for alt
+  41:.\main.c      **** //#define GYRO_ADDRESS 0x68 //7 bit right justified
+  42:.\main.c      **** //#define ACC_ADDRESS 0x53 //7 bit right justified
+  43:.\main.c      **** 
+  44:.\main.c      **** #define IMU_INIT_LEN 5
+  45:.\main.c      **** //#define ACC_INIT_LEN 5
+  46:.\main.c      **** //#define GYRO_INIT_LEN 4
+  47:.\main.c      **** //#define ACC_Y_OFFSET 0
+  48:.\main.c      **** //#define ACC_Z_OFFSET 0
+  49:.\main.c      **** 
+  50:.\main.c      **** #define GYRO_FIRST_DATA 0x43 //this is X_H which will be followed by X_L
+  51:.\main.c      **** #define ACC_FIRST_DATA 0x3D //first in seq. Y_H, Y_L, Z_H, Z_L
+  52:.\main.c      **** 
+  53:.\main.c      **** #define SAMPLE_SIZE 190
+  54:.\main.c      **** 
+  55:.\main.c      **** /* Global constants */
+  56:.\main.c      **** 
+  57:.\main.c      **** const uint8_t imuInitArray[IMU_INIT_LEN][2] = {
+  58:.\main.c      ****     {0x19, 4},              //set the datarate to 200Hz (1kHz/1+4)
+  59:.\main.c      ****     {0x1A, 5},              //set dlpf freq to 10 Hz
+  60:.\main.c      ****     {0x1B, 24},             //gyro range = +/-2000 deg/s
+  61:.\main.c      ****     {0x1C, 8},              //acc range = +/-4g
+  62:.\main.c      ****     {0x6B, 1}               //set clk source to x gyro
+  63:.\main.c      **** };
+  64:.\main.c      **** 
+  65:.\main.c      **** 
+  66:.\main.c      **** //const uint8_t accInitArray[ACC_INIT_LEN][2] = {
+  67:.\main.c      **** //    {0x1F, ACC_Y_OFFSET}, // calibration of y axis
+  68:.\main.c      **** //    {0x20, ACC_Z_OFFSET}, // calibration of z axis
+  69:.\main.c      **** //    {0x31, 0x01},         // set to +-4g range
+  70:.\main.c      **** //    {0x2D, 0x12},         // activate meassurements
+  71:.\main.c      **** //    {0x2D, 0x08},         // activate meassurements
+  72:.\main.c      **** //};
+  73:.\main.c      **** //
+  74:.\main.c      **** //const uint8_t gyroInitArray[GYRO_INIT_LEN][2] = {
+  75:.\main.c      **** //    {0x15, 0x03},         /* set the sample rate to 250Hz (1kHz/3+1) */
+  76:.\main.c      **** //    {0x16, 0x1B},         /* set full range mode and 42Hz cutoff for *
+  77:.\main.c      **** //                           * internal filter                         */
+  78:.\main.c      **** //    {0x17, 0x01},         /* configure device to send data rdy int   */
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 4
+
+
+  79:.\main.c      **** //    {0x3E, 0x03}           //00 for debug normal 0x19 /* put y and z gyro in standby and select  
+  80:.\main.c      **** //                           /* x gyro for clock                        */       
+  81:.\main.c      **** //};
+  82:.\main.c      **** 
+  83:.\main.c      **** /* Global variables */
+  84:.\main.c      **** volatile uint8 dataReady = 0;
+  85:.\main.c      **** fix16_t accData[2] = {0, 0}, gyroData = 0;
+  86:.\main.c      **** fix16_t gyroAng = 0, accAng = 0, estAng = 0;
+  87:.\main.c      **** 
+  88:.\main.c      **** /* Function prototypes */
+  89:.\main.c      **** void setupI2CDevice(uint8_t addr, const uint8_t initArray[][2] , uint8_t arrayLen);    
+  90:.\main.c      **** uint8_t readI2CReg(uint8_t addr, uint8_t reg);
+  91:.\main.c      **** void writeI2CReg(uint8_t addr, uint8_t reg, uint8_t val);
+  92:.\main.c      **** void readGyroData(fix16_t* gyroData);
+  93:.\main.c      **** void readAccData(fix16_t* accData);
+  94:.\main.c      **** CY_ISR_PROTO(gyroDataReadyInterrupt);
+  95:.\main.c      **** 
+  96:.\main.c      **** 
+  97:.\main.c      **** int main()
+  98:.\main.c      **** {
+  88              		.loc 1 98 0
+  89              		.cfi_startproc
+  90 0000 90B5     		push	{r4, r7, lr}
+  91              		.cfi_def_cfa_offset 12
+  92              		.cfi_offset 4, -12
+  93              		.cfi_offset 7, -8
+  94              		.cfi_offset 14, -4
+  95 0002 89B0     		sub	sp, sp, #36
+  96              		.cfi_def_cfa_offset 48
+  97 0004 00AF     		add	r7, sp, #0
+  98              		.cfi_def_cfa_register 7
+  99:.\main.c      ****     /* Start the Components */
+ 100:.\main.c      ****     UART_Start();
+  99              		.loc 1 100 0
+ 100 0006 FFF7FEFF 		bl	UART_Start
+ 101:.\main.c      ****     I2C_Start();
+ 101              		.loc 1 101 0
+ 102 000a FFF7FEFF 		bl	I2C_Start
+ 102:.\main.c      ****     DATA_TIMER_Start();
+ 103              		.loc 1 102 0
+ 104 000e FFF7FEFF 		bl	DATA_TIMER_Start
+ 103:.\main.c      ****     
+ 104:.\main.c      ****     UART_UartPutString("\r\n\r\nHello ");
+ 105              		.loc 1 104 0
+ 106 0012 544B     		ldr	r3, .L7
+ 107 0014 181C     		mov	r0, r3
+ 108 0016 FFF7FEFF 		bl	UART_UartPutString
+ 105:.\main.c      ****     
+ 106:.\main.c      ****     /* Setup the accelerometer and gyro */
+ 107:.\main.c      ****     //setupI2CDevice(GYRO_ADDRESS, gyroInitArray, GYRO_INIT_LEN);
+ 108:.\main.c      ****     //setupI2CDevice(ACC_ADDRESS, accInitArray, ACC_INIT_LEN);
+ 109:.\main.c      ****     setupI2CDevice(IMU_ADDRESS, imuInitArray, IMU_INIT_LEN);
+ 109              		.loc 1 109 0
+ 110 001a 534B     		ldr	r3, .L7+4
+ 111 001c 6820     		mov	r0, #104
+ 112 001e 191C     		mov	r1, r3
+ 113 0020 0522     		mov	r2, #5
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 5
+
+
+ 114 0022 FFF7FEFF 		bl	setupI2CDevice
+ 110:.\main.c      ****       
+ 111:.\main.c      ****     /*print opening msg*/
+ 112:.\main.c      ****     UART_UartPutString(" World!\r\n\r\n");
+ 115              		.loc 1 112 0
+ 116 0026 514B     		ldr	r3, .L7+8
+ 117 0028 181C     		mov	r0, r3
+ 118 002a FFF7FEFF 		bl	UART_UartPutString
+ 113:.\main.c      ****     
+ 114:.\main.c      ****     /* Enable global interrupts */
+ 115:.\main.c      ****     GYRO_DR_INT_StartEx(&gyroDataReadyInterrupt);    
+ 119              		.loc 1 115 0
+ 120 002e 504B     		ldr	r3, .L7+12
+ 121 0030 181C     		mov	r0, r3
+ 122 0032 FFF7FEFF 		bl	GYRO_DR_INT_StartEx
+ 116:.\main.c      ****     
+ 117:.\main.c      ****     fix16_t gyroAng = 0;
+ 123              		.loc 1 117 0
+ 124 0036 0023     		mov	r3, #0
+ 125 0038 FB61     		str	r3, [r7, #28]
+ 118:.\main.c      ****     CyGlobalIntEnable;
+ 126              		.loc 1 118 0
+ 127              	@ 118 ".\main.c" 1
+ 128 003a 62B6     		CPSIE   i
+ 129              	@ 0 "" 2
+ 130              		.code	16
+ 131              	.L6:
+ 132              	.LBB2:
+ 119:.\main.c      ****     while(1)
+ 120:.\main.c      ****     {
+ 121:.\main.c      ****         //wait for data
+ 122:.\main.c      ****         CyPins_ClearPin(Pin_1_0);
+ 133              		.loc 1 122 0
+ 134 003c 4D4B     		ldr	r3, .L7+16
+ 135 003e 4D4A     		ldr	r2, .L7+16
+ 136 0040 1268     		ldr	r2, [r2]
+ 137 0042 4021     		mov	r1, #64
+ 138 0044 8A43     		bic	r2, r1
+ 139 0046 1A60     		str	r2, [r3]
+ 123:.\main.c      ****         while(dataReady == 0);
+ 140              		.loc 1 123 0
+ 141 0048 C046     		mov	r8, r8
+ 142              	.L2:
+ 143              		.loc 1 123 0 is_stmt 0 discriminator 1
+ 144 004a 4B4B     		ldr	r3, .L7+20
+ 145 004c 1B78     		ldrb	r3, [r3]
+ 146 004e DBB2     		uxtb	r3, r3
+ 147 0050 002B     		cmp	r3, #0
+ 148 0052 FAD0     		beq	.L2
+ 124:.\main.c      ****         CyPins_SetPin(Pin_1_0);
+ 149              		.loc 1 124 0 is_stmt 1
+ 150 0054 474B     		ldr	r3, .L7+16
+ 151 0056 474A     		ldr	r2, .L7+16
+ 152 0058 1268     		ldr	r2, [r2]
+ 153 005a 4021     		mov	r1, #64
+ 154 005c 0A43     		orr	r2, r1
+ 155 005e 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 6
+
+
+ 125:.\main.c      ****         //read sensor data
+ 126:.\main.c      ****         readGyroData(&gyroData);
+ 156              		.loc 1 126 0
+ 157 0060 464B     		ldr	r3, .L7+24
+ 158 0062 181C     		mov	r0, r3
+ 159 0064 FFF7FEFF 		bl	readGyroData
+ 127:.\main.c      ****         readAccData(accData);
+ 160              		.loc 1 127 0
+ 161 0068 454B     		ldr	r3, .L7+28
+ 162 006a 181C     		mov	r0, r3
+ 163 006c FFF7FEFF 		bl	readAccData
+ 128:.\main.c      ****         
+ 129:.\main.c      ****         // Integrate gyro data over last sample period, and calculate new angle from gyro          
+ 130:.\main.c      ****         estAng += fix16mul(gyroData, DT);
+ 164              		.loc 1 130 0
+ 165 0070 424B     		ldr	r3, .L7+24
+ 166 0072 1A68     		ldr	r2, [r3]
+ 167 0074 A423     		mov	r3, #164
+ 168 0076 5B00     		lsl	r3, r3, #1
+ 169 0078 101C     		mov	r0, r2
+ 170 007a 191C     		mov	r1, r3
+ 171 007c FFF7FEFF 		bl	fix16mul
+ 172 0080 021C     		mov	r2, r0
+ 173 0082 404B     		ldr	r3, .L7+32
+ 174 0084 1B68     		ldr	r3, [r3]
+ 175 0086 D218     		add	r2, r2, r3
+ 176 0088 3E4B     		ldr	r3, .L7+32
+ 177 008a 1A60     		str	r2, [r3]
+ 131:.\main.c      ****         
+ 132:.\main.c      ****         // wrap angle if outside +/- 180 area
+ 133:.\main.c      ****         if(estAng < -DEG_180) estAng += DEG_360; 
+ 178              		.loc 1 133 0
+ 179 008c 3D4B     		ldr	r3, .L7+32
+ 180 008e 1A68     		ldr	r2, [r3]
+ 181 0090 3D4B     		ldr	r3, .L7+36
+ 182 0092 9A42     		cmp	r2, r3
+ 183 0094 06DA     		bge	.L3
+ 184              		.loc 1 133 0 is_stmt 0 discriminator 1
+ 185 0096 3B4B     		ldr	r3, .L7+32
+ 186 0098 1B68     		ldr	r3, [r3]
+ 187 009a B421     		mov	r1, #180
+ 188 009c 4904     		lsl	r1, r1, #17
+ 189 009e 5A18     		add	r2, r3, r1
+ 190 00a0 384B     		ldr	r3, .L7+32
+ 191 00a2 1A60     		str	r2, [r3]
+ 192              	.L3:
+ 134:.\main.c      ****         if(estAng > DEG_180) estAng -= DEG_360; 
+ 193              		.loc 1 134 0 is_stmt 1
+ 194 00a4 374B     		ldr	r3, .L7+32
+ 195 00a6 1A68     		ldr	r2, [r3]
+ 196 00a8 B423     		mov	r3, #180
+ 197 00aa 1B04     		lsl	r3, r3, #16
+ 198 00ac 9A42     		cmp	r2, r3
+ 199 00ae 05DD     		ble	.L4
+ 200              		.loc 1 134 0 is_stmt 0 discriminator 1
+ 201 00b0 344B     		ldr	r3, .L7+32
+ 202 00b2 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 7
+
+
+ 203 00b4 3549     		ldr	r1, .L7+40
+ 204 00b6 5A18     		add	r2, r3, r1
+ 205 00b8 324B     		ldr	r3, .L7+32
+ 206 00ba 1A60     		str	r2, [r3]
+ 207              	.L4:
+ 135:.\main.c      ****         
+ 136:.\main.c      ****         /* Correct angle estimate using accelerometer data if it is estimated valid. *
+ 137:.\main.c      ****          * The acc input can be used if the accelleration vector has a length close  *
+ 138:.\main.c      ****          * to 1g (no force other than gravity), which is estimated by the sum of the *
+ 139:.\main.c      ****          * components for computational efficiency.                                  */
+ 140:.\main.c      ****         fix16_t forceMagEst = fix16abs(accData[0]) + fix16abs(accData[1]);
+ 208              		.loc 1 140 0 is_stmt 1
+ 209 00bc 304B     		ldr	r3, .L7+28
+ 210 00be 1B68     		ldr	r3, [r3]
+ 211 00c0 181C     		mov	r0, r3
+ 212 00c2 FFF7FEFF 		bl	fix16abs
+ 213 00c6 041C     		mov	r4, r0
+ 214 00c8 2D4B     		ldr	r3, .L7+28
+ 215 00ca 5B68     		ldr	r3, [r3, #4]
+ 216 00cc 181C     		mov	r0, r3
+ 217 00ce FFF7FEFF 		bl	fix16abs
+ 218 00d2 031C     		mov	r3, r0
+ 219 00d4 E318     		add	r3, r4, r3
+ 220 00d6 BB61     		str	r3, [r7, #24]
+ 141:.\main.c      ****         
+ 142:.\main.c      ****         // Use if forcemag is between 0.9*(2^16) and 1.4*(2^16)
+ 143:.\main.c      ****         fix16_t accAng = 0;
+ 221              		.loc 1 143 0
+ 222 00d8 0023     		mov	r3, #0
+ 223 00da 7B61     		str	r3, [r7, #20]
+ 144:.\main.c      ****         if(58982 < forceMagEst && forceMagEst < 91750) 
+ 224              		.loc 1 144 0
+ 225 00dc BA69     		ldr	r2, [r7, #24]
+ 226 00de 2C4B     		ldr	r3, .L7+44
+ 227 00e0 9A42     		cmp	r2, r3
+ 228 00e2 25DD     		ble	.L5
+ 229              		.loc 1 144 0 is_stmt 0 discriminator 1
+ 230 00e4 BA69     		ldr	r2, [r7, #24]
+ 231 00e6 2B4B     		ldr	r3, .L7+48
+ 232 00e8 9A42     		cmp	r2, r3
+ 233 00ea 21DC     		bgt	.L5
+ 145:.\main.c      ****         {
+ 146:.\main.c      ****             accAng = fix16rad2deg(FIXED_HALF_PI + fix16atan2(accData[1], accData[0]));
+ 234              		.loc 1 146 0 is_stmt 1
+ 235 00ec 244B     		ldr	r3, .L7+28
+ 236 00ee 5A68     		ldr	r2, [r3, #4]
+ 237 00f0 234B     		ldr	r3, .L7+28
+ 238 00f2 1B68     		ldr	r3, [r3]
+ 239 00f4 101C     		mov	r0, r2
+ 240 00f6 191C     		mov	r1, r3
+ 241 00f8 FFF7FEFF 		bl	fix16atan2
+ 242 00fc 031C     		mov	r3, r0
+ 243 00fe 264A     		ldr	r2, .L7+52
+ 244 0100 9B18     		add	r3, r3, r2
+ 245 0102 181C     		mov	r0, r3
+ 246 0104 FFF7FEFF 		bl	fix16rad2deg
+ 247 0108 031C     		mov	r3, r0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 8
+
+
+ 248 010a 7B61     		str	r3, [r7, #20]
+ 147:.\main.c      ****             //take part of gyro estimate and add complementary part of acc estimate
+ 148:.\main.c      ****             estAng = fix16mul(GYRO_WEIGHT, estAng) 
+ 249              		.loc 1 148 0
+ 250 010c 1D4B     		ldr	r3, .L7+32
+ 251 010e 1B68     		ldr	r3, [r3]
+ 252 0110 1F4A     		ldr	r2, .L7+44
+ 253 0112 101C     		mov	r0, r2
+ 254 0114 191C     		mov	r1, r3
+ 255 0116 FFF7FEFF 		bl	fix16mul
+ 256 011a 041C     		mov	r4, r0
+ 149:.\main.c      ****                      + fix16mul(ACC_WEIGHT, accAng);
+ 257              		.loc 1 149 0
+ 258 011c 1F4A     		ldr	r2, .L7+56
+ 259 011e 7B69     		ldr	r3, [r7, #20]
+ 260 0120 101C     		mov	r0, r2
+ 261 0122 191C     		mov	r1, r3
+ 262 0124 FFF7FEFF 		bl	fix16mul
+ 263 0128 031C     		mov	r3, r0
+ 264 012a E218     		add	r2, r4, r3
+ 148:.\main.c      ****             estAng = fix16mul(GYRO_WEIGHT, estAng) 
+ 265              		.loc 1 148 0
+ 266 012c 154B     		ldr	r3, .L7+32
+ 267 012e 1A60     		str	r2, [r3]
+ 268              	.L5:
+ 150:.\main.c      ****         }    
+ 151:.\main.c      ****             
+ 152:.\main.c      ****         //scale compensation:
+ 153:.\main.c      ****         fix16_t ang = fix16mul(estAng, 58982);
+ 269              		.loc 1 153 0
+ 270 0130 144B     		ldr	r3, .L7+32
+ 271 0132 1A68     		ldr	r2, [r3]
+ 272 0134 164B     		ldr	r3, .L7+44
+ 273 0136 101C     		mov	r0, r2
+ 274 0138 191C     		mov	r1, r3
+ 275 013a FFF7FEFF 		bl	fix16mul
+ 276 013e 031C     		mov	r3, r0
+ 277 0140 3B61     		str	r3, [r7, #16]
+ 154:.\main.c      ****         //print result
+ 155:.\main.c      ****         
+ 156:.\main.c      ****         char result[15];
+ 157:.\main.c      ****         sprintf(result, "%d, ", ang);
+ 278              		.loc 1 157 0
+ 279 0142 391C     		mov	r1, r7
+ 280 0144 164A     		ldr	r2, .L7+60
+ 281 0146 3B69     		ldr	r3, [r7, #16]
+ 282 0148 081C     		mov	r0, r1
+ 283 014a 111C     		mov	r1, r2
+ 284 014c 1A1C     		mov	r2, r3
+ 285 014e FFF7FEFF 		bl	sprintf
+ 158:.\main.c      ****         UART_UartPutString(result);
+ 286              		.loc 1 158 0
+ 287 0152 3B1C     		mov	r3, r7
+ 288 0154 181C     		mov	r0, r3
+ 289 0156 FFF7FEFF 		bl	UART_UartPutString
+ 159:.\main.c      ****         dataReady = 0;
+ 290              		.loc 1 159 0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 9
+
+
+ 291 015a 074B     		ldr	r3, .L7+20
+ 292 015c 0022     		mov	r2, #0
+ 293 015e 1A70     		strb	r2, [r3]
+ 294              	.LBE2:
+ 160:.\main.c      ****     }
+ 295              		.loc 1 160 0
+ 296 0160 6CE7     		b	.L6
+ 297              	.L8:
+ 298 0162 C046     		.align	2
+ 299              	.L7:
+ 300 0164 0C000000 		.word	.LC0
+ 301 0168 00000000 		.word	imuInitArray
+ 302 016c 18000000 		.word	.LC3
+ 303 0170 00000000 		.word	gyroDataReadyInterrupt
+ 304 0174 00020440 		.word	1074004480
+ 305 0178 00000000 		.word	dataReady
+ 306 017c 00000000 		.word	gyroData
+ 307 0180 00000000 		.word	accData
+ 308 0184 00000000 		.word	estAng
+ 309 0188 00004CFF 		.word	-11796480
+ 310 018c 000098FE 		.word	-23592960
+ 311 0190 66E60000 		.word	58982
+ 312 0194 65660100 		.word	91749
+ 313 0198 20920100 		.word	102944
+ 314 019c 9A190000 		.word	6554
+ 315 01a0 24000000 		.word	.LC10
+ 316              		.cfi_endproc
+ 317              	.LFE33:
+ 318              		.size	main, .-main
+ 319              		.section	.text.setupI2CDevice,"ax",%progbits
+ 320              		.align	2
+ 321              		.global	setupI2CDevice
+ 322              		.code	16
+ 323              		.thumb_func
+ 324              		.type	setupI2CDevice, %function
+ 325              	setupI2CDevice:
+ 326              	.LFB34:
+ 161:.\main.c      **** }
+ 162:.\main.c      **** 
+ 163:.\main.c      **** void setupI2CDevice(uint8_t addr, const uint8_t initArray[][2] , uint8_t arrayLen){
+ 327              		.loc 1 163 0
+ 328              		.cfi_startproc
+ 329 0000 80B5     		push	{r7, lr}
+ 330              		.cfi_def_cfa_offset 8
+ 331              		.cfi_offset 7, -8
+ 332              		.cfi_offset 14, -4
+ 333 0002 84B0     		sub	sp, sp, #16
+ 334              		.cfi_def_cfa_offset 24
+ 335 0004 00AF     		add	r7, sp, #0
+ 336              		.cfi_def_cfa_register 7
+ 337 0006 3960     		str	r1, [r7]
+ 338 0008 FB1D     		add	r3, r7, #7
+ 339 000a 011C     		add	r1, r0, #0
+ 340 000c 1970     		strb	r1, [r3]
+ 341 000e BB1D     		add	r3, r7, #6
+ 342 0010 1A70     		strb	r2, [r3]
+ 164:.\main.c      ****     int i;
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 10
+
+
+ 165:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 343              		.loc 1 165 0
+ 344 0012 0023     		mov	r3, #0
+ 345 0014 FB60     		str	r3, [r7, #12]
+ 346 0016 13E0     		b	.L10
+ 347              	.L11:
+ 166:.\main.c      ****         writeI2CReg(addr, initArray[i][0], initArray[i][1]);
+ 348              		.loc 1 166 0 discriminator 2
+ 349 0018 FB68     		ldr	r3, [r7, #12]
+ 350 001a 5B00     		lsl	r3, r3, #1
+ 351 001c 3A68     		ldr	r2, [r7]
+ 352 001e D318     		add	r3, r2, r3
+ 353 0020 1A78     		ldrb	r2, [r3]
+ 354 0022 FB68     		ldr	r3, [r7, #12]
+ 355 0024 5B00     		lsl	r3, r3, #1
+ 356 0026 3968     		ldr	r1, [r7]
+ 357 0028 CB18     		add	r3, r1, r3
+ 358 002a 5B78     		ldrb	r3, [r3, #1]
+ 359 002c F91D     		add	r1, r7, #7
+ 360 002e 0978     		ldrb	r1, [r1]
+ 361 0030 081C     		mov	r0, r1
+ 362 0032 111C     		mov	r1, r2
+ 363 0034 1A1C     		mov	r2, r3
+ 364 0036 FFF7FEFF 		bl	writeI2CReg
+ 165:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 365              		.loc 1 165 0 discriminator 2
+ 366 003a FB68     		ldr	r3, [r7, #12]
+ 367 003c 0133     		add	r3, r3, #1
+ 368 003e FB60     		str	r3, [r7, #12]
+ 369              	.L10:
+ 165:.\main.c      ****     for(i = 0; i < arrayLen; i++){
+ 370              		.loc 1 165 0 is_stmt 0 discriminator 1
+ 371 0040 BB1D     		add	r3, r7, #6
+ 372 0042 1A78     		ldrb	r2, [r3]
+ 373 0044 FB68     		ldr	r3, [r7, #12]
+ 374 0046 9A42     		cmp	r2, r3
+ 375 0048 E6DC     		bgt	.L11
+ 167:.\main.c      ****     }
+ 168:.\main.c      **** }
+ 376              		.loc 1 168 0 is_stmt 1
+ 377 004a BD46     		mov	sp, r7
+ 378 004c 04B0     		add	sp, sp, #16
+ 379              		@ sp needed
+ 380 004e 80BD     		pop	{r7, pc}
+ 381              		.cfi_endproc
+ 382              	.LFE34:
+ 383              		.size	setupI2CDevice, .-setupI2CDevice
+ 384              		.section	.text.readI2CReg,"ax",%progbits
+ 385              		.align	2
+ 386              		.global	readI2CReg
+ 387              		.code	16
+ 388              		.thumb_func
+ 389              		.type	readI2CReg, %function
+ 390              	readI2CReg:
+ 391              	.LFB35:
+ 169:.\main.c      ****     
+ 170:.\main.c      **** uint8_t readI2CReg(uint8_t addr, uint8_t reg)
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 11
+
+
+ 171:.\main.c      **** {
+ 392              		.loc 1 171 0
+ 393              		.cfi_startproc
+ 394 0000 80B5     		push	{r7, lr}
+ 395              		.cfi_def_cfa_offset 8
+ 396              		.cfi_offset 7, -8
+ 397              		.cfi_offset 14, -4
+ 398 0002 84B0     		sub	sp, sp, #16
+ 399              		.cfi_def_cfa_offset 24
+ 400 0004 00AF     		add	r7, sp, #0
+ 401              		.cfi_def_cfa_register 7
+ 402 0006 0A1C     		mov	r2, r1
+ 403 0008 FB1D     		add	r3, r7, #7
+ 404 000a 011C     		add	r1, r0, #0
+ 405 000c 1970     		strb	r1, [r3]
+ 406 000e BB1D     		add	r3, r7, #6
+ 407 0010 1A70     		strb	r2, [r3]
+ 172:.\main.c      ****     
+ 173:.\main.c      ****     uint8_t result; 
+ 174:.\main.c      ****     
+ 175:.\main.c      **** 	if (I2C_I2CMasterSendStart(addr, 0) == I2C_I2C_MSTR_NO_ERROR) /* Check if transfer completed witho
+ 408              		.loc 1 175 0
+ 409 0012 FB1D     		add	r3, r7, #7
+ 410 0014 1B78     		ldrb	r3, [r3]
+ 411 0016 181C     		mov	r0, r3
+ 412 0018 0021     		mov	r1, #0
+ 413 001a FFF7FEFF 		bl	I2C_I2CMasterSendStart
+ 414 001e 031C     		mov	r3, r0
+ 415 0020 002B     		cmp	r3, #0
+ 416 0022 19D1     		bne	.L13
+ 176:.\main.c      ****     { 
+ 177:.\main.c      ****         if(I2C_I2CMasterWriteByte(reg) == I2C_I2C_MSTR_NO_ERROR)
+ 417              		.loc 1 177 0
+ 418 0024 BB1D     		add	r3, r7, #6
+ 419 0026 1B78     		ldrb	r3, [r3]
+ 420 0028 181C     		mov	r0, r3
+ 421 002a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 422 002e 031C     		mov	r3, r0
+ 423 0030 002B     		cmp	r3, #0
+ 424 0032 11D1     		bne	.L13
+ 178:.\main.c      **** 		{
+ 179:.\main.c      ****             if(I2C_I2CMasterSendRestart(addr, 1) == I2C_I2C_MSTR_NO_ERROR)
+ 425              		.loc 1 179 0
+ 426 0034 FB1D     		add	r3, r7, #7
+ 427 0036 1B78     		ldrb	r3, [r3]
+ 428 0038 181C     		mov	r0, r3
+ 429 003a 0121     		mov	r1, #1
+ 430 003c FFF7FEFF 		bl	I2C_I2CMasterSendRestart
+ 431 0040 031C     		mov	r3, r0
+ 432 0042 002B     		cmp	r3, #0
+ 433 0044 08D1     		bne	.L13
+ 180:.\main.c      **** 			{
+ 181:.\main.c      ****                 result = I2C_I2CMasterReadByte(I2C_I2C_NAK_DATA);
+ 434              		.loc 1 181 0
+ 435 0046 0120     		mov	r0, #1
+ 436 0048 FFF7FEFF 		bl	I2C_I2CMasterReadByte
+ 437 004c 021C     		mov	r2, r0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 12
+
+
+ 438 004e 3B1C     		mov	r3, r7
+ 439 0050 0F33     		add	r3, r3, #15
+ 440 0052 1A70     		strb	r2, [r3]
+ 182:.\main.c      ****                 I2C_I2CMasterSendStop();
+ 441              		.loc 1 182 0
+ 442 0054 FFF7FEFF 		bl	I2C_I2CMasterSendStop
+ 443              	.L13:
+ 183:.\main.c      **** 				
+ 184:.\main.c      **** 			}
+ 185:.\main.c      **** 		}
+ 186:.\main.c      **** 	}
+ 187:.\main.c      **** 	return result;		
+ 444              		.loc 1 187 0
+ 445 0058 3B1C     		mov	r3, r7
+ 446 005a 0F33     		add	r3, r3, #15
+ 447 005c 1B78     		ldrb	r3, [r3]
+ 188:.\main.c      ****     
+ 189:.\main.c      **** }
+ 448              		.loc 1 189 0
+ 449 005e 181C     		mov	r0, r3
+ 450 0060 BD46     		mov	sp, r7
+ 451 0062 04B0     		add	sp, sp, #16
+ 452              		@ sp needed
+ 453 0064 80BD     		pop	{r7, pc}
+ 454              		.cfi_endproc
+ 455              	.LFE35:
+ 456              		.size	readI2CReg, .-readI2CReg
+ 457 0066 C046     		.section	.text.writeI2CReg,"ax",%progbits
+ 458              		.align	2
+ 459              		.global	writeI2CReg
+ 460              		.code	16
+ 461              		.thumb_func
+ 462              		.type	writeI2CReg, %function
+ 463              	writeI2CReg:
+ 464              	.LFB36:
+ 190:.\main.c      **** 
+ 191:.\main.c      **** void writeI2CReg(uint8_t addr, uint8_t reg, uint8_t val){
+ 465              		.loc 1 191 0
+ 466              		.cfi_startproc
+ 467 0000 80B5     		push	{r7, lr}
+ 468              		.cfi_def_cfa_offset 8
+ 469              		.cfi_offset 7, -8
+ 470              		.cfi_offset 14, -4
+ 471 0002 82B0     		sub	sp, sp, #8
+ 472              		.cfi_def_cfa_offset 16
+ 473 0004 00AF     		add	r7, sp, #0
+ 474              		.cfi_def_cfa_register 7
+ 475 0006 FB1D     		add	r3, r7, #7
+ 476 0008 1870     		strb	r0, [r3]
+ 477 000a BB1D     		add	r3, r7, #6
+ 478 000c 1970     		strb	r1, [r3]
+ 479 000e 7B1D     		add	r3, r7, #5
+ 480 0010 1A70     		strb	r2, [r3]
+ 192:.\main.c      ****     //I2C_I2CMasterSendStart(addr, 0);
+ 193:.\main.c      ****     //I2C_I2CMasterWriteByte(reg);
+ 194:.\main.c      ****     //I2C_I2CMasterWriteByte(val);
+ 195:.\main.c      ****     //I2C_I2CMasterSendStop();
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 13
+
+
+ 196:.\main.c      ****    
+ 197:.\main.c      ****     
+ 198:.\main.c      **** 	if (I2C_I2CMasterSendStart(addr, 0) == I2C_I2C_MSTR_NO_ERROR) /* Check if transfer completed witho
+ 481              		.loc 1 198 0
+ 482 0012 FB1D     		add	r3, r7, #7
+ 483 0014 1B78     		ldrb	r3, [r3]
+ 484 0016 181C     		mov	r0, r3
+ 485 0018 0021     		mov	r1, #0
+ 486 001a FFF7FEFF 		bl	I2C_I2CMasterSendStart
+ 487 001e 031C     		mov	r3, r0
+ 488 0020 002B     		cmp	r3, #0
+ 489 0022 11D1     		bne	.L15
+ 199:.\main.c      ****     { 
+ 200:.\main.c      ****         if(I2C_I2CMasterWriteByte(reg) == I2C_I2C_MSTR_NO_ERROR)
+ 490              		.loc 1 200 0
+ 491 0024 BB1D     		add	r3, r7, #6
+ 492 0026 1B78     		ldrb	r3, [r3]
+ 493 0028 181C     		mov	r0, r3
+ 494 002a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 495 002e 031C     		mov	r3, r0
+ 496 0030 002B     		cmp	r3, #0
+ 497 0032 09D1     		bne	.L15
+ 201:.\main.c      **** 		{
+ 202:.\main.c      ****               if(I2C_I2CMasterWriteByte(val) == I2C_I2C_MSTR_NO_ERROR)   
+ 498              		.loc 1 202 0
+ 499 0034 7B1D     		add	r3, r7, #5
+ 500 0036 1B78     		ldrb	r3, [r3]
+ 501 0038 181C     		mov	r0, r3
+ 502 003a FFF7FEFF 		bl	I2C_I2CMasterWriteByte
+ 503 003e 031C     		mov	r3, r0
+ 504 0040 002B     		cmp	r3, #0
+ 505 0042 01D1     		bne	.L15
+ 203:.\main.c      ****                 {      
+ 204:.\main.c      ****                     I2C_I2CMasterSendStop();
+ 506              		.loc 1 204 0
+ 507 0044 FFF7FEFF 		bl	I2C_I2CMasterSendStop
+ 508              	.L15:
+ 205:.\main.c      ****     		    }
+ 206:.\main.c      **** 		}
+ 207:.\main.c      **** 	}
+ 208:.\main.c      **** 	
+ 209:.\main.c      ****     
+ 210:.\main.c      ****     
+ 211:.\main.c      **** }
+ 509              		.loc 1 211 0
+ 510 0048 BD46     		mov	sp, r7
+ 511 004a 02B0     		add	sp, sp, #8
+ 512              		@ sp needed
+ 513 004c 80BD     		pop	{r7, pc}
+ 514              		.cfi_endproc
+ 515              	.LFE36:
+ 516              		.size	writeI2CReg, .-writeI2CReg
+ 517 004e C046     		.section	.text.readGyroData,"ax",%progbits
+ 518              		.align	2
+ 519              		.global	readGyroData
+ 520              		.code	16
+ 521              		.thumb_func
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 14
+
+
+ 522              		.type	readGyroData, %function
+ 523              	readGyroData:
+ 524              	.LFB37:
+ 212:.\main.c      **** 
+ 213:.\main.c      **** void readGyroData(fix16_t* gyroData)
+ 214:.\main.c      **** {
+ 525              		.loc 1 214 0
+ 526              		.cfi_startproc
+ 527 0000 90B5     		push	{r4, r7, lr}
+ 528              		.cfi_def_cfa_offset 12
+ 529              		.cfi_offset 4, -12
+ 530              		.cfi_offset 7, -8
+ 531              		.cfi_offset 14, -4
+ 532 0002 85B0     		sub	sp, sp, #20
+ 533              		.cfi_def_cfa_offset 32
+ 534 0004 00AF     		add	r7, sp, #0
+ 535              		.cfi_def_cfa_register 7
+ 536 0006 7860     		str	r0, [r7, #4]
+ 215:.\main.c      ****     //read the acc data from the accellerometer
+ 216:.\main.c      ****     int16_t rawGyroX = readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA + 1) 
+ 537              		.loc 1 216 0
+ 538 0008 6820     		mov	r0, #104
+ 539 000a 4421     		mov	r1, #68
+ 540 000c FFF7FEFF 		bl	readI2CReg
+ 541 0010 031C     		mov	r3, r0
+ 542 0012 1C1C     		mov	r4, r3
+ 217:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA) << 8);
+ 543              		.loc 1 217 0
+ 544 0014 6820     		mov	r0, #104
+ 545 0016 4321     		mov	r1, #67
+ 546 0018 FFF7FEFF 		bl	readI2CReg
+ 547 001c 031C     		mov	r3, r0
+ 216:.\main.c      ****     int16_t rawGyroX = readI2CReg(IMU_ADDRESS, GYRO_FIRST_DATA + 1) 
+ 548              		.loc 1 216 0
+ 549 001e 1B02     		lsl	r3, r3, #8
+ 550 0020 9BB2     		uxth	r3, r3
+ 551 0022 E318     		add	r3, r4, r3
+ 552 0024 9AB2     		uxth	r2, r3
+ 553 0026 3B1C     		mov	r3, r7
+ 554 0028 0E33     		add	r3, r3, #14
+ 555 002a 1A80     		strh	r2, [r3]
+ 218:.\main.c      ****     //scale data and return it
+ 219:.\main.c      ****     *gyroData = (fix16_t) rawGyroX * GYRO_SCALE_FACTOR;
+ 556              		.loc 1 219 0
+ 557 002c 3B1C     		mov	r3, r7
+ 558 002e 0E33     		add	r3, r3, #14
+ 559 0030 0022     		mov	r2, #0
+ 560 0032 9B5E     		ldrsh	r3, [r3, r2]
+ 561 0034 034A     		ldr	r2, .L18
+ 562 0036 5A43     		mul	r2, r3
+ 563 0038 7B68     		ldr	r3, [r7, #4]
+ 564 003a 1A60     		str	r2, [r3]
+ 220:.\main.c      **** }
+ 565              		.loc 1 220 0
+ 566 003c BD46     		mov	sp, r7
+ 567 003e 05B0     		add	sp, sp, #20
+ 568              		@ sp needed
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 15
+
+
+ 569 0040 90BD     		pop	{r4, r7, pc}
+ 570              	.L19:
+ 571 0042 C046     		.align	2
+ 572              	.L18:
+ 573 0044 9C0F0000 		.word	3996
+ 574              		.cfi_endproc
+ 575              	.LFE37:
+ 576              		.size	readGyroData, .-readGyroData
+ 577              		.section	.text.readAccData,"ax",%progbits
+ 578              		.align	2
+ 579              		.global	readAccData
+ 580              		.code	16
+ 581              		.thumb_func
+ 582              		.type	readAccData, %function
+ 583              	readAccData:
+ 584              	.LFB38:
+ 221:.\main.c      **** 
+ 222:.\main.c      **** void readAccData(fix16_t* accData)
+ 223:.\main.c      **** {
+ 585              		.loc 1 223 0
+ 586              		.cfi_startproc
+ 587 0000 90B5     		push	{r4, r7, lr}
+ 588              		.cfi_def_cfa_offset 12
+ 589              		.cfi_offset 4, -12
+ 590              		.cfi_offset 7, -8
+ 591              		.cfi_offset 14, -4
+ 592 0002 85B0     		sub	sp, sp, #20
+ 593              		.cfi_def_cfa_offset 32
+ 594 0004 00AF     		add	r7, sp, #0
+ 595              		.cfi_def_cfa_register 7
+ 596 0006 7860     		str	r0, [r7, #4]
+ 224:.\main.c      ****     //read the raw data from the accellerometer
+ 225:.\main.c      ****     int16 rawAccY = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+1) 
+ 597              		.loc 1 225 0
+ 598 0008 6820     		mov	r0, #104
+ 599 000a 3E21     		mov	r1, #62
+ 600 000c FFF7FEFF 		bl	readI2CReg
+ 601 0010 031C     		mov	r3, r0
+ 602 0012 1C1C     		mov	r4, r3
+ 226:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA)<<8);
+ 603              		.loc 1 226 0
+ 604 0014 6820     		mov	r0, #104
+ 605 0016 3D21     		mov	r1, #61
+ 606 0018 FFF7FEFF 		bl	readI2CReg
+ 607 001c 031C     		mov	r3, r0
+ 225:.\main.c      ****     int16 rawAccY = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+1) 
+ 608              		.loc 1 225 0
+ 609 001e 1B02     		lsl	r3, r3, #8
+ 610 0020 9BB2     		uxth	r3, r3
+ 611 0022 E318     		add	r3, r4, r3
+ 612 0024 9AB2     		uxth	r2, r3
+ 613 0026 3B1C     		mov	r3, r7
+ 614 0028 0E33     		add	r3, r3, #14
+ 615 002a 1A80     		strh	r2, [r3]
+ 227:.\main.c      ****     int16 rawAccZ = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+3) 
+ 616              		.loc 1 227 0
+ 617 002c 6820     		mov	r0, #104
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 16
+
+
+ 618 002e 4021     		mov	r1, #64
+ 619 0030 FFF7FEFF 		bl	readI2CReg
+ 620 0034 031C     		mov	r3, r0
+ 621 0036 1C1C     		mov	r4, r3
+ 228:.\main.c      ****             + ((int16_t) readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA + 2)<<8);
+ 622              		.loc 1 228 0
+ 623 0038 6820     		mov	r0, #104
+ 624 003a 3F21     		mov	r1, #63
+ 625 003c FFF7FEFF 		bl	readI2CReg
+ 626 0040 031C     		mov	r3, r0
+ 227:.\main.c      ****     int16 rawAccZ = readI2CReg(IMU_ADDRESS, ACC_FIRST_DATA+3) 
+ 627              		.loc 1 227 0
+ 628 0042 1B02     		lsl	r3, r3, #8
+ 629 0044 9BB2     		uxth	r3, r3
+ 630 0046 E318     		add	r3, r4, r3
+ 631 0048 9AB2     		uxth	r2, r3
+ 632 004a 3B1C     		mov	r3, r7
+ 633 004c 0C33     		add	r3, r3, #12
+ 634 004e 1A80     		strh	r2, [r3]
+ 229:.\main.c      ****     //scale data and return it
+ 230:.\main.c      ****     accData[0] = (fix16_t) rawAccY * ACC_SCALE_FACTOR; 
+ 635              		.loc 1 230 0
+ 636 0050 3B1C     		mov	r3, r7
+ 637 0052 0E33     		add	r3, r3, #14
+ 638 0054 0021     		mov	r1, #0
+ 639 0056 5B5E     		ldrsh	r3, [r3, r1]
+ 640 0058 DA00     		lsl	r2, r3, #3
+ 641 005a 7B68     		ldr	r3, [r7, #4]
+ 642 005c 1A60     		str	r2, [r3]
+ 231:.\main.c      ****     accData[1] = (fix16_t) rawAccZ * ACC_SCALE_FACTOR;
+ 643              		.loc 1 231 0
+ 644 005e 7B68     		ldr	r3, [r7, #4]
+ 645 0060 0433     		add	r3, r3, #4
+ 646 0062 3A1C     		mov	r2, r7
+ 647 0064 0C32     		add	r2, r2, #12
+ 648 0066 0021     		mov	r1, #0
+ 649 0068 525E     		ldrsh	r2, [r2, r1]
+ 650 006a D200     		lsl	r2, r2, #3
+ 651 006c 1A60     		str	r2, [r3]
+ 232:.\main.c      **** }
+ 652              		.loc 1 232 0
+ 653 006e BD46     		mov	sp, r7
+ 654 0070 05B0     		add	sp, sp, #20
+ 655              		@ sp needed
+ 656 0072 90BD     		pop	{r4, r7, pc}
+ 657              		.cfi_endproc
+ 658              	.LFE38:
+ 659              		.size	readAccData, .-readAccData
+ 660              		.section	.text.error,"ax",%progbits
+ 661              		.align	2
+ 662              		.global	error
+ 663              		.code	16
+ 664              		.thumb_func
+ 665              		.type	error, %function
+ 666              	error:
+ 667              	.LFB39:
+ 233:.\main.c      **** 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 17
+
+
+ 234:.\main.c      **** void error(char* str)
+ 235:.\main.c      **** {
+ 668              		.loc 1 235 0
+ 669              		.cfi_startproc
+ 670 0000 80B5     		push	{r7, lr}
+ 671              		.cfi_def_cfa_offset 8
+ 672              		.cfi_offset 7, -8
+ 673              		.cfi_offset 14, -4
+ 674 0002 82B0     		sub	sp, sp, #8
+ 675              		.cfi_def_cfa_offset 16
+ 676 0004 00AF     		add	r7, sp, #0
+ 677              		.cfi_def_cfa_register 7
+ 678 0006 7860     		str	r0, [r7, #4]
+ 236:.\main.c      ****     UART_UartPutString(str);
+ 679              		.loc 1 236 0
+ 680 0008 7B68     		ldr	r3, [r7, #4]
+ 681 000a 181C     		mov	r0, r3
+ 682 000c FFF7FEFF 		bl	UART_UartPutString
+ 683              	.L22:
+ 237:.\main.c      ****     while(1);
+ 684              		.loc 1 237 0 discriminator 1
+ 685 0010 FEE7     		b	.L22
+ 686              		.cfi_endproc
+ 687              	.LFE39:
+ 688              		.size	error, .-error
+ 689 0012 C046     		.section	.rodata
+ 690 0029 000000   		.align	2
+ 691              	.LC13:
+ 692 002c 0D0A0A4C 		.ascii	"\015\012\012Lag Error!\015\012\012\000"
+ 692      61672045 
+ 692      72726F72 
+ 692      210D0A0A 
+ 692      00
+ 693 003d 000000   		.section	.text.gyroDataReadyInterrupt,"ax",%progbits
+ 694              		.align	2
+ 695              		.global	gyroDataReadyInterrupt
+ 696              		.code	16
+ 697              		.thumb_func
+ 698              		.type	gyroDataReadyInterrupt, %function
+ 699              	gyroDataReadyInterrupt:
+ 700              	.LFB40:
+ 238:.\main.c      **** }
+ 239:.\main.c      **** 
+ 240:.\main.c      **** CY_ISR(gyroDataReadyInterrupt)
+ 241:.\main.c      **** {
+ 701              		.loc 1 241 0
+ 702              		.cfi_startproc
+ 703 0000 80B5     		push	{r7, lr}
+ 704              		.cfi_def_cfa_offset 8
+ 705              		.cfi_offset 7, -8
+ 706              		.cfi_offset 14, -4
+ 707 0002 00AF     		add	r7, sp, #0
+ 708              		.cfi_def_cfa_register 7
+ 242:.\main.c      ****     //if dataReady flag has not been cleared, the system is lagging.
+ 243:.\main.c      ****     if(dataReady == 1) error("\r\n\nLag Error!\r\n\n");
+ 709              		.loc 1 243 0
+ 710 0004 064B     		ldr	r3, .L25
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 18
+
+
+ 711 0006 1B78     		ldrb	r3, [r3]
+ 712 0008 DBB2     		uxtb	r3, r3
+ 713 000a 012B     		cmp	r3, #1
+ 714 000c 03D1     		bne	.L24
+ 715              		.loc 1 243 0 is_stmt 0 discriminator 1
+ 716 000e 054B     		ldr	r3, .L25+4
+ 717 0010 181C     		mov	r0, r3
+ 718 0012 FFF7FEFF 		bl	error
+ 719              	.L24:
+ 244:.\main.c      ****     //else set data ready flag
+ 245:.\main.c      ****     dataReady = 1;
+ 720              		.loc 1 245 0 is_stmt 1
+ 721 0016 024B     		ldr	r3, .L25
+ 722 0018 0122     		mov	r2, #1
+ 723 001a 1A70     		strb	r2, [r3]
+ 246:.\main.c      **** }
+ 724              		.loc 1 246 0
+ 725 001c BD46     		mov	sp, r7
+ 726              		@ sp needed
+ 727 001e 80BD     		pop	{r7, pc}
+ 728              	.L26:
+ 729              		.align	2
+ 730              	.L25:
+ 731 0020 00000000 		.word	dataReady
+ 732 0024 2C000000 		.word	.LC13
+ 733              		.cfi_endproc
+ 734              	.LFE40:
+ 735              		.size	gyroDataReadyInterrupt, .-gyroDataReadyInterrupt
+ 736              		.text
+ 737              	.Letext0:
+ 738              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 739              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.1\\psoc creator\\import\\gnu_cs\\arm\\4
+ 740              		.file 4 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 741              		.file 5 "./fixedMath.h"
+ 742              		.section	.debug_info,"",%progbits
+ 743              	.Ldebug_info0:
+ 744 0000 BD030000 		.4byte	0x3bd
+ 745 0004 0400     		.2byte	0x4
+ 746 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 747 000a 04       		.byte	0x4
+ 748 000b 01       		.uleb128 0x1
+ 749 000c 94000000 		.4byte	.LASF45
+ 750 0010 01       		.byte	0x1
+ 751 0011 E9010000 		.4byte	.LASF46
+ 752 0015 6C010000 		.4byte	.LASF47
+ 753 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 754 001d 00000000 		.4byte	0
+ 755 0021 00000000 		.4byte	.Ldebug_line0
+ 756 0025 02       		.uleb128 0x2
+ 757 0026 01       		.byte	0x1
+ 758 0027 06       		.byte	0x6
+ 759 0028 BF020000 		.4byte	.LASF0
+ 760 002c 03       		.uleb128 0x3
+ 761 002d 06000000 		.4byte	.LASF2
+ 762 0031 02       		.byte	0x2
+ 763 0032 1C       		.byte	0x1c
+ 764 0033 37000000 		.4byte	0x37
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 19
+
+
+ 765 0037 02       		.uleb128 0x2
+ 766 0038 01       		.byte	0x1
+ 767 0039 08       		.byte	0x8
+ 768 003a 23010000 		.4byte	.LASF1
+ 769 003e 03       		.uleb128 0x3
+ 770 003f 1C000000 		.4byte	.LASF3
+ 771 0043 02       		.byte	0x2
+ 772 0044 25       		.byte	0x25
+ 773 0045 49000000 		.4byte	0x49
+ 774 0049 02       		.uleb128 0x2
+ 775 004a 02       		.byte	0x2
+ 776 004b 05       		.byte	0x5
+ 777 004c 8B020000 		.4byte	.LASF4
+ 778 0050 02       		.uleb128 0x2
+ 779 0051 02       		.byte	0x2
+ 780 0052 07       		.byte	0x7
+ 781 0053 5A000000 		.4byte	.LASF5
+ 782 0057 03       		.uleb128 0x3
+ 783 0058 36000000 		.4byte	.LASF6
+ 784 005c 02       		.byte	0x2
+ 785 005d 37       		.byte	0x37
+ 786 005e 62000000 		.4byte	0x62
+ 787 0062 02       		.uleb128 0x2
+ 788 0063 04       		.byte	0x4
+ 789 0064 05       		.byte	0x5
+ 790 0065 A6020000 		.4byte	.LASF7
+ 791 0069 02       		.uleb128 0x2
+ 792 006a 04       		.byte	0x4
+ 793 006b 07       		.byte	0x7
+ 794 006c F2010000 		.4byte	.LASF8
+ 795 0070 02       		.uleb128 0x2
+ 796 0071 08       		.byte	0x8
+ 797 0072 05       		.byte	0x5
+ 798 0073 6E020000 		.4byte	.LASF9
+ 799 0077 02       		.uleb128 0x2
+ 800 0078 08       		.byte	0x8
+ 801 0079 07       		.byte	0x7
+ 802 007a 29020000 		.4byte	.LASF10
+ 803 007e 04       		.uleb128 0x4
+ 804 007f 04       		.byte	0x4
+ 805 0080 05       		.byte	0x5
+ 806 0081 696E7400 		.ascii	"int\000"
+ 807 0085 02       		.uleb128 0x2
+ 808 0086 04       		.byte	0x4
+ 809 0087 07       		.byte	0x7
+ 810 0088 1C020000 		.4byte	.LASF11
+ 811 008c 03       		.uleb128 0x3
+ 812 008d 40020000 		.4byte	.LASF12
+ 813 0091 03       		.byte	0x3
+ 814 0092 2A       		.byte	0x2a
+ 815 0093 2C000000 		.4byte	0x2c
+ 816 0097 03       		.uleb128 0x3
+ 817 0098 4F020000 		.4byte	.LASF13
+ 818 009c 03       		.byte	0x3
+ 819 009d 35       		.byte	0x35
+ 820 009e 3E000000 		.4byte	0x3e
+ 821 00a2 03       		.uleb128 0x3
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 20
+
+
+ 822 00a3 57020000 		.4byte	.LASF14
+ 823 00a7 03       		.byte	0x3
+ 824 00a8 41       		.byte	0x41
+ 825 00a9 57000000 		.4byte	0x57
+ 826 00ad 03       		.uleb128 0x3
+ 827 00ae 74000000 		.4byte	.LASF15
+ 828 00b2 04       		.byte	0x4
+ 829 00b3 A1       		.byte	0xa1
+ 830 00b4 37000000 		.4byte	0x37
+ 831 00b8 03       		.uleb128 0x3
+ 832 00b9 15020000 		.4byte	.LASF16
+ 833 00bd 04       		.byte	0x4
+ 834 00be A3       		.byte	0xa3
+ 835 00bf 69000000 		.4byte	0x69
+ 836 00c3 03       		.uleb128 0x3
+ 837 00c4 3B010000 		.4byte	.LASF17
+ 838 00c8 04       		.byte	0x4
+ 839 00c9 A5       		.byte	0xa5
+ 840 00ca 49000000 		.4byte	0x49
+ 841 00ce 02       		.uleb128 0x2
+ 842 00cf 04       		.byte	0x4
+ 843 00d0 04       		.byte	0x4
+ 844 00d1 8E000000 		.4byte	.LASF18
+ 845 00d5 02       		.uleb128 0x2
+ 846 00d6 08       		.byte	0x8
+ 847 00d7 04       		.byte	0x4
+ 848 00d8 6D000000 		.4byte	.LASF19
+ 849 00dc 02       		.uleb128 0x2
+ 850 00dd 01       		.byte	0x1
+ 851 00de 08       		.byte	0x8
+ 852 00df 7C020000 		.4byte	.LASF20
+ 853 00e3 05       		.uleb128 0x5
+ 854 00e4 AD000000 		.4byte	0xad
+ 855 00e8 06       		.uleb128 0x6
+ 856 00e9 00000000 		.4byte	.LASF21
+ 857 00ed 04       		.byte	0x4
+ 858 00ee 4D01     		.2byte	0x14d
+ 859 00f0 F4000000 		.4byte	0xf4
+ 860 00f4 05       		.uleb128 0x5
+ 861 00f5 B8000000 		.4byte	0xb8
+ 862 00f9 02       		.uleb128 0x2
+ 863 00fa 04       		.byte	0x4
+ 864 00fb 07       		.byte	0x7
+ 865 00fc 5F020000 		.4byte	.LASF22
+ 866 0100 07       		.uleb128 0x7
+ 867 0101 04       		.byte	0x4
+ 868 0102 DC000000 		.4byte	0xdc
+ 869 0106 03       		.uleb128 0x3
+ 870 0107 95020000 		.4byte	.LASF23
+ 871 010b 05       		.byte	0x5
+ 872 010c 15       		.byte	0x15
+ 873 010d A2000000 		.4byte	0xa2
+ 874 0111 08       		.uleb128 0x8
+ 875 0112 04020000 		.4byte	.LASF28
+ 876 0116 01       		.byte	0x1
+ 877 0117 61       		.byte	0x61
+ 878 0118 7E000000 		.4byte	0x7e
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 21
+
+
+ 879 011c 00000000 		.4byte	.LFB33
+ 880 0120 A4010000 		.4byte	.LFE33-.LFB33
+ 881 0124 01       		.uleb128 0x1
+ 882 0125 9C       		.byte	0x9c
+ 883 0126 7B010000 		.4byte	0x17b
+ 884 012a 09       		.uleb128 0x9
+ 885 012b 10010000 		.4byte	.LASF24
+ 886 012f 01       		.byte	0x1
+ 887 0130 75       		.byte	0x75
+ 888 0131 06010000 		.4byte	0x106
+ 889 0135 02       		.uleb128 0x2
+ 890 0136 91       		.byte	0x91
+ 891 0137 6C       		.sleb128 -20
+ 892 0138 0A       		.uleb128 0xa
+ 893 0139 3C000000 		.4byte	.LBB2
+ 894 013d 24010000 		.4byte	.LBE2-.LBB2
+ 895 0141 09       		.uleb128 0x9
+ 896 0142 82000000 		.4byte	.LASF25
+ 897 0146 01       		.byte	0x1
+ 898 0147 8C       		.byte	0x8c
+ 899 0148 06010000 		.4byte	0x106
+ 900 014c 02       		.uleb128 0x2
+ 901 014d 91       		.byte	0x91
+ 902 014e 68       		.sleb128 -24
+ 903 014f 09       		.uleb128 0x9
+ 904 0150 E2010000 		.4byte	.LASF26
+ 905 0154 01       		.byte	0x1
+ 906 0155 8F       		.byte	0x8f
+ 907 0156 06010000 		.4byte	0x106
+ 908 015a 02       		.uleb128 0x2
+ 909 015b 91       		.byte	0x91
+ 910 015c 64       		.sleb128 -28
+ 911 015d 0B       		.uleb128 0xb
+ 912 015e 616E6700 		.ascii	"ang\000"
+ 913 0162 01       		.byte	0x1
+ 914 0163 99       		.byte	0x99
+ 915 0164 06010000 		.4byte	0x106
+ 916 0168 02       		.uleb128 0x2
+ 917 0169 91       		.byte	0x91
+ 918 016a 60       		.sleb128 -32
+ 919 016b 09       		.uleb128 0x9
+ 920 016c 48020000 		.4byte	.LASF27
+ 921 0170 01       		.byte	0x1
+ 922 0171 9C       		.byte	0x9c
+ 923 0172 7B010000 		.4byte	0x17b
+ 924 0176 02       		.uleb128 0x2
+ 925 0177 91       		.byte	0x91
+ 926 0178 50       		.sleb128 -48
+ 927 0179 00       		.byte	0
+ 928 017a 00       		.byte	0
+ 929 017b 0C       		.uleb128 0xc
+ 930 017c DC000000 		.4byte	0xdc
+ 931 0180 8B010000 		.4byte	0x18b
+ 932 0184 0D       		.uleb128 0xd
+ 933 0185 F9000000 		.4byte	0xf9
+ 934 0189 0E       		.byte	0xe
+ 935 018a 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 22
+
+
+ 936 018b 0E       		.uleb128 0xe
+ 937 018c 5D010000 		.4byte	.LASF29
+ 938 0190 01       		.byte	0x1
+ 939 0191 A3       		.byte	0xa3
+ 940 0192 00000000 		.4byte	.LFB34
+ 941 0196 50000000 		.4byte	.LFE34-.LFB34
+ 942 019a 01       		.uleb128 0x1
+ 943 019b 9C       		.byte	0x9c
+ 944 019c D7010000 		.4byte	0x1d7
+ 945 01a0 0F       		.uleb128 0xf
+ 946 01a1 58010000 		.4byte	.LASF30
+ 947 01a5 01       		.byte	0x1
+ 948 01a6 A3       		.byte	0xa3
+ 949 01a7 8C000000 		.4byte	0x8c
+ 950 01ab 02       		.uleb128 0x2
+ 951 01ac 91       		.byte	0x91
+ 952 01ad 6F       		.sleb128 -17
+ 953 01ae 0F       		.uleb128 0xf
+ 954 01af 31010000 		.4byte	.LASF31
+ 955 01b3 01       		.byte	0x1
+ 956 01b4 A3       		.byte	0xa3
+ 957 01b5 E7010000 		.4byte	0x1e7
+ 958 01b9 02       		.uleb128 0x2
+ 959 01ba 91       		.byte	0x91
+ 960 01bb 68       		.sleb128 -24
+ 961 01bc 0F       		.uleb128 0xf
+ 962 01bd 2D000000 		.4byte	.LASF32
+ 963 01c1 01       		.byte	0x1
+ 964 01c2 A3       		.byte	0xa3
+ 965 01c3 8C000000 		.4byte	0x8c
+ 966 01c7 02       		.uleb128 0x2
+ 967 01c8 91       		.byte	0x91
+ 968 01c9 6E       		.sleb128 -18
+ 969 01ca 0B       		.uleb128 0xb
+ 970 01cb 6900     		.ascii	"i\000"
+ 971 01cd 01       		.byte	0x1
+ 972 01ce A4       		.byte	0xa4
+ 973 01cf 7E000000 		.4byte	0x7e
+ 974 01d3 02       		.uleb128 0x2
+ 975 01d4 91       		.byte	0x91
+ 976 01d5 74       		.sleb128 -12
+ 977 01d6 00       		.byte	0
+ 978 01d7 0C       		.uleb128 0xc
+ 979 01d8 8C000000 		.4byte	0x8c
+ 980 01dc E7010000 		.4byte	0x1e7
+ 981 01e0 0D       		.uleb128 0xd
+ 982 01e1 F9000000 		.4byte	0xf9
+ 983 01e5 01       		.byte	0x1
+ 984 01e6 00       		.byte	0
+ 985 01e7 07       		.uleb128 0x7
+ 986 01e8 04       		.byte	0x4
+ 987 01e9 D7010000 		.4byte	0x1d7
+ 988 01ed 10       		.uleb128 0x10
+ 989 01ee 18010000 		.4byte	.LASF48
+ 990 01f2 01       		.byte	0x1
+ 991 01f3 AA       		.byte	0xaa
+ 992 01f4 8C000000 		.4byte	0x8c
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 23
+
+
+ 993 01f8 00000000 		.4byte	.LFB35
+ 994 01fc 66000000 		.4byte	.LFE35-.LFB35
+ 995 0200 01       		.uleb128 0x1
+ 996 0201 9C       		.byte	0x9c
+ 997 0202 31020000 		.4byte	0x231
+ 998 0206 0F       		.uleb128 0xf
+ 999 0207 58010000 		.4byte	.LASF30
+ 1000 020b 01       		.byte	0x1
+ 1001 020c AA       		.byte	0xaa
+ 1002 020d 8C000000 		.4byte	0x8c
+ 1003 0211 02       		.uleb128 0x2
+ 1004 0212 91       		.byte	0x91
+ 1005 0213 6F       		.sleb128 -17
+ 1006 0214 11       		.uleb128 0x11
+ 1007 0215 72656700 		.ascii	"reg\000"
+ 1008 0219 01       		.byte	0x1
+ 1009 021a AA       		.byte	0xaa
+ 1010 021b 8C000000 		.4byte	0x8c
+ 1011 021f 02       		.uleb128 0x2
+ 1012 0220 91       		.byte	0x91
+ 1013 0221 6E       		.sleb128 -18
+ 1014 0222 09       		.uleb128 0x9
+ 1015 0223 48020000 		.4byte	.LASF27
+ 1016 0227 01       		.byte	0x1
+ 1017 0228 AD       		.byte	0xad
+ 1018 0229 8C000000 		.4byte	0x8c
+ 1019 022d 02       		.uleb128 0x2
+ 1020 022e 91       		.byte	0x91
+ 1021 022f 77       		.sleb128 -9
+ 1022 0230 00       		.byte	0
+ 1023 0231 0E       		.uleb128 0xe
+ 1024 0232 09020000 		.4byte	.LASF33
+ 1025 0236 01       		.byte	0x1
+ 1026 0237 BF       		.byte	0xbf
+ 1027 0238 00000000 		.4byte	.LFB36
+ 1028 023c 4E000000 		.4byte	.LFE36-.LFB36
+ 1029 0240 01       		.uleb128 0x1
+ 1030 0241 9C       		.byte	0x9c
+ 1031 0242 71020000 		.4byte	0x271
+ 1032 0246 0F       		.uleb128 0xf
+ 1033 0247 58010000 		.4byte	.LASF30
+ 1034 024b 01       		.byte	0x1
+ 1035 024c BF       		.byte	0xbf
+ 1036 024d 8C000000 		.4byte	0x8c
+ 1037 0251 02       		.uleb128 0x2
+ 1038 0252 91       		.byte	0x91
+ 1039 0253 77       		.sleb128 -9
+ 1040 0254 11       		.uleb128 0x11
+ 1041 0255 72656700 		.ascii	"reg\000"
+ 1042 0259 01       		.byte	0x1
+ 1043 025a BF       		.byte	0xbf
+ 1044 025b 8C000000 		.4byte	0x8c
+ 1045 025f 02       		.uleb128 0x2
+ 1046 0260 91       		.byte	0x91
+ 1047 0261 76       		.sleb128 -10
+ 1048 0262 11       		.uleb128 0x11
+ 1049 0263 76616C00 		.ascii	"val\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 24
+
+
+ 1050 0267 01       		.byte	0x1
+ 1051 0268 BF       		.byte	0xbf
+ 1052 0269 8C000000 		.4byte	0x8c
+ 1053 026d 02       		.uleb128 0x2
+ 1054 026e 91       		.byte	0x91
+ 1055 026f 75       		.sleb128 -11
+ 1056 0270 00       		.byte	0
+ 1057 0271 0E       		.uleb128 0xe
+ 1058 0272 4D000000 		.4byte	.LASF34
+ 1059 0276 01       		.byte	0x1
+ 1060 0277 D5       		.byte	0xd5
+ 1061 0278 00000000 		.4byte	.LFB37
+ 1062 027c 48000000 		.4byte	.LFE37-.LFB37
+ 1063 0280 01       		.uleb128 0x1
+ 1064 0281 9C       		.byte	0x9c
+ 1065 0282 A3020000 		.4byte	0x2a3
+ 1066 0286 0F       		.uleb128 0xf
+ 1067 0287 9D020000 		.4byte	.LASF35
+ 1068 028b 01       		.byte	0x1
+ 1069 028c D5       		.byte	0xd5
+ 1070 028d A3020000 		.4byte	0x2a3
+ 1071 0291 02       		.uleb128 0x2
+ 1072 0292 91       		.byte	0x91
+ 1073 0293 64       		.sleb128 -28
+ 1074 0294 09       		.uleb128 0x9
+ 1075 0295 CB020000 		.4byte	.LASF36
+ 1076 0299 01       		.byte	0x1
+ 1077 029a D8       		.byte	0xd8
+ 1078 029b 97000000 		.4byte	0x97
+ 1079 029f 02       		.uleb128 0x2
+ 1080 02a0 91       		.byte	0x91
+ 1081 02a1 6E       		.sleb128 -18
+ 1082 02a2 00       		.byte	0
+ 1083 02a3 07       		.uleb128 0x7
+ 1084 02a4 04       		.byte	0x4
+ 1085 02a5 06010000 		.4byte	0x106
+ 1086 02a9 0E       		.uleb128 0xe
+ 1087 02aa 10000000 		.4byte	.LASF37
+ 1088 02ae 01       		.byte	0x1
+ 1089 02af DE       		.byte	0xde
+ 1090 02b0 00000000 		.4byte	.LFB38
+ 1091 02b4 74000000 		.4byte	.LFE38-.LFB38
+ 1092 02b8 01       		.uleb128 0x1
+ 1093 02b9 9C       		.byte	0x9c
+ 1094 02ba E9020000 		.4byte	0x2e9
+ 1095 02be 0F       		.uleb128 0xf
+ 1096 02bf 7A000000 		.4byte	.LASF38
+ 1097 02c3 01       		.byte	0x1
+ 1098 02c4 DE       		.byte	0xde
+ 1099 02c5 A3020000 		.4byte	0x2a3
+ 1100 02c9 02       		.uleb128 0x2
+ 1101 02ca 91       		.byte	0x91
+ 1102 02cb 64       		.sleb128 -28
+ 1103 02cc 09       		.uleb128 0x9
+ 1104 02cd AF020000 		.4byte	.LASF39
+ 1105 02d1 01       		.byte	0x1
+ 1106 02d2 E1       		.byte	0xe1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 25
+
+
+ 1107 02d3 C3000000 		.4byte	0xc3
+ 1108 02d7 02       		.uleb128 0x2
+ 1109 02d8 91       		.byte	0x91
+ 1110 02d9 6E       		.sleb128 -18
+ 1111 02da 09       		.uleb128 0x9
+ 1112 02db B7020000 		.4byte	.LASF40
+ 1113 02df 01       		.byte	0x1
+ 1114 02e0 E3       		.byte	0xe3
+ 1115 02e1 C3000000 		.4byte	0xc3
+ 1116 02e5 02       		.uleb128 0x2
+ 1117 02e6 91       		.byte	0x91
+ 1118 02e7 6C       		.sleb128 -20
+ 1119 02e8 00       		.byte	0
+ 1120 02e9 0E       		.uleb128 0xe
+ 1121 02ea 68020000 		.4byte	.LASF41
+ 1122 02ee 01       		.byte	0x1
+ 1123 02ef EA       		.byte	0xea
+ 1124 02f0 00000000 		.4byte	.LFB39
+ 1125 02f4 12000000 		.4byte	.LFE39-.LFB39
+ 1126 02f8 01       		.uleb128 0x1
+ 1127 02f9 9C       		.byte	0x9c
+ 1128 02fa 0D030000 		.4byte	0x30d
+ 1129 02fe 11       		.uleb128 0x11
+ 1130 02ff 73747200 		.ascii	"str\000"
+ 1131 0303 01       		.byte	0x1
+ 1132 0304 EA       		.byte	0xea
+ 1133 0305 00010000 		.4byte	0x100
+ 1134 0309 02       		.uleb128 0x2
+ 1135 030a 91       		.byte	0x91
+ 1136 030b 74       		.sleb128 -12
+ 1137 030c 00       		.byte	0
+ 1138 030d 12       		.uleb128 0x12
+ 1139 030e 41010000 		.4byte	.LASF49
+ 1140 0312 01       		.byte	0x1
+ 1141 0313 F0       		.byte	0xf0
+ 1142 0314 00000000 		.4byte	.LFB40
+ 1143 0318 28000000 		.4byte	.LFE40-.LFB40
+ 1144 031c 01       		.uleb128 0x1
+ 1145 031d 9C       		.byte	0x9c
+ 1146 031e 0C       		.uleb128 0xc
+ 1147 031f 8C000000 		.4byte	0x8c
+ 1148 0323 34030000 		.4byte	0x334
+ 1149 0327 0D       		.uleb128 0xd
+ 1150 0328 F9000000 		.4byte	0xf9
+ 1151 032c 04       		.byte	0x4
+ 1152 032d 0D       		.uleb128 0xd
+ 1153 032e F9000000 		.4byte	0xf9
+ 1154 0332 01       		.byte	0x1
+ 1155 0333 00       		.byte	0
+ 1156 0334 13       		.uleb128 0x13
+ 1157 0335 40000000 		.4byte	.LASF42
+ 1158 0339 01       		.byte	0x1
+ 1159 033a 39       		.byte	0x39
+ 1160 033b 45030000 		.4byte	0x345
+ 1161 033f 05       		.uleb128 0x5
+ 1162 0340 03       		.byte	0x3
+ 1163 0341 00000000 		.4byte	imuInitArray
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 26
+
+
+ 1164 0345 14       		.uleb128 0x14
+ 1165 0346 1E030000 		.4byte	0x31e
+ 1166 034a 13       		.uleb128 0x13
+ 1167 034b 81020000 		.4byte	.LASF43
+ 1168 034f 01       		.byte	0x1
+ 1169 0350 54       		.byte	0x54
+ 1170 0351 E3000000 		.4byte	0xe3
+ 1171 0355 05       		.uleb128 0x5
+ 1172 0356 03       		.byte	0x3
+ 1173 0357 00000000 		.4byte	dataReady
+ 1174 035b 0C       		.uleb128 0xc
+ 1175 035c 06010000 		.4byte	0x106
+ 1176 0360 6B030000 		.4byte	0x36b
+ 1177 0364 0D       		.uleb128 0xd
+ 1178 0365 F9000000 		.4byte	0xf9
+ 1179 0369 01       		.byte	0x1
+ 1180 036a 00       		.byte	0
+ 1181 036b 13       		.uleb128 0x13
+ 1182 036c 7A000000 		.4byte	.LASF38
+ 1183 0370 01       		.byte	0x1
+ 1184 0371 55       		.byte	0x55
+ 1185 0372 5B030000 		.4byte	0x35b
+ 1186 0376 05       		.uleb128 0x5
+ 1187 0377 03       		.byte	0x3
+ 1188 0378 00000000 		.4byte	accData
+ 1189 037c 13       		.uleb128 0x13
+ 1190 037d 9D020000 		.4byte	.LASF35
+ 1191 0381 01       		.byte	0x1
+ 1192 0382 55       		.byte	0x55
+ 1193 0383 06010000 		.4byte	0x106
+ 1194 0387 05       		.uleb128 0x5
+ 1195 0388 03       		.byte	0x3
+ 1196 0389 00000000 		.4byte	gyroData
+ 1197 038d 13       		.uleb128 0x13
+ 1198 038e 10010000 		.4byte	.LASF24
+ 1199 0392 01       		.byte	0x1
+ 1200 0393 56       		.byte	0x56
+ 1201 0394 06010000 		.4byte	0x106
+ 1202 0398 05       		.uleb128 0x5
+ 1203 0399 03       		.byte	0x3
+ 1204 039a 00000000 		.4byte	gyroAng
+ 1205 039e 13       		.uleb128 0x13
+ 1206 039f E2010000 		.4byte	.LASF26
+ 1207 03a3 01       		.byte	0x1
+ 1208 03a4 56       		.byte	0x56
+ 1209 03a5 06010000 		.4byte	0x106
+ 1210 03a9 05       		.uleb128 0x5
+ 1211 03aa 03       		.byte	0x3
+ 1212 03ab 00000000 		.4byte	accAng
+ 1213 03af 13       		.uleb128 0x13
+ 1214 03b0 26000000 		.4byte	.LASF44
+ 1215 03b4 01       		.byte	0x1
+ 1216 03b5 56       		.byte	0x56
+ 1217 03b6 06010000 		.4byte	0x106
+ 1218 03ba 05       		.uleb128 0x5
+ 1219 03bb 03       		.byte	0x3
+ 1220 03bc 00000000 		.4byte	estAng
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 27
+
+
+ 1221 03c0 00       		.byte	0
+ 1222              		.section	.debug_abbrev,"",%progbits
+ 1223              	.Ldebug_abbrev0:
+ 1224 0000 01       		.uleb128 0x1
+ 1225 0001 11       		.uleb128 0x11
+ 1226 0002 01       		.byte	0x1
+ 1227 0003 25       		.uleb128 0x25
+ 1228 0004 0E       		.uleb128 0xe
+ 1229 0005 13       		.uleb128 0x13
+ 1230 0006 0B       		.uleb128 0xb
+ 1231 0007 03       		.uleb128 0x3
+ 1232 0008 0E       		.uleb128 0xe
+ 1233 0009 1B       		.uleb128 0x1b
+ 1234 000a 0E       		.uleb128 0xe
+ 1235 000b 55       		.uleb128 0x55
+ 1236 000c 17       		.uleb128 0x17
+ 1237 000d 11       		.uleb128 0x11
+ 1238 000e 01       		.uleb128 0x1
+ 1239 000f 10       		.uleb128 0x10
+ 1240 0010 17       		.uleb128 0x17
+ 1241 0011 00       		.byte	0
+ 1242 0012 00       		.byte	0
+ 1243 0013 02       		.uleb128 0x2
+ 1244 0014 24       		.uleb128 0x24
+ 1245 0015 00       		.byte	0
+ 1246 0016 0B       		.uleb128 0xb
+ 1247 0017 0B       		.uleb128 0xb
+ 1248 0018 3E       		.uleb128 0x3e
+ 1249 0019 0B       		.uleb128 0xb
+ 1250 001a 03       		.uleb128 0x3
+ 1251 001b 0E       		.uleb128 0xe
+ 1252 001c 00       		.byte	0
+ 1253 001d 00       		.byte	0
+ 1254 001e 03       		.uleb128 0x3
+ 1255 001f 16       		.uleb128 0x16
+ 1256 0020 00       		.byte	0
+ 1257 0021 03       		.uleb128 0x3
+ 1258 0022 0E       		.uleb128 0xe
+ 1259 0023 3A       		.uleb128 0x3a
+ 1260 0024 0B       		.uleb128 0xb
+ 1261 0025 3B       		.uleb128 0x3b
+ 1262 0026 0B       		.uleb128 0xb
+ 1263 0027 49       		.uleb128 0x49
+ 1264 0028 13       		.uleb128 0x13
+ 1265 0029 00       		.byte	0
+ 1266 002a 00       		.byte	0
+ 1267 002b 04       		.uleb128 0x4
+ 1268 002c 24       		.uleb128 0x24
+ 1269 002d 00       		.byte	0
+ 1270 002e 0B       		.uleb128 0xb
+ 1271 002f 0B       		.uleb128 0xb
+ 1272 0030 3E       		.uleb128 0x3e
+ 1273 0031 0B       		.uleb128 0xb
+ 1274 0032 03       		.uleb128 0x3
+ 1275 0033 08       		.uleb128 0x8
+ 1276 0034 00       		.byte	0
+ 1277 0035 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 28
+
+
+ 1278 0036 05       		.uleb128 0x5
+ 1279 0037 35       		.uleb128 0x35
+ 1280 0038 00       		.byte	0
+ 1281 0039 49       		.uleb128 0x49
+ 1282 003a 13       		.uleb128 0x13
+ 1283 003b 00       		.byte	0
+ 1284 003c 00       		.byte	0
+ 1285 003d 06       		.uleb128 0x6
+ 1286 003e 16       		.uleb128 0x16
+ 1287 003f 00       		.byte	0
+ 1288 0040 03       		.uleb128 0x3
+ 1289 0041 0E       		.uleb128 0xe
+ 1290 0042 3A       		.uleb128 0x3a
+ 1291 0043 0B       		.uleb128 0xb
+ 1292 0044 3B       		.uleb128 0x3b
+ 1293 0045 05       		.uleb128 0x5
+ 1294 0046 49       		.uleb128 0x49
+ 1295 0047 13       		.uleb128 0x13
+ 1296 0048 00       		.byte	0
+ 1297 0049 00       		.byte	0
+ 1298 004a 07       		.uleb128 0x7
+ 1299 004b 0F       		.uleb128 0xf
+ 1300 004c 00       		.byte	0
+ 1301 004d 0B       		.uleb128 0xb
+ 1302 004e 0B       		.uleb128 0xb
+ 1303 004f 49       		.uleb128 0x49
+ 1304 0050 13       		.uleb128 0x13
+ 1305 0051 00       		.byte	0
+ 1306 0052 00       		.byte	0
+ 1307 0053 08       		.uleb128 0x8
+ 1308 0054 2E       		.uleb128 0x2e
+ 1309 0055 01       		.byte	0x1
+ 1310 0056 3F       		.uleb128 0x3f
+ 1311 0057 19       		.uleb128 0x19
+ 1312 0058 03       		.uleb128 0x3
+ 1313 0059 0E       		.uleb128 0xe
+ 1314 005a 3A       		.uleb128 0x3a
+ 1315 005b 0B       		.uleb128 0xb
+ 1316 005c 3B       		.uleb128 0x3b
+ 1317 005d 0B       		.uleb128 0xb
+ 1318 005e 49       		.uleb128 0x49
+ 1319 005f 13       		.uleb128 0x13
+ 1320 0060 11       		.uleb128 0x11
+ 1321 0061 01       		.uleb128 0x1
+ 1322 0062 12       		.uleb128 0x12
+ 1323 0063 06       		.uleb128 0x6
+ 1324 0064 40       		.uleb128 0x40
+ 1325 0065 18       		.uleb128 0x18
+ 1326 0066 9642     		.uleb128 0x2116
+ 1327 0068 19       		.uleb128 0x19
+ 1328 0069 01       		.uleb128 0x1
+ 1329 006a 13       		.uleb128 0x13
+ 1330 006b 00       		.byte	0
+ 1331 006c 00       		.byte	0
+ 1332 006d 09       		.uleb128 0x9
+ 1333 006e 34       		.uleb128 0x34
+ 1334 006f 00       		.byte	0
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 29
+
+
+ 1335 0070 03       		.uleb128 0x3
+ 1336 0071 0E       		.uleb128 0xe
+ 1337 0072 3A       		.uleb128 0x3a
+ 1338 0073 0B       		.uleb128 0xb
+ 1339 0074 3B       		.uleb128 0x3b
+ 1340 0075 0B       		.uleb128 0xb
+ 1341 0076 49       		.uleb128 0x49
+ 1342 0077 13       		.uleb128 0x13
+ 1343 0078 02       		.uleb128 0x2
+ 1344 0079 18       		.uleb128 0x18
+ 1345 007a 00       		.byte	0
+ 1346 007b 00       		.byte	0
+ 1347 007c 0A       		.uleb128 0xa
+ 1348 007d 0B       		.uleb128 0xb
+ 1349 007e 01       		.byte	0x1
+ 1350 007f 11       		.uleb128 0x11
+ 1351 0080 01       		.uleb128 0x1
+ 1352 0081 12       		.uleb128 0x12
+ 1353 0082 06       		.uleb128 0x6
+ 1354 0083 00       		.byte	0
+ 1355 0084 00       		.byte	0
+ 1356 0085 0B       		.uleb128 0xb
+ 1357 0086 34       		.uleb128 0x34
+ 1358 0087 00       		.byte	0
+ 1359 0088 03       		.uleb128 0x3
+ 1360 0089 08       		.uleb128 0x8
+ 1361 008a 3A       		.uleb128 0x3a
+ 1362 008b 0B       		.uleb128 0xb
+ 1363 008c 3B       		.uleb128 0x3b
+ 1364 008d 0B       		.uleb128 0xb
+ 1365 008e 49       		.uleb128 0x49
+ 1366 008f 13       		.uleb128 0x13
+ 1367 0090 02       		.uleb128 0x2
+ 1368 0091 18       		.uleb128 0x18
+ 1369 0092 00       		.byte	0
+ 1370 0093 00       		.byte	0
+ 1371 0094 0C       		.uleb128 0xc
+ 1372 0095 01       		.uleb128 0x1
+ 1373 0096 01       		.byte	0x1
+ 1374 0097 49       		.uleb128 0x49
+ 1375 0098 13       		.uleb128 0x13
+ 1376 0099 01       		.uleb128 0x1
+ 1377 009a 13       		.uleb128 0x13
+ 1378 009b 00       		.byte	0
+ 1379 009c 00       		.byte	0
+ 1380 009d 0D       		.uleb128 0xd
+ 1381 009e 21       		.uleb128 0x21
+ 1382 009f 00       		.byte	0
+ 1383 00a0 49       		.uleb128 0x49
+ 1384 00a1 13       		.uleb128 0x13
+ 1385 00a2 2F       		.uleb128 0x2f
+ 1386 00a3 0B       		.uleb128 0xb
+ 1387 00a4 00       		.byte	0
+ 1388 00a5 00       		.byte	0
+ 1389 00a6 0E       		.uleb128 0xe
+ 1390 00a7 2E       		.uleb128 0x2e
+ 1391 00a8 01       		.byte	0x1
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 30
+
+
+ 1392 00a9 3F       		.uleb128 0x3f
+ 1393 00aa 19       		.uleb128 0x19
+ 1394 00ab 03       		.uleb128 0x3
+ 1395 00ac 0E       		.uleb128 0xe
+ 1396 00ad 3A       		.uleb128 0x3a
+ 1397 00ae 0B       		.uleb128 0xb
+ 1398 00af 3B       		.uleb128 0x3b
+ 1399 00b0 0B       		.uleb128 0xb
+ 1400 00b1 27       		.uleb128 0x27
+ 1401 00b2 19       		.uleb128 0x19
+ 1402 00b3 11       		.uleb128 0x11
+ 1403 00b4 01       		.uleb128 0x1
+ 1404 00b5 12       		.uleb128 0x12
+ 1405 00b6 06       		.uleb128 0x6
+ 1406 00b7 40       		.uleb128 0x40
+ 1407 00b8 18       		.uleb128 0x18
+ 1408 00b9 9642     		.uleb128 0x2116
+ 1409 00bb 19       		.uleb128 0x19
+ 1410 00bc 01       		.uleb128 0x1
+ 1411 00bd 13       		.uleb128 0x13
+ 1412 00be 00       		.byte	0
+ 1413 00bf 00       		.byte	0
+ 1414 00c0 0F       		.uleb128 0xf
+ 1415 00c1 05       		.uleb128 0x5
+ 1416 00c2 00       		.byte	0
+ 1417 00c3 03       		.uleb128 0x3
+ 1418 00c4 0E       		.uleb128 0xe
+ 1419 00c5 3A       		.uleb128 0x3a
+ 1420 00c6 0B       		.uleb128 0xb
+ 1421 00c7 3B       		.uleb128 0x3b
+ 1422 00c8 0B       		.uleb128 0xb
+ 1423 00c9 49       		.uleb128 0x49
+ 1424 00ca 13       		.uleb128 0x13
+ 1425 00cb 02       		.uleb128 0x2
+ 1426 00cc 18       		.uleb128 0x18
+ 1427 00cd 00       		.byte	0
+ 1428 00ce 00       		.byte	0
+ 1429 00cf 10       		.uleb128 0x10
+ 1430 00d0 2E       		.uleb128 0x2e
+ 1431 00d1 01       		.byte	0x1
+ 1432 00d2 3F       		.uleb128 0x3f
+ 1433 00d3 19       		.uleb128 0x19
+ 1434 00d4 03       		.uleb128 0x3
+ 1435 00d5 0E       		.uleb128 0xe
+ 1436 00d6 3A       		.uleb128 0x3a
+ 1437 00d7 0B       		.uleb128 0xb
+ 1438 00d8 3B       		.uleb128 0x3b
+ 1439 00d9 0B       		.uleb128 0xb
+ 1440 00da 27       		.uleb128 0x27
+ 1441 00db 19       		.uleb128 0x19
+ 1442 00dc 49       		.uleb128 0x49
+ 1443 00dd 13       		.uleb128 0x13
+ 1444 00de 11       		.uleb128 0x11
+ 1445 00df 01       		.uleb128 0x1
+ 1446 00e0 12       		.uleb128 0x12
+ 1447 00e1 06       		.uleb128 0x6
+ 1448 00e2 40       		.uleb128 0x40
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 31
+
+
+ 1449 00e3 18       		.uleb128 0x18
+ 1450 00e4 9642     		.uleb128 0x2116
+ 1451 00e6 19       		.uleb128 0x19
+ 1452 00e7 01       		.uleb128 0x1
+ 1453 00e8 13       		.uleb128 0x13
+ 1454 00e9 00       		.byte	0
+ 1455 00ea 00       		.byte	0
+ 1456 00eb 11       		.uleb128 0x11
+ 1457 00ec 05       		.uleb128 0x5
+ 1458 00ed 00       		.byte	0
+ 1459 00ee 03       		.uleb128 0x3
+ 1460 00ef 08       		.uleb128 0x8
+ 1461 00f0 3A       		.uleb128 0x3a
+ 1462 00f1 0B       		.uleb128 0xb
+ 1463 00f2 3B       		.uleb128 0x3b
+ 1464 00f3 0B       		.uleb128 0xb
+ 1465 00f4 49       		.uleb128 0x49
+ 1466 00f5 13       		.uleb128 0x13
+ 1467 00f6 02       		.uleb128 0x2
+ 1468 00f7 18       		.uleb128 0x18
+ 1469 00f8 00       		.byte	0
+ 1470 00f9 00       		.byte	0
+ 1471 00fa 12       		.uleb128 0x12
+ 1472 00fb 2E       		.uleb128 0x2e
+ 1473 00fc 00       		.byte	0
+ 1474 00fd 3F       		.uleb128 0x3f
+ 1475 00fe 19       		.uleb128 0x19
+ 1476 00ff 03       		.uleb128 0x3
+ 1477 0100 0E       		.uleb128 0xe
+ 1478 0101 3A       		.uleb128 0x3a
+ 1479 0102 0B       		.uleb128 0xb
+ 1480 0103 3B       		.uleb128 0x3b
+ 1481 0104 0B       		.uleb128 0xb
+ 1482 0105 27       		.uleb128 0x27
+ 1483 0106 19       		.uleb128 0x19
+ 1484 0107 11       		.uleb128 0x11
+ 1485 0108 01       		.uleb128 0x1
+ 1486 0109 12       		.uleb128 0x12
+ 1487 010a 06       		.uleb128 0x6
+ 1488 010b 40       		.uleb128 0x40
+ 1489 010c 18       		.uleb128 0x18
+ 1490 010d 9642     		.uleb128 0x2116
+ 1491 010f 19       		.uleb128 0x19
+ 1492 0110 00       		.byte	0
+ 1493 0111 00       		.byte	0
+ 1494 0112 13       		.uleb128 0x13
+ 1495 0113 34       		.uleb128 0x34
+ 1496 0114 00       		.byte	0
+ 1497 0115 03       		.uleb128 0x3
+ 1498 0116 0E       		.uleb128 0xe
+ 1499 0117 3A       		.uleb128 0x3a
+ 1500 0118 0B       		.uleb128 0xb
+ 1501 0119 3B       		.uleb128 0x3b
+ 1502 011a 0B       		.uleb128 0xb
+ 1503 011b 49       		.uleb128 0x49
+ 1504 011c 13       		.uleb128 0x13
+ 1505 011d 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 32
+
+
+ 1506 011e 19       		.uleb128 0x19
+ 1507 011f 02       		.uleb128 0x2
+ 1508 0120 18       		.uleb128 0x18
+ 1509 0121 00       		.byte	0
+ 1510 0122 00       		.byte	0
+ 1511 0123 14       		.uleb128 0x14
+ 1512 0124 26       		.uleb128 0x26
+ 1513 0125 00       		.byte	0
+ 1514 0126 49       		.uleb128 0x49
+ 1515 0127 13       		.uleb128 0x13
+ 1516 0128 00       		.byte	0
+ 1517 0129 00       		.byte	0
+ 1518 012a 00       		.byte	0
+ 1519              		.section	.debug_aranges,"",%progbits
+ 1520 0000 54000000 		.4byte	0x54
+ 1521 0004 0200     		.2byte	0x2
+ 1522 0006 00000000 		.4byte	.Ldebug_info0
+ 1523 000a 04       		.byte	0x4
+ 1524 000b 00       		.byte	0
+ 1525 000c 0000     		.2byte	0
+ 1526 000e 0000     		.2byte	0
+ 1527 0010 00000000 		.4byte	.LFB33
+ 1528 0014 A4010000 		.4byte	.LFE33-.LFB33
+ 1529 0018 00000000 		.4byte	.LFB34
+ 1530 001c 50000000 		.4byte	.LFE34-.LFB34
+ 1531 0020 00000000 		.4byte	.LFB35
+ 1532 0024 66000000 		.4byte	.LFE35-.LFB35
+ 1533 0028 00000000 		.4byte	.LFB36
+ 1534 002c 4E000000 		.4byte	.LFE36-.LFB36
+ 1535 0030 00000000 		.4byte	.LFB37
+ 1536 0034 48000000 		.4byte	.LFE37-.LFB37
+ 1537 0038 00000000 		.4byte	.LFB38
+ 1538 003c 74000000 		.4byte	.LFE38-.LFB38
+ 1539 0040 00000000 		.4byte	.LFB39
+ 1540 0044 12000000 		.4byte	.LFE39-.LFB39
+ 1541 0048 00000000 		.4byte	.LFB40
+ 1542 004c 28000000 		.4byte	.LFE40-.LFB40
+ 1543 0050 00000000 		.4byte	0
+ 1544 0054 00000000 		.4byte	0
+ 1545              		.section	.debug_ranges,"",%progbits
+ 1546              	.Ldebug_ranges0:
+ 1547 0000 00000000 		.4byte	.LFB33
+ 1548 0004 A4010000 		.4byte	.LFE33
+ 1549 0008 00000000 		.4byte	.LFB34
+ 1550 000c 50000000 		.4byte	.LFE34
+ 1551 0010 00000000 		.4byte	.LFB35
+ 1552 0014 66000000 		.4byte	.LFE35
+ 1553 0018 00000000 		.4byte	.LFB36
+ 1554 001c 4E000000 		.4byte	.LFE36
+ 1555 0020 00000000 		.4byte	.LFB37
+ 1556 0024 48000000 		.4byte	.LFE37
+ 1557 0028 00000000 		.4byte	.LFB38
+ 1558 002c 74000000 		.4byte	.LFE38
+ 1559 0030 00000000 		.4byte	.LFB39
+ 1560 0034 12000000 		.4byte	.LFE39
+ 1561 0038 00000000 		.4byte	.LFB40
+ 1562 003c 28000000 		.4byte	.LFE40
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 33
+
+
+ 1563 0040 00000000 		.4byte	0
+ 1564 0044 00000000 		.4byte	0
+ 1565              		.section	.debug_line,"",%progbits
+ 1566              	.Ldebug_line0:
+ 1567 0000 50020000 		.section	.debug_str,"MS",%progbits,1
+ 1567      02005401 
+ 1567      00000201 
+ 1567      FB0E0D00 
+ 1567      01010101 
+ 1568              	.LASF21:
+ 1569 0000 72656733 		.ascii	"reg32\000"
+ 1569      3200
+ 1570              	.LASF2:
+ 1571 0006 5F5F7569 		.ascii	"__uint8_t\000"
+ 1571      6E74385F 
+ 1571      7400
+ 1572              	.LASF37:
+ 1573 0010 72656164 		.ascii	"readAccData\000"
+ 1573      41636344 
+ 1573      61746100 
+ 1574              	.LASF3:
+ 1575 001c 5F5F696E 		.ascii	"__int16_t\000"
+ 1575      7431365F 
+ 1575      7400
+ 1576              	.LASF44:
+ 1577 0026 65737441 		.ascii	"estAng\000"
+ 1577      6E6700
+ 1578              	.LASF32:
+ 1579 002d 61727261 		.ascii	"arrayLen\000"
+ 1579      794C656E 
+ 1579      00
+ 1580              	.LASF6:
+ 1581 0036 5F5F696E 		.ascii	"__int32_t\000"
+ 1581      7433325F 
+ 1581      7400
+ 1582              	.LASF42:
+ 1583 0040 696D7549 		.ascii	"imuInitArray\000"
+ 1583      6E697441 
+ 1583      72726179 
+ 1583      00
+ 1584              	.LASF34:
+ 1585 004d 72656164 		.ascii	"readGyroData\000"
+ 1585      4779726F 
+ 1585      44617461 
+ 1585      00
+ 1586              	.LASF5:
+ 1587 005a 73686F72 		.ascii	"short unsigned int\000"
+ 1587      7420756E 
+ 1587      7369676E 
+ 1587      65642069 
+ 1587      6E7400
+ 1588              	.LASF19:
+ 1589 006d 646F7562 		.ascii	"double\000"
+ 1589      6C6500
+ 1590              	.LASF15:
+ 1591 0074 75696E74 		.ascii	"uint8\000"
+ 1591      3800
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 34
+
+
+ 1592              	.LASF38:
+ 1593 007a 61636344 		.ascii	"accData\000"
+ 1593      61746100 
+ 1594              	.LASF25:
+ 1595 0082 666F7263 		.ascii	"forceMagEst\000"
+ 1595      654D6167 
+ 1595      45737400 
+ 1596              	.LASF18:
+ 1597 008e 666C6F61 		.ascii	"float\000"
+ 1597      7400
+ 1598              	.LASF45:
+ 1599 0094 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1599      4320342E 
+ 1599      382E3420 
+ 1599      32303134 
+ 1599      30353236 
+ 1600 00c7 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1600      20726576 
+ 1600      6973696F 
+ 1600      6E203231 
+ 1600      31333538 
+ 1601 00fa 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1601      66756E63 
+ 1601      74696F6E 
+ 1601      2D736563 
+ 1601      74696F6E 
+ 1602              	.LASF24:
+ 1603 0110 6779726F 		.ascii	"gyroAng\000"
+ 1603      416E6700 
+ 1604              	.LASF48:
+ 1605 0118 72656164 		.ascii	"readI2CReg\000"
+ 1605      49324352 
+ 1605      656700
+ 1606              	.LASF1:
+ 1607 0123 756E7369 		.ascii	"unsigned char\000"
+ 1607      676E6564 
+ 1607      20636861 
+ 1607      7200
+ 1608              	.LASF31:
+ 1609 0131 696E6974 		.ascii	"initArray\000"
+ 1609      41727261 
+ 1609      7900
+ 1610              	.LASF17:
+ 1611 013b 696E7431 		.ascii	"int16\000"
+ 1611      3600
+ 1612              	.LASF49:
+ 1613 0141 6779726F 		.ascii	"gyroDataReadyInterrupt\000"
+ 1613      44617461 
+ 1613      52656164 
+ 1613      79496E74 
+ 1613      65727275 
+ 1614              	.LASF30:
+ 1615 0158 61646472 		.ascii	"addr\000"
+ 1615      00
+ 1616              	.LASF29:
+ 1617 015d 73657475 		.ascii	"setupI2CDevice\000"
+ 1617      70493243 
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 35
+
+
+ 1617      44657669 
+ 1617      636500
+ 1618              	.LASF47:
+ 1619 016c 433A5C55 		.ascii	"C:\\Users\\Felix\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1619      73657273 
+ 1619      5C46656C 
+ 1619      69785C47 
+ 1619      6F6F676C 
+ 1620 019a 73797374 		.ascii	"system arbejdsdokumenter\\Modultest\\vinkelsensor t"
+ 1620      656D2061 
+ 1620      7262656A 
+ 1620      6473646F 
+ 1620      6B756D65 
+ 1621 01cb 6573745C 		.ascii	"est\\Vinkelsensor.cydsn\000"
+ 1621      56696E6B 
+ 1621      656C7365 
+ 1621      6E736F72 
+ 1621      2E637964 
+ 1622              	.LASF26:
+ 1623 01e2 61636341 		.ascii	"accAng\000"
+ 1623      6E6700
+ 1624              	.LASF46:
+ 1625 01e9 2E5C6D61 		.ascii	".\\main.c\000"
+ 1625      696E2E63 
+ 1625      00
+ 1626              	.LASF8:
+ 1627 01f2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1627      20756E73 
+ 1627      69676E65 
+ 1627      6420696E 
+ 1627      7400
+ 1628              	.LASF28:
+ 1629 0204 6D61696E 		.ascii	"main\000"
+ 1629      00
+ 1630              	.LASF33:
+ 1631 0209 77726974 		.ascii	"writeI2CReg\000"
+ 1631      65493243 
+ 1631      52656700 
+ 1632              	.LASF16:
+ 1633 0215 75696E74 		.ascii	"uint32\000"
+ 1633      333200
+ 1634              	.LASF11:
+ 1635 021c 756E7369 		.ascii	"unsigned int\000"
+ 1635      676E6564 
+ 1635      20696E74 
+ 1635      00
+ 1636              	.LASF10:
+ 1637 0229 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1637      206C6F6E 
+ 1637      6720756E 
+ 1637      7369676E 
+ 1637      65642069 
+ 1638              	.LASF12:
+ 1639 0240 75696E74 		.ascii	"uint8_t\000"
+ 1639      385F7400 
+ 1640              	.LASF27:
+ 1641 0248 72657375 		.ascii	"result\000"
+ARM GAS  C:\Users\Felix\AppData\Local\Temp\cchswuIe.s 			page 36
+
+
+ 1641      6C7400
+ 1642              	.LASF13:
+ 1643 024f 696E7431 		.ascii	"int16_t\000"
+ 1643      365F7400 
+ 1644              	.LASF14:
+ 1645 0257 696E7433 		.ascii	"int32_t\000"
+ 1645      325F7400 
+ 1646              	.LASF22:
+ 1647 025f 73697A65 		.ascii	"sizetype\000"
+ 1647      74797065 
+ 1647      00
+ 1648              	.LASF41:
+ 1649 0268 6572726F 		.ascii	"error\000"
+ 1649      7200
+ 1650              	.LASF9:
+ 1651 026e 6C6F6E67 		.ascii	"long long int\000"
+ 1651      206C6F6E 
+ 1651      6720696E 
+ 1651      7400
+ 1652              	.LASF20:
+ 1653 027c 63686172 		.ascii	"char\000"
+ 1653      00
+ 1654              	.LASF43:
+ 1655 0281 64617461 		.ascii	"dataReady\000"
+ 1655      52656164 
+ 1655      7900
+ 1656              	.LASF4:
+ 1657 028b 73686F72 		.ascii	"short int\000"
+ 1657      7420696E 
+ 1657      7400
+ 1658              	.LASF23:
+ 1659 0295 66697831 		.ascii	"fix16_t\000"
+ 1659      365F7400 
+ 1660              	.LASF35:
+ 1661 029d 6779726F 		.ascii	"gyroData\000"
+ 1661      44617461 
+ 1661      00
+ 1662              	.LASF7:
+ 1663 02a6 6C6F6E67 		.ascii	"long int\000"
+ 1663      20696E74 
+ 1663      00
+ 1664              	.LASF39:
+ 1665 02af 72617741 		.ascii	"rawAccY\000"
+ 1665      63635900 
+ 1666              	.LASF40:
+ 1667 02b7 72617741 		.ascii	"rawAccZ\000"
+ 1667      63635A00 
+ 1668              	.LASF0:
+ 1669 02bf 7369676E 		.ascii	"signed char\000"
+ 1669      65642063 
+ 1669      68617200 
+ 1670              	.LASF36:
+ 1671 02cb 72617747 		.ascii	"rawGyroX\000"
+ 1671      79726F58 
+ 1671      00
+ 1672              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

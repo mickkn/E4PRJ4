@@ -1,0 +1,2273 @@
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"I2CVuggesystem_I2C_INT.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.I2CVuggesystem_I2C_ISR,"ax",%progbits
+  18              		.align	2
+  19              		.global	I2CVuggesystem_I2C_ISR
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	I2CVuggesystem_I2C_ISR, %function
+  23              	I2CVuggesystem_I2C_ISR:
+  24              	.LFB0:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\I2CVuggesystem_I2C_INT.c"
+   1:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * File Name: I2CVuggesystem_I2C_INT.c
+   3:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Version 2.0
+   4:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+   5:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Description:
+   6:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *  This file provides the source code to the Interrupt Service Routine for
+   7:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *  the SCB Component in I2C mode.
+   8:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+   9:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Note:
+  10:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+  11:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  18:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** #include "I2CVuggesystem_PVT.h"
+  19:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** #include "I2CVuggesystem_I2C_PVT.h"
+  20:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  21:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  22:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** /*******************************************************************************
+  23:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Function Name: I2CVuggesystem_I2C_ISR
+  24:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** ********************************************************************************
+  25:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+  26:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Summary:
+  27:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *  Handles the Interrupt Service Routine for the SCB I2C mode.
+  28:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+  29:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Parameters:
+  30:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *  None
+  31:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+  32:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** * Return:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *  None
+  34:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *
+  35:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** *******************************************************************************/
+  36:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** CY_ISR(I2CVuggesystem_I2C_ISR)
+  37:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** {
+  26              		.loc 1 37 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+  32 0002 82B0     		sub	sp, sp, #8
+  33              		.cfi_def_cfa_offset 16
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+  38:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     uint32 diffCount;
+  39:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     uint32 endTransfer;
+  40:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  41:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     #if(I2CVuggesystem_CHECK_I2C_ACCEPT_ADDRESS_CONST)
+  42:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         uint32 address;
+  43:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     #endif /* (I2CVuggesystem_CHECK_I2C_ACCEPT_ADDRESS_CONST) */
+  44:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  45:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     endTransfer = 0u; /* Continue active transfer */
+  36              		.loc 1 45 0
+  37 0006 0023     		mov	r3, #0
+  38 0008 3B60     		str	r3, [r7]
+  46:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  47:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* Calls customer routine if registered */
+  48:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     if(NULL != I2CVuggesystem_customIntrHandler)
+  39              		.loc 1 48 0
+  40 000a DA4B     		ldr	r3, .L38
+  41 000c 1B68     		ldr	r3, [r3]
+  42 000e 002B     		cmp	r3, #0
+  43 0010 02D0     		beq	.L2
+  49:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+  50:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_customIntrHandler();
+  44              		.loc 1 50 0
+  45 0012 D84B     		ldr	r3, .L38
+  46 0014 1B68     		ldr	r3, [r3]
+  47 0016 9847     		blx	r3
+  48              	.L2:
+  51:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+  52:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  53:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     if(I2CVuggesystem_CHECK_INTR_I2C_EC_MASKED(I2CVuggesystem_INTR_I2C_EC_WAKE_UP))
+  49              		.loc 1 53 0
+  50 0018 D74B     		ldr	r3, .L38+4
+  51 001a 1A68     		ldr	r2, [r3]
+  52 001c 0123     		mov	r3, #1
+  53 001e 1340     		and	r3, r2
+  54 0020 02D0     		beq	.L3
+  54:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+  55:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         /* Mask-off after wakeup */
+  56:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_SetI2CExtClkInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+  55              		.loc 1 56 0
+  56 0022 D64B     		ldr	r3, .L38+8
+  57 0024 0022     		mov	r2, #0
+  58 0026 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 3
+
+
+  59              	.L3:
+  57:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+  58:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  59:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* Master and Slave error tracking:
+  60:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * Add the master state check to track only the master errors when the master is active or
+  61:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * track slave errors when the slave is active or idle.
+  62:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * A special MMS case: in the address phase with misplaced Start: the master sets the LOST_ARB a
+  63:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * slave BUS_ERR. The valid event is LOST_ARB comes from the master.
+  64:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     */
+  65:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     if(I2CVuggesystem_CHECK_I2C_FSM_MASTER)
+  60              		.loc 1 65 0
+  61 0028 D54B     		ldr	r3, .L38+12
+  62 002a 1B78     		ldrb	r3, [r3]
+  63 002c DAB2     		uxtb	r2, r3
+  64 002e 2023     		mov	r3, #32
+  65 0030 1340     		and	r3, r2
+  66 0032 DBB2     		uxtb	r3, r3
+  67 0034 002B     		cmp	r3, #0
+  68 0036 32D1     		bne	.L4
+  66:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+  67:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #if(I2CVuggesystem_I2C_MASTER)
+  68:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         {
+  69:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_MASTER_I2C_BUS_ERROR:
+  70:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * A misplaced Start or Stop condition occurred on the bus: complete the transaction.
+  71:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The interrupt is cleared in I2C_FSM_EXIT_IDLE.
+  72:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+  73:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTER_I2C_BUS_ERROR))
+  74:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+  75:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_ERR_XFER |
+  76:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                          I2CVuggesystem_I2C_MSTAT_ERR_BUS_ERROR);
+  77:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  78:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+  79:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+  80:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  81:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_MASTER_I2C_ARB_LOST:
+  82:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The MultiMaster lost arbitrage during transaction.
+  83:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * A Misplaced Start or Stop condition is treated as lost arbitration when the master dr
+  84:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The interrupt source is cleared in I2C_FSM_EXIT_IDLE.
+  85:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+  86:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTER_I2C_ARB_LOST))
+  87:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+  88:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_ERR_XFER |
+  89:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                          I2CVuggesystem_I2C_MSTAT_ERR_ARB_LOST);
+  90:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  91:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+  92:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+  93:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+  94:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             #if(I2CVuggesystem_I2C_MULTI_MASTER_SLAVE)
+  95:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+  96:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* I2C_MASTER_CMD_M_START_ON_IDLE:
+  97:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 * MultiMaster-Slave does not generate start, because Slave was addressed.
+  98:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 * Pass control to slave.
+  99:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 */
+ 100:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_I2C_MASTER_CMD(I2CVuggesystem_I2C_MASTER_CMD_M_START_ON_IDL
+ 101:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 102:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_ERR_XFER |
+ 103:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                              I2CVuggesystem_I2C_MSTAT_ERR_ABORT_XFE
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 4
+
+
+ 104:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 105:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 106:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 107:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 108:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             #endif
+ 109:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 110:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* The error handling common part:
+ 111:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * Sets a completion flag of the master transaction and passes control to:
+ 112:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             *  - I2C_FSM_EXIT_IDLE - to complete transaction in case of: ARB_LOST or BUS_ERR.
+ 113:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             *  - I2C_FSM_IDLE      - to take chance for the slave to process incoming transaction.
+ 114:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 115:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(0u != endTransfer)
+ 116:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 117:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Set completion flags for master */
+ 118:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_mstrStatus |= (uint16) I2CVuggesystem_GET_I2C_MSTAT_CMPLT;
+ 119:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 120:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #if(I2CVuggesystem_I2C_MULTI_MASTER_SLAVE)
+ 121:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 122:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(I2CVuggesystem_CHECK_I2C_FSM_ADDR)
+ 123:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 124:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Start generation is set after another master starts accessing Slave.
+ 125:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * Clean-up master and turn to slave. Set state to IDLE.
+ 126:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 127:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(I2CVuggesystem_CHECK_I2C_MASTER_CMD(I2CVuggesystem_I2C_MASTER_CMD_M_STAR
+ 128:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 129:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_I2C_MASTER_CLEAR_START;
+ 130:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 131:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER; /* Pass control to
+ 132:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 133:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Valid arbitration lost on the address phase happens only when: master LO
+ 134:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * slave BUS_ERR is cleared. Only in that case set the state to IDLE without
+ 135:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 136:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else if((!I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_
+ 137:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                && I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTE
+ 138:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 139:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER; /* Pass control to
+ 140:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 141:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 142:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 143:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             endTransfer = 0u; /* Causes I2C_FSM_EXIT_IDLE to be set below */
+ 144:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 145:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 146:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(0u != endTransfer) /* Clean-up master to proceed with slave */
+ 147:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 148:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_CLEAR_TX_FIFO; /* Shifter keeps address, clear it */
+ 149:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 150:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_DISABLE_MASTER_AUTO_DATA_ACK; /* In case of reading disa
+ 151:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 152:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Clean-up master interrupt sources */
+ 153:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ClearMasterInterruptSource(I2CVuggesystem_INTR_MASTER_AL
+ 154:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 155:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Disable data processing interrupts: they have to be cleared before *
+ 156:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 157:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 158:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 159:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_IDLE;
+ 160:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 5
+
+
+ 161:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 162:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 163:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Set I2C_FSM_EXIT_IDLE for BUS_ERR and ARB_LOST (that is really bus e
+ 164:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_EXIT_IDLE;
+ 165:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 166:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 167:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else
+ 168:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 169:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Set I2C_FSM_EXIT_IDLE if any other state than address */
+ 170:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_EXIT_IDLE;
+ 171:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 172:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 173:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #else
+ 174:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 175:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* In case of LOST*/
+ 176:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_EXIT_IDLE;
+ 177:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 178:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #endif
+ 179:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 180:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         }
+ 181:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #endif
+ 182:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+ 183:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     else /* (I2CVuggesystem_CHECK_I2C_FSM_SLAVE) */
+ 184:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+ 185:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #if(I2CVuggesystem_I2C_SLAVE)
+ 186:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         {
+ 187:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_SLAVE_I2C_BUS_ERROR or I2CVuggesystem_INTR_SLAVE_I2C_ARB_LOST:
+ 188:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * A Misplaced Start or Stop condition occurred on the bus: set a flag
+ 189:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * to notify an error condition.
+ 190:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 191:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_I2C_BUS_ERROR |
+  69              		.loc 1 191 0
+  70 0038 D24B     		ldr	r3, .L38+16
+  71 003a 1A68     		ldr	r2, [r3]
+  72 003c 0223     		mov	r3, #2
+  73 003e FF33     		add	r3, r3, #255
+  74 0040 1340     		and	r3, r2
+  75 0042 2CD0     		beq	.L4
+ 192:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                         I2CVuggesystem_INTR_SLAVE_I2C_ARB_LOST))
+ 193:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 194:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_I2C_FSM_RD)
+  76              		.loc 1 194 0
+  77 0044 CE4B     		ldr	r3, .L38+12
+  78 0046 1B78     		ldrb	r3, [r3]
+  79 0048 DAB2     		uxtb	r2, r3
+  80 004a 0123     		mov	r3, #1
+  81 004c 1340     		and	r3, r2
+  82 004e DBB2     		uxtb	r3, r3
+  83 0050 002B     		cmp	r3, #0
+  84 0052 10D0     		beq	.L5
+ 195:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 196:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* TX direction: master reads from slave */
+ 197:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus &= (uint8) ~I2CVuggesystem_I2C_SSTAT_RD_BUSY;
+  85              		.loc 1 197 0
+  86 0054 CC4B     		ldr	r3, .L38+20
+  87 0056 1B78     		ldrb	r3, [r3]
+  88 0058 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 6
+
+
+  89 005a 0222     		mov	r2, #2
+  90 005c 9343     		bic	r3, r2
+  91 005e DAB2     		uxtb	r2, r3
+  92 0060 C94B     		ldr	r3, .L38+20
+  93 0062 1A70     		strb	r2, [r3]
+ 198:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) (I2CVuggesystem_I2C_SSTAT_RD_ERR |
+  94              		.loc 1 198 0
+  95 0064 C84B     		ldr	r3, .L38+20
+  96 0066 1B78     		ldrb	r3, [r3]
+  97 0068 DBB2     		uxtb	r3, r3
+  98 006a 0922     		mov	r2, #9
+  99 006c 1343     		orr	r3, r2
+ 100 006e DAB2     		uxtb	r2, r3
+ 101 0070 C54B     		ldr	r3, .L38+20
+ 102 0072 1A70     		strb	r2, [r3]
+ 103 0074 10E0     		b	.L6
+ 104              	.L5:
+ 199:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                           I2CVuggesystem_I2C_SSTAT_RD_CMPLT);
+ 200:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 201:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 else
+ 202:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 203:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* RX direction: master writes into slave */
+ 204:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus &= (uint8) ~I2CVuggesystem_I2C_SSTAT_WR_BUSY;
+ 105              		.loc 1 204 0
+ 106 0076 C44B     		ldr	r3, .L38+20
+ 107 0078 1B78     		ldrb	r3, [r3]
+ 108 007a DBB2     		uxtb	r3, r3
+ 109 007c 2022     		mov	r2, #32
+ 110 007e 9343     		bic	r3, r2
+ 111 0080 DAB2     		uxtb	r2, r3
+ 112 0082 C14B     		ldr	r3, .L38+20
+ 113 0084 1A70     		strb	r2, [r3]
+ 205:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) (I2CVuggesystem_I2C_SSTAT_WR_ERR |
+ 114              		.loc 1 205 0
+ 115 0086 C04B     		ldr	r3, .L38+20
+ 116 0088 1B78     		ldrb	r3, [r3]
+ 117 008a DBB2     		uxtb	r3, r3
+ 118 008c 7022     		mov	r2, #112
+ 119 008e 5242     		neg	r2, r2
+ 120 0090 1343     		orr	r3, r2
+ 121 0092 DAB2     		uxtb	r2, r3
+ 122 0094 BC4B     		ldr	r3, .L38+20
+ 123 0096 1A70     		strb	r2, [r3]
+ 124              	.L6:
+ 206:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                           I2CVuggesystem_I2C_SSTAT_WR_CMPLT);
+ 207:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 208:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 209:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_EXIT_IDLE;
+ 125              		.loc 1 209 0
+ 126 0098 B94B     		ldr	r3, .L38+12
+ 127 009a 0022     		mov	r2, #0
+ 128 009c 1A70     		strb	r2, [r3]
+ 129              	.L4:
+ 210:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 211:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         }
+ 212:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #endif
+ 213:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 7
+
+
+ 214:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 215:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* States description:
+ 216:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * Any Master operation starts from: the ADDR_RD/WR state as the master generates traffic on the
+ 217:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * Any Slave operation starts from: the IDLE state as the slave always waits for actions from th
+ 218:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     */
+ 219:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 220:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* FSM Master */
+ 221:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     if(I2CVuggesystem_CHECK_I2C_FSM_MASTER)
+ 130              		.loc 1 221 0
+ 131 009e B84B     		ldr	r3, .L38+12
+ 132 00a0 1B78     		ldrb	r3, [r3]
+ 133 00a2 DAB2     		uxtb	r2, r3
+ 134 00a4 2023     		mov	r3, #32
+ 135 00a6 1340     		and	r3, r2
+ 136 00a8 DBB2     		uxtb	r3, r3
+ 137 00aa 002B     		cmp	r3, #0
+ 138 00ac 00D0     		beq	.LCB108
+ 139 00ae 0DE2     		b	.L1	@long jump
+ 140              	.LCB108:
+ 222:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+ 223:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #if(I2CVuggesystem_I2C_MASTER)
+ 224:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         {
+ 225:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_MASTER_I2C_STOP:
+ 226:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * A Stop condition was generated by the master: the end of the transaction.
+ 227:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * Set completion flags to notify the API.
+ 228:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 229:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTER_I2C_STOP))
+ 230:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 231:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearMasterInterruptSource(I2CVuggesystem_INTR_MASTER_I2C_STOP);
+ 232:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 233:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_mstrStatus |= (uint16) I2CVuggesystem_GET_I2C_MSTAT_CMPLT;
+ 234:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_state       = I2CVuggesystem_I2C_FSM_IDLE;
+ 235:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 236:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             else
+ 237:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 238:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_I2C_FSM_ADDR) /* Address stage */
+ 239:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 240:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* INTR_MASTER_I2C_NACK:
+ 241:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     * The master sent an address but it was NACKed by the slave. Complete transacti
+ 242:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     */
+ 243:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTER_I2C_NACK)
+ 244:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 245:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_ClearMasterInterruptSource(I2CVuggesystem_INTR_MASTER_I2C_NA
+ 246:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 247:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_ERR_XFER |
+ 248:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                                  I2CVuggesystem_I2C_MSTAT_ERR_ADDR_
+ 249:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 250:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 251:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 252:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* INTR_TX_UNDERFLOW. The master sent an address:
+ 253:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     *  - TX direction: the clock is stretched after the ACK phase, because the TX F
+ 254:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     *    EMPTY. The TX EMPTY cleans all the TX interrupt sources.
+ 255:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     *  - RX direction: the 1st byte is received, but there is no ACK permission,
+ 256:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     *    the clock is stretched after 1 byte is received.
+ 257:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     */
+ 258:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else
+ 259:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 8
+
+
+ 260:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(I2CVuggesystem_CHECK_I2C_FSM_RD) /* Reading */
+ 261:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 262:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_MSTR_RD_DATA;
+ 263:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 264:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else /* Writing */
+ 265:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 266:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_MSTR_WR_DATA;
+ 267:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if(0u != I2CVuggesystem_mstrWrBufSize)
+ 268:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 269:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 /* Enable INTR.TX_EMPTY if there is data to transmit */
+ 270:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_INTR_TX_EMPTY);
+ 271:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 272:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 273:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 274:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 275:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 276:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_I2C_FSM_DATA) /* Data phase */
+ 277:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 278:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(I2CVuggesystem_CHECK_I2C_FSM_RD) /* Reading */
+ 279:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 280:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* INTR_RX_FULL:
+ 281:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * RX direction: the master received 8 bytes.
+ 282:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * Get data from RX FIFO and decide whether to ACK or  NACK the following by
+ 283:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 284:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(I2CVuggesystem_CHECK_INTR_RX_MASKED(I2CVuggesystem_INTR_RX_FULL))
+ 285:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 286:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Calculate difference */
+ 287:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             diffCount =  I2CVuggesystem_mstrRdBufSize -
+ 288:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                         (I2CVuggesystem_mstrRdBufIndex + I2CVuggesystem_GET_RX_FIFO
+ 289:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 290:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Proceed transaction or end it when RX FIFO becomes FULL again */
+ 291:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if(diffCount > I2CVuggesystem_I2C_FIFO_SIZE)
+ 292:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 293:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 diffCount = I2CVuggesystem_I2C_FIFO_SIZE;
+ 294:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 295:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             else
+ 296:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 297:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 if(0u == diffCount)
+ 298:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 {
+ 299:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     I2CVuggesystem_DISABLE_MASTER_AUTO_DATA_ACK;
+ 300:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 301:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     diffCount   = I2CVuggesystem_I2C_FIFO_SIZE;
+ 302:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 303:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 }
+ 304:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 305:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 306:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             for(; (0u != diffCount); diffCount--)
+ 307:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 308:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_mstrRdBufPtr[I2CVuggesystem_mstrRdBufIndex] = (uint8
+ 309:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                                                         I2CVuggesys
+ 310:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_mstrRdBufIndex++;
+ 311:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 312:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 313:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* INTR_RX_NOT_EMPTY:
+ 314:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * RX direction: the master received one data byte, ACK or NACK it.
+ 315:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * The last byte is stored and NACKed by the master. The NACK and Stop is
+ 316:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * generated by one command generate Stop.
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 9
+
+
+ 317:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 318:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else if(I2CVuggesystem_CHECK_INTR_RX_MASKED(I2CVuggesystem_INTR_RX_NOT_EMPT
+ 319:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 320:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Put data in component buffer */
+ 321:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrRdBufPtr[I2CVuggesystem_mstrRdBufIndex] = (uint8) I2
+ 322:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrRdBufIndex++;
+ 323:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 324:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if(I2CVuggesystem_mstrRdBufIndex < I2CVuggesystem_mstrRdBufSize)
+ 325:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 326:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_I2C_MASTER_GENERATE_ACK;
+ 327:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 328:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             else
+ 329:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 330:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 331:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 332:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 333:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 334:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 335:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Do nothing */
+ 336:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 337:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 338:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_RX_ALL);
+ 339:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 340:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else /* Writing */
+ 341:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 342:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* INTR_MASTER_I2C_NACK :
+ 343:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * The master writes data to the slave and NACK was received: not all the by
+ 344:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * written to the slave from the TX FIFO. Revert the index if there is data 
+ 345:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * the TX FIFO and pass control to a complete transfer.
+ 346:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 347:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(I2CVuggesystem_CHECK_INTR_MASTER_MASKED(I2CVuggesystem_INTR_MASTER_I2C_N
+ 348:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 349:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ClearMasterInterruptSource(I2CVuggesystem_INTR_MASTER_I2
+ 350:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 351:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Rollback write buffer index: NACKed byte remains in shifter */
+ 352:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrWrBufIndexTmp -= (I2CVuggesystem_GET_TX_FIFO_ENTRIES
+ 353:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                                    I2CVuggesystem_GET_TX_FIFO_SR_VA
+ 354:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 355:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Update number of transferred bytes */
+ 356:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrWrBufIndex = I2CVuggesystem_mstrWrBufIndexTmp;
+ 357:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 358:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_ERR_XFE
+ 359:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                                      I2CVuggesystem_I2C_MSTAT_ERR_S
+ 360:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 361:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_CLEAR_TX_FIFO;
+ 362:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 363:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 364:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 365:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* INTR_TX_EMPTY :
+ 366:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * TX direction: the TX FIFO is EMPTY, the data from the buffer needs to be 
+ 367:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * When there is no data in the component buffer, the underflow interrupt is
+ 368:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * enabled to catch when all the data has been transferred.
+ 369:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 370:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else if(I2CVuggesystem_CHECK_INTR_TX_MASKED(I2CVuggesystem_INTR_TX_EMPTY))
+ 371:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 372:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             while(I2CVuggesystem_I2C_FIFO_SIZE != I2CVuggesystem_GET_TX_FIFO_ENTRIE
+ 373:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 10
+
+
+ 374:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 /* The temporary mstrWrBufIndexTmp is used because slave could NACK
+ 375:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 * roll-back required in this case. The mstrWrBufIndex is updated at
+ 376:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 */
+ 377:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 if(I2CVuggesystem_mstrWrBufIndexTmp < I2CVuggesystem_mstrWrBufSize)
+ 378:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 {
+ 379:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 #if(!I2CVuggesystem_CY_SCBIP_V0)
+ 380:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                    /* Clear INTR_TX.UNDERFLOW before putting the last byte into TX 
+ 381:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     * a proper trigger at the end of transaction when INTR_TX.UNDER
+ 382:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     * event. Ticket ID# 156735.
+ 383:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     */
+ 384:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     if(I2CVuggesystem_mstrWrBufIndexTmp == (I2CVuggesystem_mstrWrBu
+ 385:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     {
+ 386:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                         I2CVuggesystem_ClearTxInterruptSource(I2CVuggesystem_INTR_T
+ 387:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                         I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_INTR_TX_UN
+ 388:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     }
+ 389:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                  #endif /* (!I2CVuggesystem_CY_SCBIP_V0) */
+ 390:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 391:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     /* Put data into TX FIFO */
+ 392:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     I2CVuggesystem_TX_FIFO_WR_REG = (uint32) I2CVuggesystem_mstrWrB
+ 393:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     I2CVuggesystem_mstrWrBufIndexTmp++;
+ 394:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 }
+ 395:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 else
+ 396:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 {
+ 397:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                     break; /* No more data to put */
+ 398:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 }
+ 399:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 400:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 401:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         #if(I2CVuggesystem_CY_SCBIP_V0)
+ 402:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if(I2CVuggesystem_mstrWrBufIndexTmp == I2CVuggesystem_mstrWrBufSize)
+ 403:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 404:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_INTR_TX_UNDERFLOW)
+ 405:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 406:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 407:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ClearTxInterruptSource(I2CVuggesystem_INTR_TX_ALL);
+ 408:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         #else
+ 409:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ClearTxInterruptSource(I2CVuggesystem_INTR_TX_EMPTY);
+ 410:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         #endif /* (I2CVuggesystem_CY_SCBIP_V0) */
+ 411:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 412:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* INTR_TX_UNDERFLOW:
+ 413:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * TX direction: all data from the TX FIFO was transferred to the slave.
+ 414:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * The transaction needs to be completed.
+ 415:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 416:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else if(I2CVuggesystem_CHECK_INTR_TX_MASKED(I2CVuggesystem_INTR_TX_UNDERFLO
+ 417:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 418:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Update number of transferred bytes */
+ 419:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_mstrWrBufIndex = I2CVuggesystem_mstrWrBufIndexTmp;
+ 420:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 421:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 422:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 423:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 424:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 425:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Do nothing */
+ 426:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 427:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 428:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 429:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 430:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(0u != endTransfer) /* Complete transfer */
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 11
+
+
+ 431:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 432:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Clean-up master after reading: only in case of NACK */
+ 433:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_DISABLE_MASTER_AUTO_DATA_ACK;
+ 434:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 435:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Disable data processing interrupts: they have to be cleared before */
+ 436:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 437:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 438:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 439:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(I2CVuggesystem_CHECK_I2C_MODE_NO_STOP(I2CVuggesystem_mstrControl))
+ 440:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 441:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* On-going transaction is suspended: the ReStart is generated by the API r
+ 442:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_mstrStatus |= (uint16) (I2CVuggesystem_I2C_MSTAT_XFER_HALT |
+ 443:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                                                  I2CVuggesystem_GET_I2C_MSTAT_CMPLT
+ 444:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 445:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_MSTR_HALT;
+ 446:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 447:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else
+ 448:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 449:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Complete transaction: exclude the data processing state and generate Sto
+ 450:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * The completion status will be set after Stop generation.
+ 451:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * A special case is read: because NACK and Stop are generated by the comman
+ 452:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * Lost arbitration can occur during NACK generation when
+ 453:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * the other master is still reading from the slave.
+ 454:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 455:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_I2C_MASTER_GENERATE_STOP;
+ 456:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 457:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 458:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 459:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 460:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         } /* (I2CVuggesystem_I2C_MASTER) */
+ 461:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #endif
+ 462:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 463:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     } /* (I2CVuggesystem_CHECK_I2C_FSM_MASTER) */
+ 464:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 465:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 466:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* FSM Slave */
+ 467:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     else if(I2CVuggesystem_CHECK_I2C_FSM_SLAVE)
+ 141              		.loc 1 467 0
+ 142 00b0 B34B     		ldr	r3, .L38+12
+ 143 00b2 1B78     		ldrb	r3, [r3]
+ 144 00b4 DAB2     		uxtb	r2, r3
+ 145 00b6 1023     		mov	r3, #16
+ 146 00b8 1340     		and	r3, r2
+ 147 00ba DBB2     		uxtb	r3, r3
+ 148 00bc 002B     		cmp	r3, #0
+ 149 00be 00D1     		bne	.LCB116
+ 150 00c0 D6E1     		b	.L8	@long jump
+ 151              	.LCB116:
+ 468:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+ 469:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #if(I2CVuggesystem_I2C_SLAVE)
+ 470:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         {
+ 471:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_SLAVE_NACK:
+ 472:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The master completes reading the slave: the appropriate flags have to be set.
+ 473:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The TX FIFO is cleared after an overflow condition is set.
+ 474:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 475:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_I2C_NACK))
+ 152              		.loc 1 475 0
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 12
+
+
+ 153 00c2 B04B     		ldr	r3, .L38+16
+ 154 00c4 1A68     		ldr	r2, [r3]
+ 155 00c6 0223     		mov	r3, #2
+ 156 00c8 1340     		and	r3, r2
+ 157 00ca 56D0     		beq	.L9
+ 476:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 477:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearSlaveInterruptSource(I2CVuggesystem_INTR_SLAVE_I2C_NACK);
+ 158              		.loc 1 477 0
+ 159 00cc AF4B     		ldr	r3, .L38+24
+ 160 00ce 0222     		mov	r2, #2
+ 161 00d0 1A60     		str	r2, [r3]
+ 478:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 479:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* All entries that remain in TX FIFO max value is 9: 8 (FIFO) + 1 (SHIFTER) */
+ 480:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 diffCount = (I2CVuggesystem_GET_TX_FIFO_ENTRIES + I2CVuggesystem_GET_TX_FIFO_SR_VAL
+ 162              		.loc 1 480 0
+ 163 00d2 AF4B     		ldr	r3, .L38+28
+ 164 00d4 1A68     		ldr	r2, [r3]
+ 165 00d6 0F23     		mov	r3, #15
+ 166 00d8 1A40     		and	r2, r3
+ 167 00da AD4B     		ldr	r3, .L38+28
+ 168 00dc 1968     		ldr	r1, [r3]
+ 169 00de 8023     		mov	r3, #128
+ 170 00e0 1B02     		lsl	r3, r3, #8
+ 171 00e2 0B40     		and	r3, r1
+ 172 00e4 01D0     		beq	.L10
+ 173              		.loc 1 480 0 is_stmt 0 discriminator 1
+ 174 00e6 0123     		mov	r3, #1
+ 175 00e8 00E0     		b	.L11
+ 176              	.L10:
+ 177              		.loc 1 480 0 discriminator 2
+ 178 00ea 0023     		mov	r3, #0
+ 179              	.L11:
+ 180              		.loc 1 480 0 discriminator 3
+ 181 00ec D318     		add	r3, r2, r3
+ 182 00ee 7B60     		str	r3, [r7, #4]
+ 481:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 482:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_slOverFlowCount > diffCount) /* Overflow */
+ 183              		.loc 1 482 0 is_stmt 1 discriminator 3
+ 184 00f0 A84B     		ldr	r3, .L38+32
+ 185 00f2 1B78     		ldrb	r3, [r3]
+ 186 00f4 DBB2     		uxtb	r3, r3
+ 187 00f6 1A1C     		mov	r2, r3
+ 188 00f8 7B68     		ldr	r3, [r7, #4]
+ 189 00fa 9A42     		cmp	r2, r3
+ 190 00fc 08D9     		bls	.L12
+ 483:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 484:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) I2CVuggesystem_I2C_SSTAT_RD_OVFL;
+ 191              		.loc 1 484 0
+ 192 00fe A24B     		ldr	r3, .L38+20
+ 193 0100 1B78     		ldrb	r3, [r3]
+ 194 0102 DBB2     		uxtb	r3, r3
+ 195 0104 0422     		mov	r2, #4
+ 196 0106 1343     		orr	r3, r2
+ 197 0108 DAB2     		uxtb	r2, r3
+ 198 010a 9F4B     		ldr	r3, .L38+20
+ 199 010c 1A70     		strb	r2, [r3]
+ 200 010e 0AE0     		b	.L13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 13
+
+
+ 201              	.L12:
+ 485:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 486:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 else /* No Overflow */
+ 487:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 488:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Roll-back temporary index */
+ 489:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slRdBufIndexTmp -= (diffCount - I2CVuggesystem_slOverFlowCount);
+ 202              		.loc 1 489 0
+ 203 0110 A04B     		ldr	r3, .L38+32
+ 204 0112 1B78     		ldrb	r3, [r3]
+ 205 0114 DBB2     		uxtb	r3, r3
+ 206 0116 1A1C     		mov	r2, r3
+ 207 0118 7B68     		ldr	r3, [r7, #4]
+ 208 011a D21A     		sub	r2, r2, r3
+ 209 011c 9E4B     		ldr	r3, .L38+36
+ 210 011e 1B68     		ldr	r3, [r3]
+ 211 0120 D218     		add	r2, r2, r3
+ 212 0122 9D4B     		ldr	r3, .L38+36
+ 213 0124 1A60     		str	r2, [r3]
+ 214              	.L13:
+ 490:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 491:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 492:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Update slave of transferred bytes */
+ 493:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slRdBufIndex = I2CVuggesystem_slRdBufIndexTmp;
+ 215              		.loc 1 493 0
+ 216 0126 9C4B     		ldr	r3, .L38+36
+ 217 0128 1A68     		ldr	r2, [r3]
+ 218 012a 9C4B     		ldr	r3, .L38+40
+ 219 012c 1A60     		str	r2, [r3]
+ 494:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 495:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Clean-up TX FIFO */
+ 496:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 220              		.loc 1 496 0
+ 221 012e 9C4B     		ldr	r3, .L38+44
+ 222 0130 0022     		mov	r2, #0
+ 223 0132 1A60     		str	r2, [r3]
+ 497:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slOverFlowCount = 0u;
+ 224              		.loc 1 497 0
+ 225 0134 974B     		ldr	r3, .L38+32
+ 226 0136 0022     		mov	r2, #0
+ 227 0138 1A70     		strb	r2, [r3]
+ 498:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_CLEAR_TX_FIFO;
+ 228              		.loc 1 498 0
+ 229 013a 9A4B     		ldr	r3, .L38+48
+ 230 013c 994A     		ldr	r2, .L38+48
+ 231 013e 1268     		ldr	r2, [r2]
+ 232 0140 8021     		mov	r1, #128
+ 233 0142 4902     		lsl	r1, r1, #9
+ 234 0144 0A43     		orr	r2, r1
+ 235 0146 1A60     		str	r2, [r3]
+ 236 0148 964B     		ldr	r3, .L38+48
+ 237 014a 964A     		ldr	r2, .L38+48
+ 238 014c 1168     		ldr	r1, [r2]
+ 239 014e 964A     		ldr	r2, .L38+52
+ 240 0150 0A40     		and	r2, r1
+ 241 0152 1A60     		str	r2, [r3]
+ 499:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 500:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Complete master reading */
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 14
+
+
+ 501:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slStatus &= (uint8) ~I2CVuggesystem_I2C_SSTAT_RD_BUSY;
+ 242              		.loc 1 501 0
+ 243 0154 8C4B     		ldr	r3, .L38+20
+ 244 0156 1B78     		ldrb	r3, [r3]
+ 245 0158 DBB2     		uxtb	r3, r3
+ 246 015a 0222     		mov	r2, #2
+ 247 015c 9343     		bic	r3, r2
+ 248 015e DAB2     		uxtb	r2, r3
+ 249 0160 894B     		ldr	r3, .L38+20
+ 250 0162 1A70     		strb	r2, [r3]
+ 502:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slStatus |= (uint8)  I2CVuggesystem_I2C_SSTAT_RD_CMPLT;
+ 251              		.loc 1 502 0
+ 252 0164 884B     		ldr	r3, .L38+20
+ 253 0166 1B78     		ldrb	r3, [r3]
+ 254 0168 DBB2     		uxtb	r3, r3
+ 255 016a 0122     		mov	r2, #1
+ 256 016c 1343     		orr	r3, r2
+ 257 016e DAB2     		uxtb	r2, r3
+ 258 0170 854B     		ldr	r3, .L38+20
+ 259 0172 1A70     		strb	r2, [r3]
+ 503:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_state     =  I2CVuggesystem_I2C_FSM_IDLE;
+ 260              		.loc 1 503 0
+ 261 0174 824B     		ldr	r3, .L38+12
+ 262 0176 1022     		mov	r2, #16
+ 263 0178 1A70     		strb	r2, [r3]
+ 264              	.L9:
+ 504:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 505:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 506:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 507:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_SLAVE_I2C_WRITE_STOP:
+ 508:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The master completes writing to the slave: the appropriate flags have to be set.
+ 509:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The RX FIFO contains 1-8 bytes from the previous transaction which needs to be read.
+ 510:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * There is a possibility that RX FIFO contains an address, it needs to leave it there.
+ 511:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 512:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_I2C_WRITE_STOP))
+ 265              		.loc 1 512 0
+ 266 017a 824B     		ldr	r3, .L38+16
+ 267 017c 1A68     		ldr	r2, [r3]
+ 268 017e 0823     		mov	r3, #8
+ 269 0180 1340     		and	r3, r2
+ 270 0182 48D0     		beq	.L14
+ 513:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 514:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearSlaveInterruptSource(I2CVuggesystem_INTR_SLAVE_I2C_WRITE_STOP);
+ 271              		.loc 1 514 0
+ 272 0184 814B     		ldr	r3, .L38+24
+ 273 0186 0822     		mov	r2, #8
+ 274 0188 1A60     		str	r2, [r3]
+ 515:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 516:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Read bytes from RX FIFO when auto data ACK receive logic is enabled. Otherwise a
+ 517:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 * were already read from the RX FIFO except for address byte which has to stay here
+ 518:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 * I2C_ADDR_MATCH.
+ 519:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 */
+ 520:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if (0u != (I2CVuggesystem_I2C_CTRL_REG & I2CVuggesystem_I2C_CTRL_S_READY_DATA_ACK))
+ 275              		.loc 1 520 0
+ 276 018a 884B     		ldr	r3, .L38+56
+ 277 018c 1A68     		ldr	r2, [r3]
+ 278 018e 8023     		mov	r3, #128
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 15
+
+
+ 279 0190 9B01     		lsl	r3, r3, #6
+ 280 0192 1340     		and	r3, r2
+ 281 0194 19D0     		beq	.L15
+ 521:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 522:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     while(0u != I2CVuggesystem_GET_RX_FIFO_ENTRIES)
+ 282              		.loc 1 522 0
+ 283 0196 0DE0     		b	.L16
+ 284              	.L17:
+ 523:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 524:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         #if(I2CVuggesystem_CHECK_I2C_ACCEPT_ADDRESS)
+ 525:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 526:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if((1u == I2CVuggesystem_GET_RX_FIFO_ENTRIES) &&
+ 527:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                (I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_I2
+ 528:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 529:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 break; /* Leave address in RX FIFO */
+ 530:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 531:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 532:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         #endif
+ 533:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 534:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Put data in component buffer */
+ 535:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_slWrBufPtr[I2CVuggesystem_slWrBufIndex] = (uint8) I2CVuggesy
+ 285              		.loc 1 535 0
+ 286 0198 854B     		ldr	r3, .L38+60
+ 287 019a 1A68     		ldr	r2, [r3]
+ 288 019c 854B     		ldr	r3, .L38+64
+ 289 019e 1B68     		ldr	r3, [r3]
+ 290 01a0 D218     		add	r2, r2, r3
+ 291 01a2 854B     		ldr	r3, .L38+68
+ 292 01a4 1B68     		ldr	r3, [r3]
+ 293 01a6 DBB2     		uxtb	r3, r3
+ 294 01a8 1370     		strb	r3, [r2]
+ 536:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_slWrBufIndex++;
+ 295              		.loc 1 536 0
+ 296 01aa 824B     		ldr	r3, .L38+64
+ 297 01ac 1B68     		ldr	r3, [r3]
+ 298 01ae 5A1C     		add	r2, r3, #1
+ 299 01b0 804B     		ldr	r3, .L38+64
+ 300 01b2 1A60     		str	r2, [r3]
+ 301              	.L16:
+ 522:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     while(0u != I2CVuggesystem_GET_RX_FIFO_ENTRIES)
+ 302              		.loc 1 522 0 discriminator 1
+ 303 01b4 814B     		ldr	r3, .L38+72
+ 304 01b6 1A68     		ldr	r2, [r3]
+ 305 01b8 0F23     		mov	r3, #15
+ 306 01ba 1340     		and	r3, r2
+ 307 01bc ECD1     		bne	.L17
+ 537:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 538:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 539:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_DISABLE_SLAVE_AUTO_DATA;
+ 308              		.loc 1 539 0
+ 309 01be 7B4B     		ldr	r3, .L38+56
+ 310 01c0 7A4A     		ldr	r2, .L38+56
+ 311 01c2 1168     		ldr	r1, [r2]
+ 312 01c4 7E4A     		ldr	r2, .L38+76
+ 313 01c6 0A40     		and	r2, r1
+ 314 01c8 1A60     		str	r2, [r3]
+ 315              	.L15:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 16
+
+
+ 540:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 541:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 542:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_INTR_RX(I2CVuggesystem_INTR_RX_OVERFLOW))
+ 316              		.loc 1 542 0
+ 317 01ca 7E4B     		ldr	r3, .L38+80
+ 318 01cc 1A68     		ldr	r2, [r3]
+ 319 01ce 2023     		mov	r3, #32
+ 320 01d0 1340     		and	r3, r2
+ 321 01d2 07D0     		beq	.L18
+ 543:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 544:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) I2CVuggesystem_I2C_SSTAT_WR_OVFL;
+ 322              		.loc 1 544 0
+ 323 01d4 6C4B     		ldr	r3, .L38+20
+ 324 01d6 1B78     		ldrb	r3, [r3]
+ 325 01d8 DBB2     		uxtb	r3, r3
+ 326 01da 4022     		mov	r2, #64
+ 327 01dc 1343     		orr	r3, r2
+ 328 01de DAB2     		uxtb	r2, r3
+ 329 01e0 694B     		ldr	r3, .L38+20
+ 330 01e2 1A70     		strb	r2, [r3]
+ 331              	.L18:
+ 545:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 546:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 547:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Clears RX interrupt sources triggered on data receiving */
+ 548:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 332              		.loc 1 548 0
+ 333 01e4 784B     		ldr	r3, .L38+84
+ 334 01e6 0022     		mov	r2, #0
+ 335 01e8 1A60     		str	r2, [r3]
+ 549:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_RX_ALL);
+ 336              		.loc 1 549 0
+ 337 01ea 764B     		ldr	r3, .L38+80
+ 338 01ec 774A     		ldr	r2, .L38+88
+ 339 01ee 1A60     		str	r2, [r3]
+ 550:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 551:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Complete master writing */
+ 552:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slStatus &= (uint8) ~I2CVuggesystem_I2C_SSTAT_WR_BUSY;
+ 340              		.loc 1 552 0
+ 341 01f0 654B     		ldr	r3, .L38+20
+ 342 01f2 1B78     		ldrb	r3, [r3]
+ 343 01f4 DBB2     		uxtb	r3, r3
+ 344 01f6 2022     		mov	r2, #32
+ 345 01f8 9343     		bic	r3, r2
+ 346 01fa DAB2     		uxtb	r2, r3
+ 347 01fc 624B     		ldr	r3, .L38+20
+ 348 01fe 1A70     		strb	r2, [r3]
+ 553:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_slStatus |= (uint8)  I2CVuggesystem_I2C_SSTAT_WR_CMPLT;
+ 349              		.loc 1 553 0
+ 350 0200 614B     		ldr	r3, .L38+20
+ 351 0202 1B78     		ldrb	r3, [r3]
+ 352 0204 DBB2     		uxtb	r3, r3
+ 353 0206 1022     		mov	r2, #16
+ 354 0208 1343     		orr	r3, r2
+ 355 020a DAB2     		uxtb	r2, r3
+ 356 020c 5E4B     		ldr	r3, .L38+20
+ 357 020e 1A70     		strb	r2, [r3]
+ 554:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_state     =  I2CVuggesystem_I2C_FSM_IDLE;
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 17
+
+
+ 358              		.loc 1 554 0
+ 359 0210 5B4B     		ldr	r3, .L38+12
+ 360 0212 1022     		mov	r2, #16
+ 361 0214 1A70     		strb	r2, [r3]
+ 362              	.L14:
+ 555:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 556:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 557:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 558:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* INTR_SLAVE_I2C_ADDR_MATCH:
+ 559:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The address match event starts the slave operation: after leaving the TX or RX
+ 560:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * direction has to be chosen.
+ 561:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The wakeup interrupt must be cleared only after an address match is set.
+ 562:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 563:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_SLAVE_MASKED(I2CVuggesystem_INTR_SLAVE_I2C_ADDR_MATCH))
+ 363              		.loc 1 563 0
+ 364 0216 5B4B     		ldr	r3, .L38+16
+ 365 0218 1A68     		ldr	r2, [r3]
+ 366 021a 4023     		mov	r3, #64
+ 367 021c 1340     		and	r3, r2
+ 368 021e 4DD0     		beq	.L19
+ 564:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 565:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #if(I2CVuggesystem_CHECK_I2C_ACCEPT_ADDRESS)
+ 566:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 567:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     address = I2CVuggesystem_RX_FIFO_RD_REG; /* Address in the RX FIFO */
+ 568:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 569:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Clears RX sources if address was received in RX FIFO */
+ 570:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_RX_ALL);
+ 571:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 572:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(0u != address)
+ 573:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 574:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Suppress compiler warning */
+ 575:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 576:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 577:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #endif
+ 578:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 579:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_CHECK_I2C_STATUS(I2CVuggesystem_I2C_STATUS_S_READ))
+ 369              		.loc 1 579 0
+ 370 0220 6B4B     		ldr	r3, .L38+92
+ 371 0222 1A68     		ldr	r2, [r3]
+ 372 0224 1023     		mov	r3, #16
+ 373 0226 1340     		and	r3, r2
+ 374 0228 12D0     		beq	.L20
+ 580:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* TX direction: master reads from slave */
+ 581:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 582:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_INTR_TX_EMPTY);
+ 375              		.loc 1 582 0
+ 376 022a 5D4B     		ldr	r3, .L38+44
+ 377 022c 1022     		mov	r2, #16
+ 378 022e 1A60     		str	r2, [r3]
+ 583:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 584:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Set temporary index to address buffer clear from API */
+ 585:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slRdBufIndexTmp = I2CVuggesystem_slRdBufIndex;
+ 379              		.loc 1 585 0
+ 380 0230 5A4B     		ldr	r3, .L38+40
+ 381 0232 1A68     		ldr	r2, [r3]
+ 382 0234 584B     		ldr	r3, .L38+36
+ 383 0236 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 18
+
+
+ 586:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 587:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Start master reading */
+ 588:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) I2CVuggesystem_I2C_SSTAT_RD_BUSY;
+ 384              		.loc 1 588 0
+ 385 0238 534B     		ldr	r3, .L38+20
+ 386 023a 1B78     		ldrb	r3, [r3]
+ 387 023c DBB2     		uxtb	r3, r3
+ 388 023e 0222     		mov	r2, #2
+ 389 0240 1343     		orr	r3, r2
+ 390 0242 DAB2     		uxtb	r2, r3
+ 391 0244 504B     		ldr	r3, .L38+20
+ 392 0246 1A70     		strb	r2, [r3]
+ 589:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_state     = I2CVuggesystem_I2C_FSM_SL_RD;
+ 393              		.loc 1 589 0
+ 394 0248 4D4B     		ldr	r3, .L38+12
+ 395 024a 1222     		mov	r2, #18
+ 396 024c 1A70     		strb	r2, [r3]
+ 397 024e 2CE0     		b	.L21
+ 398              	.L20:
+ 590:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 591:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 else
+ 592:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* RX direction: master writes into slave */
+ 593:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 594:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Calculate available buffer size */
+ 595:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     diffCount = (I2CVuggesystem_slWrBufSize - I2CVuggesystem_slWrBufIndex);
+ 399              		.loc 1 595 0
+ 400 0250 604B     		ldr	r3, .L38+96
+ 401 0252 1A68     		ldr	r2, [r3]
+ 402 0254 574B     		ldr	r3, .L38+64
+ 403 0256 1B68     		ldr	r3, [r3]
+ 404 0258 D31A     		sub	r3, r2, r3
+ 405 025a 7B60     		str	r3, [r7, #4]
+ 596:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 597:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #if (I2CVuggesystem_CY_SCBIP_V0)
+ 598:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 599:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(diffCount < I2CVuggesystem_I2C_FIFO_SIZE)
+ 406              		.loc 1 599 0
+ 407 025c 7B68     		ldr	r3, [r7, #4]
+ 408 025e 072B     		cmp	r3, #7
+ 409 0260 03D8     		bhi	.L22
+ 600:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Receive data: byte-by-byte */
+ 601:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 602:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_INTR_RX_NOT_EMPTY);
+ 410              		.loc 1 602 0
+ 411 0262 594B     		ldr	r3, .L38+84
+ 412 0264 0422     		mov	r2, #4
+ 413 0266 1A60     		str	r2, [r3]
+ 414 0268 14E0     		b	.L23
+ 415              	.L22:
+ 603:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 604:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else
+ 605:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Receive data: into RX FIFO */
+ 606:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 607:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(diffCount == I2CVuggesystem_I2C_FIFO_SIZE)
+ 416              		.loc 1 607 0
+ 417 026a 7B68     		ldr	r3, [r7, #4]
+ 418 026c 082B     		cmp	r3, #8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 19
+
+
+ 419 026e 07D1     		bne	.L24
+ 608:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 609:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* NACK when RX FIFO become FULL */
+ 610:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ENABLE_SLAVE_AUTO_DATA;
+ 420              		.loc 1 610 0
+ 421 0270 4E4B     		ldr	r3, .L38+56
+ 422 0272 4E4A     		ldr	r2, .L38+56
+ 423 0274 1268     		ldr	r2, [r2]
+ 424 0276 A021     		mov	r1, #160
+ 425 0278 0902     		lsl	r1, r1, #8
+ 426 027a 0A43     		orr	r2, r1
+ 427 027c 1A60     		str	r2, [r3]
+ 428 027e 09E0     		b	.L23
+ 429              	.L24:
+ 611:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 612:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 613:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 614:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Stretch clock when RX FIFO becomes FULL */
+ 615:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_ENABLE_SLAVE_AUTO_DATA_ACK;
+ 430              		.loc 1 615 0
+ 431 0280 4A4B     		ldr	r3, .L38+56
+ 432 0282 4A4A     		ldr	r2, .L38+56
+ 433 0284 1268     		ldr	r2, [r2]
+ 434 0286 8021     		mov	r1, #128
+ 435 0288 8901     		lsl	r1, r1, #6
+ 436 028a 0A43     		orr	r2, r1
+ 437 028c 1A60     		str	r2, [r3]
+ 616:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_INTR_RX_FULL);
+ 438              		.loc 1 616 0
+ 439 028e 4E4B     		ldr	r3, .L38+84
+ 440 0290 0822     		mov	r2, #8
+ 441 0292 1A60     		str	r2, [r3]
+ 442              	.L23:
+ 617:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 618:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 619:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 620:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #else
+ 621:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 622:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     #if(I2CVuggesystem_CHECK_I2C_ACCEPT_ADDRESS)
+ 623:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 624:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Enable RX.NOT_EMPTY interrupt source to receive byte by byte.
+ 625:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * The byte by byte receive is always chosen for the case when an address is
+ 626:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         * Ticket ID#175559.
+ 627:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         */
+ 628:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_INTR_RX_NOT_EMPTY);
+ 629:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 630:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     #else
+ 631:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 632:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(diffCount < I2CVuggesystem_I2C_FIFO_SIZE)
+ 633:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Receive data: byte-by-byte */
+ 634:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 635:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_INTR_RX_NOT_EMPTY);
+ 636:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 637:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         else
+ 638:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         /* Receive data: into RX FIFO */
+ 639:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 640:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             if(diffCount == I2CVuggesystem_I2C_FIFO_SIZE)
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 20
+
+
+ 641:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 642:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 /* NACK when RX FIFO become FULL */
+ 643:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_ENABLE_SLAVE_AUTO_DATA;
+ 644:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 645:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             else
+ 646:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             {
+ 647:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 /* Stretch clock when RX FIFO becomes FULL */
+ 648:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_ENABLE_SLAVE_AUTO_DATA_ACK;
+ 649:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                                 I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_INTR_RX_FULL);
+ 650:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             }
+ 651:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 652:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 653:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     #endif
+ 654:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 655:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 #endif /* (I2CVuggesystem_CY_SCBIP_V0) */
+ 656:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 657:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Start master reading */
+ 658:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) I2CVuggesystem_I2C_SSTAT_WR_BUSY;
+ 443              		.loc 1 658 0
+ 444 0294 3C4B     		ldr	r3, .L38+20
+ 445 0296 1B78     		ldrb	r3, [r3]
+ 446 0298 DBB2     		uxtb	r3, r3
+ 447 029a 2022     		mov	r2, #32
+ 448 029c 1343     		orr	r3, r2
+ 449 029e DAB2     		uxtb	r2, r3
+ 450 02a0 394B     		ldr	r3, .L38+20
+ 451 02a2 1A70     		strb	r2, [r3]
+ 659:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_state     = I2CVuggesystem_I2C_FSM_SL_WR;
+ 452              		.loc 1 659 0
+ 453 02a4 364B     		ldr	r3, .L38+12
+ 454 02a6 1122     		mov	r2, #17
+ 455 02a8 1A70     		strb	r2, [r3]
+ 456              	.L21:
+ 660:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 661:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 662:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Clear interrupts before ACK address */
+ 663:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearI2CExtClkInterruptSource(I2CVuggesystem_INTR_I2C_EC_WAKE_UP);
+ 457              		.loc 1 663 0
+ 458 02aa 4B4B     		ldr	r3, .L38+100
+ 459 02ac 0122     		mov	r2, #1
+ 460 02ae 1A60     		str	r2, [r3]
+ 664:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearSlaveInterruptSource(I2CVuggesystem_INTR_SLAVE_ALL);
+ 461              		.loc 1 664 0
+ 462 02b0 364B     		ldr	r3, .L38+24
+ 463 02b2 4A4A     		ldr	r2, .L38+104
+ 464 02b4 1A60     		str	r2, [r3]
+ 665:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 666:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Preparation complete: ACK the address */
+ 667:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_I2C_SLAVE_GENERATE_ACK;
+ 465              		.loc 1 667 0
+ 466 02b6 4A4B     		ldr	r3, .L38+108
+ 467 02b8 0122     		mov	r2, #1
+ 468 02ba 1A60     		str	r2, [r3]
+ 469              	.L19:
+ 668:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 669:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 670:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* I2CVuggesystem_INTR_RX_FULL:
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 21
+
+
+ 671:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * Get data from the RX FIFO and decide whether to ACK or NACK the following bytes
+ 672:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 673:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_RX_MASKED(I2CVuggesystem_INTR_RX_FULL))
+ 470              		.loc 1 673 0
+ 471 02bc 494B     		ldr	r3, .L38+112
+ 472 02be 1A68     		ldr	r2, [r3]
+ 473 02c0 0823     		mov	r3, #8
+ 474 02c2 1340     		and	r3, r2
+ 475 02c4 36D0     		beq	.L25
+ 674:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 675:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Calculate available buffer size to take into account that RX FIFO is FULL */
+ 676:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 diffCount =  I2CVuggesystem_slWrBufSize -
+ 476              		.loc 1 676 0
+ 477 02c6 434B     		ldr	r3, .L38+96
+ 478 02c8 1A68     		ldr	r2, [r3]
+ 479 02ca 3A4B     		ldr	r3, .L38+64
+ 480 02cc 1B68     		ldr	r3, [r3]
+ 481 02ce D31A     		sub	r3, r2, r3
+ 482 02d0 083B     		sub	r3, r3, #8
+ 483 02d2 7B60     		str	r3, [r7, #4]
+ 677:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             (I2CVuggesystem_slWrBufIndex + I2CVuggesystem_I2C_FIFO_SIZE);
+ 678:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 679:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(diffCount > I2CVuggesystem_I2C_FIFO_SIZE) /* Proceed transaction */
+ 484              		.loc 1 679 0
+ 485 02d4 7B68     		ldr	r3, [r7, #4]
+ 486 02d6 082B     		cmp	r3, #8
+ 487 02d8 04D9     		bls	.L26
+ 680:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 681:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     diffCount   = I2CVuggesystem_I2C_FIFO_SIZE;
+ 488              		.loc 1 681 0
+ 489 02da 0823     		mov	r3, #8
+ 490 02dc 7B60     		str	r3, [r7, #4]
+ 682:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     endTransfer = 0u;  /* Continue active transfer */
+ 491              		.loc 1 682 0
+ 492 02de 0023     		mov	r3, #0
+ 493 02e0 3B60     		str	r3, [r7]
+ 683:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 684:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 else /* End when FIFO becomes FULL again */
+ 685:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 686:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 687:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 688:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 689:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 for(; (0u != diffCount); diffCount--)
+ 494              		.loc 1 689 0
+ 495 02e2 13E0     		b	.L28
+ 496              	.L26:
+ 686:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     endTransfer = I2CVuggesystem_I2C_CMPLT_ANY_TRANSFER;
+ 497              		.loc 1 686 0
+ 498 02e4 0123     		mov	r3, #1
+ 499 02e6 3B60     		str	r3, [r7]
+ 500              		.loc 1 689 0
+ 501 02e8 10E0     		b	.L28
+ 502              	.L29:
+ 690:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 691:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Put data in component buffer */
+ 692:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slWrBufPtr[I2CVuggesystem_slWrBufIndex] = (uint8) I2CVuggesystem
+ 503              		.loc 1 692 0 discriminator 2
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 22
+
+
+ 504 02ea 314B     		ldr	r3, .L38+60
+ 505 02ec 1A68     		ldr	r2, [r3]
+ 506 02ee 314B     		ldr	r3, .L38+64
+ 507 02f0 1B68     		ldr	r3, [r3]
+ 508 02f2 D218     		add	r2, r2, r3
+ 509 02f4 304B     		ldr	r3, .L38+68
+ 510 02f6 1B68     		ldr	r3, [r3]
+ 511 02f8 DBB2     		uxtb	r3, r3
+ 512 02fa 1370     		strb	r3, [r2]
+ 693:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slWrBufIndex++;
+ 513              		.loc 1 693 0 discriminator 2
+ 514 02fc 2D4B     		ldr	r3, .L38+64
+ 515 02fe 1B68     		ldr	r3, [r3]
+ 516 0300 5A1C     		add	r2, r3, #1
+ 517 0302 2C4B     		ldr	r3, .L38+64
+ 518 0304 1A60     		str	r2, [r3]
+ 689:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 for(; (0u != diffCount); diffCount--)
+ 519              		.loc 1 689 0 discriminator 2
+ 520 0306 7B68     		ldr	r3, [r7, #4]
+ 521 0308 013B     		sub	r3, r3, #1
+ 522 030a 7B60     		str	r3, [r7, #4]
+ 523              	.L28:
+ 689:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 for(; (0u != diffCount); diffCount--)
+ 524              		.loc 1 689 0 is_stmt 0 discriminator 1
+ 525 030c 7B68     		ldr	r3, [r7, #4]
+ 526 030e 002B     		cmp	r3, #0
+ 527 0310 EBD1     		bne	.L29
+ 694:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 695:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 696:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(0u != endTransfer) /* End transfer sending NACK */
+ 528              		.loc 1 696 0 is_stmt 1
+ 529 0312 3B68     		ldr	r3, [r7]
+ 530 0314 002B     		cmp	r3, #0
+ 531 0316 09D0     		beq	.L30
+ 697:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 698:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_ENABLE_SLAVE_AUTO_DATA_NACK;
+ 532              		.loc 1 698 0
+ 533 0318 244B     		ldr	r3, .L38+56
+ 534 031a 244A     		ldr	r2, .L38+56
+ 535 031c 1268     		ldr	r2, [r2]
+ 536 031e 8021     		mov	r1, #128
+ 537 0320 0902     		lsl	r1, r1, #8
+ 538 0322 0A43     		orr	r2, r1
+ 539 0324 1A60     		str	r2, [r3]
+ 699:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 700:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* INTR_RX_FULL triggers earlier than INTR_SLAVE_I2C_STOP:
+ 701:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     * disable all RX interrupt sources.
+ 702:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     */
+ 703:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 540              		.loc 1 703 0
+ 541 0326 284B     		ldr	r3, .L38+84
+ 542 0328 0022     		mov	r2, #0
+ 543 032a 1A60     		str	r2, [r3]
+ 544              	.L30:
+ 704:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 705:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 706:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_RX_FULL);
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 23
+
+
+ 545              		.loc 1 706 0
+ 546 032c 254B     		ldr	r3, .L38+80
+ 547 032e 0822     		mov	r2, #8
+ 548 0330 1A60     		str	r2, [r3]
+ 549 0332 66E0     		b	.L31
+ 550              	.L25:
+ 707:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 708:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* I2CVuggesystem_INTR_RX_NOT_EMPTY:
+ 709:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The buffer size is less than 8: it requires processing in byte-by-byte mode.
+ 710:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 711:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             else if(I2CVuggesystem_CHECK_INTR_RX_MASKED(I2CVuggesystem_INTR_RX_NOT_EMPTY))
+ 551              		.loc 1 711 0
+ 552 0334 2B4B     		ldr	r3, .L38+112
+ 553 0336 1A68     		ldr	r2, [r3]
+ 554 0338 0423     		mov	r3, #4
+ 555 033a 1340     		and	r3, r2
+ 556 033c 61D0     		beq	.L31
+ 712:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 713:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 diffCount = I2CVuggesystem_RX_FIFO_RD_REG;
+ 557              		.loc 1 713 0
+ 558 033e 1E4B     		ldr	r3, .L38+68
+ 559 0340 1B68     		ldr	r3, [r3]
+ 560 0342 7B60     		str	r3, [r7, #4]
+ 714:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 715:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 if(I2CVuggesystem_slWrBufIndex < I2CVuggesystem_slWrBufSize)
+ 561              		.loc 1 715 0
+ 562 0344 1B4B     		ldr	r3, .L38+64
+ 563 0346 1A68     		ldr	r2, [r3]
+ 564 0348 224B     		ldr	r3, .L38+96
+ 565 034a 1B68     		ldr	r3, [r3]
+ 566 034c 9A42     		cmp	r2, r3
+ 567 034e 4BD2     		bcs	.L32
+ 716:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 717:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_I2C_SLAVE_GENERATE_ACK;
+ 568              		.loc 1 717 0
+ 569 0350 234B     		ldr	r3, .L38+108
+ 570 0352 0122     		mov	r2, #1
+ 571 0354 1A60     		str	r2, [r3]
+ 718:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 719:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Put data into component buffer */
+ 720:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slWrBufPtr[I2CVuggesystem_slWrBufIndex] = (uint8) diffCount;
+ 572              		.loc 1 720 0
+ 573 0356 164B     		ldr	r3, .L38+60
+ 574 0358 1A68     		ldr	r2, [r3]
+ 575 035a 164B     		ldr	r3, .L38+64
+ 576 035c 1B68     		ldr	r3, [r3]
+ 577 035e D318     		add	r3, r2, r3
+ 578 0360 7A68     		ldr	r2, [r7, #4]
+ 579 0362 D2B2     		uxtb	r2, r2
+ 580 0364 1A70     		strb	r2, [r3]
+ 721:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slWrBufIndex++;
+ 581              		.loc 1 721 0
+ 582 0366 134B     		ldr	r3, .L38+64
+ 583 0368 1B68     		ldr	r3, [r3]
+ 584 036a 5A1C     		add	r2, r3, #1
+ 585 036c 114B     		ldr	r3, .L38+64
+ 586 036e 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 24
+
+
+ 587 0370 44E0     		b	.L33
+ 588              	.L39:
+ 589 0372 C046     		.align	2
+ 590              	.L38:
+ 591 0374 00000000 		.word	I2CVuggesystem_customIntrHandler
+ 592 0378 8C0E0640 		.word	1074138764
+ 593 037c 880E0640 		.word	1074138760
+ 594 0380 00000000 		.word	I2CVuggesystem_state
+ 595 0384 4C0F0640 		.word	1074138956
+ 596 0388 00000000 		.word	I2CVuggesystem_slStatus
+ 597 038c 400F0640 		.word	1074138944
+ 598 0390 08020640 		.word	1074135560
+ 599 0394 00000000 		.word	I2CVuggesystem_slOverFlowCount
+ 600 0398 00000000 		.word	I2CVuggesystem_slRdBufIndexTmp
+ 601 039c 00000000 		.word	I2CVuggesystem_slRdBufIndex
+ 602 03a0 880F0640 		.word	1074139016
+ 603 03a4 04020640 		.word	1074135556
+ 604 03a8 FFFFFEFF 		.word	-65537
+ 605 03ac 60000640 		.word	1074135136
+ 606 03b0 00000000 		.word	I2CVuggesystem_slWrBufPtr
+ 607 03b4 00000000 		.word	I2CVuggesystem_slWrBufIndex
+ 608 03b8 40030640 		.word	1074135872
+ 609 03bc 08030640 		.word	1074135816
+ 610 03c0 FF5FFFFF 		.word	-40961
+ 611 03c4 C00F0640 		.word	1074139072
+ 612 03c8 C80F0640 		.word	1074139080
+ 613 03cc ED0F0000 		.word	4077
+ 614 03d0 64000640 		.word	1074135140
+ 615 03d4 00000000 		.word	I2CVuggesystem_slWrBufSize
+ 616 03d8 800E0640 		.word	1074138752
+ 617 03dc FF0F0000 		.word	4095
+ 618 03e0 6C000640 		.word	1074135148
+ 619 03e4 CC0F0640 		.word	1074139084
+ 620              	.L32:
+ 722:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 723:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 else /* Overflow: there is no space in write buffer */
+ 724:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 725:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_I2C_SLAVE_GENERATE_NACK;
+ 621              		.loc 1 725 0
+ 622 03e8 FFF7FEFF 		bl	I2CVuggesystem_I2CSlaveNackGeneration
+ 726:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 727:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     I2CVuggesystem_slStatus |= (uint8) I2CVuggesystem_I2C_SSTAT_WR_OVFL;
+ 623              		.loc 1 727 0
+ 624 03ec 394B     		ldr	r3, .L40
+ 625 03ee 1B78     		ldrb	r3, [r3]
+ 626 03f0 DBB2     		uxtb	r3, r3
+ 627 03f2 4022     		mov	r2, #64
+ 628 03f4 1343     		orr	r3, r2
+ 629 03f6 DAB2     		uxtb	r2, r3
+ 630 03f8 364B     		ldr	r3, .L40
+ 631 03fa 1A70     		strb	r2, [r3]
+ 632              	.L33:
+ 728:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 729:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 730:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_RX_NOT_EMPTY);
+ 633              		.loc 1 730 0 discriminator 1
+ 634 03fc 364B     		ldr	r3, .L40+4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 25
+
+
+ 635 03fe 0422     		mov	r2, #4
+ 636 0400 1A60     		str	r2, [r3]
+ 637              	.L31:
+ 731:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 732:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             else
+ 733:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 734:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 /* Does nothing */
+ 735:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ 736:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 737:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 738:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             /* I2CVuggesystem_INTR_TX_EMPTY:
+ 739:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The master reads the slave: provide data to read or 0xFF in the case of the end of th
+ 740:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * The overflow condition must be captured, but not set until the end of transaction.
+ 741:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             * There is a possibility of a false overflow due to TX FIFO utilization.
+ 742:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             */
+ 743:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             if(I2CVuggesystem_CHECK_INTR_TX_MASKED(I2CVuggesystem_INTR_TX_EMPTY))
+ 638              		.loc 1 743 0
+ 639 0402 364B     		ldr	r3, .L40+8
+ 640 0404 1A68     		ldr	r2, [r3]
+ 641 0406 1023     		mov	r3, #16
+ 642 0408 1340     		and	r3, r2
+ 643 040a 5FD0     		beq	.L1
+ 744:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             {
+ 745:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 while(I2CVuggesystem_I2C_FIFO_SIZE != I2CVuggesystem_GET_TX_FIFO_ENTRIES)
+ 644              		.loc 1 745 0
+ 645 040c 26E0     		b	.L35
+ 646              	.L37:
+ 746:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 {
+ 747:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Temporary slRdBufIndexTmp is used because the master can NACK the byte and
+ 748:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     * index roll-back is required in this case. The slRdBufIndex is updated at the 
+ 749:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     * of the read transfer.
+ 750:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     */
+ 751:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     if(I2CVuggesystem_slRdBufIndexTmp < I2CVuggesystem_slRdBufSize)
+ 647              		.loc 1 751 0
+ 648 040e 344B     		ldr	r3, .L40+12
+ 649 0410 1A68     		ldr	r2, [r3]
+ 650 0412 344B     		ldr	r3, .L40+16
+ 651 0414 1B68     		ldr	r3, [r3]
+ 652 0416 9A42     		cmp	r2, r3
+ 653 0418 0ED2     		bcs	.L36
+ 752:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Data from buffer */
+ 753:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 754:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_TX_FIFO_WR_REG = (uint32) I2CVuggesystem_slRdBufPtr[I2CVugge
+ 654              		.loc 1 754 0
+ 655 041a 334B     		ldr	r3, .L40+20
+ 656 041c 334A     		ldr	r2, .L40+24
+ 657 041e 1168     		ldr	r1, [r2]
+ 658 0420 2F4A     		ldr	r2, .L40+12
+ 659 0422 1268     		ldr	r2, [r2]
+ 660 0424 8A18     		add	r2, r1, r2
+ 661 0426 1278     		ldrb	r2, [r2]
+ 662 0428 D2B2     		uxtb	r2, r2
+ 663 042a 1A60     		str	r2, [r3]
+ 755:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_slRdBufIndexTmp++;
+ 664              		.loc 1 755 0
+ 665 042c 2C4B     		ldr	r3, .L40+12
+ 666 042e 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 26
+
+
+ 667 0430 5A1C     		add	r2, r3, #1
+ 668 0432 2B4B     		ldr	r3, .L40+12
+ 669 0434 1A60     		str	r2, [r3]
+ 670 0436 11E0     		b	.L35
+ 671              	.L36:
+ 756:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 757:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     else
+ 758:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     /* Probably Overflow */
+ 759:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     {
+ 760:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         I2CVuggesystem_TX_FIFO_WR_REG = I2CVuggesystem_I2C_SLAVE_OVFL_RETURN;
+ 672              		.loc 1 760 0
+ 673 0438 2B4B     		ldr	r3, .L40+20
+ 674 043a FF22     		mov	r2, #255
+ 675 043c 1A60     		str	r2, [r3]
+ 761:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 762:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         if(0u == (I2CVuggesystem_INTR_TX_OVERFLOW & I2CVuggesystem_slOverFlowCount)
+ 676              		.loc 1 762 0
+ 677 043e 2C4B     		ldr	r3, .L40+28
+ 678 0440 1B78     		ldrb	r3, [r3]
+ 679 0442 DAB2     		uxtb	r2, r3
+ 680 0444 2023     		mov	r3, #32
+ 681 0446 1340     		and	r3, r2
+ 682 0448 DBB2     		uxtb	r3, r3
+ 683 044a 002B     		cmp	r3, #0
+ 684 044c 06D1     		bne	.L35
+ 763:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         {
+ 764:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             /* Get counter in range of byte: value 10 is overflow */
+ 765:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                             I2CVuggesystem_slOverFlowCount++;
+ 685              		.loc 1 765 0
+ 686 044e 284B     		ldr	r3, .L40+28
+ 687 0450 1B78     		ldrb	r3, [r3]
+ 688 0452 DBB2     		uxtb	r3, r3
+ 689 0454 0133     		add	r3, r3, #1
+ 690 0456 DAB2     		uxtb	r2, r3
+ 691 0458 254B     		ldr	r3, .L40+28
+ 692 045a 1A70     		strb	r2, [r3]
+ 693              	.L35:
+ 745:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 while(I2CVuggesystem_I2C_FIFO_SIZE != I2CVuggesystem_GET_TX_FIFO_ENTRIES)
+ 694              		.loc 1 745 0 discriminator 1
+ 695 045c 254B     		ldr	r3, .L40+32
+ 696 045e 1A68     		ldr	r2, [r3]
+ 697 0460 0F23     		mov	r3, #15
+ 698 0462 1340     		and	r3, r2
+ 699 0464 082B     		cmp	r3, #8
+ 700 0466 D2D1     		bne	.L37
+ 766:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                         }
+ 767:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                     }
+ 768:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 }
+ 769:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 770:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****                 I2CVuggesystem_ClearTxInterruptSource(I2CVuggesystem_INTR_TX_EMPTY);
+ 701              		.loc 1 770 0
+ 702 0468 234B     		ldr	r3, .L40+36
+ 703 046a 1022     		mov	r2, #16
+ 704 046c 1A60     		str	r2, [r3]
+ 705 046e 2DE0     		b	.L1
+ 706              	.L8:
+ 771:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****             }
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 27
+
+
+ 772:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 773:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         }  /* (I2CVuggesystem_I2C_SLAVE) */
+ 774:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         #endif
+ 775:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+ 776:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 777:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 778:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     /* FSM EXIT:
+ 779:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * Slave:  INTR_SLAVE_I2C_BUS_ERROR, INTR_SLAVE_I2C_ARB_LOST
+ 780:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     * Master: INTR_MASTER_I2C_BUS_ERROR, INTR_MASTER_I2C_ARB_LOST.
+ 781:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     */
+ 782:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     else
+ 783:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     {
+ 784:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_CTRL_REG &= (uint32) ~I2CVuggesystem_CTRL_ENABLED; /* Disable scb IP */
+ 707              		.loc 1 784 0
+ 708 0470 224B     		ldr	r3, .L40+40
+ 709 0472 224A     		ldr	r2, .L40+40
+ 710 0474 1268     		ldr	r2, [r2]
+ 711 0476 5200     		lsl	r2, r2, #1
+ 712 0478 5208     		lsr	r2, r2, #1
+ 713 047a 1A60     		str	r2, [r3]
+ 785:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 786:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_state = I2CVuggesystem_I2C_FSM_IDLE;
+ 714              		.loc 1 786 0
+ 715 047c 204B     		ldr	r3, .L40+44
+ 716 047e 1022     		mov	r2, #16
+ 717 0480 1A70     		strb	r2, [r3]
+ 787:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 788:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_DISABLE_SLAVE_AUTO_DATA;
+ 718              		.loc 1 788 0
+ 719 0482 204B     		ldr	r3, .L40+48
+ 720 0484 1F4A     		ldr	r2, .L40+48
+ 721 0486 1168     		ldr	r1, [r2]
+ 722 0488 1F4A     		ldr	r2, .L40+52
+ 723 048a 0A40     		and	r2, r1
+ 724 048c 1A60     		str	r2, [r3]
+ 789:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_DISABLE_MASTER_AUTO_DATA;
+ 725              		.loc 1 789 0
+ 726 048e 1D4B     		ldr	r3, .L40+48
+ 727 0490 1C4A     		ldr	r2, .L40+48
+ 728 0492 1168     		ldr	r1, [r2]
+ 729 0494 1D4A     		ldr	r2, .L40+56
+ 730 0496 0A40     		and	r2, r1
+ 731 0498 1A60     		str	r2, [r3]
+ 790:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 791:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     #if(I2CVuggesystem_CY_SCBIP_V0)
+ 792:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_SetRxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 732              		.loc 1 792 0
+ 733 049a 1D4B     		ldr	r3, .L40+60
+ 734 049c 0022     		mov	r2, #0
+ 735 049e 1A60     		str	r2, [r3]
+ 793:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_SetTxInterruptMode(I2CVuggesystem_NO_INTR_SOURCES);
+ 736              		.loc 1 793 0
+ 737 04a0 1C4B     		ldr	r3, .L40+64
+ 738 04a2 0022     		mov	r2, #0
+ 739 04a4 1A60     		str	r2, [r3]
+ 794:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 795:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         /* Clear interrupt sources as they are not automatically cleared after SCB is disabled */
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 28
+
+
+ 796:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_ClearTxInterruptSource(I2CVuggesystem_INTR_RX_ALL);
+ 740              		.loc 1 796 0
+ 741 04a6 144B     		ldr	r3, .L40+36
+ 742 04a8 1B4A     		ldr	r2, .L40+68
+ 743 04aa 1A60     		str	r2, [r3]
+ 797:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_ClearRxInterruptSource(I2CVuggesystem_INTR_TX_ALL);
+ 744              		.loc 1 797 0
+ 745 04ac 0A4B     		ldr	r3, .L40+4
+ 746 04ae 1B4A     		ldr	r2, .L40+72
+ 747 04b0 1A60     		str	r2, [r3]
+ 798:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_ClearSlaveInterruptSource(I2CVuggesystem_INTR_SLAVE_ALL);
+ 748              		.loc 1 798 0
+ 749 04b2 1B4B     		ldr	r3, .L40+76
+ 750 04b4 1B4A     		ldr	r2, .L40+80
+ 751 04b6 1A60     		str	r2, [r3]
+ 799:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_ClearMasterInterruptSource(I2CVuggesystem_INTR_MASTER_ALL);
+ 752              		.loc 1 799 0
+ 753 04b8 1B4B     		ldr	r3, .L40+84
+ 754 04ba 1C4A     		ldr	r2, .L40+88
+ 755 04bc 1A60     		str	r2, [r3]
+ 800:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     #endif /* (I2CVuggesystem_CY_SCBIP_V0) */
+ 801:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** 
+ 802:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****         I2CVuggesystem_CTRL_REG |= (uint32) I2CVuggesystem_CTRL_ENABLED;  /* Enable scb IP */
+ 756              		.loc 1 802 0
+ 757 04be 0F4B     		ldr	r3, .L40+40
+ 758 04c0 0E4A     		ldr	r2, .L40+40
+ 759 04c2 1268     		ldr	r2, [r2]
+ 760 04c4 8021     		mov	r1, #128
+ 761 04c6 0906     		lsl	r1, r1, #24
+ 762 04c8 0A43     		orr	r2, r1
+ 763 04ca 1A60     		str	r2, [r3]
+ 764              	.L1:
+ 803:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c ****     }
+ 804:.\Generated_Source\PSoC4/I2CVuggesystem_I2C_INT.c **** }
+ 765              		.loc 1 804 0
+ 766 04cc BD46     		mov	sp, r7
+ 767 04ce 02B0     		add	sp, sp, #8
+ 768              		@ sp needed
+ 769 04d0 80BD     		pop	{r7, pc}
+ 770              	.L41:
+ 771 04d2 C046     		.align	2
+ 772              	.L40:
+ 773 04d4 00000000 		.word	I2CVuggesystem_slStatus
+ 774 04d8 C00F0640 		.word	1074139072
+ 775 04dc 8C0F0640 		.word	1074139020
+ 776 04e0 00000000 		.word	I2CVuggesystem_slRdBufIndexTmp
+ 777 04e4 00000000 		.word	I2CVuggesystem_slRdBufSize
+ 778 04e8 40020640 		.word	1074135616
+ 779 04ec 00000000 		.word	I2CVuggesystem_slRdBufPtr
+ 780 04f0 00000000 		.word	I2CVuggesystem_slOverFlowCount
+ 781 04f4 08020640 		.word	1074135560
+ 782 04f8 800F0640 		.word	1074139008
+ 783 04fc 00000640 		.word	1074135040
+ 784 0500 00000000 		.word	I2CVuggesystem_state
+ 785 0504 60000640 		.word	1074135136
+ 786 0508 FF5FFFFF 		.word	-40961
+ 787 050c FFFCFFFF 		.word	-769
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 29
+
+
+ 788 0510 C80F0640 		.word	1074139080
+ 789 0514 880F0640 		.word	1074139016
+ 790 0518 ED0F0000 		.word	4077
+ 791 051c F3070000 		.word	2035
+ 792 0520 400F0640 		.word	1074138944
+ 793 0524 FF0F0000 		.word	4095
+ 794 0528 000F0640 		.word	1074138880
+ 795 052c 17030000 		.word	791
+ 796              		.cfi_endproc
+ 797              	.LFE0:
+ 798              		.size	I2CVuggesystem_I2C_ISR, .-I2CVuggesystem_I2C_ISR
+ 799              		.text
+ 800              	.Letext0:
+ 801              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 802              		.file 3 ".\\Generated_Source\\PSoC4\\I2CVuggesystem_PVT.h"
+ 803              		.file 4 ".\\Generated_Source\\PSoC4\\I2CVuggesystem_I2C_PVT.h"
+ 804              		.section	.debug_info,"",%progbits
+ 805              	.Ldebug_info0:
+ 806 0000 74010000 		.4byte	0x174
+ 807 0004 0400     		.2byte	0x4
+ 808 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 809 000a 04       		.byte	0x4
+ 810 000b 01       		.uleb128 0x1
+ 811 000c A8000000 		.4byte	.LASF30
+ 812 0010 01       		.byte	0x1
+ 813 0011 25020000 		.4byte	.LASF31
+ 814 0015 97020000 		.4byte	.LASF32
+ 815 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 816 001d 00000000 		.4byte	0
+ 817 0021 00000000 		.4byte	.Ldebug_line0
+ 818 0025 02       		.uleb128 0x2
+ 819 0026 01       		.byte	0x1
+ 820 0027 06       		.byte	0x6
+ 821 0028 07030000 		.4byte	.LASF0
+ 822 002c 02       		.uleb128 0x2
+ 823 002d 01       		.byte	0x1
+ 824 002e 08       		.byte	0x8
+ 825 002f 3B010000 		.4byte	.LASF1
+ 826 0033 02       		.uleb128 0x2
+ 827 0034 02       		.byte	0x2
+ 828 0035 05       		.byte	0x5
+ 829 0036 73020000 		.4byte	.LASF2
+ 830 003a 02       		.uleb128 0x2
+ 831 003b 02       		.byte	0x2
+ 832 003c 07       		.byte	0x7
+ 833 003d 69000000 		.4byte	.LASF3
+ 834 0041 02       		.uleb128 0x2
+ 835 0042 04       		.byte	0x4
+ 836 0043 05       		.byte	0x5
+ 837 0044 FE020000 		.4byte	.LASF4
+ 838 0048 02       		.uleb128 0x2
+ 839 0049 04       		.byte	0x4
+ 840 004a 07       		.byte	0x7
+ 841 004b 65010000 		.4byte	.LASF5
+ 842 004f 02       		.uleb128 0x2
+ 843 0050 08       		.byte	0x8
+ 844 0051 05       		.byte	0x5
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 30
+
+
+ 845 0052 60020000 		.4byte	.LASF6
+ 846 0056 02       		.uleb128 0x2
+ 847 0057 08       		.byte	0x8
+ 848 0058 07       		.byte	0x7
+ 849 0059 24010000 		.4byte	.LASF7
+ 850 005d 03       		.uleb128 0x3
+ 851 005e 04       		.byte	0x4
+ 852 005f 05       		.byte	0x5
+ 853 0060 696E7400 		.ascii	"int\000"
+ 854 0064 02       		.uleb128 0x2
+ 855 0065 04       		.byte	0x4
+ 856 0066 07       		.byte	0x7
+ 857 0067 D1010000 		.4byte	.LASF8
+ 858 006b 04       		.uleb128 0x4
+ 859 006c 81010000 		.4byte	.LASF9
+ 860 0070 02       		.byte	0x2
+ 861 0071 A1       		.byte	0xa1
+ 862 0072 2C000000 		.4byte	0x2c
+ 863 0076 04       		.uleb128 0x4
+ 864 0077 CA010000 		.4byte	.LASF10
+ 865 007b 02       		.byte	0x2
+ 866 007c A3       		.byte	0xa3
+ 867 007d 48000000 		.4byte	0x48
+ 868 0081 02       		.uleb128 0x2
+ 869 0082 04       		.byte	0x4
+ 870 0083 04       		.byte	0x4
+ 871 0084 A2000000 		.4byte	.LASF11
+ 872 0088 02       		.uleb128 0x2
+ 873 0089 08       		.byte	0x8
+ 874 008a 04       		.byte	0x4
+ 875 008b A2010000 		.4byte	.LASF12
+ 876 008f 02       		.uleb128 0x2
+ 877 0090 01       		.byte	0x1
+ 878 0091 08       		.byte	0x8
+ 879 0092 6E020000 		.4byte	.LASF13
+ 880 0096 05       		.uleb128 0x5
+ 881 0097 6B000000 		.4byte	0x6b
+ 882 009b 06       		.uleb128 0x6
+ 883 009c 1F000000 		.4byte	.LASF14
+ 884 00a0 02       		.byte	0x2
+ 885 00a1 4D01     		.2byte	0x14d
+ 886 00a3 A7000000 		.4byte	0xa7
+ 887 00a7 05       		.uleb128 0x5
+ 888 00a8 76000000 		.4byte	0x76
+ 889 00ac 06       		.uleb128 0x6
+ 890 00ad FD010000 		.4byte	.LASF15
+ 891 00b1 02       		.byte	0x2
+ 892 00b2 5D01     		.2byte	0x15d
+ 893 00b4 B8000000 		.4byte	0xb8
+ 894 00b8 07       		.uleb128 0x7
+ 895 00b9 04       		.byte	0x4
+ 896 00ba BE000000 		.4byte	0xbe
+ 897 00be 08       		.uleb128 0x8
+ 898 00bf 02       		.uleb128 0x2
+ 899 00c0 04       		.byte	0x4
+ 900 00c1 07       		.byte	0x7
+ 901 00c2 57020000 		.4byte	.LASF16
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 31
+
+
+ 902 00c6 09       		.uleb128 0x9
+ 903 00c7 52000000 		.4byte	.LASF33
+ 904 00cb 01       		.byte	0x1
+ 905 00cc 24       		.byte	0x24
+ 906 00cd 00000000 		.4byte	.LFB0
+ 907 00d1 30050000 		.4byte	.LFE0-.LFB0
+ 908 00d5 01       		.uleb128 0x1
+ 909 00d6 9C       		.byte	0x9c
+ 910 00d7 F8000000 		.4byte	0xf8
+ 911 00db 0A       		.uleb128 0xa
+ 912 00dc 77010000 		.4byte	.LASF17
+ 913 00e0 01       		.byte	0x1
+ 914 00e1 26       		.byte	0x26
+ 915 00e2 76000000 		.4byte	0x76
+ 916 00e6 02       		.uleb128 0x2
+ 917 00e7 91       		.byte	0x91
+ 918 00e8 74       		.sleb128 -12
+ 919 00e9 0A       		.uleb128 0xa
+ 920 00ea 7C000000 		.4byte	.LASF18
+ 921 00ee 01       		.byte	0x1
+ 922 00ef 27       		.byte	0x27
+ 923 00f0 76000000 		.4byte	0x76
+ 924 00f4 02       		.uleb128 0x2
+ 925 00f5 91       		.byte	0x91
+ 926 00f6 70       		.sleb128 -16
+ 927 00f7 00       		.byte	0
+ 928 00f8 0B       		.uleb128 0xb
+ 929 00f9 A9010000 		.4byte	.LASF19
+ 930 00fd 03       		.byte	0x3
+ 931 00fe 39       		.byte	0x39
+ 932 00ff AC000000 		.4byte	0xac
+ 933 0103 0B       		.uleb128 0xb
+ 934 0104 25000000 		.4byte	.LASF20
+ 935 0108 04       		.byte	0x4
+ 936 0109 1D       		.byte	0x1d
+ 937 010a 96000000 		.4byte	0x96
+ 938 010e 0B       		.uleb128 0xb
+ 939 010f 3A000000 		.4byte	.LASF21
+ 940 0113 04       		.byte	0x4
+ 941 0114 20       		.byte	0x20
+ 942 0115 96000000 		.4byte	0x96
+ 943 0119 0B       		.uleb128 0xb
+ 944 011a 88000000 		.4byte	.LASF22
+ 945 011e 04       		.byte	0x4
+ 946 011f 23       		.byte	0x23
+ 947 0120 24010000 		.4byte	0x124
+ 948 0124 07       		.uleb128 0x7
+ 949 0125 04       		.byte	0x4
+ 950 0126 96000000 		.4byte	0x96
+ 951 012a 0B       		.uleb128 0xb
+ 952 012b 0A020000 		.4byte	.LASF23
+ 953 012f 04       		.byte	0x4
+ 954 0130 24       		.byte	0x24
+ 955 0131 A7000000 		.4byte	0xa7
+ 956 0135 0B       		.uleb128 0xb
+ 957 0136 13030000 		.4byte	.LASF24
+ 958 013a 04       		.byte	0x4
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 32
+
+
+ 959 013b 25       		.byte	0x25
+ 960 013c A7000000 		.4byte	0xa7
+ 961 0140 0B       		.uleb128 0xb
+ 962 0141 7D020000 		.4byte	.LASF25
+ 963 0145 04       		.byte	0x4
+ 964 0146 28       		.byte	0x28
+ 965 0147 24010000 		.4byte	0x124
+ 966 014b 0B       		.uleb128 0xb
+ 967 014c 87010000 		.4byte	.LASF26
+ 968 0150 04       		.byte	0x4
+ 969 0151 29       		.byte	0x29
+ 970 0152 A7000000 		.4byte	0xa7
+ 971 0156 0B       		.uleb128 0xb
+ 972 0157 49010000 		.4byte	.LASF27
+ 973 015b 04       		.byte	0x4
+ 974 015c 2A       		.byte	0x2a
+ 975 015d A7000000 		.4byte	0xa7
+ 976 0161 0B       		.uleb128 0xb
+ 977 0162 00000000 		.4byte	.LASF28
+ 978 0166 04       		.byte	0x4
+ 979 0167 2B       		.byte	0x2b
+ 980 0168 A7000000 		.4byte	0xa7
+ 981 016c 0B       		.uleb128 0xb
+ 982 016d DE010000 		.4byte	.LASF29
+ 983 0171 04       		.byte	0x4
+ 984 0172 2C       		.byte	0x2c
+ 985 0173 96000000 		.4byte	0x96
+ 986 0177 00       		.byte	0
+ 987              		.section	.debug_abbrev,"",%progbits
+ 988              	.Ldebug_abbrev0:
+ 989 0000 01       		.uleb128 0x1
+ 990 0001 11       		.uleb128 0x11
+ 991 0002 01       		.byte	0x1
+ 992 0003 25       		.uleb128 0x25
+ 993 0004 0E       		.uleb128 0xe
+ 994 0005 13       		.uleb128 0x13
+ 995 0006 0B       		.uleb128 0xb
+ 996 0007 03       		.uleb128 0x3
+ 997 0008 0E       		.uleb128 0xe
+ 998 0009 1B       		.uleb128 0x1b
+ 999 000a 0E       		.uleb128 0xe
+ 1000 000b 55       		.uleb128 0x55
+ 1001 000c 17       		.uleb128 0x17
+ 1002 000d 11       		.uleb128 0x11
+ 1003 000e 01       		.uleb128 0x1
+ 1004 000f 10       		.uleb128 0x10
+ 1005 0010 17       		.uleb128 0x17
+ 1006 0011 00       		.byte	0
+ 1007 0012 00       		.byte	0
+ 1008 0013 02       		.uleb128 0x2
+ 1009 0014 24       		.uleb128 0x24
+ 1010 0015 00       		.byte	0
+ 1011 0016 0B       		.uleb128 0xb
+ 1012 0017 0B       		.uleb128 0xb
+ 1013 0018 3E       		.uleb128 0x3e
+ 1014 0019 0B       		.uleb128 0xb
+ 1015 001a 03       		.uleb128 0x3
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 33
+
+
+ 1016 001b 0E       		.uleb128 0xe
+ 1017 001c 00       		.byte	0
+ 1018 001d 00       		.byte	0
+ 1019 001e 03       		.uleb128 0x3
+ 1020 001f 24       		.uleb128 0x24
+ 1021 0020 00       		.byte	0
+ 1022 0021 0B       		.uleb128 0xb
+ 1023 0022 0B       		.uleb128 0xb
+ 1024 0023 3E       		.uleb128 0x3e
+ 1025 0024 0B       		.uleb128 0xb
+ 1026 0025 03       		.uleb128 0x3
+ 1027 0026 08       		.uleb128 0x8
+ 1028 0027 00       		.byte	0
+ 1029 0028 00       		.byte	0
+ 1030 0029 04       		.uleb128 0x4
+ 1031 002a 16       		.uleb128 0x16
+ 1032 002b 00       		.byte	0
+ 1033 002c 03       		.uleb128 0x3
+ 1034 002d 0E       		.uleb128 0xe
+ 1035 002e 3A       		.uleb128 0x3a
+ 1036 002f 0B       		.uleb128 0xb
+ 1037 0030 3B       		.uleb128 0x3b
+ 1038 0031 0B       		.uleb128 0xb
+ 1039 0032 49       		.uleb128 0x49
+ 1040 0033 13       		.uleb128 0x13
+ 1041 0034 00       		.byte	0
+ 1042 0035 00       		.byte	0
+ 1043 0036 05       		.uleb128 0x5
+ 1044 0037 35       		.uleb128 0x35
+ 1045 0038 00       		.byte	0
+ 1046 0039 49       		.uleb128 0x49
+ 1047 003a 13       		.uleb128 0x13
+ 1048 003b 00       		.byte	0
+ 1049 003c 00       		.byte	0
+ 1050 003d 06       		.uleb128 0x6
+ 1051 003e 16       		.uleb128 0x16
+ 1052 003f 00       		.byte	0
+ 1053 0040 03       		.uleb128 0x3
+ 1054 0041 0E       		.uleb128 0xe
+ 1055 0042 3A       		.uleb128 0x3a
+ 1056 0043 0B       		.uleb128 0xb
+ 1057 0044 3B       		.uleb128 0x3b
+ 1058 0045 05       		.uleb128 0x5
+ 1059 0046 49       		.uleb128 0x49
+ 1060 0047 13       		.uleb128 0x13
+ 1061 0048 00       		.byte	0
+ 1062 0049 00       		.byte	0
+ 1063 004a 07       		.uleb128 0x7
+ 1064 004b 0F       		.uleb128 0xf
+ 1065 004c 00       		.byte	0
+ 1066 004d 0B       		.uleb128 0xb
+ 1067 004e 0B       		.uleb128 0xb
+ 1068 004f 49       		.uleb128 0x49
+ 1069 0050 13       		.uleb128 0x13
+ 1070 0051 00       		.byte	0
+ 1071 0052 00       		.byte	0
+ 1072 0053 08       		.uleb128 0x8
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 34
+
+
+ 1073 0054 15       		.uleb128 0x15
+ 1074 0055 00       		.byte	0
+ 1075 0056 27       		.uleb128 0x27
+ 1076 0057 19       		.uleb128 0x19
+ 1077 0058 00       		.byte	0
+ 1078 0059 00       		.byte	0
+ 1079 005a 09       		.uleb128 0x9
+ 1080 005b 2E       		.uleb128 0x2e
+ 1081 005c 01       		.byte	0x1
+ 1082 005d 3F       		.uleb128 0x3f
+ 1083 005e 19       		.uleb128 0x19
+ 1084 005f 03       		.uleb128 0x3
+ 1085 0060 0E       		.uleb128 0xe
+ 1086 0061 3A       		.uleb128 0x3a
+ 1087 0062 0B       		.uleb128 0xb
+ 1088 0063 3B       		.uleb128 0x3b
+ 1089 0064 0B       		.uleb128 0xb
+ 1090 0065 27       		.uleb128 0x27
+ 1091 0066 19       		.uleb128 0x19
+ 1092 0067 11       		.uleb128 0x11
+ 1093 0068 01       		.uleb128 0x1
+ 1094 0069 12       		.uleb128 0x12
+ 1095 006a 06       		.uleb128 0x6
+ 1096 006b 40       		.uleb128 0x40
+ 1097 006c 18       		.uleb128 0x18
+ 1098 006d 9642     		.uleb128 0x2116
+ 1099 006f 19       		.uleb128 0x19
+ 1100 0070 01       		.uleb128 0x1
+ 1101 0071 13       		.uleb128 0x13
+ 1102 0072 00       		.byte	0
+ 1103 0073 00       		.byte	0
+ 1104 0074 0A       		.uleb128 0xa
+ 1105 0075 34       		.uleb128 0x34
+ 1106 0076 00       		.byte	0
+ 1107 0077 03       		.uleb128 0x3
+ 1108 0078 0E       		.uleb128 0xe
+ 1109 0079 3A       		.uleb128 0x3a
+ 1110 007a 0B       		.uleb128 0xb
+ 1111 007b 3B       		.uleb128 0x3b
+ 1112 007c 0B       		.uleb128 0xb
+ 1113 007d 49       		.uleb128 0x49
+ 1114 007e 13       		.uleb128 0x13
+ 1115 007f 02       		.uleb128 0x2
+ 1116 0080 18       		.uleb128 0x18
+ 1117 0081 00       		.byte	0
+ 1118 0082 00       		.byte	0
+ 1119 0083 0B       		.uleb128 0xb
+ 1120 0084 34       		.uleb128 0x34
+ 1121 0085 00       		.byte	0
+ 1122 0086 03       		.uleb128 0x3
+ 1123 0087 0E       		.uleb128 0xe
+ 1124 0088 3A       		.uleb128 0x3a
+ 1125 0089 0B       		.uleb128 0xb
+ 1126 008a 3B       		.uleb128 0x3b
+ 1127 008b 0B       		.uleb128 0xb
+ 1128 008c 49       		.uleb128 0x49
+ 1129 008d 13       		.uleb128 0x13
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 35
+
+
+ 1130 008e 3F       		.uleb128 0x3f
+ 1131 008f 19       		.uleb128 0x19
+ 1132 0090 3C       		.uleb128 0x3c
+ 1133 0091 19       		.uleb128 0x19
+ 1134 0092 00       		.byte	0
+ 1135 0093 00       		.byte	0
+ 1136 0094 00       		.byte	0
+ 1137              		.section	.debug_aranges,"",%progbits
+ 1138 0000 1C000000 		.4byte	0x1c
+ 1139 0004 0200     		.2byte	0x2
+ 1140 0006 00000000 		.4byte	.Ldebug_info0
+ 1141 000a 04       		.byte	0x4
+ 1142 000b 00       		.byte	0
+ 1143 000c 0000     		.2byte	0
+ 1144 000e 0000     		.2byte	0
+ 1145 0010 00000000 		.4byte	.LFB0
+ 1146 0014 30050000 		.4byte	.LFE0-.LFB0
+ 1147 0018 00000000 		.4byte	0
+ 1148 001c 00000000 		.4byte	0
+ 1149              		.section	.debug_ranges,"",%progbits
+ 1150              	.Ldebug_ranges0:
+ 1151 0000 00000000 		.4byte	.LFB0
+ 1152 0004 30050000 		.4byte	.LFE0
+ 1153 0008 00000000 		.4byte	0
+ 1154 000c 00000000 		.4byte	0
+ 1155              		.section	.debug_line,"",%progbits
+ 1156              	.Ldebug_line0:
+ 1157 0000 5F010000 		.section	.debug_str,"MS",%progbits,1
+ 1157      02008900 
+ 1157      00000201 
+ 1157      FB0E0D00 
+ 1157      01010101 
+ 1158              	.LASF28:
+ 1159 0000 49324356 		.ascii	"I2CVuggesystem_slRdBufIndexTmp\000"
+ 1159      75676765 
+ 1159      73797374 
+ 1159      656D5F73 
+ 1159      6C526442 
+ 1160              	.LASF14:
+ 1161 001f 72656733 		.ascii	"reg32\000"
+ 1161      3200
+ 1162              	.LASF20:
+ 1163 0025 49324356 		.ascii	"I2CVuggesystem_state\000"
+ 1163      75676765 
+ 1163      73797374 
+ 1163      656D5F73 
+ 1163      74617465 
+ 1164              	.LASF21:
+ 1165 003a 49324356 		.ascii	"I2CVuggesystem_slStatus\000"
+ 1165      75676765 
+ 1165      73797374 
+ 1165      656D5F73 
+ 1165      6C537461 
+ 1166              	.LASF33:
+ 1167 0052 49324356 		.ascii	"I2CVuggesystem_I2C_ISR\000"
+ 1167      75676765 
+ 1167      73797374 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 36
+
+
+ 1167      656D5F49 
+ 1167      32435F49 
+ 1168              	.LASF3:
+ 1169 0069 73686F72 		.ascii	"short unsigned int\000"
+ 1169      7420756E 
+ 1169      7369676E 
+ 1169      65642069 
+ 1169      6E7400
+ 1170              	.LASF18:
+ 1171 007c 656E6454 		.ascii	"endTransfer\000"
+ 1171      72616E73 
+ 1171      66657200 
+ 1172              	.LASF22:
+ 1173 0088 49324356 		.ascii	"I2CVuggesystem_slWrBufPtr\000"
+ 1173      75676765 
+ 1173      73797374 
+ 1173      656D5F73 
+ 1173      6C577242 
+ 1174              	.LASF11:
+ 1175 00a2 666C6F61 		.ascii	"float\000"
+ 1175      7400
+ 1176              	.LASF30:
+ 1177 00a8 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1177      4320342E 
+ 1177      382E3420 
+ 1177      32303134 
+ 1177      30353236 
+ 1178 00db 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1178      20726576 
+ 1178      6973696F 
+ 1178      6E203231 
+ 1178      31333538 
+ 1179 010e 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1179      66756E63 
+ 1179      74696F6E 
+ 1179      2D736563 
+ 1179      74696F6E 
+ 1180              	.LASF7:
+ 1181 0124 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1181      206C6F6E 
+ 1181      6720756E 
+ 1181      7369676E 
+ 1181      65642069 
+ 1182              	.LASF1:
+ 1183 013b 756E7369 		.ascii	"unsigned char\000"
+ 1183      676E6564 
+ 1183      20636861 
+ 1183      7200
+ 1184              	.LASF27:
+ 1185 0149 49324356 		.ascii	"I2CVuggesystem_slRdBufIndex\000"
+ 1185      75676765 
+ 1185      73797374 
+ 1185      656D5F73 
+ 1185      6C526442 
+ 1186              	.LASF5:
+ 1187 0165 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1187      20756E73 
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 37
+
+
+ 1187      69676E65 
+ 1187      6420696E 
+ 1187      7400
+ 1188              	.LASF17:
+ 1189 0177 64696666 		.ascii	"diffCount\000"
+ 1189      436F756E 
+ 1189      7400
+ 1190              	.LASF9:
+ 1191 0181 75696E74 		.ascii	"uint8\000"
+ 1191      3800
+ 1192              	.LASF26:
+ 1193 0187 49324356 		.ascii	"I2CVuggesystem_slRdBufSize\000"
+ 1193      75676765 
+ 1193      73797374 
+ 1193      656D5F73 
+ 1193      6C526442 
+ 1194              	.LASF12:
+ 1195 01a2 646F7562 		.ascii	"double\000"
+ 1195      6C6500
+ 1196              	.LASF19:
+ 1197 01a9 49324356 		.ascii	"I2CVuggesystem_customIntrHandler\000"
+ 1197      75676765 
+ 1197      73797374 
+ 1197      656D5F63 
+ 1197      7573746F 
+ 1198              	.LASF10:
+ 1199 01ca 75696E74 		.ascii	"uint32\000"
+ 1199      333200
+ 1200              	.LASF8:
+ 1201 01d1 756E7369 		.ascii	"unsigned int\000"
+ 1201      676E6564 
+ 1201      20696E74 
+ 1201      00
+ 1202              	.LASF29:
+ 1203 01de 49324356 		.ascii	"I2CVuggesystem_slOverFlowCount\000"
+ 1203      75676765 
+ 1203      73797374 
+ 1203      656D5F73 
+ 1203      6C4F7665 
+ 1204              	.LASF15:
+ 1205 01fd 63796973 		.ascii	"cyisraddress\000"
+ 1205      72616464 
+ 1205      72657373 
+ 1205      00
+ 1206              	.LASF23:
+ 1207 020a 49324356 		.ascii	"I2CVuggesystem_slWrBufSize\000"
+ 1207      75676765 
+ 1207      73797374 
+ 1207      656D5F73 
+ 1207      6C577242 
+ 1208              	.LASF31:
+ 1209 0225 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\I2CVuggesystem_I2C_INT."
+ 1209      6E657261 
+ 1209      7465645F 
+ 1209      536F7572 
+ 1209      63655C50 
+ 1210 0255 6300     		.ascii	"c\000"
+ARM GAS  C:\Users\Jeppe\AppData\Local\Temp\cc92Mzq1.s 			page 38
+
+
+ 1211              	.LASF16:
+ 1212 0257 73697A65 		.ascii	"sizetype\000"
+ 1212      74797065 
+ 1212      00
+ 1213              	.LASF6:
+ 1214 0260 6C6F6E67 		.ascii	"long long int\000"
+ 1214      206C6F6E 
+ 1214      6720696E 
+ 1214      7400
+ 1215              	.LASF13:
+ 1216 026e 63686172 		.ascii	"char\000"
+ 1216      00
+ 1217              	.LASF2:
+ 1218 0273 73686F72 		.ascii	"short int\000"
+ 1218      7420696E 
+ 1218      7400
+ 1219              	.LASF25:
+ 1220 027d 49324356 		.ascii	"I2CVuggesystem_slRdBufPtr\000"
+ 1220      75676765 
+ 1220      73797374 
+ 1220      656D5F73 
+ 1220      6C526442 
+ 1221              	.LASF32:
+ 1222 0297 433A5C55 		.ascii	"C:\\Users\\Jeppe\\Google Drev\\E4PRJ4 gDrive\\Vugge"
+ 1222      73657273 
+ 1222      5C4A6570 
+ 1222      70655C47 
+ 1222      6F6F676C 
+ 1223 02c5 73797374 		.ascii	"system arbejdsdokumenter\\vuggeControl\\vuggeContro"
+ 1223      656D2061 
+ 1223      7262656A 
+ 1223      6473646F 
+ 1223      6B756D65 
+ 1224 02f6 6C2E6379 		.ascii	"l.cydsn\000"
+ 1224      64736E00 
+ 1225              	.LASF4:
+ 1226 02fe 6C6F6E67 		.ascii	"long int\000"
+ 1226      20696E74 
+ 1226      00
+ 1227              	.LASF0:
+ 1228 0307 7369676E 		.ascii	"signed char\000"
+ 1228      65642063 
+ 1228      68617200 
+ 1229              	.LASF24:
+ 1230 0313 49324356 		.ascii	"I2CVuggesystem_slWrBufIndex\000"
+ 1230      75676765 
+ 1230      73797374 
+ 1230      656D5F73 
+ 1230      6C577242 
+ 1231              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
